@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/* Metrosure Group Design System */
+:root {
+  /* Brand Colors */
+  --color-primary: 191 6 3;
+  --color-primary-hover: 165 5 2;
+  --color-secondary: 105 0 37;
+  --color-accent: 239 242 160;
+
+  /* Surface Colors - Light Mode */
+  --color-surface: 248 250 252;
+  --color-surface-card: 255 255 255;
+
+  /* Text Colors - Light Mode */
+  --color-text-main: 15 23 42;
+  --color-text-body: 71 85 105;
+  --color-text-muted: 148 163 184;
+
+  /* Border Colors - Light Mode */
+  --color-border-light: 226 232 240;
+
+  /* Background */
+  --background: 255 255 255;
+  --foreground: 15 23 42;
+}
+
+.dark {
+  /* Surface Colors - Dark Mode */
+  --color-surface: 15 23 42;
+  --color-surface-card: 30 41 59;
+
+  /* Text Colors - Dark Mode */
+  --color-text-main: 241 245 249;
+  --color-text-body: 203 213 225;
+  --color-text-muted: 148 163 184;
+
+  /* Border Colors - Dark Mode */
+  --color-border-light: 51 65 85;
+
+  /* Background */
+  --background: 15 23 42;
+  --foreground: 241 245 249;
+}
+
+@theme inline {
+  /* Brand Colors */
+  --color-primary: rgb(var(--color-primary));
+  --color-primary-hover: rgb(var(--color-primary-hover));
+  --color-secondary: rgb(var(--color-secondary));
+  --color-accent: rgb(var(--color-accent));
+
+  /* Surface */
+  --color-surface: rgb(var(--color-surface));
+  --color-surface-card: rgb(var(--color-surface-card));
+
+  /* Text */
+  --color-text-main: rgb(var(--color-text-main));
+  --color-text-body: rgb(var(--color-text-body));
+  --color-text-muted: rgb(var(--color-text-muted));
+
+  /* Border */
+  --color-border-light: rgb(var(--color-border-light));
+
+  /* Background/Foreground */
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+
+  /* Fonts */
+  --font-display: var(--font-manrope), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+
+  /* Custom Border Radius */
+  --radius-DEFAULT: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+
+  /* Custom animations */
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-grid-flow: grid-flow 20s linear infinite;
+  --animate-subtle-pulse: subtle-pulse 0.5s ease-in-out;
+  --animate-ping-slow: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  /* Keyframes */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes grid-flow {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+  }
+
+  @keyframes subtle-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Animation utilities */
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-surface-card);
+  color: var(--color-text-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Selection styling */
+::selection {
+  background: rgb(var(--color-primary));
+  color: white;
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Grid pattern background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgb(var(--color-border-light) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--color-border-light) / 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Material Symbols styling */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.material-symbols-outlined.fill-current {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Text balance utility for modern browsers */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Gradient mesh background */
+.bg-gradient-mesh {
+  background:
+    radial-gradient(at 40% 20%, rgb(var(--color-primary) / 0.03) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgb(var(--color-secondary) / 0.02) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgb(var(--color-accent) / 0.02) 0px, transparent 50%);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for dark mode */
+*, *::before, *::after {
+  transition-property: background-color, border-color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
