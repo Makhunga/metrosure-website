@@ -8,6 +8,7 @@ export { default as Difference } from "./Difference";
 export { default as WhyChooseUs } from "./WhyChooseUs";
 export { default as Testimonials } from "./Testimonials";
 export { default as CallToAction } from "./CallToAction";
+export { default as PartnerLogos } from "./PartnerLogos";
 export { default as Footer } from "./Footer";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { ThemeProvider, useTheme } from "./theme-provider";

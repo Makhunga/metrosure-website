@@ -1,13 +1,23 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+
 interface FAQItemProps {
   question: string;
   answer: string;
+  index: number;
+  isInView: boolean;
 }
 
-function FAQItem({ question, answer }: FAQItemProps) {
+function FAQItem({ question, answer, index, isInView }: FAQItemProps) {
   return (
-    <details className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-300 hover:shadow-md open:border-l-4 open:border-l-primary open:shadow-lg">
+    <motion.details
+      className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-300 hover:shadow-md open:border-l-4 open:border-l-primary open:shadow-lg"
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+    >
       <summary className="flex justify-between items-center w-full p-6 text-left cursor-pointer list-none select-none group-hover:bg-slate-50 dark:group-hover:bg-slate-700/50 group-open:bg-transparent transition-colors">
         <span className="font-semibold text-lg text-slate-900 dark:text-white group-hover:text-primary group-open:text-primary transition-colors pr-8">
           {question}
@@ -21,51 +31,74 @@ function FAQItem({ question, answer }: FAQItemProps) {
       <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 text-base leading-relaxed border-t border-slate-100 dark:border-slate-700">
         <p dangerouslySetInnerHTML={{ __html: answer }} />
       </div>
-    </details>
+    </motion.details>
   );
 }
 
 const faqData = [
   {
-    question: "How do I file a new insurance claim?",
+    question: "How do I report a claim?",
     answer:
-      'You can file a claim online through our Claims Center, via our mobile app, or by calling our 24/7 claims hotline at <strong class="text-slate-900 dark:text-white">1-800-METRO-01</strong>. Have your policy number and incident details ready for faster processing.',
+      'Contact your dedicated portfolio manager directly, or call our head office at <strong class="text-slate-900 dark:text-white">+27 31 301 1192</strong>. Our claims team will guide you through the process and keep you updated every step of the way.',
   },
   {
-    question: "Can I update my policy coverage online?",
+    question: "What insurance companies do you work with?",
     answer:
-      "Yes, existing customers can log in to their account portal to request coverage changes, update beneficiaries, or change deductibles. Some changes may require review by an underwriter and will be processed within 1-2 business days.",
+      "We partner with over 30 leading South African insurers including Liberty, Sanlam, Discovery, Old Mutual, Momentum, Hollard, and more. This allows us to shop around and find the best cover and rates for your specific needs.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "Do I get a dedicated person to help me?",
     answer:
-      "We accept all major credit cards (Visa, MasterCard, Amex), direct bank transfers (ACH), and checks. You can also set up autopay in your account settings to ensure you never miss a premium payment.",
+      "Yes! Every client gets a dedicated portfolio manager who knows your policies inside out. You're not passed around between call centres — you'll have a real person who knows your name and your needs.",
   },
   {
-    question: "How long does it take to get a quote?",
+    question: "What areas do you cover?",
     answer:
-      "For most personal insurance products like auto or home, you can get an instant quote online in under 5 minutes. Complex business liability quotes may take up to 24 hours as our specialists review your specific risk profile.",
+      "We have offices across South Africa — Durban (head office), Johannesburg, Pretoria, Pietermaritzburg, Bloemfontein, Vaal, Randburg, Germiston, and Boksburg. Wherever you are in SA, we can help.",
+  },
+  {
+    question: "Is Metrosure a registered financial services provider?",
+    answer:
+      'Yes, Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider regulated by the FSCA. Our FSP number is <strong class="text-slate-900 dark:text-white">47089</strong>.',
   },
 ];
 
 export default function FAQ() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
   return (
-    <div className="mb-24">
+    <div ref={ref} className="mb-24">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+      <motion.div
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h2
+          className="text-3xl font-bold text-slate-900 dark:text-white mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           Frequently Asked Questions
-        </h2>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p
+          className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Find quick answers to common questions about our policies, claims process, and support
           services before reaching out.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       {/* FAQ Items */}
       <div className="max-w-3xl mx-auto space-y-4">
         {faqData.map((item, index) => (
-          <FAQItem key={index} {...item} />
+          <FAQItem key={index} {...item} index={index} isInView={isInView} />
         ))}
       </div>
     </div>

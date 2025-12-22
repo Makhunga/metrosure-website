@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 type ContactTab = "message" | "callback";
 
@@ -8,6 +9,8 @@ export default function ContactForm() {
   const [activeTab, setActiveTab] = useState<ContactTab>("message");
   const [messageSent, setMessageSent] = useState(false);
   const [callbackSent, setCallbackSent] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   const handleMessageSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,13 +29,24 @@ export default function ContactForm() {
     "block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2";
 
   return (
-    <div className="max-w-4xl mx-auto mb-24">
-      <div className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700">
+    <motion.div
+      ref={ref}
+      className="max-w-4xl mx-auto mb-24"
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <motion.div
+        className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700"
+        whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" }}
+        transition={{ duration: 0.3 }}
+      >
         {/* Tabs */}
         <div className="flex border-b border-slate-200 dark:border-slate-700 relative z-10">
-          <button
+          <motion.button
             onClick={() => setActiveTab("message")}
             className="flex-1 cursor-pointer select-none relative group"
+            whileTap={{ scale: 0.98 }}
           >
             <div
               className={`py-6 px-6 text-center transition-all duration-300 ${
@@ -51,17 +65,20 @@ export default function ContactForm() {
                 <span className="material-symbols-outlined text-lg">mail</span>
                 <span>Contact Us</span>
               </div>
-              <div
-                className={`absolute bottom-0 left-0 w-full h-1 bg-primary transition-transform duration-300 origin-center rounded-t-full ${
-                  activeTab === "message" ? "scale-x-100" : "scale-x-0"
-                }`}
+              <motion.div
+                className="absolute bottom-0 left-0 w-full h-1 bg-primary rounded-t-full"
+                initial={false}
+                animate={{ scaleX: activeTab === "message" ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ originX: 0.5 }}
               />
             </div>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             onClick={() => setActiveTab("callback")}
             className="flex-1 cursor-pointer select-none relative group border-l border-slate-200 dark:border-slate-700"
+            whileTap={{ scale: 0.98 }}
           >
             <div
               className={`py-6 px-6 text-center transition-all duration-300 ${
@@ -80,197 +97,261 @@ export default function ContactForm() {
                 <span className="material-symbols-outlined text-lg">call</span>
                 <span>Request Call Back</span>
               </div>
-              <div
-                className={`absolute bottom-0 left-0 w-full h-1 bg-primary transition-transform duration-300 origin-center rounded-t-full ${
-                  activeTab === "callback" ? "scale-x-100" : "scale-x-0"
-                }`}
+              <motion.div
+                className="absolute bottom-0 left-0 w-full h-1 bg-primary rounded-t-full"
+                initial={false}
+                animate={{ scaleX: activeTab === "callback" ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ originX: 0.5 }}
               />
             </div>
-          </button>
+          </motion.button>
         </div>
 
         {/* Form Content */}
         <div className="p-8 md:p-12 bg-white dark:bg-slate-800">
-          {/* Message Tab */}
-          {activeTab === "message" && (
-            <div className="animate-fade-in relative">
-              {messageSent ? (
-                <SuccessMessage
-                  icon="check_circle"
-                  title="Message Sent Successfully!"
-                  description="Thank you for contacting Metrosure. We have received your message and our team will get back to you shortly."
-                  buttonText="Send Another Message"
-                  onReset={() => setMessageSent(false)}
-                />
-              ) : (
-                <>
-                  <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                      Send us a direct message
-                    </h2>
-                    <p className="text-slate-500 dark:text-slate-400">
-                      Prefer to write? Fill out the form below and we&apos;ll route it to the right
-                      team.
-                    </p>
-                  </div>
-                  <form className="space-y-6" onSubmit={handleMessageSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className={labelClasses} htmlFor="name">
-                          Name
-                        </label>
-                        <input
-                          className={inputClasses}
-                          id="name"
-                          placeholder="Jane Doe"
-                          required
-                          type="text"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClasses} htmlFor="email">
-                          Work Email
-                        </label>
-                        <input
-                          className={inputClasses}
-                          id="email"
-                          placeholder="jane@company.com"
-                          required
-                          type="email"
-                        />
-                      </div>
+          <AnimatePresence mode="wait">
+            {/* Message Tab */}
+            {activeTab === "message" && (
+              <motion.div
+                key="message"
+                className="relative"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {messageSent ? (
+                  <SuccessMessage
+                    icon="check_circle"
+                    title="Message Sent Successfully!"
+                    description="Thank you for contacting Metrosure. We have received your message and our team will get back to you shortly."
+                    buttonText="Send Another Message"
+                    onReset={() => setMessageSent(false)}
+                  />
+                ) : (
+                  <>
+                    <div className="text-center mb-10">
+                      <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                        Send us a direct message
+                      </h2>
+                      <p className="text-slate-500 dark:text-slate-400">
+                        Prefer to write? Fill out the form below and we&apos;ll route it to the right
+                        team.
+                      </p>
                     </div>
-                    <div>
-                      <label className={labelClasses} htmlFor="subject">
-                        Topic
-                      </label>
-                      <div className="relative">
-                        <select className={`${inputClasses} appearance-none pr-12`} id="subject">
-                          <option>General Inquiry</option>
-                          <option>Claim Status</option>
-                          <option>Partnership Opportunity</option>
-                          <option>Feedback</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                          <span className="material-symbols-outlined text-xl">expand_more</span>
-                        </div>
+                    <form className="space-y-6" onSubmit={handleMessageSubmit}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 }}
+                        >
+                          <label className={labelClasses} htmlFor="name">
+                            Name
+                          </label>
+                          <input
+                            className={inputClasses}
+                            id="name"
+                            placeholder="Jane Doe"
+                            required
+                            type="text"
+                          />
+                        </motion.div>
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.15 }}
+                        >
+                          <label className={labelClasses} htmlFor="email">
+                            Work Email
+                          </label>
+                          <input
+                            className={inputClasses}
+                            id="email"
+                            placeholder="jane@company.com"
+                            required
+                            type="email"
+                          />
+                        </motion.div>
                       </div>
-                    </div>
-                    <div>
-                      <label className={labelClasses} htmlFor="message">
-                        Message
-                      </label>
-                      <textarea
-                        className={`${inputClasses} resize-none`}
-                        id="message"
-                        placeholder="How can we help?"
-                        required
-                        rows={4}
-                      />
-                    </div>
-                    <div className="pt-2 text-center md:text-left">
-                      <button
-                        className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-0.5"
-                        type="submit"
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
                       >
-                        Send Message
-                      </button>
-                    </div>
-                  </form>
-                </>
-              )}
-            </div>
-          )}
-
-          {/* Callback Tab */}
-          {activeTab === "callback" && (
-            <div className="animate-fade-in relative">
-              {callbackSent ? (
-                <SuccessMessage
-                  icon="phone_callback"
-                  title="Request Received!"
-                  description="We've scheduled your call back request. One of our agents will be in touch with you at your preferred time."
-                  buttonText="Request Another Call"
-                  onReset={() => setCallbackSent(false)}
-                />
-              ) : (
-                <>
-                  <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                      Request a Call Back
-                    </h2>
-                    <p className="text-slate-500 dark:text-slate-400">
-                      Short on time? Leave your details and we&apos;ll contact you when it suits you
-                      best.
-                    </p>
-                  </div>
-                  <form className="space-y-6 max-w-2xl mx-auto" onSubmit={handleCallbackSubmit}>
-                    <div>
-                      <label className={labelClasses} htmlFor="cb_name">
-                        Full Name
-                      </label>
-                      <input
-                        className={inputClasses}
-                        id="cb_name"
-                        placeholder="John Smith"
-                        required
-                        type="text"
-                      />
-                    </div>
-                    <div>
-                      <label className={labelClasses} htmlFor="cb_phone">
-                        Phone Number
-                      </label>
-                      <input
-                        className={inputClasses}
-                        id="cb_phone"
-                        placeholder="+1 (555) 000-0000"
-                        required
-                        type="tel"
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className={labelClasses} htmlFor="cb_date">
-                          Preferred Date
-                        </label>
-                        <input className={inputClasses} id="cb_date" required type="date" />
-                      </div>
-                      <div>
-                        <label className={labelClasses} htmlFor="cb_time">
-                          Preferred Time
+                        <label className={labelClasses} htmlFor="subject">
+                          Topic
                         </label>
                         <div className="relative">
-                          <select
-                            className={`${inputClasses} appearance-none pr-12`}
-                            id="cb_time"
-                          >
-                            <option>Morning (9AM - 12PM)</option>
-                            <option>Afternoon (12PM - 4PM)</option>
-                            <option>Evening (4PM - 6PM)</option>
+                          <select className={`${inputClasses} appearance-none pr-12`} id="subject">
+                            <option>General Inquiry</option>
+                            <option>Claim Status</option>
+                            <option>Partnership Opportunity</option>
+                            <option>Feedback</option>
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                             <span className="material-symbols-outlined text-xl">expand_more</span>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div className="pt-4 text-center">
-                      <button
-                        className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-0.5"
-                        type="submit"
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.25 }}
                       >
-                        Schedule Call
-                      </button>
+                        <label className={labelClasses} htmlFor="message">
+                          Message
+                        </label>
+                        <textarea
+                          className={`${inputClasses} resize-none`}
+                          id="message"
+                          placeholder="How can we help?"
+                          required
+                          rows={4}
+                        />
+                      </motion.div>
+                      <motion.div
+                        className="pt-2 text-center md:text-left"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <motion.button
+                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                          type="submit"
+                          whileHover={{ scale: 1.02, y: -2 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Send Message
+                        </motion.button>
+                      </motion.div>
+                    </form>
+                  </>
+                )}
+              </motion.div>
+            )}
+
+            {/* Callback Tab */}
+            {activeTab === "callback" && (
+              <motion.div
+                key="callback"
+                className="relative"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {callbackSent ? (
+                  <SuccessMessage
+                    icon="phone_callback"
+                    title="Request Received!"
+                    description="We've scheduled your call back request. One of our agents will be in touch with you at your preferred time."
+                    buttonText="Request Another Call"
+                    onReset={() => setCallbackSent(false)}
+                  />
+                ) : (
+                  <>
+                    <div className="text-center mb-10">
+                      <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                        Request a Call Back
+                      </h2>
+                      <p className="text-slate-500 dark:text-slate-400">
+                        Short on time? Leave your details and we&apos;ll contact you when it suits you
+                        best.
+                      </p>
                     </div>
-                  </form>
-                </>
-              )}
-            </div>
-          )}
+                    <form className="space-y-6 max-w-2xl mx-auto" onSubmit={handleCallbackSubmit}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                      >
+                        <label className={labelClasses} htmlFor="cb_name">
+                          Full Name
+                        </label>
+                        <input
+                          className={inputClasses}
+                          id="cb_name"
+                          placeholder="John Smith"
+                          required
+                          type="text"
+                        />
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 }}
+                      >
+                        <label className={labelClasses} htmlFor="cb_phone">
+                          Phone Number
+                        </label>
+                        <input
+                          className={inputClasses}
+                          id="cb_phone"
+                          placeholder="+27 XX XXX XXXX"
+                          required
+                          type="tel"
+                        />
+                      </motion.div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <label className={labelClasses} htmlFor="cb_date">
+                            Preferred Date
+                          </label>
+                          <input className={inputClasses} id="cb_date" required type="date" />
+                        </motion.div>
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.25 }}
+                        >
+                          <label className={labelClasses} htmlFor="cb_time">
+                            Preferred Time
+                          </label>
+                          <div className="relative">
+                            <select
+                              className={`${inputClasses} appearance-none pr-12`}
+                              id="cb_time"
+                            >
+                              <option>Morning (9AM - 12PM)</option>
+                              <option>Afternoon (12PM - 4PM)</option>
+                              <option>Evening (4PM - 6PM)</option>
+                            </select>
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
+                              <span className="material-symbols-outlined text-xl">expand_more</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+                      <motion.div
+                        className="pt-4 text-center"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <motion.button
+                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                          type="submit"
+                          whileHover={{ scale: 1.02, y: -2 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Schedule Call
+                        </motion.button>
+                      </motion.div>
+                    </form>
+                  </>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -284,22 +365,54 @@ interface SuccessMessageProps {
 
 function SuccessMessage({ icon, title, description, buttonText, onReset }: SuccessMessageProps) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-12 animate-fade-in">
-      <div className="w-20 h-20 bg-green-500/10 dark:bg-green-500/20 rounded-full flex items-center justify-center mb-6 animate-bounce">
-        <span className="material-symbols-outlined text-green-600 dark:text-green-500 text-4xl">{icon}</span>
-      </div>
-      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+    <motion.div
+      className="flex flex-col items-center justify-center text-center py-12"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      <motion.div
+        className="w-20 h-20 bg-green-500/10 dark:bg-green-500/20 rounded-full flex items-center justify-center mb-6"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring" as const, stiffness: 200, damping: 15, delay: 0.1 }}
+      >
+        <motion.span
+          className="material-symbols-outlined text-green-600 dark:text-green-500 text-4xl"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring" as const, stiffness: 300, delay: 0.2 }}
+        >
+          {icon}
+        </motion.span>
+      </motion.div>
+      <motion.h2
+        className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
         {title}
-      </h2>
-      <p className="text-lg text-slate-500 dark:text-slate-400 mb-8 max-w-lg mx-auto">
+      </motion.h2>
+      <motion.p
+        className="text-lg text-slate-500 dark:text-slate-400 mb-8 max-w-lg mx-auto"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
         {description}
-      </p>
-      <button
+      </motion.p>
+      <motion.button
         onClick={onReset}
         className="inline-flex items-center justify-center bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
       >
         {buttonText}
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }

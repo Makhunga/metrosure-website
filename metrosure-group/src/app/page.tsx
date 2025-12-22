@@ -7,6 +7,7 @@ import {
   Products,
   Difference,
   WhyChooseUs,
+  PartnerLogos,
   Testimonials,
   CallToAction,
   Footer,
@@ -25,6 +26,7 @@ export default function Home() {
         <Products />
         <Difference />
         <WhyChooseUs />
+        <PartnerLogos />
         <Testimonials />
         <CallToAction />
       </main>

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project resources (PDFs, source images, prompts)
+/resources/
+
+# session notes
+SESSION_HANDOVER.md

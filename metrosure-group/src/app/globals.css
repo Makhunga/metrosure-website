@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode (selector strategy) */
+@variant dark (&:where(.dark, .dark *));
+
 /* Metrosure Group Design System */
 :root {
   /* Brand Colors */

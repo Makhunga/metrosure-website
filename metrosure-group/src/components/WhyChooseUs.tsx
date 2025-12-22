@@ -1,68 +1,76 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
+import { motion, useInView } from "framer-motion";
 
 const differentiators = [
   {
-    icon: "psychology",
-    title: "AI Risk Analysis",
-    description:
-      "Our proprietary algorithms analyze thousands of data points to offer you more accurate and lower premiums than traditional insurers.",
-  },
-  {
-    icon: "bolt",
-    title: "Instant Claims",
-    description:
-      "Upload photos and documents directly through our app. 85% of standard claims are processed and approved within 24 hours.",
-  },
-  {
     icon: "support_agent",
-    title: "Human-Led Support",
+    title: "Dedicated Portfolio Managers",
     description:
-      "Technology powers our speed, but humans power our heart. Reach a dedicated expert advisor whenever you need real guidance.",
+      "You get a real person who knows your name and your needs. Each portfolio manager is backed by dedicated claims and underwriting staff.",
   },
   {
-    icon: "settings_input_component",
-    title: "Modular Policies",
+    icon: "verified",
+    title: "FSP Authorised",
     description:
-      'Stop paying for coverage you don\'t need. Our "Build-Your-Own" policy structure lets you pick and choose specific protections.',
+      "We're a registered Financial Service Provider (FSP 47089), regulated by the FSCA. Your protection and peace of mind is our priority.",
   },
   {
-    icon: "verified_user",
-    title: "Fraud Protection",
+    icon: "handshake",
+    title: "30+ Insurance Partners",
     description:
-      "Advanced biometric security and real-time monitoring keep your identity and policy details safe from modern cyber threats.",
+      "We work with South Africa's leading insurers — Liberty, Sanlam, Discovery, Old Mutual, and more — to find you the best cover.",
   },
   {
-    icon: "public",
-    title: "Global Portability",
+    icon: "location_on",
+    title: "Nationwide Coverage",
     description:
-      "Moving abroad or traveling? Many of our policies offer global extensions, ensuring you're covered across borders seamlessly.",
+      "With offices in Durban, Johannesburg, Pretoria, and across SA, we're never too far away when you need us.",
+  },
+  {
+    icon: "groups",
+    title: "5,000+ Jobs Created",
+    description:
+      "We're proud to be part of building South Africa's economy. Since 2016, we've created opportunities for thousands of people.",
+  },
+  {
+    icon: "timer",
+    title: "Fast, Effective Service",
+    description:
+      "Your time is precious, so we won't waste it. We process your instructions quickly and keep you informed every step of the way.",
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+} as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
 export default function WhyChooseUs() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
     <section
@@ -71,69 +79,121 @@ export default function WhyChooseUs() {
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-primary font-bold tracking-widest uppercase text-xs mb-4 block">
-            The Metrosure Edge
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight">
-            Why leading families and businesses choose us
-          </h2>
-          <p className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed">
-            We&apos;ve reimagined insurance from the ground up to solve the frustrations of the
-            legacy industry.
-          </p>
-        </div>
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.span
+            className="text-primary font-bold tracking-widest uppercase text-xs mb-4 block"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Why Metrosure
+          </motion.span>
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            People trust us because we put them first
+          </motion.h2>
+          <motion.p
+            className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            We&apos;re not just another insurance company. We&apos;re a team of people who genuinely
+            care about your wellbeing and your future.
+          </motion.p>
+        </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {differentiators.map((item, index) => (
-            <div
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {differentiators.map((item) => (
+            <motion.div
               key={item.title}
-              className={`p-8 rounded-2xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 group transform ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              variants={cardVariants}
+              className="p-8 rounded-2xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 group cursor-pointer"
+              whileHover={{
+                y: -8,
+                transition: { type: "spring", stiffness: 400, damping: 17 },
+              }}
             >
-              <div className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
+              <motion.div
+                className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary transition-all duration-500"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
                 <span className="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors duration-500">
                   {item.icon}
                 </span>
-              </div>
+              </motion.div>
               <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3 group-hover:text-primary transition-colors">
                 {item.title}
               </h3>
               <p className="text-[rgb(var(--color-text-body))] leading-relaxed text-sm">
                 {item.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA Banner */}
-        <div className="mt-20 p-8 rounded-2xl bg-[rgb(var(--color-surface))] border border-dashed border-[rgb(var(--color-border-light))] flex flex-col md:flex-row items-center justify-between gap-8">
+        <motion.div
+          className="mt-20 p-8 rounded-2xl bg-[rgb(var(--color-surface))] border border-dashed border-[rgb(var(--color-border-light))] flex flex-col md:flex-row items-center justify-between gap-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          whileHover={{ scale: 1.01 }}
+        >
           <div className="flex items-center gap-4">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map((i) => (
-                <div
+                <motion.div
                   key={i}
                   className="w-10 h-10 rounded-full border-2 border-[rgb(var(--color-surface))] bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                  transition={{ delay: 0.9 + i * 0.1, type: "spring", stiffness: 400 }}
                 />
               ))}
             </div>
-            <p className="text-sm font-medium text-[rgb(var(--color-text-main))]">
-              Join <span className="text-primary font-bold">50,000+</span> satisfied policyholders
-            </p>
+            <motion.p
+              className="text-sm font-medium text-[rgb(var(--color-text-main))]"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ delay: 1.3 }}
+            >
+              Join <span className="text-primary font-bold">5,000+</span> people we&apos;ve helped since 2016
+            </motion.p>
           </div>
-          <Link
-            href="/compare"
-            className="text-primary font-bold flex items-center gap-2 hover:gap-4 transition-all group"
-          >
-            Compare our rates against competitors
-            <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">
-              arrow_forward
-            </span>
+          <Link href="/quote" className="group">
+            <motion.span
+              className="text-primary font-bold flex items-center gap-2 group-hover:gap-4 transition-all"
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              Get a free quote today
+              <motion.span
+                className="material-symbols-outlined"
+                initial={{ x: 0 }}
+                whileHover={{ x: 5 }}
+              >
+                arrow_forward
+              </motion.span>
+            </motion.span>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

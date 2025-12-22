@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "./theme-provider";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const footerLinks = {
   company: [
@@ -11,10 +14,9 @@ const footerLinks = {
     { label: "Contact", href: "/contact" },
   ],
   insurance: [
-    { label: "Home & Property", href: "/insurance/home" },
-    { label: "Auto & Vehicle", href: "/insurance/auto" },
-    { label: "Life & Health", href: "/insurance/life" },
-    { label: "Business", href: "/insurance/business" },
+    { label: "Car & Home", href: "/insurance/auto" },
+    { label: "Life & Funeral", href: "/insurance/life" },
+    { label: "Business Cover", href: "/insurance/business" },
   ],
   support: [
     { label: "Help Center", href: "/help" },
@@ -54,98 +56,186 @@ const socialLinks = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
 export default function Footer() {
+  const { resolvedTheme } = useTheme();
+  const footerRef = useRef(null);
+  const isInView = useInView(footerRef, { once: true, margin: "-50px" });
+
   return (
-    <footer className="bg-slate-900 py-16 text-white border-t border-white/10 transition-colors duration-300">
+    <footer
+      ref={footerRef}
+      className="bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300"
+    >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {/* Brand Column */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
+          <motion.div className="lg:col-span-2 flex flex-col gap-6" variants={itemVariants}>
             <Link href="/" className="flex items-center group">
-              <div className="relative h-10 w-[160px] transition-transform group-hover:scale-105">
+              <motion.div
+                className="relative h-10 w-[160px]"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
                 <Image
-                  src="/images/logo-white.png"
+                  src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
                   alt="Metrosure Group"
                   fill
                   className="object-contain"
                 />
-              </div>
+              </motion.div>
             </Link>
-            <p className="text-gray-400 text-sm max-w-sm leading-relaxed">
-              Securing futures with a modern, human-first approach to insurance. We combine
-              technology with empathy to deliver the best protection for what matters most.
+            <p className="text-slate-600 dark:text-gray-400 text-sm max-w-sm leading-relaxed">
+              Taking you to the future. We&apos;re a South African financial services company helping
+              families and businesses protect what matters most since 2016.
             </p>
+            <div className="text-xs text-slate-500 dark:text-gray-500 space-y-1">
+              <p><strong>Phone:</strong> +27 31 301 1192</p>
+              <p><strong>Email:</strong> info@metrosuregroup.co.za</p>
+              <p><strong>Head Office:</strong> 391 Anton Lembede Street, Durban</p>
+            </div>
             <div className="flex gap-4 mt-2">
-              {socialLinks.map((social) => (
-                <a
+              {socialLinks.map((social, index) => (
+                <motion.a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-white"
+                  className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-slate-600 dark:text-white hover:text-white"
                   aria-label={social.label}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                  transition={{ delay: 0.4 + index * 0.1, type: "spring", stiffness: 400 }}
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {social.icon}
-                </a>
+                </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Company Links */}
-          <div>
-            <h4 className="font-bold mb-6 text-white">Company</h4>
-            <ul className="space-y-3 text-sm text-gray-400">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-primary transition-colors">
-                    {link.label}
+          <motion.div variants={itemVariants}>
+            <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Company</h4>
+            <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
+              {footerLinks.company.map((link, index) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: 0.5 + index * 0.05 }}
+                >
+                  <Link href={link.href} className="hover:text-primary transition-colors inline-block">
+                    <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      {link.label}
+                    </motion.span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Insurance Links */}
-          <div>
-            <h4 className="font-bold mb-6 text-white">Insurance</h4>
-            <ul className="space-y-3 text-sm text-gray-400">
-              {footerLinks.insurance.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-primary transition-colors">
-                    {link.label}
+          <motion.div variants={itemVariants}>
+            <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Insurance</h4>
+            <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
+              {footerLinks.insurance.map((link, index) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: 0.6 + index * 0.05 }}
+                >
+                  <Link href={link.href} className="hover:text-primary transition-colors inline-block">
+                    <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      {link.label}
+                    </motion.span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Support Links */}
-          <div>
-            <h4 className="font-bold mb-6 text-white">Support</h4>
-            <ul className="space-y-3 text-sm text-gray-400">
-              {footerLinks.support.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-primary transition-colors">
-                    {link.label}
+          <motion.div variants={itemVariants}>
+            <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Support</h4>
+            <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
+              {footerLinks.support.map((link, index) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ delay: 0.7 + index * 0.05 }}
+                >
+                  <Link href={link.href} className="hover:text-primary transition-colors inline-block">
+                    <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      {link.label}
+                    </motion.span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
+
+        {/* FSP Disclaimer */}
+        <motion.div
+          className="border-t border-slate-200 dark:border-white/10 pt-6 pb-4 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.75, duration: 0.5 }}
+        >
+          <p className="text-xs text-slate-500 dark:text-gray-500">
+            Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider (FSP No: 47089)
+          </p>
+        </motion.div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Metrosure Group. All rights reserved.</p>
+        <motion.div
+          className="border-t border-slate-200 dark:border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-gray-500"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
+          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy Policy
+            <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <motion.span whileHover={{ y: -2 }}>Privacy Policy</motion.span>
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms of Service
+            <Link href="/terms" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+              <motion.span whileHover={{ y: -2 }}>Terms of Service</motion.span>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

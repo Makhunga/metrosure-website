@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./theme-provider";
 
 export default function Header() {
@@ -30,122 +31,177 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-[rgb(var(--color-surface-card))]/95 backdrop-blur-md shadow-sm"
-          : "bg-[rgb(var(--color-surface-card))]/80 backdrop-blur-md"
-      } border-b border-[rgb(var(--color-border-light))]`}
+          ? "bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-white/20 dark:border-white/10"
+          : "bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-b border-transparent"
+      }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer group">
-            <div className="relative h-10 w-[160px] transition-transform group-hover:scale-105">
-              {/* Light mode logo */}
+            <motion.div
+              className="relative h-10 w-[160px]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
               <Image
-                src="/images/logo.png"
+                src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
                 alt="Metrosure Group"
                 fill
-                className="object-contain dark:hidden"
+                className="object-contain"
                 priority
               />
-              {/* Dark mode logo */}
-              <Image
-                src="/images/logo-white.png"
-                alt="Metrosure Group"
-                fill
-                className="object-contain hidden dark:block"
-                priority
-              />
-            </div>
+            </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
+            {navLinks.map((link, index) => (
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index + 0.3, duration: 0.4 }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  href={link.href}
+                  className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
             ))}
           </nav>
 
           {/* Right side actions */}
           <div className="flex items-center gap-4">
             {/* Theme Toggle */}
-            <button
+            <motion.button
               onClick={toggleTheme}
               className="p-2 text-[rgb(var(--color-text-body))] hover:text-primary transition-colors rounded-full hover:bg-[rgb(var(--color-surface))]"
               aria-label="Toggle dark mode"
+              whileHover={{ scale: 1.1, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <span className="material-symbols-outlined text-xl">
+              <motion.span
+                className="material-symbols-outlined text-xl block"
+                key={resolvedTheme}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
                 {resolvedTheme === "dark" ? "light_mode" : "dark_mode"}
-              </span>
-            </button>
+              </motion.span>
+            </motion.button>
 
             {/* Login Link */}
-            <Link
-              href="/login"
-              className="hidden sm:block text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
             >
-              Log in
-            </Link>
+              <Link
+                href="/login"
+                className="hidden sm:block text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors"
+              >
+                Log in
+              </Link>
+            </motion.div>
 
             {/* CTA Button */}
-            <Link
-              href="/quote"
-              className="flex items-center justify-center rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-10 px-6 text-white text-sm font-bold shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6, type: "spring", stiffness: 400 }}
             >
-              Get a Quote
-            </Link>
+              <Link href="/quote">
+                <motion.span
+                  className="flex items-center justify-center rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-colors h-10 px-6 text-white text-sm font-bold shadow-md shadow-primary/20"
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                    boxShadow: "0 10px 25px -5px rgba(191, 6, 3, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  Get a Quote
+                </motion.span>
+              </Link>
+            </motion.div>
 
             {/* Mobile Menu Toggle */}
-            <button
+            <motion.button
               className="md:hidden p-2 text-[rgb(var(--color-text-body))]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle mobile menu"
+              whileTap={{ scale: 0.9 }}
             >
-              <span className="material-symbols-outlined">
+              <motion.span
+                className="material-symbols-outlined block"
+                animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
                 {isMobileMenuOpen ? "close" : "menu"}
-              </span>
-            </button>
+              </motion.span>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`md:hidden absolute top-20 left-0 w-full bg-[rgb(var(--color-surface-card))] border-b border-[rgb(var(--color-border-light))] shadow-lg transition-all duration-300 ${
-          isMobileMenuOpen
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-4 pointer-events-none"
-        }`}
-      >
-        <div className="py-4 px-4 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <hr className="border-[rgb(var(--color-border-light))]" />
-          <Link
-            href="/login"
-            className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-2"
-            onClick={() => setIsMobileMenuOpen(false)}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden absolute top-20 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-white/20 dark:border-white/10 shadow-lg overflow-hidden"
           >
-            Log in
-          </Link>
-        </div>
-      </div>
-    </header>
+            <div className="py-4 px-4 flex flex-col gap-2">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    href={link.href}
+                    className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 block rounded-lg hover:bg-primary/5"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <hr className="border-[rgb(var(--color-border-light))] my-2" />
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Link
+                  href="/login"
+                  className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 block rounded-lg hover:bg-primary/5"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Log in
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

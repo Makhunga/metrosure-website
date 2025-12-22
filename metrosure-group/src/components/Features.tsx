@@ -1,59 +1,78 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
+import { motion, useInView } from "framer-motion";
 
 const features = [
   {
-    icon: "handshake",
-    title: "Unwavering Integrity",
+    icon: "directions_car",
+    title: "Car & Home Cover",
     description:
-      "We do the right thing, even when no one is looking. Honest advice and fair dealings are our absolute baseline for every client relationship.",
+      "Protect your vehicle and property with comprehensive short-term insurance. We find the right cover from our network of trusted insurers, so you can drive and live worry-free.",
   },
   {
-    icon: "visibility",
-    title: "Total Transparency",
+    icon: "family_restroom",
+    title: "Life & Funeral Cover",
     description:
-      "No fine print traps. We ensure you understand every detail of your coverage before you sign, with clear language and no hidden clauses.",
+      "Give your loved ones peace of mind. Our life insurance and funeral plans ensure your family is looked after when they need it most — because some things are too important to leave to chance.",
   },
   {
-    icon: "favorite",
-    title: "Human-First Empathy",
+    icon: "savings",
+    title: "Retirement Planning",
     description:
-      "We treat clients like family. Compassionate support is guaranteed, especially during the moments when you need us the most.",
+      "Start building the future you deserve, today. Whether you're just starting out or nearing retirement, we'll help you create a plan that works for your life and goals.",
   },
   {
-    icon: "rocket_launch",
-    title: "Modern Innovation",
+    icon: "business_center",
+    title: "Employee Benefits",
     description:
-      "We leverage technology to simplify insurance, reducing paperwork and making claims faster, smarter, and easier for you.",
+      "Take care of your team with group retirement funds and employee benefits. Happy, secure employees build stronger businesses — and we make it simple to set up.",
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+} as const;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+const iconVariants = {
+  hidden: { scale: 0, rotate: -45 },
+  visible: {
+    scale: 1,
+    rotate: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 200,
+      damping: 15,
+      delay: 0.1,
+    },
+  },
+};
+
 export default function Features() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const entranceTransition = "transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]";
-  const iconTransition = "transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]";
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
     <section
@@ -63,68 +82,102 @@ export default function Features() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-16 mb-16 items-start">
           {/* Left sticky content */}
-          <div
-            className={`lg:w-1/3 lg:sticky lg:top-24 ${entranceTransition} ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
-            }`}
+          <motion.div
+            className="lg:w-1/3 lg:sticky lg:top-24"
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <h2 className="text-4xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight">
-              Built on trust,
-              <br />
-              driven by <span className="text-primary">integrity.</span>
-            </h2>
-            <p className="text-lg text-[rgb(var(--color-text-body))] mb-8 leading-relaxed">
-              We don&apos;t just sell policies; we build partnerships. Our core values define every
-              interaction, ensuring you receive the honest, transparent service you deserve.
-            </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center text-primary font-bold hover:text-[rgb(var(--color-primary-hover))] transition-colors group"
+            <motion.h2
+              className="text-4xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Read our full mission
-              <span className="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">
-                arrow_forward
-              </span>
-            </Link>
-          </div>
+              What we can
+              <br />
+              do for <motion.span className="text-primary inline-block" whileHover={{ scale: 1.05 }}>you.</motion.span>
+            </motion.h2>
+            <motion.p
+              className="text-lg text-[rgb(var(--color-text-body))] mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              From protecting your car and home to planning for retirement, we&apos;re here to help you
+              and your family feel secure. Real people, real advice, real cover.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Link
+                href="/about"
+                className="inline-flex items-center text-primary font-bold hover:text-[rgb(var(--color-primary-hover))] transition-colors group"
+              >
+                <motion.span
+                  className="flex items-center"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  Learn more about us
+                  <motion.span
+                    className="material-symbols-outlined ml-2"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                  >
+                    arrow_forward
+                  </motion.span>
+                </motion.span>
+              </Link>
+            </motion.div>
+          </motion.div>
 
           {/* Right grid */}
-          <div className="lg:w-2/3">
+          <motion.div
+            className="lg:w-2/3"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 border border-[rgb(var(--color-border-light))] rounded-2xl overflow-hidden shadow-sm bg-[rgb(var(--color-surface-card))]">
               {features.map((feature, index) => (
-                <div
+                <motion.div
                   key={feature.title}
                   className={`p-10 ${
                     index < 2 ? "border-b" : ""
-                  } ${index % 2 === 0 ? "md:border-r" : ""} border-[rgb(var(--color-border-light))] hover:bg-[rgb(var(--color-surface))]/50 transition-colors group`}
+                  } ${index % 2 === 0 ? "md:border-r" : ""} border-[rgb(var(--color-border-light))] hover:bg-[rgb(var(--color-surface))]/50 transition-colors group cursor-pointer`}
+                  variants={cardVariants}
+                  whileHover={{
+                    backgroundColor: "rgba(var(--color-surface), 0.5)",
+                    transition: { duration: 0.2 }
+                  }}
                 >
-                  <div
-                    className={`${entranceTransition} ${
-                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                    }`}
-                    style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+                  <motion.div
+                    className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6"
+                    variants={iconVariants}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <div
-                      className={`w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 ${iconTransition} ${
-                        isVisible ? "scale-100 rotate-0" : "scale-0 -rotate-12"
-                      }`}
-                      style={{ transitionDelay: `${(index + 2) * 100}ms` }}
+                    <motion.span
+                      className="material-symbols-outlined text-3xl text-primary"
+                      whileHover={{ rotate: 12 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <span className="material-symbols-outlined text-3xl text-primary transition-transform duration-500 group-hover:rotate-12">
-                        {feature.icon}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-[rgb(var(--color-text-body))] leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
+                      {feature.icon}
+                    </motion.span>
+                  </motion.div>
+                  <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3 group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[rgb(var(--color-text-body))] leading-relaxed">
+                    {feature.description}
+                  </p>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

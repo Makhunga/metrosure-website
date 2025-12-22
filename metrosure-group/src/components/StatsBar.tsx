@@ -1,120 +1,107 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useSpring, useTransform } from "framer-motion";
+
+interface AnimatedCounterProps {
+  value: string;
+  isInView: boolean;
+  delay?: number;
+}
+
+function AnimatedCounter({ value, isInView, delay = 0 }: AnimatedCounterProps) {
+  const match = value.match(/^(\D*)(\d+)(.*)$/);
+  const prefix = match ? match[1] : "";
+  const target = match ? parseInt(match[2], 10) : 0;
+  const suffix = match ? match[3] : value;
+
+  const spring = useSpring(0, {
+    stiffness: 50,
+    damping: 20,
+    duration: 2
+  });
+
+  const display = useTransform(spring, (latest) =>
+    `${prefix}${Math.floor(latest)}${suffix}`
+  );
+
+  const [displayValue, setDisplayValue] = useState(`${prefix}0${suffix}`);
+
+  useEffect(() => {
+    if (isInView) {
+      const timeout = setTimeout(() => {
+        spring.set(target);
+      }, delay);
+      return () => clearTimeout(timeout);
+    }
+  }, [isInView, target, spring, delay]);
+
+  useEffect(() => {
+    const unsubscribe = display.on("change", (v) => setDisplayValue(v));
+    return () => unsubscribe();
+  }, [display]);
+
+  return <span>{displayValue}</span>;
+}
 
 interface StatItemProps {
   stat: { value: string; label: string };
   index: number;
-  isVisible: boolean;
 }
 
-function StatItem({ stat, index, isVisible }: StatItemProps) {
-  const [displayValue, setDisplayValue] = useState("0");
-
-  useEffect(() => {
-    // Determine initial state formatting
-    const match = stat.value.match(/^(\D*)(\d+)(.*)$/);
-    if (match) {
-      setDisplayValue(`${match[1]}0${match[3]}`);
-    } else {
-      setDisplayValue(stat.value);
-    }
-  }, [stat.value]);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const match = stat.value.match(/^(\D*)(\d+)(.*)$/);
-    if (!match) return;
-
-    const prefix = match[1];
-    const target = parseInt(match[2], 10);
-    const suffix = match[3];
-
-    let startTime: number | null = null;
-    const duration = 2000;
-    const delay = index * 150;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-
-      if (elapsed < delay) {
-        requestAnimationFrame(animate);
-        return;
-      }
-
-      const progress = Math.min((elapsed - delay) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(ease * target);
-      setDisplayValue(`${prefix}${current}${suffix}`);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [isVisible, index, stat.value]);
+function StatItem({ stat, index }: StatItemProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <div className="px-6 py-6 md:py-8 flex flex-col items-center justify-center text-center group bg-[rgb(var(--color-surface-card))] hover:bg-[rgb(var(--color-surface))] transition-colors duration-300">
-      <div
-        className={`transform transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-75"
-        }`}
-        style={{
-          transitionDelay: `${index * 150}ms`,
-          transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
-        }}
+    <motion.div
+      ref={ref}
+      className="px-6 py-6 md:py-8 flex flex-col items-center justify-center text-center group bg-[rgb(var(--color-surface-card))] hover:bg-[rgb(var(--color-surface))] transition-colors duration-300"
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.15,
+        ease: [0.34, 1.56, 0.64, 1]
+      }}
+    >
+      <motion.span
+        className="text-3xl font-bold text-primary mb-1 block"
+        whileHover={{ scale: 1.15 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
-        <span className="text-3xl font-bold text-primary mb-1 block transition-transform duration-300 group-hover:scale-110">
-          {displayValue}
-        </span>
-        <span className="text-sm font-medium text-[rgb(var(--color-text-body))]">{stat.label}</span>
-      </div>
-    </div>
+        <AnimatedCounter
+          value={stat.value}
+          isInView={isInView}
+          delay={index * 150}
+        />
+      </motion.span>
+      <motion.span
+        className="text-sm font-medium text-[rgb(var(--color-text-body))]"
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ delay: index * 0.15 + 0.3, duration: 0.4 }}
+      >
+        {stat.label}
+      </motion.span>
+    </motion.div>
   );
 }
 
 export default function StatsBar() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const stats = [
-    { value: "98%", label: "Claims Paid Out" },
-    { value: "24hr", label: "Turnaround Time" },
-    { value: "24/7", label: "Human Support" },
-    { value: "$500+", label: "Average Savings" },
+    { value: "5000+", label: "Jobs Created" },
+    { value: "2016", label: "Established" },
+    { value: "9+", label: "Regional Offices" },
+    { value: "47089", label: "FSP Number" },
   ];
 
   return (
-    <section
-      ref={sectionRef}
-      className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden transition-colors duration-300"
-    >
+    <section className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[rgb(var(--color-border-light))]">
           {stats.map((stat, index) => (
-            <StatItem key={index} stat={stat} index={index} isVisible={isVisible} />
+            <StatItem key={index} stat={stat} index={index} />
           ))}
         </div>
       </div>
