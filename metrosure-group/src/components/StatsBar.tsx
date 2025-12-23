@@ -22,7 +22,7 @@ function AnimatedCounter({ value, isInView, delay = 0 }: AnimatedCounterProps) {
   });
 
   const display = useTransform(spring, (latest) =>
-    `${prefix}${Math.floor(latest)}${suffix}`
+    `${prefix}${Math.round(latest)}${suffix}`
   );
 
   const [displayValue, setDisplayValue] = useState(`${prefix}0${suffix}`);

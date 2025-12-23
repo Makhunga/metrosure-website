@@ -151,7 +151,7 @@ export default function AboutPage() {
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="bg-[rgb(var(--color-surface))] min-h-screen">
+    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
       <Header />
 
       {/* Hero Section - Keep Current */}
@@ -184,7 +184,8 @@ export default function AboutPage() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Taking You{" "}
+              Taking You
+              <br />
               <span className="text-primary">to the Future</span>
             </motion.h1>
             <motion.p

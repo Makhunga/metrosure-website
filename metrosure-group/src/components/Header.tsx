@@ -37,8 +37,8 @@ export default function Header() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-white/20 dark:border-white/10"
-          : "bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-b border-transparent"
+          ? "bg-[rgb(var(--color-surface-card))]/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-[rgb(var(--color-border-light))]"
+          : "bg-[rgb(var(--color-surface-card))]/70 backdrop-blur-md border-b border-transparent"
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -165,7 +165,7 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden absolute top-20 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-white/20 dark:border-white/10 shadow-lg overflow-hidden"
+            className="md:hidden absolute top-20 left-0 w-full bg-[rgb(var(--color-surface-card))]/95 backdrop-blur-xl border-b border-[rgb(var(--color-border-light))] shadow-lg overflow-hidden"
           >
             <div className="py-4 px-4 flex flex-col gap-2">
               {navLinks.map((link, index) => (

@@ -5,9 +5,7 @@ import {
   Features,
   Approach,
   Products,
-  Difference,
   WhyChooseUs,
-  PartnerLogos,
   Testimonials,
   CallToAction,
   Footer,
@@ -16,7 +14,7 @@ import {
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
       <Header />
       <main className="pt-20">
         <Hero />
@@ -24,14 +22,12 @@ export default function Home() {
         <Features />
         <Approach />
         <Products />
-        <Difference />
         <WhyChooseUs />
-        <PartnerLogos />
         <Testimonials />
         <CallToAction />
       </main>
       <Footer />
       <ScrollToTop />
-    </>
+    </div>
   );
 }

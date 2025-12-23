@@ -161,55 +161,6 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Social Proof - Spread across full width */}
-          <motion.div
-            className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-8 pt-12 mt-8 border-t border-[rgb(var(--color-border-light))]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-          >
-            {/* Stat 1 - Jobs Created */}
-            <motion.div
-              className="flex flex-col items-center gap-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-3xl text-primary">group</span>
-                <span className="text-4xl font-bold text-[rgb(var(--color-text-main))]">5,000+</span>
-              </div>
-              <span className="text-base text-[rgb(var(--color-text-body))]">Jobs Created Since 2016</span>
-            </motion.div>
-
-            {/* Stat 2 - Insurance Partners */}
-            <motion.div
-              className="flex flex-col items-center gap-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-3xl text-primary">handshake</span>
-                <span className="text-4xl font-bold text-[rgb(var(--color-text-main))]">30+</span>
-              </div>
-              <span className="text-base text-[rgb(var(--color-text-body))]">Insurance Partners</span>
-            </motion.div>
-
-            {/* Stat 3 - Offices */}
-            <motion.div
-              className="flex flex-col items-center gap-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-3xl text-primary">location_on</span>
-                <span className="text-4xl font-bold text-[rgb(var(--color-text-main))]">9+</span>
-              </div>
-              <span className="text-base text-[rgb(var(--color-text-body))]">Offices Nationwide</span>
-            </motion.div>
-          </motion.div>
         </div>
       </motion.div>
     </section>

@@ -207,18 +207,6 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* FSP Disclaimer */}
-        <motion.div
-          className="border-t border-slate-200 dark:border-white/10 pt-6 pb-4 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.75, duration: 0.5 }}
-        >
-          <p className="text-xs text-slate-500 dark:text-gray-500">
-            Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider (FSP No: 47089)
-          </p>
-        </motion.div>
-
         {/* Bottom Bar */}
         <motion.div
           className="border-t border-slate-200 dark:border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-gray-500"
@@ -226,7 +214,7 @@ export default function Footer() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd (FSP 47089). All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               <motion.span whileHover={{ y: -2 }}>Privacy Policy</motion.span>

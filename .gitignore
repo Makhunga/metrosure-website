@@ -137,3 +137,16 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Separate project folders (not part of main project)
+metrosure-insurance/
+metrosure-insurance-about/
+metrosure-insurance-contact-us/
+
+# Draft/internal documents
+**/EMAIL_DRAFT_*.md

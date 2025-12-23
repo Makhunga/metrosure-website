@@ -5,19 +5,29 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const testimonialsData = [
   {
-    text: "Metrosure handled my claim before I even panicked. It wasn't just about the money; it was the reassurance that someone was in my corner immediately.",
-    name: "Sarah Jenkins",
+    text: "When my car was hijacked in Joburg, Metrosure handled everything before I could even stress. It wasn't just about the payout — it was knowing someone had my back.",
+    name: "Thabo Molefe",
     role: "Home & Auto",
   },
   {
-    text: "Switching was seamless. The advisor actually looked at my business needs and saved me money while increasing my coverage.",
-    name: "Mark Thompson",
+    text: "Switching was seamless. The advisor actually looked at my business needs and saved me money while increasing my coverage. No one else took the time.",
+    name: "Priya Naidoo",
     role: "Business Owner",
   },
   {
     text: "I never understood my life insurance policy until I sat down with Metrosure. Now I feel genuinely confident about my family's future.",
-    name: "Elena Rodriguez",
+    name: "Sipho Mthembu",
     role: "Life Insurance",
+  },
+  {
+    text: "After years of feeling like just another policy number, Metrosure made me feel like family. Their team goes above and beyond every single time.",
+    name: "David Nkosi",
+    role: "Retirement Planning",
+  },
+  {
+    text: "The funeral cover gave us peace of mind during the hardest time of our lives. They handled everything with dignity and speed.",
+    name: "Nomsa Dlamini",
+    role: "Funeral Cover",
   },
 ];
 
