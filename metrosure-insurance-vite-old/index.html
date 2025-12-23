@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Metrosure Insurance: Future Secured</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        :root {
+            --color-primary: 191 6 3; /* #bf0603 */
+            --color-primary-hover: 165 5 2; /* #a50502 */
+            --color-secondary: 105 0 37; /* #690025 */
+            --color-accent: 239 242 160; /* #eff2a0 */
+            
+            --color-surface: 248 250 252; /* #f8fafc (Slate 50) */
+            --color-surface-card: 255 255 255; /* #ffffff */
+            
+            --color-text-main: 15 23 42; /* #0f172a (Slate 900) */
+            --color-text-body: 71 85 105; /* #475569 (Slate 600) */
+            --color-text-muted: 148 163 184; /* #94a3b8 (Slate 400) */
+            
+            --color-border-light: 226 232 240; /* #e2e8f0 (Slate 200) */
+        }
+        
+        .dark {
+            --color-surface: 15 23 42; /* #0f172a (Slate 900) */
+            --color-surface-card: 30 41 59; /* #1e293b (Slate 800) */
+            
+            --color-text-main: 241 245 249; /* #f1f5f9 (Slate 100) */
+            --color-text-body: 203 213 225; /* #cbd5e1 (Slate 300) */
+            --color-text-muted: 148 163 184; /* #94a3b8 (Slate 400) */
+            
+            --color-border-light: 51 65 85; /* #334155 (Slate 700) */
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              "primary": "rgb(var(--color-primary) / <alpha-value>)",
+              "primary-hover": "rgb(var(--color-primary-hover) / <alpha-value>)",
+              "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
+              "accent": "rgb(var(--color-accent) / <alpha-value>)",
+              "surface": "rgb(var(--color-surface) / <alpha-value>)",
+              "surface-card": "rgb(var(--color-surface-card) / <alpha-value>)",
+              "text-main": "rgb(var(--color-text-main) / <alpha-value>)",
+              "text-body": "rgb(var(--color-text-body) / <alpha-value>)",
+              "text-muted": "rgb(var(--color-text-muted) / <alpha-value>)",
+              "border-light": "rgb(var(--color-border-light) / <alpha-value>)",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"],
+              "sans": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.5rem", 
+                "lg": "1rem", 
+                "xl": "1.5rem", 
+                "2xl": "2rem",
+            },
+            backgroundImage: {
+                'grid-pattern': "linear-gradient(to right, rgb(var(--color-border-light) / 0.3) 1px, transparent 1px), linear-gradient(to bottom, rgb(var(--color-border-light) / 0.3) 1px, transparent 1px)",
+            },
+            keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
+                },
+                'grid-flow': {
+                    '0%': { backgroundPosition: '0 0' },
+                    '100%': { backgroundPosition: '40px 40px' },
+                },
+                'subtle-pulse': {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.2)' },
+                }
+            },
+            animation: {
+                float: 'float 4s ease-in-out infinite',
+                'grid-flow': 'grid-flow 20s linear infinite',
+                'subtle-pulse': 'subtle-pulse 0.5s ease-in-out',
+            }
+          },
+        },
+      }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-surface-card text-text-main overflow-x-hidden antialiased selection:bg-primary selection:text-white transition-colors duration-300">
+    <div id="root"></div>
+    <script>
+        // Check for saved theme preference or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
