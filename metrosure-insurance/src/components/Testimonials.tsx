@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { motion, useInView } from "framer-motion";
 
 const testimonialsData = [
   {
@@ -36,42 +36,66 @@ export default function Testimonials() {
   const sectionRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const scrollToIndex = (index: number) => {
+  // Mark initial animation as complete
+  useEffect(() => {
+    if (isInView && !hasAnimated) {
+      const timer = setTimeout(() => setHasAnimated(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, hasAnimated]);
+
+  const scrollToIndex = useCallback((index: number) => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
 
-    let clampedIndex = index;
-    if (index < 0) clampedIndex = 0;
-    if (index >= testimonialsData.length) clampedIndex = testimonialsData.length - 1;
+    // Wrap around for cycling
+    let targetIndex = index;
+    if (index < 0) targetIndex = testimonialsData.length - 1;
+    if (index >= testimonialsData.length) targetIndex = 0;
 
     const cards = container.children;
-    if (cards[clampedIndex]) {
-      const card = cards[clampedIndex] as HTMLElement;
+    if (cards[targetIndex]) {
+      const card = cards[targetIndex] as HTMLElement;
       const scrollLeft = card.offsetLeft - container.clientWidth / 2 + card.offsetWidth / 2;
 
       container.scrollTo({
         left: scrollLeft,
         behavior: "smooth",
       });
-    }
-  };
 
-  // Autoplay
+      // Directly set activeIndex for reliable state update
+      setActiveIndex(targetIndex);
+    }
+  }, []);
+
+  // Navigate to previous slide (with cycling)
+  const goToPrevious = useCallback(() => {
+    const prevIndex = activeIndex === 0 ? testimonialsData.length - 1 : activeIndex - 1;
+    scrollToIndex(prevIndex);
+  }, [activeIndex, scrollToIndex]);
+
+  // Navigate to next slide (with cycling)
+  const goToNext = useCallback(() => {
+    const nextIndex = (activeIndex + 1) % testimonialsData.length;
+    scrollToIndex(nextIndex);
+  }, [activeIndex, scrollToIndex]);
+
+  // Autoplay with cycling
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !isInView) return;
 
     const interval = setInterval(() => {
-      const nextIndex = (activeIndex + 1) % testimonialsData.length;
-      scrollToIndex(nextIndex);
+      goToNext();
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [activeIndex, isPaused]);
+  }, [isPaused, isInView, goToNext]);
 
-  // Handle scroll to update active index
-  const handleScroll = () => {
+  // Handle manual scroll to update active index
+  const handleScroll = useCallback(() => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
     const viewportCenter = container.scrollLeft + container.clientWidth / 2;
@@ -93,7 +117,7 @@ export default function Testimonials() {
     if (closestIndex !== activeIndex) {
       setActiveIndex(closestIndex);
     }
-  };
+  }, [activeIndex]);
 
   return (
     <section
@@ -125,9 +149,8 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <motion.button
-            onClick={() => scrollToIndex(activeIndex - 1)}
-            disabled={activeIndex === 0}
-            className="w-12 h-12 rounded-full border border-[rgb(var(--color-border-light))] flex items-center justify-center hover:bg-[rgb(var(--color-surface))] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-[rgb(var(--color-text-main))]"
+            onClick={goToPrevious}
+            className="w-12 h-12 rounded-full border border-[rgb(var(--color-border-light))] flex items-center justify-center hover:bg-[rgb(var(--color-surface))] hover:border-primary/50 transition-colors text-[rgb(var(--color-text-main))]"
             aria-label="Previous testimonial"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -135,9 +158,8 @@ export default function Testimonials() {
             <span className="material-symbols-outlined">arrow_back</span>
           </motion.button>
           <motion.button
-            onClick={() => scrollToIndex(activeIndex + 1)}
-            disabled={activeIndex === testimonialsData.length - 1}
-            className="w-12 h-12 rounded-full bg-[rgb(var(--color-text-main))] text-[rgb(var(--color-surface-card))] flex items-center justify-center hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={goToNext}
+            className="w-12 h-12 rounded-full bg-[rgb(var(--color-text-main))] text-[rgb(var(--color-surface-card))] flex items-center justify-center hover:bg-primary transition-all shadow-lg"
             aria-label="Next testimonial"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -156,28 +178,30 @@ export default function Testimonials() {
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
-        {testimonialsData.map((testimonial, index) => (
+        {testimonialsData.map((testimonial, index) => {
+          const isActive = index === activeIndex;
+          return (
           <motion.div
             key={index}
-            className={`min-w-[300px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-8 rounded-2xl border snap-center transition-all duration-500 shadow-sm flex flex-col justify-between h-[340px]
+            onClick={() => scrollToIndex(index)}
+            className={`min-w-[300px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-8 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer
               ${
-                index === activeIndex
-                  ? "border-primary/50 shadow-md"
-                  : "border-[rgb(var(--color-border-light))]"
+                isActive
+                  ? "border-primary shadow-lg shadow-primary/10"
+                  : "border-[rgb(var(--color-border-light))] shadow-sm"
               }
             `}
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-            animate={
-              isInView
-                ? {
-                    opacity: index === activeIndex ? 1 : 0.7,
-                    y: 0,
-                    scale: index === activeIndex ? 1 : 0.95,
-                  }
-                : { opacity: 0, y: 40, scale: 0.95 }
-            }
-            transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-            whileHover={{ scale: 1.02, y: -5 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{
+              opacity: hasAnimated ? (isActive ? 1 : 0.6) : (isInView ? 1 : 0),
+              y: isInView ? 0 : 40,
+              scale: hasAnimated ? (isActive ? 1 : 0.95) : 1,
+            }}
+            transition={{
+              duration: hasAnimated ? 0.3 : 0.5,
+              delay: hasAnimated ? 0 : 0.5 + index * 0.1
+            }}
+            whileHover={{ scale: 1.02, y: -5, opacity: 1 }}
           >
             <div>
               {/* Stars */}
@@ -213,7 +237,8 @@ export default function Testimonials() {
               </div>
             </div>
           </motion.div>
-        ))}
+        );
+        })}
       </motion.div>
 
       {/* Dots */}
