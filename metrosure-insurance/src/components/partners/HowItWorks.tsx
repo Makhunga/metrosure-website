@@ -9,24 +9,28 @@ const steps = [
     title: "Initial Consultation",
     description:
       "We assess your retail environment, understand your customer base, and identify the best partnership model for your business.",
+    tags: ["Site assessment", "Customer profiling", "Revenue projections"],
   },
   {
     number: "02",
     title: "Partnership Agreement",
     description:
       "We create custom terms tailored to your needs — from commission structures to operational requirements.",
+    tags: ["Custom terms", "Commission structure", "Legal framework"],
   },
   {
     number: "03",
     title: "Staff Deployment",
     description:
       "Our trained sales teams arrive at your location, fully equipped with marketing materials and product knowledge.",
+    tags: ["Trained personnel", "Marketing materials", "Product training"],
   },
   {
     number: "04",
     title: "Launch & Support",
     description:
       "We launch your campaign with ongoing support, performance monitoring, and continuous optimization.",
+    tags: ["Campaign launch", "Performance tracking", "Ongoing support"],
   },
 ];
 
@@ -43,7 +47,7 @@ export default function HowItWorks() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -73,31 +77,48 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className="flex flex-col items-center text-center"
+              className="relative pt-10"
             >
-              {/* Number Circle */}
-              <motion.div
-                className="w-20 h-20 rounded-full bg-[rgb(var(--color-secondary))] flex items-center justify-center mb-6 shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span className="text-2xl font-bold text-white">
-                  {step.number}
-                </span>
-              </motion.div>
+              {/* Number Circle - Positioned to overlap card */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
+                <div className="w-20 h-20 rounded-full bg-[rgb(var(--color-secondary))] flex items-center justify-center shadow-lg">
+                  <span className="text-2xl font-bold text-white">
+                    {step.number}
+                  </span>
+                </div>
+              </div>
 
-              {/* Card */}
-              <div className="flex-1 p-6 rounded-3xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] shadow-sm w-full">
+              {/* Card - With padding-top to make room for overlapping number */}
+              <motion.div
+                className="h-full pt-14 pb-6 px-6 rounded-3xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] shadow-sm text-center"
+                whileHover={{
+                  y: -8,
+                  boxShadow: "0 20px 40px -10px rgba(0,0,0,0.1)",
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3">
                   {step.title}
                 </h3>
-                <p className="text-[rgb(var(--color-text-body))] text-sm leading-relaxed">
+                <p className="text-[rgb(var(--color-text-body))] text-sm leading-relaxed mb-4">
                   {step.description}
                 </p>
-              </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 justify-center">
+                  {step.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 rounded-full bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-muted))] text-xs font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
