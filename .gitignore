@@ -144,7 +144,6 @@ vite.config.ts.timestamp-*
 *.rar
 
 # Separate project folders (not part of main project)
-metrosure-insurance/
 metrosure-insurance-about/
 metrosure-insurance-contact-us/
 
