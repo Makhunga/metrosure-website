@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 25, 2025 (Session 9)
+**Date:** December 26, 2025 (Session 10)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -8,112 +8,128 @@
 
 ---
 
-## Project Status: Production-Ready MVP with B2B Visibility
+## Project Status: Production-Ready MVP with Full Email Integration
 
 The website is now a comprehensive site for Metrosure Insurance Brokers with:
-- **22 routes** (19 pages + 2 APIs + 1 dynamic route)
-- **Dual-Audience Messaging** - B2B visible throughout entire page, not just PartnersCTA section
-- **Stakeholder-Ready Animations** - ScrollProgressLine, TextReveal, MagneticButtons, Page Transitions, Parallax Hero
-- **Reusable FormSuccess Component** - Animated success state with SVG checkmark
-- **Careers Page** - Complete with job listings, application form, CV upload
-- **B2B Partner Section** - Prominent visibility in Hero, Features, Products, Testimonials
+- **23 routes** (20 pages + 3 APIs)
+- **Resend Email Integration** - All forms send real emails with CV attachments
+- **Outlook-Compatible Templates** - Table-based HTML for all email clients
+- **POPIA Cookie Consent** - Compliant consent banner with localStorage
+- **Dual-Audience Messaging** - B2B visible throughout entire page
+- **Stakeholder-Ready Animations** - ScrollProgressLine, TextReveal, MagneticButtons, Page Transitions
 - **SEO Ready** - Sitemap, robots.txt, structured data
 
 ### Quick Stats:
 | Metric | Value |
 |--------|-------|
-| Pages | 22 routes |
+| Pages | 23 routes |
+| API Routes | 3 (contact, careers, partner-inquiry) |
 | Build Status | ✅ Successful |
-| Animation Library | 890+ lines (25+ reusable components) |
-| Sitemap | ✅ Auto-generated |
-| B2B Touchpoints | 7+ (Hero, StatsBar, Features, Products, PartnersCTA, Testimonials, Final CTA) |
-| Office Locations | 5 |
+| Email Service | Resend (3k free/month) |
+| Email Templates | Outlook-compatible (table-based) |
+| Cookie Consent | ✅ POPIA compliant |
 
 ---
 
-## Current Session Summary (December 25, 2025 - Session 9)
+## Current Session Summary (December 26, 2025 - Session 10)
 
-**Session Focus:** B2B Visibility Throughout Landing Page - Hero, Stats, Features, Products, Testimonials
+**Session Focus:** Email Integration, Outlook Compatibility, Cookie Consent, CTA Copy
 
 ### Completed This Session:
 
-#### 1. Hero Section - B2B-Inclusive Messaging ✅
+#### 1. CallToAction - Dual-Audience Copy ✅
 
 | Element | Before | After |
 |---------|--------|-------|
-| Headline | "Taking You to the Future" | "Trusted by Families, Powered by Partnerships" |
-| Subheadline | Consumer-focused only | "From protecting your home and loved ones to transforming your retail space into a revenue stream—we help families feel secure and businesses grow. Join the network that's created over 5,000 jobs across South Africa." |
+| Headline | "Ready to feel secure?" | "Ready to grow together?" |
+| Description | Consumer-only | "Whether you're protecting your family or transforming your retail space into a revenue stream—your next chapter starts here." |
 
-**File Modified:** `src/components/Hero.tsx`
+**File Modified:** `src/components/CallToAction.tsx`
 
-#### 2. StatsBar - Added B2B Stat ✅
+#### 2. Resend Email Integration ✅
 
-| Stat | Before | After |
-|------|--------|-------|
-| 4th Stat | "47089 FSP Number" | "100+ Retail Partners" |
+| Feature | Details |
+|---------|---------|
+| Package | `resend` (npm) |
+| Free Tier | 3,000 emails/month |
+| CV Attachments | Base64 buffer attachment |
+| Confirmation Emails | Sent to submitters |
 
-**File Modified:** `src/components/StatsBar.tsx`
+**Files Created/Modified:**
+- `src/lib/email.ts` - Email utility with 10+ helper functions
+- `src/app/api/contact/route.ts` - NEW: Contact form API
+- `src/app/api/careers-application/route.ts` - Updated with Resend
+- `src/app/api/partner-inquiry/route.ts` - Updated with Resend
+- `.env.example` - Template for API key
 
-#### 3. Features Section - B2B Card Added ✅
+#### 3. Outlook-Compatible Email Templates ✅
 
-| Element | Before | After |
-|---------|--------|-------|
-| Badge | "Our Services" | "For Individuals & Businesses" |
-| Description | Consumer-focused | "Whether you're protecting your family or growing your business, we've got you covered. Insurance for individuals, partnership opportunities for retailers—all backed by real people who care." |
-| 4th Card | "Employee Benefits" | "Retail Partnerships" with handshake icon, links to /partners |
+Rewrote all email templates to work in Outlook desktop (which uses Microsoft Word rendering):
 
-**File Modified:** `src/components/Features.tsx`
+| Before | After |
+|--------|-------|
+| `<style>` blocks | Inline `style=""` attributes |
+| `linear-gradient` | Solid `bgcolor` colors |
+| `<div>` layout | `<table role="presentation">` |
+| CSS shorthand | Explicit properties |
 
-#### 4. Products Section - B2B Card Added ✅
+**Helper Functions Created:**
+```typescript
+createFieldRow(label, value)      // Table-based label:value
+createSectionTitle(title)         // Underlined section header
+createMessageBox(content)         // Quoted message box
+createAlertBox(content, type)     // Warning/success/info box
+createSection(content)            // Section container
+createEmailHeader(title, sub)     // Branded header
+createBulletList(items)           // Table-based bullets
+createParagraph(text)             // Styled paragraph
+createLink(href, text)            // Styled link
+wrapEmailTemplate(content, title) // Full wrapper with MSO conditionals
+```
 
-| Element | Before | After |
-|---------|--------|-------|
-| Badge | "What We Offer" | "For You & Your Business" |
-| Heading | "Cover for Every Stage of Life" | "Solutions That Grow With You" |
-| Description | Consumer-focused | "Insurance for families, partnerships for retailers. From protecting what you love to earning from what you own." |
-| 4th Card | "Business & Employee Benefits" | "Retail Partnerships" with storefront icon, tags: Revenue Share, Staff Provided, Zero Overhead |
+#### 4. POPIA Cookie Consent Banner ✅
 
-**File Modified:** `src/components/Products.tsx`
+| Feature | Implementation |
+|---------|----------------|
+| Component | `src/components/CookieConsent.tsx` |
+| Storage | `localStorage` with key `metrosure_cookie_consent` |
+| Options | Accept All / Decline |
+| Appears | After 1.5s delay on first visit |
+| Link | Privacy Policy page |
 
-#### 5. Testimonials Section - Partner Testimonials Added ✅
+**File Created:** `src/components/CookieConsent.tsx`
+**File Modified:** `src/components/ClientLayout.tsx` - Added CookieConsent
 
-| Element | Before | After |
-|---------|--------|-------|
-| Heading | "Real stories, real security" | "From customers & partners" |
-| Testimonials | 5 consumer-only | 6 total (4 consumer + 2 partner) |
-| Partner Visual | N/A | Storefront icon + primary-colored role text |
+#### 5. Contact Form API Integration ✅
 
-**New Partner Testimonials:**
-1. **Lerato Mokoena** - Retail Partner • 12 Locations - "Partnering with Metrosure was the best decision for our stores..."
-2. **Ahmed Patel** - Retail Partner • Furniture Store - "We've created 15 jobs in our community through this partnership..."
+Updated `ContactForm.tsx` to call `/api/contact`:
+- Added `name` attributes to all form fields
+- Added loading states ("Sending...", "Submitting...")
+- Added error display
+- Added `disabled` state during submission
 
-**File Modified:** `src/components/Testimonials.tsx`
-
-#### 6. Mobile Hiring Banner & Hero Spacing (Earlier in Session) ✅
-
-| Fix | Details |
-|-----|---------|
-| Mobile Hiring Banner | Moved to ClientLayout (outside PageTransition) to fix `fixed` positioning |
-| Hero Spacing | Changed all heroes from `pt-32` to `pt-20` |
-| Hero Width | Expanded `max-w-4xl` to `max-w-6xl`, subheadline `max-w-2xl` to `max-w-3xl` |
-
-**Files Modified:** `src/components/ClientLayout.tsx`, `src/components/Hero.tsx`, `src/components/partners/PartnersHero.tsx`, `src/components/careers/CareersHero.tsx`
+**File Modified:** `src/components/contact/ContactForm.tsx`
 
 ---
 
-## B2B Visibility Summary
+## Email Configuration
 
-The B2B partnership opportunity is now visible throughout the entire landing page journey:
+### To Enable Email Sending:
 
-| Section | B2B Element |
-|---------|-------------|
-| Hero | "Powered by Partnerships" headline + paragraph mentioning retail revenue |
-| StatsBar | "100+ Retail Partners" stat |
-| Features | "For Individuals & Businesses" badge + "Retail Partnerships" card |
-| Products | "For You & Your Business" badge + "Retail Partnerships" card |
-| PartnersCTA | Dedicated B2B section (unchanged) |
-| Testimonials | "From customers & partners" heading + 2 partner testimonials with storefront icons |
-| Final CTA | "Become a Partner" button (unchanged) |
+1. **Sign up at [resend.com](https://resend.com)**
+2. **Create an API key**
+3. **Create `.env.local`:**
+   ```
+   RESEND_API_KEY=re_your_api_key_here
+   ```
+4. **For production:** Verify your domain at Resend dashboard
+
+### Email Recipients:
+| Form | Recipient |
+|------|-----------|
+| Contact (message/callback) | info@metrosuregroup.co.za |
+| Career Applications | careers@metrosuregroup.co.za |
+| Partner Inquiries | partnerships@metrosuregroup.co.za |
 
 ---
 
@@ -121,69 +137,45 @@ The B2B partnership opportunity is now visible throughout the entire landing pag
 
 | File | Changes |
 |------|---------|
-| `src/components/Hero.tsx` | New headline, B2B-inclusive paragraph, pt-20 spacing, max-w-6xl |
-| `src/components/StatsBar.tsx` | Replaced FSP with "100+ Retail Partners" |
-| `src/components/Features.tsx` | Badge, description, 4th card = Retail Partnerships |
-| `src/components/Products.tsx` | Badge, heading, description, 4th card = Retail Partnerships |
-| `src/components/Testimonials.tsx` | Header, added 2 partner testimonials with isPartner flag |
-| `src/components/ClientLayout.tsx` | Mobile hiring banner (fixed positioning fix) |
-| `src/components/partners/PartnersHero.tsx` | pt-20 spacing |
-| `src/components/careers/CareersHero.tsx` | pt-20 spacing |
+| `src/components/CallToAction.tsx` | Dual-audience copy |
+| `src/lib/email.ts` | **NEW** - Outlook-compatible email utility |
+| `src/app/api/contact/route.ts` | **NEW** - Contact form API |
+| `src/app/api/careers-application/route.ts` | Resend + Outlook templates |
+| `src/app/api/partner-inquiry/route.ts` | Resend + Outlook templates |
+| `src/components/CookieConsent.tsx` | **NEW** - POPIA consent banner |
+| `src/components/ClientLayout.tsx` | Added CookieConsent |
+| `src/components/contact/ContactForm.tsx` | API integration + loading states |
+| `package.json` | Added resend dependency |
+| `.env.example` | **NEW** - Environment template |
 
 ---
 
-## Previous Session Summary (December 25, 2025 - Session 8)
+## Previous Session Summary (December 25, 2025 - Session 9)
 
-**Session Focus:** Animation Polish - ParallaxFooter, RevealMask, Progress Bars, FormSuccess Component
+**Session Focus:** B2B Visibility Throughout Landing Page
 
-### Completed in Session 8:
-
-#### 1. ParallaxFooter ✅
-Added SmoothParallax to footer columns at varying speeds (0.15-0.30).
-
-#### 2. RevealMask on Feature Cards ✅
-Applied clip-path reveal animation to feature cards with staggered directional reveals.
-
-#### 3. Stats Progress Bars ✅
-Added animated 1px progress bars beneath stat counters.
-
-#### 4. FormSuccess Reusable Component ✅
-Created reusable success animation component with SVG checkmark, ripple effect, and staggered text reveal. Applied to ContactForm, ApplicationForm, and PartnerInquiryForm.
-
----
-
-## Git Status
-
-**Session 8 Committed:** ✅
-```
-26613c5 Add careers page and enhance contact form
-```
-
-**Uncommitted Changes (Session 9):**
-```
-M src/components/Hero.tsx
-M src/components/StatsBar.tsx
-M src/components/Features.tsx
-M src/components/Products.tsx
-M src/components/Testimonials.tsx
-M src/components/ClientLayout.tsx
-M src/components/partners/PartnersHero.tsx
-M src/components/careers/CareersHero.tsx
-+ (other session 8 files if not committed)
-```
+### Completed in Session 9:
+- Hero Section - B2B-inclusive messaging
+- StatsBar - "100+ Retail Partners" stat
+- Features Section - "Retail Partnerships" card
+- Products Section - "Retail Partnerships" card
+- Testimonials - 2 partner testimonials added
+- Mobile hiring banner fix
+- Hero spacing adjustments
 
 ---
 
 ## Build Status
 
-✅ **Build Successful** - 22 routes + Sitemap
+✅ **Build Successful** - 23 routes + Sitemap
 
 ```
 Route (app)
-├ ○ /                                       Landing (B2B visible throughout)
+├ ○ /                                       Landing
 ├ ○ /_not-found                             404 page
 ├ ○ /about                                  About Us
-├ ƒ /api/careers-application                Careers API Route
+├ ƒ /api/careers-application                Careers API
+├ ƒ /api/contact                            Contact API (NEW)
 ├ ƒ /api/partner-inquiry                    Partner Inquiry API
 ├ ○ /careers                                Careers Page
 ├ ○ /claims                                 Claims
@@ -204,29 +196,14 @@ Route (app)
 
 ---
 
-## Landing Page Section Order (B2B Touchpoints Highlighted)
-
-1. Header (fixed nav) + ScrollProgressLine
-2. **Hero** ← "Trusted by Families, Powered by Partnerships" + B2B paragraph
-3. **StatsBar** ← "100+ Retail Partners" stat
-4. **Features** ("For Individuals & Businesses") ← Retail Partnerships card
-5. Approach ("What we believe in")
-6. **Products** ("For You & Your Business") ← Retail Partnerships card
-7. WhyChooseUs
-8. **PartnersCTA** ("Partner With Purpose")
-9. **Testimonials** ("From customers & partners") ← 2 partner testimonials
-10. **CallToAction** ← "Become a Partner" button
-11. Footer
-
----
-
 ## Session History
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 25, 2025** | **S9** | **B2B Visibility** | B2B-inclusive Hero headline/paragraph, StatsBar partner stat, Features/Products B2B cards, Partner testimonials, Mobile hiring banner fix, Hero spacing |
-| Dec 25, 2025 | S8 | Animation Polish | ParallaxFooter, RevealMask cards, Stats progress bars, Reusable FormSuccess component |
-| Dec 25, 2025 | S7 | Wow-Factor Animations | ScrollProgressLine, TextReveal headers, MagneticButtons, Page Transitions |
+| **Dec 26, 2025** | **S10** | **Email & Consent** | Resend integration, Outlook-compatible templates, POPIA cookie consent, CTA dual-audience copy, Contact form API |
+| Dec 25, 2025 | S9 | B2B Visibility | B2B-inclusive Hero, StatsBar partner stat, Features/Products B2B cards, Partner testimonials |
+| Dec 25, 2025 | S8 | Animation Polish | ParallaxFooter, RevealMask cards, Stats progress bars, FormSuccess component |
+| Dec 25, 2025 | S7 | Wow-Factor Animations | ScrollProgressLine, TextReveal, MagneticButtons, Page Transitions |
 | Dec 25, 2025 | S6 | Careers Page | Full careers page (5 components), "We're Hiring" nav badges |
 | Dec 25, 2025 | S5 | Copy Polish | Em-dash cleanup, dual-audience copy, cross-links |
 | Dec 25, 2025 | S4 | B2B Visibility | Hero partner link, PartnersCTA copy rewrite |
@@ -243,10 +220,11 @@ Route (app)
 - **FSP Number:** 47089
 - **Mission:** "Taking you to the future"
 - **Hero Tagline:** "Trusted by Families, Powered by Partnerships"
+- **CTA Tagline:** "Ready to grow together?"
 
 ### Color Palette
-- **Primary:** `rgb(191, 6, 3)` - Brand red
-- **Secondary:** `rgb(105, 0, 37)` - Maroon
+- **Primary:** `rgb(191, 6, 3)` / `#BF0603` - Brand red
+- **Secondary:** `rgb(105, 0, 37)` / `#690025` - Maroon
 - **Accent:** `rgb(239, 242, 160)` - Yellow highlight
 
 ### Office Locations
@@ -262,6 +240,7 @@ Route (app)
 - **Phone:** +27 31 301 1192
 - **Email:** info@metrosuregroup.co.za
 - **Partnerships Email:** partnerships@metrosuregroup.co.za
+- **Careers Email:** careers@metrosuregroup.co.za
 
 ---
 
@@ -279,32 +258,40 @@ npm run build
 rm -rf .next && npm run dev
 ```
 
+### Environment Setup:
+```bash
+# Create .env.local from template
+cp .env.example .env.local
+# Add your Resend API key
+```
+
 ---
 
 ## Next Session Plan
 
-### Priority 1: Form Backend - Email Integration
-```
-[ ] Install nodemailer: npm install nodemailer @types/nodemailer
-[ ] Configure SMTP in .env.local
-[ ] Add email functionality to all forms
-```
-
-### Priority 2: POPIA Cookie Consent
-```
-[ ] Create CookieConsent.tsx component
-[ ] Sticky bottom banner with Accept/Decline
-[ ] Store preference in localStorage
-```
-
-### Priority 3: Performance & Testing
+### Priority 1: Performance & Testing
 ```
 [ ] Run Lighthouse audit
 [ ] Test all forms on mobile
-[ ] Cross-browser testing
+[ ] Cross-browser testing (Chrome, Firefox, Safari)
+[ ] Test emails in Outlook desktop
+```
+
+### Priority 2: Production Deployment
+```
+[ ] Verify domain with Resend
+[ ] Set up production environment variables
+[ ] Deploy to Vercel/hosting
+```
+
+### Priority 3: Enhancements
+```
+[ ] Quote form API integration
+[ ] Google Analytics / tracking
+[ ] Error monitoring (Sentry)
 ```
 
 ---
 
-*Document updated: December 25, 2025 - Session 9 Complete*
+*Document updated: December 26, 2025 - Session 10 Complete*
 *Next review: Start of next development session*

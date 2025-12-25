@@ -76,7 +76,7 @@ export default function CallToAction() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Ready to feel secure?
+            Ready to grow together?
           </motion.h2>
           <motion.p
             className="text-xl text-white/90 max-w-2xl font-medium"
@@ -84,8 +84,8 @@ export default function CallToAction() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Join thousands of others who have switched to a smarter, more human way of insuring
-            their future.
+            Whether you're protecting your family or transforming your retail space into a revenue
+            stream—your next chapter starts here.
           </motion.p>
 
           <motion.div

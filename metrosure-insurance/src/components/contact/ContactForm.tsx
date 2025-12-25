@@ -6,6 +6,11 @@ import { FormSuccess } from "@/components/ui/FormSuccess";
 
 type ContactTab = "message" | "callback";
 
+interface FormState {
+  isSubmitting: boolean;
+  error: string | null;
+}
+
 const callbackReasons = [
   { value: "", label: "Select a reason..." },
   { value: "car-insurance", label: "Car Insurance" },
@@ -29,20 +34,88 @@ export default function ContactForm() {
   const [callbackSent, setCallbackSent] = useState(false);
   const [callbackReason, setCallbackReason] = useState("");
   const [otherReason, setOtherReason] = useState("");
+  const [formState, setFormState] = useState<FormState>({ isSubmitting: false, error: null });
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const handleMessageSubmit = (e: React.FormEvent) => {
+  const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setMessageSent(true);
+    setFormState({ isSubmitting: true, error: null });
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "message",
+          name: formData.get("name"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message"),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      setMessageSent(true);
+      form.reset();
+    } catch (error) {
+      setFormState({
+        isSubmitting: false,
+        error: error instanceof Error ? error.message : "Something went wrong",
+      });
+    } finally {
+      setFormState(prev => ({ ...prev, isSubmitting: false }));
+    }
   };
 
-  const handleCallbackSubmit = (e: React.FormEvent) => {
+  const handleCallbackSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCallbackSent(true);
-    // Reset form state
-    setCallbackReason("");
-    setOtherReason("");
+    setFormState({ isSubmitting: true, error: null });
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "callback",
+          name: formData.get("cb_name"),
+          phone: formData.get("cb_phone"),
+          reason: callbackReason,
+          otherReason: callbackReason === "other" ? otherReason : undefined,
+          preferredDate: formData.get("cb_date"),
+          preferredTime: formData.get("cb_time"),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit request");
+      }
+
+      setCallbackSent(true);
+      setCallbackReason("");
+      setOtherReason("");
+      form.reset();
+    } catch (error) {
+      setFormState({
+        isSubmitting: false,
+        error: error instanceof Error ? error.message : "Something went wrong",
+      });
+    } finally {
+      setFormState(prev => ({ ...prev, isSubmitting: false }));
+    }
   };
 
   const handleOtherReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -183,6 +256,7 @@ export default function ContactForm() {
                           <input
                             className={inputClasses}
                             id="name"
+                            name="name"
                             placeholder="Jane Doe"
                             required
                             type="text"
@@ -199,6 +273,7 @@ export default function ContactForm() {
                           <input
                             className={inputClasses}
                             id="email"
+                            name="email"
                             placeholder="jane@company.com"
                             required
                             type="email"
@@ -214,7 +289,7 @@ export default function ContactForm() {
                           Topic
                         </label>
                         <div className="relative">
-                          <select className={`${inputClasses} appearance-none pr-12`} id="subject">
+                          <select className={`${inputClasses} appearance-none pr-12`} id="subject" name="subject">
                             <option>General Inquiry</option>
                             <option>Claim Status</option>
                             <option>Partnership Opportunity</option>
@@ -236,6 +311,7 @@ export default function ContactForm() {
                         <textarea
                           className={`${inputClasses} resize-none`}
                           id="message"
+                          name="message"
                           placeholder="How can we help?"
                           required
                           rows={4}
@@ -247,13 +323,17 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                       >
+                        {formState.error && (
+                          <p className="text-red-500 text-sm mb-3">{formState.error}</p>
+                        )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                           type="submit"
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          whileTap={{ scale: 0.98 }}
+                          disabled={formState.isSubmitting}
+                          whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}
+                          whileTap={formState.isSubmitting ? {} : { scale: 0.98 }}
                         >
-                          Send Message
+                          {formState.isSubmitting ? "Sending..." : "Send Message"}
                         </motion.button>
                       </motion.div>
                     </form>
@@ -303,6 +383,7 @@ export default function ContactForm() {
                         <input
                           className={inputClasses}
                           id="cb_name"
+                          name="cb_name"
                           placeholder="John Smith"
                           required
                           type="text"
@@ -319,6 +400,7 @@ export default function ContactForm() {
                         <input
                           className={inputClasses}
                           id="cb_phone"
+                          name="cb_phone"
                           placeholder="+27 XX XXX XXXX"
                           required
                           type="tel"
@@ -399,7 +481,7 @@ export default function ContactForm() {
                           <label className={labelClasses} htmlFor="cb_date">
                             Preferred Date
                           </label>
-                          <input className={inputClasses} id="cb_date" required type="date" />
+                          <input className={inputClasses} id="cb_date" name="cb_date" required type="date" />
                         </motion.div>
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
@@ -413,6 +495,7 @@ export default function ContactForm() {
                             <select
                               className={`${inputClasses} appearance-none pr-12`}
                               id="cb_time"
+                              name="cb_time"
                             >
                               <option>Morning (9AM - 12PM)</option>
                               <option>Afternoon (12PM - 4PM)</option>
@@ -430,13 +513,17 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                       >
+                        {formState.error && (
+                          <p className="text-red-500 text-sm mb-3">{formState.error}</p>
+                        )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                           type="submit"
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          whileTap={{ scale: 0.98 }}
+                          disabled={formState.isSubmitting}
+                          whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}
+                          whileTap={formState.isSubmitting ? {} : { scale: 0.98 }}
                         >
-                          Schedule Call
+                          {formState.isSubmitting ? "Submitting..." : "Schedule Call"}
                         </motion.button>
                       </motion.div>
                     </form>

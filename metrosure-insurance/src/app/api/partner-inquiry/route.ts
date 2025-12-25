@@ -1,4 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  sendEmail,
+  emailTo,
+  wrapEmailTemplate,
+  createEmailHeader,
+  createSectionTitle,
+  createFieldRow,
+  createSection,
+  createMessageBox,
+  createAlertBox,
+  createBulletList,
+  createParagraph,
+  createLink
+} from "@/lib/email";
 
 interface PartnerInquiryData {
   companyName: string;
@@ -20,7 +34,7 @@ interface PartnerInquiryData {
 // Service label mapping
 const serviceLabels: Record<string, string> = {
   "instore-campaigns": "In-Store Insurance Campaigns",
-  "outsourced-sales": "Outsourced Sales & Marketing",
+  "outsourced-sales": "Outsourced Sales &amp; Marketing",
   "credit-facility": "In-Store Credit Facility"
 };
 
@@ -67,44 +81,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the submission (in production, this would send an email or save to database)
+    // Generate email content
+    const emailHtml = generateEmailTemplate(data);
+
+    // Send notification email to partnerships team
+    await sendEmail({
+      to: emailTo.partnerships,
+      subject: `New Partnership Inquiry: ${data.companyName}`,
+      html: emailHtml,
+      replyTo: data.email,
+    });
+
+    // Log the submission
     console.log("=== NEW PARTNER INQUIRY ===");
     console.log(JSON.stringify(data, null, 2));
     console.log("===========================");
 
-    // Generate email content for when email is configured
-    const emailHtml = generateEmailTemplate(data);
-    console.log("Email template generated:");
-    console.log(emailHtml);
-
-    // TODO: When SMTP is configured, uncomment and configure:
-    //
-    // import nodemailer from 'nodemailer';
-    //
-    // const transporter = nodemailer.createTransport({
-    //   host: process.env.SMTP_HOST,
-    //   port: parseInt(process.env.SMTP_PORT || '587'),
-    //   secure: false,
-    //   auth: {
-    //     user: process.env.SMTP_USER,
-    //     pass: process.env.SMTP_PASS,
-    //   },
-    // });
-    //
-    // await transporter.sendMail({
-    //   from: process.env.SMTP_FROM || 'no-reply@metrosuregroup.co.za',
-    //   to: process.env.PARTNER_INQUIRY_EMAIL || 'partnerships@metrosuregroup.co.za',
-    //   subject: `New Partnership Inquiry: ${data.companyName}`,
-    //   html: emailHtml,
-    // });
-    //
-    // // Send confirmation email to the inquirer
-    // await transporter.sendMail({
-    //   from: process.env.SMTP_FROM || 'no-reply@metrosuregroup.co.za',
-    //   to: data.email,
-    //   subject: `Thank you for your partnership inquiry - Metrosure`,
-    //   html: generateConfirmationEmail(data),
-    // });
+    // Send confirmation email to the inquirer
+    await sendEmail({
+      to: data.email,
+      subject: `Thank you for your partnership inquiry - Metrosure`,
+      html: generateConfirmationEmail(data),
+    });
 
     return NextResponse.json(
       {
@@ -127,176 +125,92 @@ function generateEmailTemplate(data: PartnerInquiryData): string {
     ? data.servicesInterested.map(s => serviceLabels[s] || s).join(", ")
     : "Not specified";
 
-  return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <title>New Partnership Inquiry</title>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #BF0603, #690025); color: white; padding: 30px; border-radius: 10px 10px 0 0; }
-        .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-        .section { margin-bottom: 25px; }
-        .section-title { font-size: 14px; font-weight: bold; color: #BF0603; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #BF0603; padding-bottom: 5px; }
-        .field { margin-bottom: 10px; }
-        .label { font-weight: bold; color: #555; }
-        .value { color: #333; }
-        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="header">
-          <h1 style="margin: 0;">New Partnership Inquiry</h1>
-          <p style="margin: 10px 0 0 0; opacity: 0.9;">Received from ${data.companyName}</p>
-        </div>
+  const content = `
+    ${createEmailHeader("New Partnership Inquiry", `From ${data.companyName}`)}
 
-        <div class="content">
-          <div class="section">
-            <div class="section-title">Business Information</div>
-            <div class="field">
-              <span class="label">Company Name:</span>
-              <span class="value">${data.companyName}</span>
-            </div>
-            <div class="field">
-              <span class="label">Business Type:</span>
-              <span class="value">${data.businessType}</span>
-            </div>
-            <div class="field">
-              <span class="label">Number of Locations:</span>
-              <span class="value">${data.numberOfLocations}</span>
-            </div>
-          </div>
+    ${createSection(`
+      ${createSectionTitle("Business Information")}
+      ${createFieldRow("Company Name:", data.companyName)}
+      ${createFieldRow("Business Type:", data.businessType)}
+      ${createFieldRow("Number of Locations:", data.numberOfLocations)}
+    `)}
 
-          <div class="section">
-            <div class="section-title">Contact Information</div>
-            <div class="field">
-              <span class="label">Contact Name:</span>
-              <span class="value">${data.contactName}</span>
-            </div>
-            <div class="field">
-              <span class="label">Job Title:</span>
-              <span class="value">${data.jobTitle}</span>
-            </div>
-            <div class="field">
-              <span class="label">Email:</span>
-              <span class="value"><a href="mailto:${data.email}">${data.email}</a></span>
-            </div>
-            <div class="field">
-              <span class="label">Phone:</span>
-              <span class="value"><a href="tel:${data.phone}">${data.phone}</a></span>
-            </div>
-          </div>
+    ${createSection(`
+      ${createSectionTitle("Contact Information")}
+      ${createFieldRow("Contact Name:", data.contactName)}
+      ${createFieldRow("Job Title:", data.jobTitle)}
+      ${createFieldRow("Email:", createLink(`mailto:${data.email}`, data.email))}
+      ${createFieldRow("Phone:", createLink(`tel:${data.phone}`, data.phone))}
+    `)}
 
-          <div class="section">
-            <div class="section-title">Location</div>
-            <div class="field">
-              <span class="label">Province:</span>
-              <span class="value">${data.province}</span>
-            </div>
-            <div class="field">
-              <span class="label">City/Town:</span>
-              <span class="value">${data.city}</span>
-            </div>
-          </div>
+    ${createSection(`
+      ${createSectionTitle("Location")}
+      ${createFieldRow("Province:", data.province)}
+      ${createFieldRow("City/Town:", data.city)}
+    `)}
 
-          <div class="section">
-            <div class="section-title">Partnership Interest</div>
-            <div class="field">
-              <span class="label">Services Interested:</span>
-              <span class="value">${servicesHtml}</span>
-            </div>
-            <div class="field">
-              <span class="label">Current Foot Traffic:</span>
-              <span class="value">${data.currentFootTraffic || "Not specified"}</span>
-            </div>
-          </div>
+    ${createSection(`
+      ${createSectionTitle("Partnership Interest")}
+      ${createFieldRow("Services Interested:", servicesHtml)}
+      ${createFieldRow("Current Foot Traffic:", data.currentFootTraffic || "Not specified")}
+    `)}
 
-          ${data.message ? `
-          <div class="section">
-            <div class="section-title">Additional Message</div>
-            <p>${data.message}</p>
-          </div>
-          ` : ""}
+    ${data.message ? createSection(`
+      ${createSectionTitle("Additional Message")}
+      ${createMessageBox(data.message.replace(/\n/g, '<br />'))}
+    `) : ""}
 
-          <div class="section">
-            <div class="section-title">Consent</div>
-            <div class="field">
-              <span class="label">Marketing Consent:</span>
-              <span class="value">${data.marketingConsent ? "Yes" : "No"}</span>
-            </div>
-          </div>
-        </div>
+    ${createSection(`
+      ${createSectionTitle("Consent")}
+      ${createFieldRow("Marketing Consent:", data.marketingConsent ? "Yes" : "No")}
+    `)}
 
-        <div class="footer">
-          <p>This inquiry was submitted via the Metrosure Partners page.</p>
-          <p>Please respond within 24 hours.</p>
-        </div>
-      </div>
-    </body>
-    </html>
+    ${createAlertBox("<strong>Action Required:</strong> Please respond within 24 hours.", "warning")}
   `;
+
+  return wrapEmailTemplate(content, "New Partnership Inquiry");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function generateConfirmationEmail(data: PartnerInquiryData): string {
-  return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <title>Thank You for Your Inquiry</title>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #BF0603, #690025); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
-        .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-        .cta { display: inline-block; background: #BF0603; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; margin-top: 20px; }
-        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="header">
-          <h1 style="margin: 0;">Thank You, ${data.contactName}!</h1>
-          <p style="margin: 10px 0 0 0; opacity: 0.9;">We've received your partnership inquiry</p>
-        </div>
+  const content = `
+    ${createEmailHeader(`Thank You, ${data.contactName}!`, "We've received your partnership inquiry")}
 
-        <div class="content">
-          <p>Dear ${data.contactName},</p>
+    ${createParagraph(`Dear ${data.contactName},`)}
 
-          <p>Thank you for your interest in partnering with Metrosure Insurance Brokers. We're excited about the possibility of working with <strong>${data.companyName}</strong>.</p>
+    ${createParagraph(`Thank you for your interest in partnering with <strong>Metrosure Insurance Brokers</strong>. We're excited about the possibility of working with <strong>${data.companyName}</strong>.`)}
 
-          <p>Our partnership team will review your inquiry and get back to you within <strong>24 hours</strong>. In the meantime, here's what you can expect:</p>
+    ${createParagraph("Our partnership team will review your inquiry and get back to you within <strong>24 hours</strong>. In the meantime, here's what you can expect:")}
 
-          <ul>
-            <li>A call from our partnership manager to discuss your needs</li>
-            <li>A customized proposal based on your business profile</li>
-            <li>Information about our revenue-sharing model</li>
-          </ul>
+    ${createBulletList([
+      "A call from our partnership manager to discuss your needs",
+      "A customized proposal based on your business profile",
+      "Information about our revenue-sharing model",
+      "Details on how we provide trained staff at zero cost to you"
+    ])}
 
-          <p>If you have any urgent questions, feel free to contact us:</p>
-          <ul>
-            <li>Phone: <a href="tel:+27313011192">+27 31 301 1192</a></li>
-            <li>Email: <a href="mailto:partnerships@metrosuregroup.co.za">partnerships@metrosuregroup.co.za</a></li>
-          </ul>
+    ${createSection(`
+      ${createSectionTitle("Why Partner With Us?")}
+      ${createBulletList([
+        "<strong>Zero Overhead:</strong> We provide staff, training, and marketing materials",
+        "<strong>Revenue Share:</strong> Earn from every policy sold in your store",
+        "<strong>Job Creation:</strong> Help create employment in your community",
+        "<strong>Full Support:</strong> Ongoing training and management support"
+      ])}
+    `)}
 
-          <p>We look forward to helping you transform your retail space into a revenue engine!</p>
+    ${createParagraph("If you have any urgent questions, feel free to contact us:")}
 
-          <p>
-            Best regards,<br>
-            <strong>Metrosure Partnership Team</strong>
-          </p>
-        </div>
+    ${createFieldRow("Phone:", createLink("tel:+27313011192", "+27 31 301 1192"))}
+    ${createFieldRow("Email:", createLink("mailto:partnerships@metrosuregroup.co.za", "partnerships@metrosuregroup.co.za"))}
 
-        <div class="footer">
-          <p>Metrosure Insurance Brokers (Pty) Ltd | FSP 47089</p>
-          <p>391 Anton Lembede Street, Metropolitan Life Building, 5th Floor, Durban 4001</p>
-        </div>
-      </div>
-    </body>
-    </html>
+    ${createParagraph("We look forward to helping you transform your retail space into a revenue engine!")}
+
+    ${createParagraph("Best regards,<br /><strong>Metrosure Partnership Team</strong>")}
   `;
+
+  return wrapEmailTemplate(content, "Thank You for Your Partnership Inquiry");
+}
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { status: 200 });
 }

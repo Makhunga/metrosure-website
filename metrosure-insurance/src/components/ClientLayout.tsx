@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
 import PageWipe from "./PageWipe";
+import CookieConsent from "./CookieConsent";
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -59,6 +60,9 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
           </span>
         </Link>
       </motion.div>
+
+      {/* POPIA Cookie Consent Banner */}
+      <CookieConsent />
     </>
   );
 }
