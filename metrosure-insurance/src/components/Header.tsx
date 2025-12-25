@@ -32,6 +32,7 @@ export default function Header() {
   ];
 
   return (
+    <>
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -91,11 +92,11 @@ export default function Header() {
           </nav>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Theme Toggle - hidden on very small screens, shown on sm+ */}
             <motion.button
               onClick={toggleTheme}
-              className="p-2 text-[rgb(var(--color-text-body))] hover:text-primary transition-colors rounded-full hover:bg-[rgb(var(--color-surface))]"
+              className="hidden sm:flex p-2 text-[rgb(var(--color-text-body))] hover:text-primary transition-colors rounded-full hover:bg-[rgb(var(--color-surface))]"
               aria-label="Toggle dark mode"
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
@@ -217,10 +218,34 @@ export default function Header() {
                   Log in
                 </Link>
               </motion.div>
+              {/* Theme Toggle in Mobile Menu */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center justify-between py-3 px-4"
+              >
+                <span className="text-base font-semibold text-[rgb(var(--color-text-body))]">
+                  Theme
+                </span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))]"
+                >
+                  <span className="material-symbols-outlined text-lg text-[rgb(var(--color-text-body))]">
+                    {resolvedTheme === "dark" ? "dark_mode" : "light_mode"}
+                  </span>
+                  <span className="text-sm text-[rgb(var(--color-text-body))]">
+                    {resolvedTheme === "dark" ? "Dark" : "Light"}
+                  </span>
+                </button>
+              </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
     </motion.header>
+    </>
   );
 }

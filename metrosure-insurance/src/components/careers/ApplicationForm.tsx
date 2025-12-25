@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { FormSuccess } from "@/components/ui/FormSuccess";
 
 interface ApplicationFormProps {
   id?: string;
@@ -321,39 +322,13 @@ export default function ApplicationForm({
             <div className="bg-[rgb(var(--color-surface-card))] rounded-3xl p-8 md:p-10 shadow-xl border border-[rgb(var(--color-border-light))]">
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
-                  <motion.div
-                    key="success"
-                    className="text-center py-12"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                  >
-                    <motion.div
-                      className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    >
-                      <span className="material-symbols-outlined text-green-600 text-4xl">
-                        check_circle
-                      </span>
-                    </motion.div>
-                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))] mb-4">
-                      Application Received!
-                    </h3>
-                    <p className="text-[rgb(var(--color-text-body))] mb-8 max-w-md mx-auto">
-                      Thank you for applying to join Metrosure. We&apos;ll review
-                      your application and get back to you within 48 hours.
-                    </p>
-                    <motion.button
-                      onClick={resetForm}
-                      className="px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-[rgb(var(--color-primary-hover))] transition-colors"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Apply for Another Position
-                    </motion.button>
-                  </motion.div>
+                  <FormSuccess
+                    title="Application Received!"
+                    description="Thank you for applying to join Metrosure. We'll review your application and get back to you within 48 hours."
+                    buttonText="Apply for Another Position"
+                    onReset={resetForm}
+                    accentColor="green"
+                  />
                 ) : (
                   <motion.form
                     key="form"

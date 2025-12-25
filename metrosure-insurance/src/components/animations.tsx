@@ -854,12 +854,14 @@ interface RevealMaskProps {
   children: ReactNode;
   className?: string;
   direction?: "left" | "right" | "up" | "down";
+  delay?: number;
 }
 
 export function RevealMask({
   children,
   className = "",
-  direction = "left"
+  direction = "left",
+  delay = 0
 }: RevealMaskProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
@@ -877,7 +879,7 @@ export function RevealMask({
       className={`relative ${className}`}
       initial={{ clipPath: clipPaths[direction][0] }}
       animate={isInView ? { clipPath: clipPaths[direction][1] } : {}}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

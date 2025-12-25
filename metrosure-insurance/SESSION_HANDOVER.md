@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 25, 2025 (Session 7)
+**Date:** December 25, 2025 (Session 9)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -8,334 +8,168 @@
 
 ---
 
-## Project Status: Production-Ready MVP with Wow-Factor Animations
+## Project Status: Production-Ready MVP with B2B Visibility
 
 The website is now a comprehensive site for Metrosure Insurance Brokers with:
 - **22 routes** (19 pages + 2 APIs + 1 dynamic route)
+- **Dual-Audience Messaging** - B2B visible throughout entire page, not just PartnersCTA section
 - **Stakeholder-Ready Animations** - ScrollProgressLine, TextReveal, MagneticButtons, Page Transitions, Parallax Hero
+- **Reusable FormSuccess Component** - Animated success state with SVG checkmark
 - **Careers Page** - Complete with job listings, application form, CV upload
-- **B2B Partner Section** - Complete with inquiry form + prominent landing page visibility
+- **B2B Partner Section** - Prominent visibility in Hero, Features, Products, Testimonials
 - **SEO Ready** - Sitemap, robots.txt, structured data
-- **5 Office Locations** - Updated across all pages
-- **Dual-Audience Home Page** - Both consumers and B2B partners addressed
 
 ### Quick Stats:
 | Metric | Value |
 |--------|-------|
 | Pages | 22 routes |
 | Build Status | ✅ Successful |
-| Animation Library | 885 lines (25+ reusable components) |
+| Animation Library | 890+ lines (25+ reusable components) |
 | Sitemap | ✅ Auto-generated |
-| Structured Data | ✅ JSON-LD |
+| B2B Touchpoints | 7+ (Hero, StatsBar, Features, Products, PartnersCTA, Testimonials, Final CTA) |
 | Office Locations | 5 |
-| Landing Page Components | 11 |
-| B2B Touchpoints | 3 (Hero, PartnersCTA, Final CTA) |
 
 ---
 
-## Current Session Summary (December 25, 2025 - Session 7)
+## Current Session Summary (December 25, 2025 - Session 9)
 
-**Session Focus:** Stakeholder Wow-Factor Enhancements - Animations, Parallax, Page Transitions
+**Session Focus:** B2B Visibility Throughout Landing Page - Hero, Stats, Features, Products, Testimonials
 
 ### Completed This Session:
 
-#### 1. ScrollProgressLine - COMPLETE ✅
+#### 1. Hero Section - B2B-Inclusive Messaging ✅
 
-Added brand-red progress bar at top of page that fills as user scrolls.
+| Element | Before | After |
+|---------|--------|-------|
+| Headline | "Taking You to the Future" | "Trusted by Families, Powered by Partnerships" |
+| Subheadline | Consumer-focused only | "From protecting your home and loved ones to transforming your retail space into a revenue stream—we help families feel secure and businesses grow. Join the network that's created over 5,000 jobs across South Africa." |
 
-| File | Change |
-|------|--------|
-| `src/components/ClientLayout.tsx` | **NEW** - Client wrapper with ScrollProgressLine |
-| `src/app/layout.tsx` | Wrapped children with ClientLayout |
+**File Modified:** `src/components/Hero.tsx`
 
-#### 2. TextReveal on Section Headers - COMPLETE ✅
+#### 2. StatsBar - Added B2B Stat ✅
 
-Applied word-by-word reveal animation to 5 section headers:
+| Stat | Before | After |
+|------|--------|-------|
+| 4th Stat | "47089 FSP Number" | "100+ Retail Partners" |
 
-| Component | Header Text |
-|-----------|-------------|
-| Features.tsx | "What we can do for you" |
-| Approach.tsx | "What we believe in" |
-| Products.tsx | "Cover for Every Stage of Life" |
-| WhyChooseUs.tsx | "People trust us because we put them first" |
-| Testimonials.tsx | "Real stories, real security" |
+**File Modified:** `src/components/StatsBar.tsx`
 
-#### 3. MagneticButton on CTAs - COMPLETE ✅
+#### 3. Features Section - B2B Card Added ✅
 
-Applied cursor-following magnetic effect to primary CTA buttons:
+| Element | Before | After |
+|---------|--------|-------|
+| Badge | "Our Services" | "For Individuals & Businesses" |
+| Description | Consumer-focused | "Whether you're protecting your family or growing your business, we've got you covered. Insurance for individuals, partnership opportunities for retailers—all backed by real people who care." |
+| 4th Card | "Employee Benefits" | "Retail Partnerships" with handshake icon, links to /partners |
 
-| Component | Button |
-|-----------|--------|
-| Hero.tsx | "Start Your Quote" |
-| CallToAction.tsx | "Get Your Free Quote" + "Become a Partner" |
-| PartnersCTA.tsx | "Become a Partner" |
+**File Modified:** `src/components/Features.tsx`
 
-#### 4. Page Transitions - COMPLETE ✅
+#### 4. Products Section - B2B Card Added ✅
 
-Created two toggleable transition styles:
+| Element | Before | After |
+|---------|--------|-------|
+| Badge | "What We Offer" | "For You & Your Business" |
+| Heading | "Cover for Every Stage of Life" | "Solutions That Grow With You" |
+| Description | Consumer-focused | "Insurance for families, partnerships for retailers. From protecting what you love to earning from what you own." |
+| 4th Card | "Business & Employee Benefits" | "Retail Partnerships" with storefront icon, tags: Revenue Share, Staff Provided, Zero Overhead |
 
-| Component | Effect |
-|-----------|--------|
-| `PageTransition.tsx` | Blur fade + slide (subtle, elegant) |
-| `PageWipe.tsx` | Full-screen brand-red wipe (dramatic) |
+**File Modified:** `src/components/Products.tsx`
 
-**Toggle in `ClientLayout.tsx` line 16:**
-```tsx
-const TRANSITION_STYLE: "wipe" | "fade" | "both" = "both";
-```
+#### 5. Testimonials Section - Partner Testimonials Added ✅
 
-#### 5. Hero Parallax Image Section - COMPLETE ✅
+| Element | Before | After |
+|---------|--------|-------|
+| Heading | "Real stories, real security" | "From customers & partners" |
+| Testimonials | 5 consumer-only | 6 total (4 consumer + 2 partner) |
+| Partner Visual | N/A | Storefront icon + primary-colored role text |
 
-Transformed Hero into split layout with parallax image (desktop):
+**New Partner Testimonials:**
+1. **Lerato Mokoena** - Retail Partner • 12 Locations - "Partnering with Metrosure was the best decision for our stores..."
+2. **Ahmed Patel** - Retail Partner • Furniture Store - "We've created 15 jobs in our community through this partnership..."
 
-| Element | Effect |
-|---------|--------|
-| Background gradient layer | Parallax speed 0.2 |
-| Main family image | Parallax speed 0.4, scale/rotate entrance |
-| "FSP Authorised" floating card | Parallax speed 0.6, floating animation |
-| "5,000+ Jobs" floating card | Parallax speed 0.5, floating animation |
+**File Modified:** `src/components/Testimonials.tsx`
+
+#### 6. Mobile Hiring Banner & Hero Spacing (Earlier in Session) ✅
+
+| Fix | Details |
+|-----|---------|
+| Mobile Hiring Banner | Moved to ClientLayout (outside PageTransition) to fix `fixed` positioning |
+| Hero Spacing | Changed all heroes from `pt-32` to `pt-20` |
+| Hero Width | Expanded `max-w-4xl` to `max-w-6xl`, subheadline `max-w-2xl` to `max-w-3xl` |
+
+**Files Modified:** `src/components/ClientLayout.tsx`, `src/components/Hero.tsx`, `src/components/partners/PartnersHero.tsx`, `src/components/careers/CareersHero.tsx`
 
 ---
 
-## Files Created This Session (Session 7)
+## B2B Visibility Summary
 
-| File | Description |
-|------|-------------|
-| `src/components/ClientLayout.tsx` | Client wrapper with ScrollProgressLine + transitions |
-| `src/components/PageTransition.tsx` | Blur fade page transition |
-| `src/components/PageWipe.tsx` | Dramatic brand wipe transition |
+The B2B partnership opportunity is now visible throughout the entire landing page journey:
 
-## Files Modified This Session (Session 7)
+| Section | B2B Element |
+|---------|-------------|
+| Hero | "Powered by Partnerships" headline + paragraph mentioning retail revenue |
+| StatsBar | "100+ Retail Partners" stat |
+| Features | "For Individuals & Businesses" badge + "Retail Partnerships" card |
+| Products | "For You & Your Business" badge + "Retail Partnerships" card |
+| PartnersCTA | Dedicated B2B section (unchanged) |
+| Testimonials | "From customers & partners" heading + 2 partner testimonials with storefront icons |
+| Final CTA | "Become a Partner" button (unchanged) |
+
+---
+
+## Files Modified This Session
 
 | File | Changes |
 |------|---------|
-| `src/app/layout.tsx` | Added ClientLayout wrapper |
-| `src/components/Hero.tsx` | Split layout, parallax image, floating cards, MagneticButton |
-| `src/components/Features.tsx` | TextReveal header |
-| `src/components/Approach.tsx` | TextReveal header |
-| `src/components/Products.tsx` | TextReveal header |
-| `src/components/WhyChooseUs.tsx` | TextReveal header |
-| `src/components/Testimonials.tsx` | TextReveal header |
-| `src/components/CallToAction.tsx` | MagneticButton CTAs |
-| `src/components/PartnersCTA.tsx` | MagneticButton CTA |
+| `src/components/Hero.tsx` | New headline, B2B-inclusive paragraph, pt-20 spacing, max-w-6xl |
+| `src/components/StatsBar.tsx` | Replaced FSP with "100+ Retail Partners" |
+| `src/components/Features.tsx` | Badge, description, 4th card = Retail Partnerships |
+| `src/components/Products.tsx` | Badge, heading, description, 4th card = Retail Partnerships |
+| `src/components/Testimonials.tsx` | Header, added 2 partner testimonials with isPartner flag |
+| `src/components/ClientLayout.tsx` | Mobile hiring banner (fixed positioning fix) |
+| `src/components/partners/PartnersHero.tsx` | pt-20 spacing |
+| `src/components/careers/CareersHero.tsx` | pt-20 spacing |
 
 ---
 
-## Animation Library Reference
+## Previous Session Summary (December 25, 2025 - Session 8)
 
-The codebase has an **885-line animation library** at `src/components/animations.tsx`:
+**Session Focus:** Animation Polish - ParallaxFooter, RevealMask, Progress Bars, FormSuccess Component
 
-### Available Components (Ready to Use)
+### Completed in Session 8:
 
-| Component | Description | Used? |
-|-----------|-------------|-------|
-| `ScrollReveal` | Fade in on scroll | ✅ Yes |
-| `StaggerReveal` | Staggered entrance for groups | ✅ Yes |
-| `Parallax` | Scroll-based parallax movement | ✅ Yes |
-| `SmoothParallax` | Parallax with spring smoothing | ✅ Yes (S7) |
-| `TextReveal` | Word-by-word text animation | ✅ Yes (S7) |
-| `CharReveal` | Character-by-character reveal | ❌ Not yet |
-| `HoverCard` | 3D tilt effect on mouse | ✅ Yes |
-| `MagneticButton` | Button follows cursor | ✅ Yes (S7) |
-| `AnimatedGradient` | Looping background gradient | ❌ Not yet |
-| `Counter` | Animated number counter | ✅ Yes |
-| `ScrollProgressLine` | Page scroll progress bar | ✅ Yes (S7) |
-| `Floating` | Floating animation loop | ✅ Yes (S7) |
-| `DrawPath` | SVG path drawing animation | ❌ Not yet |
-| `ScaleOnScroll` | Element scales on scroll | ❌ Not yet |
-| `RevealMask` | Clip-path reveal effect | ❌ Not yet |
+#### 1. ParallaxFooter ✅
+Added SmoothParallax to footer columns at varying speeds (0.15-0.30).
 
-### Available Variants
+#### 2. RevealMask on Feature Cards ✅
+Applied clip-path reveal animation to feature cards with staggered directional reveals.
 
-| Variant | Description |
-|---------|-------------|
-| `fadeInUp` | Fade in from bottom |
-| `fadeInLeft` | Fade in from left |
-| `fadeInRight` | Fade in from right |
-| `scaleUp` | Scale entrance |
-| `diagonalSlide` | Diagonal entrance with rotation |
-| `revealUp` | Reveal with overshoot |
-| `scaleRotate` | Icon entrance with rotation |
-| `blurFade` | Premium blur effect |
-| `elasticPop` | Elastic button pop |
-| `cardLiftHover` | Card lift on hover |
-| `iconBounceHover` | Icon bounce with rotation |
-| `buttonPress` | Button press feedback |
+#### 3. Stats Progress Bars ✅
+Added animated 1px progress bars beneath stat counters.
 
----
-
-## UI/UX Enhancement Backlog (Future Sessions)
-
-### High Priority - Visible Impact
-
-| Enhancement | Description | Effort |
-|-------------|-------------|--------|
-| **Parallax Footer** | Footer rises from behind content as you scroll | 20 min |
-| **RevealMask on Cards** | Dramatic clip-path reveals for feature cards | 20 min |
-| **Stats Progress Bars** | Animated bars under StatsBar counters | 15 min |
-| **Form Success Animation** | Animated checkmark with DrawPath on submit | 20 min |
-
-### Medium Priority - Polish
-
-| Enhancement | Description | Effort |
-|-------------|-------------|--------|
-| **CharReveal for Headlines** | Character-by-character reveal for major headlines | 10 min |
-| **SVG Path Animations** | Animate network pattern in PartnersCTA | 15 min |
-| **Swipe Gestures** | Touch swipe for testimonials carousel (mobile) | 30 min |
-| **Loading Skeletons** | Shimmer loading states for cards/forms | 25 min |
-| **ScaleOnScroll** | Images scale/fade as you scroll past | 15 min |
-
-### Lower Priority - Advanced
-
-| Enhancement | Description | Effort |
-|-------------|-------------|--------|
-| **Scroll-Triggered Background Colors** | Subtle bg color shifts between sections | 20 min |
-| **AnimatedGradient Backgrounds** | Looping gradient shifts in hero/CTA sections | 10 min |
-| **Cursor Effects** | Custom cursor with trail/glow effects | 30 min |
-| **Sound Effects** | Subtle audio cues on interactions (accessibility-aware) | 45 min |
-| **3D Card Rotations** | More complex HoverCard with perspective | 20 min |
-
-### Image Placement Suggestions
-
-| Section | Suggested Image | Effect |
-|---------|-----------------|--------|
-| Approach | SA family outdoor shot | Parallax zoom on scroll |
-| About Hero | Team photo with diagonal crop | RevealMask from left |
-| Contact | Office interior shot | Fixed background parallax |
-| Partners | Handshake / partnership imagery | Split reveal animation |
-| Products Cards | Icon → Photo reveal on hover | Scale + blur transition |
-
----
-
-## Stakeholder Presentation Flow
-
-When presenting to stakeholders, demonstrate these effects in order:
-
-1. **Page Load** - ScrollProgressLine appears, Hero content staggers in
-2. **Hero Image** - Parallax layers move at different speeds, floating cards bob gently
-3. **Scroll Down** - Section headers reveal word-by-word
-4. **Hover CTAs** - Magnetic buttons follow cursor
-5. **Navigate Pages** - Page wipe transition (dramatic) or blur fade (elegant)
-6. **Scroll Progress** - Red line fills as you scroll
-
----
-
-## Previous Session Summary (December 25, 2025 - Session 6)
-
-**Session Focus:** Careers Page, Contact Form Enhancement, Navigation Updates
-
-### Completed in Session 6:
-
-#### 1. Careers Page - COMPLETE ✅
-
-Created comprehensive careers page at `/careers` with:
-
-| Component | File | Description |
-|-----------|------|-------------|
-| Main Page | `src/app/careers/page.tsx` | SEO metadata, stats bar, final CTA |
-| CareersHero | `src/components/careers/CareersHero.tsx` | Story-led hero with animated orbs |
-| WhyJoinUs | `src/components/careers/WhyJoinUs.tsx` | 6 benefit cards (3x2 grid) |
-| OpenPositions | `src/components/careers/OpenPositions.tsx` | Expandable job listings with filters |
-| ApplicationForm | `src/components/careers/ApplicationForm.tsx` | Quick-apply form with CV upload |
-| API Route | `src/app/api/careers-application/route.ts` | Form submission handler |
-
-#### 2. Navigation Updates - COMPLETE ✅
-
-| Update | Location | Details |
-|--------|----------|---------|
-| "We're Hiring" Badge | Header (desktop + mobile) | Green animated ping indicator |
-| "We're Hiring" Badge | Footer | Green animated ping indicator |
-| Careers Link | Header navLinks | Replaced "Stories" with "Careers" |
-
-#### 3. Contact Form Enhancement - COMPLETE ✅
-
-Updated "Request a Call Back" form with:
-- Reason dropdown (12 options including all services)
-- Conditional "Other" field with 150 character limit
+#### 4. FormSuccess Reusable Component ✅
+Created reusable success animation component with SVG checkmark, ripple effect, and staggered text reveal. Applied to ContactForm, ApplicationForm, and PartnerInquiryForm.
 
 ---
 
 ## Git Status
 
-**Uncommitted Changes (Session 7):**
+**Session 8 Committed:** ✅
 ```
-M src/app/layout.tsx
+26613c5 Add careers page and enhance contact form
+```
+
+**Uncommitted Changes (Session 9):**
+```
 M src/components/Hero.tsx
+M src/components/StatsBar.tsx
 M src/components/Features.tsx
-M src/components/Approach.tsx
 M src/components/Products.tsx
-M src/components/WhyChooseUs.tsx
 M src/components/Testimonials.tsx
-M src/components/CallToAction.tsx
-M src/components/PartnersCTA.tsx
-+ src/components/ClientLayout.tsx (NEW)
-+ src/components/PageTransition.tsx (NEW)
-+ src/components/PageWipe.tsx (NEW)
-```
-
-**Recommended Commit Message:**
-```
-Add stakeholder wow-factor animations and effects
-
-- Add ScrollProgressLine to track page scroll
-- Apply TextReveal to 5 section headers for dramatic entrance
-- Add MagneticButton effect to primary CTAs
-- Create PageTransition (blur fade) and PageWipe (brand wipe) components
-- Transform Hero into split layout with parallax image layers
-- Add floating accent cards with Floating animation
-- Create ClientLayout wrapper for client-side enhancements
-```
-
----
-
-## Skipped & Deferred Tasks
-
-| Task | Reason | Priority |
-|------|--------|----------|
-| Parallax Footer | Deferred to next session | High |
-| RevealMask on Cards | Deferred to next session | High |
-| Form Success Animations | Deferred to next session | Medium |
-| Stats Progress Bars | Deferred to next session | Medium |
-| POPIA Cookie Consent | User requested skip | Medium |
-| Email Integration | Not requested this session | High |
-
----
-
-## Next Session Plan
-
-### Priority 1: Remaining Animation Enhancements
-```
-[ ] Add ParallaxFooter component (footer rises from behind)
-[ ] Apply RevealMask to feature cards
-[ ] Add form success animations (animated checkmark)
-[ ] Add progress bars under stats counters
-```
-
-### Priority 2: Form Backend - Email Integration
-```
-[ ] Install nodemailer: npm install nodemailer @types/nodemailer
-[ ] Configure SMTP in .env.local
-[ ] Uncomment email sending code in partner-inquiry/route.ts
-[ ] Add email functionality to contact form
-[ ] Add email functionality to quote form
-[ ] Add email functionality to careers application
-```
-
-### Priority 3: POPIA Cookie Consent
-```
-[ ] Create CookieConsent.tsx component
-[ ] Sticky bottom banner with Accept/Decline
-[ ] Store preference in localStorage
-[ ] Link to privacy policy
-```
-
-### Priority 4: Performance & Testing
-```
-[ ] Add loading="eager" to logo images
-[ ] Run Lighthouse audit
-[ ] Test all forms on mobile
-[ ] Test animations on mobile (reduce motion)
-[ ] Cross-browser testing
+M src/components/ClientLayout.tsx
+M src/components/partners/PartnersHero.tsx
+M src/components/careers/CareersHero.tsx
++ (other session 8 files if not committed)
 ```
 
 ---
@@ -346,7 +180,7 @@ Add stakeholder wow-factor animations and effects
 
 ```
 Route (app)
-├ ○ /                                       Landing (wow-factor animations)
+├ ○ /                                       Landing (B2B visible throughout)
 ├ ○ /_not-found                             404 page
 ├ ○ /about                                  About Us
 ├ ƒ /api/careers-application                Careers API Route
@@ -366,22 +200,39 @@ Route (app)
 ├ ○ /privacy                                Privacy
 ├ ○ /quote                                  Get Quote
 └ ○ /terms                                  Terms
-
-Generated:
-├ sitemap.xml                               ✅
-└ robots.txt                                ✅
 ```
 
 ---
 
-## Known Issues
+## Landing Page Section Order (B2B Touchpoints Highlighted)
 
-| Issue | Severity | Status | Notes |
-|-------|----------|--------|-------|
-| Logo LCP warning | Minor | Open | Add `loading="eager"` to fix |
-| Team placeholder images | Minor | Open | Need real photos |
-| Cookie consent missing | Medium | Deferred | POPIA compliance |
-| Mobile animation performance | Minor | To Test | May need to reduce motion on mobile |
+1. Header (fixed nav) + ScrollProgressLine
+2. **Hero** ← "Trusted by Families, Powered by Partnerships" + B2B paragraph
+3. **StatsBar** ← "100+ Retail Partners" stat
+4. **Features** ("For Individuals & Businesses") ← Retail Partnerships card
+5. Approach ("What we believe in")
+6. **Products** ("For You & Your Business") ← Retail Partnerships card
+7. WhyChooseUs
+8. **PartnersCTA** ("Partner With Purpose")
+9. **Testimonials** ("From customers & partners") ← 2 partner testimonials
+10. **CallToAction** ← "Become a Partner" button
+11. Footer
+
+---
+
+## Session History
+
+| Date | Session | Focus | Key Accomplishments |
+|------|---------|-------|---------------------|
+| **Dec 25, 2025** | **S9** | **B2B Visibility** | B2B-inclusive Hero headline/paragraph, StatsBar partner stat, Features/Products B2B cards, Partner testimonials, Mobile hiring banner fix, Hero spacing |
+| Dec 25, 2025 | S8 | Animation Polish | ParallaxFooter, RevealMask cards, Stats progress bars, Reusable FormSuccess component |
+| Dec 25, 2025 | S7 | Wow-Factor Animations | ScrollProgressLine, TextReveal headers, MagneticButtons, Page Transitions |
+| Dec 25, 2025 | S6 | Careers Page | Full careers page (5 components), "We're Hiring" nav badges |
+| Dec 25, 2025 | S5 | Copy Polish | Em-dash cleanup, dual-audience copy, cross-links |
+| Dec 25, 2025 | S4 | B2B Visibility | Hero partner link, PartnersCTA copy rewrite |
+| Dec 24, 2025 | S3 | Landing B2B | PartnersCTA component, testimonials fix |
+| Dec 24, 2025 | S2 | Address Updates | Updated 5 offices, sitemap, JSON-LD |
+| Dec 24, 2025 | S1 | B2B Partners | Created /partners page with 8 components |
 
 ---
 
@@ -389,22 +240,14 @@ Generated:
 
 ### Branding
 - **Company Name:** Metrosure Insurance Brokers (Pty) Ltd
-- **Short Name:** Metrosure Insurance Brokers
 - **FSP Number:** 47089
 - **Mission:** "Taking you to the future"
-- **Founded:** March 18, 2016
-- **FSP Authorized:** February 7, 2017
+- **Hero Tagline:** "Trusted by Families, Powered by Partnerships"
 
 ### Color Palette
 - **Primary:** `rgb(191, 6, 3)` - Brand red
 - **Secondary:** `rgb(105, 0, 37)` - Maroon
 - **Accent:** `rgb(239, 242, 160)` - Yellow highlight
-
-### Animation Timing
-- **Spring Stiffness:** 100-400 (buttons use 400)
-- **Spring Damping:** 15-20
-- **Stagger Delay:** 0.03-0.05s per word
-- **Page Transition:** 0.5s enter, 0.3s exit
 
 ### Office Locations
 | Office | Address | Postal Code |
@@ -422,34 +265,6 @@ Generated:
 
 ---
 
-## Session History
-
-| Date | Session | Focus | Key Accomplishments |
-|------|---------|-------|---------------------|
-| **Dec 25, 2025** | **S7** | **Wow-Factor Animations** | ScrollProgressLine, TextReveal headers, MagneticButtons, Page Transitions (wipe + fade), Hero parallax image with floating cards |
-| Dec 25, 2025 | S6 | Careers Page, Contact Enhancement | Full careers page (5 components), "We're Hiring" nav badges, callback form with service reasons |
-| Dec 25, 2025 | S5 | Copy Polish, Cross-linking | Em-dash cleanup (35+), dual-audience copy, Quote/Partners cross-links, 404 fixes |
-| Dec 25, 2025 | S4 | B2B Visibility | Hero partner link, PartnersCTA copy rewrite, dual final CTA |
-| Dec 24, 2025 | S3 | Landing B2B, Testimonials | PartnersCTA component, testimonials fix, HowItWorks simplification |
-| Dec 24, 2025 | S2 | Address Updates, SEO | Updated 5 offices across 11 files, sitemap, JSON-LD |
-| Dec 24, 2025 | S1 | B2B Partners Section | Created /partners page with 8 components, API route |
-| Dec 23, 2025 | - | Corrected Understanding | Business Profile review, branding fix |
-| Dec 23, 2025 | - | Bug Fixes | Dark mode fix, wrapper standardization |
-| Earlier | - | Initial Build | Full site structure, 18 pages |
-
----
-
-## Key Documents
-
-| Document | Location | Description |
-|----------|----------|-------------|
-| Session Handover | `SESSION_HANDOVER.md` | This document |
-| Business Profile | `resources/Metrosure Profile.pdf` | Official company info |
-| Meeting Notes | `resources/Meeting 01 April 2025.pdf` | Stakeholder meeting |
-| Session 7 Plan | `~/.claude/plans/vivid-toasting-balloon.md` | Animation enhancement plan |
-
----
-
 ## Quick Start for Next Session
 
 ```bash
@@ -464,48 +279,32 @@ npm run build
 rm -rf .next && npm run dev
 ```
 
-**Key URLs:**
-- Home: http://localhost:3000
-- Careers: http://localhost:3000/careers
-- About: http://localhost:3000/about
-- Partners: http://localhost:3000/partners
-- Quote: http://localhost:3000/quote
-- Contact: http://localhost:3000/contact
-
 ---
 
-## Landing Page Section Order
+## Next Session Plan
 
-1. Header (fixed nav) + **ScrollProgressLine**
-2. **Hero** ← Split layout with parallax image (desktop), TextReveal headline
-3. StatsBar
-4. Features ("What we can do for you") ← TextReveal header
-5. Approach ("What we believe in") ← TextReveal header
-6. **Products** ("Cover for Every Stage of Life") ← TextReveal header
-7. WhyChooseUs ("People trust us because...") ← TextReveal header
-8. **PartnersCTA** ("Partner With Purpose") ← MagneticButton
-9. Testimonials ("Real stories, real security") ← TextReveal header
-10. **CallToAction** ("Ready to feel secure?") ← MagneticButton CTAs
-11. Footer
-
----
-
-## Transition Style Configuration
-
-Edit `src/components/ClientLayout.tsx` to change transition style:
-
-```tsx
-// Line 16 - Options: "wipe" | "fade" | "both"
-const TRANSITION_STYLE: "wipe" | "fade" | "both" = "both";
+### Priority 1: Form Backend - Email Integration
+```
+[ ] Install nodemailer: npm install nodemailer @types/nodemailer
+[ ] Configure SMTP in .env.local
+[ ] Add email functionality to all forms
 ```
 
-| Style | Effect | Best For |
-|-------|--------|----------|
-| `"wipe"` | Full-screen brand-red wipe | Dramatic presentations |
-| `"fade"` | Blur + fade + slide | Elegant, professional |
-| `"both"` | Wipe overlay + fade content | Maximum impact |
+### Priority 2: POPIA Cookie Consent
+```
+[ ] Create CookieConsent.tsx component
+[ ] Sticky bottom banner with Accept/Decline
+[ ] Store preference in localStorage
+```
+
+### Priority 3: Performance & Testing
+```
+[ ] Run Lighthouse audit
+[ ] Test all forms on mobile
+[ ] Cross-browser testing
+```
 
 ---
 
-*Document updated: December 25, 2025 - Session 7 Complete*
+*Document updated: December 25, 2025 - Session 9 Complete*
 *Next review: Start of next development session*

@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import { MagneticButton } from "./animations";
 
 export default function CallToAction() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section
@@ -20,10 +21,40 @@ export default function CallToAction() {
         animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
+        {/* Geometric Shape Decorations */}
+        <svg
+          className="absolute -top-10 -left-10 w-40 h-40 opacity-10"
+          viewBox="0 0 100 100"
+        >
+          <path d="M100 0 A100 100 0 0 1 0 100 L0 0 Z" fill="white" />
+        </svg>
+        <svg
+          className="absolute -bottom-8 -right-8 w-32 h-32 opacity-10 rotate-180"
+          viewBox="0 0 100 100"
+        >
+          <path d="M100 0 A100 100 0 0 1 0 100 L0 0 Z" fill="white" />
+        </svg>
+        <motion.svg
+          className="absolute top-1/4 right-10 w-6 h-6 opacity-30"
+          viewBox="0 0 100 100"
+          animate={prefersReducedMotion ? {} : { rotate: [0, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        >
+          <polygon points="50,0 100,50 50,100 0,50" fill="white" />
+        </motion.svg>
+        <motion.svg
+          className="absolute bottom-1/3 left-12 w-4 h-4 opacity-25"
+          viewBox="0 0 100 100"
+          animate={prefersReducedMotion ? {} : { y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <polygon points="50,0 100,50 50,100 0,50" fill="white" />
+        </motion.svg>
+
         {/* Decorative Blurs */}
         <motion.div
           className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             scale: [1, 1.2, 1],
             opacity: [0.05, 0.1, 0.05],
           }}
@@ -31,7 +62,7 @@ export default function CallToAction() {
         />
         <motion.div
           className="absolute bottom-0 left-0 w-80 h-80 bg-black opacity-10 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             scale: [1, 1.3, 1],
             opacity: [0.1, 0.15, 0.1],
           }}

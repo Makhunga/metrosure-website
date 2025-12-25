@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import { QuarterCircle, Diamond, Circle, DotsPattern } from "./ui/GeometricShapes";
 
 interface AnimatedCounterProps {
   value: string;
@@ -44,8 +45,48 @@ function AnimatedCounter({ value, isInView, delay = 0 }: AnimatedCounterProps) {
   return <span>{displayValue}</span>;
 }
 
+// Animated progress bar component
+interface AnimatedProgressBarProps {
+  progress: number;
+  isInView: boolean;
+  delay?: number;
+  color?: "primary" | "secondary";
+}
+
+function AnimatedProgressBar({
+  progress,
+  isInView,
+  delay = 0,
+  color = "primary"
+}: AnimatedProgressBarProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <div className="w-full max-w-[120px] h-1 bg-[rgb(var(--color-border-light))] rounded-full mt-3 overflow-hidden">
+      <motion.div
+        className={`h-full rounded-full ${
+          color === "primary"
+            ? "bg-primary"
+            : "bg-[rgb(var(--color-secondary))]"
+        }`}
+        initial={{ width: 0 }}
+        animate={isInView ? { width: `${progress}%` } : { width: 0 }}
+        transition={
+          prefersReducedMotion
+            ? { duration: 0 }
+            : {
+                duration: 1.5,
+                delay: delay + 0.5, // Start after counter animation begins
+                ease: [0.22, 1, 0.36, 1]
+              }
+        }
+      />
+    </div>
+  );
+}
+
 interface StatItemProps {
-  stat: { value: string; label: string };
+  stat: { value: string; label: string; progress: number };
   index: number;
 }
 
@@ -84,21 +125,52 @@ function StatItem({ stat, index }: StatItemProps) {
       >
         {stat.label}
       </motion.span>
+
+      {/* Progress bar */}
+      <AnimatedProgressBar
+        progress={stat.progress}
+        isInView={isInView}
+        delay={index * 0.15}
+        color={index % 2 === 0 ? "primary" : "secondary"}
+      />
     </motion.div>
   );
 }
 
 export default function StatsBar() {
   const stats = [
-    { value: "5000+", label: "Jobs Created" },
-    { value: "2016", label: "Established" },
-    { value: "9+", label: "Regional Offices" },
-    { value: "47089", label: "FSP Number" },
+    { value: "5000+", label: "Jobs Created", progress: 100 },       // 100% - milestone achieved
+    { value: "2016", label: "Established", progress: 100 },         // 100% - historical fact
+    { value: "100+", label: "Retail Partners", progress: 85 },      // 85% - growing B2B network
+    { value: "9+", label: "Regional Offices", progress: 90 },       // 90% - growing
   ];
 
   return (
-    <section className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden transition-colors duration-300">
-      <div className="max-w-[1400px] mx-auto">
+    <section className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden transition-colors duration-300 relative">
+      {/* Decorative geometric shapes - More visible */}
+      <div className="absolute -top-12 -left-12 opacity-40 dark:opacity-25">
+        <QuarterCircle size={120} color="primary" />
+      </div>
+      <div className="absolute -bottom-8 -right-8 rotate-180 opacity-35 dark:opacity-20">
+        <QuarterCircle size={100} color="secondary" delay={0.2} />
+      </div>
+      <div className="absolute top-1/2 left-[15%] -translate-y-1/2 opacity-50 dark:opacity-30">
+        <Diamond size={16} color="accent" delay={0.3} />
+      </div>
+      <div className="absolute top-1/2 left-[40%] -translate-y-1/2 opacity-40 dark:opacity-25 hidden md:block">
+        <Diamond size={10} color="primary" delay={0.35} />
+      </div>
+      <div className="absolute top-1/2 right-[35%] -translate-y-1/2 opacity-45 dark:opacity-25 hidden md:block">
+        <Diamond size={12} color="accent" delay={0.4} />
+      </div>
+      <div className="absolute top-1/2 right-[15%] -translate-y-1/2 opacity-35 dark:opacity-20 hidden lg:block">
+        <Circle size={30} color="primary" delay={0.45} />
+      </div>
+      <div className="absolute top-4 right-1/4 opacity-30 dark:opacity-20 hidden lg:block">
+        <DotsPattern rows={2} cols={3} color="primary" />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto relative">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[rgb(var(--color-border-light))]">
           {stats.map((stat, index) => (
             <StatItem key={index} stat={stat} index={index} />

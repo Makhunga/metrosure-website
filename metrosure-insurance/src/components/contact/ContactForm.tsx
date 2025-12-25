@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { FormSuccess } from "@/components/ui/FormSuccess";
 
 type ContactTab = "message" | "callback";
 
@@ -151,7 +152,7 @@ export default function ContactForm() {
                 transition={{ duration: 0.3 }}
               >
                 {messageSent ? (
-                  <SuccessMessage
+                  <FormSuccess
                     icon="check_circle"
                     title="Message Sent Successfully!"
                     description="Thank you for contacting Metrosure. We have received your message and our team will get back to you shortly."
@@ -272,7 +273,7 @@ export default function ContactForm() {
                 transition={{ duration: 0.3 }}
               >
                 {callbackSent ? (
-                  <SuccessMessage
+                  <FormSuccess
                     icon="phone_callback"
                     title="Request Received!"
                     description="We've scheduled your call back request. One of our agents will be in touch with you at your preferred time."
@@ -450,64 +451,3 @@ export default function ContactForm() {
   );
 }
 
-interface SuccessMessageProps {
-  icon: string;
-  title: string;
-  description: string;
-  buttonText: string;
-  onReset: () => void;
-}
-
-function SuccessMessage({ icon, title, description, buttonText, onReset }: SuccessMessageProps) {
-  return (
-    <motion.div
-      className="flex flex-col items-center justify-center text-center py-12"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.4 }}
-    >
-      <motion.div
-        className="w-20 h-20 bg-green-500/10 dark:bg-green-500/20 rounded-full flex items-center justify-center mb-6"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring" as const, stiffness: 200, damping: 15, delay: 0.1 }}
-      >
-        <motion.span
-          className="material-symbols-outlined text-green-600 dark:text-green-500 text-4xl"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring" as const, stiffness: 300, delay: 0.2 }}
-        >
-          {icon}
-        </motion.span>
-      </motion.div>
-      <motion.h2
-        className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        {title}
-      </motion.h2>
-      <motion.p
-        className="text-lg text-slate-500 dark:text-slate-400 mb-8 max-w-lg mx-auto"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
-        {description}
-      </motion.p>
-      <motion.button
-        onClick={onReset}
-        className="inline-flex items-center justify-center bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {buttonText}
-      </motion.button>
-    </motion.div>
-  );
-}

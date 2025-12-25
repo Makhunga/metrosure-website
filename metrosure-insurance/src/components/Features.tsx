@@ -2,8 +2,12 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
-import { HoverCard, TextReveal } from "./animations";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { HoverCard, TextReveal, RevealMask } from "./animations";
+import { QuarterCircle, HalfCircle, Diamond, Circle, DotsPattern, Triangle } from "./ui/GeometricShapes";
+
+// Direction pattern for card reveals
+const revealDirections: Array<"left" | "right" | "up" | "down"> = ["left", "right", "up", "down"];
 
 const features = [
   {
@@ -31,12 +35,12 @@ const features = [
     href: "/insurance/business",
   },
   {
-    icon: "business_center",
-    title: "Employee Benefits",
+    icon: "handshake",
+    title: "Retail Partnerships",
     description:
-      "Take care of your team with group retirement funds and employee benefits. For retailers, our partnership model lets you earn while creating local jobs.",
+      "Own a store? Partner with us to offer insurance, earn commission, and create local jobs. We handle training, compliance, and sales—you provide the space.",
     accent: "secondary",
-    href: "/insurance/business",
+    href: "/partners",
   },
 ];
 
@@ -82,14 +86,85 @@ const iconContainerVariants = {
 export default function Features() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section
       ref={sectionRef}
       className="py-28 bg-[rgb(var(--color-surface-card))] relative transition-colors duration-300 overflow-hidden"
     >
+      {/* Background image - blended for light/dark modes */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-20 dark:invert"
+        style={{
+          backgroundImage: 'url(/images/bg-services.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+
+      {/* Gradient overlay to blend edges - lighter touch */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--color-surface-card))]/60 via-transparent to-[rgb(var(--color-surface-card))]/40 pointer-events-none" />
+
+      {/* Decorative geometric shapes - Enhanced visibility */}
+      {/* Large corner shapes */}
+      <div className="absolute -top-14 -left-14 opacity-40 dark:opacity-25">
+        <QuarterCircle size={200} color="primary" />
+      </div>
+      <div className="absolute -bottom-16 -right-16 rotate-180 opacity-35 dark:opacity-20">
+        <QuarterCircle size={180} color="secondary" delay={0.15} />
+      </div>
+
+      {/* Mid-section shapes */}
+      <div className="absolute top-[30%] left-0 -translate-x-1/4 opacity-35 dark:opacity-20 hidden lg:block">
+        <HalfCircle size={120} color="primary" delay={0.2} />
+      </div>
+      <div className="absolute bottom-[25%] right-0 translate-x-1/3 opacity-30 dark:opacity-15 hidden lg:block">
+        <Circle size={100} color="secondary" delay={0.25} />
+      </div>
+      <div className="absolute top-1/2 left-[45%] -translate-y-1/2 opacity-25 dark:opacity-15 hidden xl:block">
+        <Circle size={50} color="muted" delay={0.3} />
+      </div>
+
+      {/* Triangle accents */}
+      <div className="absolute top-[20%] right-[15%] opacity-25 dark:opacity-15 hidden xl:block">
+        <Triangle size={55} color="muted" delay={0.35} />
+      </div>
+      <div className="absolute bottom-[35%] left-[20%] opacity-20 dark:opacity-10 hidden lg:block rotate-180">
+        <Triangle size={40} color="primary" delay={0.4} />
+      </div>
+
+      {/* Accent diamonds scattered */}
+      <div className="absolute top-24 left-[35%] opacity-50 dark:opacity-30">
+        <Diamond size={16} color="accent" delay={0.45} />
+      </div>
+      <div className="absolute top-[40%] right-[8%] opacity-45 dark:opacity-25 hidden md:block">
+        <Diamond size={14} color="primary" delay={0.5} />
+      </div>
+      <div className="absolute bottom-20 left-[55%] opacity-50 dark:opacity-30 hidden md:block">
+        <Diamond size={12} color="accent" delay={0.55} />
+      </div>
+      <div className="absolute top-[60%] left-[10%] opacity-40 dark:opacity-20 hidden lg:block">
+        <Diamond size={10} color="secondary" delay={0.6} />
+      </div>
+      <div className="absolute bottom-[40%] right-[22%] opacity-45 dark:opacity-25 hidden lg:block">
+        <Diamond size={11} color="accent" delay={0.65} />
+      </div>
+
+      {/* Dots patterns */}
+      <div className="absolute top-20 right-[30%] opacity-35 dark:opacity-20 hidden lg:block">
+        <DotsPattern rows={3} cols={4} color="primary" />
+      </div>
+      <div className="absolute bottom-16 left-[25%] opacity-30 dark:opacity-15 hidden xl:block">
+        <DotsPattern rows={2} cols={5} color="secondary" />
+      </div>
+      <div className="absolute top-[45%] right-4 opacity-25 dark:opacity-15 hidden xl:block">
+        <DotsPattern rows={2} cols={3} color="accent" />
+      </div>
+
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-dot-pattern opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-dot-pattern opacity-20 pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section layout: Asymmetric split */}
@@ -109,7 +184,7 @@ export default function Features() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Our Services</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-primary">For Individuals & Businesses</span>
             </motion.div>
 
             <h2 className="text-4xl sm:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-[1.1]">
@@ -134,7 +209,7 @@ export default function Features() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              From protecting your car and home to planning for retirement, we&apos;re here to help individuals, families, and businesses feel secure. Real people, real advice, real cover.
+              Whether you&apos;re protecting your family or growing your business, we&apos;ve got you covered. Insurance for individuals, partnership opportunities for retailers—all backed by real people who care.
             </motion.p>
 
             {/* CTA link with animated arrow */}
@@ -188,85 +263,99 @@ export default function Features() {
                 // Add offset to alternate rows for asymmetric feel
                 const isOffsetRow = index >= 2;
 
+                // Card content shared between both branches
+                const cardContent = (
+                  <HoverCard className="h-full" intensity={5}>
+                    <Link href={feature.href} className="block h-full">
+                      <div
+                        className={`
+                          h-full p-8 rounded-2xl
+                          bg-[rgb(var(--color-surface-card))]
+                          border border-[rgb(var(--color-border-light))]
+                          hover:border-primary/30
+                          transition-all duration-300
+                          group cursor-pointer
+                          relative overflow-hidden
+                        `}
+                      >
+                        {/* Subtle gradient overlay on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/3 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
+
+                        {/* Corner accent */}
+                        <div className="absolute top-0 right-0 w-20 h-20 pointer-events-none overflow-hidden">
+                          <motion.div
+                            className="absolute top-0 right-0 w-32 h-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                            initial={false}
+                          />
+                        </div>
+
+                        {/* Icon container */}
+                        <motion.div
+                          className={`
+                            w-16 h-16 rounded-xl
+                            ${feature.accent === "primary" ? "bg-primary/10" : "bg-[rgb(var(--color-secondary))]/10"}
+                            flex items-center justify-center mb-6
+                            relative z-10
+                          `}
+                          variants={iconContainerVariants}
+                          whileHover={{
+                            scale: 1.1,
+                            rotate: 5,
+                            transition: { type: "spring", stiffness: 400, damping: 15 }
+                          }}
+                        >
+                          <span
+                            className={`material-symbols-outlined text-3xl ${feature.accent === "primary" ? "text-primary" : "text-[rgb(var(--color-secondary))]"}`}
+                          >
+                            {feature.icon}
+                          </span>
+                        </motion.div>
+
+                        {/* Content */}
+                        <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3 group-hover:text-primary transition-colors relative z-10">
+                          {feature.title}
+                        </h3>
+                        <p className="text-[rgb(var(--color-text-body))] leading-relaxed relative z-10 text-[15px]">
+                          {feature.description}
+                        </p>
+
+                        {/* Arrow indicator */}
+                        <motion.div
+                          className="mt-6 flex items-center gap-2 text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          initial={{ x: -10 }}
+                          whileHover={{ x: 0 }}
+                        >
+                          <span>Learn more</span>
+                          <motion.span
+                            className="material-symbols-outlined text-lg"
+                            initial={{ x: 0 }}
+                            whileHover={{ x: 5 }}
+                            transition={{ type: "spring", stiffness: 400 }}
+                          >
+                            arrow_forward
+                          </motion.span>
+                        </motion.div>
+                      </div>
+                    </Link>
+                  </HoverCard>
+                );
+
                 return (
                   <motion.div
                     key={feature.title}
                     className={isOffsetRow ? "md:translate-y-8" : ""}
                     variants={cardVariants}
                   >
-                    <HoverCard className="h-full" intensity={5}>
-                      <Link href={feature.href} className="block h-full">
-                        <div
-                          className={`
-                            h-full p-8 rounded-2xl
-                            bg-[rgb(var(--color-surface-card))]
-                            border border-[rgb(var(--color-border-light))]
-                            hover:border-primary/30
-                            transition-all duration-300
-                            group cursor-pointer
-                            relative overflow-hidden
-                          `}
-                        >
-                          {/* Subtle gradient overlay on hover */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/3 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
-
-                          {/* Corner accent */}
-                          <div className="absolute top-0 right-0 w-20 h-20 pointer-events-none overflow-hidden">
-                            <motion.div
-                              className="absolute top-0 right-0 w-32 h-32 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                              initial={false}
-                            />
-                          </div>
-
-                          {/* Icon container */}
-                          <motion.div
-                            className={`
-                              w-16 h-16 rounded-xl
-                              ${feature.accent === "primary" ? "bg-primary/10" : "bg-[rgb(var(--color-secondary))]/10"}
-                              flex items-center justify-center mb-6
-                              relative z-10
-                            `}
-                            variants={iconContainerVariants}
-                            whileHover={{
-                              scale: 1.1,
-                              rotate: 5,
-                              transition: { type: "spring", stiffness: 400, damping: 15 }
-                            }}
-                          >
-                            <span
-                              className={`material-symbols-outlined text-3xl ${feature.accent === "primary" ? "text-primary" : "text-[rgb(var(--color-secondary))]"}`}
-                            >
-                              {feature.icon}
-                            </span>
-                          </motion.div>
-
-                          {/* Content */}
-                          <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3 group-hover:text-primary transition-colors relative z-10">
-                            {feature.title}
-                          </h3>
-                          <p className="text-[rgb(var(--color-text-body))] leading-relaxed relative z-10 text-[15px]">
-                            {feature.description}
-                          </p>
-
-                          {/* Arrow indicator */}
-                          <motion.div
-                            className="mt-6 flex items-center gap-2 text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            initial={{ x: -10 }}
-                            whileHover={{ x: 0 }}
-                          >
-                            <span>Learn more</span>
-                            <motion.span
-                              className="material-symbols-outlined text-lg"
-                              initial={{ x: 0 }}
-                              whileHover={{ x: 5 }}
-                              transition={{ type: "spring", stiffness: 400 }}
-                            >
-                              arrow_forward
-                            </motion.span>
-                          </motion.div>
-                        </div>
-                      </Link>
-                    </HoverCard>
+                    {prefersReducedMotion ? (
+                      cardContent
+                    ) : (
+                      <RevealMask
+                        direction={revealDirections[index % 4]}
+                        delay={index * 0.15}
+                      >
+                        {cardContent}
+                      </RevealMask>
+                    )}
                   </motion.div>
                 );
               })}

@@ -3,8 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "./theme-provider";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef, ReactNode } from "react";
+import { SmoothParallax } from "./animations";
+import { QuarterCircle, Diamond, Circle, DotsPattern } from "./ui/GeometricShapes";
 
 const footerLinks = {
   company: [
@@ -80,139 +82,208 @@ const itemVariants = {
   },
 };
 
+// Parallax wrapper that respects reduced motion preferences
+function ParallaxWrapper({
+  children,
+  speed,
+  prefersReducedMotion
+}: {
+  children: ReactNode;
+  speed: number;
+  prefersReducedMotion: boolean | null;
+}) {
+  if (prefersReducedMotion) {
+    return <>{children}</>;
+  }
+  return <SmoothParallax speed={speed}>{children}</SmoothParallax>;
+}
+
 export default function Footer() {
   const { resolvedTheme } = useTheme();
   const footerRef = useRef(null);
   const isInView = useInView(footerRef, { once: true, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <footer
       ref={footerRef}
-      className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300"
+      className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Light mode: Geometric shapes for visual depth */}
+      <div className="dark:hidden">
+        <div className="absolute -top-10 -left-10 opacity-30">
+          <QuarterCircle size={140} color="primary" />
+        </div>
+        <div className="absolute -bottom-8 -right-8 rotate-180 opacity-25">
+          <QuarterCircle size={120} color="secondary" delay={0.15} />
+        </div>
+        <div className="absolute top-1/3 right-[20%] opacity-40">
+          <Diamond size={14} color="accent" delay={0.3} />
+        </div>
+        <div className="absolute bottom-1/4 left-[30%] opacity-35">
+          <Diamond size={10} color="primary" delay={0.4} />
+        </div>
+        <div className="absolute top-1/2 left-[15%] opacity-25 hidden lg:block">
+          <Circle size={50} color="muted" delay={0.5} />
+        </div>
+        <div className="absolute bottom-12 right-[40%] opacity-30 hidden lg:block">
+          <DotsPattern rows={2} cols={4} color="primary" />
+        </div>
+      </div>
+
+      {/* Dark mode: Background image with geometric pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-100 dark:brightness-150 dark:contrast-150"
+        style={{
+          backgroundImage: 'url(/images/bg-footer.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+
+      {/* Dark mode gradient overlay */}
+      <div className="absolute inset-0 bg-transparent dark:bg-gradient-to-b dark:from-slate-900/40 dark:via-slate-900/20 dark:to-slate-900/40 pointer-events-none" />
+
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Brand Column */}
-          <motion.div className="lg:col-span-2 flex flex-col gap-6" variants={itemVariants}>
-            <Link href="/" className="flex items-center group">
-              <motion.div
-                className="relative h-10 w-[160px]"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Image
-                  src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
-                  alt="Metrosure Insurance Brokers"
-                  fill
-                  className="object-contain"
-                />
-              </motion.div>
-            </Link>
-            <p className="text-slate-600 dark:text-gray-400 text-sm max-w-sm leading-relaxed">
-              Taking you to the future. We&apos;re a South African financial services company helping
-              families and businesses protect what matters most since 2016.
-            </p>
-            <div className="text-xs text-slate-500 dark:text-gray-500 space-y-1">
-              <p><strong>Phone:</strong> +27 31 301 1192</p>
-              <p><strong>Email:</strong> info@metrosuregroup.co.za</p>
-              <p><strong>Head Office:</strong> 391 Anton Lembede Street, Metropolitan Life Building, 5th Floor, Durban, 4001</p>
-            </div>
-            <div className="flex gap-4 mt-2">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-slate-600 dark:text-white hover:text-white"
-                  aria-label={social.label}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1, type: "spring", stiffness: 400 }}
-                  whileHover={{ scale: 1.15, y: -3 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
+          {/* Brand Column - Slowest parallax */}
+          <motion.div className="lg:col-span-2" variants={itemVariants}>
+            <ParallaxWrapper speed={0.15} prefersReducedMotion={prefersReducedMotion}>
+              <div className="flex flex-col gap-6">
+                <Link href="/" className="flex items-center group">
+                  <motion.div
+                    className="relative h-10 w-[160px]"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Image
+                      src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
+                      alt="Metrosure Insurance Brokers"
+                      fill
+                      className="object-contain"
+                    />
+                  </motion.div>
+                </Link>
+                <p className="text-slate-600 dark:text-gray-400 text-sm max-w-sm leading-relaxed">
+                  Taking you to the future. We&apos;re a South African financial services company helping
+                  families and businesses protect what matters most since 2016.
+                </p>
+                <div className="text-xs text-slate-500 dark:text-gray-500 space-y-1">
+                  <p><strong>Phone:</strong> +27 31 301 1192</p>
+                  <p><strong>Email:</strong> info@metrosuregroup.co.za</p>
+                  <p><strong>Head Office:</strong> 391 Anton Lembede Street, Metropolitan Life Building, 5th Floor, Durban, 4001</p>
+                </div>
+                <div className="flex gap-4 mt-2">
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-slate-600 dark:text-white hover:text-white"
+                      aria-label={social.label}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                      transition={{ delay: 0.4 + index * 0.1, type: "spring", stiffness: 400 }}
+                      whileHover={{ scale: 1.15, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {social.icon}
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            </ParallaxWrapper>
           </motion.div>
 
-          {/* Company Links */}
+          {/* Company Links - Moderate parallax */}
           <motion.div variants={itemVariants}>
-            <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Company</h4>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
-              {footerLinks.company.map((link, index) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                  transition={{ delay: 0.5 + index * 0.05 }}
-                >
-                  <Link href={link.href} className="hover:text-primary transition-colors inline-flex items-center gap-2">
-                    <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
-                      {link.label}
-                    </motion.span>
-                    {link.badge && (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                        </span>
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
+            <ParallaxWrapper speed={0.25} prefersReducedMotion={prefersReducedMotion}>
+              <div>
+                <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Company</h4>
+                <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
+                  {footerLinks.company.map((link, index) => (
+                    <motion.li
+                      key={link.href}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                      transition={{ delay: 0.5 + index * 0.05 }}
+                    >
+                      <Link href={link.href} className="hover:text-primary transition-colors inline-flex items-center gap-2">
+                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                          {link.label}
+                        </motion.span>
+                        {link.badge && (
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                            </span>
+                            {link.badge}
+                          </span>
+                        )}
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </ParallaxWrapper>
           </motion.div>
 
-          {/* Insurance Links */}
+          {/* Insurance Links - Slightly slower */}
           <motion.div variants={itemVariants}>
-            <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Insurance</h4>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
-              {footerLinks.insurance.map((link, index) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                  transition={{ delay: 0.6 + index * 0.05 }}
-                >
-                  <Link href={link.href} className="hover:text-primary transition-colors inline-block">
-                    <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
-                      {link.label}
-                    </motion.span>
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
+            <ParallaxWrapper speed={0.20} prefersReducedMotion={prefersReducedMotion}>
+              <div>
+                <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Insurance</h4>
+                <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
+                  {footerLinks.insurance.map((link, index) => (
+                    <motion.li
+                      key={link.href}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                      transition={{ delay: 0.6 + index * 0.05 }}
+                    >
+                      <Link href={link.href} className="hover:text-primary transition-colors inline-block">
+                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                          {link.label}
+                        </motion.span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </ParallaxWrapper>
           </motion.div>
 
-          {/* Support Links */}
+          {/* Support Links - Fastest parallax */}
           <motion.div variants={itemVariants}>
-            <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Support</h4>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
-              {footerLinks.support.map((link, index) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                  transition={{ delay: 0.7 + index * 0.05 }}
-                >
-                  <Link href={link.href} className="hover:text-primary transition-colors inline-block">
-                    <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
-                      {link.label}
-                    </motion.span>
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
+            <ParallaxWrapper speed={0.30} prefersReducedMotion={prefersReducedMotion}>
+              <div>
+                <h4 className="font-bold mb-6 text-slate-900 dark:text-white">Support</h4>
+                <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
+                  {footerLinks.support.map((link, index) => (
+                    <motion.li
+                      key={link.href}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                      transition={{ delay: 0.7 + index * 0.05 }}
+                    >
+                      <Link href={link.href} className="hover:text-primary transition-colors inline-block">
+                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                          {link.label}
+                        </motion.span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </ParallaxWrapper>
           </motion.div>
         </motion.div>
 

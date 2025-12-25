@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { TextReveal } from "./animations";
+import { QuarterCircle, HalfCircle, Diamond, Circle, Triangle, DotsPattern } from "./ui/GeometricShapes";
 
 const values = [
   {
@@ -61,9 +62,53 @@ export default function Approach() {
     <section
       ref={sectionRef}
       id="approach"
-      className="py-24 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] overflow-hidden transition-colors duration-300"
+      className="py-24 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] overflow-hidden transition-colors duration-300 relative"
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Decorative geometric shapes - Enhanced visibility */}
+      {/* Large corner shapes */}
+      <div className="absolute -top-16 -right-16 opacity-35 dark:opacity-20">
+        <QuarterCircle size={180} color="primary" />
+      </div>
+      <div className="absolute -bottom-12 -left-12 rotate-90 opacity-30 dark:opacity-15">
+        <QuarterCircle size={140} color="secondary" delay={0.2} />
+      </div>
+
+      {/* Mid-section shapes */}
+      <div className="absolute top-1/3 left-8 opacity-40 dark:opacity-25 hidden lg:block">
+        <HalfCircle size={100} color="primary" delay={0.25} />
+      </div>
+      <div className="absolute bottom-1/4 right-12 opacity-35 dark:opacity-20 hidden lg:block">
+        <Circle size={80} color="secondary" delay={0.3} />
+      </div>
+
+      {/* Accent diamonds scattered */}
+      <div className="absolute top-20 left-[20%] opacity-50 dark:opacity-30">
+        <Diamond size={14} color="accent" delay={0.35} />
+      </div>
+      <div className="absolute top-1/2 left-[5%] -translate-y-1/2 opacity-45 dark:opacity-25 hidden md:block">
+        <Diamond size={10} color="primary" delay={0.4} />
+      </div>
+      <div className="absolute bottom-16 right-[25%] opacity-50 dark:opacity-30 hidden md:block">
+        <Diamond size={12} color="accent" delay={0.45} />
+      </div>
+      <div className="absolute top-[15%] right-[40%] opacity-40 dark:opacity-25 hidden lg:block">
+        <Diamond size={8} color="secondary" delay={0.5} />
+      </div>
+
+      {/* Triangle accent */}
+      <div className="absolute bottom-[20%] left-[35%] opacity-25 dark:opacity-15 hidden xl:block">
+        <Triangle size={50} color="muted" delay={0.55} />
+      </div>
+
+      {/* Dots patterns */}
+      <div className="absolute top-12 left-[45%] opacity-35 dark:opacity-20 hidden lg:block">
+        <DotsPattern rows={2} cols={4} color="primary" />
+      </div>
+      <div className="absolute bottom-8 right-[15%] opacity-30 dark:opacity-15 hidden xl:block">
+        <DotsPattern rows={3} cols={3} color="secondary" />
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex flex-col lg:flex-row gap-20 items-center">
           {/* Left Content */}
           <motion.div

@@ -31,12 +31,12 @@ const products = [
     href: "/insurance/life",
   },
   {
-    icon: "business_center",
-    title: "Business & Employee Benefits",
+    icon: "storefront",
+    title: "Retail Partnerships",
     description:
-      "Keep your business and team protected. Group schemes, commercial insurance, and employee benefits made simple.",
-    features: ["Commercial Cover", "Group Retirement", "Employee Benefits"],
-    href: "/insurance/business",
+      "Turn your store into a revenue stream. We bring trained staff, handle compliance, and share profits—you focus on your business.",
+    features: ["Revenue Share", "Staff Provided", "Zero Overhead"],
+    href: "/partners",
   },
 ];
 
@@ -89,10 +89,10 @@ export default function Products() {
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              What We Offer
+              For You & Your Business
             </motion.span>
             <h2 className="text-3xl md:text-5xl font-bold text-[rgb(var(--color-text-main))]">
-              <TextReveal text="Cover for Every Stage of Life" delay={0.3} staggerDelay={0.04} />
+              <TextReveal text="Solutions That Grow With You" delay={0.3} staggerDelay={0.04} />
             </h2>
           </div>
           <motion.p
@@ -101,7 +101,7 @@ export default function Products() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            From your first car to your retirement, we&apos;re here to help individuals, families, and business partners thrive.
+            Insurance for families, partnerships for retailers. From protecting what you love to earning from what you own.
           </motion.p>
         </motion.div>
 

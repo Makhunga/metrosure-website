@@ -3,32 +3,44 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { TextReveal } from "./animations";
+import { HalfCircle, Circle, Diamond, QuarterCircle, DotsPattern, Triangle } from "./ui/GeometricShapes";
 
 const testimonialsData = [
   {
     text: "When my car was hijacked in Joburg, Metrosure handled everything before I could even stress. It wasn't just about the payout, it was knowing someone had my back.",
     name: "Thabo Molefe",
     role: "Home & Auto",
+    isPartner: false,
   },
   {
-    text: "Switching was seamless. The advisor actually looked at my business needs and saved me money while increasing my coverage. No one else took the time.",
-    name: "Priya Naidoo",
-    role: "Business Owner",
+    text: "Partnering with Metrosure was the best decision for our stores. They brought trained staff, handled everything, and we've seen a 30% boost in foot traffic. It's real revenue with zero hassle.",
+    name: "Lerato Mokoena",
+    role: "Retail Partner • 12 Locations",
+    isPartner: true,
   },
   {
     text: "I never understood my life insurance policy until I sat down with Metrosure. Now I feel genuinely confident about my family's future.",
     name: "Sipho Mthembu",
     role: "Life Insurance",
+    isPartner: false,
+  },
+  {
+    text: "We've created 15 jobs in our community through this partnership. Metrosure handles compliance and training—we just provide the space. Win-win.",
+    name: "Ahmed Patel",
+    role: "Retail Partner • Furniture Store",
+    isPartner: true,
   },
   {
     text: "After years of feeling like just another policy number, Metrosure made me feel like family. Their team goes above and beyond every single time.",
     name: "David Nkosi",
     role: "Retirement Planning",
+    isPartner: false,
   },
   {
     text: "The funeral cover gave us peace of mind during the hardest time of our lives. They handled everything with dignity and speed.",
     name: "Nomsa Dlamini",
     role: "Funeral Cover",
+    isPartner: false,
   },
 ];
 
@@ -124,10 +136,63 @@ export default function Testimonials() {
     <section
       ref={sectionRef}
       id="stories"
-      className="py-24 bg-[rgb(var(--color-surface-card))] overflow-hidden transition-colors duration-300"
+      className="py-24 bg-[rgb(var(--color-surface-card))] overflow-hidden transition-colors duration-300 relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
+      {/* Decorative geometric shapes - Enhanced visibility */}
+      {/* Large corner shapes */}
+      <div className="absolute -top-10 -left-10 opacity-35 dark:opacity-20">
+        <QuarterCircle size={160} color="primary" />
+      </div>
+      <div className="absolute -bottom-14 -right-14 rotate-180 opacity-30 dark:opacity-15">
+        <QuarterCircle size={180} color="secondary" delay={0.15} />
+      </div>
+
+      {/* Mid-section shapes */}
+      <div className="absolute top-[15%] left-0 -translate-x-1/3 opacity-40 dark:opacity-20">
+        <HalfCircle size={140} color="secondary" className="rotate-90" delay={0.2} />
+      </div>
+      <div className="absolute bottom-[20%] right-0 translate-x-1/4 opacity-35 dark:opacity-20">
+        <Circle size={120} color="primary" delay={0.25} />
+      </div>
+      <div className="absolute top-1/2 left-[8%] -translate-y-1/2 opacity-30 dark:opacity-15 hidden lg:block">
+        <Circle size={60} color="muted" delay={0.3} />
+      </div>
+
+      {/* Triangle accents */}
+      <div className="absolute top-[25%] right-[20%] opacity-25 dark:opacity-15 hidden xl:block">
+        <Triangle size={50} color="muted" delay={0.35} />
+      </div>
+      <div className="absolute bottom-[30%] left-[15%] opacity-20 dark:opacity-10 hidden lg:block rotate-180">
+        <Triangle size={40} color="primary" delay={0.4} />
+      </div>
+
+      {/* Accent diamonds scattered */}
+      <div className="absolute top-20 left-1/4 opacity-50 dark:opacity-30">
+        <Diamond size={14} color="accent" delay={0.45} />
+      </div>
+      <div className="absolute top-1/3 right-[10%] opacity-45 dark:opacity-25 hidden md:block">
+        <Diamond size={12} color="primary" delay={0.5} />
+      </div>
+      <div className="absolute bottom-24 left-[35%] opacity-50 dark:opacity-30 hidden md:block">
+        <Diamond size={16} color="accent" delay={0.55} />
+      </div>
+      <div className="absolute top-[60%] left-[5%] opacity-40 dark:opacity-20 hidden lg:block">
+        <Diamond size={10} color="secondary" delay={0.6} />
+      </div>
+      <div className="absolute bottom-[15%] right-[25%] opacity-45 dark:opacity-25 hidden lg:block">
+        <Diamond size={11} color="accent" delay={0.65} />
+      </div>
+
+      {/* Dots patterns */}
+      <div className="absolute top-16 right-[35%] opacity-35 dark:opacity-20 hidden lg:block">
+        <DotsPattern rows={2} cols={5} color="primary" />
+      </div>
+      <div className="absolute bottom-12 left-[20%] opacity-30 dark:opacity-15 hidden xl:block">
+        <DotsPattern rows={3} cols={4} color="secondary" />
+      </div>
+
       {/* Header */}
       <motion.div
         className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-12 flex justify-between items-end"
@@ -136,7 +201,7 @@ export default function Testimonials() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <h2 className="text-3xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] max-w-lg">
-          <TextReveal text="Real stories, real security" delay={0.2} staggerDelay={0.05} />
+          <TextReveal text="From customers & partners" delay={0.2} staggerDelay={0.05} />
         </h2>
         <motion.div
           className="hidden md:flex gap-2"
@@ -222,12 +287,22 @@ export default function Testimonials() {
             {/* Author */}
             <div className="flex items-center gap-4 mt-8 pt-6 border-t border-[rgb(var(--color-border-light))]">
               <motion.div
-                className="w-12 h-12 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700 border border-[rgb(var(--color-border-light))]"
+                className={`w-12 h-12 rounded-full flex items-center justify-center border border-[rgb(var(--color-border-light))] ${
+                  testimonial.isPartner
+                    ? "bg-gradient-to-br from-primary/20 to-primary/10"
+                    : "bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700"
+                }`}
                 whileHover={{ scale: 1.1 }}
-              />
+              >
+                {testimonial.isPartner && (
+                  <span className="material-symbols-outlined text-primary text-xl">storefront</span>
+                )}
+              </motion.div>
               <div>
                 <p className="font-bold text-[rgb(var(--color-text-main))]">{testimonial.name}</p>
-                <p className="text-xs text-[rgb(var(--color-text-body))] font-semibold uppercase tracking-wide">
+                <p className={`text-xs font-semibold uppercase tracking-wide ${
+                  testimonial.isPartner ? "text-primary" : "text-[rgb(var(--color-text-body))]"
+                }`}>
                   {testimonial.role}
                 </p>
               </div>

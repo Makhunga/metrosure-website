@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { FormSuccess } from "@/components/ui/FormSuccess";
 
 interface FormData {
   // Business Information
@@ -241,37 +242,13 @@ export default function PartnerInquiryForm() {
             <div className="bg-[rgb(var(--color-surface))] rounded-3xl p-8 md:p-10 shadow-xl border border-[rgb(var(--color-border-light))]">
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
-                  <motion.div
-                    key="success"
-                    className="text-center py-12"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                  >
-                    <motion.div
-                      className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    >
-                      <span className="material-symbols-outlined text-green-600 text-4xl">check_circle</span>
-                    </motion.div>
-                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))] mb-4">
-                      Inquiry Submitted!
-                    </h3>
-                    <p className="text-[rgb(var(--color-text-body))] mb-8 max-w-md mx-auto">
-                      Thank you for your interest in partnering with Metrosure.
-                      Our team will review your inquiry and contact you within 24 hours.
-                    </p>
-                    <motion.button
-                      onClick={resetForm}
-                      className="px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-[rgb(var(--color-primary-hover))] transition-colors"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Submit Another Inquiry
-                    </motion.button>
-                  </motion.div>
+                  <FormSuccess
+                    title="Inquiry Submitted!"
+                    description="Thank you for your interest in partnering with Metrosure. Our team will review your inquiry and contact you within 24 hours."
+                    buttonText="Submit Another Inquiry"
+                    onReset={resetForm}
+                    accentColor="green"
+                  />
                 ) : (
                   <motion.form
                     key="form"
