@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
 import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
@@ -246,6 +247,24 @@ export default function QuotePage() {
               Protect what matters most in just a few minutes. Our streamlined process
               makes it easy to find the perfect coverage at competitive rates.
             </motion.p>
+
+            {/* B2B Cross-link */}
+            <motion.div
+              className="mt-6 flex items-center justify-center gap-2 text-sm text-[rgb(var(--color-text-muted))]"
+              initial={{ opacity: 0 }}
+              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <span className="material-symbols-outlined text-base">storefront</span>
+              <span>Are you a retailer?</span>
+              <Link
+                href="/partners"
+                className="text-primary font-medium hover:underline inline-flex items-center gap-1"
+              >
+                Explore partnership opportunities
+                <span className="material-symbols-outlined text-base">arrow_forward</span>
+              </Link>
+            </motion.div>
           </motion.div>
 
           {/* Trust Indicators */}
@@ -274,16 +293,16 @@ export default function QuotePage() {
       </section>
 
       {/* Quote Form Section */}
-      <section className="pb-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+      <section className="pb-24 pt-8">
+        <div className="max-w-5xl mx-auto px-6 lg:px-12">
           {/* Progress Steps */}
           <div className="mb-12">
-            <div className="flex items-center justify-between relative">
-              {/* Progress Line */}
-              <div className="absolute top-6 left-0 right-0 h-0.5 bg-[rgb(var(--color-border-light))]" />
+            <div className="flex items-center justify-between relative px-6">
+              {/* Progress Line - starts and ends at step icon centers */}
+              <div className="absolute top-6 left-12 right-12 h-0.5 bg-[rgb(var(--color-border-light))]" />
               <div
-                className="absolute top-6 left-0 h-0.5 bg-primary transition-all duration-500"
-                style={{ width: `${((currentStep - 1) / 3) * 100}%` }}
+                className="absolute top-6 left-12 h-0.5 bg-primary transition-all duration-500"
+                style={{ width: `${((currentStep - 1) / 3) * (100 - 8)}%` }}
               />
 
               {steps.map((step) => (
@@ -389,19 +408,19 @@ export default function QuotePage() {
                         value={formData.phone}
                         onChange={(e) => updateFormData({ phone: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                        placeholder="(555) 123-4567"
+                        placeholder="+27 XX XXX XXXX"
                       />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
-                        ZIP Code
+                        Area Code
                       </label>
                       <input
                         type="text"
                         value={formData.zipCode}
                         onChange={(e) => updateFormData({ zipCode: e.target.value })}
                         className="w-full md:w-1/2 px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-                        placeholder="10001"
+                        placeholder="4001"
                       />
                     </div>
                   </div>
@@ -497,28 +516,30 @@ export default function QuotePage() {
                         className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       >
                         <option value="">Select coverage amount</option>
-                        <option value="100000">$100,000</option>
-                        <option value="250000">$250,000</option>
-                        <option value="500000">$500,000</option>
-                        <option value="1000000">$1,000,000</option>
+                        <option value="1000000">R1,000,000</option>
+                        <option value="2500000">R2,500,000</option>
+                        <option value="5000000">R5,000,000</option>
+                        <option value="10000000">R10,000,000</option>
+                        <option value="15000000">R15,000,000</option>
+                        <option value="20000000">R20,000,000</option>
                         <option value="custom">Custom Amount</option>
                       </select>
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
-                        Deductible
+                        Excess
                       </label>
                       <select
                         value={formData.deductible}
                         onChange={(e) => updateFormData({ deductible: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       >
-                        <option value="">Select deductible</option>
-                        <option value="500">$500 (Higher Premium)</option>
-                        <option value="1000">$1,000 (Recommended)</option>
-                        <option value="2500">$2,500 (Lower Premium)</option>
-                        <option value="5000">$5,000 (Lowest Premium)</option>
+                        <option value="">Select excess</option>
+                        <option value="5000">R5,000 (Higher Premium)</option>
+                        <option value="10000">R10,000 (Recommended)</option>
+                        <option value="25000">R25,000 (Lower Premium)</option>
+                        <option value="50000">R50,000 (Lowest Premium)</option>
                       </select>
                     </div>
 
@@ -618,7 +639,7 @@ export default function QuotePage() {
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">ZIP Code</span>
+                          <span className="text-[rgb(var(--color-text-muted))]">Area Code</span>
                           <p className="text-[rgb(var(--color-text-main))] font-medium">
                             {formData.zipCode}
                           </p>
@@ -650,13 +671,13 @@ export default function QuotePage() {
                         <div>
                           <span className="text-[rgb(var(--color-text-muted))]">Coverage Amount</span>
                           <p className="text-[rgb(var(--color-text-main))] font-medium">
-                            ${Number(formData.coverageAmount).toLocaleString()}
+                            R{Number(formData.coverageAmount).toLocaleString()}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Deductible</span>
+                          <span className="text-[rgb(var(--color-text-muted))]">Excess</span>
                           <p className="text-[rgb(var(--color-text-main))] font-medium">
-                            ${Number(formData.deductible).toLocaleString()}
+                            R{Number(formData.deductible).toLocaleString()}
                           </p>
                         </div>
                         <div>
@@ -756,7 +777,7 @@ export default function QuotePage() {
 
       {/* FAQ Section */}
       <section ref={faqRef} className="pb-24">
-        <div className="max-w-3xl mx-auto px-6 lg:px-12">
+        <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
@@ -825,74 +846,100 @@ export default function QuotePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section ref={ctaRef} className="pb-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+      {/* CTA Section - Matching Home Page Style */}
+      <section ref={ctaRef} className="pb-24 px-4">
+        <motion.div
+          className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          animate={ctaInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          {/* Decorative Blurs */}
           <motion.div
-            className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-primary to-[rgb(var(--color-secondary))] text-white overflow-hidden"
-            initial={{ opacity: 0, y: 40 }}
-            animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            whileHover={{ scale: 1.01 }}
-          >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
-                  backgroundSize: "32px 32px",
-                }}
-              />
-            </div>
+            className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.05, 0.1, 0.05],
+            }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-80 h-80 bg-black opacity-10 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.15, 0.1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
 
-            <div className="relative text-center">
-              <motion.h2
-                className="text-2xl md:text-3xl font-bold mb-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+          <div className="relative z-10 flex flex-col items-center gap-8">
+            <motion.h2
+              className="text-4xl md:text-6xl font-bold tracking-tight text-white"
+              initial={{ opacity: 0, y: 30 }}
+              animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Need Help Choosing?
+            </motion.h2>
+            <motion.p
+              className="text-xl text-white/90 max-w-2xl font-medium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              Our licensed insurance advisors are here to help you find the perfect
+              coverage. Schedule a free consultation today.
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 mt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <motion.a
+                href="tel:+27313011192"
+                className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center gap-2"
+                whileHover={{
+                  scale: 1.05,
+                  y: -3,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                Need Help Choosing?
-              </motion.h2>
-              <motion.p
-                className="text-white/80 mb-8 max-w-xl mx-auto"
-                initial={{ opacity: 0, y: 20 }}
-                animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                <span className="material-symbols-outlined">call</span>
+                +27 31 301 1192
+              </motion.a>
+              <motion.a
+                href="/contact"
+                className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05, y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                Our licensed insurance advisors are here to help you find the perfect
-                coverage. Schedule a free consultation today.
-              </motion.p>
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                <span className="material-symbols-outlined">chat</span>
+                Chat with Us
+              </motion.a>
+            </motion.div>
+
+            <motion.p
+              className="text-sm text-white/70 mt-2 flex items-center gap-2"
+              initial={{ opacity: 0 }}
+              animate={ctaInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <motion.span
+                className="material-symbols-outlined text-sm"
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
               >
-                <motion.a
-                  href="tel:1-800-METRO-01"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-white text-primary font-bold hover:bg-white/90 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="material-symbols-outlined">call</span>
-                  1-800-METRO-01
-                </motion.a>
-                <motion.a
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg border-2 border-white text-white font-bold hover:bg-white/10 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="material-symbols-outlined">chat</span>
-                  Chat with Us
-                </motion.a>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
+                lock
+              </motion.span>
+              Secure & Confidential. No spam.
+            </motion.p>
+          </div>
+        </motion.div>
       </section>
 
       <Footer />

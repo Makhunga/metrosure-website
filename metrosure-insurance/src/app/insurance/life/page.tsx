@@ -30,7 +30,7 @@ const coverageFeatures = [
     icon: "credit_card",
     title: "Credit Life Insurance",
     description:
-      "Protect yourself and your family from debt. Credit life pays off your loan if you die, become disabled, or lose your job — so debt doesn't become a burden.",
+      "Protect yourself and your family from debt. Credit life pays off your loan if you die, become disabled, or lose your job, so debt doesn't become a burden.",
   },
   {
     icon: "savings",
@@ -98,19 +98,19 @@ const planTiers = [
 ];
 
 const benefits = [
-  "No complicated medical exams for most cover — just answer a few health questions",
-  "Quick claim payouts when your family needs it most — usually within 48 hours",
+  "No complicated medical exams for most cover, just answer a few health questions",
+  "Quick claim payouts when your family needs it most, usually within 48 hours",
   "Dedicated portfolio manager who knows your family's needs",
   "We compare products from SA's top insurers to find you the best fit",
   "Free will drafting service included with most life products",
-  "Cover that grows with you — we review your needs as your life changes",
+  "Cover that grows with you, we review your needs as your life changes",
 ];
 
 const faqs = [
   {
     question: "How much life cover do I need?",
     answer:
-      "A good starting point is 10-15 times your annual income, but the right amount depends on your situation — your debts, dependants, and future expenses like education. We'll sit down with you and work out exactly what your family would need.",
+      "A good starting point is 10-15 times your annual income, but the right amount depends on your situation: your debts, dependants, and future expenses like education. We'll sit down with you and work out exactly what your family would need.",
   },
   {
     question: "What's the difference between life cover and funeral cover?",
@@ -120,7 +120,7 @@ const faqs = [
   {
     question: "What is credit life insurance?",
     answer:
-      "Credit life insurance protects you and your family from debt. If you die, become disabled, or lose your job, it pays off your outstanding loan — like furniture, a vehicle, or appliance purchases. It means your family won't inherit your debt, and the item stays theirs.",
+      "Credit life insurance protects you and your family from debt. If you die, become disabled, or lose your job, it pays off your outstanding loan, like furniture, a vehicle, or appliance purchases. It means your family won't inherit your debt, and the item stays theirs.",
   },
   {
     question: "Can I include my whole family on one policy?",
@@ -135,7 +135,7 @@ const faqs = [
   {
     question: "How quickly does funeral cover pay out?",
     answer:
-      "Most funeral claims are paid within 24-48 hours of receiving the required documents. This is crucial — your family shouldn't have to worry about money during a difficult time. We make sure the process is as quick and easy as possible.",
+      "Most funeral claims are paid within 24-48 hours of receiving the required documents. This is crucial, your family shouldn't have to worry about money during a difficult time. We make sure the process is as quick and easy as possible.",
   },
 ];
 
@@ -144,7 +144,7 @@ export default function LifeInsurancePage() {
     <InsurancePageTemplate
       badge="Life, Funeral & Credit Life"
       title="Look After the People Who Matter Most"
-      subtitle="Life insurance isn't about you — it's about making sure your family is okay if something happens. Let's make sure they're protected."
+      subtitle="Life insurance isn't about you, it's about making sure your family is okay if something happens. Let's make sure they're protected."
       heroIcon="favorite"
       description="Nobody wants to think about not being here. But if you've got a family, a bond, or people who depend on you, life cover is one of the most important things you can do for them. At Metrosure, we make it simple. We'll help you work out how much cover you need, find the right product from SA's leading insurers, and be there when your family needs to claim. Because at the end of the day, this is about giving the people you love security and peace of mind."
       coverageFeatures={coverageFeatures}

@@ -105,7 +105,7 @@ export default function Products() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            From your first car to your retirement, we&apos;re here to help you and your family feel secure.
+            From your first car to your retirement, we&apos;re here to help individuals, families, and business partners thrive.
           </motion.p>
         </motion.div>
 
@@ -162,29 +162,20 @@ export default function Products() {
                   {product.description}
                 </p>
 
-                {/* Features */}
-                <ul className="space-y-2 mb-8 relative z-10">
+                {/* Features as Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-8 relative z-10">
                   {product.features.map((feature, featureIndex) => (
-                    <motion.li
+                    <motion.span
                       key={feature}
-                      className="text-xs font-semibold text-[rgb(var(--color-text-muted))] flex items-center gap-2"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                      className="px-2.5 py-1 rounded-full bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-muted))] text-xs font-medium"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                       transition={{ delay: 0.5 + index * 0.1 + featureIndex * 0.05 }}
                     >
-                      <motion.span
-                        className="w-1 h-1 rounded-full bg-primary"
-                        animate={{ scale: [1, 1.5, 1] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: featureIndex * 0.5,
-                        }}
-                      />
                       {feature}
-                    </motion.li>
+                    </motion.span>
                   ))}
-                </ul>
+                </div>
               </Link>
             </motion.div>
           ))}

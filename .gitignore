@@ -149,3 +149,9 @@ metrosure-insurance-contact-us/
 
 # Draft/internal documents
 **/EMAIL_DRAFT_*.md
+
+# Moat task system
+.moat/
+
+# Claude Code configuration
+.claude/

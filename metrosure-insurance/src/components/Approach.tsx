@@ -15,7 +15,7 @@ const values = [
   },
   {
     title: "Passion",
-    description: "We genuinely care about your wellbeing. This isn't just a job for us — it's our purpose.",
+    description: "We genuinely care about your wellbeing. This isn't just a job for us, it's our purpose.",
   },
   {
     title: "Integrity",
@@ -84,7 +84,7 @@ export default function Approach() {
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                believe in.
+                believe in
               </motion.span>
             </motion.h2>
             <motion.p
@@ -93,8 +93,7 @@ export default function Approach() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              These aren&apos;t just words on a wall — they&apos;re the values that guide every conversation we have
-              and every decision we make. This is how we&apos;ve built trust with over 5,000 people across South Africa.
+              These aren&apos;t just words on a wall, they&apos;re the values that guide every conversation we have and every decision we make. This is how we&apos;ve built trust with over 5,000 individuals and 100+ retail partners across South Africa.
             </motion.p>
 
             <motion.div

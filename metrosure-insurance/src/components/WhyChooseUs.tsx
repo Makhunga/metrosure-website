@@ -21,7 +21,7 @@ const differentiators = [
     icon: "handshake",
     title: "30+ Insurance Partners",
     description:
-      "We work with South Africa's leading insurers — Liberty, Sanlam, Discovery, Old Mutual, and more — to find you the best cover.",
+      "We work with South Africa's leading insurers, Liberty, Sanlam, Discovery, Old Mutual, and more, to find you the best cover.",
   },
   {
     icon: "location_on",
@@ -107,8 +107,7 @@ export default function WhyChooseUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            We&apos;re not just another insurance company. We&apos;re a team of people who genuinely
-            care about your wellbeing and your future.
+            We&apos;re not just another insurance company. We&apos;re a team that genuinely cares about securing individuals and empowering business partners.
           </motion.p>
         </motion.div>
 
@@ -174,7 +173,7 @@ export default function WhyChooseUs() {
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               transition={{ delay: 1.3 }}
             >
-              Join <span className="text-primary font-bold">5,000+</span> people we&apos;ve helped since 2016
+              Join <span className="text-primary font-bold">5,000+</span> individuals and 100+ retail partners since 2016
             </motion.p>
           </div>
           <Link href="/quote" className="group">

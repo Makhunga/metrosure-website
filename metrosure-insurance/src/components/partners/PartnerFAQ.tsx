@@ -50,7 +50,7 @@ const faqData = [
   },
   {
     question: "How long does it take to set up an in-store campaign?",
-    answer: "Typical setup takes <strong class=\"text-[rgb(var(--color-text-main))]\">2-4 weeks</strong> from signing the agreement. This includes: Week 1 — Agreement finalization and logistics planning; Week 2 — Staff selection and training; Week 3 — Marketing materials preparation; Week 4 — Soft launch and optimization. Larger deployments may take slightly longer."
+    answer: "Typical setup takes <strong class=\"text-[rgb(var(--color-text-main))]\">2-4 weeks</strong> from signing the agreement. This includes: Week 1, Agreement finalization and logistics planning; Week 2, Staff selection and training; Week 3, Marketing materials preparation; Week 4, Soft launch and optimization. Larger deployments may take slightly longer."
   },
   {
     question: "What insurance products are offered through in-store campaigns?",

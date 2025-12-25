@@ -364,7 +364,7 @@ export default function LoginPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              Access your policies, file claims, and get support—all from one
+              Access your policies, file claims, and get support, all from one
               convenient dashboard.
             </motion.p>
 

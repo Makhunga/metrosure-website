@@ -25,10 +25,10 @@ export default function Header() {
   };
 
   const navLinks = [
-    { href: "#approach", label: "Our Approach" },
-    { href: "#solutions", label: "Solutions" },
-    { href: "/partners", label: "Partner With Us" },
-    { href: "#stories", label: "Stories" },
+    { href: "#approach", label: "Our Approach", badge: null },
+    { href: "#solutions", label: "Solutions", badge: null },
+    { href: "/partners", label: "Partner With Us", badge: null },
+    { href: "/careers", label: "Careers", badge: "Hiring" },
   ];
 
   return (
@@ -73,9 +73,18 @@ export default function Header() {
               >
                 <Link
                   href={link.href}
-                  className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                  className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full flex items-center gap-1.5"
                 >
                   {link.label}
+                  {link.badge && (
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                      </span>
+                      {link.badge}
+                    </span>
+                  )}
                 </Link>
               </motion.div>
             ))}
@@ -178,10 +187,19 @@ export default function Header() {
                 >
                   <Link
                     href={link.href}
-                    className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 block rounded-lg hover:bg-primary/5"
+                    className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center gap-2"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
+                    {link.badge && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                        </span>
+                        {link.badge}
+                      </span>
+                    )}
                   </Link>
                 </motion.div>
               ))}

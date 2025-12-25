@@ -8,10 +8,10 @@ import { useRef } from "react";
 
 const footerLinks = {
   company: [
-    { label: "About Us", href: "/about" },
-    { label: "Partner With Us", href: "/partners" },
-    { label: "Careers", href: "/careers" },
-    { label: "Contact", href: "/contact" },
+    { label: "About Us", href: "/about", badge: null },
+    { label: "Partner With Us", href: "/partners", badge: null },
+    { label: "Careers", href: "/careers", badge: "Hiring" },
+    { label: "Contact", href: "/contact", badge: null },
   ],
   insurance: [
     { label: "Car & Home", href: "/insurance/auto" },
@@ -154,10 +154,19 @@ export default function Footer() {
                   animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                   transition={{ delay: 0.5 + index * 0.05 }}
                 >
-                  <Link href={link.href} className="hover:text-primary transition-colors inline-block">
+                  <Link href={link.href} className="hover:text-primary transition-colors inline-flex items-center gap-2">
                     <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
                       {link.label}
                     </motion.span>
+                    {link.badge && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                        </span>
+                        {link.badge}
+                      </span>
+                    )}
                   </Link>
                 </motion.li>
               ))}

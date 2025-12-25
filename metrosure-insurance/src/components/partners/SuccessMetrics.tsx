@@ -7,9 +7,10 @@ interface AnimatedCounterProps {
   value: string;
   isInView: boolean;
   delay?: number;
+  isYear?: boolean;
 }
 
-function AnimatedCounter({ value, isInView, delay = 0 }: AnimatedCounterProps) {
+function AnimatedCounter({ value, isInView, delay = 0, isYear = false }: AnimatedCounterProps) {
   const match = value.match(/^(\D*)(\d+)(.*)$/);
   const prefix = match ? match[1] : "";
   const target = match ? parseInt(match[2], 10) : 0;
@@ -22,7 +23,7 @@ function AnimatedCounter({ value, isInView, delay = 0 }: AnimatedCounterProps) {
   });
 
   const display = useTransform(spring, (latest) =>
-    `${prefix}${Math.round(latest).toLocaleString()}${suffix}`
+    `${prefix}${isYear ? Math.round(latest) : Math.round(latest).toLocaleString()}${suffix}`
   );
 
   const [displayValue, setDisplayValue] = useState(`${prefix}0${suffix}`);
@@ -45,7 +46,7 @@ function AnimatedCounter({ value, isInView, delay = 0 }: AnimatedCounterProps) {
 }
 
 interface MetricItemProps {
-  stat: { value: string; label: string; icon: string; description: string };
+  stat: { value: string; label: string; icon: string; description: string; isYear?: boolean };
   index: number;
 }
 
@@ -86,6 +87,7 @@ function MetricItem({ stat, index }: MetricItemProps) {
           value={stat.value}
           isInView={isInView}
           delay={index * 150}
+          isYear={stat.isYear}
         />
       </motion.span>
 
@@ -139,14 +141,15 @@ export default function SuccessMetrics() {
       value: "2016",
       label: "Established",
       icon: "calendar_month",
-      description: "Years of excellence"
+      description: "Years of excellence",
+      isYear: true
     },
   ];
 
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-[rgb(var(--color-secondary))] py-16 md:py-20"
+      className="relative overflow-hidden bg-primary py-16 md:py-20"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">

@@ -15,7 +15,7 @@ const steps = [
     number: "02",
     title: "Partnership Agreement",
     description:
-      "We create custom terms tailored to your needs — from commission structures to operational requirements.",
+      "We create custom terms tailored to your needs, from commission structures to operational requirements.",
     tags: ["Custom terms", "Commission structure", "Legal framework"],
   },
   {

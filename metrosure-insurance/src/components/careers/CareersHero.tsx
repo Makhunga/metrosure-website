@@ -1,23 +1,33 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-export default function Hero() {
+interface CareersHeroProps {
+  onApplyClick: () => void;
+}
+
+export default function CareersHero({ onApplyClick }: CareersHeroProps) {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
+  const scrollToPositions = () => {
+    const positionsSection = document.getElementById("open-positions");
+    if (positionsSection) {
+      positionsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[90vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
+      className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
       {/* Animated Grid Background */}
       <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-60 animate-[grid-flow_20s_linear_infinite]" />
@@ -36,7 +46,7 @@ export default function Hero() {
         transition={{
           duration: 8,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
       />
       <motion.div
@@ -49,7 +59,7 @@ export default function Hero() {
         transition={{
           duration: 10,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
       />
       <motion.div
@@ -60,7 +70,7 @@ export default function Hero() {
         transition={{
           duration: 12,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
       />
 
@@ -68,8 +78,7 @@ export default function Hero() {
         style={{ y, opacity }}
         className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20"
       >
-        {/* Content - Full Width */}
-        <div className="w-full flex flex-col gap-10 text-center items-center">
+        <div className="w-full flex flex-col gap-8 text-center items-center">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -78,17 +87,17 @@ export default function Hero() {
             className="inline-flex items-center gap-3 py-2 px-5 rounded-full bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))] w-fit shadow-sm"
           >
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
             </span>
             <span className="text-sm font-bold tracking-wider uppercase text-[rgb(var(--color-text-body))]">
-              FSP 47089 | Authorised Financial Service Provider
+              We&apos;re Hiring
             </span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] tracking-tight text-[rgb(var(--color-text-main))]"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight text-[rgb(var(--color-text-main))]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
@@ -98,7 +107,7 @@ export default function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Taking You
+              Build Your
             </motion.span>{" "}
             <br />
             <motion.span
@@ -107,18 +116,21 @@ export default function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              to the Future
+              Future With Us
             </motion.span>
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Story Paragraph */}
           <motion.p
-            className="text-xl sm:text-2xl lg:text-2xl text-[rgb(var(--color-text-body))] max-w-4xl leading-relaxed"
+            className="text-lg sm:text-xl lg:text-2xl text-[rgb(var(--color-text-body))] max-w-4xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            We protect what matters most, whether you&apos;re an individual securing your family&apos;s future or a business looking to grow through partnership. From your car and home to retirement, we&apos;re here to help you move forward with confidence.
+            In 2016, we started with a simple mission: to take South Africa to the future.
+            Since then, we&apos;ve created over 5,000 jobs, built a team known for consistency,
+            reliability, and integrity, and helped thousands of families feel secure.
+            Now, we&apos;re looking for passionate people to join us on this journey.
           </motion.p>
 
           {/* CTAs */}
@@ -128,53 +140,54 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <Link href="/quote">
+            <motion.button
+              onClick={scrollToPositions}
+              className="h-16 px-10 rounded-xl bg-primary text-white text-lg font-bold transition-colors shadow-lg shadow-primary/25 flex items-center justify-center gap-2"
+              whileHover={{
+                scale: 1.05,
+                y: -3,
+                boxShadow: "0 20px 40px -10px rgba(191, 6, 3, 0.4)",
+              }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <span>View Open Positions</span>
+              <span className="material-symbols-outlined">arrow_downward</span>
+            </motion.button>
+            <motion.button
+              onClick={onApplyClick}
+              className="h-16 px-10 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-lg font-bold transition-colors flex items-center gap-2 group justify-center"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <span>Apply Now</span>
               <motion.span
-                className="h-16 px-10 rounded-xl bg-primary text-white text-lg font-bold transition-colors shadow-lg shadow-primary/25 flex items-center justify-center"
-                whileHover={{
-                  scale: 1.05,
-                  y: -3,
-                  boxShadow: "0 20px 40px -10px rgba(191, 6, 3, 0.4)"
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="material-symbols-outlined text-xl"
+                initial={{ x: 0 }}
+                whileHover={{ x: 5 }}
               >
-                Start Your Quote
+                arrow_forward
               </motion.span>
-            </Link>
-            <Link href="#products">
-              <motion.span
-                className="h-16 px-10 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-lg font-bold transition-colors flex items-center gap-2 group justify-center"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span>Explore Plans</span>
-                <motion.span
-                  className="material-symbols-outlined text-xl"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                >
-                  arrow_forward
-                </motion.span>
-              </motion.span>
-            </Link>
+            </motion.button>
           </motion.div>
 
-          {/* Partner Link - Secondary B2B CTA */}
+          {/* Secondary Link */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <Link
-              href="/partners"
+            <a
+              href="/about"
               className="inline-flex items-center gap-2 text-sm text-[rgb(var(--color-text-muted))] hover:text-primary transition-colors group"
             >
-              <span className="material-symbols-outlined text-base">storefront</span>
+              <span className="material-symbols-outlined text-base">info</span>
               <span>
-                Are you a retailer?{" "}
-                <span className="font-semibold group-hover:underline">Partner with us</span>
+                Want to learn more about us?{" "}
+                <span className="font-semibold group-hover:underline">
+                  Read our story
+                </span>
               </span>
               <motion.span
                 className="material-symbols-outlined text-base"
@@ -183,9 +196,8 @@ export default function Hero() {
               >
                 arrow_forward
               </motion.span>
-            </Link>
+            </a>
           </motion.div>
-
         </div>
       </motion.div>
     </section>

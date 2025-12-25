@@ -162,7 +162,7 @@ export default function PoliciesPage() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              View all your insurance policies, download documents, and manage your cover —
+              View all your insurance policies, download documents, and manage your cover,
               all in one convenient place.
             </motion.p>
 

@@ -41,7 +41,7 @@ const values = [
     icon: "groups",
     title: "Respect",
     description:
-      "We acknowledge that everyone has a unique role. No one person is more important than another — we value your story and treat you as an individual.",
+      "We acknowledge that everyone has a unique role. No one person is more important than another, we value your story and treat you as an individual.",
   },
   {
     icon: "workspace_premium",
@@ -53,7 +53,7 @@ const values = [
     icon: "favorite",
     title: "Passion",
     description:
-      "We are passionate about what we do. This isn't just a job for us — it's our purpose to help you and your family feel secure.",
+      "We are passionate about what we do. This isn't just a job for us, it's our purpose to help you and your family feel secure.",
   },
   {
     icon: "handshake",
@@ -65,7 +65,7 @@ const values = [
     icon: "star",
     title: "Excellence",
     description:
-      "We strive to excel at everything we do. Good enough isn't enough — we push ourselves to go above and beyond for you.",
+      "We strive to excel at everything we do. Good enough isn't enough, we push ourselves to go above and beyond for you.",
   },
 ];
 
@@ -110,7 +110,7 @@ const team = [
     name: "BG Chiliza",
     role: "Managing Director",
     image: "",
-    quote: "We're taking South Africa to the future — building a company known for consistency, reliability and integrity.",
+    quote: "We're taking South Africa to the future, building a company known for consistency, reliability and integrity.",
     icon: "format_quote",
     badges: ["Founder & Visionary", "Financial Services Expert", "Community Builder"],
   },
@@ -195,7 +195,7 @@ export default function AboutPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               Founded in 2016, Metrosure is a proudly South African financial services company.
-              We&apos;re here to help you and your family feel protected — from your first car to your
+              We&apos;re here to help you and your family feel protected, from your first car to your
               retirement. Real people, real advice, real cover.
             </motion.p>
 
@@ -292,7 +292,7 @@ export default function AboutPage() {
               >
                 We&apos;re not just another insurance company. We&apos;re a team of dedicated South Africans
                 who genuinely care about your wellbeing. Each portfolio manager is backed by
-                dedicated claims and underwriting staff — so your instructions are processed effectively.
+                dedicated claims and underwriting staff, so your instructions are processed effectively.
               </motion.p>
               <motion.p
                 className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
@@ -301,7 +301,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 Whether you&apos;re protecting your car and home, planning for retirement, or
-                looking after your employees — we&apos;re here to help you move forward with confidence.
+                looking after your employees, we&apos;re here to help you move forward with confidence.
               </motion.p>
             </motion.div>
             <motion.div

@@ -18,7 +18,7 @@ const features = [
     icon: "family_restroom",
     title: "Life & Funeral Cover",
     description:
-      "Give your loved ones peace of mind. Our life insurance and funeral plans ensure your family is looked after when they need it most — because some things are too important to leave to chance.",
+      "Give your loved ones peace of mind. Our life insurance and funeral plans ensure your family is looked after when they need it most, because some things are too important to leave to chance.",
     accent: "secondary",
     href: "/insurance/life",
   },
@@ -34,7 +34,7 @@ const features = [
     icon: "business_center",
     title: "Employee Benefits",
     description:
-      "Take care of your team with group retirement funds and employee benefits. Happy, secure employees build stronger businesses — and we make it simple to set up.",
+      "Take care of your team with group retirement funds and employee benefits. For retailers, our partnership model lets you earn while creating local jobs.",
     accent: "secondary",
     href: "/insurance/business",
   },
@@ -128,7 +128,6 @@ export default function Features() {
               >
                 you
               </motion.span>
-              .
             </motion.h2>
 
             <motion.p
@@ -137,8 +136,7 @@ export default function Features() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              From protecting your car and home to planning for retirement, we&apos;re here to help you
-              and your family feel secure. Real people, real advice, real cover.
+              From protecting your car and home to planning for retirement, we&apos;re here to help individuals, families, and businesses feel secure. Real people, real advice, real cover.
             </motion.p>
 
             {/* CTA link with animated arrow */}

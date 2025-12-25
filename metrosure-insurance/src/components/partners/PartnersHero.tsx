@@ -140,9 +140,27 @@ export default function PartnersHero() {
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             Partner with Metrosure to bring in-store insurance solutions to your customers.
-            We deploy trained sales teams, handle all compliance, and share the revenue —
+            We deploy trained sales teams, handle all compliance, and share the revenue,
             you focus on your business while creating local jobs.
           </motion.p>
+
+          {/* Consumer Cross-link */}
+          <motion.div
+            className="mt-4 flex items-center justify-center gap-2 text-sm text-[rgb(var(--color-text-muted))]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.85 }}
+          >
+            <span className="material-symbols-outlined text-base">person</span>
+            <span>Looking for personal insurance?</span>
+            <a
+              href="/quote"
+              className="text-primary font-medium hover:opacity-80 transition-opacity inline-flex items-center gap-1"
+            >
+              Get a free quote
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </a>
+          </motion.div>
 
           {/* Stats Preview */}
           <motion.div
@@ -210,21 +228,6 @@ export default function PartnersHero() {
         </div>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-      >
-        <motion.div
-          className="w-8 h-12 rounded-full border-2 border-[rgb(var(--color-border-medium))] flex items-start justify-center p-2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <motion.div className="w-1.5 h-3 bg-primary rounded-full" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

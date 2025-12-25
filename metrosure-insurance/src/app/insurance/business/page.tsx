@@ -18,7 +18,7 @@ const coverageFeatures = [
     icon: "store",
     title: "Commercial Property",
     description:
-      "Cover for your business premises, equipment, stock, and assets. From fire and theft to business interruption — protect what you've built.",
+      "Cover for your business premises, equipment, stock, and assets. From fire and theft to business interruption, protect what you've built.",
   },
   {
     icon: "local_shipping",
@@ -110,7 +110,7 @@ const faqs = [
   {
     question: "What business insurance do I actually need?",
     answer:
-      "It depends on your industry and size, but most businesses need commercial property (for your premises and equipment), public liability (in case someone gets hurt), and vehicle cover if you have company vehicles. We'll do a free risk assessment and tell you exactly what you need — no more, no less.",
+      "It depends on your industry and size, but most businesses need commercial property (for your premises and equipment), public liability (in case someone gets hurt), and vehicle cover if you have company vehicles. We'll do a free risk assessment and tell you exactly what you need, no more, no less.",
   },
   {
     question: "Can you help with employee benefits?",
@@ -141,7 +141,7 @@ export default function BusinessInsurancePage() {
       title="Protect Your Business and Your People"
       subtitle="You've worked hard to build this. We'll make sure one incident doesn't undo years of progress. Commercial cover and employee benefits, sorted."
       heroIcon="business"
-      description="Running a business in South Africa means dealing with risk every day. Load shedding, theft, vehicle accidents, employee issues — the list goes on. At Metrosure, we help businesses like yours manage those risks with the right insurance and employee benefits. We don't believe in one-size-fits-all. We take the time to understand your business, then put together a package that actually makes sense. And when something goes wrong, we're in your corner — fighting to get your claim paid fast so you can get back to business."
+      description="Running a business in South Africa means dealing with risk every day. Load shedding, theft, vehicle accidents, employee issues, the list goes on. At Metrosure, we help businesses like yours manage those risks with the right insurance and employee benefits. We don't believe in one-size-fits-all. We take the time to understand your business, then put together a package that actually makes sense. And when something goes wrong, we're in your corner, fighting to get your claim paid fast so you can get back to business."
       coverageFeatures={coverageFeatures}
       planTiers={planTiers}
       benefits={benefits}

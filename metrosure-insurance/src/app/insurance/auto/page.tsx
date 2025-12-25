@@ -30,13 +30,13 @@ const coverageFeatures = [
     icon: "inventory_2",
     title: "Home Contents Cover",
     description:
-      "Cover your furniture, appliances, electronics, and personal belongings against theft, fire, and damage — at home or on the move.",
+      "Cover your furniture, appliances, electronics, and personal belongings against theft, fire, and damage, at home or on the move.",
   },
   {
     icon: "security",
     title: "All-Risk Cover",
     description:
-      "Take your valuables with you and stay covered. Laptops, phones, jewellery, and more — protected wherever you go.",
+      "Take your valuables with you and stay covered. Laptops, phones, jewellery, and more, protected wherever you go.",
   },
   {
     icon: "emergency",
@@ -100,10 +100,10 @@ const planTiers = [
 const benefits = [
   "Dedicated portfolio manager who knows your name and your policy inside out",
   "We compare quotes from 30+ insurers to find you the best deal",
-  "Claims handled by real people — no automated call centres",
+  "Claims handled by real people, no automated call centres",
   "Multi-policy discounts when you bundle car, home, and contents",
   "Flexible excess options to suit your budget",
-  "No hidden fees or surprises — we explain everything in plain English",
+  "No hidden fees or surprises, we explain everything in plain English",
 ];
 
 const faqs = [
@@ -115,17 +115,17 @@ const faqs = [
   {
     question: "How do you find me the best price?",
     answer:
-      "As brokers, we work with over 30 insurance companies including Discovery, Santam, Hollard, and more. We compare quotes from multiple insurers to find you the best cover at the best price — it's like having a personal shopper for insurance.",
+      "As brokers, we work with over 30 insurance companies including Discovery, Santam, Hollard, and more. We compare quotes from multiple insurers to find you the best cover at the best price, it's like having a personal shopper for insurance.",
   },
   {
     question: "What happens when I need to claim?",
     answer:
-      "Call your dedicated portfolio manager directly. They'll guide you through the process, help with paperwork, and follow up with the insurer on your behalf. You won't be passed around — you have a real person looking after you.",
+      "Call your dedicated portfolio manager directly. They'll guide you through the process, help with paperwork, and follow up with the insurer on your behalf. You won't be passed around, you have a real person looking after you.",
   },
   {
     question: "Can I insure my home and car together?",
     answer:
-      "Absolutely — and you'll often save money by bundling. We can arrange comprehensive cover for your vehicle, home buildings, contents, and personal items all in one package with one dedicated contact.",
+      "Absolutely, and you'll often save money by bundling. We can arrange comprehensive cover for your vehicle, home buildings, contents, and personal items all in one package with one dedicated contact.",
   },
   {
     question: "What if I have a bad driving record?",
@@ -139,9 +139,9 @@ export default function AutoInsurancePage() {
     <InsurancePageTemplate
       badge="Car & Home Insurance"
       title="Protect What Gets You There"
-      subtitle="Your car takes you to work. Your home is where you rest. We help protect both — with the right cover from SA's top insurers."
+      subtitle="Your car takes you to work. Your home is where you rest. We help protect both, with the right cover from SA's top insurers."
       heroIcon="directions_car"
-      description="Your vehicle isn't just a car — it's how you get to work, pick up the kids, and live your life. Your home isn't just a building — it's where your family sleeps safely at night. At Metrosure, we understand that you're not just insuring things, you're protecting what matters. That's why we work with over 30 South African insurers to find you the right cover at the right price. And when something goes wrong, you'll have a real person — your dedicated portfolio manager — to guide you through every step."
+      description="Your vehicle isn't just a car, it's how you get to work, pick up the kids, and live your life. Your home isn't just a building, it's where your family sleeps safely at night. At Metrosure, we understand that you're not just insuring things, you're protecting what matters. That's why we work with over 30 South African insurers to find you the right cover at the right price. And when something goes wrong, you'll have a real person, your dedicated portfolio manager, to guide you through every step."
       coverageFeatures={coverageFeatures}
       planTiers={planTiers}
       benefits={benefits}

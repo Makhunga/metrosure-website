@@ -5,10 +5,29 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 
 type ContactTab = "message" | "callback";
 
+const callbackReasons = [
+  { value: "", label: "Select a reason..." },
+  { value: "car-insurance", label: "Car Insurance" },
+  { value: "home-insurance", label: "Home Insurance" },
+  { value: "life-insurance", label: "Life Insurance" },
+  { value: "funeral-cover", label: "Funeral Cover" },
+  { value: "business-insurance", label: "Business Insurance" },
+  { value: "credit-life", label: "Credit Life Insurance" },
+  { value: "retirement-planning", label: "Retirement Planning" },
+  { value: "employee-benefits", label: "Employee Benefits" },
+  { value: "claims", label: "Claims Enquiry" },
+  { value: "policy-changes", label: "Policy Changes" },
+  { value: "other", label: "Other" },
+];
+
+const MAX_OTHER_CHARS = 150;
+
 export default function ContactForm() {
   const [activeTab, setActiveTab] = useState<ContactTab>("message");
   const [messageSent, setMessageSent] = useState(false);
   const [callbackSent, setCallbackSent] = useState(false);
+  const [callbackReason, setCallbackReason] = useState("");
+  const [otherReason, setOtherReason] = useState("");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -20,6 +39,16 @@ export default function ContactForm() {
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setCallbackSent(true);
+    // Reset form state
+    setCallbackReason("");
+    setOtherReason("");
+  };
+
+  const handleOtherReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= MAX_OTHER_CHARS) {
+      setOtherReason(value);
+    }
   };
 
   const inputClasses =
@@ -294,6 +323,72 @@ export default function ContactForm() {
                           type="tel"
                         />
                       </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.18 }}
+                      >
+                        <label className={labelClasses} htmlFor="cb_reason">
+                          Reason for Call
+                        </label>
+                        <div className="relative">
+                          <select
+                            className={`${inputClasses} appearance-none pr-12`}
+                            id="cb_reason"
+                            value={callbackReason}
+                            onChange={(e) => {
+                              setCallbackReason(e.target.value);
+                              if (e.target.value !== "other") {
+                                setOtherReason("");
+                              }
+                            }}
+                            required
+                          >
+                            {callbackReasons.map((reason) => (
+                              <option key={reason.value} value={reason.value}>
+                                {reason.label}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
+                            <span className="material-symbols-outlined text-xl">expand_more</span>
+                          </div>
+                        </div>
+                      </motion.div>
+                      <AnimatePresence>
+                        {callbackReason === "other" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <label className={labelClasses} htmlFor="cb_other_reason">
+                              Please Specify
+                            </label>
+                            <textarea
+                              className={`${inputClasses} resize-none`}
+                              id="cb_other_reason"
+                              placeholder="Briefly describe the reason for your call..."
+                              value={otherReason}
+                              onChange={handleOtherReasonChange}
+                              rows={3}
+                              required
+                            />
+                            <div className="flex justify-end mt-1">
+                              <span
+                                className={`text-xs ${
+                                  otherReason.length >= MAX_OTHER_CHARS
+                                    ? "text-red-500"
+                                    : "text-slate-400 dark:text-slate-500"
+                                }`}
+                              >
+                                {otherReason.length}/{MAX_OTHER_CHARS} characters
+                              </span>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}

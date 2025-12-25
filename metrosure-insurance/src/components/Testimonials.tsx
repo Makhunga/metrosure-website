@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 
 const testimonialsData = [
   {
-    text: "When my car was hijacked in Joburg, Metrosure handled everything before I could even stress. It wasn't just about the payout — it was knowing someone had my back.",
+    text: "When my car was hijacked in Joburg, Metrosure handled everything before I could even stress. It wasn't just about the payout, it was knowing someone had my back.",
     name: "Thabo Molefe",
     role: "Home & Auto",
   },

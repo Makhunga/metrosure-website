@@ -7,24 +7,24 @@ import { motion, useInView } from "framer-motion";
 const highlights = [
   {
     icon: "trending_up",
-    title: "Additional Revenue",
-    description: "Earn commission on every policy sold in your store",
+    title: "Earn While You Build",
+    description: "Competitive commission rates on every policy sold through your location",
     stat: "15-25%",
     statLabel: "commission rates",
   },
   {
     icon: "groups",
-    title: "5,000+ Jobs Created",
-    description: "We've helped create employment across South Africa",
-    stat: "100+",
-    statLabel: "retail partners",
+    title: "Create Local Jobs",
+    description: "Jobs created nationwide, each partnership directly funds employment",
+    stat: "5,000+",
+    statLabel: "jobs created",
   },
   {
     icon: "verified",
-    title: "Zero Overhead",
-    description: "We handle staffing, training, and compliance",
-    stat: "FSP",
-    statLabel: "licensed & POPIA compliant",
+    title: "Zero Hassle",
+    description: "We handle staffing, training, marketing, and full regulatory compliance",
+    stat: "100%",
+    statLabel: "managed for you",
   },
 ];
 
@@ -46,7 +46,7 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 100,
       damping: 15,
     },
@@ -185,7 +185,7 @@ export default function PartnersCTA() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Are You a Retailer?
+            Partner With Purpose
           </motion.h2>
 
           {/* Subheadline */}
@@ -195,8 +195,9 @@ export default function PartnersCTA() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Transform your store into a revenue engine. Partner with us for in-store
-            insurance campaigns that create jobs and generate additional income.
+            We&apos;ve created 5,000+ jobs across South Africa by partnering with
+            retailers and businesses like yours. Together, we bring trusted insurance
+            to communities that need it most, while you earn competitive commissions.
           </motion.p>
         </div>
 
@@ -270,7 +271,7 @@ export default function PartnersCTA() {
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <span>Explore Partnership Opportunities</span>
+              <span>Become a Partner</span>
               <motion.span
                 className="material-symbols-outlined text-xl"
                 initial={{ x: 0 }}

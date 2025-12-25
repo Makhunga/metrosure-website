@@ -5,11 +5,11 @@ export default function NotFound() {
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 flex items-center justify-center px-6 pt-20">
-        <div className="text-center max-w-lg">
+      <main className="flex-1 flex items-center justify-center px-6 pt-32 pb-24">
+        <div className="text-center max-w-3xl">
           {/* 404 Number */}
           <div className="relative mb-8">
-            <span className="text-[180px] md:text-[240px] font-bold text-primary/10 leading-none select-none">
+            <span className="text-[180px] md:text-[240px] font-bold text-primary leading-none select-none opacity-20">
               404
             </span>
             <div className="absolute inset-0 flex items-center justify-center">
@@ -47,28 +47,28 @@ export default function NotFound() {
           </div>
 
           {/* Quick Links */}
-          <div className="mt-12 pt-8 border-t border-[rgb(var(--color-border-light))]">
+          <div className="mt-12 pt-8">
             <p className="text-sm text-[rgb(var(--color-text-muted))] mb-4">
               Looking for something specific?
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
               <Link
                 href="/quote"
-                className="text-primary hover:underline font-medium"
+                className="text-primary font-medium hover:opacity-80 transition-opacity"
               >
                 Get a Quote
               </Link>
               <span className="text-[rgb(var(--color-text-muted))]">•</span>
               <Link
                 href="/claims"
-                className="text-primary hover:underline font-medium"
+                className="text-primary font-medium hover:opacity-80 transition-opacity"
               >
                 File a Claim
               </Link>
               <span className="text-[rgb(var(--color-text-muted))]">•</span>
               <Link
                 href="/help"
-                className="text-primary hover:underline font-medium"
+                className="text-primary font-medium hover:opacity-80 transition-opacity"
               >
                 Help Center
               </Link>

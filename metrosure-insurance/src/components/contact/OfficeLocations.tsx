@@ -195,14 +195,13 @@ export default function OfficeLocations() {
 
           {/* Social Links */}
           <motion.div
-            className="mt-10 pl-6 border-t border-slate-200 dark:border-slate-700 pt-8"
+            className="mt-10 pl-6 pt-8"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6 flex items-center gap-3">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6">
               Connect with us
-              <span className="h-px bg-slate-200 dark:bg-slate-700 flex-grow" />
             </h3>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (

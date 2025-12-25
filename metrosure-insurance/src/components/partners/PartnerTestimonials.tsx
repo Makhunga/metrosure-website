@@ -89,18 +89,6 @@ export default function PartnerTestimonials() {
 
         {/* Testimonial Carousel */}
         <div className="relative max-w-4xl mx-auto">
-          {/* Large Quote Icon */}
-          <motion.div
-            className="absolute -top-8 -left-8 text-primary/10 z-0"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.5, type: "spring" }}
-          >
-            <svg width="120" height="120" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
-            </svg>
-          </motion.div>
-
           {/* Testimonial Card */}
           <motion.div
             className="relative bg-[rgb(var(--color-surface))] rounded-3xl p-8 md:p-12 shadow-xl border border-[rgb(var(--color-border-light))]"
@@ -156,7 +144,7 @@ export default function PartnerTestimonials() {
             </AnimatePresence>
 
             {/* Navigation */}
-            <div className="flex items-center justify-between mt-8 pt-8 border-t border-[rgb(var(--color-border-light))]">
+            <div className="flex items-center justify-between mt-8 pt-8">
               {/* Dots */}
               <div className="flex gap-2">
                 {testimonials.map((_, index) => (

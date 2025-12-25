@@ -49,12 +49,12 @@ const faqData = [
   {
     question: "Do I get a dedicated person to help me?",
     answer:
-      "Yes! Every client gets a dedicated portfolio manager who knows your policies inside out. You're not passed around between call centres — you'll have a real person who knows your name and your needs.",
+      "Yes! Every client gets a dedicated portfolio manager who knows your policies inside out. You're not passed around between call centres, you'll have a real person who knows your name and your needs.",
   },
   {
     question: "What areas do you cover?",
     answer:
-      "We have offices across South Africa — Durban (head office and Musgrave), Pietermaritzburg, Pretoria, and Boksburg. Wherever you are in SA, we can help.",
+      "We have offices across South Africa: Durban (head office and Musgrave), Pietermaritzburg, Pretoria, and Boksburg. Wherever you are in SA, we can help.",
   },
   {
     question: "Is Metrosure a registered financial services provider?",
