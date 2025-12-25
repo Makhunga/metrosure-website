@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import ClientLayout from "@/components/ClientLayout";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -152,7 +153,9 @@ export default function RootLayout({
         className={`${manrope.variable} ${playfair.variable} font-sans antialiased`}
       >
         <ThemeProvider>
-          {children}
+          <ClientLayout>
+            {children}
+          </ClientLayout>
         </ThemeProvider>
       </body>
     </html>

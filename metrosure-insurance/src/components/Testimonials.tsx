@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
+import { TextReveal } from "./animations";
 
 const testimonialsData = [
   {
@@ -134,14 +135,9 @@ export default function Testimonials() {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] max-w-lg"
-          initial={{ opacity: 0, x: -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Real stories, real security
-        </motion.h2>
+        <h2 className="text-3xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] max-w-lg">
+          <TextReveal text="Real stories, real security" delay={0.2} staggerDelay={0.05} />
+        </h2>
         <motion.div
           className="hidden md:flex gap-2"
           initial={{ opacity: 0, x: 30 }}

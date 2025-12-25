@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { HoverCard } from "./animations";
+import { HoverCard, TextReveal } from "./animations";
 
 const features = [
   {
@@ -112,23 +112,21 @@ export default function Features() {
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Our Services</span>
             </motion.div>
 
-            <motion.h2
-              className="text-4xl sm:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-[1.1]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              What we can do
+            <h2 className="text-4xl sm:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-[1.1]">
+              <TextReveal text="What we can do" delay={0.2} staggerDelay={0.04} />
               <br />
-              <span>for </span>
+              <TextReveal text="for" delay={0.4} staggerDelay={0.04} />
+              {" "}
               <motion.span
-                className="text-primary"
+                className="text-primary inline-block"
+                initial={{ opacity: 0, y: 20, rotateX: -90 }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.5 }}
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400 }}
               >
                 you
               </motion.span>
-            </motion.h2>
+            </h2>
 
             <motion.p
               className="text-lg text-[rgb(var(--color-text-body))] mb-8 leading-relaxed"

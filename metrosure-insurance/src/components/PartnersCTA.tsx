@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { MagneticButton } from "./animations";
 
 const highlights = [
   {
@@ -261,26 +262,27 @@ export default function PartnersCTA() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          <Link href="/partners">
-            <motion.span
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-[rgb(105,0,37)] font-bold text-lg shadow-2xl shadow-black/20 hover:shadow-black/30 transition-shadow"
-              whileHover={{
-                scale: 1.05,
-                y: -3,
-              }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <span>Become a Partner</span>
+          <MagneticButton strength={0.4}>
+            <Link href="/partners">
               <motion.span
-                className="material-symbols-outlined text-xl"
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-[rgb(105,0,37)] font-bold text-lg shadow-2xl shadow-black/20 hover:shadow-black/30 transition-shadow"
+                whileHover={{
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                arrow_forward
+                <span>Become a Partner</span>
+                <motion.span
+                  className="material-symbols-outlined text-xl"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 5 }}
+                >
+                  arrow_forward
+                </motion.span>
               </motion.span>
-            </motion.span>
-          </Link>
+            </Link>
+          </MagneticButton>
 
           {/* Trust indicators */}
           <motion.div

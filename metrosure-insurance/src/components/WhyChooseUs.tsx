@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { TextReveal } from "./animations";
 
 const differentiators = [
   {
@@ -93,14 +94,9 @@ export default function WhyChooseUs() {
           >
             Why Metrosure
           </motion.span>
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            People trust us because we put them first
-          </motion.h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight">
+            <TextReveal text="People trust us because we put them first" delay={0.2} staggerDelay={0.03} />
+          </h2>
           <motion.p
             className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
             initial={{ opacity: 0, y: 20 }}

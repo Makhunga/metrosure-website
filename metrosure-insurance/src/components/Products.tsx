@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { TextReveal } from "./animations";
 
 const products = [
   {
@@ -90,14 +91,9 @@ export default function Products() {
             >
               What We Offer
             </motion.span>
-            <motion.h2
-              className="text-3xl md:text-5xl font-bold text-[rgb(var(--color-text-main))]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              Cover for Every Stage of Life
-            </motion.h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-[rgb(var(--color-text-main))]">
+              <TextReveal text="Cover for Every Stage of Life" delay={0.3} staggerDelay={0.04} />
+            </h2>
           </div>
           <motion.p
             className="text-[rgb(var(--color-text-body))] max-w-md text-right md:text-left"

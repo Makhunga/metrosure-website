@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { MagneticButton } from "./animations";
 
 export default function CallToAction() {
   const sectionRef = useRef(null);
@@ -62,31 +63,32 @@ export default function CallToAction() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Link href="/quote">
-              <motion.span
-                className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center"
-                whileHover={{
-                  scale: 1.05,
-                  y: -3,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                Get Your Free Quote
-              </motion.span>
-            </Link>
-            <Link href="/partners">
-              <motion.span
-                className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05, y: -3 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span className="material-symbols-outlined text-xl">storefront</span>
-                Become a Partner
-              </motion.span>
-            </Link>
+            <MagneticButton strength={0.3}>
+              <Link href="/quote">
+                <motion.span
+                  className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center"
+                  whileHover={{
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  Get Your Free Quote
+                </motion.span>
+              </Link>
+            </MagneticButton>
+            <MagneticButton strength={0.3}>
+              <Link href="/partners">
+                <motion.span
+                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2"
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <span className="material-symbols-outlined text-xl">storefront</span>
+                  Become a Partner
+                </motion.span>
+              </Link>
+            </MagneticButton>
           </motion.div>
 
           <motion.p

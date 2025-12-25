@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { TextReveal } from "./animations";
 
 const values = [
   {
@@ -71,22 +72,13 @@ export default function Approach() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <motion.h2
-              className="text-4xl lg:text-5xl font-bold leading-tight text-[rgb(var(--color-text-main))]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              What we <br />
-              <motion.span
-                className="text-primary"
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                believe in
-              </motion.span>
-            </motion.h2>
+            <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-[rgb(var(--color-text-main))]">
+              <TextReveal text="What we" delay={0.2} staggerDelay={0.05} />
+              <br />
+              <span className="text-primary">
+                <TextReveal text="believe in" delay={0.35} staggerDelay={0.05} />
+              </span>
+            </h2>
             <motion.p
               className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed max-w-xl"
               initial={{ opacity: 0, y: 20 }}
