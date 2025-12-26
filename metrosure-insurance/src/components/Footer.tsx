@@ -108,9 +108,9 @@ export default function Footer() {
       ref={footerRef}
       className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
     >
-      {/* Geometric pattern background - dark mode only */}
+      {/* Geometric pattern background - both modes */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-[0.12]"
+        className="absolute inset-0 pointer-events-none opacity-[0.04] dark:opacity-[0.12]"
         style={{
           backgroundImage: 'url(/images/geometric-pattern.webp)',
           backgroundSize: '600px',
@@ -119,8 +119,59 @@ export default function Footer() {
         }}
       />
 
-      {/* Gradient overlay for better text contrast - dark mode only */}
-      <div className="absolute inset-0 bg-transparent dark:bg-gradient-to-b dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
+      {/* Gradient overlay for better text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-100/90 via-slate-100/70 to-slate-100/95 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
+
+      {/* Corner Accents - Light mode enhanced, subtle in dark */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Top-left quarter circle */}
+        <motion.div
+          className="absolute -top-16 -left-16 w-48 h-48 rounded-br-full bg-[#82B29A]/[0.12] dark:bg-[#82B29A]/[0.04]"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 1, ease: "easeOut" }}
+        />
+
+        {/* Top-right arc */}
+        <motion.div
+          className="absolute -top-10 right-20 w-32 h-32 rounded-bl-full bg-[#F2CC8E]/[0.1] dark:bg-[#F2CC8E]/[0.03] hidden md:block"
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        />
+
+        {/* Bottom-right quarter circle */}
+        <motion.div
+          className="absolute -bottom-20 -right-20 w-56 h-56 rounded-tl-full bg-[#DF7A5E]/[0.1] dark:bg-[#DF7A5E]/[0.03]"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
+        />
+
+        {/* Bottom-left small circle */}
+        <motion.div
+          className="absolute bottom-10 left-[15%] w-20 h-20 rounded-full bg-[#3C405B]/[0.06] dark:bg-[#F4F1DE]/[0.03] hidden lg:block"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        />
+
+        {/* Mid-right accent square */}
+        <motion.div
+          className="absolute top-1/3 -right-4 w-16 h-16 rounded-xl bg-[#F2CC8E]/[0.08] dark:bg-[#F2CC8E]/[0.02] rotate-12 hidden lg:block"
+          initial={{ opacity: 0, x: 20 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        />
+
+        {/* Small floating diamond - left side */}
+        <motion.div
+          className="absolute top-1/2 left-10 w-8 h-8 bg-[#82B29A]/[0.1] dark:bg-[#82B29A]/[0.03] rotate-45 hidden xl:block"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        />
+      </div>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div

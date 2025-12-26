@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { TextReveal } from "./animations";
+import Image from "next/image";
 
 const values = [
   {
@@ -62,7 +63,83 @@ export default function Approach() {
       id="approach"
       className="py-24 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] overflow-hidden transition-colors duration-300 relative"
     >
-      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 relative">
+      {/* Geometric Pattern - Top Right Corner */}
+      <motion.div
+        className="absolute -top-20 -right-20 w-[500px] h-[500px] pointer-events-none hidden md:block"
+        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+        animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white_0%,transparent_70%)]">
+          <Image
+            src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
+            alt=""
+            fill
+            className="object-cover opacity-[0.08] dark:opacity-[0.04] scale-150"
+            aria-hidden="true"
+          />
+        </div>
+      </motion.div>
+
+      {/* Geometric Pattern - Bottom Left Corner */}
+      <motion.div
+        className="absolute -bottom-32 -left-32 w-[600px] h-[600px] pointer-events-none hidden md:block"
+        initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
+        animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+      >
+        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white_0%,transparent_70%)]">
+          <Image
+            src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
+            alt=""
+            fill
+            className="object-cover opacity-[0.08] dark:opacity-[0.04] scale-150 rotate-180"
+            aria-hidden="true"
+          />
+        </div>
+      </motion.div>
+
+      {/* Subtle floating geometric accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Quarter-circle accent - top left */}
+        <motion.div
+          className="absolute top-20 left-10 w-16 h-16 rounded-br-full bg-[#82B29A]/10 dark:bg-[#82B29A]/5 hidden lg:block"
+          animate={{
+            y: [0, 8, 0],
+            rotate: [0, 5, 0]
+          }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Small square - right side */}
+        <motion.div
+          className="absolute top-1/3 right-16 w-8 h-8 bg-[#F2CC8E]/10 dark:bg-[#F2CC8E]/5 rounded-lg hidden lg:block"
+          animate={{
+            y: [0, -12, 0],
+            rotate: [0, 45, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        {/* Quarter-circle - bottom right */}
+        <motion.div
+          className="absolute bottom-32 right-20 w-12 h-12 rounded-tl-full bg-[#DF7A5E]/10 dark:bg-[#DF7A5E]/5 hidden lg:block"
+          animate={{
+            y: [0, 10, 0],
+            x: [0, -5, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        {/* Diamond shape - left side */}
+        <motion.div
+          className="absolute top-2/3 left-20 w-6 h-6 bg-[#3C405B]/10 dark:bg-[#F4F1DE]/5 rotate-45 hidden lg:block"
+          animate={{
+            y: [0, -8, 0],
+            rotate: [45, 90, 45]
+          }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        />
+      </div>
+
+      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Content */}
         <motion.div
           className="space-y-8"
@@ -94,7 +171,7 @@ export default function Approach() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="flex items-start gap-4 p-5 rounded-xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-all shadow-sm hover:shadow-md group cursor-pointer"
+                className="flex items-start gap-4 p-5 rounded-xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-all shadow-sm hover:shadow-md group cursor-pointer backdrop-blur-sm"
                 whileHover={{
                   scale: 1.02,
                   y: -4,

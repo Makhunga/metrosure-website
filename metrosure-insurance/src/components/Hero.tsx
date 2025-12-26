@@ -1,8 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, TargetAndTransition, Transition } from "framer-motion";
 import { MagneticButton } from "./animations";
+
+// Floating shape component
+function FloatingShape({
+  className,
+  animate,
+  transition,
+  style
+}: {
+  className: string;
+  animate: TargetAndTransition;
+  transition: Transition;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <motion.div
+      className={className}
+      animate={animate}
+      transition={transition}
+      style={style}
+    />
+  );
+}
 
 export default function Hero() {
   return (
@@ -14,6 +36,114 @@ export default function Hero() {
 
       {/* Gradient Mesh Overlay */}
       <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
+
+      {/* Floating Geometric Shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Large quarter-circle - top left */}
+        <FloatingShape
+          className="absolute -top-20 -left-20 w-80 h-80 rounded-br-full bg-[#82B29A]/[0.07] dark:bg-[#82B29A]/[0.04]"
+          animate={{
+            y: [0, 30, 0],
+            x: [0, 15, 0],
+            scale: [1, 1.05, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Large quarter-circle - bottom right */}
+        <FloatingShape
+          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-tl-full bg-[#F2CC8E]/[0.08] dark:bg-[#F2CC8E]/[0.04]"
+          animate={{
+            y: [0, -25, 0],
+            x: [0, -20, 0],
+            scale: [1, 1.08, 1],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+
+        {/* Medium circle - right side */}
+        <FloatingShape
+          className="absolute top-1/4 right-[10%] w-48 h-48 rounded-full bg-[#DF7A5E]/[0.06] dark:bg-[#DF7A5E]/[0.03] blur-sm"
+          animate={{
+            y: [0, 40, 0],
+            x: [0, -20, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+
+        {/* Medium quarter-circle - left side */}
+        <FloatingShape
+          className="absolute top-1/2 -left-10 w-40 h-40 rounded-tr-full bg-[#3C405B]/[0.06] dark:bg-[#F4F1DE]/[0.03]"
+          animate={{
+            y: [0, -35, 0],
+            rotate: [0, 10, 0],
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
+
+        {/* Small floating square - top right */}
+        <FloatingShape
+          className="absolute top-32 right-[20%] w-20 h-20 rounded-2xl bg-[#F2CC8E]/[0.1] dark:bg-[#F2CC8E]/[0.05] hidden lg:block"
+          animate={{
+            y: [0, 25, 0],
+            x: [0, 15, 0],
+            rotate: [0, 45, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        />
+
+        {/* Small circle - bottom left area */}
+        <FloatingShape
+          className="absolute bottom-40 left-[15%] w-24 h-24 rounded-full bg-[#82B29A]/[0.08] dark:bg-[#82B29A]/[0.04] hidden md:block"
+          animate={{
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+
+        {/* Tiny accent square - floating center-right */}
+        <FloatingShape
+          className="absolute top-[40%] right-[30%] w-10 h-10 rounded-lg bg-[#DF7A5E]/[0.12] dark:bg-[#DF7A5E]/[0.06] hidden lg:block"
+          animate={{
+            y: [0, 20, 0],
+            x: [0, -10, 0],
+            rotate: [0, 90, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+        />
+
+        {/* Arc shape - top center-right */}
+        <FloatingShape
+          className="absolute top-20 right-[35%] w-32 h-16 rounded-t-full bg-[#3C405B]/[0.05] dark:bg-[#F4F1DE]/[0.03] hidden xl:block"
+          animate={{
+            y: [0, 15, 0],
+            rotate: [0, -5, 0],
+          }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        />
+
+        {/* Small quarter-circle - bottom center */}
+        <FloatingShape
+          className="absolute bottom-20 left-[40%] w-16 h-16 rounded-bl-full bg-[#F4F1DE]/[0.15] dark:bg-[#F4F1DE]/[0.05] hidden md:block"
+          animate={{
+            y: [0, -20, 0],
+            x: [0, 10, 0],
+          }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3.5 }}
+        />
+
+        {/* Accent diamond - left side */}
+        <FloatingShape
+          className="absolute top-[60%] left-[8%] w-12 h-12 bg-[#F2CC8E]/[0.1] dark:bg-[#F2CC8E]/[0.05] hidden lg:block"
+          style={{ transform: 'rotate(45deg)' }}
+          animate={{
+            y: [0, 25, 0],
+            rotate: [45, 90, 45],
+          }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        />
+      </div>
 
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
         {/* Centered Content */}

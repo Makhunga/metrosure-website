@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import Image from "next/image";
 
 interface AnimatedCounterProps {
   value: string;
@@ -151,8 +152,90 @@ export default function SuccessMetrics() {
       ref={ref}
       className="relative overflow-hidden bg-primary py-16 md:py-20"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+      {/* Geometric Pattern - Left Side */}
+      <motion.div
+        className="absolute left-0 top-0 bottom-0 w-[40%] pointer-events-none hidden lg:block"
+        initial={{ opacity: 0, x: -50 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        <div className="absolute inset-0 [mask-image:linear-gradient(to_right,white_0%,white_30%,transparent_100%)]">
+          <Image
+            src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
+            alt=""
+            fill
+            className="object-cover object-right opacity-20 mix-blend-soft-light scale-150"
+            aria-hidden="true"
+          />
+        </div>
+        {/* Color overlay to blend with primary */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-primary/60 to-primary" />
+      </motion.div>
+
+      {/* Geometric Pattern - Right Side */}
+      <motion.div
+        className="absolute right-0 top-0 bottom-0 w-[40%] pointer-events-none hidden lg:block"
+        initial={{ opacity: 0, x: 50 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+      >
+        <div className="absolute inset-0 [mask-image:linear-gradient(to_left,white_0%,white_30%,transparent_100%)]">
+          <Image
+            src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
+            alt=""
+            fill
+            className="object-cover object-left opacity-20 mix-blend-soft-light scale-150 -scale-x-100"
+            aria-hidden="true"
+          />
+        </div>
+        {/* Color overlay to blend with primary */}
+        <div className="absolute inset-0 bg-gradient-to-l from-primary/40 via-primary/60 to-primary" />
+      </motion.div>
+
+      {/* Subtle animated geometric accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Floating quarter-circle accent - top left */}
+        <motion.div
+          className="absolute -top-16 -left-16 w-32 h-32 rounded-br-full bg-[#F2CC8E]/10"
+          animate={{
+            y: [0, 10, 0],
+            rotate: [0, 5, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Floating quarter-circle accent - bottom right */}
+        <motion.div
+          className="absolute -bottom-16 -right-16 w-40 h-40 rounded-tl-full bg-[#82B29A]/10"
+          animate={{
+            y: [0, -10, 0],
+            rotate: [0, -5, 0]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        {/* Small floating square - middle left */}
+        <motion.div
+          className="absolute top-1/3 left-8 w-8 h-8 bg-[#DF7A5E]/15 rounded-lg hidden md:block"
+          animate={{
+            y: [0, 15, 0],
+            x: [0, 5, 0],
+            rotate: [0, 45, 0]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        {/* Small floating square - middle right */}
+        <motion.div
+          className="absolute top-2/3 right-12 w-6 h-6 bg-[#F4F1DE]/15 rounded-md hidden md:block"
+          animate={{
+            y: [0, -12, 0],
+            x: [0, -5, 0],
+            rotate: [45, 0, 45]
+          }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        />
+      </div>
+
+      {/* Background Pattern - subtle grid */}
+      <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')]" />
       </div>
 
@@ -165,7 +248,7 @@ export default function SuccessMetrics() {
           transition={{ duration: 0.6 }}
         >
           <motion.span
-            className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-semibold mb-4"
+            className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-semibold mb-4 backdrop-blur-sm border border-white/10"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2 }}
