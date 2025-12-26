@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 26, 2025 (Session 16 - In Progress)
+**Date:** December 26, 2025 (Session 16 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -42,9 +42,9 @@ The website is now a comprehensive site for Metrosure Insurance Brokers with:
 
 ---
 
-## Session 16 Summary (December 26, 2025) - IN PROGRESS
+## Session 16 Summary (December 26, 2025) - COMPLETE
 
-**Session Focus:** Visual Cleanup - Remove Decorative Elements
+**Session Focus:** Visual Cleanup, B2B Narrative, Footer Enhancement
 
 ### Completed This Session:
 
@@ -596,7 +596,7 @@ Route (app)
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 26, 2025** | **S16** | **Visual Cleanup** | Removed animated gradient orbs from Hero, removed decorative geometric shapes from 11 components |
+| **Dec 26, 2025** | **S16** | **Visual & B2B Polish** | Removed orbs/shapes, About page B2B narrative, footer geometric background (23%/12%), reverted hover animations |
 | Dec 26, 2025 | S15 | Env-Based Routing | Middleware for under-development pages, production redirects, dev-only full content |
 | Dec 26, 2025 | S14 | Deploy & Polish | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
 | Dec 26, 2025 | S13 | Dev Banner & B2B Contact | Development banner, under development page, stakeholder email templates, B2B contact page updates |
@@ -801,5 +801,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 26, 2025 - Session 16 In Progress*
-*Next review: End of Session 16*
+*Document updated: December 26, 2025 - Session 16 Complete*
+*Next review: Session 17*
