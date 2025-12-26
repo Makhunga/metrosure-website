@@ -108,19 +108,19 @@ export default function Footer() {
       ref={footerRef}
       className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
     >
-      {/* Dark mode: Background image with geometric pattern */}
+      {/* Geometric pattern background */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-100 dark:brightness-150 dark:contrast-150"
+        className="absolute inset-0 pointer-events-none opacity-[0.23] dark:opacity-[0.12]"
         style={{
-          backgroundImage: 'url(/images/bg-footer.jpg)',
-          backgroundSize: 'cover',
+          backgroundImage: 'url(/images/geometric-pattern.webp)',
+          backgroundSize: '600px',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          backgroundRepeat: 'repeat',
         }}
       />
 
-      {/* Dark mode gradient overlay */}
-      <div className="absolute inset-0 bg-transparent dark:bg-gradient-to-b dark:from-slate-900/40 dark:via-slate-900/20 dark:to-slate-900/40 pointer-events-none" />
+      {/* Gradient overlay for better text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-100/80 via-slate-100/60 to-slate-100/90 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div

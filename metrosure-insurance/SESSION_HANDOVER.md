@@ -85,6 +85,65 @@ Removed all decorative geometric shapes (QuarterCircle, Triangle, Diamond, DotsP
 
 Updated `public/sitemap.xml` with current route structure.
 
+#### 4. About Page B2B Narrative & Stats Fix ✅
+
+Enhanced About page with dual-audience (B2C + B2B) messaging:
+
+| Section | Changes |
+|---------|---------|
+| Hero | Updated copy: "protecting families and partnering with retail businesses" |
+| Hero | Added B2B cross-link to /partners page |
+| Stats Bar | Converted from bold red to light border style (matching home page) |
+| Mission | Added partnership paragraph about 5,000+ jobs and retail programme |
+| Timeline | Added 2022 "100+ Retail Partners" milestone |
+| Values | Updated description to include retail partners |
+| CTA | Changed heading to "Ready to grow with us?" with dual CTAs |
+| CTA | Added geometric decorations and animated blurs |
+
+#### 5. Copy & Animation Polish ✅
+
+| Change | Details |
+|--------|---------|
+| Replace "entrepreneurs" | Changed to "retail businesses" and "store owners" |
+| Em-dashes | Replaced with commas and dashes throughout copy |
+| Contact Working Hours | Added "Mon - Fri: 09:00 - 17:00" to ContactHero and Footer |
+| Registration Number | Added "Reg. 2016/113504/07" to legal page, privacy, terms, footer |
+| Careers CTA | Restyled to match home page with rounded-3xl and blobs |
+
+#### 6. Footer Geometric Background ✅
+
+Added subtle geometric pattern to footer:
+
+| Property | Value |
+|----------|-------|
+| Image | `geometric-pattern.webp` (from resources) |
+| Light Mode Opacity | 23% |
+| Dark Mode Opacity | 12% |
+| Size | 600px repeating |
+| Overlay | Gradient for text contrast |
+
+#### 7. Revert Timeline & Leadership Animations ✅
+
+Reverted hover animations (to be tackled later):
+
+| Element | Reverted Change |
+|---------|-----------------|
+| Timeline title | Removed `group-hover:text-primary transition-colors` |
+| Timeline card border | Removed `hover:border-primary/30` |
+| Leadership card border | Removed `hover:border-primary/30 transition-all duration-300` |
+| Leadership name | Removed `group-hover:text-primary transition-colors duration-300` |
+| Leadership overlay | Removed `transition-all duration-500 ease-out translate-y-8` |
+
+**Files Modified:**
+- `src/app/about/page.tsx` - B2B narrative, stats styling, CTA redesign, reverted animations
+- `src/app/careers/page.tsx` - CTA restyled
+- `src/components/Footer.tsx` - Geometric background, working hours, registration number
+- `src/components/contact/ContactHero.tsx` - Working hours
+- `src/app/legal/page.tsx` - Registration number in disclosures
+- `src/app/privacy/page.tsx` - Registration number
+- `src/app/terms/page.tsx` - Registration number
+- `public/images/geometric-pattern.webp` - **NEW** - Footer background pattern
+
 ---
 
 ## Session 15 Summary (December 26, 2025) - COMPLETE

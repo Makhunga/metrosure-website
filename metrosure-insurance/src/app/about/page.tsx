@@ -549,8 +549,8 @@ export default function AboutPage() {
                   <motion.div
                     className={`p-8 md:p-10 rounded-3xl border shadow-sm relative overflow-hidden transition-all duration-300 ${
                       item.isSpecial
-                        ? "bg-[rgb(var(--color-surface-card))] border-primary/20 hover:border-primary/40"
-                        : "bg-[rgb(var(--color-surface-card))] border-[rgb(var(--color-border-light))] hover:border-primary/30"
+                        ? "bg-[rgb(var(--color-surface-card))] border-primary/20"
+                        : "bg-[rgb(var(--color-surface-card))] border-[rgb(var(--color-border-light))]"
                     }`}
                     whileHover={{
                       y: -4,
@@ -558,7 +558,7 @@ export default function AboutPage() {
                       transition: { type: "spring", stiffness: 300, damping: 20 }
                     }}
                   >
-                    <div className="absolute -right-4 -bottom-8 text-[120px] md:text-[150px] font-black select-none z-0 text-slate-200/60 dark:text-white/10 rotate-12 group-hover:rotate-0 group-hover:scale-110 group-hover:text-primary/20 dark:group-hover:text-primary/30 transition-all duration-500 ease-out origin-bottom-right">
+                    <div className="absolute -right-4 -bottom-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0">
                       {item.number}
                     </div>
                     <div className="relative z-10">
@@ -573,7 +573,7 @@ export default function AboutPage() {
                         </span>
                         <div className="h-px w-8 bg-primary/30" />
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[rgb(var(--color-text-main))] group-hover:text-primary transition-colors duration-300">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[rgb(var(--color-text-main))]">
                         {item.title}
                       </h3>
                       <p className="text-[rgb(var(--color-text-body))] text-lg leading-relaxed">
@@ -645,7 +645,7 @@ export default function AboutPage() {
               onMouseLeave={() => setHoveredTeamMember(null)}
             >
               <motion.div
-                className="relative w-full h-full shadow-xl rounded-2xl overflow-hidden bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-all duration-300"
+                className="relative w-full h-full shadow-xl rounded-2xl overflow-hidden bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))]"
                 whileHover={{
                   boxShadow: "0 25px 50px -12px rgba(191, 6, 3, 0.25)",
                   transition: { duration: 0.3 }
@@ -666,7 +666,7 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <div className="h-[25%] p-6 flex flex-col justify-center bg-[rgb(var(--color-surface-card))] relative z-20">
-                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))] group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))]">
                       {member.name}
                     </h3>
                     <p className="text-sm font-bold uppercase tracking-wider text-[rgb(var(--color-text-muted))] mt-1">
@@ -677,10 +677,10 @@ export default function AboutPage() {
 
                 {/* Hover State Overlay */}
                 <div
-                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-center p-8 text-white transform transition-all duration-500 ease-out ${
+                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-center p-8 text-white ${
                     hoveredTeamMember === index
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-8 pointer-events-none"
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
                   }`}
                 >
                   <div className="absolute top-4 right-4 opacity-50">
