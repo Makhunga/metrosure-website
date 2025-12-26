@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 26, 2025 (Session 15 - In Progress)
+**Date:** December 26, 2025 (Session 16 - In Progress)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -42,7 +42,52 @@ The website is now a comprehensive site for Metrosure Insurance Brokers with:
 
 ---
 
-## Session 15 Summary (December 26, 2025) - IN PROGRESS
+## Session 16 Summary (December 26, 2025) - IN PROGRESS
+
+**Session Focus:** Visual Cleanup - Remove Decorative Elements
+
+### Completed This Session:
+
+#### 1. Remove Animated Gradient Orbs ✅
+
+Removed animated floating gradient orbs from Hero component:
+
+| Element Removed | Description |
+|-----------------|-------------|
+| Primary orb | `w-96 h-96` blur-3xl with primary color |
+| Secondary orb | `w-[500px] h-[500px]` blur-3xl with secondary color |
+| Center orb | `w-[600px] h-[600px]` blur-3xl pulse animation |
+
+**Files Modified:**
+- `src/components/Hero.tsx` - Removed 3 animated motion.div orbs
+
+#### 2. Remove Decorative Geometric Shapes ✅
+
+Removed all decorative geometric shapes (QuarterCircle, Triangle, Diamond, DotsPattern, Circle, HalfCircle) from:
+
+| Component | Shapes Removed |
+|-----------|---------------|
+| `WhyChooseUs.tsx` | Corner shapes, triangles, diamonds, dots |
+| `Features.tsx` | QuarterCircle, diamonds, triangles, dots |
+| `Approach.tsx` | QuarterCircle, diamonds, triangles, dots |
+| `Difference.tsx` | QuarterCircle, diamonds, triangles |
+| `StatsBar.tsx` | Diamonds, triangles, dots |
+| `Testimonials.tsx` | QuarterCircle, circles, diamonds, dots |
+| `Footer.tsx` | QuarterCircle, triangles, diamonds |
+| `CareersHero.tsx` | QuarterCircle, diamonds, dots |
+| `PartnersHero.tsx` | QuarterCircle, diamonds, dots |
+| `PartnerBenefits.tsx` | Diamonds |
+| `SuccessMetrics.tsx` | Diamonds, triangles |
+
+**Result:** Cleaner visual design with less visual clutter
+
+#### 3. Sitemap Update ✅
+
+Updated `public/sitemap.xml` with current route structure.
+
+---
+
+## Session 15 Summary (December 26, 2025) - COMPLETE
 
 **Session Focus:** Environment-Based Routing for Under Development Pages
 
@@ -492,7 +537,8 @@ Route (app)
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 26, 2025** | **S15** | **Env-Based Routing** | Middleware for under-development pages, production redirects, dev-only full content |
+| **Dec 26, 2025** | **S16** | **Visual Cleanup** | Removed animated gradient orbs from Hero, removed decorative geometric shapes from 11 components |
+| Dec 26, 2025 | S15 | Env-Based Routing | Middleware for under-development pages, production redirects, dev-only full content |
 | Dec 26, 2025 | S14 | Deploy & Polish | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
 | Dec 26, 2025 | S13 | Dev Banner & B2B Contact | Development banner, under development page, stakeholder email templates, B2B contact page updates |
 | Dec 26, 2025 | S12 | Quote API & Polish | Quote form API with email integration, hero spacing fix, performance audit, navigation testing |
@@ -696,5 +742,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 26, 2025 - Session 14 Complete*
-*Next review: Start of Session 15*
+*Document updated: December 26, 2025 - Session 16 In Progress*
+*Next review: End of Session 16*
