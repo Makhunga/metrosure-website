@@ -95,12 +95,20 @@ const timeline = [
       "Expanded across South Africa with regional offices in Johannesburg, Pretoria, Pietermaritzburg, Bloemfontein, and more.",
   },
   {
+    icon: "storefront",
+    year: "2022",
+    number: "22",
+    title: "100+ Retail Partners",
+    description:
+      "Reached a milestone of 100+ retail partnerships across South Africa, creating employment opportunities in local communities.",
+  },
+  {
     icon: "groups",
     year: "2025",
     number: "25",
     title: "5,000+ Jobs Created",
     description:
-      "Proud to have created over 5,000 employment opportunities for South Africans, with a commitment to grow even more.",
+      "Proud to have created over 5,000 employment opportunities through our retail partnership programme, with a commitment to grow even more.",
     isSpecial: true,
   },
 ];
@@ -203,7 +211,7 @@ export default function AboutPage() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              A proudly South African financial services company helping you and your family feel protected. Real people, real advice, real cover.
+              A proudly South African financial services company protecting families and empowering retail entrepreneurs. Real people, real advice, real partnerships.
             </motion.p>
 
             <motion.div
@@ -230,17 +238,31 @@ export default function AboutPage() {
                 </Link>
               </motion.div>
             </motion.div>
+
+            {/* B2B Cross-link */}
+            <motion.div
+              className="mt-6"
+              initial={{ opacity: 0 }}
+              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <Link
+                href="/partners"
+                className="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
+              >
+                <span className="material-symbols-outlined text-base">storefront</span>
+                <span>Own a retail space? <span className="font-semibold underline">Partner with us</span></span>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Section - Bold Red Background (Static Style) */}
-      <section ref={statsRef} className="py-20 bg-primary text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+      {/* Stats Section - Light Style (Matching Home Page) */}
+      <section ref={statsRef} className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/20"
+            className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[rgb(var(--color-border-light))]"
             variants={containerVariants}
             initial="hidden"
             animate={statsInView ? "visible" : "hidden"}
@@ -248,15 +270,13 @@ export default function AboutPage() {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                className="flex flex-col items-center text-center px-4 group hover:scale-105 transition-transform duration-300"
+                className="px-6 py-6 md:py-8 flex flex-col items-center text-center bg-[rgb(var(--color-surface-card))] hover:bg-[rgb(var(--color-surface))] transition-colors duration-300"
                 variants={itemVariants}
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring" as const, stiffness: 400, damping: 17 }}
               >
-                <span className="text-4xl md:text-6xl font-black text-white tracking-tighter drop-shadow-md">
+                <span className="text-3xl font-bold text-primary mb-1">
                   {stat.value}
                 </span>
-                <span className="mt-2 text-sm font-bold uppercase tracking-wider text-white/90">
+                <span className="text-sm font-medium text-[rgb(var(--color-text-body))]">
                   {stat.label}
                 </span>
               </motion.div>
@@ -302,13 +322,24 @@ export default function AboutPage() {
                 dedicated claims and underwriting staff, so your instructions are processed effectively.
               </motion.p>
               <motion.p
-                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
+                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 Whether you&apos;re protecting your car and home, planning for retirement, or
                 looking after your employees, we&apos;re here to help you move forward with confidence.
+              </motion.p>
+              <motion.p
+                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                But we&apos;re more than just an insurance broker. Through our retail partnership programme,
+                we&apos;ve created over 5,000 jobs across South Africa. We partner with store owners to bring
+                insurance services into their communities, sharing revenue and creating local employment.
+                When you partner with Metrosure, you&apos;re not just adding a service—you&apos;re building something that lasts.
               </motion.p>
             </motion.div>
             <motion.div
@@ -379,8 +410,8 @@ export default function AboutPage() {
               animate={valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              These core principles guide everything we do, from how we design our
-              products to how we serve our customers.
+              These core principles guide everything we do—from how we serve our
+              customers to how we partner with retailers across South Africa.
             </motion.p>
           </motion.div>
 
@@ -716,7 +747,7 @@ export default function AboutPage() {
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Ready to feel secure?
+              Ready to grow with us?
             </motion.h2>
             <motion.p
               className="text-xl text-white/90 max-w-2xl font-medium"
@@ -724,8 +755,8 @@ export default function AboutPage() {
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Join thousands of others who have switched to a smarter, more human way of insuring
-              their future.
+              Whether you&apos;re protecting your family or transforming your retail space into a
+              revenue stream—we&apos;re here to help you move forward.
             </motion.p>
 
             <motion.div
@@ -744,10 +775,10 @@ export default function AboutPage() {
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 <Link
-                  href="/contact"
+                  href="/partners"
                   className="block bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg hover:bg-black/20 transition-colors"
                 >
-                  Contact Sales
+                  Become a Partner
                 </Link>
               </motion.div>
             </motion.div>
