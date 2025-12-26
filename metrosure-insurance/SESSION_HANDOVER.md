@@ -1,12 +1,222 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 26, 2025 (Session 16 - Complete)
+**Date:** December 26, 2025 (Session 18 - Ready)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
 **Dev Server:** `http://localhost:3000`
 **Production:** Deployed to Vercel
 **Repository:** `git@github.com:Makhunga/metrosure-website.git`
+
+---
+
+## SESSION 18 PRIORITY: UI/UX Visual Enhancements
+
+### Design Philosophy
+- **Goal:** Add depth without feeling forced or over-designed
+- **Avoid:** Cluttered, constrained layouts with no breathing room (see Under Development page as anti-example)
+- **Achieve:** Generous whitespace, clear visual hierarchy, purposeful elements
+
+---
+
+### 1. UNDER DEVELOPMENT PAGE - FIX FIRST (Quick Win)
+
+**Current Issues:**
+- `max-w-2xl` too narrow - feels cramped
+- `gap-4` on info cards too tight
+- `mb-8` margins inconsistent and small
+- Too many competing elements (icon, badge, progress bar, 2 cards, 2 buttons)
+- Info cards feel forced - what action can users actually take?
+- Progress bar arbitrary (60%) and adds visual noise
+
+**Recommended Fix:**
+- Increase container width (`max-w-4xl` or wider)
+- Simplify: One clear message, generous whitespace, single CTA
+- Remove or simplify info cards
+- Remove arbitrary progress bar
+- Increase spacing throughout (`gap-8`, `mb-12`)
+
+**File:** `src/components/UnderDevelopment.tsx`
+
+---
+
+### 2. HERO SECTION - Add Visual Anchor (Images Needed)
+
+**Current:** Text-only centered layout works but lacks visual depth
+
+**Options:**
+| Option | Description | Images Needed |
+|--------|-------------|---------------|
+| A | Lifestyle photo collage | 3-4 family/retail photos |
+| B | Split layout (text left, masked image right) | 1 hero image |
+| C | Single background image with overlay | 1 lifestyle image |
+
+**Suggested Images:**
+- South African families
+- Retail store environments
+- Team interactions
+- Community moments
+
+---
+
+### 3. PRODUCTS SECTION - Add Depth
+
+**Current:** Card grid is functional but flat
+
+**Suggestions:**
+- Add subtle product illustrations or icons with more visual weight
+- Consider "featured product" that's larger/highlighted
+- Add lifestyle imagery behind cards with overlay
+- Increase card padding and spacing
+
+---
+
+### 4. TESTIMONIALS SECTION - Add Real Faces
+
+**Current:** Text-based testimonials
+
+**If customer photos available:**
+- Add circular headshots
+- Real faces build trust significantly
+- Consistent photo style (similar lighting/background)
+
+---
+
+### 5. ABOUT PAGE - TEAM SECTION
+
+**Current:** Works well with hover effect
+**Issue:** Placeholder/missing images break the experience
+
+**Need:** Actual team photos
+- Professional headshots
+- Consistent style across all 3 executives
+- Similar lighting and background
+
+---
+
+### 6. CONTACT PAGE - Add Warmth
+
+**Suggestions:**
+- Add photo of office or team in hero area
+- Office locations section already improved (merged cards)
+
+---
+
+### 7. PARTNERS PAGE - Reduce Text-Heavy Feel
+
+**Current:** Very text-heavy
+
+**Suggestions with images:**
+- Photos of actual retail partner stores
+- "Partner spotlight" section with real case studies
+- Before/after revenue graphics
+- Success story photos
+
+---
+
+### 8. GLOBAL SPACING IMPROVEMENTS (No Images Needed)
+
+| Current | Suggested | Where |
+|---------|-----------|-------|
+| `py-24` | `py-32` | Key sections |
+| `p-6` / `p-8` | `p-10` / `p-12` | Cards with lots of content |
+| `gap-6` | `gap-8` | Card grids |
+| `mb-8` | `mb-12` | Section headings |
+
+---
+
+### 9. SECTION DIVIDERS (No Images Needed)
+
+**Instead of harsh lines, use:**
+- Gradient fades
+- Geometric shapes from existing pattern palette (#82B29A, #F2CC8E, #DF7A5E, #3C405B)
+- Subtle wave/curve shapes
+
+---
+
+### 10. EMPTY STATES
+
+Anywhere content is missing, add placeholder illustrations instead of leaving blank.
+
+---
+
+### Image Priority List
+
+| Priority | Image Type | Where | Quantity |
+|----------|-----------|-------|----------|
+| **HIGH** | Team headshots | About page | 3 |
+| **HIGH** | Hero lifestyle image | Home hero | 1 |
+| **MEDIUM** | Retail partner store photos | Partners page | 3-4 |
+| **MEDIUM** | Office photos | Contact/About | 2-3 |
+| **LOW** | Customer photos | Testimonials | 3-5 |
+
+---
+
+### Session 18 Implementation Order
+
+1. Fix Under Development page (quick win, no images)
+2. Global spacing improvements (quick win, no images)
+3. Add section dividers with geometric shapes (no images)
+4. Hero section with image (when available)
+5. Team photos on About page (when available)
+6. Partners page imagery (when available)
+
+---
+
+## Session 17.5 Summary (December 26, 2025) - COMPLETE
+
+**Session Focus:** Geometric Pattern Integration, Hero/Footer Enhancement, Contact Page Merge
+
+### Completed This Session:
+
+#### 1. Geometric Pattern Backgrounds ✅
+
+Added retro geometric SVG pattern to multiple sections:
+
+| Component | Location | Treatment |
+|-----------|----------|-----------|
+| `SuccessMetrics.tsx` | Partners page "Our Impact" | Side panels with gradient masks, floating accents |
+| `Approach.tsx` | Home page "What we believe in" | Corner patterns with radial masks |
+| `careers/page.tsx` | Careers stats bar | Side panels with floating accents |
+
+**Pattern Colors Used:**
+- Sage green: `#82B29A`
+- Gold: `#F2CC8E`
+- Coral: `#DF7A5E`
+- Dark blue: `#3C405B`
+- Cream: `#F4F1DE`
+
+**File Added:**
+- `public/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg`
+
+#### 2. Hero Section Floating Shapes ✅
+
+Added 10 animated floating geometric shapes to Hero:
+- Large quarter-circles in corners (sage, gold)
+- Medium circles and arcs scattered
+- Small rotating squares and diamonds
+- All with gentle floating animations (10-22s duration)
+- Opacity adjusts for light/dark mode
+
+**File Modified:** `src/components/Hero.tsx`
+
+#### 3. Footer Light Mode Enhancement ✅
+
+- Enabled geometric pattern for light mode (4% opacity vs 12% dark)
+- Added 6 animated corner accents using pattern colors
+- Gradient overlay adjusted for both modes
+
+**File Modified:** `src/components/Footer.tsx`
+
+#### 4. Contact Page - Merged Office Cards ✅
+
+Connected office list and map cards on large screens:
+- Removed gap between cards (`lg:gap-0`)
+- Squared off adjacent borders (`lg:rounded-r-none`, `lg:rounded-l-none`)
+- Removed right border from office list (`lg:border-r-0`)
+- Creates unified two-panel layout on desktop
+
+**File Modified:** `src/components/contact/OfficeLocations.tsx`
 
 ---
 
@@ -39,6 +249,40 @@ The website is now a comprehensive site for Metrosure Insurance Brokers with:
 | Dev Banner | ✅ Site-wide with feedback link |
 | Deployment | ✅ Vercel (production) |
 | Middleware | ✅ Environment-based routing |
+
+---
+
+## Session 17 Summary (December 26, 2025) - COMPLETE
+
+**Session Focus:** Circle Scatter Background Pattern for Red CTAs
+
+### Completed This Session:
+
+#### 1. Circle Scatter Pattern for Red CTA Sections ✅
+
+Added the `circle-scatter-haikei.svg` pattern as a decorative background to red CTA sections:
+
+| Component | Location | Description |
+|-----------|----------|-------------|
+| `PartnersCTA.tsx` | Home page | "Partner With Purpose" section |
+| `PartnerBenefits.tsx` | Partners page | "Ready to Transform Your Retail Space?" CTA |
+
+**Pattern Details:**
+| Property | Value |
+|----------|-------|
+| Source | `resources/circle-scatter-haikei.svg` |
+| Output | `public/images/circle-scatter.svg` |
+| Stroke Color | White (changed from original red #A7233A) |
+| Stroke Opacity | 12% |
+| Background Size | 900px x 600px |
+| Repeat | Tiled across section |
+
+**Files Created:**
+- `public/images/circle-scatter.svg` - Circle scatter pattern (white strokes)
+
+**Files Modified:**
+- `src/components/PartnersCTA.tsx` - Replaced network pattern with circle scatter
+- `src/components/partners/PartnerBenefits.tsx` - Added circle scatter to bottom CTA
 
 ---
 
@@ -596,7 +840,8 @@ Route (app)
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 26, 2025** | **S16** | **Visual & B2B Polish** | Removed orbs/shapes, About page B2B narrative, footer geometric background (23%/12%), reverted hover animations |
+| **Dec 26, 2025** | **S17** | **Circle Scatter Pattern** | Added circle-scatter.svg to red CTA sections (PartnersCTA, PartnerBenefits) |
+| Dec 26, 2025 | S16 | Visual & B2B Polish | Removed orbs/shapes, About page B2B narrative, footer geometric background (23%/12%), reverted hover animations |
 | Dec 26, 2025 | S15 | Env-Based Routing | Middleware for under-development pages, production redirects, dev-only full content |
 | Dec 26, 2025 | S14 | Deploy & Polish | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
 | Dec 26, 2025 | S13 | Dev Banner & B2B Contact | Development banner, under development page, stakeholder email templates, B2B contact page updates |
@@ -801,5 +1046,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 26, 2025 - Session 16 Complete*
-*Next review: Session 17*
+*Document updated: December 26, 2025 - Session 17 Complete*
+*Next review: Session 18*
