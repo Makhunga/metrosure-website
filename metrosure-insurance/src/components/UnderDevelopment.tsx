@@ -29,7 +29,7 @@ export default function UnderDevelopment({
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className="mb-8 inline-flex items-center justify-center w-24 h-24 rounded-full bg-amber-100 dark:bg-amber-900/30"
+          className="mb-8 inline-flex items-center justify-center w-24 h-24 rounded-full bg-amber-100 dark:bg-amber-500/30"
         >
           <span className="material-symbols-outlined text-5xl text-amber-600 dark:text-amber-400">
             engineering
@@ -41,7 +41,7 @@ export default function UnderDevelopment({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-primary))] mb-4"
+          className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-4"
         >
           Under Development
         </motion.h1>
@@ -103,7 +103,7 @@ export default function UnderDevelopment({
             <span className="material-symbols-outlined text-3xl text-primary mb-3 block">
               notifications_active
             </span>
-            <h3 className="font-semibold text-[rgb(var(--color-text-primary))] mb-2">
+            <h3 className="font-semibold text-[rgb(var(--color-text-main))] mb-2">
               Get Notified
             </h3>
             <p className="text-sm text-[rgb(var(--color-text-body))]">
@@ -114,7 +114,7 @@ export default function UnderDevelopment({
             <span className="material-symbols-outlined text-3xl text-primary mb-3 block">
               feedback
             </span>
-            <h3 className="font-semibold text-[rgb(var(--color-text-primary))] mb-2">
+            <h3 className="font-semibold text-[rgb(var(--color-text-main))] mb-2">
               Share Feedback
             </h3>
             <p className="text-sm text-[rgb(var(--color-text-body))]">
@@ -139,7 +139,7 @@ export default function UnderDevelopment({
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[rgb(var(--color-border-light))] text-[rgb(var(--color-text-primary))] hover:bg-[rgb(var(--color-surface-card))] font-semibold transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[rgb(var(--color-border-light))] text-[rgb(var(--color-text-main))] hover:bg-[rgb(var(--color-surface-card))] font-semibold transition-colors"
           >
             <span className="material-symbols-outlined text-lg">mail</span>
             Contact Us
