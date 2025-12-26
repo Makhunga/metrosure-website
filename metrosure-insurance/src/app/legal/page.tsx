@@ -147,7 +147,7 @@ If you are not satisfied with our response, you may escalate your complaint to t
     id: "professional-indemnity",
     title: "Professional Indemnity Insurance",
     icon: "shield",
-    content: `In accordance with regulatory requirements, Metrosure Insurance Brokers (Pty) Ltd maintains Professional Indemnity (PI) and Fidelity Insurance cover.
+    content: `In accordance with regulatory requirements, Metrosure Insurance Brokers (Pty) Ltd (Reg. 2016/113504/07) maintains Professional Indemnity (PI) and Fidelity Insurance cover.
 
 This insurance protects our clients against any financial loss that may arise from negligent advice or dishonest acts by our employees.
 
@@ -157,7 +157,7 @@ Details of our PI insurance are available on request.`,
     id: "bbbee",
     title: "B-BBEE Status",
     icon: "diversity_3",
-    content: `Metrosure Insurance Brokers (Pty) Ltd is a proudly South African, black-owned company committed to transformation and broad-based black economic empowerment.
+    content: `Metrosure Insurance Brokers (Pty) Ltd (Reg. 2016/113504/07) is a proudly South African, black-owned company committed to transformation and broad-based black economic empowerment.
 
 **Our Transformation Commitment:**
 • Founded by previously disadvantaged individuals

@@ -102,54 +102,90 @@ export default function CareersPage() {
       {/* Final CTA */}
       <section
         ref={ctaRef}
-        className="relative py-24 bg-primary overflow-hidden"
+        className="py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
       >
-        {/* Animated Background Blurs */}
         <motion.div
-          className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"
-          animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[rgb(var(--color-secondary))]/30 rounded-full blur-3xl"
-          animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+          className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+          initial={{ opacity: 0, y: 40 }}
+          animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+          {/* Geometric Shape Decorations */}
+          <svg
+            className="absolute -top-10 -left-10 w-40 h-40 opacity-10"
+            viewBox="0 0 100 100"
           >
+            <path d="M100 0 A100 100 0 0 1 0 100 L0 0 Z" fill="white" />
+          </svg>
+          <svg
+            className="absolute -bottom-8 -right-8 w-32 h-32 opacity-10 rotate-180"
+            viewBox="0 0 100 100"
+          >
+            <path d="M100 0 A100 100 0 0 1 0 100 L0 0 Z" fill="white" />
+          </svg>
+          <motion.svg
+            className="absolute top-1/4 right-10 w-6 h-6 opacity-30"
+            viewBox="0 0 100 100"
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          >
+            <polygon points="50,0 100,50 50,100 0,50" fill="white" />
+          </motion.svg>
+          <motion.svg
+            className="absolute bottom-1/3 left-12 w-4 h-4 opacity-25"
+            viewBox="0 0 100 100"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <polygon points="50,0 100,50 50,100 0,50" fill="white" />
+          </motion.svg>
+
+          {/* Animated Decorative Blurs */}
+          <motion.div
+            className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.05, 0.1, 0.05],
+            }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-80 h-80 bg-black opacity-10 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.15, 0.1],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+
+          <div className="relative z-10 flex flex-col items-center gap-8">
             <motion.h2
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
+              className="text-4xl md:text-6xl font-bold tracking-tight text-white"
               initial={{ opacity: 0, y: 20 }}
               animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
               Ready to Start Your Career?
             </motion.h2>
             <motion.p
-              className="text-xl text-white/90 mb-10"
+              className="text-xl text-white/90 max-w-2xl font-medium"
               initial={{ opacity: 0, y: 20 }}
               animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
               Join 5,000+ people who&apos;ve built their future with Metrosure
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 mt-4"
               initial={{ opacity: 0, y: 20 }}
               animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
               <motion.button
                 onClick={() => scrollToForm()}
-                className="h-14 px-8 rounded-xl bg-white text-primary font-bold shadow-lg shadow-black/20 flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05, y: -2 }}
+                className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
@@ -158,8 +194,8 @@ export default function CareersPage() {
               </motion.button>
               <Link href="/contact">
                 <motion.span
-                  className="h-14 px-8 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur text-white font-bold flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.2)" }}
+                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
@@ -170,17 +206,17 @@ export default function CareersPage() {
             </motion.div>
 
             {/* Trust Badge */}
-            <motion.div
-              className="mt-12 flex items-center justify-center gap-2 text-white/70"
+            <motion.p
+              className="text-sm text-white/70 mt-2 flex items-center gap-2"
               initial={{ opacity: 0 }}
               animate={ctaInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <span className="material-symbols-outlined text-lg">verified</span>
-              <span className="text-sm">FSP 47089 | Authorised Financial Service Provider</span>
-            </motion.div>
-          </motion.div>
-        </div>
+              <span className="material-symbols-outlined text-sm">verified</span>
+              FSP 47089 | Authorised Financial Service Provider
+            </motion.p>
+          </div>
+        </motion.div>
       </section>
       </main>
       <Footer />
