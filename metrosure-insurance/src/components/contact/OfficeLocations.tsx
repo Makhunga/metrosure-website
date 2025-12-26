@@ -107,10 +107,10 @@ export default function OfficeLocations() {
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-stretch">
         {/* Office List */}
         <motion.div
-          className="lg:col-span-5 bg-white dark:bg-slate-800 rounded-2xl p-8 md:p-12 border border-slate-200 dark:border-slate-700 flex flex-col justify-center"
+          className="lg:col-span-5 bg-white dark:bg-slate-800 rounded-2xl lg:rounded-r-none p-8 md:p-12 border border-slate-200 dark:border-slate-700 lg:border-r-0 flex flex-col justify-center"
           initial={{ opacity: 0, x: -30 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -227,7 +227,7 @@ export default function OfficeLocations() {
 
         {/* Map */}
         <motion.div
-          className="lg:col-span-7 min-h-[500px] relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900"
+          className="lg:col-span-7 min-h-[500px] relative rounded-2xl lg:rounded-l-none overflow-hidden shadow-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900"
           initial={{ opacity: 0, x: 30 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
