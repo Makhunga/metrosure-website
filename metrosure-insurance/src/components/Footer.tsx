@@ -108,9 +108,9 @@ export default function Footer() {
       ref={footerRef}
       className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
     >
-      {/* Geometric pattern background */}
+      {/* Geometric pattern background - dark mode only */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.23] dark:opacity-[0.12]"
+        className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-[0.12]"
         style={{
           backgroundImage: 'url(/images/geometric-pattern.webp)',
           backgroundSize: '600px',
@@ -119,8 +119,8 @@ export default function Footer() {
         }}
       />
 
-      {/* Gradient overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-100/80 via-slate-100/60 to-slate-100/90 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
+      {/* Gradient overlay for better text contrast - dark mode only */}
+      <div className="absolute inset-0 bg-transparent dark:bg-gradient-to-b dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -129,59 +129,23 @@ export default function Footer() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Brand Column - Slowest parallax */}
+          {/* Brand Column - Logo only */}
           <motion.div className="lg:col-span-2" variants={itemVariants}>
             <ParallaxWrapper speed={0.15} prefersReducedMotion={prefersReducedMotion}>
-              <div className="flex flex-col gap-6">
-                <Link href="/" className="flex items-center group">
-                  <motion.div
-                    className="relative h-10 w-[160px]"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <Image
-                      src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
-                      alt="Metrosure Insurance Brokers"
-                      fill
-                      className="object-contain"
-                    />
-                  </motion.div>
-                </Link>
-                <p className="text-slate-600 dark:text-gray-400 text-sm max-w-sm leading-relaxed">
-                  Taking you to the future. We&apos;re a South African financial services company helping
-                  families and businesses protect what matters most since 2016.
-                </p>
-                <div className="text-xs text-slate-500 dark:text-gray-500 space-y-1">
-                  <p><strong>Phone:</strong> +27 31 301 1192</p>
-                  <p><strong>Email:</strong> info@metrosuregroup.co.za</p>
-                  <p><strong>Head Office:</strong> 391 Anton Lembede Street, Durban, 4001</p>
-                  <p><strong>Hours:</strong> Mon - Fri: 09:00 - 17:00 | Sat, Sun & Holidays: Closed</p>
-                  <p className="pt-1">
-                    <Link href="/contact" className="text-primary hover:underline">
-                      View all office locations →
-                    </Link>
-                  </p>
-                </div>
-                <div className="flex gap-4 mt-2">
-                  {socialLinks.map((social, index) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 flex items-center justify-center hover:bg-primary transition-colors text-slate-600 dark:text-white hover:text-white"
-                      aria-label={social.label}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                      transition={{ delay: 0.4 + index * 0.1, type: "spring", stiffness: 400 }}
-                      whileHover={{ scale: 1.15, y: -3 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {social.icon}
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
+              <Link href="/" className="flex items-center group">
+                <motion.div
+                  className="relative h-10 w-[160px]"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <Image
+                    src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
+                    alt="Metrosure Insurance Brokers"
+                    fill
+                    className="object-contain"
+                  />
+                </motion.div>
+              </Link>
             </ParallaxWrapper>
           </motion.div>
 

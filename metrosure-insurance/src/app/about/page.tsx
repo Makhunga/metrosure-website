@@ -116,16 +116,16 @@ const timeline = [
 const team = [
   {
     name: "BG Chiliza",
-    role: "Managing Director",
-    image: "",
+    role: "Chief Executive Officer",
+    image: "/images/team-bg-chiliza.jpg",
     quote: "We're taking South Africa to the future, building a company known for consistency, reliability and integrity.",
     icon: "format_quote",
     badges: ["Founder & Visionary", "Financial Services Expert", "Community Builder"],
   },
   {
     name: "FP Tshabalala",
-    role: "Executive Director",
-    image: "",
+    role: "Chief Operations Officer",
+    image: "/images/team-fp-tshabalala.jpg",
     quote: "Our success is measured by the families and businesses we help protect every day.",
     icon: "trending_up",
     badges: ["Strategic Leadership", "Insurance Industry Veteran", "Growth Driver"],
@@ -348,40 +348,50 @@ export default function AboutPage() {
               animate={missionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
             >
-              {/* Placeholder for mission image */}
-              <motion.div
-                className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-[rgb(var(--color-secondary))]/20 flex items-center justify-center"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
-              >
-                <span className="material-symbols-outlined text-[120px] text-primary/30">
-                  shield_with_heart
-                </span>
-              </motion.div>
-              {/* Floating badge */}
-              <motion.div
-                className="absolute -bottom-6 -left-6 bg-[rgb(var(--color-surface-card))] rounded-xl p-6 shadow-xl border border-[rgb(var(--color-border-light))]"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={missionInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: 0.5, type: "spring" as const, stiffness: 200 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-primary text-2xl">
-                      verified
-                    </span>
-                  </div>
-                  <div>
-                    <div className="font-bold text-[rgb(var(--color-text-main))]">
-                      FSP 47089
-                    </div>
-                    <div className="text-xs text-[rgb(var(--color-text-muted))]">
-                      Reg. 2016/113504/07
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Geometric Shapes Composition */}
+              <div className="aspect-square flex items-center justify-center relative overflow-hidden group">
+                {/* Large Circle - Light Red */}
+                <motion.div
+                  className="absolute w-56 h-56 md:w-72 md:h-72"
+                  style={{ top: '15%', left: '10%' }}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={missionInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 100 }}
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-lg">
+                    <circle cx="100" cy="100" r="95" fill="rgb(220, 38, 38)" />
+                  </svg>
+                </motion.div>
+
+                {/* Rounded Square - Medium Red */}
+                <motion.div
+                  className="absolute w-44 h-44 md:w-56 md:h-56"
+                  style={{ top: '35%', right: '8%' }}
+                  initial={{ scale: 0, opacity: 0, rotate: -15 }}
+                  animate={missionInView ? { scale: 1, opacity: 1, rotate: 12 } : { scale: 0, opacity: 0, rotate: -15 }}
+                  transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 100 }}
+                  whileHover={{ scale: 1.08, rotate: 20 }}
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-lg">
+                    <rect x="15" y="15" width="170" height="170" rx="32" fill="rgb(185, 28, 28)" />
+                  </svg>
+                </motion.div>
+
+                {/* Triangle - Dark Red */}
+                <motion.div
+                  className="absolute w-36 h-36 md:w-48 md:h-48"
+                  style={{ bottom: '12%', left: '25%' }}
+                  initial={{ scale: 0, opacity: 0, y: 30 }}
+                  animate={missionInView ? { scale: 1, opacity: 1, y: 0 } : { scale: 0, opacity: 0, y: 30 }}
+                  transition={{ duration: 0.6, delay: 0.7, type: "spring", stiffness: 100 }}
+                  whileHover={{ scale: 1.1, y: -10 }}
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-lg">
+                    <polygon points="100,15 185,175 15,175" fill="rgb(127, 29, 29)" />
+                  </svg>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

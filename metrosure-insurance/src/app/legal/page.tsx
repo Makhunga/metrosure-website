@@ -174,8 +174,8 @@ Our B-BBEE certificate is available on request.`,
     icon: "badge",
     content: `The following Key Individuals are registered with the FSCA and are responsible for managing and overseeing the financial services activities of Metrosure Insurance Brokers:
 
-**BG Chiliza** - Managing Director
-**FP Tshabalala** - Executive Director
+**BG Chiliza** - Chief Executive Officer
+**FP Tshabalala** - Chief Operations Officer
 **S Basi** - Chief Financial Officer
 
 Key Individuals are required to meet fit and proper requirements as prescribed by the FSCA, including appropriate qualifications, experience, and ongoing competency requirements.`,
