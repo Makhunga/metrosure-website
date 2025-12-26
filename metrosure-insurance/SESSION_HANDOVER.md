@@ -1,15 +1,16 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 26, 2025 (Session 13 - In Progress)
+**Date:** December 26, 2025 (Session 14 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
 **Dev Server:** `http://localhost:3000`
+**Production:** Deployed to Vercel
 **Repository:** `git@github.com:Makhunga/metrosure-website.git`
 
 ---
 
-## Project Status: Production-Ready MVP with Full Email Integration
+## Project Status: Deployed to Production
 
 The website is now a comprehensive site for Metrosure Insurance Brokers with:
 - **25 routes** (21 pages + 4 APIs)
@@ -34,7 +35,106 @@ The website is now a comprehensive site for Metrosure Insurance Brokers with:
 | Cookie Consent | ✅ POPIA compliant |
 | Navigation | Multi-page with dropdown |
 | Quote Form | ✅ Full API integration |
-| Dev Banner | ✅ Site-wide (non-dismissable) |
+| Dev Banner | ✅ Site-wide with feedback link |
+| Deployment | ✅ Vercel (production) |
+
+---
+
+## Session 14 Summary (December 26, 2025) - COMPLETE
+
+**Session Focus:** Production Deployment, About Hero Image, UI Polish, Hero Cleanup
+
+### Completed This Session:
+
+#### 1. Production Deployment ✅
+
+Deployed website to Vercel:
+
+| Feature | Implementation |
+|---------|----------------|
+| Platform | Vercel |
+| Config | `vercel.json` with security headers |
+| Root Directory | `metrosure-insurance` |
+| Auto-deploy | Connected to GitHub main branch |
+
+**Files Created:**
+- `vercel.json` - Vercel deployment configuration
+
+#### 2. About Page Hero Image ✅
+
+Added portrait image to About page hero:
+
+| Feature | Implementation |
+|---------|----------------|
+| Image | Woman with red gele (headwrap) |
+| Position | Horizontally flipped (face on right) |
+| Overlay | Dark-to-transparent gradient (left to right) |
+| Text Color | White for readability |
+
+**Files Created:**
+- `public/images/about-hero.jpg` - Hero portrait image
+
+**Files Modified:**
+- `src/app/about/page.tsx` - Hero section with image and gradient
+
+#### 3. Animated Grid Pattern Background ✅
+
+Added animated grid pattern to 8 main pages:
+
+| Page | Pattern Added |
+|------|--------------|
+| `/contact` | ✅ |
+| `/about` | ✅ |
+| `/careers` | ✅ |
+| `/partners` | ✅ |
+| `/quote` | ✅ |
+| `/help` | ✅ |
+| `/claims` | ✅ |
+| `/policies` | ✅ |
+
+**Pattern Features:**
+- Fixed position grid pattern with gradient mesh overlay
+- Subtle opacity (30-40%) with mask gradient
+- Animated flow effect (20s infinite)
+
+#### 4. Hero Section Cleanup ✅
+
+Removed scroll fade effects and FSP badge:
+
+| Component | Changes |
+|-----------|---------|
+| `Hero.tsx` | Removed FSP badge, removed scroll fade (y/opacity) |
+| `CareersHero.tsx` | Removed scroll fade effect |
+| `PartnersHero.tsx` | Removed scroll fade effect |
+
+#### 5. UI Polish ✅
+
+| Component | Changes |
+|-----------|---------|
+| `ContactHero.tsx` | Removed "Contact Us" badge |
+| `DevelopmentBanner.tsx` | Removed construction icon, added feedback link to /contact |
+
+---
+
+## Files Modified This Session (S14)
+
+| File | Changes |
+|------|---------|
+| `vercel.json` | **NEW** - Vercel deployment config |
+| `public/images/about-hero.jpg` | **NEW** - About page hero image |
+| `src/app/about/page.tsx` | Hero image with flip and gradient |
+| `src/app/contact/page.tsx` | Added grid pattern background |
+| `src/app/careers/page.tsx` | Added grid pattern background |
+| `src/app/partners/page.tsx` | Added grid pattern background |
+| `src/app/quote/page.tsx` | Added grid pattern background |
+| `src/app/help/page.tsx` | Added grid pattern background |
+| `src/app/claims/page.tsx` | Added grid pattern background |
+| `src/app/policies/page.tsx` | Added grid pattern background |
+| `src/components/Hero.tsx` | Removed FSP badge and scroll fade |
+| `src/components/careers/CareersHero.tsx` | Removed scroll fade |
+| `src/components/partners/PartnersHero.tsx` | Removed scroll fade |
+| `src/components/contact/ContactHero.tsx` | Removed Contact Us badge |
+| `src/components/DevelopmentBanner.tsx` | Removed icon, added feedback link |
 
 ---
 
@@ -346,7 +446,8 @@ Route (app)
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 26, 2025** | **S13** | **Dev Banner & B2B Contact** | Development banner, under development page, stakeholder email templates, B2B contact page updates |
+| **Dec 26, 2025** | **S14** | **Deploy & Polish** | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
+| Dec 26, 2025 | S13 | Dev Banner & B2B Contact | Development banner, under development page, stakeholder email templates, B2B contact page updates |
 | Dec 26, 2025 | S12 | Quote API & Polish | Quote form API with email integration, hero spacing fix, performance audit, navigation testing |
 | Dec 26, 2025 | S11 | Nav & Polish | Multi-page navigation with dropdown, heading consistency, Features cleanup, WhyMetrosure background, Testimonials border removal |
 | Dec 26, 2025 | S10 | Email & Consent | Resend integration, Outlook-compatible templates, POPIA cookie consent, CTA dual-audience copy, Contact form API |
@@ -483,15 +584,15 @@ cp .env.example .env.local
 
 ---
 
-## Next Session Plan (Session 14)
+## Next Session Plan (Session 15)
 
-### Priority 1: Production Deployment (HIGH)
+### Priority 1: Domain & Email Setup (HIGH)
 | Task | Description |
 |------|-------------|
-| Verify Domain with Resend | Required for production emails |
-| Environment Variables | Set RESEND_API_KEY in hosting platform |
-| Deploy to Vercel | Or preferred hosting provider |
-| DNS Configuration | Point domain to hosting |
+| Verify Domain with Resend | Add DNS records for production emails |
+| Custom Domain | Configure metrosuregroup.co.za on Vercel |
+| Environment Variables | Set RESEND_API_KEY in Vercel dashboard |
+| SSL Certificate | Verify HTTPS is working |
 
 ### Priority 2: Cross-browser Testing (MEDIUM)
 | Task | Description |
@@ -507,6 +608,7 @@ cp .env.example .env.local
 | Sentry Integration | Error monitoring and reporting |
 | Web Vitals Monitoring | Track Core Web Vitals in production |
 | Rate Limiting | Add rate limiting to API routes |
+| Home Hero Image | Add family background image (saved for later) |
 
 ---
 
@@ -547,5 +649,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 26, 2025 - Session 13 Complete*
-*Next review: Start of Session 14*
+*Document updated: December 26, 2025 - Session 14 Complete*
+*Next review: Start of Session 15*
