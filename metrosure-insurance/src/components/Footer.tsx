@@ -154,7 +154,13 @@ export default function Footer() {
                 <div className="text-xs text-slate-500 dark:text-gray-500 space-y-1">
                   <p><strong>Phone:</strong> +27 31 301 1192</p>
                   <p><strong>Email:</strong> info@metrosuregroup.co.za</p>
-                  <p><strong>Head Office:</strong> 391 Anton Lembede Street, Metropolitan Life Building, 5th Floor, Durban, 4001</p>
+                  <p><strong>Head Office:</strong> 391 Anton Lembede Street, Durban, 4001</p>
+                  <p><strong>Hours:</strong> Mon - Fri: 09:00 - 17:00 | Sat, Sun & Holidays: Closed</p>
+                  <p className="pt-1">
+                    <Link href="/contact" className="text-primary hover:underline">
+                      View all office locations →
+                    </Link>
+                  </p>
                 </div>
                 <div className="flex gap-4 mt-2">
                   {socialLinks.map((social, index) => (
@@ -271,7 +277,7 @@ export default function Footer() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd (FSP 47089). All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd | FSP 47089 | Reg. 2016/113504/07</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               <motion.span whileHover={{ y: -2 }}>Privacy Policy</motion.span>

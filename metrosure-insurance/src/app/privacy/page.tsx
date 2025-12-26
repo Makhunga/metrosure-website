@@ -35,7 +35,7 @@ const sections = [
     title: "1. Introduction",
     content: `Metrosure Insurance Brokers (Pty) Ltd ("Metrosure", "we", "us", or "our") is committed to protecting your personal information and respecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
 
-As an Authorised Financial Service Provider (FSP No: 47089) regulated by the Financial Services Conduct Authority (FSCA), we are bound by the Protection of Personal Information Act (POPIA) and other applicable South African legislation.`,
+As an Authorised Financial Service Provider (FSP No: 47089, Registration No: 2016/113504/07) regulated by the Financial Services Conduct Authority (FSCA), we are bound by the Protection of Personal Information Act (POPIA) and other applicable South African legislation.`,
   },
   {
     id: "information-collected",

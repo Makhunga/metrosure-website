@@ -35,7 +35,7 @@ const sections = [
     title: "1. Acceptance of Terms",
     content: `By accessing or using the Metrosure Insurance Brokers (Pty) Ltd website ("Website") and services, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our Website or services.
 
-These Terms constitute a legally binding agreement between you and Metrosure Insurance Brokers (Pty) Ltd (FSP No: 47089), a company registered in South Africa.`,
+These Terms constitute a legally binding agreement between you and Metrosure Insurance Brokers (Pty) Ltd (FSP No: 47089, Registration No: 2016/113504/07), a company registered in South Africa.`,
   },
   {
     id: "services",

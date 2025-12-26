@@ -376,8 +376,8 @@ export default function AboutPage() {
                     <div className="font-bold text-[rgb(var(--color-text-main))]">
                       FSP 47089
                     </div>
-                    <div className="text-sm text-[rgb(var(--color-text-muted))]">
-                      FSCA Authorised
+                    <div className="text-xs text-[rgb(var(--color-text-muted))]">
+                      Reg. 2016/113504/07
                     </div>
                   </div>
                 </div>
@@ -558,7 +558,7 @@ export default function AboutPage() {
                       transition: { type: "spring", stiffness: 300, damping: 20 }
                     }}
                   >
-                    <div className="absolute -right-4 -bottom-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 rotate-12 group-hover:rotate-0 transition-transform duration-700 ease-out">
+                    <div className="absolute -right-4 -bottom-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 rotate-12 scale-100 opacity-50 group-hover:rotate-0 group-hover:scale-110 group-hover:opacity-100 group-hover:text-primary/10 transition-all duration-700 ease-out">
                       {item.number}
                     </div>
                     <div className="relative z-10">
@@ -677,10 +677,10 @@ export default function AboutPage() {
 
                 {/* Hover State Overlay */}
                 <div
-                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-center p-8 text-white transform transition-all duration-300 ${
+                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-center p-8 text-white transform transition-all duration-500 ease-out ${
                     hoveredTeamMember === index
                       ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-4"
+                      : "opacity-0 translate-y-8 pointer-events-none"
                   }`}
                 >
                   <div className="absolute top-4 right-4 opacity-50">
