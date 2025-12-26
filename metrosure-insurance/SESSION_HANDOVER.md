@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 26, 2025 (Session 14 - Complete)
+**Date:** December 26, 2025 (Session 15 - In Progress)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -23,6 +23,7 @@ The website is now a comprehensive site for Metrosure Insurance Brokers with:
 - **SEO Ready** - Sitemap, robots.txt, structured data
 - **Development Banner** - Site-wide amber banner indicating development status
 - **Under Development Page** - Template for unavailable pages/features
+- **Environment-Based Routing** - Pages under development redirect in production only
 
 ### Quick Stats:
 | Metric | Value |
@@ -37,6 +38,51 @@ The website is now a comprehensive site for Metrosure Insurance Brokers with:
 | Quote Form | ✅ Full API integration |
 | Dev Banner | ✅ Site-wide with feedback link |
 | Deployment | ✅ Vercel (production) |
+| Middleware | ✅ Environment-based routing |
+
+---
+
+## Session 15 Summary (December 26, 2025) - IN PROGRESS
+
+**Session Focus:** Environment-Based Routing for Under Development Pages
+
+### Completed This Session:
+
+#### 1. Environment-Based Page Routing ✅
+
+Created Next.js middleware to control page availability per environment:
+
+| Feature | Implementation |
+|---------|----------------|
+| Middleware | `middleware.ts` at project root |
+| Dev Mode | Full page content accessible |
+| Prod Mode | Redirects to `/under-development` |
+| Context | Query param `?from=` shows original route |
+
+**Protected Routes (7 pages):**
+| Route | Friendly Name |
+|-------|---------------|
+| `/insurance/auto` | Car & Home Insurance |
+| `/insurance/home` | Home Insurance |
+| `/insurance/life` | Life & Funeral Insurance |
+| `/insurance/business` | Business Insurance |
+| `/legal` | Legal Disclosures |
+| `/claims` | Claims Center |
+| `/policies` | Policy Management |
+
+**How It Works:**
+- In development (`npm run dev`): All pages show full content
+- In production (`npm start` / Vercel): Protected routes redirect to `/under-development?from=/original-path`
+- Under Development page displays friendly name based on the route
+
+**Files Created:**
+- `middleware.ts` - Next.js middleware for route protection
+
+**Files Modified:**
+- `src/app/under-development/page.tsx` - Added dynamic page name from query param
+
+**Rollback Strategy:**
+To enable a page in production, remove it from the `underDevelopmentRoutes` array in `middleware.ts`.
 
 ---
 
@@ -446,7 +492,8 @@ Route (app)
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 26, 2025** | **S14** | **Deploy & Polish** | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
+| **Dec 26, 2025** | **S15** | **Env-Based Routing** | Middleware for under-development pages, production redirects, dev-only full content |
+| Dec 26, 2025 | S14 | Deploy & Polish | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
 | Dec 26, 2025 | S13 | Dev Banner & B2B Contact | Development banner, under development page, stakeholder email templates, B2B contact page updates |
 | Dec 26, 2025 | S12 | Quote API & Polish | Quote form API with email integration, hero spacing fix, performance audit, navigation testing |
 | Dec 26, 2025 | S11 | Nav & Polish | Multi-page navigation with dropdown, heading consistency, Features cleanup, WhyMetrosure background, Testimonials border removal |
