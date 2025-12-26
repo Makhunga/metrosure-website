@@ -847,12 +847,12 @@ export default function QuotePage() {
                   <motion.button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className={`flex items-center gap-2 px-8 py-3 rounded-lg font-bold transition-all ${
+                    className={`flex items-center gap-2 h-14 px-8 rounded-xl text-lg font-bold transition-all ${
                       isSubmitting
                         ? "bg-primary/70 text-white/80 cursor-not-allowed"
-                        : "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                        : "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40"
                     }`}
-                    whileHover={isSubmitting ? {} : { scale: 1.02, y: -2 }}
+                    whileHover={isSubmitting ? {} : { scale: 1.02, y: -3 }}
                     whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   >
                     {isSubmitting ? (

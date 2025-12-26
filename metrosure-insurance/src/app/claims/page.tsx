@@ -223,14 +223,14 @@ export default function ClaimsPage() {
               >
                 <a
                   href="tel:+27313011192"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-14 px-8 text-white font-bold shadow-md shadow-primary/20 text-lg"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-14 px-8 text-white font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1 text-lg"
                 >
                   <span className="material-symbols-outlined">call</span>
                   +27 31 301 1192
                 </a>
                 <a
                   href="mailto:claims@metrosuregroup.co.za"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[rgb(var(--color-border-light))] hover:border-primary transition-all h-14 px-8 text-[rgb(var(--color-text-main))] font-bold hover:text-primary"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[rgb(var(--color-border-light))] hover:border-primary transition-all h-14 px-8 text-[rgb(var(--color-text-main))] text-lg font-bold hover:text-primary"
                 >
                   <span className="material-symbols-outlined">mail</span>
                   Email Claims

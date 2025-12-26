@@ -77,7 +77,7 @@ export default function Products() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -96,7 +96,7 @@ export default function Products() {
             </h2>
           </div>
           <motion.p
-            className="text-[rgb(var(--color-text-body))] max-w-md text-right md:text-left"
+            className="text-[rgb(var(--color-text-body))] max-w-md text-left"
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}

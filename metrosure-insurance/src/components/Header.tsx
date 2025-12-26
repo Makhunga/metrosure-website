@@ -69,10 +69,10 @@ export default function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed w-full z-50 transition-all duration-500 top-12 ${
+      className={`fixed w-full z-50 transition-all duration-500 top-10 ${
         isScrolled
-          ? "bg-[rgb(var(--color-surface-card))]/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-[rgb(var(--color-border-light))]"
-          : "bg-[rgb(var(--color-surface-card))]/70 backdrop-blur-md border-b border-transparent"
+          ? "bg-[rgb(var(--color-surface-card))] shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-[rgb(var(--color-border-light))]"
+          : "bg-[rgb(var(--color-surface-card))] border-b border-[rgb(var(--color-border-light))]"
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">

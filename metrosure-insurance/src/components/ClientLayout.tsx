@@ -5,19 +5,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
-import PageWipe from "./PageWipe";
 import CookieConsent from "./CookieConsent";
 import DevelopmentBanner from "./DevelopmentBanner";
 
 interface ClientLayoutProps {
   children: ReactNode;
 }
-
-// Toggle between transition styles:
-// - "wipe": Dramatic brand-red screen wipe
-// - "fade": Smooth blur + fade transition
-// - "both": Wipe overlay + fade content transition
-const TRANSITION_STYLE: "wipe" | "fade" | "both" = "both";
 
 export default function ClientLayout({ children }: ClientLayoutProps) {
   return (
@@ -27,19 +20,10 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
 
       <ScrollProgressLine color="rgb(191, 6, 3)" />
 
-      {/* Page wipe overlay transition */}
-      {(TRANSITION_STYLE === "wipe" || TRANSITION_STYLE === "both") && (
-        <PageWipe />
-      )}
-
-      {/* Content with blur/fade transition */}
-      {(TRANSITION_STYLE === "fade" || TRANSITION_STYLE === "both") ? (
-        <PageTransition>
-          {children}
-        </PageTransition>
-      ) : (
-        children
-      )}
+      {/* Simple fade transition between pages */}
+      <PageTransition>
+        {children}
+      </PageTransition>
 
       {/* Sticky Bottom Hiring Banner - Mobile Only */}
       <motion.div

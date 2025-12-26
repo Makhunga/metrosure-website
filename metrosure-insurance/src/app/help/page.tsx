@@ -67,15 +67,15 @@ const categories = [
     ],
   },
   {
-    id: "billing",
-    icon: "payments",
-    title: "Billing & Payments",
-    description: "Premiums, payment methods, and invoices.",
+    id: "partnerships",
+    icon: "handshake",
+    title: "Retail Partnerships",
+    description: "Become a B2B partner with Metrosure.",
     articles: [
-      { title: "How to pay my premium", href: "#pay-premium" },
-      { title: "Updating my payment method", href: "#update-payment" },
-      { title: "Understanding my invoice", href: "#understand-invoice" },
-      { title: "What happens if I miss a payment?", href: "#missed-payment" },
+      { title: "How to become a retail partner", href: "/partners" },
+      { title: "Partnership requirements", href: "/partners#how-it-works" },
+      { title: "Revenue sharing explained", href: "/partners#partner-benefits" },
+      { title: "Contact our partnerships team", href: "/contact" },
     ],
   },
 ];
@@ -110,6 +110,16 @@ const popularQuestions = [
     question: "What areas do you cover?",
     answer: "We provide services throughout South Africa with offices in Durban (Head Office and Musgrave), Pietermaritzburg, Pretoria, and Boksburg.",
     link: "/contact",
+  },
+  {
+    question: "How can I become a retail partner?",
+    answer: "If you own a retail space and want to earn additional revenue, you can partner with us. We deploy trained sales staff to your location, handle all compliance and training, and share the revenue with you. You provide the space, we handle everything else.",
+    link: "/partners",
+  },
+  {
+    question: "What are the benefits of partnering with Metrosure?",
+    answer: "Partners earn commission on every policy sold from their location, create local employment opportunities, and add a new revenue stream with zero overhead. We provide full training, compliance support, and dedicated partnership managers.",
+    link: "/partners",
   },
 ];
 
@@ -437,7 +447,7 @@ export default function HelpPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-12 px-8 text-white font-bold shadow-md shadow-primary/20"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-14 px-8 text-white text-lg font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1"
             >
               Contact Us
               <span className="material-symbols-outlined">arrow_forward</span>

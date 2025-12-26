@@ -7,25 +7,19 @@ import { ReactNode } from "react";
 const pageVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 20,
-    filter: "blur(10px)",
   },
   enter: {
     opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
     transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.3,
+      ease: "easeOut",
     },
   },
   exit: {
     opacity: 0,
-    y: -20,
-    filter: "blur(5px)",
     transition: {
-      duration: 0.3,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.2,
+      ease: "easeIn",
     },
   },
 };
