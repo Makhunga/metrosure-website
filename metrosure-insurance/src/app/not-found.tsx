@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 flex items-center justify-center px-6 pt-32 pb-24">
+      <main className="flex-1 flex items-center justify-center px-6 pt-56 pb-24">
         <div className="text-center max-w-3xl">
           {/* 404 Number */}
           <div className="relative mb-8">

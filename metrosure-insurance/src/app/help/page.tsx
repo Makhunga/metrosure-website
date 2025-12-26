@@ -161,7 +161,7 @@ export default function HelpPage() {
       <Header />
 
       {/* Hero Section with Search */}
-      <section ref={heroRef} className="relative pt-32 pb-20 overflow-hidden">
+      <section ref={heroRef} className="relative pt-56 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 

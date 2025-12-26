@@ -155,7 +155,7 @@ export default function AboutPage() {
       <Header />
 
       {/* Hero Section - Keep Current */}
-      <section ref={heroRef} className="relative pt-32 pb-24 overflow-hidden">
+      <section ref={heroRef} className="relative pt-56 pb-24 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />

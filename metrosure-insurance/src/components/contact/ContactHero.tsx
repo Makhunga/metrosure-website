@@ -46,8 +46,8 @@ export default function ContactHero() {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        Whether you&apos;re looking for a quote, need help with a claim, or just want to chat about your options,
-        we&apos;re here for you. Our team across South Africa is ready to help.
+        Whether you&apos;re looking for personal cover, need help with a claim, or want to explore business partnerships,
+        we&apos;re here for you. Our team across South Africa is ready to help individuals and businesses alike.
       </motion.p>
     </motion.div>
   );

@@ -61,6 +61,16 @@ const faqData = [
     answer:
       'Yes, Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider regulated by the FSCA. Our FSP number is <strong class="text-slate-900 dark:text-white">47089</strong>.',
   },
+  {
+    question: "How can my business partner with Metrosure?",
+    answer:
+      'We partner with retail stores across South Africa to offer in-store insurance services. We provide trained staff, handle all compliance and regulatory requirements, and share revenue with our partners. Since 2016, we\'ve created over <strong class="text-slate-900 dark:text-white">5,000 jobs</strong> through these partnerships. Visit our <a href="/partners" class="text-primary font-semibold hover:underline">Partners page</a> or contact us to learn more.',
+  },
+  {
+    question: "Do you offer corporate or group insurance?",
+    answer:
+      'Yes, we offer comprehensive corporate insurance solutions including group life cover, employee benefits packages, and business insurance. Our team works with leading insurers to create tailored solutions for organisations of all sizes. <a href="/quote" class="text-primary font-semibold hover:underline">Request a quote</a> or contact us for a consultation.',
+  },
 ];
 
 export default function FAQ() {

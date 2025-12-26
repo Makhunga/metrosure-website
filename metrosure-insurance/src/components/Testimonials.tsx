@@ -285,7 +285,7 @@ export default function Testimonials() {
             </div>
 
             {/* Author */}
-            <div className="flex items-center gap-4 mt-8 pt-6 border-t border-[rgb(var(--color-border-light))]">
+            <div className="flex items-center gap-4 mt-8 pt-6">
               <motion.div
                 className={`w-12 h-12 rounded-full flex items-center justify-center border border-[rgb(var(--color-border-light))] ${
                   testimonial.isPartner

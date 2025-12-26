@@ -113,9 +113,17 @@ const contactOptions = [
     icon: "help_center",
     title: "General Enquiries",
     description:
-      "Questions about our services, partnerships, or career opportunities? We'd love to hear from you.",
+      "Questions about our services or career opportunities? We'd love to hear from you.",
     linkText: "Email Us",
     href: "mailto:info@metrosuregroup.co.za",
+  },
+  {
+    icon: "storefront",
+    title: "Partner With Us",
+    description:
+      "Own a retail store? Partner with us to offer insurance, earn commission, and create local jobs. We handle everything.",
+    linkText: "Explore Partnerships",
+    href: "/partners",
   },
 ];
 
@@ -126,7 +134,7 @@ export default function ContactOptions() {
   return (
     <motion.div
       ref={ref}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-24"
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}

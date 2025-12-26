@@ -120,9 +120,7 @@ export default function Approach() {
             <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-[rgb(var(--color-text-main))]">
               <TextReveal text="What we" delay={0.2} staggerDelay={0.05} />
               <br />
-              <span className="text-primary">
-                <TextReveal text="believe in" delay={0.35} staggerDelay={0.05} />
-              </span>
+              <TextReveal text="believe in" delay={0.35} staggerDelay={0.05} />
             </h2>
             <motion.p
               className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed max-w-xl"

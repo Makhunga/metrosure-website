@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { FormSuccess } from "@/components/ui/FormSuccess";
 
 type CoverageType = "home" | "auto" | "life" | "business" | null;
 
@@ -143,6 +144,9 @@ export default function QuotePage() {
     additionalCoverage: [],
   });
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const heroRef = useRef(null);
   const faqRef = useRef(null);
   const ctaRef = useRef(null);
@@ -169,10 +173,52 @@ export default function QuotePage() {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = () => {
-    // In production, this would submit to an API
-    alert("Quote request submitted! We'll contact you shortly.");
-  };
+  const handleSubmit = useCallback(async () => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit quote request");
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "An unexpected error occurred"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [formData]);
+
+  const handleReset = useCallback(() => {
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      zipCode: "",
+      coverageType: null,
+      coverageAmount: "",
+      deductible: "",
+      startDate: "",
+      additionalCoverage: [],
+    });
+    setCurrentStep(1);
+    setIsSubmitted(false);
+    setSubmitError(null);
+  }, []);
 
   const toggleAdditionalCoverage = (id: string) => {
     setFormData((prev) => ({
@@ -207,7 +253,7 @@ export default function QuotePage() {
       <Header />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-32 pb-16 overflow-hidden">
+      <section ref={heroRef} className="relative pt-56 pb-16 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />
@@ -345,6 +391,27 @@ export default function QuotePage() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="p-8 md:p-12">
+              {isSubmitted ? (
+                <FormSuccess
+                  title="Quote Request Submitted!"
+                  description="Thank you for your interest. One of our licensed advisors will review your requirements and contact you within 24 hours with a personalized quote."
+                  buttonText="Request Another Quote"
+                  onReset={handleReset}
+                  accentColor="green"
+                >
+                  <motion.div
+                    className="mb-8 p-4 bg-[rgb(var(--color-surface))] rounded-xl border border-[rgb(var(--color-border-light))]"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.45 }}
+                  >
+                    <p className="text-sm text-[rgb(var(--color-text-muted))]">
+                      A confirmation email has been sent to <strong className="text-[rgb(var(--color-text-main))]">{formData.email}</strong>
+                    </p>
+                  </motion.div>
+                </FormSuccess>
+              ) : (
+              <>
               <AnimatePresence mode="wait">
               {/* Step 1: Personal Info */}
               {currentStep === 1 && (
@@ -727,6 +794,20 @@ export default function QuotePage() {
               )}
               </AnimatePresence>
 
+              {/* Error Message */}
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                >
+                  <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
+                    <span className="material-symbols-outlined">error</span>
+                    <span className="font-medium">{submitError}</span>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Navigation Buttons */}
               <div className="flex justify-between mt-10 pt-8 border-t border-[rgb(var(--color-border-light))]">
                 {currentStep > 1 ? (
@@ -761,15 +842,31 @@ export default function QuotePage() {
                 ) : (
                   <motion.button
                     onClick={handleSubmit}
-                    className="flex items-center gap-2 px-8 py-3 rounded-lg bg-primary text-white font-bold hover:bg-[rgb(var(--color-primary-hover))] shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all"
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
+                    disabled={isSubmitting}
+                    className={`flex items-center gap-2 px-8 py-3 rounded-lg font-bold transition-all ${
+                      isSubmitting
+                        ? "bg-primary/70 text-white/80 cursor-not-allowed"
+                        : "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                    }`}
+                    whileHover={isSubmitting ? {} : { scale: 1.02, y: -2 }}
+                    whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   >
-                    <span className="material-symbols-outlined">send</span>
-                    Submit Quote Request
+                    {isSubmitting ? (
+                      <>
+                        <span className="material-symbols-outlined animate-spin">progress_activity</span>
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <span className="material-symbols-outlined">send</span>
+                        Submit Quote Request
+                      </>
+                    )}
                   </motion.button>
                 )}
               </div>
+              </>
+              )}
             </div>
           </motion.div>
         </div>

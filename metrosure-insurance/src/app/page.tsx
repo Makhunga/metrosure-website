@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
       <Header />
-      <main className="pt-20">
+      <main>
         <Hero />
         <StatsBar />
         <Features />

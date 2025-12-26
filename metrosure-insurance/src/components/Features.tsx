@@ -193,7 +193,7 @@ export default function Features() {
               <TextReveal text="for" delay={0.4} staggerDelay={0.04} />
               {" "}
               <motion.span
-                className="text-primary inline-block"
+                className="inline-block"
                 initial={{ opacity: 0, y: 20, rotateX: -90 }}
                 animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.5 }}
@@ -236,18 +236,6 @@ export default function Features() {
               </Link>
             </motion.div>
 
-            {/* Trust indicator */}
-            <motion.div
-              className="mt-12 pt-8 border-t border-[rgb(var(--color-border-light))]"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              <p className="text-sm text-[rgb(var(--color-text-muted))] flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary text-lg">verified</span>
-                <span>FSP 47089 | Authorised Financial Service Provider</span>
-              </p>
-            </motion.div>
           </motion.div>
 
           {/* Right grid - Wider with staggered layout */}

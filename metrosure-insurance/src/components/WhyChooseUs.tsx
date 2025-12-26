@@ -79,6 +79,18 @@ export default function WhyChooseUs() {
       ref={sectionRef}
       className="py-24 bg-[rgb(var(--color-surface-card))] transition-colors duration-300 relative overflow-hidden"
     >
+      {/* Subtle background image */}
+      <div
+        className="absolute inset-0 opacity-[0.08] dark:opacity-[0.04]"
+        style={{
+          backgroundImage: 'url(/images/pexels-gdtography-277628-911738.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'grayscale(100%)',
+        }}
+      />
+
       {/* Decorative geometric shapes - Enhanced visibility */}
       {/* Large corner shapes */}
       <div className="absolute -top-14 -left-14 opacity-40 dark:opacity-25">

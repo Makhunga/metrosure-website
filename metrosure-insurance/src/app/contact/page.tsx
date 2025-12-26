@@ -24,7 +24,7 @@ export default function ContactPage() {
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
       <Header />
-      <main className="max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24">
+      <main className="max-w-7xl mx-auto px-6 lg:px-12 pt-56 pb-24">
         <ContactHero />
         <ContactOptions />
         <FAQ />

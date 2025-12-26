@@ -18,6 +18,8 @@ interface ContactFormData {
   subject: string;
   message: string;
   type: "message" | "callback";
+  // B2B fields
+  companyName?: string;
   // Callback-specific fields
   phone?: string;
   reason?: string;
@@ -26,7 +28,17 @@ interface ContactFormData {
   preferredTime?: string;
 }
 
+// B2B topics that should be flagged in email subject
+const b2bTopics = ["retail-partnership", "business-insurance", "employee-benefits"];
+
 const subjectLabels: Record<string, string> = {
+  "general": "General Inquiry",
+  "claim-status": "Claim Status",
+  "retail-partnership": "Retail Partnership",
+  "business-insurance": "Business Insurance",
+  "employee-benefits": "Employee Benefits",
+  "feedback": "Feedback",
+  // Legacy mappings (for backward compatibility)
   "General Inquiry": "General Inquiry",
   "Claim Status": "Claim Status",
   "Partnership Opportunity": "Partnership Opportunity",
@@ -42,6 +54,7 @@ const reasonLabels: Record<string, string> = {
   "credit-life": "Credit Life Insurance",
   "retirement-planning": "Retirement Planning",
   "employee-benefits": "Employee Benefits",
+  "retail-partnership": "Retail Partnership",
   "claims": "Claims Enquiry",
   "policy-changes": "Policy Changes",
   "other": "Other",
@@ -95,9 +108,16 @@ export async function POST(request: NextRequest) {
       ? generateMessageEmail(data)
       : generateCallbackEmail(data);
 
+    // Determine if this is a B2B inquiry
+    const isB2B = data.type === "message"
+      ? b2bTopics.includes(data.subject)
+      : b2bTopics.includes(data.reason || "");
+
+    const b2bPrefix = isB2B ? "[B2B] " : "";
+
     const emailSubject = data.type === "message"
-      ? `Contact Form: ${subjectLabels[data.subject] || data.subject} - ${data.name}`
-      : `Callback Request: ${reasonLabels[data.reason!] || data.reason} - ${data.name}`;
+      ? `${b2bPrefix}Contact Form: ${subjectLabels[data.subject] || data.subject} - ${data.name}`
+      : `${b2bPrefix}Callback Request: ${reasonLabels[data.reason!] || data.reason} - ${data.name}`;
 
     await sendEmail({
       to: emailTo.info,
@@ -129,13 +149,16 @@ export async function POST(request: NextRequest) {
 }
 
 function generateMessageEmail(data: ContactFormData): string {
+  const isB2B = b2bTopics.includes(data.subject);
+
   const content = `
-    ${createEmailHeader("New Contact Message", `From ${data.name}`)}
+    ${createEmailHeader(isB2B ? "New B2B Inquiry" : "New Contact Message", `From ${data.name}`)}
 
     ${createSection(`
       ${createSectionTitle("Contact Details")}
       ${createFieldRow("Name:", data.name)}
       ${createFieldRow("Email:", `${createLink(`mailto:${data.email}`, data.email)}`)}
+      ${data.companyName ? createFieldRow("Company:", data.companyName) : ''}
       ${createFieldRow("Topic:", subjectLabels[data.subject] || data.subject)}
     `)}
 
@@ -153,14 +176,17 @@ function generateCallbackEmail(data: ContactFormData): string {
     ? `Other: ${data.otherReason}`
     : reasonLabels[data.reason!] || data.reason;
 
+  const isB2B = b2bTopics.includes(data.reason || "");
+
   const content = `
-    ${createEmailHeader("Callback Request", `From ${data.name}`)}
+    ${createEmailHeader(isB2B ? "B2B Callback Request" : "Callback Request", `From ${data.name}`)}
 
     ${createSection(`
       ${createSectionTitle("Contact Details")}
       ${createFieldRow("Name:", data.name)}
       ${createFieldRow("Phone:", `${createLink(`tel:${data.phone}`, data.phone!)}`)}
       ${data.email ? createFieldRow("Email:", `${createLink(`mailto:${data.email}`, data.email)}`) : ''}
+      ${data.companyName ? createFieldRow("Company:", data.companyName) : ''}
     `)}
 
     ${createSection(`

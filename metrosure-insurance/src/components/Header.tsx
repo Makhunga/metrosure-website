@@ -1,14 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./theme-provider";
 
+interface NavLink {
+  href?: string;
+  label: string;
+  badge?: string | null;
+  dropdown?: { href: string; label: string }[];
+}
+
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -20,15 +30,37 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const toggleTheme = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
-  const navLinks = [
-    { href: "#approach", label: "Our Approach", badge: null },
-    { href: "#solutions", label: "Solutions", badge: null },
-    { href: "/partners", label: "Partner With Us", badge: null },
+  const navLinks: NavLink[] = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    {
+      label: "Insurance",
+      dropdown: [
+        { href: "/insurance/auto", label: "Auto" },
+        { href: "/insurance/home", label: "Home" },
+        { href: "/insurance/life", label: "Life & Funeral" },
+        { href: "/insurance/business", label: "Business" },
+      ],
+    },
+    { href: "/partners", label: "Partners" },
     { href: "/careers", label: "Careers", badge: "Hiring" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -37,7 +69,7 @@ export default function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed w-full z-50 transition-all duration-500 top-12 ${
         isScrolled
           ? "bg-[rgb(var(--color-surface-card))]/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-[rgb(var(--color-border-light))]"
           : "bg-[rgb(var(--color-surface-card))]/70 backdrop-blur-md border-b border-transparent"
@@ -64,29 +96,74 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6" ref={dropdownRef}>
             {navLinks.map((link, index) => (
               <motion.div
-                key={link.href}
+                key={link.label}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index + 0.3, duration: 0.4 }}
+                className="relative"
+                onMouseEnter={() => link.dropdown && setActiveDropdown(link.label)}
+                onMouseLeave={() => link.dropdown && setActiveDropdown(null)}
               >
-                <Link
-                  href={link.href}
-                  className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full flex items-center gap-1.5"
-                >
-                  {link.label}
-                  {link.badge && (
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider">
-                      <span className="relative flex h-1.5 w-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                {link.dropdown ? (
+                  // Dropdown item
+                  <button
+                    className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors flex items-center gap-1"
+                    onClick={() => setActiveDropdown(activeDropdown === link.label ? null : link.label)}
+                  >
+                    {link.label}
+                    <motion.span
+                      className="material-symbols-outlined text-base"
+                      animate={{ rotate: activeDropdown === link.label ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      expand_more
+                    </motion.span>
+                  </button>
+                ) : (
+                  // Regular link
+                  <Link
+                    href={link.href || "/"}
+                    className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full flex items-center gap-1.5"
+                  >
+                    {link.label}
+                    {link.badge && (
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                        </span>
+                        {link.badge}
                       </span>
-                      {link.badge}
-                    </span>
+                    )}
+                  </Link>
+                )}
+
+                {/* Dropdown Menu */}
+                <AnimatePresence>
+                  {link.dropdown && activeDropdown === link.label && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-2 w-48 py-2 bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] rounded-xl shadow-lg shadow-black/10"
+                    >
+                      {link.dropdown.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="block px-4 py-2.5 text-sm text-[rgb(var(--color-text-body))] hover:text-primary hover:bg-primary/5 transition-colors"
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </motion.div>
                   )}
-                </Link>
+                </AnimatePresence>
               </motion.div>
             ))}
           </nav>
@@ -181,27 +258,74 @@ export default function Header() {
             <div className="py-4 px-4 flex flex-col gap-2">
               {navLinks.map((link, index) => (
                 <motion.div
-                  key={link.href}
+                  key={link.label}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Link
-                    href={link.href}
-                    className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center gap-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                    {link.badge && (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                  {link.dropdown ? (
+                    // Accordion dropdown for mobile
+                    <div>
+                      <button
+                        className="w-full text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center justify-between"
+                        onClick={() => setMobileDropdownOpen(mobileDropdownOpen === link.label ? null : link.label)}
+                      >
+                        {link.label}
+                        <motion.span
+                          className="material-symbols-outlined text-lg"
+                          animate={{ rotate: mobileDropdownOpen === link.label ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          expand_more
+                        </motion.span>
+                      </button>
+                      <AnimatePresence>
+                        {mobileDropdownOpen === link.label && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-4 pb-2">
+                              {link.dropdown.map((item) => (
+                                <Link
+                                  key={item.href}
+                                  href={item.href}
+                                  className="block text-sm text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-2.5 px-4 rounded-lg hover:bg-primary/5"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setMobileDropdownOpen(null);
+                                  }}
+                                >
+                                  {item.label}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    // Regular link
+                    <Link
+                      href={link.href || "/"}
+                      className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center gap-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                      {link.badge && (
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase tracking-wider">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                          </span>
+                          {link.badge}
                         </span>
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
+                      )}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
               <hr className="border-[rgb(var(--color-border-light))] my-2" />

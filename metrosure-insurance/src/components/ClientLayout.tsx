@@ -7,6 +7,7 @@ import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
 import PageWipe from "./PageWipe";
 import CookieConsent from "./CookieConsent";
+import DevelopmentBanner from "./DevelopmentBanner";
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -21,6 +22,9 @@ const TRANSITION_STYLE: "wipe" | "fade" | "both" = "both";
 export default function ClientLayout({ children }: ClientLayoutProps) {
   return (
     <>
+      {/* Development Banner - Remove when site goes live */}
+      <DevelopmentBanner />
+
       <ScrollProgressLine color="rgb(191, 6, 3)" />
 
       {/* Page wipe overlay transition */}

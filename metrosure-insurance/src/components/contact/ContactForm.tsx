@@ -21,12 +21,23 @@ const callbackReasons = [
   { value: "credit-life", label: "Credit Life Insurance" },
   { value: "retirement-planning", label: "Retirement Planning" },
   { value: "employee-benefits", label: "Employee Benefits" },
+  { value: "retail-partnership", label: "Retail Partnership" },
   { value: "claims", label: "Claims Enquiry" },
   { value: "policy-changes", label: "Policy Changes" },
   { value: "other", label: "Other" },
 ];
 
 const MAX_OTHER_CHARS = 150;
+
+// Message form topic options (including B2B)
+const messageTopics = [
+  { value: "general", label: "General Inquiry" },
+  { value: "claim-status", label: "Claim Status" },
+  { value: "retail-partnership", label: "Retail Partnership (B2B)" },
+  { value: "business-insurance", label: "Business Insurance (B2B)" },
+  { value: "employee-benefits", label: "Employee Benefits (B2B)" },
+  { value: "feedback", label: "Feedback" },
+];
 
 export default function ContactForm() {
   const [activeTab, setActiveTab] = useState<ContactTab>("message");
@@ -55,6 +66,7 @@ export default function ContactForm() {
           email: formData.get("email"),
           subject: formData.get("subject"),
           message: formData.get("message"),
+          companyName: formData.get("companyName") || undefined,
         }),
       });
 
@@ -290,15 +302,32 @@ export default function ContactForm() {
                         </label>
                         <div className="relative">
                           <select className={`${inputClasses} appearance-none pr-12`} id="subject" name="subject">
-                            <option>General Inquiry</option>
-                            <option>Claim Status</option>
-                            <option>Partnership Opportunity</option>
-                            <option>Feedback</option>
+                            {messageTopics.map((topic) => (
+                              <option key={topic.value} value={topic.value}>
+                                {topic.label}
+                              </option>
+                            ))}
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                             <span className="material-symbols-outlined text-xl">expand_more</span>
                           </div>
                         </div>
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.22 }}
+                      >
+                        <label className={labelClasses} htmlFor="companyName">
+                          Company Name <span className="text-slate-400 font-normal normal-case">(optional - for business enquiries)</span>
+                        </label>
+                        <input
+                          className={inputClasses}
+                          id="companyName"
+                          name="companyName"
+                          placeholder="Your company or store name"
+                          type="text"
+                        />
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
