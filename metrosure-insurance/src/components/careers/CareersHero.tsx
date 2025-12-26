@@ -1,22 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 interface CareersHeroProps {
   onApplyClick: () => void;
 }
 
 export default function CareersHero({ onApplyClick }: CareersHeroProps) {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   const scrollToPositions = () => {
     const positionsSection = document.getElementById("open-positions");
     if (positionsSection) {
@@ -26,7 +16,6 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
 
   return (
     <section
-      ref={containerRef}
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
       {/* Animated Grid Background */}
@@ -74,10 +63,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
         }}
       />
 
-      <motion.div
-        style={{ y, opacity }}
-        className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20"
-      >
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
         <div className="w-full flex flex-col gap-8 text-center items-center">
           {/* Badge */}
           <motion.div
@@ -199,7 +185,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
             </a>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

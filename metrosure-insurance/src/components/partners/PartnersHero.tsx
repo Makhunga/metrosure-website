@@ -1,22 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function PartnersHero() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   return (
     <section
-      ref={containerRef}
       className="relative min-h-[90vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
       {/* Animated Grid Background */}
@@ -77,10 +66,7 @@ export default function PartnersHero() {
         }}
       />
 
-      <motion.div
-        style={{ y, opacity }}
-        className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20"
-      >
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
         {/* Content */}
         <div className="w-full flex flex-col gap-10 text-center items-center">
           {/* Badge */}
@@ -226,7 +212,7 @@ export default function PartnersHero() {
             </Link>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
 
     </section>
   );
