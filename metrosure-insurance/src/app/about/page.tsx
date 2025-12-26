@@ -154,11 +154,16 @@ export default function AboutPage() {
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
       <Header />
 
-      {/* Hero Section - Keep Current */}
+      {/* Hero Section with Portrait Image */}
       <section ref={heroRef} className="relative pt-56 pb-24 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+        {/* Hero Image - Horizontally Flipped (face on right) */}
+        <div
+          className="absolute inset-0 bg-cover bg-right -scale-x-100"
+          style={{ backgroundImage: 'url("/images/about-hero.jpg")' }}
+        />
+
+        {/* Gradient Overlay - Dark to transparent (left to right) for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 via-40% to-transparent" />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
@@ -169,7 +174,7 @@ export default function AboutPage() {
           >
             {/* Badge */}
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 text-primary text-xs font-bold uppercase tracking-wider mb-6"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold uppercase tracking-wider mb-6"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -179,7 +184,7 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -189,14 +194,12 @@ export default function AboutPage() {
               <span className="text-primary">to the Future</span>
             </motion.h1>
             <motion.p
-              className="text-xl text-[rgb(var(--color-text-body))] leading-relaxed mb-8"
+              className="text-xl text-white/90 leading-relaxed mb-8 max-w-xl"
               initial={{ opacity: 0, y: 30 }}
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Founded in 2016, Metrosure is a proudly South African financial services company.
-              We&apos;re here to help you and your family feel protected, from your first car to your
-              retirement. Real people, real advice, real cover.
+              A proudly South African financial services company helping you and your family feel protected. Real people, real advice, real cover.
             </motion.p>
 
             <motion.div
@@ -217,7 +220,7 @@ export default function AboutPage() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[rgb(var(--color-border-light))] hover:border-primary transition-all h-12 px-8 text-[rgb(var(--color-text-main))] font-bold hover:text-primary"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/50 hover:border-white hover:bg-white/10 transition-all h-12 px-8 text-white font-bold"
                 >
                   Contact Us
                 </Link>
