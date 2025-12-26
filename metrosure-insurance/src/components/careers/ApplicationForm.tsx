@@ -200,7 +200,7 @@ export default function ApplicationForm({
     <section
       ref={ref}
       id={id}
-      className="py-24 relative z-10"
+      className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

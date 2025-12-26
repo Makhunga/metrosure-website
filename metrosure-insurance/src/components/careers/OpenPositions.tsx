@@ -189,7 +189,7 @@ export default function OpenPositions({ onApplyClick }: OpenPositionsProps) {
     <section
       ref={sectionRef}
       id="open-positions"
-      className="py-24 bg-[rgb(var(--color-surface-card))]/80 backdrop-blur-sm relative z-10"
+      className="py-24 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
