@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useSpring, useTransform, useReducedMotion } from "framer-motion";
-import { QuarterCircle, Diamond, Circle, DotsPattern } from "./ui/GeometricShapes";
 
 interface AnimatedCounterProps {
   value: string;
@@ -147,29 +146,6 @@ export default function StatsBar() {
 
   return (
     <section className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden transition-colors duration-300 relative">
-      {/* Decorative geometric shapes - More visible */}
-      <div className="absolute -top-12 -left-12 opacity-40 dark:opacity-25">
-        <QuarterCircle size={120} color="primary" />
-      </div>
-      <div className="absolute -bottom-8 -right-8 rotate-180 opacity-35 dark:opacity-20">
-        <QuarterCircle size={100} color="secondary" delay={0.2} />
-      </div>
-      <div className="absolute top-1/2 left-[15%] -translate-y-1/2 opacity-50 dark:opacity-30">
-        <Diamond size={16} color="accent" delay={0.3} />
-      </div>
-      <div className="absolute top-1/2 left-[40%] -translate-y-1/2 opacity-40 dark:opacity-25 hidden md:block">
-        <Diamond size={10} color="primary" delay={0.35} />
-      </div>
-      <div className="absolute top-1/2 right-[35%] -translate-y-1/2 opacity-45 dark:opacity-25 hidden md:block">
-        <Diamond size={12} color="accent" delay={0.4} />
-      </div>
-      <div className="absolute top-1/2 right-[15%] -translate-y-1/2 opacity-35 dark:opacity-20 hidden lg:block">
-        <Circle size={30} color="primary" delay={0.45} />
-      </div>
-      <div className="absolute top-4 right-1/4 opacity-30 dark:opacity-20 hidden lg:block">
-        <DotsPattern rows={2} cols={3} color="primary" />
-      </div>
-
       <div className="max-w-[1400px] mx-auto relative">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[rgb(var(--color-border-light))]">
           {stats.map((stat, index) => (

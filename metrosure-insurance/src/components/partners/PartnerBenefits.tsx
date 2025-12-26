@@ -113,9 +113,6 @@ export default function PartnerBenefits() {
                 <p className="text-[rgb(var(--color-text-body))] leading-relaxed">
                   {benefit.description}
                 </p>
-
-                {/* Decorative Corner */}
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-primary opacity-0 group-hover:opacity-5 blur-2xl transition-all duration-500" />
               </motion.div>
             </motion.div>
           ))}

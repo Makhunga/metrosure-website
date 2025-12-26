@@ -27,45 +27,6 @@ export default function PartnersHero() {
         <rect width="100%" height="100%" fill="url(#connection-pattern)" />
       </svg>
 
-      {/* Animated gradient orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, -30, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-[rgb(var(--color-secondary))]/10 rounded-full blur-3xl"
-        animate={{
-          x: [0, -60, 0],
-          y: [0, 40, 0],
-          scale: [1, 1.3, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
         {/* Content */}
         <div className="w-full flex flex-col gap-10 text-center items-center">

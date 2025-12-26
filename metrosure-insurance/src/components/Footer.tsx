@@ -6,7 +6,6 @@ import { useTheme } from "./theme-provider";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, ReactNode } from "react";
 import { SmoothParallax } from "./animations";
-import { QuarterCircle, Diamond, Circle, DotsPattern } from "./ui/GeometricShapes";
 
 const footerLinks = {
   company: [
@@ -109,28 +108,6 @@ export default function Footer() {
       ref={footerRef}
       className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
     >
-      {/* Light mode: Geometric shapes for visual depth */}
-      <div className="dark:hidden">
-        <div className="absolute -top-10 -left-10 opacity-30">
-          <QuarterCircle size={140} color="primary" />
-        </div>
-        <div className="absolute -bottom-8 -right-8 rotate-180 opacity-25">
-          <QuarterCircle size={120} color="secondary" delay={0.15} />
-        </div>
-        <div className="absolute top-1/3 right-[20%] opacity-40">
-          <Diamond size={14} color="accent" delay={0.3} />
-        </div>
-        <div className="absolute bottom-1/4 left-[30%] opacity-35">
-          <Diamond size={10} color="primary" delay={0.4} />
-        </div>
-        <div className="absolute top-1/2 left-[15%] opacity-25 hidden lg:block">
-          <Circle size={50} color="muted" delay={0.5} />
-        </div>
-        <div className="absolute bottom-12 right-[40%] opacity-30 hidden lg:block">
-          <DotsPattern rows={2} cols={4} color="primary" />
-        </div>
-      </div>
-
       {/* Dark mode: Background image with geometric pattern */}
       <div
         className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-100 dark:brightness-150 dark:contrast-150"

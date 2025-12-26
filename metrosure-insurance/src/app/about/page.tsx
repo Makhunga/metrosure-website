@@ -560,7 +560,6 @@ export default function AboutPage() {
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
       <section ref={teamRef} className="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative overflow-hidden">
         <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none" />
-        <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
         <motion.div
           className="flex flex-col gap-6 mb-20 items-center text-center relative z-10"

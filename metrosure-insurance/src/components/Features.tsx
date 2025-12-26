@@ -4,7 +4,6 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { HoverCard, TextReveal, RevealMask } from "./animations";
-import { QuarterCircle, HalfCircle, Diamond, Circle, DotsPattern, Triangle } from "./ui/GeometricShapes";
 
 // Direction pattern for card reveals
 const revealDirections: Array<"left" | "right" | "up" | "down"> = ["left", "right", "up", "down"];
@@ -106,65 +105,6 @@ export default function Features() {
 
       {/* Gradient overlay to blend edges - lighter touch */}
       <div className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--color-surface-card))]/60 via-transparent to-[rgb(var(--color-surface-card))]/40 pointer-events-none" />
-
-      {/* Decorative geometric shapes - Enhanced visibility */}
-      {/* Large corner shapes */}
-      <div className="absolute -top-14 -left-14 opacity-40 dark:opacity-25">
-        <QuarterCircle size={200} color="primary" />
-      </div>
-      <div className="absolute -bottom-16 -right-16 rotate-180 opacity-35 dark:opacity-20">
-        <QuarterCircle size={180} color="secondary" delay={0.15} />
-      </div>
-
-      {/* Mid-section shapes */}
-      <div className="absolute top-[30%] left-0 -translate-x-1/4 opacity-35 dark:opacity-20 hidden lg:block">
-        <HalfCircle size={120} color="primary" delay={0.2} />
-      </div>
-      <div className="absolute bottom-[25%] right-0 translate-x-1/3 opacity-30 dark:opacity-15 hidden lg:block">
-        <Circle size={100} color="secondary" delay={0.25} />
-      </div>
-      <div className="absolute top-1/2 left-[45%] -translate-y-1/2 opacity-25 dark:opacity-15 hidden xl:block">
-        <Circle size={50} color="muted" delay={0.3} />
-      </div>
-
-      {/* Triangle accents */}
-      <div className="absolute top-[20%] right-[15%] opacity-25 dark:opacity-15 hidden xl:block">
-        <Triangle size={55} color="muted" delay={0.35} />
-      </div>
-      <div className="absolute bottom-[35%] left-[20%] opacity-20 dark:opacity-10 hidden lg:block rotate-180">
-        <Triangle size={40} color="primary" delay={0.4} />
-      </div>
-
-      {/* Accent diamonds scattered */}
-      <div className="absolute top-24 left-[35%] opacity-50 dark:opacity-30">
-        <Diamond size={16} color="accent" delay={0.45} />
-      </div>
-      <div className="absolute top-[40%] right-[8%] opacity-45 dark:opacity-25 hidden md:block">
-        <Diamond size={14} color="primary" delay={0.5} />
-      </div>
-      <div className="absolute bottom-20 left-[55%] opacity-50 dark:opacity-30 hidden md:block">
-        <Diamond size={12} color="accent" delay={0.55} />
-      </div>
-      <div className="absolute top-[60%] left-[10%] opacity-40 dark:opacity-20 hidden lg:block">
-        <Diamond size={10} color="secondary" delay={0.6} />
-      </div>
-      <div className="absolute bottom-[40%] right-[22%] opacity-45 dark:opacity-25 hidden lg:block">
-        <Diamond size={11} color="accent" delay={0.65} />
-      </div>
-
-      {/* Dots patterns */}
-      <div className="absolute top-20 right-[30%] opacity-35 dark:opacity-20 hidden lg:block">
-        <DotsPattern rows={3} cols={4} color="primary" />
-      </div>
-      <div className="absolute bottom-16 left-[25%] opacity-30 dark:opacity-15 hidden xl:block">
-        <DotsPattern rows={2} cols={5} color="secondary" />
-      </div>
-      <div className="absolute top-[45%] right-4 opacity-25 dark:opacity-15 hidden xl:block">
-        <DotsPattern rows={2} cols={3} color="accent" />
-      </div>
-
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-dot-pattern opacity-20 pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section layout: Asymmetric split */}

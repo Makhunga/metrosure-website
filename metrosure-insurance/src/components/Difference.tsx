@@ -22,25 +22,6 @@ export default function Difference() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[rgb(var(--color-border-light))] group cursor-pointer aspect-[3/2] bg-gradient-to-br from-slate-200 via-slate-100 to-white dark:from-slate-700 dark:via-slate-600 dark:to-slate-500">
-              {/* Decorative Elements */}
-              <div className="absolute inset-0 opacity-40">
-                <motion.div
-                  className="absolute top-1/3 left-1/4 w-24 h-24 bg-primary/30 rounded-full blur-2xl"
-                  animate={{
-                    scale: [1, 1.3, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                  }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <motion.div
-                  className="absolute bottom-1/4 right-1/3 w-32 h-32 bg-[rgb(var(--color-secondary))]/20 rounded-full blur-2xl"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.2, 0.4, 0.2],
-                  }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                />
-              </div>
               {/* Team Icon */}
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
