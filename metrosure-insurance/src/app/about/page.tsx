@@ -211,7 +211,7 @@ export default function AboutPage() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              A proudly South African financial services company protecting families and empowering retail entrepreneurs. Real people, real advice, real partnerships.
+              A proudly South African financial services company protecting families and partnering with retail businesses. Real people, real advice, real partnerships.
             </motion.p>
 
             <motion.div
@@ -339,7 +339,7 @@ export default function AboutPage() {
                 But we&apos;re more than just an insurance broker. Through our retail partnership programme,
                 we&apos;ve created over 5,000 jobs across South Africa. We partner with store owners to bring
                 insurance services into their communities, sharing revenue and creating local employment.
-                When you partner with Metrosure, you&apos;re not just adding a service—you&apos;re building something that lasts.
+                When you partner with Metrosure, you&apos;re not just adding a service, you&apos;re building something that lasts.
               </motion.p>
             </motion.div>
             <motion.div
@@ -410,7 +410,7 @@ export default function AboutPage() {
               animate={valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              These core principles guide everything we do—from how we serve our
+              These core principles guide everything we do, from how we serve our
               customers to how we partner with retailers across South Africa.
             </motion.p>
           </motion.div>
@@ -547,10 +547,10 @@ export default function AboutPage() {
 
                   {/* Content Card */}
                   <motion.div
-                    className={`p-8 md:p-10 rounded-3xl border shadow-sm relative overflow-hidden ${
+                    className={`p-8 md:p-10 rounded-3xl border shadow-sm relative overflow-hidden transition-all duration-300 ${
                       item.isSpecial
-                        ? "bg-[rgb(var(--color-surface-card))] border-primary/20"
-                        : "bg-[rgb(var(--color-surface-card))] border-[rgb(var(--color-border-light))]"
+                        ? "bg-[rgb(var(--color-surface-card))] border-primary/20 hover:border-primary/40"
+                        : "bg-[rgb(var(--color-surface-card))] border-[rgb(var(--color-border-light))] hover:border-primary/30"
                     }`}
                     whileHover={{
                       y: -4,
@@ -573,7 +573,7 @@ export default function AboutPage() {
                         </span>
                         <div className="h-px w-8 bg-primary/30" />
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[rgb(var(--color-text-main))]">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[rgb(var(--color-text-main))] group-hover:text-primary transition-colors duration-300">
                         {item.title}
                       </h3>
                       <p className="text-[rgb(var(--color-text-body))] text-lg leading-relaxed">
@@ -645,7 +645,7 @@ export default function AboutPage() {
               onMouseLeave={() => setHoveredTeamMember(null)}
             >
               <motion.div
-                className="relative w-full h-full shadow-xl rounded-2xl overflow-hidden bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))]"
+                className="relative w-full h-full shadow-xl rounded-2xl overflow-hidden bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-all duration-300"
                 whileHover={{
                   boxShadow: "0 25px 50px -12px rgba(191, 6, 3, 0.25)",
                   transition: { duration: 0.3 }
@@ -666,7 +666,7 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <div className="h-[25%] p-6 flex flex-col justify-center bg-[rgb(var(--color-surface-card))] relative z-20">
-                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))] group-hover:text-primary transition-colors">
+                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))] group-hover:text-primary transition-colors duration-300">
                       {member.name}
                     </h3>
                     <p className="text-sm font-bold uppercase tracking-wider text-[rgb(var(--color-text-muted))] mt-1">
@@ -756,7 +756,7 @@ export default function AboutPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               Whether you&apos;re protecting your family or transforming your retail space into a
-              revenue stream—we&apos;re here to help you move forward.
+              revenue stream, we&apos;re here to help you move forward.
             </motion.p>
 
             <motion.div
