@@ -151,7 +151,11 @@ export default function AboutPage() {
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300 relative">
+      {/* Animated Grid Background */}
+      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-30 animate-[grid-flow_20s_linear_infinite] z-0" />
+      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />
+
       <Header />
 
       {/* Hero Section with Portrait Image */}
