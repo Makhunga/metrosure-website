@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 27, 2025 (Session 19 - Committed & Pushed)
+**Date:** December 28, 2025 (Session 20 - Committed & Pushed)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -34,6 +34,84 @@
 | Partners testimonials | ✅ Complete | Horizontal scroll style |
 | Gradient avatars | ✅ Complete | Colorful initials in testimonials |
 | Form validation UX | ✅ Complete | Inline errors with icons |
+| Careers modal | ✅ Complete | Modal popup replaces scroll-to-form |
+| Grid bleed-through fix | ✅ Complete | All pages with fixed grid fixed |
+| Quote page styling | ✅ Complete | Matches contact/partners pattern |
+
+---
+
+## Session 20 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Careers Modal, Quote Page Styling, Grid Bleed-Through Audit
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Careers modal application | Created modal popup for job applications | `Modal.tsx`, `ApplicationModal.tsx`, `careers/page.tsx` |
+| Grid bleed-through fix | Added `main` wrapper with z-10 to 4 pages | `quote`, `help`, `claims`, `policies` |
+| Duplicate grid removal | Removed duplicate `bg-grid-pattern` from hero sections | 4 page files |
+| Quote CTA styling | Updated to match Partners page card style | `quote/page.tsx` |
+| Quote form styling | Standardized inputs/labels to match Partners/Contact | `quote/page.tsx` |
+| Container width fix | Changed to `max-w-4xl` to match Contact page | `quote/page.tsx` |
+
+### New Components Created
+
+| Component | Purpose |
+|-----------|---------|
+| `src/components/ui/Modal.tsx` | Reusable modal with Framer Motion, body scroll lock, escape key |
+| `src/components/careers/ApplicationModal.tsx` | Quick apply form in modal format |
+
+### Careers Modal Features
+
+| Feature | Implementation |
+|---------|----------------|
+| Trigger | "Apply Now" buttons open modal instead of scrolling |
+| Form | Same fields as original (8 fields + CV upload + consent) |
+| Position pre-fill | Job title passed when clicking from job card |
+| Success state | FormSuccess component inside modal |
+| Body scroll lock | Prevents background scrolling when open |
+| Escape key | Closes modal |
+| Click outside | Closes modal |
+
+### Grid Bleed-Through Fixes
+
+| Page | Fix Applied |
+|------|-------------|
+| `/quote` | Added `<main className="relative z-10">` wrapper |
+| `/help` | Added `<main className="relative z-10">` wrapper |
+| `/claims` | Added `<main className="relative z-10">` wrapper |
+| `/policies` | Added `<main className="relative z-10">` wrapper |
+| Hero sections | Removed duplicate `bg-grid-pattern opacity-30` divs |
+
+### Quote Page Styling Updates
+
+| Element | Before | After |
+|---------|--------|-------|
+| Container | `max-w-[1400px]` | `max-w-4xl` (matches Contact) |
+| Form card | `rounded-2xl` | `rounded-3xl` |
+| Input radius | `rounded-lg` | `rounded-xl` |
+| Input padding | `py-3` | `py-3.5` |
+| Labels | `text-sm font-semibold` | `text-xs font-bold uppercase tracking-wider` |
+| CTA section | Full-width gradient | Card-style `bg-primary rounded-3xl` |
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/components/ui/Modal.tsx` | **NEW** - Reusable modal component |
+| `src/components/careers/ApplicationModal.tsx` | **NEW** - Application form modal |
+| `src/app/careers/page.tsx` | Removed ApplicationForm section, added modal state |
+| `src/app/quote/page.tsx` | CTA styling, form styling, container widths, grid fix |
+| `src/app/help/page.tsx` | Added main wrapper, removed duplicate grid |
+| `src/app/claims/page.tsx` | Added main wrapper, removed duplicate grid |
+| `src/app/policies/page.tsx` | Added main wrapper, removed duplicate grid |
+
+### Git Commit
+
+| Commit | Description |
+|--------|-------------|
+| `9d56d22` | Session 20: Careers modal, quote page styling, grid fixes |
 
 ---
 
@@ -399,7 +477,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 27, 2025** | **S19** | **Visual Polish** | Hero split-layout restored, Gradient initial avatars, ContactForm inline validation UX |
+| **Dec 28, 2025** | **S20** | **Careers Modal & Styling** | Careers modal popup, Grid bleed-through fixes, Quote page styling consistency |
+| Dec 27, 2025 | S19 | Visual Polish | Hero split-layout restored, Gradient initial avatars, ContactForm inline validation UX |
 | Dec 27, 2025 | S18.5 | Drawbridge UI Fixes | About page grid z-index fix, Footer dark mode cleanup, Partners stats fix, Partners testimonials horizontal scroll |
 | Dec 27, 2025 | S18 | UI/UX Enhancements | Under Development redesign, global spacing (py-32), SectionDivider component, Hero split layout (stashed), Products icon enhancement |
 | Dec 26, 2025 | S17.5 | Geometric Patterns | Geometric pattern backgrounds, Hero floating shapes, Footer light mode, Contact page merged cards |
@@ -1304,5 +1383,6 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 27, 2025 - Session 19 Complete*
-*Next session: S20 - Apply validation patterns to remaining forms, additional polish*
+*Document updated: December 28, 2025 - Session 20 Complete*
+*Git commit: 9d56d22 - Pushed to origin/main*
+*Next session: S21 - Additional polish, form consistency, visual refinements*
