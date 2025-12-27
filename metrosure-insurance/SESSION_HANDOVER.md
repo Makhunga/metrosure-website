@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 27, 2025 (Session 18 - Committed & Pushed)
+**Date:** December 27, 2025 (Session 18.5 - Committed & Pushed)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -30,6 +30,60 @@
 | UI/UX spacing | ✅ Complete | Global py-32 padding |
 | Section dividers | ✅ Complete | 4 variants available |
 | Hero image | 🔄 Stashed | Split layout ready to restore |
+| About page grid fix | ✅ Complete | z-index layering fixed |
+| Partners testimonials | ✅ Complete | Horizontal scroll style |
+
+---
+
+## Session 18.5 Summary (December 27, 2025) - COMPLETE
+
+**Session Focus:** Drawbridge UI Fixes - About Page Grid, Partners Page Polish
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| About page grid bleeding | Fixed grid background showing through Stats, Values, Leadership sections | `about/page.tsx` |
+| Footer dark mode blobs | Removed corner accent shapes in dark mode | `Footer.tsx` |
+| Partners stats fix | Changed "2016 Established" → "9+ Years Experience" | `SuccessMetrics.tsx` |
+| Partners testimonials style | Replaced carousel with horizontal scroll cards | `PartnerTestimonials.tsx` |
+
+### Drawbridge Tasks Processed
+
+| # | Task | Fix Applied |
+|---|------|-------------|
+| 7 | Stats bar grid background | Added `relative z-10` to Stats section |
+| 8 | Values section grid background | Added `relative z-10` to Values section |
+| 9 | Leadership section grid/dots | Added `relative z-10` to Team section |
+| 10 | Footer floating blobs (dark mode) | Added `dark:hidden` to corner accents wrapper |
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/app/about/page.tsx` | Added `relative z-10` to 3 sections (Stats, Values, Team) |
+| `src/components/Footer.tsx` | Added `dark:hidden` to corner accents container |
+| `src/components/partners/SuccessMetrics.tsx` | Changed stats from "2016 Established" to "9+ Years Experience" |
+| `src/components/partners/PartnerTestimonials.tsx` | Complete rewrite - horizontal scroll card style |
+
+### Files Created This Session
+
+| File | Purpose |
+|------|---------|
+| `src/components/partners/PartnerTestimonials.stashed.tsx` | **STASHED** - Original carousel style testimonials |
+
+### Stashed Items
+
+| Item | Reason | How to Restore |
+|------|--------|----------------|
+| Partner carousel testimonials | User may want it later | `cp PartnerTestimonials.stashed.tsx PartnerTestimonials.tsx` |
+
+### Git Commits
+
+| Commit | Description |
+|--------|-------------|
+| `003d868` | Fix grid background bleeding through About page sections |
+| `f6e47c5` | Fix partners page stats and testimonials style |
 
 ---
 
@@ -53,6 +107,7 @@
 |------|--------|----------------|
 | Hero split layout with image | User preference - stashed for later | `cp Hero.split-layout.tsx Hero.tsx` |
 | Partners page background image | Need appropriate B2B/retail image | Code tested and working, need image |
+| Partner testimonials carousel | Replaced with horizontal scroll style | `cp PartnerTestimonials.stashed.tsx PartnerTestimonials.tsx` |
 
 ### Files Created This Session
 
@@ -174,6 +229,21 @@ Once images are available:
 | Form validation UX | Add inline validation feedback | Medium |
 | Loading states | Add skeleton loaders for images | Medium |
 
+### Priority 4: Review Other Pages for Grid Bleed-Through
+
+| Page | Check Needed |
+|------|--------------|
+| `/careers` | Verify sections have proper z-index if grid shows through |
+| `/partners` | Already fixed in S18.5 |
+| `/contact` | Check if any sections need z-index fix |
+| `/quote` | Check form sections |
+
+**Pattern to fix grid bleed-through:**
+```tsx
+// Add `relative z-10` to any section where fixed grid background shows through
+<section className="relative z-10 py-32 bg-[rgb(var(--color-surface))]">
+```
+
 ---
 
 ## RECOMMENDATIONS & SUGGESTIONS
@@ -269,7 +339,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 27, 2025** | **S18** | **UI/UX Enhancements** | Under Development redesign, global spacing (py-32), SectionDivider component, Hero split layout (stashed), Products icon enhancement |
+| **Dec 27, 2025** | **S18.5** | **Drawbridge UI Fixes** | About page grid z-index fix, Footer dark mode cleanup, Partners stats fix, Partners testimonials horizontal scroll |
+| Dec 27, 2025 | S18 | UI/UX Enhancements | Under Development redesign, global spacing (py-32), SectionDivider component, Hero split layout (stashed), Products icon enhancement |
 | Dec 26, 2025 | S17.5 | Geometric Patterns | Geometric pattern backgrounds, Hero floating shapes, Footer light mode, Contact page merged cards |
 | Dec 26, 2025 | S17 | Circle Scatter Pattern | Added circle-scatter.svg to red CTA sections |
 | Dec 26, 2025 | S16 | Visual & B2B Polish | Removed orbs/shapes, About page B2B narrative, footer geometric background |
@@ -1172,5 +1243,6 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 27, 2025 - Session 18 Committed & Pushed (ecd8646)*
+*Document updated: December 27, 2025 - Session 18.5 Complete*
+*Git commits: 003d868, f6e47c5 - Pushed to origin/main*
 *Next session: S19 - Image assets and visual polish*
