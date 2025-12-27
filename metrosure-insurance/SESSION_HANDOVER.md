@@ -54,6 +54,8 @@
 | Quote CTA styling | Updated to match Partners page card style | `quote/page.tsx` |
 | Quote form styling | Standardized inputs/labels to match Partners/Contact | `quote/page.tsx` |
 | Container width fix | Changed to `max-w-4xl` to match Contact page | `quote/page.tsx` |
+| PartnersCTA background | Updated to match SuccessMetrics style (geometric SVG, floating shapes) | `PartnersCTA.tsx` |
+| PartnersCTA cards | Changed from transparent to solid red | `PartnersCTA.tsx` |
 
 ### New Components Created
 
@@ -106,12 +108,23 @@
 | `src/app/help/page.tsx` | Added main wrapper, removed duplicate grid |
 | `src/app/claims/page.tsx` | Added main wrapper, removed duplicate grid |
 | `src/app/policies/page.tsx` | Added main wrapper, removed duplicate grid |
+| `src/components/PartnersCTA.tsx` | Updated background to match SuccessMetrics, solid red cards |
 
-### Git Commit
+### PartnersCTA Changes
+
+| Before | After |
+|--------|-------|
+| Gradient background | `bg-primary` with geometric SVG patterns |
+| Blob pattern background | Floating geometric accents (sage, gold, coral, cream) |
+| Floating orbs | Subtle grid pattern |
+| `bg-white/10` transparent cards | `bg-[rgb(120,10,25)]` solid red cards |
+
+### Git Commits
 
 | Commit | Description |
 |--------|-------------|
 | `9d56d22` | Session 20: Careers modal, quote page styling, grid fixes |
+| `0f81138` | Update PartnersCTA to match SuccessMetrics styling |
 
 ---
 
@@ -1384,5 +1397,5 @@ cp .env.example .env.local
 ---
 
 *Document updated: December 28, 2025 - Session 20 Complete*
-*Git commit: 9d56d22 - Pushed to origin/main*
+*Git commits: 9d56d22, 0f81138 - Pushed to origin/main*
 *Next session: S21 - Additional polish, form consistency, visual refinements*
