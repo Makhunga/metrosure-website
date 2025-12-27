@@ -32,12 +32,7 @@ export default async function UnderDevelopmentPage({ searchParams }: PageProps) 
     <div className="min-h-screen flex flex-col bg-[rgb(var(--color-surface))]">
       <Header />
       <main className="flex-1 flex flex-col pt-56">
-        <UnderDevelopment
-          pageName={pageName}
-          description="We're working hard to bring you this feature. Check back soon!"
-          showProgress={true}
-          progress={60}
-        />
+        <UnderDevelopment pageName={pageName} />
       </main>
       <Footer />
     </div>

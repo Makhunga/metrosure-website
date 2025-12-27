@@ -72,7 +72,7 @@ export default function Products() {
     <section
       ref={sectionRef}
       id="products"
-      className="py-24 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
+      className="py-32 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -127,11 +127,11 @@ export default function Products() {
                 {/* Icon and Arrow */}
                 <div className="mb-8 flex justify-between items-start relative z-10">
                   <motion.div
-                    className="w-12 h-12 rounded-lg bg-[rgb(var(--color-surface))] flex items-center justify-center group-hover:bg-[rgb(var(--color-surface-card))] group-hover:shadow-md transition-all"
+                    className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <span className="material-symbols-outlined text-primary text-2xl">
+                    <span className="material-symbols-outlined text-primary text-3xl">
                       {product.icon}
                     </span>
                   </motion.div>

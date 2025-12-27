@@ -10,7 +10,7 @@ export default function Difference() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] transition-colors duration-300"
+      className="py-32 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24">

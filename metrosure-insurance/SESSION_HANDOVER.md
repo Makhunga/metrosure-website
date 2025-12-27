@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 26, 2025 (Session 18 - Ready)
+**Date:** December 27, 2025 (Session 18 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -10,156 +10,279 @@
 
 ---
 
-## SESSION 18 PRIORITY: UI/UX Visual Enhancements
+## PROJECT STATUS
 
-### Design Philosophy
-- **Goal:** Add depth without feeling forced or over-designed
-- **Avoid:** Cluttered, constrained layouts with no breathing room (see Under Development page as anti-example)
-- **Achieve:** Generous whitespace, clear visual hierarchy, purposeful elements
+### Build Status: ✅ Successful
+- **Routes:** 25 (21 pages + 4 API routes)
+- **Last Build:** December 27, 2025
+- **Deployment:** Vercel (production)
 
----
+### Feature Completion
 
-### 1. UNDER DEVELOPMENT PAGE - FIX FIRST (Quick Win)
-
-**Current Issues:**
-- `max-w-2xl` too narrow - feels cramped
-- `gap-4` on info cards too tight
-- `mb-8` margins inconsistent and small
-- Too many competing elements (icon, badge, progress bar, 2 cards, 2 buttons)
-- Info cards feel forced - what action can users actually take?
-- Progress bar arbitrary (60%) and adds visual noise
-
-**Recommended Fix:**
-- Increase container width (`max-w-4xl` or wider)
-- Simplify: One clear message, generous whitespace, single CTA
-- Remove or simplify info cards
-- Remove arbitrary progress bar
-- Increase spacing throughout (`gap-8`, `mb-12`)
-
-**File:** `src/components/UnderDevelopment.tsx`
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Multi-page navigation | ✅ Complete | Insurance dropdown menu |
+| Email integration (Resend) | ✅ Complete | All 4 forms working |
+| Cookie consent (POPIA) | ✅ Complete | localStorage-based |
+| Quote form | ✅ Complete | Full API integration |
+| Development banner | ✅ Complete | Site-wide amber banner |
+| Environment routing | ✅ Complete | Middleware for dev/prod |
+| UI/UX spacing | ✅ Complete | Global py-32 padding |
+| Section dividers | ✅ Complete | 4 variants available |
+| Hero image | 🔄 Stashed | Split layout ready to restore |
 
 ---
 
-### 2. HERO SECTION - Add Visual Anchor (Images Needed)
+## Session 18 Summary (December 27, 2025) - COMPLETE
 
-**Current:** Text-only centered layout works but lacks visual depth
+**Session Focus:** UI/UX Visual Enhancements - Spacing, Dividers, Hero Image
 
-**Options:**
-| Option | Description | Images Needed |
-|--------|-------------|---------------|
-| A | Lifestyle photo collage | 3-4 family/retail photos |
-| B | Split layout (text left, masked image right) | 1 hero image |
-| C | Single background image with overlay | 1 lifestyle image |
+### Completed This Session ✅
 
-**Suggested Images:**
-- South African families
-- Retail store environments
-- Team interactions
-- Community moments
+| Task | Description | Files |
+|------|-------------|-------|
+| Under Development Page | Simplified design, removed clutter, single CTA | `UnderDevelopment.tsx` |
+| Global Spacing | `py-24` → `py-32` across 5 sections | Multiple components |
+| Section Dividers | Created reusable component with 4 variants | `SectionDivider.tsx` |
+| Products Icons | Larger icons (14x14), primary/5 background | `Products.tsx` |
+| Hero Split Layout | Built and tested, then stashed | `Hero.split-layout.tsx` |
 
----
+### Deferred / Stashed Tasks
 
-### 3. PRODUCTS SECTION - Add Depth
+| Task | Reason | How to Restore |
+|------|--------|----------------|
+| Hero split layout with image | User preference - stashed for later | `cp Hero.split-layout.tsx Hero.tsx` |
+| Partners page background image | Need appropriate B2B/retail image | Code tested and working, need image |
 
-**Current:** Card grid is functional but flat
+### Files Created This Session
 
-**Suggestions:**
-- Add subtle product illustrations or icons with more visual weight
-- Consider "featured product" that's larger/highlighted
-- Add lifestyle imagery behind cards with overlay
-- Increase card padding and spacing
+| File | Purpose |
+|------|---------|
+| `src/components/SectionDivider.tsx` | Reusable section divider with 4 variants |
+| `src/components/Hero.split-layout.tsx` | **STASHED** - Split layout hero backup |
+| `public/images/family-hero-2.jpg` | Family image for future hero use |
 
----
+### Files Modified This Session
 
-### 4. TESTIMONIALS SECTION - Add Real Faces
-
-**Current:** Text-based testimonials
-
-**If customer photos available:**
-- Add circular headshots
-- Real faces build trust significantly
-- Consistent photo style (similar lighting/background)
-
----
-
-### 5. ABOUT PAGE - TEAM SECTION
-
-**Current:** Works well with hover effect
-**Issue:** Placeholder/missing images break the experience
-
-**Need:** Actual team photos
-- Professional headshots
-- Consistent style across all 3 executives
-- Similar lighting and background
+| File | Changes |
+|------|---------|
+| `src/components/UnderDevelopment.tsx` | Complete redesign - simplified |
+| `src/app/under-development/page.tsx` | Simplified props |
+| `src/components/Products.tsx` | py-32, larger icons |
+| `src/components/Approach.tsx` | py-32, gap-6 |
+| `src/components/WhyChooseUs.tsx` | py-32 |
+| `src/components/Testimonials.tsx` | py-32 |
+| `src/components/Difference.tsx` | py-32 |
+| `src/components/Features.tsx` | gap-6 |
+| `src/components/Hero.tsx` | Reverted to centered layout |
+| `src/components/index.ts` | Added SectionDivider export |
+| `src/app/page.tsx` | Added section dividers |
 
 ---
 
-### 6. CONTACT PAGE - Add Warmth
+## STASHED: Hero Split Layout with Family Image
 
-**Suggestions:**
-- Add photo of office or team in hero area
-- Office locations section already improved (merged cards)
+A split-layout hero with family image was created but stashed for later use.
 
----
+### Files
 
-### 7. PARTNERS PAGE - Reduce Text-Heavy Feel
+| File | Description |
+|------|-------------|
+| `src/components/Hero.split-layout.tsx` | **STASHED** - Split layout hero with image |
+| `public/images/family-hero-2.jpg` | Family image (2000×1493, 4:3 ratio) |
 
-**Current:** Very text-heavy
+### To Restore
 
-**Suggestions with images:**
-- Photos of actual retail partner stores
-- "Partner spotlight" section with real case studies
-- Before/after revenue graphics
-- Success story photos
+```bash
+cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
+```
 
----
+### Features of Stashed Layout
 
-### 8. GLOBAL SPACING IMPROVEMENTS (No Images Needed)
+- Split layout: Text left (45%), Image right (55%) on xl screens
+- Centered text-only on smaller screens
+- Family image with decorative geometric shapes
+- "5,000+ Jobs Created" floating stats badge
+- Decorative quarter-circles in brand colors (sage, gold)
+- Smooth entrance animations
 
-| Current | Suggested | Where |
-|---------|-----------|-------|
-| `py-24` | `py-32` | Key sections |
-| `p-6` / `p-8` | `p-10` / `p-12` | Cards with lots of content |
-| `gap-6` | `gap-8` | Card grids |
-| `mb-8` | `mb-12` | Section headings |
+### Image Requirements for Hero
 
----
-
-### 9. SECTION DIVIDERS (No Images Needed)
-
-**Instead of harsh lines, use:**
-- Gradient fades
-- Geometric shapes from existing pattern palette (#82B29A, #F2CC8E, #DF7A5E, #3C405B)
-- Subtle wave/curve shapes
+- **Ideal aspect ratio:** 4:3 or 3:2
+- **Minimum size:** 1000×750px
+- **Current image:** `family-hero-2.jpg` (2000×1493) - works well
 
 ---
 
-### 10. EMPTY STATES
+## TESTED: Background Image Hero (Option B)
 
-Anywhere content is missing, add placeholder illustrations instead of leaving blank.
+Tested full-bleed background image with overlay on Partners page. Code works but needs appropriate image.
+
+### Implementation Pattern
+
+```tsx
+{/* Background Image with Cover */}
+<div className="absolute inset-0">
+  <Image
+    src="/images/your-image.jpg"
+    alt="Description"
+    fill
+    className="object-cover object-center"
+    priority
+  />
+  {/* Dark gradient overlay for text readability */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/50" />
+</div>
+```
+
+### Best For
+- Partners page (needs retail/store environment photo)
+- About page hero (needs team/office photo)
+- Any page needing immersive visual impact
 
 ---
 
-### Image Priority List
+## SESSION 19 PLAN: Image Assets & Visual Polish
 
-| Priority | Image Type | Where | Quantity |
-|----------|-----------|-------|----------|
-| **HIGH** | Team headshots | About page | 3 |
-| **HIGH** | Hero lifestyle image | Home hero | 1 |
-| **MEDIUM** | Retail partner store photos | Partners page | 3-4 |
-| **MEDIUM** | Office photos | Contact/About | 2-3 |
-| **LOW** | Customer photos | Testimonials | 3-5 |
+### Priority 1: Source Required Images
+
+| Image Type | For | Specs | Status |
+|------------|-----|-------|--------|
+| Retail store interior/exterior | Partners hero | 4:3 or 16:9, min 1200px wide | **NEEDED** |
+| Team headshots | About page | Square, consistent lighting | **NEEDED** |
+| Office/workspace photos | Contact/About | Landscape, professional | Optional |
+
+### Priority 2: Implement Hero Images
+
+Once images are available:
+
+1. **Home Hero** - Restore split layout with family image
+   ```bash
+   cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
+   ```
+
+2. **Partners Hero** - Add background image with overlay
+   - Use retail store/business environment photo
+   - Apply tested gradient overlay pattern
+
+### Priority 3: Polish Tasks (No Images Needed)
+
+| Task | Description | Effort |
+|------|-------------|--------|
+| Testimonials avatars | Add initials-based placeholder avatars | Low |
+| About page team cards | Improve placeholder state when no images | Low |
+| Form validation UX | Add inline validation feedback | Medium |
+| Loading states | Add skeleton loaders for images | Medium |
 
 ---
 
-### Session 18 Implementation Order
+## RECOMMENDATIONS & SUGGESTIONS
 
-1. Fix Under Development page (quick win, no images)
-2. Global spacing improvements (quick win, no images)
-3. Add section dividers with geometric shapes (no images)
-4. Hero section with image (when available)
-5. Team photos on About page (when available)
-6. Partners page imagery (when available)
+### Image Sourcing Recommendations
+
+1. **For Partners Page Hero:**
+   - Retail store interior with customers
+   - Insurance desk/kiosk in retail environment
+   - Business partnership handshake
+   - South African retail street scene
+
+2. **For Home Hero (if not using family):**
+   - Multi-generational family
+   - Home/property exterior
+   - Person reviewing documents
+
+3. **Stock Photo Resources:**
+   - Pexels (free, SA-friendly)
+   - Unsplash (free)
+   - iStock/Getty (paid, higher quality)
+
+### Technical Recommendations
+
+1. **Image Optimization:**
+   - Use WebP format where possible
+   - Compress images before uploading (TinyPNG)
+   - Use Next.js Image component for automatic optimization
+
+2. **Performance:**
+   - Current Lighthouse CLS: 0.00 (excellent)
+   - Consider lazy loading for below-fold images
+   - Keep hero images under 500KB
+
+3. **Accessibility:**
+   - Ensure all images have meaningful alt text
+   - Test color contrast on image overlays
+   - Verify focus states remain visible on dark backgrounds
+
+### Content Recommendations
+
+1. **Testimonials Section:**
+   - Consider adding real customer photos (with consent)
+   - Or use illustrated avatars for consistency
+
+2. **Partners Page:**
+   - Add partner success stories with photos
+   - Include "before/after" revenue graphics
+
+3. **About Page:**
+   - Team photos are high impact for trust
+   - Consider video introduction
+
+---
+
+## KNOWN ISSUES
+
+| Issue | Severity | Notes |
+|-------|----------|-------|
+| No rate limiting on APIs | Medium | Add before high traffic |
+| Cookie consent localStorage only | Low | Works for MVP |
+| Hero image not active | Low | Stashed, ready to restore |
+
+---
+
+## QUICK REFERENCE
+
+### Start Development
+```bash
+cd /home/makhunga/Documents/MainSync-Ubuntu-Aspire/Playground/metrosure-website/metrosure-insurance
+npm run dev
+```
+
+### Build & Test
+```bash
+npm run build
+```
+
+### Restore Hero Split Layout
+```bash
+cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
+```
+
+### Key Files for Image Updates
+- `src/components/Hero.tsx` - Home page hero
+- `src/components/Hero.split-layout.tsx` - Stashed split layout
+- `src/components/partners/PartnersHero.tsx` - Partners page hero
+- `src/app/about/page.tsx` - About page with team section
+
+---
+
+## SESSION HISTORY
+
+| Date | Session | Focus | Key Accomplishments |
+|------|---------|-------|---------------------|
+| **Dec 27, 2025** | **S18** | **UI/UX Enhancements** | Under Development redesign, global spacing (py-32), SectionDivider component, Hero split layout (stashed), Products icon enhancement |
+| Dec 26, 2025 | S17.5 | Geometric Patterns | Geometric pattern backgrounds, Hero floating shapes, Footer light mode, Contact page merged cards |
+| Dec 26, 2025 | S17 | Circle Scatter Pattern | Added circle-scatter.svg to red CTA sections |
+| Dec 26, 2025 | S16 | Visual & B2B Polish | Removed orbs/shapes, About page B2B narrative, footer geometric background |
+| Dec 26, 2025 | S15 | Env-Based Routing | Middleware for under-development pages |
+| Dec 26, 2025 | S14 | Deploy & Polish | Vercel deployment, about hero image, grid pattern backgrounds |
+| Dec 26, 2025 | S13 | Dev Banner & B2B | Development banner, under development page, B2B contact updates |
+| Dec 26, 2025 | S12 | Quote API | Quote form API with email integration |
+| Dec 26, 2025 | S11 | Nav & Polish | Multi-page navigation with dropdown |
+
+---
+
+*Document updated: December 27, 2025 - Session 18 Complete*
+*Next session: S19 - Image assets and visual polish*
 
 ---
 
@@ -840,7 +963,9 @@ Route (app)
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 26, 2025** | **S17** | **Circle Scatter Pattern** | Added circle-scatter.svg to red CTA sections (PartnersCTA, PartnerBenefits) |
+| **Dec 27, 2025** | **S18** | **UI/UX Enhancements** | Under Development redesign, global spacing (py-32), SectionDivider component, Hero split layout with family image, Products icon enhancement |
+| Dec 26, 2025 | S17.5 | Geometric Patterns | Geometric pattern backgrounds, Hero floating shapes, Footer light mode, Contact page merged cards |
+| Dec 26, 2025 | S17 | Circle Scatter Pattern | Added circle-scatter.svg to red CTA sections (PartnersCTA, PartnerBenefits) |
 | Dec 26, 2025 | S16 | Visual & B2B Polish | Removed orbs/shapes, About page B2B narrative, footer geometric background (23%/12%), reverted hover animations |
 | Dec 26, 2025 | S15 | Env-Based Routing | Middleware for under-development pages, production redirects, dev-only full content |
 | Dec 26, 2025 | S14 | Deploy & Polish | Vercel deployment, about hero image, grid pattern backgrounds, hero cleanup, UI polish |
@@ -1046,5 +1171,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 26, 2025 - Session 17 Complete*
-*Next review: Session 18*
+*Document updated: December 27, 2025 - Session 18 Complete*
+*Next review: Session 19 - Image processing and remaining visual enhancements*

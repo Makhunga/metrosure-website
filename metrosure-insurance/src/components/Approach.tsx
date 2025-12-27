@@ -61,7 +61,7 @@ export default function Approach() {
     <section
       ref={sectionRef}
       id="approach"
-      className="py-24 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] overflow-hidden transition-colors duration-300 relative"
+      className="py-32 bg-[rgb(var(--color-surface))] border-y border-[rgb(var(--color-border-light))] overflow-hidden transition-colors duration-300 relative"
     >
       {/* Geometric Pattern - Top Right Corner */}
       <motion.div
@@ -162,7 +162,7 @@ export default function Approach() {
           </div>
 
           <motion.div
-            className="grid grid-cols-1 gap-4 pt-4"
+            className="grid grid-cols-1 gap-6 pt-6"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}

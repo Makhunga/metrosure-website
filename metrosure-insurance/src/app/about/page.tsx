@@ -599,8 +599,8 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
-      <section ref={teamRef} className="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative overflow-hidden">
-        <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none" />
+      <section ref={teamRef} className="py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden">
 
         <motion.div
           className="flex flex-col gap-6 mb-20 items-center text-center relative z-10"
@@ -669,11 +669,6 @@ export default function AboutPage() {
                       className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                       style={{ backgroundImage: `url("${member.image}")` }}
                     />
-                    <div className="absolute bottom-4 left-4 z-20 text-white translate-y-0 group-hover:-translate-y-2 transition-transform duration-300">
-                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white mb-3 shadow-lg transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
-                        <span className="material-symbols-outlined text-xl">add</span>
-                      </span>
-                    </div>
                   </div>
                   <div className="h-[25%] p-6 flex flex-col justify-center bg-[rgb(var(--color-surface-card))] relative z-20">
                     <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))]">
@@ -687,28 +682,28 @@ export default function AboutPage() {
 
                 {/* Hover State Overlay */}
                 <div
-                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-center p-8 text-white ${
+                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-start p-8 pt-12 text-white transition-opacity duration-300 delay-150 ${
                     hoveredTeamMember === index
                       ? "opacity-100"
                       : "opacity-0 pointer-events-none"
                   }`}
                 >
-                  <div className="absolute top-4 right-4 opacity-50">
+                  <div className="absolute top-4 right-4 opacity-30">
                     <span className="material-symbols-outlined text-4xl">
                       {member.icon}
                     </span>
                   </div>
                   <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                  <p className="text-white/80 text-sm font-bold uppercase tracking-wider mb-6">
+                  <p className="text-white/80 text-sm font-bold uppercase tracking-wider mb-5">
                     {member.role}
                   </p>
-                  <div className="w-12 h-1 bg-white/30 mb-6 rounded-full" />
-                  <p className="text-lg leading-relaxed font-medium mb-6">
+                  <div className="w-12 h-0.5 bg-white/30 mb-5 rounded-full" />
+                  <p className="text-base leading-relaxed font-medium mb-5">
                     &quot;{member.quote}&quot;
                   </p>
-                  <ul className="space-y-3 text-sm text-white/90">
+                  <ul className="space-y-2.5 text-sm text-white/90">
                     {member.badges.map((badge, badgeIndex) => (
-                      <li key={badgeIndex} className="flex items-start gap-3">
+                      <li key={badgeIndex} className="flex items-start gap-2">
                         <span className="material-symbols-outlined text-base mt-0.5">
                           check_circle
                         </span>
@@ -716,25 +711,12 @@ export default function AboutPage() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-8 flex gap-4">
-                    <a
-                      href="#"
-                      className="p-2 bg-white/20 hover:bg-white hover:text-primary rounded-full transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-xl">link</span>
-                    </a>
-                    <a
-                      href="#"
-                      className="p-2 bg-white/20 hover:bg-white hover:text-primary rounded-full transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-xl">mail</span>
-                    </a>
-                  </div>
                 </div>
               </motion.div>
             </motion.div>
           ))}
         </motion.div>
+        </div>
       </section>
 
       {/* CTA Section - Matching Landing Page Design */}

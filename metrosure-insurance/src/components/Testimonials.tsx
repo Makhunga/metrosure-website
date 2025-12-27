@@ -135,7 +135,7 @@ export default function Testimonials() {
     <section
       ref={sectionRef}
       id="stories"
-      className="py-24 bg-[rgb(var(--color-surface-card))] overflow-hidden transition-colors duration-300 relative"
+      className="py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden transition-colors duration-300 relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -180,7 +180,7 @@ export default function Testimonials() {
       <motion.div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex gap-6 overflow-x-auto pb-8 px-4 sm:px-6 lg:px-8 scrollbar-hide snap-x snap-mandatory"
+        className="flex gap-6 overflow-x-auto py-6 px-4 sm:px-6 lg:px-8 scrollbar-hide snap-x snap-mandatory"
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
@@ -191,7 +191,7 @@ export default function Testimonials() {
           <motion.div
             key={index}
             onClick={() => scrollToIndex(index)}
-            className={`min-w-[300px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-8 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer
+            className={`min-w-[300px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-8 pb-6 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer
               ${
                 isActive
                   ? "border-primary shadow-lg shadow-primary/10"

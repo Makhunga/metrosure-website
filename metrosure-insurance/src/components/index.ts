@@ -12,4 +12,5 @@ export { default as CallToAction } from "./CallToAction";
 export { default as PartnerLogos } from "./PartnerLogos";
 export { default as Footer } from "./Footer";
 export { default as ScrollToTop } from "./ScrollToTop";
+export { default as SectionDivider } from "./SectionDivider";
 export { ThemeProvider, useTheme } from "./theme-provider";

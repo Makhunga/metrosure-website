@@ -2,11 +2,8 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { HoverCard, TextReveal, RevealMask } from "./animations";
-
-// Direction pattern for card reveals
-const revealDirections: Array<"left" | "right" | "up" | "down"> = ["left", "right", "up", "down"];
+import { motion, useInView } from "framer-motion";
+import { HoverCard, TextReveal } from "./animations";
 
 const features = [
   {
@@ -85,7 +82,6 @@ const iconContainerVariants = {
 export default function Features() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section
@@ -186,7 +182,7 @@ export default function Features() {
             animate={isInView ? "visible" : "hidden"}
           >
             {/* 2x2 Grid with offset for visual interest */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {features.map((feature, index) => {
                 // Add offset to alternate rows for asymmetric feel
                 const isOffsetRow = index >= 2;
@@ -274,16 +270,7 @@ export default function Features() {
                     className={isOffsetRow ? "md:translate-y-8" : ""}
                     variants={cardVariants}
                   >
-                    {prefersReducedMotion ? (
-                      cardContent
-                    ) : (
-                      <RevealMask
-                        direction={revealDirections[index % 4]}
-                        delay={index * 0.15}
-                      >
-                        {cardContent}
-                      </RevealMask>
-                    )}
+                    {cardContent}
                   </motion.div>
                 );
               })}
