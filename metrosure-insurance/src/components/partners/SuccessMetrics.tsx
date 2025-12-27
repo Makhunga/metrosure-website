@@ -139,11 +139,10 @@ export default function SuccessMetrics() {
       description: "Across South Africa"
     },
     {
-      value: "2016",
-      label: "Established",
+      value: "9+",
+      label: "Years Experience",
       icon: "calendar_month",
-      description: "Years of excellence",
-      isYear: true
+      description: "Serving South Africa"
     },
   ];
 
