@@ -4,6 +4,28 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { TextReveal } from "./animations";
 
+// Gradient palette for avatar backgrounds
+const avatarGradients = [
+  "from-rose-500 to-orange-400",      // warm
+  "from-violet-500 to-purple-500",    // royal
+  "from-cyan-500 to-blue-500",        // cool
+  "from-emerald-500 to-teal-500",     // nature
+  "from-amber-500 to-yellow-500",     // gold
+  "from-pink-500 to-rose-400",        // soft
+  "from-indigo-500 to-blue-600",      // deep
+  "from-primary to-secondary",         // brand
+];
+
+// Get initials from name (first letter of first name)
+function getInitials(name: string): string {
+  return name.charAt(0).toUpperCase();
+}
+
+// Get gradient class based on index
+function getAvatarGradient(index: number): string {
+  return avatarGradients[index % avatarGradients.length];
+}
+
 const testimonialsData = [
   {
     text: "When my car was hijacked in Joburg, Metrosure handled everything before I could even stress. It wasn't just about the payout, it was knowing someone had my back.",
@@ -233,15 +255,16 @@ export default function Testimonials() {
             {/* Author */}
             <div className="flex items-center gap-4 mt-8 pt-6">
               <motion.div
-                className={`w-12 h-12 rounded-full flex items-center justify-center border border-[rgb(var(--color-border-light))] ${
-                  testimonial.isPartner
-                    ? "bg-gradient-to-br from-primary/20 to-primary/10"
-                    : "bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700"
-                }`}
-                whileHover={{ scale: 1.1 }}
+                className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/30 dark:ring-white/10 bg-gradient-to-br ${getAvatarGradient(index)}`}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                {testimonial.isPartner && (
-                  <span className="material-symbols-outlined text-primary text-xl">storefront</span>
+                {testimonial.isPartner ? (
+                  <span className="material-symbols-outlined text-white text-xl drop-shadow-sm">storefront</span>
+                ) : (
+                  <span className="text-white font-bold text-lg drop-shadow-sm">
+                    {getInitials(testimonial.name)}
+                  </span>
                 )}
               </motion.div>
               <div>

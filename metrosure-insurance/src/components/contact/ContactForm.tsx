@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 
@@ -9,6 +9,72 @@ type ContactTab = "message" | "callback";
 interface FormState {
   isSubmitting: boolean;
   error: string | null;
+}
+
+// Field validation state
+interface FieldState {
+  touched: boolean;
+  error: string | null;
+  valid: boolean;
+}
+
+type FieldStates = Record<string, FieldState>;
+
+// Validation functions
+const validateEmail = (email: string): string | null => {
+  if (!email) return "Email is required";
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) return "Please enter a valid email address";
+  return null;
+};
+
+const validatePhone = (phone: string): string | null => {
+  if (!phone) return "Phone number is required";
+  // SA phone format: +27, 0, or just digits
+  const cleanPhone = phone.replace(/[\s\-\(\)]/g, "");
+  if (cleanPhone.length < 10) return "Phone number must be at least 10 digits";
+  if (!/^(\+27|0)?[0-9]{9,}$/.test(cleanPhone)) return "Please enter a valid SA phone number";
+  return null;
+};
+
+const validateRequired = (value: string, fieldName: string): string | null => {
+  if (!value || !value.trim()) return `${fieldName} is required`;
+  return null;
+};
+
+// Inline error message component
+function InlineError({ error }: { error: string | null }) {
+  return (
+    <AnimatePresence>
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, y: -5, height: 0 }}
+          animate={{ opacity: 1, y: 0, height: "auto" }}
+          exit={{ opacity: 0, y: -5, height: 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex items-center gap-1.5 mt-1.5 ml-1"
+        >
+          <span className="material-symbols-outlined text-red-500 text-sm">error</span>
+          <span className="text-red-500 text-xs font-medium">{error}</span>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// Input wrapper with icon and validation state
+function InputIcon({ icon, valid, touched }: { icon: string; valid?: boolean; touched?: boolean }) {
+  return (
+    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+      <span className={`material-symbols-outlined text-lg transition-colors ${
+        touched && valid ? "text-green-500" :
+        touched && !valid ? "text-red-400" :
+        "text-slate-400"
+      }`}>
+        {touched && valid ? "check_circle" : icon}
+      </span>
+    </div>
+  );
 }
 
 const callbackReasons = [
@@ -46,8 +112,35 @@ export default function ContactForm() {
   const [callbackReason, setCallbackReason] = useState("");
   const [otherReason, setOtherReason] = useState("");
   const [formState, setFormState] = useState<FormState>({ isSubmitting: false, error: null });
+  const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  // Update field validation state
+  const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
+    const error = validator(value);
+    setFieldStates(prev => ({
+      ...prev,
+      [fieldName]: {
+        touched: true,
+        error,
+        valid: error === null && value.length > 0
+      }
+    }));
+    return error === null;
+  }, []);
+
+  // Get field state helper
+  const getFieldState = (fieldName: string): FieldState => {
+    return fieldStates[fieldName] || { touched: false, error: null, valid: false };
+  };
+
+  // Reset field states when switching tabs
+  const handleTabChange = (tab: ContactTab) => {
+    setActiveTab(tab);
+    setFieldStates({});
+    setFormState({ isSubmitting: false, error: null });
+  };
 
   const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -137,6 +230,21 @@ export default function ContactForm() {
     }
   };
 
+  // Dynamic input classes based on validation state
+  const getInputClasses = (fieldName?: string) => {
+    const state = fieldName ? getFieldState(fieldName) : { touched: false, error: null, valid: false };
+    const baseClasses = "w-full rounded-xl shadow-sm transition-all py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
+
+    if (state.touched && state.error) {
+      return `${baseClasses} border-2 border-red-400 bg-red-50 dark:bg-red-900/10 focus:border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-800/30 pl-12 pr-4`;
+    }
+    if (state.touched && state.valid) {
+      return `${baseClasses} border-2 border-green-400 bg-green-50 dark:bg-green-900/10 focus:border-green-500 focus:ring-2 focus:ring-green-200 dark:focus:ring-green-800/30 pl-12 pr-4`;
+    }
+    return `${baseClasses} border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 pl-12 pr-4`;
+  };
+
+  // Standard input classes without icon
   const inputClasses =
     "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
 
@@ -159,7 +267,7 @@ export default function ContactForm() {
         {/* Tabs */}
         <div className="flex border-b border-slate-200 dark:border-slate-700 relative z-10">
           <motion.button
-            onClick={() => setActiveTab("message")}
+            onClick={() => handleTabChange("message")}
             className="flex-1 cursor-pointer select-none relative group"
             whileTap={{ scale: 0.98 }}
           >
@@ -191,7 +299,7 @@ export default function ContactForm() {
           </motion.button>
 
           <motion.button
-            onClick={() => setActiveTab("callback")}
+            onClick={() => handleTabChange("callback")}
             className="flex-1 cursor-pointer select-none relative group border-l border-slate-200 dark:border-slate-700"
             whileTap={{ scale: 0.98 }}
           >
@@ -265,14 +373,23 @@ export default function ContactForm() {
                           <label className={labelClasses} htmlFor="name">
                             Name
                           </label>
-                          <input
-                            className={inputClasses}
-                            id="name"
-                            name="name"
-                            placeholder="Jane Doe"
-                            required
-                            type="text"
-                          />
+                          <div className="relative">
+                            <InputIcon
+                              icon="person"
+                              valid={getFieldState("name").valid}
+                              touched={getFieldState("name").touched}
+                            />
+                            <input
+                              className={getInputClasses("name")}
+                              id="name"
+                              name="name"
+                              placeholder="Jane Doe"
+                              required
+                              type="text"
+                              onBlur={(e) => validateField("name", e.target.value, (v) => validateRequired(v, "Name"))}
+                            />
+                          </div>
+                          <InlineError error={getFieldState("name").error} />
                         </motion.div>
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
@@ -282,14 +399,23 @@ export default function ContactForm() {
                           <label className={labelClasses} htmlFor="email">
                             Work Email
                           </label>
-                          <input
-                            className={inputClasses}
-                            id="email"
-                            name="email"
-                            placeholder="jane@company.com"
-                            required
-                            type="email"
-                          />
+                          <div className="relative">
+                            <InputIcon
+                              icon="mail"
+                              valid={getFieldState("email").valid}
+                              touched={getFieldState("email").touched}
+                            />
+                            <input
+                              className={getInputClasses("email")}
+                              id="email"
+                              name="email"
+                              placeholder="jane@company.com"
+                              required
+                              type="email"
+                              onBlur={(e) => validateField("email", e.target.value, validateEmail)}
+                            />
+                          </div>
+                          <InlineError error={getFieldState("email").error} />
                         </motion.div>
                       </div>
                       <motion.div
@@ -409,14 +535,23 @@ export default function ContactForm() {
                         <label className={labelClasses} htmlFor="cb_name">
                           Full Name
                         </label>
-                        <input
-                          className={inputClasses}
-                          id="cb_name"
-                          name="cb_name"
-                          placeholder="John Smith"
-                          required
-                          type="text"
-                        />
+                        <div className="relative">
+                          <InputIcon
+                            icon="person"
+                            valid={getFieldState("cb_name").valid}
+                            touched={getFieldState("cb_name").touched}
+                          />
+                          <input
+                            className={getInputClasses("cb_name")}
+                            id="cb_name"
+                            name="cb_name"
+                            placeholder="John Smith"
+                            required
+                            type="text"
+                            onBlur={(e) => validateField("cb_name", e.target.value, (v) => validateRequired(v, "Full name"))}
+                          />
+                        </div>
+                        <InlineError error={getFieldState("cb_name").error} />
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -426,14 +561,23 @@ export default function ContactForm() {
                         <label className={labelClasses} htmlFor="cb_phone">
                           Phone Number
                         </label>
-                        <input
-                          className={inputClasses}
-                          id="cb_phone"
-                          name="cb_phone"
-                          placeholder="+27 XX XXX XXXX"
-                          required
-                          type="tel"
-                        />
+                        <div className="relative">
+                          <InputIcon
+                            icon="call"
+                            valid={getFieldState("cb_phone").valid}
+                            touched={getFieldState("cb_phone").touched}
+                          />
+                          <input
+                            className={getInputClasses("cb_phone")}
+                            id="cb_phone"
+                            name="cb_phone"
+                            placeholder="+27 XX XXX XXXX"
+                            required
+                            type="tel"
+                            onBlur={(e) => validateField("cb_phone", e.target.value, validatePhone)}
+                          />
+                        </div>
+                        <InlineError error={getFieldState("cb_phone").error} />
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
