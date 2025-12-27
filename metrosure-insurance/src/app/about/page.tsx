@@ -259,7 +259,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section - Light Style (Matching Home Page) */}
-      <section ref={statsRef} className="border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden">
+      <section ref={statsRef} className="relative z-10 border-y border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[rgb(var(--color-border-light))]"
@@ -398,7 +398,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section ref={valuesRef} className="py-24 bg-[rgb(var(--color-surface-card))]">
+      <section ref={valuesRef} className="relative z-10 py-24 bg-[rgb(var(--color-surface-card))]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             className="text-center mb-16"
@@ -599,7 +599,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
-      <section ref={teamRef} className="py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
+      <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden">
 
         <motion.div

@@ -122,8 +122,8 @@ export default function Footer() {
       {/* Gradient overlay for better text contrast */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-100/90 via-slate-100/70 to-slate-100/95 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
 
-      {/* Corner Accents - Light mode enhanced, subtle in dark */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Corner Accents - Light mode only */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none dark:hidden">
         {/* Top-left quarter circle */}
         <motion.div
           className="absolute -top-16 -left-16 w-48 h-48 rounded-br-full bg-[#82B29A]/[0.12] dark:bg-[#82B29A]/[0.04]"
