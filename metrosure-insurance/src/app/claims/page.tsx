@@ -160,10 +160,10 @@ export default function ClaimsPage() {
 
       <Header />
 
+      <main className="relative z-10">
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-56 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
         <div className="relative max-w-6xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -488,6 +488,7 @@ export default function ClaimsPage() {
           </motion.div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <ScrollToTop />

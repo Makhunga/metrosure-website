@@ -4,7 +4,7 @@ import { Header, Footer, ScrollToTop } from "@/components";
 import CareersHero from "@/components/careers/CareersHero";
 import WhyJoinUs from "@/components/careers/WhyJoinUs";
 import OpenPositions from "@/components/careers/OpenPositions";
-import ApplicationForm from "@/components/careers/ApplicationForm";
+import ApplicationModal from "@/components/careers/ApplicationModal";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
@@ -19,20 +19,24 @@ const stats = [
 ];
 
 export default function CareersPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-50px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-50px" });
 
-  const scrollToForm = (position?: string) => {
+  const openApplicationModal = (position?: string) => {
     if (position) {
       setSelectedPosition(position);
+    } else {
+      setSelectedPosition("");
     }
-    const formSection = document.getElementById("application-form");
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: "smooth" });
-    }
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -44,7 +48,7 @@ export default function CareersPage() {
       <Header />
       <main className="relative z-10">
         {/* Hero Section */}
-        <CareersHero onApplyClick={() => scrollToForm()} />
+        <CareersHero onApplyClick={() => openApplicationModal()} />
 
       {/* Stats Bar */}
       <section
@@ -153,14 +157,7 @@ export default function CareersPage() {
       <WhyJoinUs />
 
       {/* Open Positions */}
-      <OpenPositions onApplyClick={scrollToForm} />
-
-      {/* Application Form */}
-      <ApplicationForm
-        id="application-form"
-        selectedPosition={selectedPosition}
-        onPositionChange={setSelectedPosition}
-      />
+      <OpenPositions onApplyClick={openApplicationModal} />
 
       {/* Final CTA */}
       <section
@@ -246,14 +243,14 @@ export default function CareersPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <motion.button
-                onClick={() => scrollToForm()}
+                onClick={() => openApplicationModal()}
                 className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.05, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <span>Apply Now</span>
-                <span className="material-symbols-outlined">arrow_upward</span>
+                <span className="material-symbols-outlined">arrow_forward</span>
               </motion.button>
               <Link href="/contact">
                 <motion.span
@@ -282,6 +279,14 @@ export default function CareersPage() {
         </motion.div>
       </section>
       </main>
+
+      {/* Application Modal */}
+      <ApplicationModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        selectedPosition={selectedPosition}
+      />
+
       <Footer />
       <ScrollToTop />
     </div>

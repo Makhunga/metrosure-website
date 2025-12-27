@@ -256,11 +256,11 @@ export default function QuotePage() {
 
       <Header />
 
+      <main className="relative z-10">
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-56 pb-16 overflow-hidden">
-        {/* Background Pattern */}
+        {/* Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
@@ -343,8 +343,8 @@ export default function QuotePage() {
       </section>
 
       {/* Quote Form Section */}
-      <section className="pb-24 pt-8">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
+      <section className="pb-24 pt-8 px-6">
+        <div className="max-w-4xl mx-auto">
           {/* Progress Steps */}
           <div className="mb-12">
             <div className="flex items-center justify-between relative px-6">
@@ -389,7 +389,7 @@ export default function QuotePage() {
 
           {/* Form Card */}
           <motion.div
-            className="bg-[rgb(var(--color-surface-card))] rounded-2xl shadow-xl border border-[rgb(var(--color-border-light))] overflow-hidden"
+            className="bg-[rgb(var(--color-surface-card))] rounded-3xl shadow-xl border border-[rgb(var(--color-border-light))] overflow-hidden"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -435,62 +435,62 @@ export default function QuotePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         First Name
                       </label>
                       <input
                         type="text"
                         value={formData.firstName}
                         onChange={(e) => updateFormData({ firstName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                         placeholder="John"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Last Name
                       </label>
                       <input
                         type="text"
                         value={formData.lastName}
                         onChange={(e) => updateFormData({ lastName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                         placeholder="Doe"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Email Address
                       </label>
                       <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => updateFormData({ email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                         placeholder="john@example.com"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Phone Number
                       </label>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => updateFormData({ phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                         placeholder="+27 XX XXX XXXX"
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Area Code
                       </label>
                       <input
                         type="text"
                         value={formData.zipCode}
                         onChange={(e) => updateFormData({ zipCode: e.target.value })}
-                        className="w-full md:w-1/2 px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full md:w-1/2 px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                         placeholder="4001"
                       />
                     </div>
@@ -578,13 +578,13 @@ export default function QuotePage() {
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Coverage Amount
                       </label>
                       <select
                         value={formData.coverageAmount}
                         onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                       >
                         <option value="">Select coverage amount</option>
                         <option value="1000000">R1,000,000</option>
@@ -598,13 +598,13 @@ export default function QuotePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Excess
                       </label>
                       <select
                         value={formData.deductible}
                         onChange={(e) => updateFormData({ deductible: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                       >
                         <option value="">Select excess</option>
                         <option value="5000">R5,000 (Higher Premium)</option>
@@ -615,14 +615,14 @@ export default function QuotePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-2">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
                         Desired Start Date
                       </label>
                       <input
                         type="date"
                         value={formData.startDate}
                         onChange={(e) => updateFormData({ startDate: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
                       />
                     </div>
 
@@ -877,8 +877,8 @@ export default function QuotePage() {
       </section>
 
       {/* FAQ Section */}
-      <section ref={faqRef} className="pb-24">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
+      <section ref={faqRef} className="pb-24 px-6">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
@@ -947,7 +947,7 @@ export default function QuotePage() {
         </div>
       </section>
 
-      {/* CTA Section - Matching Home Page Style */}
+      {/* CTA Section - Matching Partners Page Style */}
       <section ref={ctaRef} className="pb-24 px-4">
         <motion.div
           className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
@@ -955,6 +955,16 @@ export default function QuotePage() {
           animate={ctaInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
+          {/* Organic Blob Pattern */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1008%26quot%3b)' fill='none'%3e%3cpath d='M29.17 140C29.17 131.06 2.86 142.25 0 128.52C-11.73 72.25 -33.5 30.76 0 0C36.5 -33.5 70 0 140 0C210 0 210 0 280 0C350 0 350 0 420 0C490 0 490 0 560 0C630 0 630 0 700 0C770 0 770 0 840 0C896 0 896.37 -2.89 952 0C966.37 0.75 970.32 -2.97 980 7.27C1036.47 67.03 1039.41 69.41 1084.29 140C1109.41 179.52 1098.54 227.5 1120 227.5C1143.32 227.5 1155 187.21 1173.85 140C1200.41 73.46 1178.66 52.25 1210.81 0C1221.73 -17.75 1235.4 0 1260 0C1330 0 1330 0 1400 0C1456 0 1473.99 -24.44 1512 0C1543.99 20.56 1530.85 44.26 1540 90C1544.85 114.26 1540 115 1540 140C1540 157.5 1543.17 157.89 1540 175C1530.2 227.89 1517.5 226.69 1514.07 280C1509.62 349.19 1512.96 353.06 1524.23 420C1525.92 430.06 1538.87 423.96 1540 434C1546.75 493.96 1573.16 530.16 1540 560C1503.16 593.16 1470 560 1400 560C1330 560 1330 560 1260 560C1199.74 560 1191.3 573.9 1139.49 560C1121.3 555.12 1137.07 533.68 1120 522.44C1057.32 481.18 1031.83 444.07 980 455C942.74 462.85 978.44 532.53 941.82 560C908.44 585.03 890.91 560 840 560C770 560 770 560 700 560C637.78 560 629.08 573.38 575.56 560C559.08 555.88 564.58 525 560 525C555.81 525 572.21 556.46 558.03 560C502.21 573.96 489.01 560 420 560C350 560 350 560 280 560C245 560 234.35 579.31 210 560C164.35 523.79 179.96 499.83 140 448.97C124.96 429.83 120.59 433.62 100 420C50.59 387.31 30.41 398.93 0 356.36C-19.59 328.93 0 318.18 0 280C0 225.22 -10.53 220.98 0 170.43C4.05 150.98 29.17 152.02 29.17 140' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3cpath d='M420 91.72C395.2 96.73 388.89 113.9 388.89 140C388.89 184.71 386.56 227.32 420 233.33C472.12 242.7 490.57 203.24 560 170.77C590.36 156.57 619.57 156.12 619.57 140C619.57 123.45 592.8 113.36 560 105.43C493.01 89.22 480.75 79.45 420 91.72' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3cpath d='M840 131.76C838.16 131.76 835 136.49 835 140C835 142.13 837.86 143.04 840 143.04C841.31 143.04 841.89 141.68 841.89 140C841.89 136.04 841.61 131.76 840 131.76' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3cpath d='M280 242.08C241.09 242.08 204.17 263.81 204.17 280C204.17 295.24 241.61 304.93 280 304.93C330.08 304.93 381.11 295.43 381.11 280C381.11 264 329.56 242.08 280 242.08' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1008'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+
           {/* Decorative Blurs */}
           <motion.div
             className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"
@@ -1042,6 +1052,7 @@ export default function QuotePage() {
           </div>
         </motion.div>
       </section>
+      </main>
 
       <Footer />
     </div>
