@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "./theme-provider";
 
@@ -20,6 +21,13 @@ export default function Header() {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme, setTheme } = useTheme();
+  const pathname = usePathname();
+
+  // Check if a link is active
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,7 +118,11 @@ export default function Header() {
                 {link.dropdown ? (
                   // Dropdown item
                   <button
-                    className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors flex items-center gap-1"
+                    className={`text-sm font-semibold transition-colors flex items-center gap-1 ${
+                      pathname.startsWith("/insurance")
+                        ? "text-primary"
+                        : "text-[rgb(var(--color-text-body))] hover:text-primary"
+                    }`}
                     onClick={() => setActiveDropdown(activeDropdown === link.label ? null : link.label)}
                   >
                     {link.label}
@@ -126,7 +138,11 @@ export default function Header() {
                   // Regular link
                   <Link
                     href={link.href || "/"}
-                    className="text-sm font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full flex items-center gap-1.5"
+                    className={`text-sm font-semibold transition-colors relative flex items-center gap-1.5 ${
+                      isActive(link.href || "/")
+                        ? "text-primary after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-primary"
+                        : "text-[rgb(var(--color-text-body))] hover:text-primary after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                    }`}
                   >
                     {link.label}
                     {link.badge && (
@@ -267,7 +283,11 @@ export default function Header() {
                     // Accordion dropdown for mobile
                     <div>
                       <button
-                        className="w-full text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center justify-between"
+                        className={`w-full text-base font-semibold transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center justify-between ${
+                          pathname.startsWith("/insurance")
+                            ? "text-primary bg-primary/5"
+                            : "text-[rgb(var(--color-text-body))] hover:text-primary"
+                        }`}
                         onClick={() => setMobileDropdownOpen(mobileDropdownOpen === link.label ? null : link.label)}
                       >
                         {link.label}
@@ -311,7 +331,11 @@ export default function Header() {
                     // Regular link
                     <Link
                       href={link.href || "/"}
-                      className="text-base font-semibold text-[rgb(var(--color-text-body))] hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center gap-2"
+                      className={`text-base font-semibold transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center gap-2 ${
+                        isActive(link.href || "/")
+                          ? "text-primary bg-primary/5"
+                          : "text-[rgb(var(--color-text-body))] hover:text-primary"
+                      }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.label}

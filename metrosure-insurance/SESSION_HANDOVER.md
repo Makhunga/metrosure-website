@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 25 - Complete)
+**Date:** December 28, 2025 (Session 26 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -44,6 +44,60 @@
 | Rate limiting | ✅ Complete | In-memory rate limiting on all 4 API routes |
 | Reusable form components | ✅ Complete | InputIcon, InlineError, formValidation utilities |
 | Stakeholder email templates | ✅ Complete | 3 versions (Full, Executive, Meeting Request) |
+| Footer/Header nav consistency | ✅ Complete | Footer insurance links match Header dropdown |
+| Active nav state indicator | ✅ Complete | Underline indicator on current page link |
+| Leadership hover animation | ✅ Complete | Full-card slide-up with 90% transparency |
+| Timeline line fix | ✅ Complete | Line ends at last item's icon center |
+
+---
+
+## Session 26 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** About Page UI Polish - Navigation, Leadership Cards, Timeline
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Footer/Header nav mismatch | Changed Footer insurance links from "Car & Home, Business Cover" to "Auto, Home, Life & Funeral, Business" to match Header dropdown | `Footer.tsx` |
+| Active nav state indicator | Added `usePathname` hook and `isActive()` function with underline styling for current page | `Header.tsx` |
+| Leadership slide-up animation | Full-card coverage with `bg-primary/90` transparency, `backdrop-blur-sm`, profile image visible through overlay | `about/page.tsx` |
+| Leadership content positioning | Changed from `justify-center` to `justify-start pt-16` for natural spacing | `about/page.tsx` |
+| Timeline line fix | Changed from `bottom-10` to calculated height `calc(100% - 300px)` to stop at last icon | `about/page.tsx` |
+
+### Leadership Card Hover Effect (Final Design)
+
+| Property | Value |
+|----------|-------|
+| Panel position | `absolute inset-0` (covers full card) |
+| Background | `bg-primary/90` (90% opacity red) |
+| Blur effect | `backdrop-blur-sm` (subtle blur) |
+| Content alignment | `flex flex-col justify-start pt-16` |
+| Animation | `y: "100%"` → `y: 0` with spring physics |
+| Profile visibility | Image slightly visible through semi-transparent overlay |
+
+### Active Navigation State
+
+| State | Desktop Styling | Mobile Styling |
+|-------|-----------------|----------------|
+| Active | `text-primary` + red underline below link | `text-primary bg-primary/5` rounded background |
+| Inactive | `text-[rgb(var(--color-text-body))]` with hover underline animation | Standard text with hover background |
+
+### Timeline Line Calculation
+
+| Property | Before | After |
+|----------|--------|-------|
+| Top position | `top-10` (40px) | `top-10` (40px) - unchanged |
+| Bottom/Height | `bottom-10` (40px from bottom) | `height: calc(100% - 300px)` |
+| Result | Line extended past last icon | Line stops at last icon center |
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/components/Footer.tsx` | Updated insurance links to match Header |
+| `src/components/Header.tsx` | Added `usePathname`, `isActive()` function, conditional styling for desktop/mobile |
+| `src/app/about/page.tsx` | Leadership slide-up: `inset-0`, `bg-primary/90`, `backdrop-blur-sm`, `justify-start pt-16`; Timeline: `calc(100% - 300px)` height |
 
 ---
 
@@ -371,36 +425,52 @@ The email proposes starting with funeral policy as a pilot for end-to-end digiti
 
 ---
 
-## SESSION 22 PLAN
+## SESSION 27 PLAN
 
-### Priority 1: Security & Performance (HIGH)
+### Priority 1: Funeral Policy Digitisation (BLOCKED - HIGH)
+
+| Task | Priority | Effort | Notes |
+|------|----------|--------|-------|
+| Stakeholder walkthrough meeting | **Critical** | 1-2 hours | Blocker - need product details from client |
+| Online application form design | High | Medium | Pending meeting outcome |
+| Policy status tracking UI | High | Medium | Pending meeting outcome |
+
+**Status:** Waiting for stakeholder meeting to gather premium tiers, eligibility criteria, required documents, approval workflow, and claims process.
+
+### Priority 2: Visual Polish & Bug Fixes (MEDIUM)
 
 | Task | Description | Files |
 |------|-------------|-------|
-| Rate limiting | Add rate limiting to all 4 API routes | `api/contact`, `api/quote`, `api/careers-application`, `api/partner-inquiry` |
-| Input sanitization | Add DOMPurify for email content | All API routes |
+| Other page nav states | Verify active state works on all pages (not just About) | `Header.tsx` |
+| Leadership card mobile | Test hover/tap behavior on mobile devices | `about/page.tsx` |
+| Timeline responsive | Verify timeline line positioning on mobile | `about/page.tsx` |
+| Dark mode consistency | Audit all pages for CSS variable vs Tailwind dark mode consistency | Site-wide |
 
-### Priority 2: Accessibility Audit (MEDIUM)
+### Priority 3: Security & Performance (MEDIUM)
+
+| Task | Description | Files |
+|------|-------------|-------|
+| reCAPTCHA integration | Add invisible reCAPTCHA to reduce form spam | All form components |
+| Input sanitization | Add DOMPurify for user content in emails | All API routes |
+| Bundle analysis | Run `npm run analyze` to identify large dependencies | Site-wide |
+
+### Priority 4: Accessibility Audit (LOW)
 
 | Task | Description | Files |
 |------|-------------|-------|
 | Keyboard navigation | Verify all interactive elements accessible | Site-wide audit |
 | ARIA labels | Add missing labels to buttons/links | Header, forms, modals |
 | Focus indicators | Ensure visible focus states | All interactive elements |
+| Screen reader testing | Test with NVDA/VoiceOver | Site-wide |
 
-### Priority 3: Lazy Loading (MEDIUM)
-
-| Task | Description | Files |
-|------|-------------|-------|
-| Dynamic imports | Lazy load heavy components | Testimonials, FAQ, forms |
-| Image lazy loading | Verify priority flags on hero images | All page heroes |
-
-### Optional: Visual Polish
+### Optional: Content & Enhancements
 
 | Task | Description | Files |
 |------|-------------|-------|
-| CallToAction update | Match SuccessMetrics geometric style | `CallToAction.tsx` |
-| Loading states | Add skeleton loaders | Forms, testimonials |
+| Real testimonials | Add actual customer testimonials with photos | `Testimonials.tsx` |
+| Partner success stories | Add case studies with revenue impact | Partners page |
+| Blog section | Add blog for SEO and industry insights | New route |
+| Video content | Add explainer videos for insurance products | Various pages |
 
 ---
 
@@ -909,7 +979,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S25** | **Stakeholder Email Rewrite** | 3 email versions, business context, funeral policy proposal, industry disclaimer |
+| **Dec 28, 2025** | **S26** | **About Page UI Polish** | Footer/Header nav sync, active nav state indicator, leadership slide-up transparency, timeline line fix |
+| Dec 28, 2025 | S25 | Stakeholder Email Rewrite | 3 email versions, business context, funeral policy proposal, industry disclaimer |
 | Dec 28, 2025 | S24 | Rate Limiting & Forms | Rate limiting on 4 APIs, reusable form components (InputIcon, InlineError) |
 | Dec 28, 2025 | S23 | Quote Form, Under-Dev Page | Life & Funeral coverage fix, removed construction icon, 5+ office consistency |
 | Dec 28, 2025 | S22 | UK English Localisation | UK spelling corrections (customise, personalised, analyse, etc.), em dash replacements |
@@ -929,9 +1000,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 ---
 
-*Document updated: December 28, 2025 - Session 25 Complete*
-*Git commit: 032fea0 - Pushed to origin/main*
-*Next session: S26 - Funeral policy digitisation (pending stakeholder meeting)*
+*Document updated: December 28, 2025 - Session 26 Complete*
+*Next session: S27 - See plan below*
 
 ---
 
@@ -1820,5 +1890,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 28, 2025 - Session 25 Complete*
-*Next session: S26 - Funeral policy digitisation (pending stakeholder meeting)*
+*Document updated: December 28, 2025 - Session 26 Complete*
+*Next session: S27 - Visual polish, mobile testing, or funeral policy digitisation (if stakeholder meeting scheduled)*

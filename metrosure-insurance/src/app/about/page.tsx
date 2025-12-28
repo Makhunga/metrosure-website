@@ -501,10 +501,10 @@ export default function AboutPage() {
           </motion.div>
 
           <div className="relative">
-            {/* Vertical Line - stops at last item */}
+            {/* Vertical Line - connects icon centers from first to last item */}
             <motion.div
-              className="absolute left-[40px] top-4 w-0.5 bg-[rgb(var(--color-border-light))]"
-              style={{ height: 'calc(100% - 180px)' }}
+              className="absolute left-[40px] top-10 w-0.5 bg-[rgb(var(--color-border-light))]"
+              style={{ height: 'calc(100% - 300px)' }}
               initial={{ scaleY: 0, originY: 0 }}
               animate={timelineInView ? { scaleY: 1 } : { scaleY: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
@@ -666,16 +666,17 @@ export default function AboutPage() {
                   transition: { duration: 0.3 }
                 }}
               >
-                {/* Front State */}
+                {/* Image Section - takes most of the card */}
                 <div className="absolute inset-0 flex flex-col h-full">
-                  <div className="relative h-[75%] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
+                  <div className="relative flex-1 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
                     <div
-                      className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                      style={{ backgroundImage: `url("${member.image}")` }}
+                      className="w-full h-full bg-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                      style={{ backgroundImage: `url("${member.image}")`, backgroundPosition: 'center 15%' }}
                     />
                   </div>
-                  <div className="h-[25%] p-6 flex flex-col justify-center bg-[rgb(var(--color-surface-card))] relative z-20">
+                  {/* Name and Title - auto-height section at bottom */}
+                  <div className="p-6 bg-[rgb(var(--color-surface-card))] relative z-20">
                     <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))]">
                       {member.name}
                     </h3>
@@ -685,38 +686,43 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* Hover State Overlay */}
-                <div
-                  className={`absolute inset-0 bg-primary/95 dark:bg-primary/90 backdrop-blur-sm flex flex-col justify-start p-8 pt-12 text-white transition-opacity duration-300 delay-150 ${
-                    hoveredTeamMember === index
-                      ? "opacity-100"
-                      : "opacity-0 pointer-events-none"
-                  }`}
+                {/* Hover State - Slide up panel covering full card with transparency */}
+                <motion.div
+                  className="absolute inset-0 bg-primary/90 backdrop-blur-sm text-white p-6 pt-16 flex flex-col justify-start"
+                  initial={{ y: "100%" }}
+                  animate={{
+                    y: hoveredTeamMember === index ? 0 : "100%"
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 30
+                  }}
                 >
                   <div className="absolute top-4 right-4 opacity-30">
-                    <span className="material-symbols-outlined text-4xl">
+                    <span className="material-symbols-outlined text-3xl">
                       {member.icon}
                     </span>
                   </div>
                   <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                  <p className="text-white/80 text-sm font-bold uppercase tracking-wider mb-5">
+                  <p className="text-white/80 text-sm font-bold uppercase tracking-wider mb-4">
                     {member.role}
                   </p>
-                  <div className="w-12 h-0.5 bg-white/30 mb-5 rounded-full" />
-                  <p className="text-base leading-relaxed font-medium mb-5">
+                  <div className="w-10 h-0.5 bg-white/30 mb-4 rounded-full" />
+                  <p className="text-base leading-relaxed font-medium mb-4">
                     &quot;{member.quote}&quot;
                   </p>
-                  <ul className="space-y-2.5 text-sm text-white/90">
+                  <ul className="space-y-2 text-sm text-white/90">
                     {member.badges.map((badge, badgeIndex) => (
-                      <li key={badgeIndex} className="flex items-start gap-2">
-                        <span className="material-symbols-outlined text-base mt-0.5">
+                      <li key={badgeIndex} className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-base">
                           check_circle
                         </span>
                         {badge}
                       </li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               </motion.div>
             </motion.div>
           ))}

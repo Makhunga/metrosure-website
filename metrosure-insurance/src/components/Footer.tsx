@@ -15,9 +15,10 @@ const footerLinks = {
     { label: "Contact", href: "/contact", badge: null },
   ],
   insurance: [
-    { label: "Car & Home", href: "/insurance/auto" },
+    { label: "Auto", href: "/insurance/auto" },
+    { label: "Home", href: "/insurance/home" },
     { label: "Life & Funeral", href: "/insurance/life" },
-    { label: "Business Cover", href: "/insurance/business" },
+    { label: "Business", href: "/insurance/business" },
   ],
   support: [
     { label: "Help Center", href: "/help" },
