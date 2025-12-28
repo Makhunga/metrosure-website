@@ -483,7 +483,7 @@ export default function ClaimsPage() {
             </div>
 
             <p className="text-sm text-white/60 mt-8">
-              Business hours: Monday - Friday, 9am - 5pm SAST
+              Business hours: Mon-Fri 8am-5pm, Sat 8am-1pm SAST
             </p>
           </motion.div>
         </div>

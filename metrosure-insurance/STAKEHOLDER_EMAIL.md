@@ -42,6 +42,23 @@ This isn't a digital brochure - it's a lead-generation and operations engine. He
 
 ---
 
+### Important: Email Submission Status
+
+**Forms are currently in preview mode only.** While all 4 forms (Quote, Contact, Careers, Partner Inquiry) display correctly and validate user input, **email delivery is not yet configured for production**. This means:
+
+- **Users CAN fill out and submit forms** - The interface works completely
+- **Validation works** - Invalid emails, phone numbers, etc. are caught
+- **Success messages display** - Users see confirmation after submission
+- **Emails are NOT delivered** - No actual emails are sent to your team or to users
+
+**Why:** The email service (Resend) requires production API credentials and domain verification. The staging environment uses test credentials that don't actually send emails.
+
+**What you'll notice during testing:** Forms submit successfully with a green success message, but you won't receive anything in your inbox. This is expected behaviour for the preview.
+
+**To enable real email delivery:** We need to verify your domain with Resend and add the production API key to the Vercel environment variables.
+
+---
+
 ### Critical: About the Website Content
 
 **The copy, product descriptions, and statistics currently on this website are based on my research into the South African insurance industry - not on your specific processes, policies, or internal workflows.**
@@ -195,7 +212,7 @@ Your new website is ready for review. Here's what you need to know:
 
 | Feature | Status |
 |---------|--------|
-| Quote request forms | Live - captures leads instantly |
+| Quote request forms | UI complete - email delivery requires configuration |
 | Career applications | Live - CV uploads delivered to your inbox |
 | Partner inquiries | Live - B2B leads filtered and delivered |
 | Automated confirmations | Live - clients get instant response |
@@ -315,6 +332,8 @@ Before launch, ensure stakeholders have verified:
 - [ ] Office addresses and contact details are current
 - [ ] FSP number and legal information is accurate
 - [ ] Pricing references (if any) are correct
+- [ ] Email delivery service configured (Resend domain verification + API key)
+- [ ] Test emails actually arriving in inbox
 
 ---
 

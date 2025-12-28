@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 26 - Complete)
+**Date:** December 28, 2025 (Session 27 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -13,7 +13,7 @@
 ## PROJECT STATUS
 
 ### Build Status: ✅ Successful
-- **Routes:** 25 (21 pages + 4 API routes)
+- **Routes:** 26 (22 pages + 4 API routes)
 - **Last Build:** December 28, 2025
 - **Deployment:** Vercel (production)
 
@@ -48,6 +48,80 @@
 | Active nav state indicator | ✅ Complete | Underline indicator on current page link |
 | Leadership hover animation | ✅ Complete | Full-card slide-up with 90% transparency |
 | Timeline line fix | ✅ Complete | Line ends at last item's icon center |
+| Business hours update | ✅ Complete | Mon-Fri 8am-5pm, Sat 8am-1pm SAST |
+| Facebook social link | ✅ Complete | Replaced X/Twitter with Facebook |
+| Apple login button | ✅ Complete | Replaced GitHub with Apple |
+| PartnersCTA white cards | ✅ Complete | High contrast white cards on red background |
+| Partners form dark mode | ✅ Complete | Migrated to Tailwind dark: classes |
+| Alternative home page | ✅ Complete | /home-alt with centered text-only hero |
+| Stakeholder email update | ✅ Complete | Added email delivery status note |
+
+---
+
+## Session 27 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Business Hours, Social Links, Visual Polish, Alternative Home Page
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Business hours update | Changed to Mon-Fri 8am-5pm, Sat 8am-1pm SAST | `ContactForm.tsx`, `help/page.tsx`, `claims/page.tsx` |
+| Facebook social link | Replaced X/Twitter with Facebook (profile link) | `OfficeLocations.tsx` |
+| Apple login button | Changed GitHub to Apple sign-in | `login/page.tsx` |
+| PartnersCTA white cards | Changed dark burgundy cards to white with dark text | `PartnersCTA.tsx` |
+| Partners form dark mode | Migrated CSS variables to Tailwind dark: classes | `PartnerInquiryForm.tsx` |
+| Alternative home page | Created /home-alt with centered hero (no image), sized to match PartnersHero | `HeroCentered.tsx`, `home-alt/page.tsx` |
+| Stakeholder email update | Added email delivery status note, updated checklists | `STAKEHOLDER_EMAIL.md` |
+
+### Business Hours Updated
+
+| Location | New Hours |
+|----------|-----------|
+| ContactForm callback options | Morning (8AM-12PM), Afternoon (12PM-5PM) |
+| Help page | Mon-Fri 8am-5pm, Sat 8am-1pm SAST |
+| Claims page | Mon-Fri 8am-5pm, Sat 8am-1pm SAST |
+
+### Partners Form Dark Mode Migration
+
+| CSS Variable | Replaced With |
+|--------------|---------------|
+| `bg-[rgb(var(--color-surface-card))]` | `bg-white dark:bg-slate-900` |
+| `bg-[rgb(var(--color-surface))]` | `bg-slate-50 dark:bg-slate-700/50` |
+| `border-[rgb(var(--color-border-light))]` | `border-slate-200 dark:border-slate-700` |
+| `text-[rgb(var(--color-text-main))]` | `text-slate-900 dark:text-white` |
+| `text-[rgb(var(--color-text-body))]` | `text-slate-600 dark:text-slate-300` |
+| `text-[rgb(var(--color-text-muted))]` | `text-slate-500 dark:text-slate-400` |
+
+### PartnersCTA Card Styling
+
+| Element | Before | After |
+|---------|--------|-------|
+| Card bg | `bg-[rgb(120,10,25)]` | `bg-white` |
+| Card hover | `hover:bg-[rgb(140,15,30)]` | `hover:bg-slate-50` |
+| Icon container | `bg-white/10` | `bg-primary/10` |
+| Icon color | `text-white` | `text-primary` |
+| Text colors | `text-white` variants | `text-slate-900`, `text-slate-600` |
+
+### New Files Created
+
+| File | Purpose |
+|------|---------|
+| `src/components/HeroCentered.tsx` | Text-only centered hero component |
+| `src/app/home-alt/page.tsx` | Alternative home page (hidden, not linked) |
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/components/contact/ContactForm.tsx` | Updated callback time options |
+| `src/components/contact/OfficeLocations.tsx` | Replaced X with Facebook |
+| `src/app/login/page.tsx` | Changed GitHub to Apple |
+| `src/components/PartnersCTA.tsx` | White cards with dark text |
+| `src/components/partners/PartnerInquiryForm.tsx` | Full dark mode migration |
+| `src/app/help/page.tsx` | Updated business hours |
+| `src/app/claims/page.tsx` | Updated business hours |
+| `STAKEHOLDER_EMAIL.md` | Added email status note and checklist items |
 
 ---
 
@@ -1000,8 +1074,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 ---
 
-*Document updated: December 28, 2025 - Session 26 Complete*
-*Next session: S27 - See plan below*
+*Document updated: December 28, 2025 - Session 27 Complete*
+*Next session: S28 - Mobile testing, accessibility audit, or funeral policy digitisation (if stakeholder meeting scheduled)*
 
 ---
 
@@ -1890,5 +1964,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 28, 2025 - Session 26 Complete*
-*Next session: S27 - Visual polish, mobile testing, or funeral policy digitisation (if stakeholder meeting scheduled)*
+*Document updated: December 28, 2025 - Session 27 Complete*
+*Next session: S28 - Mobile testing, accessibility audit, or funeral policy digitisation (if stakeholder meeting scheduled)*

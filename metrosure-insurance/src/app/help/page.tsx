@@ -443,7 +443,7 @@ export default function HelpPage() {
             transition={{ delay: 0.4 }}
           >
             <p className="text-sm text-[rgb(var(--color-text-muted))] mb-4">
-              Business hours: Monday - Friday, 9am - 5pm SAST
+              Business hours: Mon-Fri 8am-5pm, Sat 8am-1pm SAST
             </p>
             <Link
               href="/contact"

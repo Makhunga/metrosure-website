@@ -49,8 +49,9 @@ export default function ContactHero() {
         </div>
         <div className="h-8 w-px bg-[rgb(var(--color-border-light))]" />
         <div className="flex flex-col sm:flex-row sm:gap-6 text-sm text-[rgb(var(--color-text-body))]">
-          <span><strong>Mon - Fri:</strong> 09:00 - 17:00</span>
-          <span><strong>Sat, Sun & Holidays:</strong> Closed</span>
+          <span><strong>Mon - Fri:</strong> 8am - 5pm</span>
+          <span><strong>Sat:</strong> 8am - 1pm</span>
+          <span><strong>Sun & Holidays:</strong> Closed</span>
         </div>
       </motion.div>
     </motion.div>

@@ -127,10 +127,10 @@ export default function PartnerInquiryForm() {
   };
 
   const inputClasses =
-    "w-full rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-[rgb(var(--color-surface-card))] transition-all py-3.5 px-4 text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))]";
+    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
 
   const labelClasses =
-    "block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2";
+    "block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -187,7 +187,7 @@ export default function PartnerInquiryForm() {
     <section
       ref={ref}
       id="partner-inquiry"
-      className="relative py-24 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
+      className="relative py-24 bg-white dark:bg-slate-900 transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -206,12 +206,12 @@ export default function PartnerInquiryForm() {
             >
               Start Your Partnership
             </motion.span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
               Ready to Partner With Us?
             </h2>
-            <p className="text-xl text-[rgb(var(--color-text-body))] mb-8">
+            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
               Fill out the form and our partnership team will get back to you within
-              <strong className="text-[rgb(var(--color-text-main))]"> 24 hours</strong>.
+              <strong className="text-slate-900 dark:text-white"> 24 hours</strong>.
             </p>
 
             {/* Contact Info */}
@@ -221,8 +221,8 @@ export default function PartnerInquiryForm() {
                   <span className="material-symbols-outlined text-primary">call</span>
                 </div>
                 <div>
-                  <div className="text-sm text-[rgb(var(--color-text-muted))]">Phone</div>
-                  <a href="tel:+27313011192" className="font-semibold text-[rgb(var(--color-text-main))] hover:text-primary transition-colors">
+                  <div className="text-sm text-slate-500 dark:text-slate-400">Phone</div>
+                  <a href="tel:+27313011192" className="font-semibold text-slate-900 dark:text-white hover:text-primary transition-colors">
                     +27 31 301 1192
                   </a>
                 </div>
@@ -232,8 +232,8 @@ export default function PartnerInquiryForm() {
                   <span className="material-symbols-outlined text-primary">mail</span>
                 </div>
                 <div>
-                  <div className="text-sm text-[rgb(var(--color-text-muted))]">Email</div>
-                  <a href="mailto:partnerships@metrosuregroup.co.za" className="font-semibold text-[rgb(var(--color-text-main))] hover:text-primary transition-colors">
+                  <div className="text-sm text-slate-500 dark:text-slate-400">Email</div>
+                  <a href="mailto:partnerships@metrosuregroup.co.za" className="font-semibold text-slate-900 dark:text-white hover:text-primary transition-colors">
                     partnerships@metrosuregroup.co.za
                   </a>
                 </div>
@@ -243,8 +243,8 @@ export default function PartnerInquiryForm() {
                   <span className="material-symbols-outlined text-primary">location_on</span>
                 </div>
                 <div>
-                  <div className="text-sm text-[rgb(var(--color-text-muted))]">Head Office</div>
-                  <div className="font-semibold text-[rgb(var(--color-text-main))]">
+                  <div className="text-sm text-slate-500 dark:text-slate-400">Head Office</div>
+                  <div className="font-semibold text-slate-900 dark:text-white">
                     391 Anton Lembede Street, Metropolitan Life Building, 5th Floor, Durban, 4001
                   </div>
                 </div>
@@ -253,13 +253,13 @@ export default function PartnerInquiryForm() {
 
             {/* Trust Badges */}
             <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))]">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 <span className="material-symbols-outlined text-primary text-lg">verified</span>
-                <span className="text-sm font-medium text-[rgb(var(--color-text-body))]">FSP Licensed</span>
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-300">FSP Licensed</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))]">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 <span className="material-symbols-outlined text-primary text-lg">security</span>
-                <span className="text-sm font-medium text-[rgb(var(--color-text-body))]">POPIA Compliant</span>
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-300">POPIA Compliant</span>
               </div>
             </div>
           </motion.div>
@@ -270,7 +270,7 @@ export default function PartnerInquiryForm() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-[rgb(var(--color-surface))] rounded-3xl p-8 md:p-10 shadow-xl border border-[rgb(var(--color-border-light))]">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-10 shadow-xl border border-slate-200 dark:border-slate-700">
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
                   <FormSuccess
@@ -304,8 +304,8 @@ export default function PartnerInquiryForm() {
                     )}
 
                     {/* Business Information Section */}
-                    <div className="pb-6 border-b border-[rgb(var(--color-border-light))]">
-                      <h3 className="text-lg font-bold text-[rgb(var(--color-text-main))] mb-4 flex items-center gap-2">
+                    <div className="pb-6 border-b border-slate-200 dark:border-slate-700">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary">business</span>
                         Business Information
                       </h3>
@@ -338,7 +338,7 @@ export default function PartnerInquiryForm() {
                                 <option key={type} value={type}>{type}</option>
                               ))}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                               <span className="material-symbols-outlined text-xl">expand_more</span>
                             </div>
                           </div>
@@ -359,7 +359,7 @@ export default function PartnerInquiryForm() {
                                 <option key={count} value={count}>{count}</option>
                               ))}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                               <span className="material-symbols-outlined text-xl">expand_more</span>
                             </div>
                           </div>
@@ -368,8 +368,8 @@ export default function PartnerInquiryForm() {
                     </div>
 
                     {/* Contact Information Section */}
-                    <div className="pb-6 border-b border-[rgb(var(--color-border-light))]">
-                      <h3 className="text-lg font-bold text-[rgb(var(--color-text-main))] mb-4 flex items-center gap-2">
+                    <div className="pb-6 border-b border-slate-200 dark:border-slate-700">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary">person</span>
                         Contact Information
                       </h3>
@@ -464,8 +464,8 @@ export default function PartnerInquiryForm() {
                     </div>
 
                     {/* Location Section */}
-                    <div className="pb-6 border-b border-[rgb(var(--color-border-light))]">
-                      <h3 className="text-lg font-bold text-[rgb(var(--color-text-main))] mb-4 flex items-center gap-2">
+                    <div className="pb-6 border-b border-slate-200 dark:border-slate-700">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary">location_on</span>
                         Location
                       </h3>
@@ -486,7 +486,7 @@ export default function PartnerInquiryForm() {
                                 <option key={province} value={province}>{province}</option>
                               ))}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                               <span className="material-symbols-outlined text-xl">expand_more</span>
                             </div>
                           </div>
@@ -507,8 +507,8 @@ export default function PartnerInquiryForm() {
                     </div>
 
                     {/* Services Interested Section */}
-                    <div className="pb-6 border-b border-[rgb(var(--color-border-light))]">
-                      <h3 className="text-lg font-bold text-[rgb(var(--color-text-main))] mb-4 flex items-center gap-2">
+                    <div className="pb-6 border-b border-slate-200 dark:border-slate-700">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary">interests</span>
                         Services Interested In
                       </h3>
@@ -516,23 +516,23 @@ export default function PartnerInquiryForm() {
                         {services.map(service => (
                           <label
                             key={service.id}
-                            className="flex items-center gap-3 p-4 rounded-xl border border-[rgb(var(--color-border-light))] cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all"
+                            className="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all"
                           >
                             <input
                               type="checkbox"
                               checked={formData.servicesInterested.includes(service.id)}
                               onChange={() => handleServiceChange(service.id)}
-                              className="w-5 h-5 rounded border-[rgb(var(--color-border-medium))] text-primary focus:ring-primary"
+                              className="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
                             />
-                            <span className="text-[rgb(var(--color-text-main))] font-medium">{service.label}</span>
+                            <span className="text-slate-900 dark:text-white font-medium">{service.label}</span>
                           </label>
                         ))}
                       </div>
                     </div>
 
                     {/* Additional Information Section */}
-                    <div className="pb-6 border-b border-[rgb(var(--color-border-light))]">
-                      <h3 className="text-lg font-bold text-[rgb(var(--color-text-main))] mb-4 flex items-center gap-2">
+                    <div className="pb-6 border-b border-slate-200 dark:border-slate-700">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary">info</span>
                         Additional Information
                       </h3>
@@ -552,7 +552,7 @@ export default function PartnerInquiryForm() {
                                 <option key={level} value={level}>{level}</option>
                               ))}
                             </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                               <span className="material-symbols-outlined text-xl">expand_more</span>
                             </div>
                           </div>
@@ -581,9 +581,9 @@ export default function PartnerInquiryForm() {
                           checked={formData.privacyConsent}
                           onChange={handleInputChange}
                           required
-                          className="w-5 h-5 mt-0.5 rounded border-[rgb(var(--color-border-medium))] text-primary focus:ring-primary"
+                          className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
                         />
-                        <span className="text-sm text-[rgb(var(--color-text-body))]">
+                        <span className="text-sm text-slate-600 dark:text-slate-300">
                           I agree to the <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a> and consent to Metrosure processing my data for this inquiry. *
                         </span>
                       </label>
@@ -593,9 +593,9 @@ export default function PartnerInquiryForm() {
                           name="marketingConsent"
                           checked={formData.marketingConsent}
                           onChange={handleInputChange}
-                          className="w-5 h-5 mt-0.5 rounded border-[rgb(var(--color-border-medium))] text-primary focus:ring-primary"
+                          className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
                         />
-                        <span className="text-sm text-[rgb(var(--color-text-body))]">
+                        <span className="text-sm text-slate-600 dark:text-slate-300">
                           I would like to receive updates about Metrosure partnership opportunities and news.
                         </span>
                       </label>

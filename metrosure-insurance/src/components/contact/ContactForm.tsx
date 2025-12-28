@@ -670,9 +670,8 @@ export default function ContactForm() {
                               id="cb_time"
                               name="cb_time"
                             >
-                              <option>Morning (9AM - 12PM)</option>
-                              <option>Afternoon (12PM - 4PM)</option>
-                              <option>Evening (4PM - 6PM)</option>
+                              <option>Morning (8AM - 12PM)</option>
+                              <option>Afternoon (12PM - 5PM)</option>
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                               <span className="material-symbols-outlined text-xl">expand_more</span>
