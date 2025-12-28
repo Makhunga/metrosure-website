@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 34 - Complete)
+**Date:** December 29, 2025 (Session 35 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -13,7 +13,7 @@
 
 ### Build Status: ✅ Successful
 - **Routes:** 27 (23 pages + 4 API routes)
-- **Last Build:** December 28, 2025
+- **Last Build:** December 29, 2025
 
 ### Feature Completion
 
@@ -32,6 +32,7 @@
 | Dark mode | ✅ | Tailwind dark: classes throughout |
 | Vercel Analytics | ✅ | @vercel/analytics integrated |
 | Rate limiting | ✅ | In-memory on all 4 API routes |
+| About page Mission section | ✅ | Editorial layout redesign |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
@@ -40,7 +41,50 @@
 
 ---
 
-## Session 34 Summary (December 28, 2025) - COMPLETE
+## Session 35 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** About Page Mission Section Redesign & Mobile Quote Fix
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Mission section editorial redesign | `src/app/about/page.tsx` |
+| Mobile quote premium bar fix | `src/app/quote/page.tsx` |
+| Team photo update | `public/images/mission-image.jpg` |
+
+### Changes Made
+
+1. **About Page - Mission Section Redesign**
+   - New editorial two-column layout (Miter-inspired)
+   - Left: Bold heading "Building a nation where everyone is protected."
+   - Right: Content paragraphs with vertical red accent line
+   - Full-width team image at bottom (square corners, object-top)
+   - Dark background (#1a1a1a) with subtle grain texture
+   - Dual-audience messaging (consumers + B2B partners)
+
+2. **Quote Page - Mobile Fix**
+   - Fixed "Estimated Premium" bar being blocked by hiring banner
+   - Changed `bottom-0` to `bottom-12` (sits above hiring banner)
+   - Increased z-index from `z-40` to `z-50`
+
+3. **Content Updates**
+   - Mission story rewritten for dual audience (consumers + retail partners)
+   - Highlights: retail partnerships, job creation (5,000+), affordability
+   - Aspirational tone matching brand positioning
+
+### Mission Section Content (Final)
+
+**Heading:** "Building a nation where everyone is protected."
+
+**Paragraphs:**
+1. "We believe insurance should work for everyone. For families seeking peace of mind. For businesses seeking new opportunities."
+2. "That's why we built something different: a network of retail partnerships that brings financial services directly into communities across South Africa. For consumers, it means accessible, affordable protection. For retail partners, it means a new revenue stream with fully trained staff provided."
+3. "Since 2016, this model has created over 5,000 jobs nationwide. Every partnership we form, every policy we write, moves us closer to a future where financial security is the norm, not the exception."
+
+---
+
+## Session 34 Summary (December 28, 2025)
 
 **Focus:** Stakeholder Presentation Polish - Calculator Integration
 
@@ -53,36 +97,6 @@
 | Calculator link on homepage | `Products.tsx` |
 | Coverage calculator under development | `middleware.ts` |
 
-### Changes Made
-
-1. **Header.tsx** - Added "Tools" dropdown between Partners and Careers with "Coverage Calculator" link
-2. **InsurancePageTemplate.tsx** - Added dark slate calculator CTA section after plan tiers
-3. **Products.tsx** - Added pill-style "Try our calculator" link below products grid
-4. **middleware.ts** - Added `/tools/coverage-calculator` to under-development routes
-
----
-
-## Session 33 Summary - MVP Features
-
-**Focus:** Live Pricing, WhatsApp Delivery, Coverage Calculator
-
-### Key Files Created
-
-| File | Purpose |
-|------|---------|
-| `src/lib/quoteCalculator.ts` | Pricing engine with placeholder rates |
-| `src/lib/whatsapp.ts` | WhatsApp message formatter |
-| `src/components/quote/PriceBreakdown.tsx` | Animated price display |
-| `src/app/tools/coverage-calculator/page.tsx` | Calculator page |
-| `src/components/tools/*.tsx` | Calculator components |
-
-### Pricing Formula (Placeholder)
-```typescript
-BASE_RATES = { home: 350, auto: 450, life: 250, business: 1200 }
-COVERAGE_MULTIPLIERS (per R100k) = { home: 0.12, auto: 0.15, life: 0.06, business: 0.18 }
-DEDUCTIBLE_DISCOUNTS = { R1000: 0%, R2500: 5%, R5000: 10%, R10000: 15% }
-```
-
 ---
 
 ## DEFERRED / BLOCKED
@@ -94,6 +108,7 @@ DEDUCTIBLE_DISCOUNTS = { R1000: 0%, R2500: 5%, R5000: 10%, R10000: 15% }
 | Partner Dashboard Preview | 🔜 Deferred | Time constraints |
 | reCAPTCHA | 🔜 Deferred | Low priority |
 | Cookie Consent | ⏸️ Disabled | Re-enable when ready |
+| Car & Home separation | ⏸️ Deferred | User decision to keep combined |
 
 ### To Re-enable Cookie Consent
 Uncomment in `src/components/ClientLayout.tsx`:
@@ -101,6 +116,48 @@ Uncomment in `src/components/ClientLayout.tsx`:
 // Line 8: import CookieConsent from "./CookieConsent";
 // Line 53: <CookieConsent />
 ```
+
+---
+
+## NEXT SESSION PLAN
+
+### Priority Tasks
+
+1. **Content Review**
+   - Review all page content for consistency with mission messaging
+   - Ensure dual-audience (B2C + B2B) tone across site
+
+2. **Production Readiness**
+   - Configure Resend API key for email delivery
+   - Test all form submissions end-to-end
+   - Review under-development routes for launch readiness
+
+3. **SEO & Performance**
+   - Add meta descriptions to all pages
+   - Verify Open Graph tags
+   - Run Lighthouse audit
+
+### Recommendations
+
+1. **Hiring Banner**
+   - Consider making the mobile hiring banner dismissible
+   - Or add a close button after X seconds
+
+2. **Mission Image**
+   - Current image works well; consider adding alt text with team context
+   - Could add hover effect or subtle parallax on scroll
+
+3. **Insurance Pages**
+   - The Car & Home combined approach is fine, but ensure content is clear
+   - Consider adding "Home" as a redirect hint in nav
+
+4. **Analytics**
+   - Set up conversion tracking for quote form submissions
+   - Track partner inquiry form completions
+
+5. **Content**
+   - Values section could use the same editorial treatment as Mission
+   - Consider testimonials or case studies for social proof
 
 ---
 
@@ -136,6 +193,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S35 | Dec 29 | Mission section redesign, mobile quote fix |
 | S34 | Dec 28 | Calculator integration, nav links |
 | S33 | Dec 28 | Live pricing, WhatsApp, Coverage calculator |
 | S32 | Dec 28 | Stakeholder email enhancements, footer mobile |
@@ -166,7 +224,8 @@ npm run build
 |-------|----------|-------|
 | Email delivery not configured | High | Needs Resend API key in production |
 | No reCAPTCHA on forms | Low | Consider adding to reduce spam |
+| Browser extension error | None | "correspondingUseElement" error from extensions, harmless |
 
 ---
 
-*Document updated: December 28, 2025 - Session 34 Complete*
+*Document updated: December 29, 2025 - Session 35 Complete*
