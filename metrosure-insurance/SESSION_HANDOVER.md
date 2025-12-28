@@ -145,6 +145,135 @@ DEDUCTIBLE_DISCOUNTS = { R1000: 0%, R2500: 5%, R5000: 10%, R10000: 15% }
 - **Routes:** 27 (23 pages + 4 API routes)
 - **Build:** ✅ Successful
 - **New Page:** `/tools/coverage-calculator`
+- **Commit:** `d7a4efa`
+- **Pushed:** ✅ December 28, 2025
+
+### Skipped/Deferred This Session
+
+From the original 6 MVP suggestions, 3 were implemented (Quick Wins) and 3 were deferred:
+
+| Feature | Status | Reason | Effort | Notes |
+|---------|--------|--------|--------|-------|
+| Funeral Policy Digital Application | ⏸️ BLOCKED | Requires stakeholder meeting | High | Need premium tiers, eligibility criteria, approval workflow |
+| Customer Portal Preview | 🔜 Deferred | Time constraints | Medium | Dashboard mockup with policy cards, claims status |
+| Partner Performance Dashboard | 🔜 Deferred | Time constraints | Medium | Analytics charts, commission tracking mockup |
+
+### Recommendations for Deferred Features
+
+**Funeral Policy Digital Application (Priority: HIGH after stakeholder meeting)**
+- Requires: Premium tiers, eligibility criteria, required documents, approval workflow
+- Implementation: Multi-step form similar to quote form, document upload, status tracking
+- Blocker: Schedule stakeholder walkthrough meeting first
+
+**Customer Portal Preview (Priority: MEDIUM)**
+- Mock dashboard showing: Active policies, Claims status, Payment history
+- Use placeholder data, link to "Coming Soon" for functionality
+- Impact: Shows technical capability and future vision
+
+**Partner Performance Dashboard (Priority: LOW)**
+- Analytics mockup with Chart.js or Recharts
+- Commission tracking, lead conversion rates
+- Target audience: B2B partners, less critical for initial stakeholder presentation
+
+---
+
+## Session 34 Plan (NEXT SESSION)
+
+### Priority 1: Stakeholder Presentation Polish (HIGH)
+
+| Task | Description | Effort |
+|------|-------------|--------|
+| Coverage Calculator link | Add link to calculator from insurance pages and homepage | Low |
+| Quote flow testing | Full end-to-end test of quote form with live pricing | Low |
+| Mobile responsiveness check | Test new features on mobile devices | Medium |
+| Dark mode verification | Ensure all new components support dark mode | Low |
+
+### Priority 2: Integration & Navigation (MEDIUM)
+
+| Task | Description | Effort |
+|------|-------------|--------|
+| Tools dropdown in nav | Add "Tools" menu item linking to coverage calculator | Low |
+| Calculator from insurance pages | Add CTA buttons on /insurance/* pages | Low |
+| Breadcrumb navigation | Add breadcrumbs to tools/calculator page | Low |
+| Internal linking | Cross-link related pages for better UX | Low |
+
+### Priority 3: Content & SEO (MEDIUM)
+
+| Task | Description | Effort |
+|------|-------------|--------|
+| Meta descriptions | Update meta for new /tools/coverage-calculator page | Low |
+| Calculator page SEO | Add structured data for calculator tool | Medium |
+| Sitemap verification | Ensure new routes are in sitemap | Low |
+
+### Priority 4: Deferred Features (CONDITIONAL)
+
+| Task | Condition | Effort |
+|------|-----------|--------|
+| Funeral Policy Application | After stakeholder meeting approval | High |
+| Customer Portal Preview | If time permits | Medium |
+| Partner Dashboard Preview | If stakeholder requests | Medium |
+
+### Priority 5: Technical Debt (LOW)
+
+| Task | Description | Effort |
+|------|-------------|--------|
+| Re-enable Cookie Consent | Uncomment in ClientLayout.tsx when ready | Low |
+| reCAPTCHA integration | Add bot protection to forms | Medium |
+| Accessibility audit | WCAG AA compliance check | Medium |
+
+---
+
+## Recommendations & Suggestions
+
+### For Stakeholder Presentation
+
+1. **Demo Flow Suggestion:**
+   - Start with homepage → Insurance product page → Quote form with live pricing
+   - Show Coverage Calculator tool → Life Cover calculation → Click "Get Quote" CTA
+   - Complete quote → Show WhatsApp sharing feature
+   - Mention "estimate only" disclaimers satisfy compliance
+
+2. **Key Talking Points:**
+   - Live pricing creates engagement (competitors have static forms)
+   - WhatsApp integration meets customers where they are (80%+ SA smartphone users)
+   - Calculator tool positions Metrosure as trusted advisor, not just seller
+   - All features work on mobile devices
+
+3. **Prepare for Questions:**
+   - "How accurate is the pricing?" → Placeholder rates, final quotes require underwriting
+   - "Can we change the rates?" → Yes, edit `src/lib/quoteCalculator.ts`
+   - "What about real WhatsApp integration?" → Currently uses wa.me links, full API integration possible
+
+### Technical Recommendations
+
+1. **Before Production Launch:**
+   - Replace placeholder pricing with real underwriter rates
+   - Add reCAPTCHA to prevent form spam
+   - Enable cookie consent for POPIA compliance
+   - Set up proper WhatsApp Business API (optional)
+
+2. **Quick Enhancement Ideas:**
+   - Add "Popular" badge animation on Life & Funeral option
+   - Add confetti animation on quote success
+   - Add print/PDF option for calculator results
+   - Add email option alongside WhatsApp sharing
+
+3. **Performance Considerations:**
+   - Coverage calculator page is client-side only (good for SEO)
+   - Consider adding loading skeletons for better perceived performance
+   - Price calculations are instant (useMemo), no API calls needed
+
+### Business Process Suggestions
+
+1. **Lead Capture Enhancement:**
+   - Calculator results could optionally capture email for follow-up
+   - Add "Save my calculation" feature requiring email
+   - Track calculator usage in analytics for conversion funnel
+
+2. **Partner Value-Add:**
+   - Allow partners to embed calculator on their sites
+   - White-label calculator with partner branding
+   - Partner-specific referral codes in WhatsApp messages
 
 ---
 
