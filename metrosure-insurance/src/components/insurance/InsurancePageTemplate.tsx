@@ -225,6 +225,60 @@ export default function InsurancePageTemplate({
         </div>
       </section>
 
+      {/* Calculator CTA Section */}
+      <section className="py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950" />
+        <div className="absolute inset-0 opacity-20">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, rgb(var(--color-primary)) 1px, transparent 0)",
+              backgroundSize: "40px 40px",
+            }}
+          />
+        </div>
+
+        <div className="relative max-w-5xl mx-auto px-6 lg:px-12">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            {/* Icon/Visual */}
+            <div className="shrink-0">
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-2xl shadow-primary/30 rotate-3 hover:rotate-0 transition-transform duration-300">
+                <span className="material-symbols-outlined text-white text-5xl md:text-6xl">
+                  calculate
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Not sure how much cover you need?
+              </h3>
+              <p className="text-slate-300 text-lg mb-0 md:mb-0 max-w-xl">
+                Use our free coverage calculator to work out exactly how much life or funeral cover your family needs.
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className="shrink-0">
+              <Link
+                href="/tools/coverage-calculator"
+                className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-slate-900 font-bold text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <span className="material-symbols-outlined text-primary text-2xl">
+                  pie_chart
+                </span>
+                Try Calculator
+                <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">
+                  arrow_forward
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Benefits */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">

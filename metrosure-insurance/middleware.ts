@@ -13,6 +13,7 @@ const underDevelopmentRoutes = [
   '/legal',
   '/claims',
   '/policies',
+  '/tools/coverage-calculator',
 ];
 
 export function middleware(request: NextRequest) {
@@ -42,5 +43,6 @@ export const config = {
     '/legal',
     '/claims',
     '/policies',
+    '/tools/:path*',
   ],
 };

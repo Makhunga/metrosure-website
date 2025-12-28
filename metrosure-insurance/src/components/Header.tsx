@@ -67,6 +67,12 @@ export default function Header() {
       ],
     },
     { href: "/partners", label: "Partners" },
+    {
+      label: "Tools",
+      dropdown: [
+        { href: "/tools/coverage-calculator", label: "Coverage Calculator" },
+      ],
+    },
     { href: "/careers", label: "Careers", badge: "Hiring" },
     { href: "/contact", label: "Contact" },
   ];
@@ -119,7 +125,8 @@ export default function Header() {
                   // Dropdown item
                   <button
                     className={`text-sm font-semibold transition-colors flex items-center gap-1 ${
-                      pathname.startsWith("/insurance")
+                      (link.label === "Insurance" && pathname.startsWith("/insurance")) ||
+                      (link.label === "Tools" && pathname.startsWith("/tools"))
                         ? "text-primary"
                         : "text-[rgb(var(--color-text-body))] hover:text-primary"
                     }`}
@@ -284,7 +291,8 @@ export default function Header() {
                     <div>
                       <button
                         className={`w-full text-base font-semibold transition-colors py-3 px-4 rounded-lg hover:bg-primary/5 flex items-center justify-between ${
-                          pathname.startsWith("/insurance")
+                          (link.label === "Insurance" && pathname.startsWith("/insurance")) ||
+                          (link.label === "Tools" && pathname.startsWith("/tools"))
                             ? "text-primary bg-primary/5"
                             : "text-[rgb(var(--color-text-body))] hover:text-primary"
                         }`}
