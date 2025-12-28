@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
+import { MagneticButton } from "@/components/animations";
 
 type CoverageType = "home" | "auto" | "life" | "business" | null;
 
@@ -249,135 +250,90 @@ export default function QuotePage() {
   };
 
   return (
-    <div className="bg-[rgb(var(--color-surface))] min-h-screen relative">
+    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen relative transition-colors duration-300">
       {/* Animated Grid Background */}
-      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-30 animate-[grid-flow_20s_linear_infinite] z-0" />
+      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-40 animate-[grid-flow_20s_linear_infinite] z-0" />
       <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />
 
       <Header />
 
       <main className="relative z-10">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-56 pb-16 overflow-hidden">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
-
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            className="text-center max-w-3xl mx-auto mb-12"
-            initial={{ opacity: 0, y: 40 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+      <section ref={heroRef} className="relative pt-56 pb-12 overflow-hidden">
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <motion.h1
+            className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
           >
-            {/* Badge */}
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 text-primary text-xs font-bold uppercase tracking-wider mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <span className="material-symbols-outlined text-sm">bolt</span>
-              Quick & Easy
-            </motion.div>
+            Get Your Free Quote
+          </motion.h1>
+          <motion.p
+            className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Complete the form below to receive a personalized insurance quote.
+            Our licensed advisors will review your needs and get back to you within 24 hours.
+          </motion.p>
 
-            <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Get Your Free Quote
-            </motion.h1>
-            <motion.p
-              className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              Protect what matters most in just a few minutes. Our streamlined process
-              makes it easy to find the perfect coverage at competitive rates.
-            </motion.p>
-
-            {/* B2B Cross-link */}
-            <motion.div
-              className="mt-6 flex items-center justify-center gap-2 text-sm text-[rgb(var(--color-text-muted))]"
-              initial={{ opacity: 0 }}
-              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+          {/* B2B Cross-link */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Link
+              href="/partners"
+              className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm transition-colors"
             >
               <span className="material-symbols-outlined text-base">storefront</span>
-              <span>Are you a retailer?</span>
-              <Link
-                href="/partners"
-                className="text-primary font-medium hover:underline inline-flex items-center gap-1"
-              >
-                Explore partnership opportunities
-                <span className="material-symbols-outlined text-base">arrow_forward</span>
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Trust Indicators */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-8 mb-12"
-            variants={containerVariants}
-            initial="hidden"
-            animate={heroInView ? "visible" : "hidden"}
-          >
-            {[
-              { icon: "verified_user", text: "256-bit SSL Encrypted" },
-              { icon: "groups", text: "500,000+ Customers" },
-              { icon: "star", text: "4.9/5 Rating" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className="flex items-center gap-2 text-[rgb(var(--color-text-body))]"
-                variants={itemVariants}
-              >
-                <span className="material-symbols-outlined text-primary">{item.icon}</span>
-                <span className="text-sm font-medium">{item.text}</span>
-              </motion.div>
-            ))}
+              <span>Own a retail space? <span className="font-semibold underline">Partner with us</span></span>
+            </Link>
           </motion.div>
         </div>
       </section>
 
       {/* Quote Form Section */}
-      <section className="pb-24 pt-8 px-6">
+      <section className="pb-24 pt-4 px-6">
         <div className="max-w-4xl mx-auto">
-          {/* Progress Steps */}
-          <div className="mb-12">
-            <div className="flex items-center justify-between relative px-6">
-              {/* Progress Line - starts and ends at step icon centers */}
-              <div className="absolute top-6 left-12 right-12 h-0.5 bg-[rgb(var(--color-border-light))]" />
+          {/* Progress Steps - Larger & Bolder */}
+          <div className="mb-16">
+            <div className="flex items-center justify-between relative">
+              {/* Progress Line */}
+              <div className="absolute top-8 left-[10%] right-[10%] h-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
               <div
-                className="absolute top-6 left-12 h-0.5 bg-primary transition-all duration-500"
-                style={{ width: `${((currentStep - 1) / 3) * (100 - 8)}%` }}
+                className="absolute top-8 left-[10%] h-1 bg-primary rounded-full transition-all duration-500"
+                style={{ width: `${((currentStep - 1) / 3) * 80}%` }}
               />
 
               {steps.map((step) => (
                 <div
                   key={step.number}
-                  className="relative flex flex-col items-center z-10"
+                  className="relative flex flex-col items-center z-10 flex-1"
                 >
-                  <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  <motion.div
+                    className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
                       currentStep >= step.number
-                        ? "bg-primary text-white shadow-lg shadow-primary/30"
-                        : "bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-muted))] border-2 border-[rgb(var(--color-border-light))]"
+                        ? "bg-primary text-white shadow-xl shadow-primary/40"
+                        : "bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-slate-200 dark:border-slate-600"
                     }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     {currentStep > step.number ? (
-                      <span className="material-symbols-outlined">check</span>
+                      <span className="material-symbols-outlined text-2xl">check</span>
                     ) : (
-                      <span className="material-symbols-outlined">{step.icon}</span>
+                      <span className="material-symbols-outlined text-2xl">{step.icon}</span>
                     )}
-                  </div>
+                  </motion.div>
                   <span
-                    className={`mt-2 text-xs font-medium hidden sm:block ${
+                    className={`mt-3 text-sm font-bold tracking-wide ${
                       currentStep >= step.number
                         ? "text-primary"
-                        : "text-[rgb(var(--color-text-muted))]"
+                        : "text-slate-400 dark:text-slate-500"
                     }`}
                   >
                     {step.title}
@@ -389,12 +345,13 @@ export default function QuotePage() {
 
           {/* Form Card */}
           <motion.div
-            className="bg-[rgb(var(--color-surface-card))] rounded-3xl shadow-xl border border-[rgb(var(--color-border-light))] overflow-hidden"
+            className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" }}
           >
-            <div className="p-8 md:p-12">
+            <div className="p-8 md:p-12 bg-white dark:bg-slate-800">
               {isSubmitted ? (
                 <FormSuccess
                   title="Quote Request Submitted!"
@@ -426,73 +383,100 @@ export default function QuotePage() {
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl font-bold text-[rgb(var(--color-text-main))] mb-2">
-                    Personal Information
-                  </h2>
-                  <p className="text-[rgb(var(--color-text-body))] mb-8">
-                    Let&apos;s start with some basic information to personalize your quote.
-                  </p>
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                      Personal Information
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Let&apos;s start with some basic information to personalize your quote.
+                    </p>
+                  </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         First Name
                       </label>
-                      <input
-                        type="text"
-                        value={formData.firstName}
-                        onChange={(e) => updateFormData({ firstName: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                        placeholder="John"
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                          <span className="material-symbols-outlined text-lg text-slate-400">person</span>
+                        </div>
+                        <input
+                          type="text"
+                          value={formData.firstName}
+                          onChange={(e) => updateFormData({ firstName: e.target.value })}
+                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          placeholder="John"
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Last Name
                       </label>
-                      <input
-                        type="text"
-                        value={formData.lastName}
-                        onChange={(e) => updateFormData({ lastName: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                        placeholder="Doe"
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                          <span className="material-symbols-outlined text-lg text-slate-400">badge</span>
+                        </div>
+                        <input
+                          type="text"
+                          value={formData.lastName}
+                          onChange={(e) => updateFormData({ lastName: e.target.value })}
+                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          placeholder="Doe"
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Email Address
                       </label>
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => updateFormData({ email: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                        placeholder="john@example.com"
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                          <span className="material-symbols-outlined text-lg text-slate-400">mail</span>
+                        </div>
+                        <input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => updateFormData({ email: e.target.value })}
+                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          placeholder="john@example.com"
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Phone Number
                       </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => updateFormData({ phone: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                        placeholder="+27 XX XXX XXXX"
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                          <span className="material-symbols-outlined text-lg text-slate-400">call</span>
+                        </div>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => updateFormData({ phone: e.target.value })}
+                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          placeholder="+27 XX XXX XXXX"
+                        />
+                      </div>
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Area Code
                       </label>
-                      <input
-                        type="text"
-                        value={formData.zipCode}
-                        onChange={(e) => updateFormData({ zipCode: e.target.value })}
-                        className="w-full md:w-1/2 px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                        placeholder="4001"
-                      />
+                      <div className="relative w-full md:w-1/2">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                          <span className="material-symbols-outlined text-lg text-slate-400">location_on</span>
+                        </div>
+                        <input
+                          type="text"
+                          value={formData.zipCode}
+                          onChange={(e) => updateFormData({ zipCode: e.target.value })}
+                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          placeholder="4001"
+                        />
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -507,12 +491,14 @@ export default function QuotePage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl font-bold text-[rgb(var(--color-text-main))] mb-2">
-                    Choose Your Coverage
-                  </h2>
-                  <p className="text-[rgb(var(--color-text-body))] mb-8">
-                    Select the type of insurance coverage you&apos;re looking for.
-                  </p>
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                      Choose Your Coverage
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Select the type of insurance coverage you&apos;re looking for.
+                    </p>
+                  </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {coverageOptions.map((option) => (
@@ -522,7 +508,7 @@ export default function QuotePage() {
                         className={`relative p-6 rounded-xl border-2 text-left transition-all duration-300 group ${
                           formData.coverageType === option.id
                             ? "border-primary bg-primary/5 dark:bg-primary/10 shadow-lg shadow-primary/10"
-                            : "border-[rgb(var(--color-border-light))] hover:border-primary/50 hover:shadow-md"
+                            : "border-slate-200 dark:border-slate-600 hover:border-primary/50 hover:shadow-md bg-white dark:bg-slate-700/30"
                         }`}
                       >
                         {option.popular && (
@@ -541,10 +527,10 @@ export default function QuotePage() {
                             {option.icon}
                           </span>
                         </div>
-                        <h3 className="text-lg font-bold text-[rgb(var(--color-text-main))] mb-1">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
                           {option.title}
                         </h3>
-                        <p className="text-sm text-[rgb(var(--color-text-body))]">
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
                           {option.description}
                         </p>
                         {formData.coverageType === option.id && (
@@ -569,66 +555,78 @@ export default function QuotePage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl font-bold text-[rgb(var(--color-text-main))] mb-2">
-                    Customize Your Coverage
-                  </h2>
-                  <p className="text-[rgb(var(--color-text-body))] mb-8">
-                    Adjust the details to match your specific needs.
-                  </p>
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                      Customize Your Coverage
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Adjust the details to match your specific needs.
+                    </p>
+                  </div>
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Coverage Amount
                       </label>
-                      <select
-                        value={formData.coverageAmount}
-                        onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                      >
-                        <option value="">Select coverage amount</option>
-                        <option value="1000000">R1,000,000</option>
-                        <option value="2500000">R2,500,000</option>
-                        <option value="5000000">R5,000,000</option>
-                        <option value="10000000">R10,000,000</option>
-                        <option value="15000000">R15,000,000</option>
-                        <option value="20000000">R20,000,000</option>
-                        <option value="custom">Custom Amount</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={formData.coverageAmount}
+                          onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-12"
+                        >
+                          <option value="">Select coverage amount</option>
+                          <option value="1000000">R1,000,000</option>
+                          <option value="2500000">R2,500,000</option>
+                          <option value="5000000">R5,000,000</option>
+                          <option value="10000000">R10,000,000</option>
+                          <option value="15000000">R15,000,000</option>
+                          <option value="20000000">R20,000,000</option>
+                          <option value="custom">Custom Amount</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
+                          <span className="material-symbols-outlined text-xl">expand_more</span>
+                        </div>
+                      </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Excess
                       </label>
-                      <select
-                        value={formData.deductible}
-                        onChange={(e) => updateFormData({ deductible: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
-                      >
-                        <option value="">Select excess</option>
-                        <option value="5000">R5,000 (Higher Premium)</option>
-                        <option value="10000">R10,000 (Recommended)</option>
-                        <option value="25000">R25,000 (Lower Premium)</option>
-                        <option value="50000">R50,000 (Lowest Premium)</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          value={formData.deductible}
+                          onChange={(e) => updateFormData({ deductible: e.target.value })}
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-12"
+                        >
+                          <option value="">Select excess</option>
+                          <option value="5000">R5,000 (Higher Premium)</option>
+                          <option value="10000">R10,000 (Recommended)</option>
+                          <option value="25000">R25,000 (Lower Premium)</option>
+                          <option value="50000">R50,000 (Lowest Premium)</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
+                          <span className="material-symbols-outlined text-xl">expand_more</span>
+                        </div>
+                      </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Desired Start Date
                       </label>
                       <input
                         type="date"
                         value={formData.startDate}
                         onChange={(e) => updateFormData({ startDate: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-[rgb(var(--color-surface-card))] transition-all"
+                        className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
                       />
                     </div>
 
                     {formData.coverageType && additionalCoverageOptions[formData.coverageType] && (
                       <div>
-                        <label className="block text-sm font-semibold text-[rgb(var(--color-text-main))] mb-4">
+                        <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-4">
                           Additional Coverage (Optional)
                         </label>
                         <div className="grid grid-cols-2 gap-3">
@@ -639,7 +637,7 @@ export default function QuotePage() {
                               className={`p-3 rounded-lg border text-sm font-medium text-left transition-all ${
                                 formData.additionalCoverage.includes(option.id)
                                   ? "border-primary bg-primary/10 text-primary"
-                                  : "border-[rgb(var(--color-border-light))] text-[rgb(var(--color-text-body))] hover:border-primary/50"
+                                  : "border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-primary/50 bg-white dark:bg-slate-700/30"
                               }`}
                             >
                               <span className="flex items-center gap-2">
@@ -668,18 +666,20 @@ export default function QuotePage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl font-bold text-[rgb(var(--color-text-main))] mb-2">
-                    Review Your Quote Request
-                  </h2>
-                  <p className="text-[rgb(var(--color-text-body))] mb-8">
-                    Please review your information before submitting.
-                  </p>
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                      Review Your Quote Request
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Please review your information before submitting.
+                    </p>
+                  </div>
 
                   <div className="space-y-6">
                     {/* Personal Info Summary */}
-                    <div className="p-6 rounded-xl bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))]">
+                    <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-600">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-[rgb(var(--color-text-main))] flex items-center gap-2">
+                        <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="material-symbols-outlined text-primary">person</span>
                           Personal Information
                         </h3>
@@ -692,26 +692,26 @@ export default function QuotePage() {
                       </div>
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Name</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Name</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             {formData.firstName} {formData.lastName}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Email</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Email</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             {formData.email}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Phone</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Phone</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             {formData.phone}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Area Code</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Area Code</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             {formData.zipCode}
                           </p>
                         </div>
@@ -719,9 +719,9 @@ export default function QuotePage() {
                     </div>
 
                     {/* Coverage Summary */}
-                    <div className="p-6 rounded-xl bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))]">
+                    <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-600">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-[rgb(var(--color-text-main))] flex items-center gap-2">
+                        <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="material-symbols-outlined text-primary">shield</span>
                           Coverage Details
                         </h3>
@@ -734,35 +734,35 @@ export default function QuotePage() {
                       </div>
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Coverage Type</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium capitalize">
+                          <span className="text-slate-500 dark:text-slate-400">Coverage Type</span>
+                          <p className="text-slate-900 dark:text-white font-medium capitalize">
                             {coverageOptions.find((o) => o.id === formData.coverageType)?.title}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Coverage Amount</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Coverage Amount</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             R{Number(formData.coverageAmount).toLocaleString()}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Excess</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Excess</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             R{Number(formData.deductible).toLocaleString()}
                           </p>
                         </div>
                         <div>
-                          <span className="text-[rgb(var(--color-text-muted))]">Start Date</span>
-                          <p className="text-[rgb(var(--color-text-main))] font-medium">
+                          <span className="text-slate-500 dark:text-slate-400">Start Date</span>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             {formData.startDate}
                           </p>
                         </div>
                         {formData.additionalCoverage.length > 0 && (
                           <div className="col-span-2">
-                            <span className="text-[rgb(var(--color-text-muted))]">
+                            <span className="text-slate-500 dark:text-slate-400">
                               Additional Coverage
                             </span>
-                            <p className="text-[rgb(var(--color-text-main))] font-medium">
+                            <p className="text-slate-900 dark:text-white font-medium">
                               {formData.additionalCoverage
                                 .map(
                                   (id) =>
@@ -780,8 +780,8 @@ export default function QuotePage() {
                     </div>
 
                     {/* Terms */}
-                    <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
-                      <p className="text-sm text-[rgb(var(--color-text-body))]">
+                    <div className="p-4 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20">
+                      <p className="text-sm text-slate-600 dark:text-slate-300">
                         By submitting this form, you agree to our{" "}
                         <a href="/terms" className="text-primary hover:underline">
                           Terms of Service
@@ -813,11 +813,11 @@ export default function QuotePage() {
               )}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between mt-10 pt-8 border-t border-[rgb(var(--color-border-light))]">
+              <div className="flex justify-between mt-10 pt-8 border-t border-slate-200 dark:border-slate-700">
                 {currentStep > 1 ? (
                   <motion.button
                     onClick={handleBack}
-                    className="flex items-center gap-2 px-6 py-3 rounded-lg border border-[rgb(var(--color-border-light))] text-[rgb(var(--color-text-body))] font-medium hover:border-primary hover:text-primary transition-all"
+                    className="flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-medium hover:border-primary hover:text-primary transition-all"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -834,8 +834,8 @@ export default function QuotePage() {
                     disabled={!canProceed()}
                     className={`flex items-center gap-2 px-8 py-3 rounded-lg font-bold transition-all ${
                       canProceed()
-                        ? "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
-                        : "bg-[rgb(var(--color-border-light))] text-[rgb(var(--color-text-muted))] cursor-not-allowed"
+                        ? "bg-primary text-white hover:bg-[rgb(165,5,2)] shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                        : "bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed"
                     }`}
                     whileHover={canProceed() ? { scale: 1.02, y: -2 } : {}}
                     whileTap={canProceed() ? { scale: 0.98 } : {}}
@@ -850,7 +850,7 @@ export default function QuotePage() {
                     className={`flex items-center gap-2 h-14 px-8 rounded-xl text-lg font-bold transition-all ${
                       isSubmitting
                         ? "bg-primary/70 text-white/80 cursor-not-allowed"
-                        : "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40"
+                        : "bg-primary text-white hover:bg-[rgb(165,5,2)] shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40"
                     }`}
                     whileHover={isSubmitting ? {} : { scale: 1.02, y: -2 }}
                     whileTap={isSubmitting ? {} : { scale: 0.98 }}
@@ -878,7 +878,7 @@ export default function QuotePage() {
 
       {/* FAQ Section */}
       <section ref={faqRef} className="pb-24 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
@@ -886,7 +886,7 @@ export default function QuotePage() {
             transition={{ duration: 0.6 }}
           >
             <motion.h2
-              className="text-3xl font-bold text-[rgb(var(--color-text-main))] mb-4"
+              className="text-3xl font-bold text-slate-900 dark:text-white mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -894,7 +894,7 @@ export default function QuotePage() {
               Frequently Asked Questions
             </motion.h2>
             <motion.p
-              className="text-[rgb(var(--color-text-body))]"
+              className="text-slate-600 dark:text-slate-300"
               initial={{ opacity: 0, y: 20 }}
               animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -907,7 +907,7 @@ export default function QuotePage() {
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                className="bg-[rgb(var(--color-surface-card))] rounded-xl border border-[rgb(var(--color-border-light))] overflow-hidden transition-all hover:shadow-md"
+                className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all hover:shadow-md"
                 initial={{ opacity: 0, y: 20 }}
                 animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
@@ -916,7 +916,7 @@ export default function QuotePage() {
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                   className="flex justify-between items-center w-full p-6 text-left"
                 >
-                  <span className="font-semibold text-[rgb(var(--color-text-main))] pr-8">
+                  <span className="font-semibold text-slate-900 dark:text-white pr-8">
                     {faq.question}
                   </span>
                   <motion.span
@@ -935,7 +935,7 @@ export default function QuotePage() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <p className="px-6 pb-6 text-[rgb(var(--color-text-body))] leading-relaxed">
+                      <p className="px-6 pb-6 text-slate-600 dark:text-slate-300 leading-relaxed">
                         {faq.answer}
                       </p>
                     </motion.div>
@@ -1008,30 +1008,34 @@ export default function QuotePage() {
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <motion.a
-                href="tel:+27313011192"
-                className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center gap-2"
-                whileHover={{
-                  scale: 1.05,
-                  y: -3,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span className="material-symbols-outlined">call</span>
-                +27 31 301 1192
-              </motion.a>
-              <motion.a
-                href="/contact"
-                className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05, y: -3 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span className="material-symbols-outlined">chat</span>
-                Chat with Us
-              </motion.a>
+              <MagneticButton strength={0.3}>
+                <motion.a
+                  href="tel:+27313011192"
+                  className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-xl shadow-xl flex items-center justify-center gap-2"
+                  whileHover={{
+                    scale: 1.05,
+                    y: -3,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <span className="material-symbols-outlined">call</span>
+                  +27 31 301 1192
+                </motion.a>
+              </MagneticButton>
+              <MagneticButton strength={0.3}>
+                <motion.a
+                  href="/contact"
+                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-xl flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <span className="material-symbols-outlined">chat</span>
+                  Chat with Us
+                </motion.a>
+              </MagneticButton>
             </motion.div>
 
             <motion.p

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { MagneticButton } from "@/components/animations";
 
 const steps = [
   {
@@ -130,15 +131,17 @@ export default function HowItWorks() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.8 }}
         >
-          <motion.a
-            href="#partner-inquiry"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span>Start Your Partnership Journey</span>
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </motion.a>
+          <MagneticButton strength={0.4}>
+            <motion.a
+              href="#partner-inquiry"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Start Your Partnership Journey</span>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </motion.a>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>

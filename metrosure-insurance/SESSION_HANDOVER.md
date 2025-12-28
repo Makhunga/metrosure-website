@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 21 - Committed & Pushed)
+**Date:** December 28, 2025 (Session 21 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -36,7 +36,7 @@
 | Form validation UX | ✅ Complete | Inline errors with icons |
 | Careers modal | ✅ Complete | Modal popup replaces scroll-to-form |
 | Grid bleed-through fix | ✅ Complete | All pages with fixed grid fixed |
-| Quote page styling | ✅ Complete | Matches contact/partners pattern |
+| Quote page styling | ✅ Complete | Matches contact form exactly (dark mode, icons) |
 | Form styling consistency | ✅ Complete | Standardized padding, margins, button heights |
 | Container width consistency | ✅ Complete | All sections use max-w-[1400px] |
 | Hero height consistency | ✅ Complete | All heroes use min-h-[85vh] |
@@ -46,7 +46,7 @@
 
 ## Session 21 Summary (December 28, 2025) - COMPLETE
 
-**Session Focus:** Visual Polish - Form Consistency, Container Widths, CSS Variable Migration
+**Session Focus:** Visual Polish - Form Consistency, Quote Page Styling & Dark Mode Alignment
 
 ### Completed This Session ✅
 
@@ -59,6 +59,34 @@
 | Hero section height | Fixed PartnersHero `90vh` → `85vh` | `PartnersHero.tsx` |
 | Container width consistency | Fixed `1200px` → `1400px` | `PartnersCTA.tsx`, `HowItWorks.tsx` |
 | ContactHero CSS variables | Migrated hardcoded dark mode classes | `ContactHero.tsx` |
+| Quote page FAQ sizing | Changed `max-w-4xl` → `max-w-3xl` to match contact FAQ | `quote/page.tsx` |
+| Quote page hero | Simplified, restored B2B link, increased spacing `pt-48` → `pt-56` | `quote/page.tsx` |
+| Quote step icons | Made bigger (`w-12` → `w-16`) and bolder (`text-xs` → `text-sm font-bold`) | `quote/page.tsx` |
+| MagneticButton CTAs | Added to quote, HowItWorks, about page CTAs | Multiple files |
+| Quote form dark mode | Full alignment with contact form (colors, icons, styling) | `quote/page.tsx` |
+
+### Quote Page Major Updates
+
+| Element | Before | After |
+|--------|--------|-------|
+| Hero spacing | `pt-48` | `pt-56` (matches contact) |
+| B2B cross-link | Removed then restored | Restored with proper styling |
+| Page background | CSS variables | `bg-stone-50 dark:bg-slate-900` (matches contact) |
+| Form card | CSS variables | `bg-white dark:bg-slate-800` with proper borders |
+| Input styling | No icons, CSS variables | Icons added (person, badge, mail, call, location_on) |
+| Input colors | `bg-[rgb(var(--color-surface))]` | `bg-slate-50 dark:bg-slate-700/50` |
+| Select dropdowns | No arrow icons | Arrow icons with `expand_more` |
+| All text colors | CSS variables | Explicit Tailwind dark mode classes |
+| Progress steps | CSS variables | Proper `dark:bg-slate-800` styling |
+| FAQ section | CSS variables | Explicit dark mode colors |
+
+### MagneticButton Additions
+
+| Component | CTAs Wrapped |
+|-----------|--------------|
+| `quote/page.tsx` | Call CTA, Contact form link |
+| `HowItWorks.tsx` | "Start Your Partnership Journey" |
+| `about/page.tsx` | Hero: "Get a Quote", "Contact Us"; Bottom: "Get Your Free Quote", "Become a Partner" |
 
 ### Form Styling Standardization
 
@@ -69,34 +97,150 @@
 | Button height | `py-4` (some forms) | `py-3.5` (all forms) |
 | Hover animation | `y: -1` to `y: -3` | `y: -2` (all forms) |
 
-### Container Width Standardization
-
-| Component | Before | After |
-|-----------|--------|-------|
-| `PartnersCTA.tsx` | `max-w-[1200px]` | `max-w-[1400px]` |
-| `HowItWorks.tsx` | `max-w-[1200px]` | `max-w-[1400px]` |
-
-### CSS Variable Migration (ContactHero.tsx)
-
-| Before | After |
-|--------|-------|
-| `text-slate-900 dark:text-white` | `text-[rgb(var(--color-text-main))]` |
-| `text-slate-600 dark:text-slate-300` | `text-[rgb(var(--color-text-body))]` |
-| `bg-white dark:bg-slate-800` | `bg-[rgb(var(--color-surface-card))]` |
-| `border-slate-200 dark:border-slate-700` | `border-[rgb(var(--color-border-light))]` |
-
 ### Files Modified This Session
 
 | File | Changes |
 |------|---------|
+| `src/app/quote/page.tsx` | Complete dark mode overhaul, input icons, B2B link, spacing |
 | `src/components/careers/ApplicationModal.tsx` | Input padding, label margin, hover animation |
 | `src/components/careers/ApplicationForm.tsx` | Button height standardized |
 | `src/components/partners/PartnerInquiryForm.tsx` | Button height standardized |
-| `src/app/quote/page.tsx` | Label margins, hover animation |
 | `src/components/partners/PartnersHero.tsx` | Hero height 90vh → 85vh |
 | `src/components/PartnersCTA.tsx` | Container width 1200px → 1400px |
-| `src/components/partners/HowItWorks.tsx` | Container width 1200px → 1400px |
+| `src/components/partners/HowItWorks.tsx` | Container width, MagneticButton added |
 | `src/components/contact/ContactHero.tsx` | Migrated to CSS variables |
+| `src/app/about/page.tsx` | Added MagneticButton to 4 CTAs |
+
+### Sync Conflict File Removed
+
+- Deleted: `src/app/under-development/page.sync-conflict-20251228-023122-XSMT2FS.tsx`
+
+---
+
+## DEFERRED TO FUTURE SESSIONS
+
+### Technical Improvements (Session 22+)
+
+| Task | Priority | Effort | Notes |
+|------|----------|--------|-------|
+| Rate limiting for API routes | High | Medium | Prevent API abuse before high traffic |
+| reCAPTCHA integration | Medium | Medium | Reduce form spam |
+| Input sanitization (DOMPurify) | Medium | Low | Sanitize user content in emails |
+| Error boundaries | Low | Low | Graceful React error handling |
+
+### Accessibility Improvements (Session 22+)
+
+| Task | Priority | Effort | Notes |
+|------|----------|--------|-------|
+| ARIA attributes audit | Medium | Medium | Screen reader improvements |
+| Keyboard navigation audit | Medium | Medium | Tab order, focus management |
+| Color contrast audit | Low | Low | WCAG AA compliance verification |
+| Focus indicators review | Low | Low | Visible focus states on all elements |
+
+### Performance Improvements (Session 22+)
+
+| Task | Priority | Effort | Notes |
+|------|----------|--------|-------|
+| Lazy loading for components | Medium | Medium | Code splitting for large sections |
+| Image optimization audit | Low | Low | Verify all images use Next.js Image |
+| Font loading audit | Low | Low | Preload critical fonts |
+| Bundle analysis | Low | Low | Identify large dependencies |
+
+### Visual Enhancements (Session 22+)
+
+| Task | Priority | Effort | Notes |
+|------|----------|--------|-------|
+| CallToAction geometric styling | Low | Low | Update to match SuccessMetrics pattern |
+| Loading skeletons | Low | Medium | Skeleton loaders for async content |
+| Partner success case studies | Low | High | Real partner testimonials with photos |
+
+---
+
+## SESSION 22 PLAN
+
+### Priority 1: Security & Performance (HIGH)
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Rate limiting | Add rate limiting to all 4 API routes | `api/contact`, `api/quote`, `api/careers-application`, `api/partner-inquiry` |
+| Input sanitization | Add DOMPurify for email content | All API routes |
+
+### Priority 2: Accessibility Audit (MEDIUM)
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Keyboard navigation | Verify all interactive elements accessible | Site-wide audit |
+| ARIA labels | Add missing labels to buttons/links | Header, forms, modals |
+| Focus indicators | Ensure visible focus states | All interactive elements |
+
+### Priority 3: Lazy Loading (MEDIUM)
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Dynamic imports | Lazy load heavy components | Testimonials, FAQ, forms |
+| Image lazy loading | Verify priority flags on hero images | All page heroes |
+
+### Optional: Visual Polish
+
+| Task | Description | Files |
+|------|-------------|-------|
+| CallToAction update | Match SuccessMetrics geometric style | `CallToAction.tsx` |
+| Loading states | Add skeleton loaders | Forms, testimonials |
+
+---
+
+## RECOMMENDATIONS & SUGGESTIONS
+
+### Immediate Actions (Before Production Traffic)
+
+1. **Rate Limiting (CRITICAL)**
+   - Add `express-rate-limit` or custom middleware
+   - Limit: 10 requests per minute per IP for forms
+   - Return 429 Too Many Requests on exceed
+
+2. **reCAPTCHA v3 (HIGH)**
+   - Add invisible reCAPTCHA to all forms
+   - Threshold: 0.5 for legitimate users
+   - Log low-score submissions for review
+
+### CSS Variable vs Tailwind Dark Mode Decision
+
+**Current State:** Mixed usage across components
+- Quote page: Now uses explicit Tailwind dark mode (`dark:bg-slate-800`)
+- Contact page: Uses explicit Tailwind dark mode
+- Some components: Still use CSS variables (`bg-[rgb(var(--color-surface))]`)
+
+**Recommendation:** Standardize on one approach:
+- **Option A:** Migrate all to CSS variables (consistent, easier theming)
+- **Option B:** Migrate all to Tailwind dark mode (explicit, debuggable)
+
+Current trend favors **Option B** (Tailwind dark mode) based on Session 21 changes.
+
+### Form Consistency Checklist
+
+| Form | Icons | Dark Mode | Validation | Status |
+|------|-------|-----------|------------|--------|
+| Contact Form | ✅ | ✅ | ✅ Inline | Complete |
+| Quote Form | ✅ | ✅ | ❌ None | Needs validation |
+| Partner Inquiry | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
+| Careers Modal | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
+| Careers Form | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
+
+**Session 23 Recommendation:** Add input icons and inline validation to remaining forms.
+
+### Performance Monitoring
+
+Consider adding:
+- **Sentry** for error tracking
+- **Vercel Analytics** for performance monitoring
+- **Google Analytics 4** for user behavior
+
+### Content Improvements
+
+1. **Real testimonials** with customer photos (with consent)
+2. **Partner success stories** with revenue impact data
+3. **Video content** for complex insurance products
+4. **Blog section** for SEO and industry insights
 
 ---
 

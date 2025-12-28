@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Header, Footer, ScrollToTop } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { MagneticButton } from "@/components/animations";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -220,23 +221,27 @@ export default function AboutPage() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/quote"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-12 px-8 text-white font-bold shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
-                >
-                  Get a Quote
-                  <span className="material-symbols-outlined">arrow_forward</span>
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/50 hover:border-white hover:bg-white/10 transition-all h-12 px-8 text-white font-bold"
-                >
-                  Contact Us
-                </Link>
-              </motion.div>
+              <MagneticButton strength={0.3}>
+                <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    href="/quote"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-12 px-8 text-white font-bold shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                  >
+                    Get a Quote
+                    <span className="material-symbols-outlined">arrow_forward</span>
+                  </Link>
+                </motion.div>
+              </MagneticButton>
+              <MagneticButton strength={0.3}>
+                <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/50 hover:border-white hover:bg-white/10 transition-all h-12 px-8 text-white font-bold"
+                  >
+                    Contact Us
+                  </Link>
+                </motion.div>
+              </MagneticButton>
             </motion.div>
 
             {/* B2B Cross-link */}
@@ -801,22 +806,26 @@ export default function AboutPage() {
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/quote"
-                  className="block bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg hover:bg-gray-50 transition-colors shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
-                >
-                  Get Your Free Quote
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/partners"
-                  className="block bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg hover:bg-black/20 transition-colors"
-                >
-                  Become a Partner
-                </Link>
-              </motion.div>
+              <MagneticButton strength={0.3}>
+                <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    href="/quote"
+                    className="block bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg hover:bg-gray-50 transition-colors shadow-xl hover:shadow-2xl"
+                  >
+                    Get Your Free Quote
+                  </Link>
+                </motion.div>
+              </MagneticButton>
+              <MagneticButton strength={0.3}>
+                <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    href="/partners"
+                    className="block bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg hover:bg-black/20 transition-colors"
+                  >
+                    Become a Partner
+                  </Link>
+                </motion.div>
+              </MagneticButton>
             </motion.div>
 
             <motion.p
