@@ -51,7 +51,7 @@
 | Business hours update | ✅ Complete | Mon-Fri 8am-5pm, Sat 8am-1pm SAST |
 | Facebook social link | ✅ Complete | Replaced X/Twitter with Facebook |
 | Apple login button | ✅ Complete | Replaced GitHub with Apple |
-| PartnersCTA white cards | ✅ Complete | High contrast white cards on red background |
+| PartnersCTA cards | ✅ Complete | Dark burgundy cards (reverted from white) |
 | Partners form dark mode | ✅ Complete | Migrated to Tailwind dark: classes |
 | Alternative home page | ✅ Complete | /home-alt with centered text-only hero |
 | Stakeholder email update | ✅ Complete | Added email delivery status note |
@@ -69,7 +69,7 @@
 | Business hours update | Changed to Mon-Fri 8am-5pm, Sat 8am-1pm SAST | `ContactForm.tsx`, `ContactHero.tsx`, `help/page.tsx`, `claims/page.tsx` |
 | Facebook social link | Replaced X/Twitter with Facebook (profile link) | `OfficeLocations.tsx` |
 | Apple login button | Changed GitHub to Apple sign-in | `login/page.tsx` |
-| PartnersCTA white cards | Changed dark burgundy cards to white with dark text | `PartnersCTA.tsx` |
+| PartnersCTA cards | Tested white cards, reverted to dark burgundy | `PartnersCTA.tsx` |
 | Partners form dark mode | Migrated CSS variables to Tailwind dark: classes | `PartnerInquiryForm.tsx` |
 | Alternative home page | Created /home-alt with centered hero (no image), sized to match PartnersHero | `HeroCentered.tsx`, `home-alt/page.tsx` |
 | Stakeholder email update | Added email delivery status note, updated checklists | `STAKEHOLDER_EMAIL.md` |
@@ -94,15 +94,17 @@
 | `text-[rgb(var(--color-text-body))]` | `text-slate-600 dark:text-slate-300` |
 | `text-[rgb(var(--color-text-muted))]` | `text-slate-500 dark:text-slate-400` |
 
-### PartnersCTA Card Styling
+### PartnersCTA Card Styling (Reverted)
 
-| Element | Before | After |
-|---------|--------|-------|
-| Card bg | `bg-[rgb(120,10,25)]` | `bg-white` |
-| Card hover | `hover:bg-[rgb(140,15,30)]` | `hover:bg-slate-50` |
-| Icon container | `bg-white/10` | `bg-primary/10` |
-| Icon color | `text-white` | `text-primary` |
-| Text colors | `text-white` variants | `text-slate-900`, `text-slate-600` |
+Tested white cards on red background but reverted to original dark burgundy style per user preference.
+
+| Element | Current (Final) |
+|---------|-----------------|
+| Card bg | `bg-[rgb(120,10,25)]` |
+| Card hover | `hover:bg-[rgb(140,15,30)]` |
+| Icon container | `bg-white/10` |
+| Icon color | `text-white` |
+| Text colors | `text-white`, `text-white/60`, `text-white/70` |
 
 ### New Files Created
 
@@ -1082,7 +1084,7 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S27** | **Business Hours, Social Links, Alt Home** | Business hours update, X→Facebook, GitHub→Apple, PartnersCTA white cards, Partners form dark mode, /home-alt route |
+| **Dec 28, 2025** | **S27** | **Business Hours, Social Links, Alt Home** | Business hours update, X→Facebook, GitHub→Apple, Partners form dark mode, /home-alt route |
 | Dec 28, 2025 | S26 | About Page UI Polish | Footer/Header nav sync, active nav state indicator, leadership slide-up transparency, timeline line fix |
 | Dec 28, 2025 | S25 | Stakeholder Email Rewrite | 3 email versions, business context, funeral policy proposal, industry disclaimer |
 | Dec 28, 2025 | S24 | Rate Limiting & Forms | Rate limiting on 4 APIs, reusable form components (InputIcon, InlineError) |
