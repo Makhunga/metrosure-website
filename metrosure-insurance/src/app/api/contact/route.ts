@@ -11,6 +11,7 @@ import {
   createSection,
   createLink
 } from "@/lib/email";
+import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 
 interface ContactFormData {
   name: string;
@@ -61,6 +62,12 @@ const reasonLabels: Record<string, string> = {
 };
 
 export async function POST(request: NextRequest) {
+  // Rate limiting: 15 requests per hour per IP
+  const rateLimitResponse = checkRateLimit(request, rateLimits.contact, 'contact');
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     const data: ContactFormData = await request.json();
 

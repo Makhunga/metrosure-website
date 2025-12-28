@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "@/components/ui/Modal";
 import { FormSuccess } from "@/components/ui/FormSuccess";
+import { InputIcon } from "@/components/ui/InputIcon";
 
 interface ApplicationModalProps {
   isOpen: boolean;
@@ -262,30 +263,36 @@ export default function ApplicationModal({
                   <label className={labelClasses} htmlFor="modal-fullName">
                     Full Name *
                   </label>
-                  <input
-                    className={inputClasses}
-                    id="modal-fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    placeholder="Your full name"
-                    required
-                  />
+                  <div className="relative">
+                    <InputIcon icon="person" />
+                    <input
+                      className={`${inputClasses} pl-12`}
+                      id="modal-fullName"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      placeholder="Your full name"
+                      required
+                    />
+                  </div>
                 </div>
                 <div>
                   <label className={labelClasses} htmlFor="modal-email">
                     Email Address *
                   </label>
-                  <input
-                    className={inputClasses}
-                    id="modal-email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="you@email.com"
-                    required
-                  />
+                  <div className="relative">
+                    <InputIcon icon="mail" />
+                    <input
+                      className={`${inputClasses} pl-12`}
+                      id="modal-email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="you@email.com"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -293,16 +300,19 @@ export default function ApplicationModal({
                 <label className={labelClasses} htmlFor="modal-phone">
                   Phone Number *
                 </label>
-                <input
-                  className={inputClasses}
-                  id="modal-phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="+27 XX XXX XXXX"
-                  required
-                />
+                <div className="relative">
+                  <InputIcon icon="call" />
+                  <input
+                    className={`${inputClasses} pl-12`}
+                    id="modal-phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="+27 XX XXX XXXX"
+                    required
+                  />
+                </div>
               </div>
 
               {/* Position & Province */}

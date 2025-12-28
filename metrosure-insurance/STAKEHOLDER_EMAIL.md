@@ -1,7 +1,8 @@
 # Metrosure Website Revamp — Stakeholder Communication
 
 **Purpose:** Email templates for introducing the new website to stakeholders
-**Date:** December 26, 2025
+**Date:** December 28, 2025 (Updated)
+**Session:** 24
 
 ---
 
@@ -43,11 +44,15 @@ We're developing a modern, dynamic platform designed to transform how we engage 
 
 #### Modern User Experience
 
-- **24 dedicated pages** — Comprehensive information architecture covering all insurance products, about us, careers, partnerships, and legal compliance
+- **25 routes (21 pages + 4 APIs)** — Comprehensive information architecture covering all insurance products, about us, careers, partnerships, and legal compliance
 - **Mobile-first responsive design** — Optimized for phones, tablets, and desktops
-- **Professional animations** — Smooth scroll effects, page transitions, and interactive elements that convey trust and sophistication
-- **Dark/Light mode** — User preference accommodation
+- **UK/South African English** — Authentic British spelling throughout (customise, personalised, organisation)
+- **Professional animations** — Smooth scroll effects, page transitions, gradient avatars with customer initials, and magnetic button interactions
+- **Dark/Light mode** — Consistent styling across ALL pages and forms
 - **POPIA-compliant cookie consent** — Regulatory compliance built-in
+- **Form validation UX** — Real-time inline validation with icons and error messages
+- **Modal applications** — Career applications open in modern modal popups for better UX
+- **Visual consistency** — Standardised spacing, typography, and container widths across all pages
 
 #### Dual-Audience Focus
 
@@ -152,18 +157,20 @@ Our new Metrosure website is ready for your preview and feedback.
 
 | Before | After |
 |--------|-------|
-| Static brochure | 24 functional pages |
-| No lead capture | Quote, contact, career & partner forms |
+| Static brochure | 25 functional routes (21 pages + 4 APIs) |
+| No lead capture | Quote, contact, career & partner forms with validation |
 | Manual follow-up | Automated email notifications |
 | Desktop-only design | Mobile-first, all devices |
 | No compliance | POPIA cookie consent, FSP 47089 displayed |
+| US English | UK/South African English throughout |
 
 **Key capabilities now working:**
 - Multi-step quote request with instant email alerts
-- Career applications with CV upload
+- Career applications with CV upload (modal popup)
 - Partner inquiry forms
-- Contact & callback requests
-- Professional dark/light mode
+- Contact & callback requests with inline validation
+- Professional dark/light mode across ALL pages
+- Consistent visual design (standardised spacing, typography, container widths)
 
 ### What to Expect
 
@@ -205,3 +212,4 @@ Let's schedule a walkthrough at your convenience.
 ---
 
 *Created: December 26, 2025*
+*Updated: December 28, 2025 (Session 24) — Added Sessions 19-23 achievements*

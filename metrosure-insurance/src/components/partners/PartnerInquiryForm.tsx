@@ -1,8 +1,18 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
+import { InputIcon } from "@/components/ui/InputIcon";
+import { InlineError } from "@/components/ui/InlineError";
+import {
+  FieldState,
+  FieldStates,
+  validateEmail,
+  validatePhone,
+  validateRequired,
+  getInputClassesWithIcon
+} from "@/lib/formValidation";
 
 interface FormData {
   // Business Information
@@ -95,6 +105,26 @@ export default function PartnerInquiryForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldStates, setFieldStates] = useState<FieldStates>({});
+
+  // Validate a field and update state
+  const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
+    const error = validator(value);
+    setFieldStates(prev => ({
+      ...prev,
+      [fieldName]: {
+        touched: true,
+        error,
+        valid: error === null && value.length > 0
+      }
+    }));
+    return error === null;
+  }, []);
+
+  // Get field state helper
+  const getFieldState = (fieldName: string): FieldState => {
+    return fieldStates[fieldName] || { touched: false, error: null, valid: false };
+  };
 
   const inputClasses =
     "w-full rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-[rgb(var(--color-surface-card))] transition-all py-3.5 px-4 text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))]";
@@ -150,6 +180,7 @@ export default function PartnerInquiryForm() {
     setFormData(initialFormData);
     setIsSubmitted(false);
     setError(null);
+    setFieldStates({});
   };
 
   return (
@@ -345,53 +376,89 @@ export default function PartnerInquiryForm() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className={labelClasses} htmlFor="contactName">Your Name *</label>
-                          <input
-                            className={inputClasses}
-                            id="contactName"
-                            name="contactName"
-                            value={formData.contactName}
-                            onChange={handleInputChange}
-                            placeholder="Full name"
-                            required
-                          />
+                          <div className="relative">
+                            <InputIcon
+                              icon="person"
+                              valid={getFieldState("contactName").valid}
+                              touched={getFieldState("contactName").touched}
+                            />
+                            <input
+                              className={getInputClassesWithIcon(getFieldState("contactName"))}
+                              id="contactName"
+                              name="contactName"
+                              value={formData.contactName}
+                              onChange={handleInputChange}
+                              onBlur={(e) => validateField("contactName", e.target.value, (v) => validateRequired(v, "Name"))}
+                              placeholder="Full name"
+                              required
+                            />
+                          </div>
+                          <InlineError error={getFieldState("contactName").error} />
                         </div>
                         <div>
                           <label className={labelClasses} htmlFor="jobTitle">Job Title *</label>
-                          <input
-                            className={inputClasses}
-                            id="jobTitle"
-                            name="jobTitle"
-                            value={formData.jobTitle}
-                            onChange={handleInputChange}
-                            placeholder="Your role"
-                            required
-                          />
+                          <div className="relative">
+                            <InputIcon
+                              icon="badge"
+                              valid={getFieldState("jobTitle").valid}
+                              touched={getFieldState("jobTitle").touched}
+                            />
+                            <input
+                              className={getInputClassesWithIcon(getFieldState("jobTitle"))}
+                              id="jobTitle"
+                              name="jobTitle"
+                              value={formData.jobTitle}
+                              onChange={handleInputChange}
+                              onBlur={(e) => validateField("jobTitle", e.target.value, (v) => validateRequired(v, "Job title"))}
+                              placeholder="Your role"
+                              required
+                            />
+                          </div>
+                          <InlineError error={getFieldState("jobTitle").error} />
                         </div>
                         <div>
                           <label className={labelClasses} htmlFor="email">Email Address *</label>
-                          <input
-                            className={inputClasses}
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            placeholder="you@company.com"
-                            required
-                          />
+                          <div className="relative">
+                            <InputIcon
+                              icon="mail"
+                              valid={getFieldState("email").valid}
+                              touched={getFieldState("email").touched}
+                            />
+                            <input
+                              className={getInputClassesWithIcon(getFieldState("email"))}
+                              id="email"
+                              name="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              onBlur={(e) => validateField("email", e.target.value, validateEmail)}
+                              placeholder="you@company.com"
+                              required
+                            />
+                          </div>
+                          <InlineError error={getFieldState("email").error} />
                         </div>
                         <div>
                           <label className={labelClasses} htmlFor="phone">Phone Number *</label>
-                          <input
-                            className={inputClasses}
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            placeholder="+27 XX XXX XXXX"
-                            required
-                          />
+                          <div className="relative">
+                            <InputIcon
+                              icon="call"
+                              valid={getFieldState("phone").valid}
+                              touched={getFieldState("phone").touched}
+                            />
+                            <input
+                              className={getInputClassesWithIcon(getFieldState("phone"))}
+                              id="phone"
+                              name="phone"
+                              type="tel"
+                              value={formData.phone}
+                              onChange={handleInputChange}
+                              onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
+                              placeholder="+27 XX XXX XXXX"
+                              required
+                            />
+                          </div>
+                          <InlineError error={getFieldState("phone").error} />
                         </div>
                       </div>
                     </div>

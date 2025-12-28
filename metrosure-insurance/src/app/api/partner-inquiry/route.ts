@@ -13,6 +13,7 @@ import {
   createParagraph,
   createLink
 } from "@/lib/email";
+import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 
 interface PartnerInquiryData {
   companyName: string;
@@ -39,6 +40,12 @@ const serviceLabels: Record<string, string> = {
 };
 
 export async function POST(request: NextRequest) {
+  // Rate limiting: 5 requests per hour per IP (B2B inquiries)
+  const rateLimitResponse = checkRateLimit(request, rateLimits.partnerInquiry, 'partner-inquiry');
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     const data: PartnerInquiryData = await request.json();
 

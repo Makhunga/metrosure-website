@@ -12,6 +12,7 @@ import {
   createParagraph,
   createLink
 } from "@/lib/email";
+import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 
 // Position labels mapping
 const positionLabels: Record<string, string> = {
@@ -54,6 +55,12 @@ const relocationLabels: Record<string, string> = {
 };
 
 export async function POST(request: NextRequest) {
+  // Rate limiting: 3 requests per hour per IP (file uploads are resource-intensive)
+  const rateLimitResponse = checkRateLimit(request, rateLimits.careersApplication, 'careers-application');
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     const formData = await request.formData();
 

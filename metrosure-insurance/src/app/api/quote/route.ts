@@ -11,6 +11,7 @@ import {
   createBulletList,
   createLink
 } from "@/lib/email";
+import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 
 type CoverageType = "home" | "auto" | "life" | "business";
 
@@ -75,6 +76,12 @@ function formatDate(dateStr: string): string {
 }
 
 export async function POST(request: NextRequest) {
+  // Rate limiting: 10 requests per hour per IP
+  const rateLimitResponse = checkRateLimit(request, rateLimits.quote, 'quote');
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     const data: QuoteFormData = await request.json();
 
