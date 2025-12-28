@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 32 - Complete)
+**Date:** December 28, 2025 (Session 33 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -13,7 +13,7 @@
 ## PROJECT STATUS
 
 ### Build Status: ✅ Successful
-- **Routes:** 26 (22 pages + 4 API routes)
+- **Routes:** 27 (23 pages + 4 API routes)
 - **Last Build:** December 28, 2025
 - **Deployment:** Vercel (production)
 
@@ -64,6 +64,87 @@
 | Carousel navigation fix | ✅ Complete | Fixed stale closures and debouncing (S31) |
 | Stakeholder email enhancements | ✅ Complete | SEO, disclaimer, alt home page, competitive edge (S32) |
 | Footer mobile 2-column | ✅ Complete | 2-column grid on mobile (S32) |
+| Live Quote Pricing | ✅ Complete | Real-time premium calculation with breakdown (S33) |
+| WhatsApp Quote Delivery | ✅ Complete | Send quote via WhatsApp from success screen (S33) |
+| Coverage Calculator Tool | ✅ Complete | Life & Funeral cover calculators at /tools/coverage-calculator (S33) |
+
+---
+
+## Session 33 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** MVP Features for Stakeholder Presentation - Quick Wins
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Live Quote Pricing | Real-time premium calculation as users fill quote form | `src/lib/quoteCalculator.ts`, `src/components/quote/PriceBreakdown.tsx`, `src/app/quote/page.tsx` |
+| WhatsApp Quote Delivery | Send quote summary via WhatsApp from success screen | `src/lib/whatsapp.ts`, `src/components/ui/FormSuccess.tsx` |
+| Coverage Calculator | Interactive tool to calculate life and funeral cover needs | `src/app/tools/coverage-calculator/page.tsx`, `src/components/tools/*.tsx` |
+
+### New Files Created
+
+| File | Purpose |
+|------|---------|
+| `src/lib/quoteCalculator.ts` | Pricing engine with placeholder rates and formula |
+| `src/lib/whatsapp.ts` | WhatsApp message formatter and URL generator |
+| `src/components/quote/PriceBreakdown.tsx` | Animated price display with breakdown |
+| `src/app/tools/coverage-calculator/page.tsx` | Coverage calculator page with tab navigation |
+| `src/components/tools/LifeCoverCalculator.tsx` | Life cover needs calculator |
+| `src/components/tools/FuneralCoverCalculator.tsx` | Funeral cover plan selector |
+| `src/components/tools/CalculatorResult.tsx` | Animated results display with pie chart |
+
+### Feature Details
+
+**1. Live Quote Pricing (`/quote`)**
+- Real-time premium calculation as form is filled
+- Animated price counter with spring physics
+- Collapsible breakdown showing: Base Premium, Coverage Add-ons, Deductible Discount, VAT
+- Mobile-optimized with fixed bottom price summary
+- "Estimate only" disclaimer throughout
+
+**Placeholder Pricing:**
+```typescript
+BASE_RATES = { home: 350, auto: 450, life: 250, business: 1200 }
+COVERAGE_MULTIPLIERS (per R100k) = { home: 0.12, auto: 0.15, life: 0.06, business: 0.18 }
+DEDUCTIBLE_DISCOUNTS = { R1000: 0%, R2500: 5%, R5000: 10%, R10000: 15% }
+```
+
+**2. WhatsApp Quote Delivery**
+- Green WhatsApp button on quote success screen
+- Pre-formatted message with quote reference, coverage type, premium
+- Uses wa.me API for mobile/desktop compatibility
+- Includes Metrosure contact info and FSP number
+
+**3. Coverage Calculator (`/tools/coverage-calculator`)**
+- Tab navigation: Life Cover | Funeral Cover
+- Educational hero section with key points
+- FAQ section with common questions
+
+**Life Cover Calculator:**
+- Inputs: Annual income, debts, dependents, years of support
+- Formula: (Income × Years) + Debts + (Dependents × R250,000) + Emergency Fund
+- Animated pie chart breakdown
+- CTA links to `/quote?coverageType=life&coverageAmount=[amount]`
+
+**Funeral Cover Calculator:**
+- Family member selection: Self, Spouse, Children, Parents
+- Ceremony tiers: Basic (R15k), Standard (R30k), Premium (R50k)
+- Plan tiers: Basic R99/mo, Standard R199/mo, Premium R349/mo, Family R499/mo
+- Visual plan card with benefits list
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/quote/page.tsx` | Added PriceBreakdown, live pricing state, WhatsApp data |
+| `src/components/ui/FormSuccess.tsx` | Added quoteData prop, WhatsApp button, quote summary |
+
+### Build Status
+
+- **Routes:** 27 (23 pages + 4 API routes)
+- **Build:** ✅ Successful
+- **New Page:** `/tools/coverage-calculator`
 
 ---
 

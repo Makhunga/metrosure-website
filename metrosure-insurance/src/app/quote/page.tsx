@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
@@ -8,6 +8,7 @@ import { FormSuccess } from "@/components/ui/FormSuccess";
 import { MagneticButton } from "@/components/animations";
 import { InputIcon } from "@/components/ui/InputIcon";
 import { InlineError } from "@/components/ui/InlineError";
+import { PriceBreakdown } from "@/components/quote/PriceBreakdown";
 import {
   FieldState,
   FieldStates,
@@ -16,6 +17,12 @@ import {
   validateRequired,
   getInputClassesWithIcon
 } from "@/lib/formValidation";
+import {
+  calculatePremium,
+  CoverageType as PricingCoverageType,
+  PriceBreakdown as PriceBreakdownType,
+} from "@/lib/quoteCalculator";
+import { QuoteData, generateQuoteReference } from "@/lib/whatsapp";
 
 type CoverageType = "home" | "auto" | "life" | "business" | null;
 
@@ -159,6 +166,37 @@ export default function QuotePage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
+  const [quoteReference, setQuoteReference] = useState<string>("");
+
+  // Calculate price breakdown based on form data
+  const priceBreakdown = useMemo<PriceBreakdownType | null>(() => {
+    if (!formData.coverageType || !formData.coverageAmount || !formData.deductible) {
+      return null;
+    }
+
+    return calculatePremium({
+      coverageType: formData.coverageType as PricingCoverageType,
+      coverageAmount: parseInt(formData.coverageAmount) || 0,
+      deductible: parseInt(formData.deductible) || 0,
+      additionalCoverage: formData.additionalCoverage,
+    });
+  }, [formData.coverageType, formData.coverageAmount, formData.deductible, formData.additionalCoverage]);
+
+  // Generate quote data for WhatsApp sharing
+  const quoteData = useMemo<QuoteData | undefined>(() => {
+    if (!priceBreakdown || !formData.coverageType || !quoteReference) {
+      return undefined;
+    }
+
+    return {
+      referenceNumber: quoteReference,
+      coverageType: formData.coverageType as PricingCoverageType,
+      estimatedPremium: priceBreakdown.total,
+      firstName: formData.firstName,
+      coverageAmount: parseInt(formData.coverageAmount) || undefined,
+      additionalCoverage: formData.additionalCoverage.length > 0 ? formData.additionalCoverage : undefined,
+    };
+  }, [priceBreakdown, formData.coverageType, formData.firstName, formData.coverageAmount, formData.additionalCoverage, quoteReference]);
   const heroRef = useRef(null);
   const faqRef = useRef(null);
   const ctaRef = useRef(null);
@@ -208,13 +246,21 @@ export default function QuotePage() {
     setIsSubmitting(true);
     setSubmitError(null);
 
+    // Generate quote reference before submission
+    const ref = generateQuoteReference();
+    setQuoteReference(ref);
+
     try {
       const response = await fetch("/api/quote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          quoteReference: ref,
+          estimatedPremium: priceBreakdown?.total,
+        }),
       });
 
       const data = await response.json();
@@ -231,7 +277,7 @@ export default function QuotePage() {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData]);
+  }, [formData, priceBreakdown]);
 
   const handleReset = useCallback(() => {
     setFormData({
@@ -250,6 +296,7 @@ export default function QuotePage() {
     setIsSubmitted(false);
     setSubmitError(null);
     setFieldStates({});
+    setQuoteReference("");
   }, []);
 
   const toggleAdditionalCoverage = (id: string) => {
@@ -329,7 +376,11 @@ export default function QuotePage() {
 
       {/* Quote Form Section */}
       <section className="pb-24 pt-4 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
+          {/* Two column layout: Form + Price Breakdown */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            {/* Left: Form */}
+            <div className="flex-1 max-w-4xl">
           {/* Progress Steps - Larger & Bolder */}
           <div className="mb-16">
             <div className="flex items-center justify-between relative">
@@ -390,15 +441,17 @@ export default function QuotePage() {
                   buttonText="Request Another Quote"
                   onReset={handleReset}
                   accentColor="green"
+                  quoteData={quoteData}
+                  showWhatsApp={true}
                 >
                   <motion.div
-                    className="mb-8 p-4 bg-[rgb(var(--color-surface))] rounded-xl border border-[rgb(var(--color-border-light))]"
+                    className="mb-6 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.45 }}
+                    transition={{ delay: 0.4 }}
                   >
-                    <p className="text-sm text-[rgb(var(--color-text-muted))]">
-                      A confirmation email has been sent to <strong className="text-[rgb(var(--color-text-main))]">{formData.email}</strong>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                      A confirmation email has been sent to <strong className="text-slate-900 dark:text-white">{formData.email}</strong>
                     </p>
                   </motion.div>
                 </FormSuccess>
@@ -924,8 +977,47 @@ export default function QuotePage() {
               )}
             </div>
           </motion.div>
+            </div>
+
+            {/* Right: Price Breakdown (sticky on desktop) */}
+            <div className="hidden lg:block">
+              <AnimatePresence>
+                {currentStep >= 2 && formData.coverageType && priceBreakdown && (
+                  <PriceBreakdown
+                    breakdown={priceBreakdown}
+                    coverageType={formData.coverageType}
+                    isVisible={currentStep >= 3}
+                  />
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* Mobile Price Summary (shows on mobile when price is available) */}
+      <AnimatePresence>
+        {currentStep >= 3 && formData.coverageType && priceBreakdown && !isSubmitted && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-4 shadow-2xl z-40"
+          >
+            <div className="max-w-4xl mx-auto flex items-center justify-between">
+              <div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Estimated Premium</p>
+                <p className="text-2xl font-bold text-primary">
+                  R{priceBreakdown.total.toLocaleString()}<span className="text-sm font-normal text-slate-500">/mo</span>
+                </p>
+              </div>
+              <span className="text-xs text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full">
+                Estimate only
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* FAQ Section */}
       <section ref={faqRef} className="pb-24 px-6">
