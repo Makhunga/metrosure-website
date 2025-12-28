@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 31 - Complete)
+**Date:** December 28, 2025 (Session 32 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -23,7 +23,7 @@
 |---------|--------|-------|
 | Multi-page navigation | ✅ Complete | Insurance dropdown menu |
 | Email integration (Resend) | ✅ Complete | All 4 forms working |
-| Cookie consent (POPIA) | ✅ Complete | localStorage-based |
+| Cookie consent (POPIA) | ⏸️ Disabled | localStorage-based, disabled for now |
 | Quote form | ✅ Complete | Full API integration |
 | Development banner | ✅ Complete | Site-wide amber banner |
 | Environment routing | ✅ Complete | Middleware for dev/prod |
@@ -62,6 +62,63 @@
 | Vercel Analytics | ✅ Complete | @vercel/analytics integrated (S31) |
 | About hero arrow | ✅ Complete | Replaced underline with arrow icon (S31) |
 | Carousel navigation fix | ✅ Complete | Fixed stale closures and debouncing (S31) |
+| Stakeholder email enhancements | ✅ Complete | SEO, disclaimer, alt home page, competitive edge (S32) |
+| Footer mobile 2-column | ✅ Complete | 2-column grid on mobile (S32) |
+
+---
+
+## Session 32 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Stakeholder Email Enhancements, Footer Mobile Layout, Cookie Consent Disabled
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Stakeholder email SEO | Added SEO optimization mentions to capability table and Quick Stats | `STAKEHOLDER_EMAIL.md` |
+| Careers SEO mention | Updated Career Application Portal row to mention jobs are SEO-optimized | `STAKEHOLDER_EMAIL.md` |
+| Development disclaimer | Added bugs/UI inconsistencies disclaimer to "About This Preview" section | `STAKEHOLDER_EMAIL.md` |
+| Alternative home page link | Added /home-alt link for stakeholder comparison | `STAKEHOLDER_EMAIL.md` |
+| Competitive Edge section | New section highlighting 24/7 lead capture, analytics, competitive advantage | `STAKEHOLDER_EMAIL.md` |
+| Footer mobile layout | Changed from 1-column to 2-column grid on mobile | `Footer.tsx` |
+| Cookie consent disabled | Temporarily disabled for stakeholder preview | `ClientLayout.tsx` |
+
+### Stakeholder Email Updates
+
+**Version 1 (Full Email):**
+- Added "Search Engine Optimisation" row to capability table
+- Enhanced "Career Application Portal" row with SEO mention
+- Added "SEO-Ready" bullet to Quick Stats
+- Added "Bugs and visual inconsistencies" bullet to About This Preview
+- Added Alternative Design link (`/home-alt`)
+- Added new "Your Competitive Edge" section with analytics mention
+
+**Version 2 (Executive Summary):**
+- Added SEO row to "What's Working Now" table
+- Added "Development Note" about expected bugs
+- Added alternative home page link
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `STAKEHOLDER_EMAIL.md` | SEO mentions, disclaimer, alt home page, competitive edge section |
+| `src/components/Footer.tsx` | `grid-cols-2` on mobile, `col-span-2` for logo |
+| `src/components/ClientLayout.tsx` | Commented out CookieConsent import and component |
+
+### To Re-enable Cookie Consent
+
+Uncomment in `src/components/ClientLayout.tsx`:
+```tsx
+// Line 8: import CookieConsent from "./CookieConsent";
+// Line 53: <CookieConsent />
+```
+
+### Build Status
+
+- **Routes:** 26 (22 pages + 4 API routes)
+- **Build:** ✅ Successful
+- **Commit:** `867fc72`
 
 ---
 
