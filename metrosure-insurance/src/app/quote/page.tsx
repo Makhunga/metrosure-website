@@ -377,10 +377,18 @@ export default function QuotePage() {
       {/* Quote Form Section */}
       <section className="pb-24 pt-4 px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Two column layout: Form + Price Breakdown */}
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          {/* Two column layout: Form + Price Breakdown (only when price visible) */}
+          <div className={`flex flex-col gap-8 ${
+            currentStep >= 3 && formData.coverageType && priceBreakdown
+              ? "lg:flex-row lg:gap-12"
+              : ""
+          }`}>
             {/* Left: Form */}
-            <div className="flex-1 max-w-4xl">
+            <div className={`flex-1 w-full ${
+              currentStep >= 3 && formData.coverageType && priceBreakdown
+                ? "max-w-4xl"
+                : "max-w-5xl mx-auto"
+            }`}>
           {/* Progress Steps - Larger & Bolder */}
           <div className="mb-16">
             <div className="flex items-center justify-between relative">
