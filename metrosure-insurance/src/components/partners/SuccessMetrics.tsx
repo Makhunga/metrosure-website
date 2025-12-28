@@ -133,7 +133,7 @@ export default function SuccessMetrics() {
       description: "Nationwide coverage"
     },
     {
-      value: "9+",
+      value: "5+",
       label: "Regional Offices",
       icon: "location_on",
       description: "Across South Africa"

@@ -13,29 +13,13 @@ export default function UnderDevelopment({
   description = "We're putting the finishing touches on this page. Check back soon for the full experience.",
 }: UnderDevelopmentProps) {
   return (
-    <section className="flex-1 flex items-center justify-center px-6 py-32">
+    <section className="flex-1 flex items-center justify-center px-6 py-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="max-w-3xl mx-auto text-center"
       >
-        {/* Animated Icon */}
-        <motion.div
-          initial={{ scale: 0, rotate: -10 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 150, damping: 15 }}
-          className="mb-12 inline-flex items-center justify-center w-28 h-28 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-500/20 dark:to-amber-600/10 shadow-lg shadow-amber-500/10"
-        >
-          <motion.span
-            className="material-symbols-outlined text-6xl text-amber-600 dark:text-amber-400"
-            animate={{ rotate: [0, -5, 5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            construction
-          </motion.span>
-        </motion.div>
-
         {/* Page name badge */}
         {pageName && (
           <motion.div

@@ -141,7 +141,7 @@ export default function StatsBar() {
     { value: "5000+", label: "Jobs Created", progress: 100 },       // 100% - milestone achieved
     { value: "2016", label: "Established", progress: 100 },         // 100% - historical fact
     { value: "100+", label: "Retail Partners", progress: 85 },      // 85% - growing B2B network
-    { value: "9+", label: "Regional Offices", progress: 90 },       // 90% - growing
+    { value: "5+", label: "Regional Offices", progress: 50 },       // 50% - current offices
   ];
 
   return (

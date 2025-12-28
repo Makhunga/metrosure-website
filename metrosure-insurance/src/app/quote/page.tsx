@@ -38,14 +38,14 @@ const coverageOptions = [
     icon: "directions_car",
     title: "Auto & Vehicle",
     description: "Comprehensive coverage for cars, trucks, and motorcycles",
-    popular: true,
+    popular: false,
   },
   {
     id: "life" as const,
     icon: "favorite",
-    title: "Life & Health",
-    description: "Secure your family's future with life insurance",
-    popular: false,
+    title: "Life & Funeral",
+    description: "Secure your family's future with life and funeral cover",
+    popular: true,
   },
   {
     id: "business" as const,
