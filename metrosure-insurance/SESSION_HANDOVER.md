@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 24 - Complete)
+**Date:** December 28, 2025 (Session 25 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -43,6 +43,63 @@
 | ContactHero CSS variables | ✅ Complete | Migrated from hardcoded dark mode classes |
 | Rate limiting | ✅ Complete | In-memory rate limiting on all 4 API routes |
 | Reusable form components | ✅ Complete | InputIcon, InlineError, formValidation utilities |
+| Stakeholder email templates | ✅ Complete | 3 versions (Full, Executive, Meeting Request) |
+
+---
+
+## Session 25 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Stakeholder Email Rewrite with Business Context & Funeral Policy Proposal
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Stakeholder email rewrite | Complete rewrite with 3 email versions | `STAKEHOLDER_EMAIL.md` |
+| Version 1 (Full) | Comprehensive intro with business context, disclaimers, proposals | `STAKEHOLDER_EMAIL.md` |
+| Version 2 (Executive) | Scannable summary for busy executives | `STAKEHOLDER_EMAIL.md` |
+| Version 3 (Meeting Request) | Focused funeral policy walkthrough request | `STAKEHOLDER_EMAIL.md` |
+| Usage notes & checklists | Pre-send checklist, content warnings, version guidance | `STAKEHOLDER_EMAIL.md` |
+
+### Key Email Improvements
+
+| Improvement | Description |
+|-------------|-------------|
+| Context & Motivation | Each feature explains WHY it matters (e.g., "21x more likely to convert") |
+| Industry Disclaimer | Clear statement that copy is industry-based, not client-specific |
+| Funeral Policy Proposal | Dedicated section proposing funeral policy as digitisation pilot |
+| Blocker Explanation | Lists specific information needed (premiums, eligibility, workflow) |
+| Staging Clarification | Explains MVP is on live staging server with constant changes |
+| Risk Acknowledgment | Transparent "What Could Go Wrong" section |
+| Actionable CTAs | Time-bound requests ("This Week" vs "Within 2 Weeks") |
+
+### Three Email Versions
+
+| Version | Purpose | Length |
+|---------|---------|--------|
+| Version 1 (Full) | First introduction, comprehensive context | 5-7 min read |
+| Version 2 (Executive) | Busy executives, quick status update | 2 min read |
+| Version 3 (Meeting) | Focused funeral policy walkthrough request | 30 sec read |
+
+### Funeral Policy Digitisation Proposal
+
+The email proposes starting with funeral policy as a pilot for end-to-end digitisation:
+
+**Why Funeral First:**
+- Workflow under Metrosure's direct control
+- Clear, defined process
+- High application volume = immediate ROI
+- Creates template for other products
+
+**Blocker Identified:**
+- Premium tiers and pricing structure
+- Eligibility criteria and age limits
+- Required documents for application
+- Approval workflow
+- Claims process and payout procedures
+
+**Action Requested:**
+1-2 hour working session to walk through funeral policy process end-to-end.
 
 ---
 
@@ -260,21 +317,28 @@
 
 ## DEFERRED TO FUTURE SESSIONS
 
-### Stakeholder Communication (PRIORITY)
+### Funeral Policy Digitisation (PRIORITY - BLOCKED)
 
 | Task | Priority | Effort | Notes |
 |------|----------|--------|-------|
-| Update STAKEHOLDER_EMAIL.md | **High** | Low | Reflect all recent changes (Sessions 19-23) |
-| Prepare stakeholder email | **High** | Low | Final review before sending |
-| Send stakeholder update | **High** | - | Ready to send once email is updated |
+| Stakeholder walkthrough meeting | **Critical** | 1-2 hours | Blocker - need product details from client |
+| Online application form | High | Medium | Pending meeting outcome |
+| Policy status tracking | High | Medium | Pending meeting outcome |
+| Admin dashboard | High | High | Pending meeting outcome |
+| Automated notifications | Medium | Medium | Pending meeting outcome |
+| Payment integration | Low | High | Future phase |
 
-**File:** `STAKEHOLDER_EMAIL.md`
+**Blocker:** Waiting for stakeholder meeting to gather:
+- Premium tiers and pricing structure
+- Eligibility criteria and age limits
+- Required documents for application
+- Approval workflow (who reviews, who approves)
+- Claims process and payout procedures
 
-### Technical Improvements (Session 24+)
+### Technical Improvements (Session 26+)
 
 | Task | Priority | Effort | Notes |
 |------|----------|--------|-------|
-| Rate limiting for API routes | High | Medium | Prevent API abuse before high traffic |
 | reCAPTCHA integration | Medium | Medium | Reduce form spam |
 | Input sanitization (DOMPurify) | Medium | Low | Sanitize user content in emails |
 | Error boundaries | Low | Low | Graceful React error handling |
@@ -845,7 +909,9 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S23** | **Quote Form, Under-Dev Page, Office Counts** | Life & Funeral coverage fix, removed construction icon, 5+ office consistency |
+| **Dec 28, 2025** | **S25** | **Stakeholder Email Rewrite** | 3 email versions, business context, funeral policy proposal, industry disclaimer |
+| Dec 28, 2025 | S24 | Rate Limiting & Forms | Rate limiting on 4 APIs, reusable form components (InputIcon, InlineError) |
+| Dec 28, 2025 | S23 | Quote Form, Under-Dev Page | Life & Funeral coverage fix, removed construction icon, 5+ office consistency |
 | Dec 28, 2025 | S22 | UK English Localisation | UK spelling corrections (customise, personalised, analyse, etc.), em dash replacements |
 | Dec 28, 2025 | S21 | Visual Polish | Form styling consistency, container widths, hero heights, CSS variable migration |
 | Dec 28, 2025 | S20 | Careers Modal & Styling | Careers modal popup, Grid bleed-through fixes, Quote page styling consistency |
@@ -863,9 +929,9 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 ---
 
-*Document updated: December 27, 2025 - Session 18 Committed & Pushed*
-*Git commit: ecd8646 - Pushed to origin/main*
-*Next session: S19 - Image assets and visual polish*
+*Document updated: December 28, 2025 - Session 25 Complete*
+*Git commit: 032fea0 - Pushed to origin/main*
+*Next session: S26 - Funeral policy digitisation (pending stakeholder meeting)*
 
 ---
 
@@ -1754,5 +1820,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 28, 2025 - Session 23 Complete*
-*Next session: S24 - Rate limiting, accessibility, lazy loading*
+*Document updated: December 28, 2025 - Session 25 Complete*
+*Next session: S26 - Funeral policy digitisation (pending stakeholder meeting)*
