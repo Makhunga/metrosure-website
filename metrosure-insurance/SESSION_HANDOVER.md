@@ -66,7 +66,7 @@
 
 | Task | Description | Files |
 |------|-------------|-------|
-| Business hours update | Changed to Mon-Fri 8am-5pm, Sat 8am-1pm SAST | `ContactForm.tsx`, `help/page.tsx`, `claims/page.tsx` |
+| Business hours update | Changed to Mon-Fri 8am-5pm, Sat 8am-1pm SAST | `ContactForm.tsx`, `ContactHero.tsx`, `help/page.tsx`, `claims/page.tsx` |
 | Facebook social link | Replaced X/Twitter with Facebook (profile link) | `OfficeLocations.tsx` |
 | Apple login button | Changed GitHub to Apple sign-in | `login/page.tsx` |
 | PartnersCTA white cards | Changed dark burgundy cards to white with dark text | `PartnersCTA.tsx` |
@@ -78,6 +78,7 @@
 
 | Location | New Hours |
 |----------|-----------|
+| ContactHero (top of contact page) | Mon-Fri 8am-5pm, Sat 8am-1pm, Sun & Holidays Closed |
 | ContactForm callback options | Morning (8AM-12PM), Afternoon (12PM-5PM) |
 | Help page | Mon-Fri 8am-5pm, Sat 8am-1pm SAST |
 | Claims page | Mon-Fri 8am-5pm, Sat 8am-1pm SAST |
@@ -115,6 +116,7 @@
 | File | Changes |
 |------|---------|
 | `src/components/contact/ContactForm.tsx` | Updated callback time options |
+| `src/components/contact/ContactHero.tsx` | Updated working hours display |
 | `src/components/contact/OfficeLocations.tsx` | Replaced X with Facebook |
 | `src/app/login/page.tsx` | Changed GitHub to Apple |
 | `src/components/PartnersCTA.tsx` | White cards with dark text |
@@ -499,9 +501,31 @@ The email proposes starting with funeral policy as a pilot for end-to-end digiti
 
 ---
 
-## SESSION 27 PLAN
+## SESSION 28 PLAN
 
-### Priority 1: Funeral Policy Digitisation (BLOCKED - HIGH)
+### Priority 1: Production Readiness (HIGH)
+
+| Task | Description | Files | Effort |
+|------|-------------|-------|--------|
+| Email service configuration | Configure Resend with production API key and domain verification | Vercel env vars | Low |
+| Test all forms end-to-end | Verify emails actually send in production | All 4 forms | Low |
+| Mobile responsiveness audit | Test all pages on mobile devices | Site-wide | Medium |
+| Cross-browser testing | Verify Chrome, Firefox, Safari, Edge compatibility | Site-wide | Medium |
+
+### Priority 2: Dark Mode Consistency Audit (MEDIUM)
+
+**Issue Identified:** Mixed usage of CSS variables vs Tailwind dark: classes across components.
+
+| Component | Current Approach | Recommendation |
+|-----------|------------------|----------------|
+| ContactForm | Tailwind dark: classes | ✅ Keep |
+| PartnerInquiryForm | Tailwind dark: classes (migrated S27) | ✅ Keep |
+| Quote page | Tailwind dark: classes | ✅ Keep |
+| Other components | CSS variables | Migrate to Tailwind dark: |
+
+**Action:** Audit remaining components and standardize on Tailwind dark: approach for consistency.
+
+### Priority 3: Funeral Policy Digitisation (BLOCKED)
 
 | Task | Priority | Effort | Notes |
 |------|----------|--------|-------|
@@ -511,40 +535,40 @@ The email proposes starting with funeral policy as a pilot for end-to-end digiti
 
 **Status:** Waiting for stakeholder meeting to gather premium tiers, eligibility criteria, required documents, approval workflow, and claims process.
 
-### Priority 2: Visual Polish & Bug Fixes (MEDIUM)
+### Priority 4: Security Enhancements (MEDIUM)
+
+| Task | Description | Files | Effort |
+|------|-------------|-------|--------|
+| reCAPTCHA v3 integration | Add invisible reCAPTCHA to reduce form spam | All form components | Medium |
+| Input sanitization | Add DOMPurify for user content in emails | All API routes | Low |
+| CSRF protection | Verify Next.js CSRF handling | API routes | Low |
+
+### Priority 5: Accessibility Audit (LOW)
 
 | Task | Description | Files |
 |------|-------------|-------|
-| Other page nav states | Verify active state works on all pages (not just About) | `Header.tsx` |
-| Leadership card mobile | Test hover/tap behavior on mobile devices | `about/page.tsx` |
-| Timeline responsive | Verify timeline line positioning on mobile | `about/page.tsx` |
-| Dark mode consistency | Audit all pages for CSS variable vs Tailwind dark mode consistency | Site-wide |
-
-### Priority 3: Security & Performance (MEDIUM)
-
-| Task | Description | Files |
-|------|-------------|-------|
-| reCAPTCHA integration | Add invisible reCAPTCHA to reduce form spam | All form components |
-| Input sanitization | Add DOMPurify for user content in emails | All API routes |
-| Bundle analysis | Run `npm run analyze` to identify large dependencies | Site-wide |
-
-### Priority 4: Accessibility Audit (LOW)
-
-| Task | Description | Files |
-|------|-------------|-------|
-| Keyboard navigation | Verify all interactive elements accessible | Site-wide audit |
-| ARIA labels | Add missing labels to buttons/links | Header, forms, modals |
-| Focus indicators | Ensure visible focus states | All interactive elements |
+| Keyboard navigation | Verify all interactive elements accessible via Tab/Enter | Site-wide |
+| ARIA labels | Add missing labels to icon buttons and links | Header, forms, modals |
+| Focus indicators | Ensure visible focus states on all interactive elements | All components |
 | Screen reader testing | Test with NVDA/VoiceOver | Site-wide |
+| Color contrast | Verify WCAG AA compliance (4.5:1 ratio) | All text elements |
 
 ### Optional: Content & Enhancements
 
-| Task | Description | Files |
-|------|-------------|-------|
-| Real testimonials | Add actual customer testimonials with photos | `Testimonials.tsx` |
-| Partner success stories | Add case studies with revenue impact | Partners page |
-| Blog section | Add blog for SEO and industry insights | New route |
-| Video content | Add explainer videos for insurance products | Various pages |
+| Task | Description | Files | Effort |
+|------|-------------|-------|--------|
+| Real testimonials | Replace fictional testimonials with real client feedback | `Testimonials.tsx` | Low (content) |
+| Partner success stories | Add case studies with revenue impact data | Partners page | Medium |
+| Team photos | Add real leadership photos to About page | `about/page.tsx` | Low (content) |
+| Blog section | Add blog for SEO and industry insights | New route | High |
+
+### Skipped/Deferred from Session 27
+
+| Task | Reason | When to Address |
+|------|--------|-----------------|
+| Quote form inline validation | Not requested, Contact form pattern exists | When user requests |
+| Careers form inline validation | Not requested | When user requests |
+| Loading skeletons | Low priority | Future enhancement |
 
 ---
 
@@ -552,12 +576,16 @@ The email proposes starting with funeral policy as a pilot for end-to-end digiti
 
 ### Immediate Actions (Before Production Traffic)
 
-1. **Rate Limiting (CRITICAL)**
-   - Add `express-rate-limit` or custom middleware
-   - Limit: 10 requests per minute per IP for forms
-   - Return 429 Too Many Requests on exceed
+1. **Email Configuration (CRITICAL)**
+   - Configure Resend API key in Vercel environment variables
+   - Verify domain ownership for production emails
+   - Test all 4 forms to confirm emails are delivered
 
-2. **reCAPTCHA v3 (HIGH)**
+2. **Rate Limiting ✅ (COMPLETE)**
+   - Already implemented with in-memory rate limiting on all 4 API routes
+   - Limits: Quote (10/hr), Contact (15/hr), Partner (5/hr), Careers (3/hr)
+
+3. **reCAPTCHA v3 (HIGH)**
    - Add invisible reCAPTCHA to all forms
    - Threshold: 0.5 for legitimate users
    - Log low-score submissions for review
@@ -581,11 +609,11 @@ Current trend favors **Option B** (Tailwind dark mode) based on Session 21 chang
 |------|-------|-----------|------------|--------|
 | Contact Form | ✅ | ✅ | ✅ Inline | Complete |
 | Quote Form | ✅ | ✅ | ❌ None | Needs validation |
-| Partner Inquiry | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
+| Partner Inquiry | ✅ | ✅ (S27) | ❌ None | Dark mode fixed, needs validation |
 | Careers Modal | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
 | Careers Form | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
 
-**Session 23 Recommendation:** Add input icons and inline validation to remaining forms.
+**Recommendation:** Add inline validation to Quote and Partner forms using existing ContactForm pattern.
 
 ### Performance Monitoring
 
@@ -1017,9 +1045,10 @@ Once images are available:
 
 | Issue | Severity | Notes |
 |-------|----------|-------|
-| No rate limiting on APIs | Medium | Add before high traffic |
+| Email delivery not configured | High | Needs Resend API key in production |
+| Mixed dark mode approaches | Low | Some components use CSS vars, others use Tailwind dark: |
 | Cookie consent localStorage only | Low | Works for MVP |
-| Hero image not active | Low | Stashed, ready to restore |
+| No reCAPTCHA on forms | Low | Consider adding to reduce spam |
 
 ---
 
@@ -1053,7 +1082,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S26** | **About Page UI Polish** | Footer/Header nav sync, active nav state indicator, leadership slide-up transparency, timeline line fix |
+| **Dec 28, 2025** | **S27** | **Business Hours, Social Links, Alt Home** | Business hours update, X→Facebook, GitHub→Apple, PartnersCTA white cards, Partners form dark mode, /home-alt route |
+| Dec 28, 2025 | S26 | About Page UI Polish | Footer/Header nav sync, active nav state indicator, leadership slide-up transparency, timeline line fix |
 | Dec 28, 2025 | S25 | Stakeholder Email Rewrite | 3 email versions, business context, funeral policy proposal, industry disclaimer |
 | Dec 28, 2025 | S24 | Rate Limiting & Forms | Rate limiting on 4 APIs, reusable form components (InputIcon, InlineError) |
 | Dec 28, 2025 | S23 | Quote Form, Under-Dev Page | Life & Funeral coverage fix, removed construction icon, 5+ office consistency |
