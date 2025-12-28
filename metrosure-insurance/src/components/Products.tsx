@@ -34,7 +34,7 @@ const products = [
     icon: "storefront",
     title: "Retail Partnerships",
     description:
-      "Turn your store into a revenue stream. We bring trained staff, handle compliance, and share profits—you focus on your business.",
+      "Turn your store into a revenue stream. We bring trained staff, handle compliance, and share profits - you focus on your business.",
     features: ["Revenue Share", "Staff Provided", "Zero Overhead"],
     href: "/partners",
   },

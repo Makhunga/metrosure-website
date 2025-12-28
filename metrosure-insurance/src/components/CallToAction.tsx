@@ -85,7 +85,7 @@ export default function CallToAction() {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             Whether you're protecting your family or transforming your retail space into a revenue
-            stream—your next chapter starts here.
+            stream - your next chapter starts here.
           </motion.p>
 
           <motion.div

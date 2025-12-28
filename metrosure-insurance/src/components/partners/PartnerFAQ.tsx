@@ -42,7 +42,7 @@ const faqData = [
   },
   {
     question: "How does the revenue-sharing model work?",
-    answer: "Our commission structure is transparent and competitive. Partners earn a percentage of each insurance product sold at their location. The exact percentage depends on factors like store volume, product mix, and partnership tier. We provide detailed monthly reports showing all sales and commissions. <strong class=\"text-[rgb(var(--color-text-main))]\">Contact us for a personalized quote.</strong>"
+    answer: "Our commission structure is transparent and competitive. Partners earn a percentage of each insurance product sold at their location. The exact percentage depends on factors like store volume, product mix, and partnership tier. We provide detailed monthly reports showing all sales and commissions. <strong class=\"text-[rgb(var(--color-text-main))]\">Contact us for a personalised quote.</strong>"
   },
   {
     question: "What training do the in-store sales staff receive?",
@@ -50,18 +50,18 @@ const faqData = [
   },
   {
     question: "How long does it take to set up an in-store campaign?",
-    answer: "Typical setup takes <strong class=\"text-[rgb(var(--color-text-main))]\">2-4 weeks</strong> from signing the agreement. This includes: Week 1, Agreement finalization and logistics planning; Week 2, Staff selection and training; Week 3, Marketing materials preparation; Week 4, Soft launch and optimization. Larger deployments may take slightly longer."
+    answer: "Typical setup takes <strong class=\"text-[rgb(var(--color-text-main))]\">2-4 weeks</strong> from signing the agreement. This includes: Week 1, Agreement finalization and logistics planning; Week 2, Staff selection and training; Week 3, Marketing materials preparation; Week 4, Soft launch and optimisation. Larger deployments may take slightly longer."
   },
   {
     question: "What insurance products are offered through in-store campaigns?",
-    answer: "We offer a comprehensive range of products tailored to your customer base: <strong class=\"text-[rgb(var(--color-text-main))]\">Credit Life Insurance</strong>, <strong class=\"text-[rgb(var(--color-text-main))]\">Funeral Cover</strong> (individual and group), <strong class=\"text-[rgb(var(--color-text-main))]\">Life Insurance</strong>, and <strong class=\"text-[rgb(var(--color-text-main))]\">Short-term Insurance</strong> (car, home). Product mix is customized based on your store type and customer demographics."
+    answer: "We offer a comprehensive range of products tailored to your customer base: <strong class=\"text-[rgb(var(--color-text-main))]\">Credit Life Insurance</strong>, <strong class=\"text-[rgb(var(--color-text-main))]\">Funeral Cover</strong> (individual and group), <strong class=\"text-[rgb(var(--color-text-main))]\">Life Insurance</strong>, and <strong class=\"text-[rgb(var(--color-text-main))]\">Short-term Insurance</strong> (car, home). Product mix is customised based on your store type and customer demographics."
   },
   {
     question: "Is my business responsible for any compliance requirements?",
     answer: "No. As an <strong class=\"text-[rgb(var(--color-text-main))]\">FSP-licensed provider (47089)</strong>, we handle all regulatory compliance, auditing, and reporting requirements. Your business simply provides the space. Our team manages all FAIS requirements, record-keeping, and regulatory submissions. This is one of the key benefits of partnering with a licensed broker."
   },
   {
-    question: "Can we customize the campaign for our brand?",
+    question: "Can we customise the campaign for our brand?",
     answer: "Absolutely! We work with you to create a campaign that complements your store's brand and customer experience. This includes co-branded marketing materials, staff uniforms that match your store aesthetic, and messaging that aligns with your brand values. We believe in partnerships that enhance your brand, not overshadow it."
   },
   {

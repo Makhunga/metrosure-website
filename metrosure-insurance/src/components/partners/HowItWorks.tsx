@@ -30,7 +30,7 @@ const steps = [
     number: "04",
     title: "Launch & Support",
     description:
-      "We launch your campaign with ongoing support, performance monitoring, and continuous optimization.",
+      "We launch your campaign with ongoing support, performance monitoring, and continuous optimisation.",
     tags: ["Campaign launch", "Performance tracking", "Ongoing support"],
   },
 ];

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 21 - Complete)
+**Date:** December 28, 2025 (Session 22 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -41,6 +41,67 @@
 | Container width consistency | ✅ Complete | All sections use max-w-[1400px] |
 | Hero height consistency | ✅ Complete | All heroes use min-h-[85vh] |
 | ContactHero CSS variables | ✅ Complete | Migrated from hardcoded dark mode classes |
+
+---
+
+## Session 22 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** UK/South African English Localisation
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| UK English spelling | Converted US spellings to UK/SA English | 8 component/API files |
+| Em dash replacement | Replaced em dashes (—) with simple dashes (-) | 7 component files |
+
+### UK English Style Guide (For Future Reference)
+
+| US English | UK/SA English |
+|------------|---------------|
+| customize | customise |
+| personalized | personalised |
+| organization | organisation |
+| authorized | authorised |
+| recognize | recognise |
+| optimize | optimise |
+| specialized | specialised |
+| analyze | analyse |
+| minimize | minimise |
+| maximize | maximise |
+| optimization | optimisation |
+
+**Punctuation:** Use simple dash (-) instead of em dash (—)
+
+### Spelling Corrections Made
+
+| File | Changes |
+|------|---------|
+| `PartnerFAQ.tsx` | personalised, optimisation, customise, customised |
+| `quote/page.tsx` | customise, personalised (×2) |
+| `partner-inquiry/route.ts` | customised |
+| `CookieConsent.tsx` | personalised, analyse |
+| `quote/route.ts` | personalised |
+| `WhyJoinUs.tsx` | recognise |
+| `HowItWorks.tsx` | optimisation |
+
+### Em Dash Replacements
+
+| File | Count |
+|------|-------|
+| `Testimonials.tsx` | 1 |
+| `DevelopmentBanner.tsx` | 2 |
+| `Hero.tsx` | 1 |
+| `Hero.split-layout.tsx` | 1 |
+| `CallToAction.tsx` | 1 |
+| `Products.tsx` | 1 |
+| `Features.tsx` | 2 |
+
+### Notes
+
+- Schema.org vocabulary (`recognizedBy` in `layout.tsx`) kept in US English for compatibility
+- Documentation files (.md) not updated - only web app copy
+- Plan file saved at `~/.claude/plans/synchronous-roaming-bonbon.md` for future reference
 
 ---
 
@@ -694,7 +755,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S21** | **Visual Polish** | Form styling consistency, container widths, hero heights, CSS variable migration |
+| **Dec 28, 2025** | **S22** | **UK English Localisation** | UK spelling corrections (customise, personalised, analyse, etc.), em dash replacements |
+| Dec 28, 2025 | S21 | Visual Polish | Form styling consistency, container widths, hero heights, CSS variable migration |
 | Dec 28, 2025 | S20 | Careers Modal & Styling | Careers modal popup, Grid bleed-through fixes, Quote page styling consistency |
 | Dec 27, 2025 | S19 | Visual Polish | Hero split-layout restored, Gradient initial avatars, ContactForm inline validation UX |
 | Dec 27, 2025 | S18.5 | Drawbridge UI Fixes | About page grid z-index fix, Footer dark mode cleanup, Partners stats fix, Partners testimonials horizontal scroll |
@@ -1601,5 +1663,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 28, 2025 - Session 21 Complete*
-*Next session: S22 - Rate limiting, accessibility, lazy loading*
+*Document updated: December 28, 2025 - Session 22 Complete*
+*Next session: S23 - Rate limiting, accessibility, lazy loading*

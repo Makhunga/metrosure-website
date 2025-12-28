@@ -100,7 +100,7 @@ const faqs = [
       "No, getting a quote is completely free and comes with no obligation. Take your time to compare options and make the best decision for your needs.",
   },
   {
-    question: "Can I customize my coverage?",
+    question: "Can I customise my coverage?",
     answer:
       "Yes! Our quotes are fully customizable. You can adjust coverage amounts, deductibles, and add optional protections to fit your specific needs and budget.",
   },
@@ -275,7 +275,7 @@ export default function QuotePage() {
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Complete the form below to receive a personalized insurance quote.
+            Complete the form below to receive a personalised insurance quote.
             Our licensed advisors will review your needs and get back to you within 24 hours.
           </motion.p>
 
@@ -355,7 +355,7 @@ export default function QuotePage() {
               {isSubmitted ? (
                 <FormSuccess
                   title="Quote Request Submitted!"
-                  description="Thank you for your interest. One of our licensed advisors will review your requirements and contact you within 24 hours with a personalized quote."
+                  description="Thank you for your interest. One of our licensed advisors will review your requirements and contact you within 24 hours with a personalised quote."
                   buttonText="Request Another Quote"
                   onReset={handleReset}
                   accentColor="green"

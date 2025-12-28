@@ -46,7 +46,7 @@ const testimonialsData = [
     isPartner: false,
   },
   {
-    text: "We've created 15 jobs in our community through this partnership. Metrosure handles compliance and training—we just provide the space. Win-win.",
+    text: "We've created 15 jobs in our community through this partnership. Metrosure handles compliance and training - we just provide the space. Win-win.",
     name: "Ahmed Patel",
     role: "Retail Partner • Furniture Store",
     isPartner: true,

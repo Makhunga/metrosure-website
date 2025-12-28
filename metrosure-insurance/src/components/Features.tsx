@@ -34,7 +34,7 @@ const features = [
     icon: "handshake",
     title: "Retail Partnerships",
     description:
-      "Own a store? Partner with us to offer insurance, earn commission, and create local jobs. We handle training, compliance, and sales—you provide the space.",
+      "Own a store? Partner with us to offer insurance, earn commission, and create local jobs. We handle training, compliance, and sales - you provide the space.",
     accent: "secondary",
     href: "/partners",
   },
@@ -145,7 +145,7 @@ export default function Features() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Whether you&apos;re protecting your family or growing your business, we&apos;ve got you covered. Insurance for individuals, partnership opportunities for retailers—all backed by real people who care.
+              Whether you&apos;re protecting your family or growing your business, we&apos;ve got you covered. Insurance for individuals, partnership opportunities for retailers - all backed by real people who care.
             </motion.p>
 
             {/* CTA link with animated arrow */}

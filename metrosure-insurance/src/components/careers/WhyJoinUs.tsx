@@ -26,7 +26,7 @@ const benefits = [
     icon: "payments",
     title: "Competitive Rewards",
     description:
-      "Attractive commission structures, performance bonuses, and benefits that recognize your hard work and dedication.",
+      "Attractive commission structures, performance bonuses, and benefits that recognise your hard work and dedication.",
   },
   {
     icon: "school",

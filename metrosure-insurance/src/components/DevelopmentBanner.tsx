@@ -11,13 +11,13 @@ export default function DevelopmentBanner() {
           <p className="text-amber-900 font-medium text-center">
             <span className="font-bold">Website Under Development</span>
             <span className="hidden sm:inline">
-              {" "}— Some features may be unavailable.{" "}
+              {" "}- Some features may be unavailable.{" "}
               <Link href="/contact" className="underline hover:text-amber-950 transition-colors">
                 Your feedback helps us improve!
               </Link>
             </span>
             <span className="sm:hidden">
-              {" "}—{" "}
+              {" "}-{" "}
               <Link href="/contact" className="underline hover:text-amber-950 transition-colors">
                 Feedback welcome!
               </Link>

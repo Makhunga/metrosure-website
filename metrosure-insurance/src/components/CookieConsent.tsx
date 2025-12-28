@@ -68,8 +68,8 @@ export default function CookieConsent() {
                           We Value Your Privacy
                         </h3>
                         <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                          We use cookies to enhance your browsing experience, serve personalized content,
-                          and analyze our traffic. In accordance with{" "}
+                          We use cookies to enhance your browsing experience, serve personalised content,
+                          and analyse our traffic. In accordance with{" "}
                           <span className="font-semibold text-slate-700 dark:text-slate-300">
                             POPIA (Protection of Personal Information Act)
                           </span>

@@ -183,7 +183,7 @@ function generateConfirmationEmail(data: PartnerInquiryData): string {
 
     ${createBulletList([
       "A call from our partnership manager to discuss your needs",
-      "A customized proposal based on your business profile",
+      "A customised proposal based on your business profile",
       "Information about our revenue-sharing model",
       "Details on how we provide trained staff at zero cost to you"
     ])}

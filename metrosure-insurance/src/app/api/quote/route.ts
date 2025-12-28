@@ -224,7 +224,7 @@ function generateConfirmationEmail(data: QuoteFormData): string {
       ${createBulletList([
         "One of our licensed advisors will review your requirements",
         "We'll compare options from our network of 30+ insurers",
-        "You'll receive a personalized quote within 24 hours",
+        "You'll receive a personalised quote within 24 hours",
         "No obligation - take your time to review and decide",
       ])}
     `)}
