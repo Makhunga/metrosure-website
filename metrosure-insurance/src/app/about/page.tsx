@@ -292,116 +292,108 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission Section - Keep Current */}
-      <section ref={missionRef} className="py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* Mission Section - Editorial Layout */}
+      <section ref={missionRef} className="bg-[#1a1a1a] relative overflow-hidden">
+        {/* Subtle grain texture overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Content Container */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-0">
+          {/* Two Column Layout */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 pb-20">
+            {/* Left Column - Bold Heading */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={missionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <motion.h2
-                className="text-3xl md:text-4xl font-bold text-[rgb(var(--color-text-main))] mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight"
+                initial={{ opacity: 0, y: 30 }}
+                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
               >
-                Our Mission
+                Building a nation
+                <br />
+                <span className="text-white/60">where everyone</span>
+                <br />
+                <span className="text-white/60">is protected.</span>
               </motion.h2>
-              <motion.p
-                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                To always comply with the quality standards of our profession.
-                Where our people are known for their innovativeness and problem-solving abilities.
-              </motion.p>
-              <motion.p
-                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                We&apos;re not just another insurance company. We&apos;re a team of dedicated South Africans
-                who genuinely care about your wellbeing. Each portfolio manager is backed by
-                dedicated claims and underwriting staff, so your instructions are processed effectively.
-              </motion.p>
-              <motion.p
-                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                Whether you&apos;re protecting your car and home, planning for retirement, or
-                looking after your employees, we&apos;re here to help you move forward with confidence.
-              </motion.p>
-              <motion.p
-                className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                But we&apos;re more than just an insurance broker. Through our retail partnership programme,
-                we&apos;ve created over 5,000 jobs across South Africa. We partner with store owners to bring
-                insurance services into their communities, sharing revenue and creating local employment.
-                When you partner with Metrosure, you&apos;re not just adding a service, you&apos;re building something that lasts.
-              </motion.p>
             </motion.div>
+
+            {/* Right Column - Content with vertical line */}
             <motion.div
               className="relative"
-              initial={{ opacity: 0, x: 50 }}
-              animate={missionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              {/* Geometric Shapes Composition */}
-              <div className="aspect-square flex items-center justify-center relative overflow-hidden group">
-                {/* Large Circle - Light Red */}
-                <motion.div
-                  className="absolute w-56 h-56 md:w-72 md:h-72"
-                  style={{ top: '15%', left: '10%' }}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={missionInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.05, rotate: 5 }}
-                >
-                  <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-lg">
-                    <circle cx="100" cy="100" r="95" fill="rgb(220, 38, 38)" />
-                  </svg>
-                </motion.div>
+              {/* Vertical accent line */}
+              <motion.div
+                className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-primary/50 to-transparent"
+                initial={{ scaleY: 0, originY: 0 }}
+                animate={missionInView ? { scaleY: 1 } : { scaleY: 0 }}
+                transition={{ duration: 1, delay: 0.4 }}
+              />
 
-                {/* Rounded Square - Medium Red */}
-                <motion.div
-                  className="absolute w-44 h-44 md:w-56 md:h-56"
-                  style={{ top: '35%', right: '8%' }}
-                  initial={{ scale: 0, opacity: 0, rotate: -15 }}
-                  animate={missionInView ? { scale: 1, opacity: 1, rotate: 12 } : { scale: 0, opacity: 0, rotate: -15 }}
-                  transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.08, rotate: 20 }}
+              <div className="pl-8 space-y-6">
+                <motion.p
+                  className="text-lg md:text-xl text-white font-medium leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-lg">
-                    <rect x="15" y="15" width="170" height="170" rx="32" fill="rgb(185, 28, 28)" />
-                  </svg>
-                </motion.div>
+                  We believe insurance should work for everyone. For families seeking peace of mind. For businesses seeking new opportunities.
+                </motion.p>
 
-                {/* Triangle - Dark Red */}
-                <motion.div
-                  className="absolute w-36 h-36 md:w-48 md:h-48"
-                  style={{ bottom: '12%', left: '25%' }}
-                  initial={{ scale: 0, opacity: 0, y: 30 }}
-                  animate={missionInView ? { scale: 1, opacity: 1, y: 0 } : { scale: 0, opacity: 0, y: 30 }}
-                  transition={{ duration: 0.6, delay: 0.7, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.1, y: -10 }}
+                <motion.p
+                  className="text-base md:text-lg text-white/70 leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-lg">
-                    <polygon points="100,15 185,175 15,175" fill="rgb(127, 29, 29)" />
-                  </svg>
-                </motion.div>
+                  That&apos;s why we built something different: a network of retail partnerships that brings financial services directly into communities across South Africa. For consumers, it means accessible, affordable protection. For retail partners, it means a new revenue stream with fully trained staff provided.
+                </motion.p>
+
+                <motion.p
+                  className="text-base md:text-lg text-white/70 leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  Since 2016, this model has created over 5,000 jobs nationwide. Every partnership we form, every policy we write, moves us closer to a future where financial security is the norm, not the exception.
+                </motion.p>
               </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Full-width Image Section */}
+        <motion.div
+          className="relative w-full"
+          initial={{ opacity: 0, y: 60 }}
+          animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          {/* Image Container */}
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-8 pb-0">
+            <div className="relative w-full aspect-[16/9] md:aspect-[2/1] overflow-hidden">
+              <Image
+                src="/images/mission-image.jpg"
+                alt="The Metrosure team"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1400px) 100vw, 1400px"
+                priority
+              />
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Values Section */}
