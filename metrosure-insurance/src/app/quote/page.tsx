@@ -6,6 +6,16 @@ import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import { MagneticButton } from "@/components/animations";
+import { InputIcon } from "@/components/ui/InputIcon";
+import { InlineError } from "@/components/ui/InlineError";
+import {
+  FieldState,
+  FieldStates,
+  validateEmail,
+  validatePhone,
+  validateRequired,
+  getInputClassesWithIcon
+} from "@/lib/formValidation";
 
 type CoverageType = "home" | "auto" | "life" | "business" | null;
 
@@ -148,6 +158,7 @@ export default function QuotePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const heroRef = useRef(null);
   const faqRef = useRef(null);
   const ctaRef = useRef(null);
@@ -161,6 +172,25 @@ export default function QuotePage() {
     { number: 3, title: "Details", icon: "tune" },
     { number: 4, title: "Review", icon: "check_circle" },
   ];
+
+  // Update field validation state
+  const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
+    const error = validator(value);
+    setFieldStates(prev => ({
+      ...prev,
+      [fieldName]: {
+        touched: true,
+        error,
+        valid: error === null && value.length > 0
+      }
+    }));
+    return error === null;
+  }, []);
+
+  // Get field state helper
+  const getFieldState = (fieldName: string): FieldState => {
+    return fieldStates[fieldName] || { touched: false, error: null, valid: false };
+  };
 
   const updateFormData = (updates: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }));
@@ -219,6 +249,7 @@ export default function QuotePage() {
     setCurrentStep(1);
     setIsSubmitted(false);
     setSubmitError(null);
+    setFieldStates({});
   }, []);
 
   const toggleAdditionalCoverage = (id: string) => {
@@ -351,7 +382,7 @@ export default function QuotePage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" }}
           >
-            <div className="p-8 md:p-12 bg-white dark:bg-slate-800">
+            <div className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white dark:bg-slate-800">
               {isSubmitted ? (
                 <FormSuccess
                   title="Quote Request Submitted!"
@@ -398,85 +429,105 @@ export default function QuotePage() {
                         First Name
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="material-symbols-outlined text-lg text-slate-400">person</span>
-                        </div>
+                        <InputIcon
+                          icon="person"
+                          valid={getFieldState("firstName").valid}
+                          touched={getFieldState("firstName").touched}
+                        />
                         <input
                           type="text"
                           value={formData.firstName}
                           onChange={(e) => updateFormData({ firstName: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          onBlur={(e) => validateField("firstName", e.target.value, (v) => validateRequired(v, "First name"))}
+                          className={getInputClassesWithIcon(getFieldState("firstName"))}
                           placeholder="John"
                         />
                       </div>
+                      <InlineError error={getFieldState("firstName").error} />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Last Name
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="material-symbols-outlined text-lg text-slate-400">badge</span>
-                        </div>
+                        <InputIcon
+                          icon="badge"
+                          valid={getFieldState("lastName").valid}
+                          touched={getFieldState("lastName").touched}
+                        />
                         <input
                           type="text"
                           value={formData.lastName}
                           onChange={(e) => updateFormData({ lastName: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          onBlur={(e) => validateField("lastName", e.target.value, (v) => validateRequired(v, "Last name"))}
+                          className={getInputClassesWithIcon(getFieldState("lastName"))}
                           placeholder="Doe"
                         />
                       </div>
+                      <InlineError error={getFieldState("lastName").error} />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Email Address
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="material-symbols-outlined text-lg text-slate-400">mail</span>
-                        </div>
+                        <InputIcon
+                          icon="mail"
+                          valid={getFieldState("email").valid}
+                          touched={getFieldState("email").touched}
+                        />
                         <input
                           type="email"
                           value={formData.email}
                           onChange={(e) => updateFormData({ email: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          onBlur={(e) => validateField("email", e.target.value, validateEmail)}
+                          className={getInputClassesWithIcon(getFieldState("email"))}
                           placeholder="john@example.com"
                         />
                       </div>
+                      <InlineError error={getFieldState("email").error} />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Phone Number
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="material-symbols-outlined text-lg text-slate-400">call</span>
-                        </div>
+                        <InputIcon
+                          icon="call"
+                          valid={getFieldState("phone").valid}
+                          touched={getFieldState("phone").touched}
+                        />
                         <input
                           type="tel"
                           value={formData.phone}
                           onChange={(e) => updateFormData({ phone: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
+                          className={getInputClassesWithIcon(getFieldState("phone"))}
                           placeholder="+27 XX XXX XXXX"
                         />
                       </div>
+                      <InlineError error={getFieldState("phone").error} />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
                         Area Code
                       </label>
                       <div className="relative w-full md:w-1/2">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="material-symbols-outlined text-lg text-slate-400">location_on</span>
-                        </div>
+                        <InputIcon
+                          icon="location_on"
+                          valid={getFieldState("zipCode").valid}
+                          touched={getFieldState("zipCode").touched}
+                        />
                         <input
                           type="text"
                           value={formData.zipCode}
                           onChange={(e) => updateFormData({ zipCode: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                          onBlur={(e) => validateField("zipCode", e.target.value, (v) => validateRequired(v, "Area code"))}
+                          className={getInputClassesWithIcon(getFieldState("zipCode"))}
                           placeholder="4001"
                         />
                       </div>
+                      <InlineError error={getFieldState("zipCode").error} />
                     </div>
                   </div>
                 </motion.div>
@@ -573,7 +624,7 @@ export default function QuotePage() {
                         <select
                           value={formData.coverageAmount}
                           onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
-                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-12"
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
                         >
                           <option value="">Select coverage amount</option>
                           <option value="1000000">R1,000,000</option>
@@ -598,7 +649,7 @@ export default function QuotePage() {
                         <select
                           value={formData.deductible}
                           onChange={(e) => updateFormData({ deductible: e.target.value })}
-                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-12"
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
                         >
                           <option value="">Select excess</option>
                           <option value="5000">R5,000 (Higher Premium)</option>

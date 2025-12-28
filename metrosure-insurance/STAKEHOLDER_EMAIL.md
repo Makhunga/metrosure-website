@@ -1,7 +1,7 @@
 # Metrosure Website Revamp - Stakeholder Communication
 
 **Purpose:** Email templates for introducing the new website to stakeholders
-**Date:** December 28, 2025 (Session 25)
+**Date:** December 28, 2025 (Session 32)
 **Versions:** 3 (Full, Executive Summary, Meeting Request)
 
 ---
@@ -25,12 +25,13 @@ This isn't a digital brochure - it's a lead-generation and operations engine. He
 | Capability | Business Impact |
 |------------|-----------------|
 | **Multi-step Quote Request Forms** | Captures qualified leads 24/7 - even when your offices are closed. Reduces manual data entry and ensures you receive complete information upfront. |
-| **Career Application Portal** | Attracts quality talent with a professional application experience. CV uploads are delivered directly to careers@metrosuregroup.co.za - no more lost applications. |
+| **Career Application Portal** | Attracts quality talent with a professional application experience. Open positions are listed on the site and optimised for search engines - candidates find you through Google. CV uploads are delivered directly to careers@metrosuregroup.co.za - no more lost applications. |
 | **Partner Inquiry System** | Scales your B2B retail partnership outreach without adding staff overhead. Serious inquiries are filtered from casual browsers. |
 | **Automated Email Notifications** | Instant response to every inquiry. Studies show leads contacted within 5 minutes are 21x more likely to convert. Your clients receive immediate confirmation; your team receives real-time alerts. |
 | **Professional Form Validation** | Prevents incomplete submissions. No more chasing clients for missing phone numbers or invalid email addresses. |
 | **Mobile-First Design** | Over 60% of South African web traffic is mobile. Your clients can request quotes from their phones as easily as from a desktop. |
 | **Dark/Light Mode** | Modern expectation from users. Reduces eye strain and improves accessibility for all visitors. |
+| **Search Engine Optimisation** | Your website won't just exist - it will be found. Professional sitemap, meta tags, and structured data help Google understand and rank your pages. When potential clients search for "insurance broker Durban", you'll have a fighting chance of appearing. |
 
 ### Quick Stats
 
@@ -39,6 +40,7 @@ This isn't a digital brochure - it's a lead-generation and operations engine. He
 - **Automated Emails** to both clients and your team
 - **POPIA-Compliant** cookie consent built-in
 - **FSP 47089** properly displayed throughout
+- **SEO-Ready** with sitemap, meta tags, and structured data for Google indexing
 
 ---
 
@@ -122,9 +124,27 @@ This MVP is hosted on a **live staging server** for stakeholder evaluation. It i
 - **Placeholder content** - Sample data, fictional testimonials, estimated statistics
 - **Under Development notices** - Some pages display "Coming Soon" messaging
 - **Amber banner** - The site-wide banner reminds all visitors this is a work in progress
+- **Bugs and visual inconsistencies** - You may encounter layout glitches, spacing issues, or elements that don't behave as expected on certain devices. This is normal for software in active development - please note these so I can address them
 - **Your feedback shapes it** - Nothing is final until you approve
 
 **Preview URL:** [Insert Vercel Preview URL]
+
+**Alternative Design:** I've also created an alternative home page with a different hero style for your consideration:
+[Insert Vercel Preview URL]/home-alt
+
+---
+
+### Your Competitive Edge
+
+Most insurance brokers in South Africa still rely on outdated websites that can't capture leads or process applications online. Many have no web presence at all beyond a basic listing. This platform positions Metrosure as a modern, digitally-enabled broker that clients and partners can trust with their business.
+
+**What this means for you:**
+
+- **24/7 Lead Capture** - Your competitors' websites (if they exist) are digital brochures. Yours generates business while you sleep.
+- **Professional First Impression** - When potential clients compare you to other brokers, your digital presence signals credibility and competence.
+- **Operational Efficiency** - Every automated form submission is time your team doesn't spend on data entry or phone tag.
+
+**Built-in Analytics:** We've integrated Vercel Analytics to track how visitors interact with the site. You'll be able to see which pages attract attention, where people spend time, and where they drop off. This data informs future improvements.
 
 ---
 
@@ -218,12 +238,15 @@ Your new website is ready for review. Here's what you need to know:
 | Automated confirmations | Live - clients get instant response |
 | Mobile-responsive design | Live - works on all devices |
 | POPIA cookie consent | Live - compliant |
+| SEO optimisation | Live - sitemap, meta tags, structured data for Google |
 
-**25 pages built. 4 forms functional. Automated emails working.**
+**25 pages built. 4 forms functional. Automated emails working. SEO-ready.**
 
 ### Important Caveat
 
 **The website content is based on my industry research, not your actual processes.** Product descriptions, statistics, and testimonials are placeholders. Heavy modification with your input is required before launch.
+
+**Development Note:** You may encounter bugs or UI inconsistencies - this is expected for software in active development. Please note any issues you find.
 
 ### The Proposal
 
@@ -248,6 +271,8 @@ This is a work in progress on a staging server. Expect changes. Your feedback sh
 ---
 
 **Preview:** [Insert Vercel Preview URL]
+
+**Alternative home page:** [Insert Vercel Preview URL]/home-alt (different hero design for comparison)
 
 ---
 
@@ -338,4 +363,4 @@ Before launch, ensure stakeholders have verified:
 ---
 
 *Created: December 26, 2025*
-*Updated: December 28, 2025 (Session 25) - Complete rewrite with three versions, business context, and funeral policy proposal*
+*Updated: December 28, 2025 (Session 32) - Added SEO mentions, development disclaimer, alternative home page link, competitive edge section*

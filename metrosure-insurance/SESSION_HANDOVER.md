@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 27 - Complete)
+**Date:** December 28, 2025 (Session 31 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -55,6 +55,368 @@
 | Partners form dark mode | ✅ Complete | Migrated to Tailwind dark: classes |
 | Alternative home page | ✅ Complete | /home-alt with centered text-only hero |
 | Stakeholder email update | ✅ Complete | Added email delivery status note |
+| Quote form inline validation | ✅ Complete | InputIcon + InlineError + onBlur validation |
+| ApplicationModal validation | ✅ Complete | Full validation + dark mode migration (S29) |
+| ApplicationForm validation | ✅ Complete | Full validation + dark mode migration (S29) |
+| Mobile responsiveness | ✅ Complete | Responsive fixes across all components (S30) |
+| Vercel Analytics | ✅ Complete | @vercel/analytics integrated (S31) |
+| About hero arrow | ✅ Complete | Replaced underline with arrow icon (S31) |
+| Carousel navigation fix | ✅ Complete | Fixed stale closures and debouncing (S31) |
+
+---
+
+## Session 31 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Analytics Integration, UI Polish, Carousel Bug Fixes
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Vercel Analytics | Added @vercel/analytics to track stakeholder visits | `layout.tsx`, `package.json` |
+| About hero arrow | Removed underline from "Partner with us", added arrow icon with hover | `about/page.tsx` |
+| Carousel navigation fix | Fixed carousel getting stuck and incorrect rotation | `Testimonials.tsx`, `PartnerTestimonials.tsx` |
+
+### Carousel Fix Details
+
+**Root causes identified:**
+- Stale closures in `handleScroll` callback due to `activeIndex` dependency
+- Dependency chain causing autoplay interval to restart on every navigation
+- Race condition between scroll animation and state updates
+- No debouncing on scroll events
+
+**Solution implemented:**
+- Added `activeIndexRef`, `isScrollingRef`, `scrollTimeoutRef` refs for stable callbacks
+- Implemented 500ms scroll lock during animation
+- Added 100ms debounce on scroll handler
+- Used functional state updates for stable `goToNext`/`goToPrevious`
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/app/layout.tsx` | Added Vercel Analytics import and component |
+| `package.json` | Added @vercel/analytics dependency |
+| `src/app/about/page.tsx` | Hero "Partner with us" link: removed underline, added arrow with hover animation |
+| `src/components/Testimonials.tsx` | Carousel fix: refs, debouncing, scroll locking |
+| `src/components/partners/PartnerTestimonials.tsx` | Same carousel fixes |
+
+### Deferred for Future Sessions
+
+| Feature | Description | Notes |
+|---------|-------------|-------|
+| Login SVG pattern | Decorative brick pattern on red panel | Code ready, user preferred plain background for now |
+| Mission section image | Replace geometric shapes with image overlay | Awaiting professional image, overlay code available |
+
+**Implementation reference for deferred features:**
+
+Login SVG Pattern (for `/login` page red panel):
+```tsx
+<div
+  className="absolute inset-0"
+  style={{
+    backgroundColor: '#d7192f',
+    backgroundImage: `url("data:image/svg+xml,%3Csvg width='32' height='64' viewBox='0 0 32 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 28h20V16h-4v8H4V4h28v28h-4V8H8v12h4v-8h12v20H0v-4zm12 8h20v4H16v24H0v-4h12V36zm16 12h-4v12h8v4H20V44h12v12h-4v-8zM0 36h8v20H0v-4h4V40H0v-4z' fill='%239f0000' fill-opacity='0.77' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+  }}
+/>
+```
+
+Mission Section Image Overlay (for About page):
+```tsx
+<motion.div
+  className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl"
+  initial={{ opacity: 0, scale: 0.95 }}
+  animate={missionInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+  transition={{ duration: 0.6 }}
+>
+  <Image src="/images/mission-image.jpg" alt="Our mission in action" fill className="object-cover" />
+  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
+  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+    <p className="text-lg font-semibold">Protecting families since 2018</p>
+  </div>
+</motion.div>
+```
+
+### Build Status
+
+- **Routes:** 26 (22 pages + 4 API routes)
+- **Build:** ✅ Successful
+- **Dev Server:** Tested on localhost:3000
+
+---
+
+## Session 30 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Mobile Responsiveness Audit & Fixes
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Header logo responsive | Changed fixed width to responsive breakpoints | `src/components/Header.tsx` |
+| Modal mobile-safe max-width | Added viewport calculation for small screens | `src/components/ui/Modal.tsx` |
+| ApplicationForm mobile padding | Responsive padding and select dropdown fixes | `src/components/careers/ApplicationForm.tsx` |
+| ApplicationModal mobile padding | Verified already had good mobile styling | `src/components/careers/ApplicationModal.tsx` |
+| Quote form mobile padding | Responsive padding and select dropdown fixes | `src/app/quote/page.tsx` |
+| Testimonials card responsive | Responsive min-width and padding | `src/components/Testimonials.tsx` |
+
+### Responsive Changes Applied
+
+**Header.tsx (Line 91):**
+```tsx
+// Before
+className="relative h-10 w-[160px]"
+
+// After
+className="relative h-10 w-[120px] sm:w-[140px] md:w-[160px]"
+```
+
+**Modal.tsx (Lines 15-20):**
+```tsx
+// Before
+const sizeClasses = {
+  sm: "max-w-md",
+  md: "max-w-lg",
+  lg: "max-w-2xl",
+  xl: "max-w-4xl",
+};
+
+// After
+const sizeClasses = {
+  sm: "max-w-[calc(100vw-2rem)] sm:max-w-md",
+  md: "max-w-[calc(100vw-2rem)] sm:max-w-lg",
+  lg: "max-w-[calc(100vw-2rem)] sm:max-w-xl md:max-w-2xl",
+  xl: "max-w-[calc(100vw-2rem)] sm:max-w-2xl md:max-w-4xl",
+};
+```
+
+**Modal.tsx (Line 125):**
+```tsx
+// Before
+<div className="p-6">{children}</div>
+
+// After
+<div className="p-4 sm:p-6">{children}</div>
+```
+
+**ApplicationForm.tsx:**
+- Form container: `p-6 sm:p-8 lg:p-10` → `p-4 sm:p-6 md:p-8 lg:p-10`
+- File upload area: `p-6` → `p-4 sm:p-6`
+- Select dropdowns: `pr-12` → `pr-10 sm:pr-12`
+
+**Quote page (page.tsx):**
+- Form container: `p-6 sm:p-8 lg:p-12` → `p-4 sm:p-6 md:p-8 lg:p-12`
+- Select dropdowns: `pr-12` → `pr-10 sm:pr-12`
+
+**Testimonials.tsx (Line 216):**
+```tsx
+// Before
+className="min-w-[300px] sm:min-w-[320px] md:min-w-[420px] ... p-8 pb-6 ..."
+
+// After
+className="min-w-[280px] sm:min-w-[320px] md:min-w-[420px] ... p-6 sm:p-8 pb-6 ..."
+```
+
+### Mobile Viewport Targets
+
+| Viewport | Device | Status |
+|----------|--------|--------|
+| 320px | iPhone SE, small Android | ✅ Supported |
+| 375px | iPhone 12/13/14 | ✅ Supported |
+| 414px | iPhone Plus/Max | ✅ Supported |
+| 768px | iPad portrait | ✅ Supported |
+| 1024px | iPad landscape | ✅ Supported |
+
+### Key Patterns Used
+
+| Pattern | Description |
+|---------|-------------|
+| `max-w-[calc(100vw-2rem)]` | Ensures element never exceeds viewport with 1rem margin |
+| `p-4 sm:p-6 md:p-8` | Progressive padding increase with breakpoints |
+| `pr-10 sm:pr-12` | Smaller arrow padding on mobile for select dropdowns |
+| `w-[120px] sm:w-[140px] md:w-[160px]` | Responsive logo scaling |
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/components/Header.tsx` | Responsive logo width |
+| `src/components/ui/Modal.tsx` | Viewport-safe max-width, responsive content padding |
+| `src/components/careers/ApplicationForm.tsx` | Responsive padding, file upload, select padding |
+| `src/app/quote/page.tsx` | Responsive form padding, select padding |
+| `src/components/Testimonials.tsx` | Responsive card min-width and padding |
+
+### Build Status
+
+- **Routes:** 26 (22 pages + 4 API routes)
+- **Build:** ✅ Successful
+- **Dev Server:** Tested on localhost:3000
+
+### Session 31 Recommendations
+
+**Security Enhancements (Deferred from S30):**
+- reCAPTCHA v3 integration (requires Google API keys)
+- Input sanitization with DOMPurify
+- Security headers in next.config.ts
+
+**Accessibility Improvements (Deferred from S30):**
+- Modal ARIA attributes and focus trap
+- Form field ARIA attributes
+- Skip-to-content link
+- Keyboard navigation improvements
+- Color contrast fixes
+
+---
+
+## Session 29 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Form Consistency - Careers Forms Upgrade
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| ApplicationModal validation | Added InputIcon with validation states, InlineError, onBlur handlers, dark mode migration | `src/components/careers/ApplicationModal.tsx` |
+| ApplicationForm validation | Added InputIcon with validation states, InlineError, onBlur handlers, dark mode migration | `src/components/careers/ApplicationForm.tsx` |
+
+### ApplicationModal Changes
+
+**Validation Added:**
+| Field | Icon | Validation |
+|-------|------|------------|
+| fullName | `person` | Required |
+| email | `mail` | Email format |
+| phone | `call` | SA phone format |
+
+**Dark Mode Migration:**
+- Migrated all CSS variables to Tailwind dark: classes
+- Section: `bg-slate-50 dark:bg-slate-900`
+- Cards: `bg-white dark:bg-slate-800`
+- Borders: `border-slate-200 dark:border-slate-700`
+- Text: `text-slate-900 dark:text-white`, `text-slate-600 dark:text-slate-300`
+
+**New Features:**
+- `fieldStates` state for tracking validation
+- `validateField()` callback for onBlur validation
+- `getFieldState()` helper for field state access
+- Field states reset on modal close
+
+### ApplicationForm Changes
+
+**Same validation pattern as ApplicationModal:**
+- InputIcon with valid/touched props on fullName, email, phone
+- InlineError components below validated fields
+- onBlur handlers triggering validateRequired, validateEmail, validatePhone
+- Full dark mode migration from CSS variables to Tailwind classes
+
+**Left Column Info Section:**
+- Migrated to Tailwind dark: classes
+- Contact info card styling updated
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/components/careers/ApplicationModal.tsx` | Added InlineError import, fieldStates state, validateField callback, getFieldState helper, InputIcon with validation props, onBlur handlers, dark mode migration |
+| `src/components/careers/ApplicationForm.tsx` | Same changes as ApplicationModal, plus left column dark mode migration |
+
+### Build Status
+- ✅ Build successful
+- 26 routes (22 pages + 4 API routes)
+- No TypeScript errors
+
+---
+
+## Session 28 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Form Consistency - Quote Form Inline Validation
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Quote form inline validation | Added InputIcon, InlineError, and onBlur validation to all Step 1 fields | `src/app/quote/page.tsx` |
+
+### Quote Form Validation Details
+
+**Fields with Validation:**
+| Field | Icon | Validation |
+|-------|------|------------|
+| First Name | `person` | Required |
+| Last Name | `badge` | Required |
+| Email | `mail` | Required + email format |
+| Phone | `call` | Required + SA phone format |
+| Area Code | `location_on` | Required |
+
+**Implementation Pattern:**
+- Uses `InputIcon` component with `valid` and `touched` props
+- Uses `InlineError` component for animated error messages
+- Uses `getInputClassesWithIcon()` for dynamic input styling
+- Uses `validateField()` callback triggered on `onBlur`
+- Field states reset when form is reset
+
+**Components Used:**
+- `@/components/ui/InputIcon` - Icon with validation state colors
+- `@/components/ui/InlineError` - Animated error messages
+- `@/lib/formValidation` - Validation utilities (validateEmail, validatePhone, validateRequired)
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/app/quote/page.tsx` | Added imports, fieldStates state, validateField callback, getFieldState helper, replaced inline icons with InputIcon, added onBlur handlers, added InlineError components |
+
+---
+
+## Session 30 Plan (NEXT SESSION)
+
+### Priority 1: Mobile Testing & Responsiveness (HIGH)
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Mobile responsiveness audit | Test all pages on mobile devices | Site-wide |
+| Cross-browser testing | Verify Chrome, Firefox, Safari, Edge compatibility | Site-wide |
+| Form testing on mobile | Test all 5 forms on mobile devices | All form components |
+
+### Priority 2: Security Enhancements (MEDIUM)
+
+| Task | Description | Effort |
+|------|-------------|--------|
+| reCAPTCHA v3 | Add invisible reCAPTCHA to all forms | Medium |
+| Input sanitization | Add DOMPurify for user content in emails | Low |
+| CSRF protection | Verify Next.js CSRF handling | Low |
+
+### Priority 3: Accessibility Audit (MEDIUM)
+
+| Task | Description |
+|------|-------------|
+| Keyboard navigation | Verify all interactive elements accessible via Tab/Enter |
+| ARIA labels | Add missing labels to icon buttons and links |
+| Focus indicators | Ensure visible focus states on all interactive elements |
+| Screen reader testing | Test with NVDA/VoiceOver |
+| Color contrast | Verify WCAG AA compliance (4.5:1 ratio) |
+
+### Priority 4: Deferred Items
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Funeral Policy Digitisation | BLOCKED | Waiting for stakeholder meeting |
+| Blog section | Pending | SEO and industry insights |
+| Real testimonials | Pending | Need client consent |
+
+---
+
+## Form Consistency Status
+
+| Form | Icons | Inline Validation | Dark Mode | Status |
+|------|-------|-------------------|-----------|--------|
+| ContactForm | ✅ Full | ✅ Full | ✅ Tailwind dark: | Complete |
+| PartnerInquiryForm | ✅ Full | ✅ Full | ✅ Tailwind dark: | Complete |
+| Quote Form | ✅ Full | ✅ Full | ✅ Tailwind dark: | Complete (S28) |
+| ApplicationModal | ✅ Full | ✅ Full | ✅ Tailwind dark: | Complete (S29) |
+| ApplicationForm | ✅ Full | ✅ Full | ✅ Tailwind dark: | Complete (S29) |
+
+**All 5 forms now have consistent validation UX and dark mode styling.**
 
 ---
 
@@ -607,13 +969,13 @@ Current trend favors **Option B** (Tailwind dark mode) based on Session 21 chang
 
 ### Form Consistency Checklist
 
-| Form | Icons | Dark Mode | Validation | Status |
-|------|-------|-----------|------------|--------|
-| Contact Form | ✅ | ✅ | ✅ Inline | Complete |
-| Quote Form | ✅ | ✅ | ❌ None | Needs validation |
-| Partner Inquiry | ✅ | ✅ (S27) | ❌ None | Dark mode fixed, needs validation |
-| Careers Modal | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
-| Careers Form | ❌ | ⚠️ Partial | ❌ None | Needs icons/validation |
+| Form | Icons | Dark Mode | Validation | Responsive | Status |
+|------|-------|-----------|------------|------------|--------|
+| Contact Form | ✅ | ✅ | ✅ Inline | ✅ | Complete |
+| Quote Form | ✅ | ✅ | ❌ None | ✅ (S30) | Needs validation |
+| Partner Inquiry | ✅ | ✅ (S27) | ❌ None | ✅ | Dark mode fixed, needs validation |
+| Careers Modal | ✅ (S29) | ✅ (S29) | ✅ (S29) | ✅ (S30) | Complete |
+| Careers Form | ✅ (S29) | ✅ (S29) | ✅ (S29) | ✅ (S30) | Complete |
 
 **Recommendation:** Add inline validation to Quote and Partner forms using existing ContactForm pattern.
 
@@ -1084,7 +1446,11 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S27** | **Business Hours, Social Links, Alt Home** | Business hours update, X→Facebook, GitHub→Apple, Partners form dark mode, /home-alt route |
+| **Dec 28, 2025** | **S31** | **Analytics, UI Polish, Carousel Fix** | Vercel Analytics, About hero arrow, carousel navigation fix (refs, debouncing) |
+| Dec 28, 2025 | S30 | Mobile Responsiveness | Header logo responsive, Modal mobile-safe, form padding/selects, Testimonials responsive |
+| Dec 28, 2025 | S29 | Form Consistency - Careers Forms | ApplicationModal + ApplicationForm validation, dark mode migration, all 5 forms complete |
+| Dec 28, 2025 | S28 | Form Consistency - Quote Validation | Quote form inline validation (InputIcon, InlineError, onBlur handlers) |
+| Dec 28, 2025 | S27 | Business Hours, Social Links, Alt Home | Business hours update, X→Facebook, GitHub→Apple, Partners form dark mode, /home-alt route |
 | Dec 28, 2025 | S26 | About Page UI Polish | Footer/Header nav sync, active nav state indicator, leadership slide-up transparency, timeline line fix |
 | Dec 28, 2025 | S25 | Stakeholder Email Rewrite | 3 email versions, business context, funeral policy proposal, industry disclaimer |
 | Dec 28, 2025 | S24 | Rate Limiting & Forms | Rate limiting on 4 APIs, reusable form components (InputIcon, InlineError) |
@@ -1106,8 +1472,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 ---
 
-*Document updated: December 28, 2025 - Session 27 Complete*
-*Next session: S28 - Mobile testing, accessibility audit, or funeral policy digitisation (if stakeholder meeting scheduled)*
+*Document updated: December 28, 2025 - Session 31 Complete*
+*Next session: S32 - Security (reCAPTCHA), accessibility audit, or deferred visual enhancements*
 
 ---
 
@@ -1996,5 +2362,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 28, 2025 - Session 27 Complete*
-*Next session: S28 - Mobile testing, accessibility audit, or funeral policy digitisation (if stakeholder meeting scheduled)*
+*Document updated: December 28, 2025 - Session 29 Complete*
+*All 5 forms now have consistent validation UX and dark mode styling.*

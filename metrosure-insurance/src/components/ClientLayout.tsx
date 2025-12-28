@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
-import CookieConsent from "./CookieConsent";
+// import CookieConsent from "./CookieConsent"; // Disabled - re-enable when ready
 import DevelopmentBanner from "./DevelopmentBanner";
 
 interface ClientLayoutProps {
@@ -49,8 +49,8 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
         </Link>
       </motion.div>
 
-      {/* POPIA Cookie Consent Banner */}
-      <CookieConsent />
+      {/* POPIA Cookie Consent Banner - Disabled, re-enable when ready */}
+      {/* <CookieConsent /> */}
     </>
   );
 }

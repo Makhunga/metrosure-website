@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Header, Footer, ScrollToTop } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -253,10 +254,11 @@ export default function AboutPage() {
             >
               <Link
                 href="/partners"
-                className="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
+                className="group inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
               >
                 <span className="material-symbols-outlined text-base">storefront</span>
-                <span>Own a retail space? <span className="font-semibold underline">Partner with us</span></span>
+                <span>Own a retail space? <span className="font-semibold">Partner with us</span></span>
+                <span className="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
               </Link>
             </motion.div>
           </motion.div>

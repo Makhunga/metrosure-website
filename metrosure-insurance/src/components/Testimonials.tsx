@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, MutableRefObject } from "react";
 import { motion, useInView } from "framer-motion";
 import { TextReveal } from "./animations";
 
@@ -73,6 +73,16 @@ export default function Testimonials() {
   const [hasAnimated, setHasAnimated] = useState(false);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
+  // Refs for stable callbacks
+  const activeIndexRef = useRef(activeIndex);
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
   // Mark initial animation as complete
   useEffect(() => {
     if (isInView && !hasAnimated) {
@@ -82,7 +92,7 @@ export default function Testimonials() {
   }, [isInView, hasAnimated]);
 
   const scrollToIndex = useCallback((index: number) => {
-    if (!scrollContainerRef.current) return;
+    if (!scrollContainerRef.current || isScrollingRef.current) return;
     const container = scrollContainerRef.current;
 
     // Wrap around for cycling
@@ -92,6 +102,7 @@ export default function Testimonials() {
 
     const cards = container.children;
     if (cards[targetIndex]) {
+      isScrollingRef.current = true;
       const card = cards[targetIndex] as HTMLElement;
       const scrollLeft = card.offsetLeft - container.clientWidth / 2 + card.offsetWidth / 2;
 
@@ -100,58 +111,80 @@ export default function Testimonials() {
         behavior: "smooth",
       });
 
-      // Directly set activeIndex for reliable state update
       setActiveIndex(targetIndex);
+
+      // Reset scrolling flag after animation completes
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 500);
     }
   }, []);
 
-  // Navigate to previous slide (with cycling)
+  // Navigate to previous slide (with cycling) - stable callback using functional update
   const goToPrevious = useCallback(() => {
-    const prevIndex = activeIndex === 0 ? testimonialsData.length - 1 : activeIndex - 1;
-    scrollToIndex(prevIndex);
-  }, [activeIndex, scrollToIndex]);
+    setActiveIndex(prev => {
+      const newIndex = prev === 0 ? testimonialsData.length - 1 : prev - 1;
+      // Schedule scroll after state update
+      setTimeout(() => scrollToIndex(newIndex), 0);
+      return prev; // Don't update here, scrollToIndex will handle it
+    });
+  }, [scrollToIndex]);
 
-  // Navigate to next slide (with cycling)
+  // Navigate to next slide (with cycling) - stable callback using functional update
   const goToNext = useCallback(() => {
-    const nextIndex = (activeIndex + 1) % testimonialsData.length;
+    if (isScrollingRef.current) return;
+    const nextIndex = (activeIndexRef.current + 1) % testimonialsData.length;
     scrollToIndex(nextIndex);
-  }, [activeIndex, scrollToIndex]);
+  }, [scrollToIndex]);
 
-  // Autoplay with cycling
+  // Autoplay with cycling - stable interval
   useEffect(() => {
     if (isPaused || !isInView) return;
 
     const interval = setInterval(() => {
-      goToNext();
+      if (!isScrollingRef.current) {
+        const nextIndex = (activeIndexRef.current + 1) % testimonialsData.length;
+        scrollToIndex(nextIndex);
+      }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isPaused, isInView, goToNext]);
+  }, [isPaused, isInView, scrollToIndex]);
 
-  // Handle manual scroll to update active index
+  // Handle manual scroll to update active index - debounced
   const handleScroll = useCallback(() => {
-    if (!scrollContainerRef.current) return;
-    const container = scrollContainerRef.current;
-    const viewportCenter = container.scrollLeft + container.clientWidth / 2;
+    if (isScrollingRef.current) return;
 
-    let closestIndex = 0;
-    let minDistance = Infinity;
-
-    Array.from(container.children).forEach((child, index) => {
-      const element = child as HTMLElement;
-      const elementCenter = element.offsetLeft + element.offsetWidth / 2;
-      const distance = Math.abs(elementCenter - viewportCenter);
-
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    if (closestIndex !== activeIndex) {
-      setActiveIndex(closestIndex);
+    // Clear existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
     }
-  }, [activeIndex]);
+
+    // Debounce scroll handling
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (!scrollContainerRef.current) return;
+      const container = scrollContainerRef.current;
+      const viewportCenter = container.scrollLeft + container.clientWidth / 2;
+
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      Array.from(container.children).forEach((child, index) => {
+        const element = child as HTMLElement;
+        const elementCenter = element.offsetLeft + element.offsetWidth / 2;
+        const distance = Math.abs(elementCenter - viewportCenter);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      if (closestIndex !== activeIndexRef.current) {
+        setActiveIndex(closestIndex);
+      }
+    }, 100);
+  }, []);
 
   return (
     <section
@@ -213,7 +246,7 @@ export default function Testimonials() {
           <motion.div
             key={index}
             onClick={() => scrollToIndex(index)}
-            className={`min-w-[300px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-8 pb-6 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer
+            className={`min-w-[280px] sm:min-w-[320px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-6 sm:p-8 pb-6 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer
               ${
                 isActive
                   ? "border-primary shadow-lg shadow-primary/10"

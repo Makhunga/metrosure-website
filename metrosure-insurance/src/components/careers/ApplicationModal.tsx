@@ -1,10 +1,20 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Modal } from "@/components/ui/Modal";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import { InputIcon } from "@/components/ui/InputIcon";
+import { InlineError } from "@/components/ui/InlineError";
+import {
+  FieldState,
+  FieldStates,
+  validateEmail,
+  validatePhone,
+  validateRequired,
+  getInputClassesWithIcon,
+  labelClasses,
+} from "@/lib/formValidation";
 
 interface ApplicationModalProps {
   isOpen: boolean;
@@ -76,7 +86,30 @@ export default function ApplicationModal({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
+  const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Validation callback
+  const validateField = useCallback(
+    (fieldName: string, value: string, validator: (val: string) => string | null) => {
+      const error = validator(value);
+      setFieldStates((prev) => ({
+        ...prev,
+        [fieldName]: {
+          touched: true,
+          error,
+          valid: error === null && value.length > 0,
+        },
+      }));
+      return error === null;
+    },
+    []
+  );
+
+  // Get field state helper
+  const getFieldState = (fieldName: string): FieldState => {
+    return fieldStates[fieldName] || { touched: false, error: null, valid: false };
+  };
 
   // Update form when selectedPosition changes
   useEffect(() => {
@@ -101,6 +134,7 @@ export default function ApplicationModal({
         setFileName("");
         setIsSubmitted(false);
         setError(null);
+        setFieldStates({});
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
@@ -109,11 +143,9 @@ export default function ApplicationModal({
     }
   }, [isOpen]);
 
-  const inputClasses =
-    "w-full rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-[rgb(var(--color-surface-card))] transition-all py-3.5 px-4 text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] text-sm";
-
-  const labelClasses =
-    "block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2";
+  // Standard input classes for selects (no icon/validation state)
+  const selectClasses =
+    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm";
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -201,6 +233,7 @@ export default function ApplicationModal({
     setFileName("");
     setIsSubmitted(false);
     setError(null);
+    setFieldStates({});
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -234,10 +267,10 @@ export default function ApplicationModal({
                 </span>
                 Actively Hiring
               </div>
-              <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))]">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                 Quick Apply
               </h3>
-              <p className="text-[rgb(var(--color-text-body))] mt-1 text-sm">
+              <p className="text-slate-600 dark:text-slate-300 mt-1 text-sm">
                 Takes less than 2 minutes
               </p>
             </div>
@@ -264,35 +297,51 @@ export default function ApplicationModal({
                     Full Name *
                   </label>
                   <div className="relative">
-                    <InputIcon icon="person" />
+                    <InputIcon
+                      icon="person"
+                      valid={getFieldState("fullName").valid}
+                      touched={getFieldState("fullName").touched}
+                    />
                     <input
-                      className={`${inputClasses} pl-12`}
+                      className={getInputClassesWithIcon(getFieldState("fullName"))}
                       id="modal-fullName"
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
+                      onBlur={(e) =>
+                        validateField("fullName", e.target.value, (v) =>
+                          validateRequired(v, "Full name")
+                        )
+                      }
                       placeholder="Your full name"
                       required
                     />
                   </div>
+                  <InlineError error={getFieldState("fullName").error} />
                 </div>
                 <div>
                   <label className={labelClasses} htmlFor="modal-email">
                     Email Address *
                   </label>
                   <div className="relative">
-                    <InputIcon icon="mail" />
+                    <InputIcon
+                      icon="mail"
+                      valid={getFieldState("email").valid}
+                      touched={getFieldState("email").touched}
+                    />
                     <input
-                      className={`${inputClasses} pl-12`}
+                      className={getInputClassesWithIcon(getFieldState("email"))}
                       id="modal-email"
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
+                      onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                       placeholder="you@email.com"
                       required
                     />
                   </div>
+                  <InlineError error={getFieldState("email").error} />
                 </div>
               </div>
 
@@ -301,18 +350,24 @@ export default function ApplicationModal({
                   Phone Number *
                 </label>
                 <div className="relative">
-                  <InputIcon icon="call" />
+                  <InputIcon
+                    icon="call"
+                    valid={getFieldState("phone").valid}
+                    touched={getFieldState("phone").touched}
+                  />
                   <input
-                    className={`${inputClasses} pl-12`}
+                    className={getInputClassesWithIcon(getFieldState("phone"))}
                     id="modal-phone"
                     name="phone"
                     type="tel"
                     value={formData.phone}
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
                     placeholder="+27 XX XXX XXXX"
                     required
                   />
                 </div>
+                <InlineError error={getFieldState("phone").error} />
               </div>
 
               {/* Position & Province */}
@@ -323,7 +378,7 @@ export default function ApplicationModal({
                   </label>
                   <div className="relative">
                     <select
-                      className={`${inputClasses} appearance-none pr-10`}
+                      className={`${selectClasses} appearance-none pr-10`}
                       id="modal-position"
                       name="position"
                       value={formData.position}
@@ -337,7 +392,7 @@ export default function ApplicationModal({
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[rgb(var(--color-text-muted))]">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
                       <span className="material-symbols-outlined text-lg">expand_more</span>
                     </div>
                   </div>
@@ -348,7 +403,7 @@ export default function ApplicationModal({
                   </label>
                   <div className="relative">
                     <select
-                      className={`${inputClasses} appearance-none pr-10`}
+                      className={`${selectClasses} appearance-none pr-10`}
                       id="modal-province"
                       name="province"
                       value={formData.province}
@@ -362,7 +417,7 @@ export default function ApplicationModal({
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[rgb(var(--color-text-muted))]">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
                       <span className="material-symbols-outlined text-lg">expand_more</span>
                     </div>
                   </div>
@@ -377,7 +432,7 @@ export default function ApplicationModal({
                   </label>
                   <div className="relative">
                     <select
-                      className={`${inputClasses} appearance-none pr-10`}
+                      className={`${selectClasses} appearance-none pr-10`}
                       id="modal-experience"
                       name="experience"
                       value={formData.experience}
@@ -391,7 +446,7 @@ export default function ApplicationModal({
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[rgb(var(--color-text-muted))]">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
                       <span className="material-symbols-outlined text-lg">expand_more</span>
                     </div>
                   </div>
@@ -402,7 +457,7 @@ export default function ApplicationModal({
                   </label>
                   <div className="relative">
                     <select
-                      className={`${inputClasses} appearance-none pr-10`}
+                      className={`${selectClasses} appearance-none pr-10`}
                       id="modal-willingToRelocate"
                       name="willingToRelocate"
                       value={formData.willingToRelocate}
@@ -414,7 +469,7 @@ export default function ApplicationModal({
                       <option value="no">No</option>
                       <option value="depends">Depends on location</option>
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[rgb(var(--color-text-muted))]">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
                       <span className="material-symbols-outlined text-lg">expand_more</span>
                     </div>
                   </div>
@@ -428,7 +483,7 @@ export default function ApplicationModal({
                   className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${
                     fileName
                       ? "border-primary bg-primary/5"
-                      : "border-[rgb(var(--color-border-light))] hover:border-primary/50"
+                      : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
                   }`}
                   onClick={() => fileInputRef.current?.click()}
                 >
@@ -444,7 +499,7 @@ export default function ApplicationModal({
                       <span className="material-symbols-outlined text-primary text-xl">
                         description
                       </span>
-                      <span className="text-[rgb(var(--color-text-main))] font-medium text-sm">
+                      <span className="text-slate-900 dark:text-white font-medium text-sm">
                         {fileName}
                       </span>
                       <button
@@ -460,14 +515,14 @@ export default function ApplicationModal({
                     </div>
                   ) : (
                     <>
-                      <span className="material-symbols-outlined text-[rgb(var(--color-text-muted))] text-2xl mb-1">
+                      <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-2xl mb-1">
                         cloud_upload
                       </span>
-                      <p className="text-[rgb(var(--color-text-body))] text-sm">
+                      <p className="text-slate-600 dark:text-slate-300 text-sm">
                         <span className="text-primary font-semibold">Click to upload</span> or
                         drag and drop
                       </p>
-                      <p className="text-xs text-[rgb(var(--color-text-muted))] mt-1">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                         PDF, DOC, DOCX (Max 5MB)
                       </p>
                     </>
@@ -483,9 +538,9 @@ export default function ApplicationModal({
                   checked={formData.privacyConsent}
                   onChange={handleInputChange}
                   required
-                  className="w-4 h-4 mt-0.5 rounded border-[rgb(var(--color-border-medium))] text-primary focus:ring-primary"
+                  className="w-4 h-4 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
                 />
-                <span className="text-xs text-[rgb(var(--color-text-body))]">
+                <span className="text-xs text-slate-600 dark:text-slate-300">
                   I agree to the{" "}
                   <a href="/privacy" className="text-primary hover:underline">
                     Privacy Policy

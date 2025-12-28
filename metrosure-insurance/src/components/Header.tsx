@@ -88,7 +88,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center cursor-pointer group">
             <motion.div
-              className="relative h-10 w-[160px]"
+              className="relative h-10 w-[120px] sm:w-[140px] md:w-[160px]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}

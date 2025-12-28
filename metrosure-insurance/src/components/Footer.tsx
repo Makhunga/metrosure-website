@@ -176,13 +176,13 @@ export default function Footer() {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 mb-12"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Brand Column - Logo only */}
-          <motion.div className="lg:col-span-2" variants={itemVariants}>
+          <motion.div className="col-span-2 lg:col-span-2" variants={itemVariants}>
             <ParallaxWrapper speed={0.15} prefersReducedMotion={prefersReducedMotion}>
               <Link href="/" className="flex items-center group">
                 <motion.div

@@ -1,8 +1,19 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
+import { InputIcon } from "@/components/ui/InputIcon";
+import { InlineError } from "@/components/ui/InlineError";
+import {
+  FieldState,
+  FieldStates,
+  validateEmail,
+  validatePhone,
+  validateRequired,
+  getInputClassesWithIcon,
+  labelClasses,
+} from "@/lib/formValidation";
 
 interface ApplicationFormProps {
   id?: string;
@@ -76,7 +87,30 @@ export default function ApplicationForm({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
+  const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Validation callback
+  const validateField = useCallback(
+    (fieldName: string, value: string, validator: (val: string) => string | null) => {
+      const error = validator(value);
+      setFieldStates((prev) => ({
+        ...prev,
+        [fieldName]: {
+          touched: true,
+          error,
+          valid: error === null && value.length > 0,
+        },
+      }));
+      return error === null;
+    },
+    []
+  );
+
+  // Get field state helper
+  const getFieldState = (fieldName: string): FieldState => {
+    return fieldStates[fieldName] || { touched: false, error: null, valid: false };
+  };
 
   // Update form when selectedPosition changes from parent
   useEffect(() => {
@@ -93,11 +127,9 @@ export default function ApplicationForm({
     }
   }, [selectedPosition]);
 
-  const inputClasses =
-    "w-full rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-[rgb(var(--color-surface-card))] transition-all py-3.5 px-4 text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))]";
-
-  const labelClasses =
-    "block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2";
+  // Standard input classes for selects (no icon/validation state)
+  const selectClasses =
+    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -191,6 +223,7 @@ export default function ApplicationForm({
     setFileName("");
     setIsSubmitted(false);
     setError(null);
+    setFieldStates({});
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -200,7 +233,7 @@ export default function ApplicationForm({
     <section
       ref={ref}
       id={id}
-      className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300"
+      className="relative py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -226,12 +259,12 @@ export default function ApplicationForm({
               </span>
             </motion.span>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
               We&apos;re Always <span className="text-primary">Hiring</span>
             </h2>
-            <p className="text-xl text-[rgb(var(--color-text-body))] mb-8">
+            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
               Join our sales and customer service teams. Apply now and hear
-              back within <strong className="text-[rgb(var(--color-text-main))]">48 hours</strong>.
+              back within <strong className="text-slate-900 dark:text-white">48 hours</strong>.
             </p>
 
             {/* Key Points */}
@@ -243,10 +276,10 @@ export default function ApplicationForm({
                   </span>
                 </div>
                 <div>
-                  <div className="font-semibold text-[rgb(var(--color-text-main))]">
+                  <div className="font-semibold text-slate-900 dark:text-white">
                     No Experience? No Problem
                   </div>
-                  <p className="text-sm text-[rgb(var(--color-text-body))]">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
                     We provide full training to get you started
                   </p>
                 </div>
@@ -258,10 +291,10 @@ export default function ApplicationForm({
                   </span>
                 </div>
                 <div>
-                  <div className="font-semibold text-[rgb(var(--color-text-main))]">
+                  <div className="font-semibold text-slate-900 dark:text-white">
                     Multiple Locations
                   </div>
-                  <p className="text-sm text-[rgb(var(--color-text-body))]">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
                     Offices across South Africa, find one near you
                   </p>
                 </div>
@@ -273,10 +306,10 @@ export default function ApplicationForm({
                   </span>
                 </div>
                 <div>
-                  <div className="font-semibold text-[rgb(var(--color-text-main))]">
+                  <div className="font-semibold text-slate-900 dark:text-white">
                     Start Earning Fast
                   </div>
-                  <p className="text-sm text-[rgb(var(--color-text-body))]">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
                     Competitive base + commission structure
                   </p>
                 </div>
@@ -284,8 +317,8 @@ export default function ApplicationForm({
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-3 p-6 rounded-2xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))]">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-[rgb(var(--color-text-muted))]">
+            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Questions? Contact HR
               </h3>
               <div className="flex items-center gap-3">
@@ -294,7 +327,7 @@ export default function ApplicationForm({
                 </span>
                 <a
                   href="mailto:hr@metrosuregroup.co.za"
-                  className="text-[rgb(var(--color-text-main))] hover:text-primary transition-colors"
+                  className="text-slate-900 dark:text-white hover:text-primary transition-colors"
                 >
                   hr@metrosuregroup.co.za
                 </a>
@@ -305,7 +338,7 @@ export default function ApplicationForm({
                 </span>
                 <a
                   href="tel:+27313011192"
-                  className="text-[rgb(var(--color-text-main))] hover:text-primary transition-colors"
+                  className="text-slate-900 dark:text-white hover:text-primary transition-colors"
                 >
                   +27 31 301 1192
                 </a>
@@ -319,7 +352,7 @@ export default function ApplicationForm({
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-[rgb(var(--color-surface-card))] rounded-3xl p-8 md:p-10 shadow-xl border border-[rgb(var(--color-border-light))]">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 shadow-xl border border-slate-200 dark:border-slate-700">
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
                   <FormSuccess
@@ -339,10 +372,10 @@ export default function ApplicationForm({
                     exit={{ opacity: 0 }}
                   >
                     <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))]">
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                         Quick Apply
                       </h3>
-                      <p className="text-[rgb(var(--color-text-body))] mt-1">
+                      <p className="text-slate-600 dark:text-slate-300 mt-1">
                         Takes less than 2 minutes
                       </p>
                     </div>
@@ -369,30 +402,54 @@ export default function ApplicationForm({
                         <label className={labelClasses} htmlFor="fullName">
                           Full Name *
                         </label>
-                        <input
-                          className={inputClasses}
-                          id="fullName"
-                          name="fullName"
-                          value={formData.fullName}
-                          onChange={handleInputChange}
-                          placeholder="Your full name"
-                          required
-                        />
+                        <div className="relative">
+                          <InputIcon
+                            icon="person"
+                            valid={getFieldState("fullName").valid}
+                            touched={getFieldState("fullName").touched}
+                          />
+                          <input
+                            className={getInputClassesWithIcon(getFieldState("fullName"))}
+                            id="fullName"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleInputChange}
+                            onBlur={(e) =>
+                              validateField("fullName", e.target.value, (v) =>
+                                validateRequired(v, "Full name")
+                              )
+                            }
+                            placeholder="Your full name"
+                            required
+                          />
+                        </div>
+                        <InlineError error={getFieldState("fullName").error} />
                       </div>
                       <div>
                         <label className={labelClasses} htmlFor="email">
                           Email Address *
                         </label>
-                        <input
-                          className={inputClasses}
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder="you@email.com"
-                          required
-                        />
+                        <div className="relative">
+                          <InputIcon
+                            icon="mail"
+                            valid={getFieldState("email").valid}
+                            touched={getFieldState("email").touched}
+                          />
+                          <input
+                            className={getInputClassesWithIcon(getFieldState("email"))}
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            onBlur={(e) =>
+                              validateField("email", e.target.value, validateEmail)
+                            }
+                            placeholder="you@email.com"
+                            required
+                          />
+                        </div>
+                        <InlineError error={getFieldState("email").error} />
                       </div>
                     </div>
 
@@ -400,16 +457,27 @@ export default function ApplicationForm({
                       <label className={labelClasses} htmlFor="phone">
                         Phone Number *
                       </label>
-                      <input
-                        className={inputClasses}
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder="+27 XX XXX XXXX"
-                        required
-                      />
+                      <div className="relative">
+                        <InputIcon
+                          icon="call"
+                          valid={getFieldState("phone").valid}
+                          touched={getFieldState("phone").touched}
+                        />
+                        <input
+                          className={getInputClassesWithIcon(getFieldState("phone"))}
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          onBlur={(e) =>
+                            validateField("phone", e.target.value, validatePhone)
+                          }
+                          placeholder="+27 XX XXX XXXX"
+                          required
+                        />
+                      </div>
+                      <InlineError error={getFieldState("phone").error} />
                     </div>
 
                     {/* Position & Province */}
@@ -420,7 +488,7 @@ export default function ApplicationForm({
                         </label>
                         <div className="relative">
                           <select
-                            className={`${inputClasses} appearance-none pr-12`}
+                            className={`${selectClasses} appearance-none pr-10 sm:pr-12`}
                             id="position"
                             name="position"
                             value={formData.position}
@@ -434,7 +502,7 @@ export default function ApplicationForm({
                               </option>
                             ))}
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                             <span className="material-symbols-outlined text-xl">
                               expand_more
                             </span>
@@ -447,7 +515,7 @@ export default function ApplicationForm({
                         </label>
                         <div className="relative">
                           <select
-                            className={`${inputClasses} appearance-none pr-12`}
+                            className={`${selectClasses} appearance-none pr-10 sm:pr-12`}
                             id="province"
                             name="province"
                             value={formData.province}
@@ -461,7 +529,7 @@ export default function ApplicationForm({
                               </option>
                             ))}
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                             <span className="material-symbols-outlined text-xl">
                               expand_more
                             </span>
@@ -478,7 +546,7 @@ export default function ApplicationForm({
                         </label>
                         <div className="relative">
                           <select
-                            className={`${inputClasses} appearance-none pr-12`}
+                            className={`${selectClasses} appearance-none pr-10 sm:pr-12`}
                             id="experience"
                             name="experience"
                             value={formData.experience}
@@ -492,7 +560,7 @@ export default function ApplicationForm({
                               </option>
                             ))}
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                             <span className="material-symbols-outlined text-xl">
                               expand_more
                             </span>
@@ -505,7 +573,7 @@ export default function ApplicationForm({
                         </label>
                         <div className="relative">
                           <select
-                            className={`${inputClasses} appearance-none pr-12`}
+                            className={`${selectClasses} appearance-none pr-10 sm:pr-12`}
                             id="willingToRelocate"
                             name="willingToRelocate"
                             value={formData.willingToRelocate}
@@ -517,7 +585,7 @@ export default function ApplicationForm({
                             <option value="no">No</option>
                             <option value="depends">Depends on location</option>
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[rgb(var(--color-text-muted))]">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
                             <span className="material-symbols-outlined text-xl">
                               expand_more
                             </span>
@@ -532,10 +600,10 @@ export default function ApplicationForm({
                         Upload CV (Optional)
                       </label>
                       <div
-                        className={`relative border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
+                        className={`relative border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all ${
                           fileName
                             ? "border-primary bg-primary/5"
-                            : "border-[rgb(var(--color-border-light))] hover:border-primary/50"
+                            : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
                         }`}
                         onClick={() => fileInputRef.current?.click()}
                       >
@@ -551,7 +619,7 @@ export default function ApplicationForm({
                             <span className="material-symbols-outlined text-primary text-2xl">
                               description
                             </span>
-                            <span className="text-[rgb(var(--color-text-main))] font-medium">
+                            <span className="text-slate-900 dark:text-white font-medium">
                               {fileName}
                             </span>
                             <button
@@ -569,16 +637,16 @@ export default function ApplicationForm({
                           </div>
                         ) : (
                           <>
-                            <span className="material-symbols-outlined text-[rgb(var(--color-text-muted))] text-3xl mb-2">
+                            <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-3xl mb-2">
                               cloud_upload
                             </span>
-                            <p className="text-[rgb(var(--color-text-body))]">
+                            <p className="text-slate-600 dark:text-slate-300">
                               <span className="text-primary font-semibold">
                                 Click to upload
                               </span>{" "}
                               or drag and drop
                             </p>
-                            <p className="text-xs text-[rgb(var(--color-text-muted))] mt-1">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                               PDF, DOC, DOCX (Max 5MB)
                             </p>
                           </>
@@ -594,9 +662,9 @@ export default function ApplicationForm({
                         checked={formData.privacyConsent}
                         onChange={handleInputChange}
                         required
-                        className="w-5 h-5 mt-0.5 rounded border-[rgb(var(--color-border-medium))] text-primary focus:ring-primary"
+                        className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
                       />
-                      <span className="text-sm text-[rgb(var(--color-text-body))]">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">
                         I agree to the{" "}
                         <a
                           href="/privacy"

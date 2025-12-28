@@ -3,6 +3,7 @@ import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ClientLayout from "@/components/ClientLayout";
+import { Analytics } from "@vercel/analytics/react";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -157,6 +158,7 @@ export default function RootLayout({
             {children}
           </ClientLayout>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

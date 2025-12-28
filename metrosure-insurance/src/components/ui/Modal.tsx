@@ -13,10 +13,10 @@ interface ModalProps {
 }
 
 const sizeClasses = {
-  sm: "max-w-md",
-  md: "max-w-lg",
-  lg: "max-w-2xl",
-  xl: "max-w-4xl",
+  sm: "max-w-[calc(100vw-2rem)] sm:max-w-md",
+  md: "max-w-[calc(100vw-2rem)] sm:max-w-lg",
+  lg: "max-w-[calc(100vw-2rem)] sm:max-w-xl md:max-w-2xl",
+  xl: "max-w-[calc(100vw-2rem)] sm:max-w-2xl md:max-w-4xl",
 };
 
 export function Modal({
@@ -122,7 +122,7 @@ export function Modal({
               )}
 
               {/* Content */}
-              <div className="p-6">{children}</div>
+              <div className="p-4 sm:p-6">{children}</div>
             </div>
           </motion.div>
         </motion.div>
