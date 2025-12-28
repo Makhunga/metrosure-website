@@ -109,10 +109,10 @@ export default function ApplicationModal({
   }, [isOpen]);
 
   const inputClasses =
-    "w-full rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-[rgb(var(--color-surface-card))] transition-all py-3 px-4 text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] text-sm";
+    "w-full rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-[rgb(var(--color-surface-card))] transition-all py-3.5 px-4 text-[rgb(var(--color-text-main))] placeholder:text-[rgb(var(--color-text-subtle))] text-sm";
 
   const labelClasses =
-    "block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5";
+    "block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2";
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -489,7 +489,7 @@ export default function ApplicationModal({
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full py-3.5 px-8 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                whileHover={!isSubmitting ? { scale: 1.01, y: -1 } : {}}
+                whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                 whileTap={!isSubmitting ? { scale: 0.99 } : {}}
               >
                 {isSubmitting ? (

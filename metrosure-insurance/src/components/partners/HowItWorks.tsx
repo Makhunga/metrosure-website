@@ -44,7 +44,7 @@ export default function HowItWorks() {
       id="how-it-works"
       className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300"
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="text-center mb-20"

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 28, 2025 (Session 20 - Committed & Pushed)
+**Date:** December 28, 2025 (Session 21 - Committed & Pushed)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Project Folder:** `metrosure-insurance/`
@@ -14,7 +14,7 @@
 
 ### Build Status: ✅ Successful
 - **Routes:** 25 (21 pages + 4 API routes)
-- **Last Build:** December 27, 2025
+- **Last Build:** December 28, 2025
 - **Deployment:** Vercel (production)
 
 ### Feature Completion
@@ -37,6 +37,66 @@
 | Careers modal | ✅ Complete | Modal popup replaces scroll-to-form |
 | Grid bleed-through fix | ✅ Complete | All pages with fixed grid fixed |
 | Quote page styling | ✅ Complete | Matches contact/partners pattern |
+| Form styling consistency | ✅ Complete | Standardized padding, margins, button heights |
+| Container width consistency | ✅ Complete | All sections use max-w-[1400px] |
+| Hero height consistency | ✅ Complete | All heroes use min-h-[85vh] |
+| ContactHero CSS variables | ✅ Complete | Migrated from hardcoded dark mode classes |
+
+---
+
+## Session 21 Summary (December 28, 2025) - COMPLETE
+
+**Session Focus:** Visual Polish - Form Consistency, Container Widths, CSS Variable Migration
+
+### Completed This Session ✅
+
+| Task | Description | Files |
+|------|-------------|-------|
+| Form input padding | Standardized `py-3` → `py-3.5` in ApplicationModal | `ApplicationModal.tsx` |
+| Form label margins | Standardized `mb-1.5` → `mb-2` across forms | `ApplicationModal.tsx`, `quote/page.tsx` |
+| Form button heights | Standardized `py-4` → `py-3.5` across forms | `ApplicationForm.tsx`, `PartnerInquiryForm.tsx` |
+| Button hover animations | Standardized to `y: -2` | `ApplicationModal.tsx`, `quote/page.tsx` |
+| Hero section height | Fixed PartnersHero `90vh` → `85vh` | `PartnersHero.tsx` |
+| Container width consistency | Fixed `1200px` → `1400px` | `PartnersCTA.tsx`, `HowItWorks.tsx` |
+| ContactHero CSS variables | Migrated hardcoded dark mode classes | `ContactHero.tsx` |
+
+### Form Styling Standardization
+
+| Element | Before | After (Standard) |
+|---------|--------|------------------|
+| Input padding | `py-3` (some forms) | `py-3.5` (all forms) |
+| Label margin | `mb-1.5` (some forms) | `mb-2` (all forms) |
+| Button height | `py-4` (some forms) | `py-3.5` (all forms) |
+| Hover animation | `y: -1` to `y: -3` | `y: -2` (all forms) |
+
+### Container Width Standardization
+
+| Component | Before | After |
+|-----------|--------|-------|
+| `PartnersCTA.tsx` | `max-w-[1200px]` | `max-w-[1400px]` |
+| `HowItWorks.tsx` | `max-w-[1200px]` | `max-w-[1400px]` |
+
+### CSS Variable Migration (ContactHero.tsx)
+
+| Before | After |
+|--------|-------|
+| `text-slate-900 dark:text-white` | `text-[rgb(var(--color-text-main))]` |
+| `text-slate-600 dark:text-slate-300` | `text-[rgb(var(--color-text-body))]` |
+| `bg-white dark:bg-slate-800` | `bg-[rgb(var(--color-surface-card))]` |
+| `border-slate-200 dark:border-slate-700` | `border-[rgb(var(--color-border-light))]` |
+
+### Files Modified This Session
+
+| File | Changes |
+|------|---------|
+| `src/components/careers/ApplicationModal.tsx` | Input padding, label margin, hover animation |
+| `src/components/careers/ApplicationForm.tsx` | Button height standardized |
+| `src/components/partners/PartnerInquiryForm.tsx` | Button height standardized |
+| `src/app/quote/page.tsx` | Label margins, hover animation |
+| `src/components/partners/PartnersHero.tsx` | Hero height 90vh → 85vh |
+| `src/components/PartnersCTA.tsx` | Container width 1200px → 1400px |
+| `src/components/partners/HowItWorks.tsx` | Container width 1200px → 1400px |
+| `src/components/contact/ContactHero.tsx` | Migrated to CSS variables |
 
 ---
 
@@ -490,7 +550,8 @@ cp src/components/Hero.split-layout.tsx src/components/Hero.tsx
 
 | Date | Session | Focus | Key Accomplishments |
 |------|---------|-------|---------------------|
-| **Dec 28, 2025** | **S20** | **Careers Modal & Styling** | Careers modal popup, Grid bleed-through fixes, Quote page styling consistency |
+| **Dec 28, 2025** | **S21** | **Visual Polish** | Form styling consistency, container widths, hero heights, CSS variable migration |
+| Dec 28, 2025 | S20 | Careers Modal & Styling | Careers modal popup, Grid bleed-through fixes, Quote page styling consistency |
 | Dec 27, 2025 | S19 | Visual Polish | Hero split-layout restored, Gradient initial avatars, ContactForm inline validation UX |
 | Dec 27, 2025 | S18.5 | Drawbridge UI Fixes | About page grid z-index fix, Footer dark mode cleanup, Partners stats fix, Partners testimonials horizontal scroll |
 | Dec 27, 2025 | S18 | UI/UX Enhancements | Under Development redesign, global spacing (py-32), SectionDivider component, Hero split layout (stashed), Products icon enhancement |
@@ -1396,6 +1457,5 @@ cp .env.example .env.local
 
 ---
 
-*Document updated: December 28, 2025 - Session 20 Complete*
-*Git commits: 9d56d22, 0f81138 - Pushed to origin/main*
-*Next session: S21 - Additional polish, form consistency, visual refinements*
+*Document updated: December 28, 2025 - Session 21 Complete*
+*Next session: S22 - Rate limiting, accessibility, lazy loading*

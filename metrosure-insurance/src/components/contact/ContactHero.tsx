@@ -17,7 +17,7 @@ export default function ContactHero() {
     >
       {/* Headline */}
       <motion.h1
-        className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight"
+        className="text-5xl md:text-6xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -27,7 +27,7 @@ export default function ContactHero() {
 
       {/* Subheadline */}
       <motion.p
-        className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8"
+        className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed mb-8"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.3 }}
@@ -38,17 +38,17 @@ export default function ContactHero() {
 
       {/* Working Hours */}
       <motion.div
-        className="inline-flex items-center gap-6 px-6 py-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm"
+        className="inline-flex items-center gap-6 px-6 py-4 rounded-xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] shadow-sm"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
         <div className="flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">schedule</span>
-          <span className="text-sm font-semibold text-slate-900 dark:text-white">Working Hours</span>
+          <span className="text-sm font-semibold text-[rgb(var(--color-text-main))]">Working Hours</span>
         </div>
-        <div className="h-8 w-px bg-slate-200 dark:bg-slate-700" />
-        <div className="flex flex-col sm:flex-row sm:gap-6 text-sm text-slate-600 dark:text-slate-300">
+        <div className="h-8 w-px bg-[rgb(var(--color-border-light))]" />
+        <div className="flex flex-col sm:flex-row sm:gap-6 text-sm text-[rgb(var(--color-text-body))]">
           <span><strong>Mon - Fri:</strong> 09:00 - 17:00</span>
           <span><strong>Sat, Sun & Holidays:</strong> Closed</span>
         </div>

@@ -435,7 +435,7 @@ export default function QuotePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         First Name
                       </label>
                       <input
@@ -447,7 +447,7 @@ export default function QuotePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Last Name
                       </label>
                       <input
@@ -459,7 +459,7 @@ export default function QuotePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Email Address
                       </label>
                       <input
@@ -471,7 +471,7 @@ export default function QuotePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Phone Number
                       </label>
                       <input
@@ -483,7 +483,7 @@ export default function QuotePage() {
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Area Code
                       </label>
                       <input
@@ -578,7 +578,7 @@ export default function QuotePage() {
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Coverage Amount
                       </label>
                       <select
@@ -598,7 +598,7 @@ export default function QuotePage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Excess
                       </label>
                       <select
@@ -615,7 +615,7 @@ export default function QuotePage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-1.5">
+                      <label className="block text-xs font-bold uppercase text-[rgb(var(--color-text-muted))] tracking-wider ml-1 mb-2">
                         Desired Start Date
                       </label>
                       <input
@@ -852,7 +852,7 @@ export default function QuotePage() {
                         ? "bg-primary/70 text-white/80 cursor-not-allowed"
                         : "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40"
                     }`}
-                    whileHover={isSubmitting ? {} : { scale: 1.02, y: -3 }}
+                    whileHover={isSubmitting ? {} : { scale: 1.02, y: -2 }}
                     whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   >
                     {isSubmitting ? (
