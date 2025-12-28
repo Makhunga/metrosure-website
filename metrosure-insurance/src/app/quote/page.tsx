@@ -1029,7 +1029,7 @@ export default function QuotePage() {
 
       {/* FAQ Section */}
       <section ref={faqRef} className="pb-24 px-6">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
