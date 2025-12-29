@@ -13,6 +13,7 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
+import { careersApplicationSchema, formatZodErrors } from "@/lib/validationSchemas";
 
 // Position labels mapping
 const positionLabels: Record<string, string> = {
@@ -64,44 +65,29 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
 
-    // Extract form fields
-    const fullName = formData.get("fullName") as string;
-    const email = formData.get("email") as string;
-    const phone = formData.get("phone") as string;
-    const position = formData.get("position") as string;
-    const province = formData.get("province") as string;
-    const experience = formData.get("experience") as string;
-    const willingToRelocate = formData.get("willingToRelocate") as string;
-    const privacyConsent = formData.get("privacyConsent") === "true";
+    // Extract form fields into object for Zod validation
+    const rawData = {
+      fullName: formData.get("fullName") as string || "",
+      email: formData.get("email") as string || "",
+      phone: formData.get("phone") as string || "",
+      position: formData.get("position") as string || "",
+      province: formData.get("province") as string || "",
+      experience: formData.get("experience") as string || "",
+      willingToRelocate: formData.get("willingToRelocate") as string || "",
+      privacyConsent: formData.get("privacyConsent") === "true",
+    };
+
+    // Validate with Zod schema
+    const parseResult = careersApplicationSchema.safeParse(rawData);
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: formatZodErrors(parseResult.error) },
+        { status: 400 }
+      );
+    }
+
+    const validatedData = parseResult.data;
     const cvFile = formData.get("cv") as File | null;
-
-    // Validate required fields
-    const requiredFields = ["fullName", "email", "phone", "position", "province", "experience", "willingToRelocate"];
-    for (const field of requiredFields) {
-      if (!formData.get(field)) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        );
-      }
-    }
-
-    // Validate privacy consent
-    if (!privacyConsent) {
-      return NextResponse.json(
-        { error: "Privacy consent is required" },
-        { status: 400 }
-      );
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400 }
-      );
-    }
 
     // Process CV file if provided
     let cvAttachment = null;
@@ -142,15 +128,15 @@ export async function POST(request: NextRequest) {
       };
     }
 
-    // Build application data object
+    // Build application data object using validated data
     const applicationData = {
-      fullName,
-      email,
-      phone,
-      position: positionLabels[position] || position,
-      province: provinceLabels[province] || province,
-      experience: experienceLabels[experience] || experience,
-      willingToRelocate: relocationLabels[willingToRelocate] || willingToRelocate,
+      fullName: validatedData.fullName,
+      email: validatedData.email,
+      phone: validatedData.phone,
+      position: positionLabels[validatedData.position] || validatedData.position,
+      province: provinceLabels[validatedData.province] || validatedData.province,
+      experience: experienceLabels[validatedData.experience] || validatedData.experience,
+      willingToRelocate: relocationLabels[validatedData.willingToRelocate] || validatedData.willingToRelocate,
       cvAttached: cvInfo ? cvInfo.name : "No CV attached",
       submittedAt: new Date().toISOString(),
     };
@@ -163,7 +149,7 @@ export async function POST(request: NextRequest) {
       to: emailTo.careers,
       subject: `New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
       html: emailHtml,
-      replyTo: email,
+      replyTo: validatedData.email,
       attachments: cvAttachment ? [cvAttachment] : undefined,
     });
 
@@ -176,7 +162,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to applicant
     await sendEmail({
-      to: email,
+      to: validatedData.email,
       subject: `Application Received - ${applicationData.position} at Metrosure`,
       html: generateConfirmationEmail(applicationData),
     });
@@ -185,8 +171,8 @@ export async function POST(request: NextRequest) {
       success: true,
       message: "Application submitted successfully",
       data: {
-        applicantName: fullName,
-        position: positionLabels[position] || position,
+        applicantName: validatedData.fullName,
+        position: positionLabels[validatedData.position] || validatedData.position,
         referenceId: `APP-${Date.now()}`,
       },
     });

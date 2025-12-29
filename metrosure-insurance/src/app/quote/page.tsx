@@ -15,6 +15,7 @@ import {
   validateEmail,
   validatePhone,
   validateRequired,
+  validateFutureDate,
   getInputClassesWithIcon
 } from "@/lib/formValidation";
 import {
@@ -316,12 +317,19 @@ export default function QuotePage() {
           formData.lastName &&
           formData.email &&
           formData.phone &&
-          formData.zipCode
+          formData.zipCode &&
+          !getFieldState("email").error &&
+          !getFieldState("phone").error
         );
       case 2:
         return formData.coverageType !== null;
       case 3:
-        return formData.coverageAmount && formData.deductible && formData.startDate;
+        return (
+          formData.coverageAmount &&
+          formData.deductible &&
+          formData.startDate &&
+          !getFieldState("startDate").error
+        );
       default:
         return true;
     }
@@ -386,8 +394,8 @@ export default function QuotePage() {
             {/* Left: Form */}
             <div className={`flex-1 w-full ${
               currentStep >= 3 && formData.coverageType && priceBreakdown
-                ? "max-w-4xl"
-                : "max-w-5xl mx-auto"
+                ? "max-w-3xl"
+                : "max-w-4xl mx-auto"
             }`}>
           {/* Progress Steps - Larger & Bolder */}
           <div className="mb-16">
@@ -747,8 +755,19 @@ export default function QuotePage() {
                         type="date"
                         value={formData.startDate}
                         onChange={(e) => updateFormData({ startDate: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all"
+                        onBlur={(e) => validateField("startDate", e.target.value, (v) => validateFutureDate(v, "Start date"))}
+                        className={`w-full px-4 py-3.5 rounded-xl border ${
+                          getFieldState("startDate").touched && getFieldState("startDate").error
+                            ? "border-2 border-red-400 bg-red-50 dark:bg-red-900/10"
+                            : getFieldState("startDate").touched && getFieldState("startDate").valid
+                            ? "border-2 border-green-400 bg-green-50 dark:bg-green-900/10"
+                            : "border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50"
+                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all`}
+                        aria-required="true"
+                        aria-invalid={getFieldState("startDate").error ? "true" : undefined}
+                        aria-describedby={getFieldState("startDate").error ? "startDate-error" : undefined}
                       />
+                      <InlineError error={getFieldState("startDate").error} id="startDate-error" />
                     </div>
 
                     {formData.coverageType && additionalCoverageOptions[formData.coverageType] && (
@@ -1044,7 +1063,7 @@ export default function QuotePage() {
 
       {/* FAQ Section */}
       <section ref={faqRef} className="pb-24 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}

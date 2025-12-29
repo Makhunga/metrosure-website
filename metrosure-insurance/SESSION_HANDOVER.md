@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 38 - Complete)
+**Date:** December 29, 2025 (Session 40 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -38,11 +38,110 @@
 | Performance optimization | ✅ | WebP images, preconnect, lazy loading |
 | Grid consistency | ✅ | Standardized to 10% opacity site-wide |
 | Form accessibility (ARIA) | ✅ | aria-required, aria-invalid, aria-describedby |
+| Form-level validation | ✅ | Validate all fields before submit, focus first error |
+| Character limits | ✅ | Message fields limited to 2000 chars |
+| Date validation | ✅ | Quote form validates future dates |
+| Server-side validation (Zod) | ✅ | Type-safe validation on all 4 API routes |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 40 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Server-Side Validation with Zod
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Created Zod validation schemas | `src/lib/validationSchemas.ts` (new) |
+| Added Zod validation to /api/contact | `src/app/api/contact/route.ts` |
+| Added Zod validation to /api/quote | `src/app/api/quote/route.ts` |
+| Added Zod validation to /api/partner-inquiry | `src/app/api/partner-inquiry/route.ts` |
+| Added Zod validation to /api/careers-application | `src/app/api/careers-application/route.ts` |
+
+### Server-Side Validation Features
+
+1. **New Validation Schemas (`src/lib/validationSchemas.ts`)**
+   - Type-safe Zod v4 schemas for all API routes
+   - Shared validators: `emailSchema`, `phoneSchema`, `futureDateSchema`, `messageSchema`
+   - `formatZodErrors()` helper for consistent error responses
+
+2. **Validation Rules Applied**
+   - **Email:** Required, valid format
+   - **Phone:** SA format, minimum 10 digits
+   - **Message fields:** Max 2000 characters
+   - **Quote start date:** Must be today or in the future
+   - **Privacy consent:** Required boolean (true)
+   - **Coverage type:** Enum validation (home, auto, life, business)
+   - **Callback "other" reason:** Conditional required field
+
+3. **API Route Updates**
+   - Replaced manual validation with Zod `safeParse()`
+   - Consistent error response format: `{ error: "message" }`
+   - Type-safe data extraction after validation
+   - Discriminated union for contact form (message vs callback)
+
+### Testing Results
+
+| Test Case | Result |
+|-----------|--------|
+| Missing required field | ✅ "Name is required" |
+| Invalid email | ✅ "Please enter a valid email address" |
+| Message > 2000 chars | ✅ "Message must be 2000 characters or less" |
+| Past date on quote | ✅ "Date must be today or in the future" |
+| Short phone number | ✅ "Phone number must be at least 10 digits" |
+| Callback missing other reason | ✅ "Please specify the reason for your call" |
+
+---
+
+## Session 39 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Form Validation & Production Readiness
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Added validateFutureDate and validateMaxLength validators | `src/lib/formValidation.ts` |
+| Consolidated ContactForm validators (removed duplicates) | `src/components/contact/ContactForm.tsx` |
+| Added form-level validation before submit | `src/components/contact/ContactForm.tsx` |
+| Added message character limit with counter (2000 chars) | `src/components/contact/ContactForm.tsx` |
+| Added message character limit to PartnerInquiryForm | `src/components/partners/PartnerInquiryForm.tsx` |
+| Added date validation to Quote form (future dates only) | `src/app/quote/page.tsx` |
+| Updated canProceed to check for validation errors | `src/app/quote/page.tsx` |
+
+### Validation Improvements
+
+1. **New Validators in formValidation.ts**
+   - `validateFutureDate(dateString, fieldName)` - Ensures date is today or in the future
+   - `validateMaxLength(value, maxLength, fieldName)` - Character limit validation
+
+2. **ContactForm Enhancements**
+   - Removed duplicate local validators, now imports from `@/lib/formValidation`
+   - Added `validateMessageForm()` and `validateCallbackForm()` for form-level validation
+   - Validates all fields before API call, focuses first invalid field
+   - Added character counter to message field (0/2000)
+
+3. **PartnerInquiryForm Enhancements**
+   - Added character limit to optional message field (2000 chars)
+   - Character counter displays with warning color at limit
+
+4. **Quote Form Enhancements**
+   - Added date validation with inline error display
+   - Start date must be today or in the future
+   - Updated `canProceed()` to block progress if validation errors exist
+   - Added ARIA attributes to date input
+
+### Forms Already Had Loading States
+- ApplicationForm: Spinner on submit button
+- PartnerInquiryForm: Spinner on submit button
+- QuotePage: Spinner icon on submit button
+- ContactForm: Text changes to "Sending..." / "Submitting..."
 
 ---
 
@@ -194,17 +293,9 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN (Session 39)
+## NEXT SESSION PLAN (Session 41)
 
-### Priority 1: Form Validation & Error Handling (User Request)
-
-1. **Proper Form Validation**
-   - Implement comprehensive client-side validation
-   - Add server-side validation in API routes
-   - Improve error handling and user feedback
-   - Files: All form components + API routes
-
-### Priority 2: Production Readiness
+### Priority 1: Production Readiness
 
 1. **Email Configuration**
    - Configure Resend API key in Vercel production environment
@@ -216,7 +307,7 @@ Uncomment in `src/components/ClientLayout.tsx`:
    - Consider enabling: `/claims`, `/legal` (content complete)
    - Keep disabled: `/insurance/*`, `/tools/*` (need stakeholder review)
 
-### Priority 3: Content & Polish
+### Priority 2: Content & Polish
 
 1. **Values Section Enhancement**
    - Consider applying editorial treatment similar to Mission section
@@ -225,6 +316,12 @@ Uncomment in `src/components/ClientLayout.tsx`:
 2. **Image Cleanup**
    - Remove unused backup images from `public/images/`
    - Verify all images have appropriate alt text
+
+### Priority 3: Security (Optional)
+
+1. **reCAPTCHA Integration**
+   - Add Google reCAPTCHA v3 to high-value forms (quote, partner inquiry)
+   - Invisible integration for better UX
 
 ### Recommendations
 
@@ -265,7 +362,7 @@ npm run build
 ### Key Directories
 - `src/app/` - Pages and API routes
 - `src/components/` - Reusable components
-- `src/lib/` - Utilities (quoteCalculator, whatsapp, rateLimit, formValidation)
+- `src/lib/` - Utilities (quoteCalculator, whatsapp, rateLimit, formValidation, validationSchemas)
 
 ### Rate Limiting Config
 | Route | Limit |
@@ -289,6 +386,8 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S40 | Dec 29 | Server-side validation with Zod on all 4 API routes |
+| S39 | Dec 29 | Form validation improvements, character limits, date validation |
 | S38 | Dec 29 | Form accessibility (ARIA attributes), About page fix |
 | S37 | Dec 29 | Performance optimization, WebP hero, grid opacity standardization |
 | S36 | Dec 29 | SEO & social sharing, OG images, metadata |
@@ -328,4 +427,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 38 Complete*
+*Document updated: December 29, 2025 - Session 40 Complete*

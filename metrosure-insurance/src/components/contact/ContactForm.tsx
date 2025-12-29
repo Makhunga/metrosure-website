@@ -3,6 +3,13 @@
 import { useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
+import {
+  validateEmail,
+  validatePhone,
+  validateRequired,
+  type FieldState,
+  type FieldStates,
+} from "@/lib/formValidation";
 
 type ContactTab = "message" | "callback";
 
@@ -10,37 +17,6 @@ interface FormState {
   isSubmitting: boolean;
   error: string | null;
 }
-
-// Field validation state
-interface FieldState {
-  touched: boolean;
-  error: string | null;
-  valid: boolean;
-}
-
-type FieldStates = Record<string, FieldState>;
-
-// Validation functions
-const validateEmail = (email: string): string | null => {
-  if (!email) return "Email is required";
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) return "Please enter a valid email address";
-  return null;
-};
-
-const validatePhone = (phone: string): string | null => {
-  if (!phone) return "Phone number is required";
-  // SA phone format: +27, 0, or just digits
-  const cleanPhone = phone.replace(/[\s\-\(\)]/g, "");
-  if (cleanPhone.length < 10) return "Phone number must be at least 10 digits";
-  if (!/^(\+27|0)?[0-9]{9,}$/.test(cleanPhone)) return "Please enter a valid SA phone number";
-  return null;
-};
-
-const validateRequired = (value: string, fieldName: string): string | null => {
-  if (!value || !value.trim()) return `${fieldName} is required`;
-  return null;
-};
 
 // Inline error message component with ARIA support
 function InlineError({ error, id }: { error: string | null; id?: string }) {
@@ -97,6 +73,7 @@ const callbackReasons = [
 ];
 
 const MAX_OTHER_CHARS = 150;
+const MAX_MESSAGE_CHARS = 2000;
 
 // Message form topic options (including B2B)
 const messageTopics = [
@@ -114,9 +91,12 @@ export default function ContactForm() {
   const [callbackSent, setCallbackSent] = useState(false);
   const [callbackReason, setCallbackReason] = useState("");
   const [otherReason, setOtherReason] = useState("");
+  const [messageContent, setMessageContent] = useState("");
   const [formState, setFormState] = useState<FormState>({ isSubmitting: false, error: null });
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const ref = useRef(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const cbNameRef = useRef<HTMLInputElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   // Update field validation state
@@ -142,15 +122,95 @@ export default function ContactForm() {
   const handleTabChange = (tab: ContactTab) => {
     setActiveTab(tab);
     setFieldStates({});
+    setMessageContent("");
     setFormState({ isSubmitting: false, error: null });
+  };
+
+  // Handle message content change with character limit
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= MAX_MESSAGE_CHARS) {
+      setMessageContent(value);
+    }
+  };
+
+  // Validate all message form fields before submit
+  const validateMessageForm = (formData: FormData): boolean => {
+    const name = formData.get("name") as string || "";
+    const email = formData.get("email") as string || "";
+    const message = formData.get("message") as string || "";
+
+    let isValid = true;
+    const newFieldStates: FieldStates = {};
+
+    // Validate name
+    const nameError = validateRequired(name, "Name");
+    newFieldStates.name = { touched: true, error: nameError, valid: !nameError && name.length > 0 };
+    if (nameError) isValid = false;
+
+    // Validate email
+    const emailError = validateEmail(email);
+    newFieldStates.email = { touched: true, error: emailError, valid: !emailError && email.length > 0 };
+    if (emailError) isValid = false;
+
+    // Validate message
+    const messageError = validateRequired(message, "Message");
+    newFieldStates.message = { touched: true, error: messageError, valid: !messageError && message.length > 0 };
+    if (messageError) isValid = false;
+
+    setFieldStates(prev => ({ ...prev, ...newFieldStates }));
+
+    // Focus first invalid field
+    if (!isValid) {
+      if (nameError) nameRef.current?.focus();
+      else if (emailError) document.getElementById("email")?.focus();
+      else if (messageError) document.getElementById("message")?.focus();
+    }
+
+    return isValid;
+  };
+
+  // Validate all callback form fields before submit
+  const validateCallbackForm = (formData: FormData): boolean => {
+    const name = formData.get("cb_name") as string || "";
+    const phone = formData.get("cb_phone") as string || "";
+
+    let isValid = true;
+    const newFieldStates: FieldStates = {};
+
+    // Validate name
+    const nameError = validateRequired(name, "Full name");
+    newFieldStates.cb_name = { touched: true, error: nameError, valid: !nameError && name.length > 0 };
+    if (nameError) isValid = false;
+
+    // Validate phone
+    const phoneError = validatePhone(phone);
+    newFieldStates.cb_phone = { touched: true, error: phoneError, valid: !phoneError && phone.length > 0 };
+    if (phoneError) isValid = false;
+
+    setFieldStates(prev => ({ ...prev, ...newFieldStates }));
+
+    // Focus first invalid field
+    if (!isValid) {
+      if (nameError) cbNameRef.current?.focus();
+      else if (phoneError) document.getElementById("cb_phone")?.focus();
+    }
+
+    return isValid;
   };
 
   const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormState({ isSubmitting: true, error: null });
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    // Validate all fields before submit
+    if (!validateMessageForm(formData)) {
+      return;
+    }
+
+    setFormState({ isSubmitting: true, error: null });
 
     try {
       const response = await fetch("/api/contact", {
@@ -173,6 +233,7 @@ export default function ContactForm() {
       }
 
       setMessageSent(true);
+      setMessageContent("");
       form.reset();
     } catch (error) {
       setFormState({
@@ -186,10 +247,16 @@ export default function ContactForm() {
 
   const handleCallbackSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormState({ isSubmitting: true, error: null });
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    // Validate all fields before submit
+    if (!validateCallbackForm(formData)) {
+      return;
+    }
+
+    setFormState({ isSubmitting: true, error: null });
 
     try {
       const response = await fetch("/api/contact", {
@@ -383,6 +450,7 @@ export default function ContactForm() {
                               touched={getFieldState("name").touched}
                             />
                             <input
+                              ref={nameRef}
                               className={getInputClasses("name")}
                               id="name"
                               name="name"
@@ -479,7 +547,24 @@ export default function ContactForm() {
                           placeholder="How can we help?"
                           required
                           rows={4}
+                          value={messageContent}
+                          onChange={handleMessageChange}
+                          aria-required="true"
+                          aria-invalid={getFieldState("message").error ? "true" : undefined}
+                          aria-describedby={getFieldState("message").error ? "message-error" : undefined}
                         />
+                        <div className="flex justify-between mt-1.5 ml-1">
+                          <InlineError error={getFieldState("message").error} id="message-error" />
+                          <span
+                            className={`text-xs ${
+                              messageContent.length >= MAX_MESSAGE_CHARS
+                                ? "text-red-500"
+                                : "text-slate-400 dark:text-slate-500"
+                            }`}
+                          >
+                            {messageContent.length}/{MAX_MESSAGE_CHARS}
+                          </span>
+                        </div>
                       </motion.div>
                       <motion.div
                         className="pt-2 text-center md:text-left"
@@ -551,6 +636,7 @@ export default function ContactForm() {
                             touched={getFieldState("cb_name").touched}
                           />
                           <input
+                            ref={cbNameRef}
                             className={getInputClasses("cb_name")}
                             id="cb_name"
                             name="cb_name"

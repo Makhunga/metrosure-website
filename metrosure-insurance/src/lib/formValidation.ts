@@ -46,6 +46,30 @@ export const validateRequired = (value: string, fieldName: string): string | nul
 };
 
 /**
+ * Future date validation
+ * Returns error message if date is in the past, null if valid
+ */
+export const validateFutureDate = (dateString: string, fieldName: string = "Date"): string | null => {
+  if (!dateString) return `${fieldName} is required`;
+  const selectedDate = new Date(dateString);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset to start of day for fair comparison
+  if (selectedDate < today) return `${fieldName} must be today or in the future`;
+  return null;
+};
+
+/**
+ * Max length validation
+ * Returns error message if exceeds limit, null if valid
+ */
+export const validateMaxLength = (value: string, maxLength: number, fieldName: string): string | null => {
+  if (value && value.length > maxLength) {
+    return `${fieldName} must be ${maxLength} characters or less`;
+  }
+  return null;
+};
+
+/**
  * Get initial/default field state
  */
 export const getDefaultFieldState = (): FieldState => ({

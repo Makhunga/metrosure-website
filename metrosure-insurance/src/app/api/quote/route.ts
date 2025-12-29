@@ -12,21 +12,9 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
+import { quoteFormSchema, formatZodErrors, type QuoteFormData } from "@/lib/validationSchemas";
 
 type CoverageType = "home" | "auto" | "life" | "business";
-
-interface QuoteFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  zipCode: string;
-  coverageType: CoverageType;
-  coverageAmount: string;
-  deductible: string;
-  startDate: string;
-  additionalCoverage: string[];
-}
 
 const coverageTypeLabels: Record<CoverageType, string> = {
   home: "Home & Property",
@@ -83,46 +71,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const data: QuoteFormData = await request.json();
+    const rawData = await request.json();
 
-    // Validate required fields
-    const requiredFields = [
-      "firstName",
-      "lastName",
-      "email",
-      "phone",
-      "zipCode",
-      "coverageType",
-      "coverageAmount",
-      "deductible",
-      "startDate",
-    ];
-
-    for (const field of requiredFields) {
-      if (!data[field as keyof QuoteFormData]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        );
-      }
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
+    // Validate with Zod schema (includes future date validation)
+    const parseResult = quoteFormSchema.safeParse(rawData);
+    if (!parseResult.success) {
       return NextResponse.json(
-        { error: "Invalid email address" },
+        { error: formatZodErrors(parseResult.error) },
         { status: 400 }
       );
     }
 
-    // Validate coverage type
-    if (!["home", "auto", "life", "business"].includes(data.coverageType)) {
-      return NextResponse.json(
-        { error: "Invalid coverage type" },
-        { status: 400 }
-      );
-    }
+    const data = parseResult.data;
 
     // Generate and send email to Metrosure team
     const internalEmailHtml = generateInternalEmail(data);

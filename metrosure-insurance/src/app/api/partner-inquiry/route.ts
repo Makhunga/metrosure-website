@@ -14,23 +14,7 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
-
-interface PartnerInquiryData {
-  companyName: string;
-  businessType: string;
-  numberOfLocations: string;
-  contactName: string;
-  jobTitle: string;
-  email: string;
-  phone: string;
-  province: string;
-  city: string;
-  servicesInterested: string[];
-  currentFootTraffic: string;
-  message: string;
-  marketingConsent: boolean;
-  privacyConsent: boolean;
-}
+import { partnerInquirySchema, formatZodErrors, type PartnerInquiryData } from "@/lib/validationSchemas";
 
 // Service label mapping
 const serviceLabels: Record<string, string> = {
@@ -47,46 +31,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const data: PartnerInquiryData = await request.json();
+    const rawData = await request.json();
 
-    // Validate required fields
-    const requiredFields: (keyof PartnerInquiryData)[] = [
-      "companyName",
-      "businessType",
-      "numberOfLocations",
-      "contactName",
-      "jobTitle",
-      "email",
-      "phone",
-      "province",
-      "city"
-    ];
-
-    for (const field of requiredFields) {
-      if (!data[field]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        );
-      }
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
+    // Validate with Zod schema (includes message character limit)
+    const parseResult = partnerInquirySchema.safeParse(rawData);
+    if (!parseResult.success) {
       return NextResponse.json(
-        { error: "Invalid email address" },
+        { error: formatZodErrors(parseResult.error) },
         { status: 400 }
       );
     }
 
-    // Privacy consent is required
-    if (!data.privacyConsent) {
-      return NextResponse.json(
-        { error: "Privacy policy consent is required" },
-        { status: 400 }
-      );
-    }
+    const data = parseResult.data;
 
     // Generate email content
     const emailHtml = generateEmailTemplate(data);

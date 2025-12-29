@@ -98,6 +98,8 @@ const services = [
   { id: "credit-facility", label: "In-Store Credit Facility" }
 ];
 
+const MAX_MESSAGE_CHARS = 2000;
+
 export default function PartnerInquiryForm() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -137,6 +139,9 @@ export default function PartnerInquiryForm() {
     if (type === "checkbox") {
       const checked = (e.target as HTMLInputElement).checked;
       setFormData(prev => ({ ...prev, [name]: checked }));
+    } else if (name === "message" && value.length > MAX_MESSAGE_CHARS) {
+      // Enforce character limit for message field
+      return;
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -581,6 +586,17 @@ export default function PartnerInquiryForm() {
                             placeholder="Tell us more about your business and partnership goals..."
                             rows={4}
                           />
+                          <div className="flex justify-end mt-1">
+                            <span
+                              className={`text-xs ${
+                                formData.message.length >= MAX_MESSAGE_CHARS
+                                  ? "text-red-500"
+                                  : "text-slate-400 dark:text-slate-500"
+                              }`}
+                            >
+                              {formData.message.length}/{MAX_MESSAGE_CHARS}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>

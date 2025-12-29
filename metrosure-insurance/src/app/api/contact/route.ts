@@ -12,22 +12,12 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  type: "message" | "callback";
-  // B2B fields
-  companyName?: string;
-  // Callback-specific fields
-  phone?: string;
-  reason?: string;
-  otherReason?: string;
-  preferredDate?: string;
-  preferredTime?: string;
-}
+import {
+  contactFormSchema,
+  formatZodErrors,
+  type ContactMessageData,
+  type ContactCallbackData
+} from "@/lib/validationSchemas";
 
 // B2B topics that should be flagged in email subject
 const b2bTopics = ["retail-partnership", "business-insurance", "employee-benefits"];
@@ -69,62 +59,37 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const data: ContactFormData = await request.json();
+    const rawData = await request.json();
 
-    // Validate based on type
-    if (data.type === "message") {
-      if (!data.name || !data.email || !data.subject || !data.message) {
-        return NextResponse.json(
-          { error: "Missing required fields for message form" },
-          { status: 400 }
-        );
-      }
-    } else if (data.type === "callback") {
-      if (!data.name || !data.phone || !data.reason || !data.preferredDate || !data.preferredTime) {
-        return NextResponse.json(
-          { error: "Missing required fields for callback form" },
-          { status: 400 }
-        );
-      }
-      if (data.reason === "other" && !data.otherReason) {
-        return NextResponse.json(
-          { error: "Please specify the reason for your call" },
-          { status: 400 }
-        );
-      }
-    } else {
+    // Validate with Zod schema
+    const parseResult = contactFormSchema.safeParse(rawData);
+    if (!parseResult.success) {
       return NextResponse.json(
-        { error: "Invalid form type" },
+        { error: formatZodErrors(parseResult.error) },
         { status: 400 }
       );
     }
 
-    // Email validation
-    if (data.email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(data.email)) {
-        return NextResponse.json(
-          { error: "Invalid email address" },
-          { status: 400 }
-        );
-      }
-    }
+    const data = parseResult.data;
 
     // Generate and send email
     const emailHtml = data.type === "message"
       ? generateMessageEmail(data)
       : generateCallbackEmail(data);
 
-    // Determine if this is a B2B inquiry
-    const isB2B = data.type === "message"
-      ? b2bTopics.includes(data.subject)
-      : b2bTopics.includes(data.reason || "");
+    // Determine if this is a B2B inquiry and build email subject
+    let isB2B: boolean;
+    let emailSubject: string;
 
-    const b2bPrefix = isB2B ? "[B2B] " : "";
-
-    const emailSubject = data.type === "message"
-      ? `${b2bPrefix}Contact Form: ${subjectLabels[data.subject] || data.subject} - ${data.name}`
-      : `${b2bPrefix}Callback Request: ${reasonLabels[data.reason!] || data.reason} - ${data.name}`;
+    if (data.type === "message") {
+      isB2B = b2bTopics.includes(data.subject);
+      const b2bPrefix = isB2B ? "[B2B] " : "";
+      emailSubject = `${b2bPrefix}Contact Form: ${subjectLabels[data.subject] || data.subject} - ${data.name}`;
+    } else {
+      isB2B = b2bTopics.includes(data.reason);
+      const b2bPrefix = isB2B ? "[B2B] " : "";
+      emailSubject = `${b2bPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
+    }
 
     await sendEmail({
       to: emailTo.info,
@@ -155,7 +120,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateMessageEmail(data: ContactFormData): string {
+function generateMessageEmail(data: ContactMessageData): string {
   const isB2B = b2bTopics.includes(data.subject);
 
   const content = `
@@ -178,12 +143,12 @@ function generateMessageEmail(data: ContactFormData): string {
   return wrapEmailTemplate(content, "New Contact Message");
 }
 
-function generateCallbackEmail(data: ContactFormData): string {
+function generateCallbackEmail(data: ContactCallbackData): string {
   const reason = data.reason === "other" && data.otherReason
     ? `Other: ${data.otherReason}`
-    : reasonLabels[data.reason!] || data.reason;
+    : reasonLabels[data.reason] || data.reason;
 
-  const isB2B = b2bTopics.includes(data.reason || "");
+  const isB2B = b2bTopics.includes(data.reason);
 
   const content = `
     ${createEmailHeader(isB2B ? "B2B Callback Request" : "Callback Request", `From ${data.name}`)}
@@ -191,16 +156,16 @@ function generateCallbackEmail(data: ContactFormData): string {
     ${createSection(`
       ${createSectionTitle("Contact Details")}
       ${createFieldRow("Name:", data.name)}
-      ${createFieldRow("Phone:", `${createLink(`tel:${data.phone}`, data.phone!)}`)}
+      ${createFieldRow("Phone:", `${createLink(`tel:${data.phone}`, data.phone)}`)}
       ${data.email ? createFieldRow("Email:", `${createLink(`mailto:${data.email}`, data.email)}`) : ''}
       ${data.companyName ? createFieldRow("Company:", data.companyName) : ''}
     `)}
 
     ${createSection(`
       ${createSectionTitle("Callback Details")}
-      ${createFieldRow("Reason:", reason!)}
-      ${createFieldRow("Preferred Date:", data.preferredDate!)}
-      ${createFieldRow("Preferred Time:", data.preferredTime!)}
+      ${createFieldRow("Reason:", reason)}
+      ${createFieldRow("Preferred Date:", data.preferredDate)}
+      ${createFieldRow("Preferred Time:", data.preferredTime)}
     `)}
 
     ${createAlertBox("<strong>Action Required:</strong> Please call this customer at their preferred time.", "warning")}
