@@ -106,21 +106,25 @@ const faqs = [
     question: "How long does it take to get a quote?",
     answer:
       "Most quotes are generated instantly after you complete the form. For complex business policies, our team may need 24-48 hours to provide an accurate estimate.",
+    category: "Process",
   },
   {
     question: "Is my information secure?",
     answer:
       "Absolutely. We use bank-level 256-bit SSL encryption to protect your data. Your information is never sold or shared with third parties.",
+    category: "Security",
   },
   {
     question: "Am I obligated to purchase after getting a quote?",
     answer:
       "No, getting a quote is completely free and comes with no obligation. Take your time to compare options and make the best decision for your needs.",
+    category: "Pricing",
   },
   {
     question: "Can I customise my coverage?",
     answer:
       "Yes! Our quotes are fully customizable. You can adjust coverage amounts, deductibles, and add optional protections to fit your specific needs and budget.",
+    category: "Coverage",
   },
 ];
 
@@ -397,14 +401,17 @@ export default function QuotePage() {
                 ? "max-w-3xl"
                 : "max-w-4xl mx-auto"
             }`}>
-          {/* Progress Steps - Larger & Bolder */}
+          {/* Progress Steps - Enhanced with Animations */}
           <div className="mb-16">
             <div className="flex items-center justify-between relative">
-              {/* Progress Line */}
-              <div className="absolute top-8 left-[10%] right-[10%] h-1 bg-slate-200 dark:bg-slate-700 rounded-full" />
-              <div
-                className="absolute top-8 left-[10%] h-1 bg-primary rounded-full transition-all duration-500"
-                style={{ width: `${((currentStep - 1) / 3) * 80}%` }}
+              {/* Progress Line Background */}
+              <div className="absolute top-8 left-[10%] right-[10%] h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden" />
+              {/* Animated Progress Line Fill */}
+              <motion.div
+                className="absolute top-8 left-[10%] h-1 bg-primary rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${((currentStep - 1) / 3) * 80}%` }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
               />
 
               {steps.map((step) => (
@@ -412,24 +419,72 @@ export default function QuotePage() {
                   key={step.number}
                   className="relative flex flex-col items-center z-10 flex-1"
                 >
+                  {/* Pulse Ring for Active Step */}
+                  {currentStep === step.number && (
+                    <motion.div
+                      className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full border-2 border-primary"
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: 1.4, opacity: 0 }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                    />
+                  )}
+
+                  {/* Completion Glow Effect */}
+                  <AnimatePresence>
+                    {currentStep > step.number && (
+                      <motion.div
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-emerald-400"
+                        initial={{ scale: 0.8, opacity: 0.6 }}
+                        animate={{ scale: 1.3, opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6 }}
+                      />
+                    )}
+                  </AnimatePresence>
+
                   <motion.div
-                    className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      currentStep >= step.number
+                    className={`relative w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                      currentStep > step.number
+                        ? "bg-emerald-500 text-white shadow-xl shadow-emerald-500/30"
+                        : currentStep === step.number
                         ? "bg-primary text-white shadow-xl shadow-primary/40"
                         : "bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-slate-200 dark:border-slate-600"
                     }`}
+                    animate={currentStep === step.number ? { scale: [1, 1.05, 1] } : {}}
+                    transition={{ duration: 0.3 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {currentStep > step.number ? (
-                      <span className="material-symbols-outlined text-2xl">check</span>
-                    ) : (
-                      <span className="material-symbols-outlined text-2xl">{step.icon}</span>
-                    )}
+                    <AnimatePresence mode="wait">
+                      {currentStep > step.number ? (
+                        <motion.span
+                          key="check"
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          exit={{ scale: 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                          className="material-symbols-outlined text-2xl"
+                        >
+                          check
+                        </motion.span>
+                      ) : (
+                        <motion.span
+                          key="icon"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          exit={{ scale: 0 }}
+                          className="material-symbols-outlined text-2xl"
+                        >
+                          {step.icon}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                   <span
-                    className={`mt-3 text-sm font-bold tracking-wide ${
-                      currentStep >= step.number
+                    className={`mt-3 text-sm font-bold tracking-wide transition-colors ${
+                      currentStep > step.number
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : currentStep === step.number
                         ? "text-primary"
                         : "text-slate-400 dark:text-slate-500"
                     }`}
@@ -822,93 +877,136 @@ export default function QuotePage() {
                   </div>
 
                   <div className="space-y-6">
-                    {/* Personal Info Summary */}
-                    <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-600">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                          <span className="material-symbols-outlined text-primary">person</span>
-                          Personal Information
-                        </h3>
-                        <button
-                          onClick={() => setCurrentStep(1)}
-                          className="text-primary text-sm font-medium hover:underline"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Name</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            {formData.firstName} {formData.lastName}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Email</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            {formData.email}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Phone</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            {formData.phone}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Area Code</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            {formData.zipCode}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    {/* Personal Info Summary - Premium Dark Card */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800"
+                    >
+                      {/* Subtle Pattern Overlay */}
+                      <div
+                        className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                        }}
+                      />
 
-                    {/* Coverage Summary */}
-                    <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-600">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                          <span className="material-symbols-outlined text-primary">shield</span>
-                          Coverage Details
-                        </h3>
-                        <button
-                          onClick={() => setCurrentStep(2)}
-                          className="text-primary text-sm font-medium hover:underline"
-                        >
-                          Edit
-                        </button>
+                      {/* Corner Accent */}
+                      <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden">
+                        <div className="absolute -top-10 -right-10 w-20 h-20 bg-primary/20 rotate-45 transform origin-bottom-left" />
                       </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Coverage Type</span>
-                          <p className="text-slate-900 dark:text-white font-medium capitalize">
-                            {coverageOptions.find((o) => o.id === formData.coverageType)?.title}
-                          </p>
+
+                      {/* Card Header */}
+                      <div className="relative px-6 py-5 border-b border-white/10">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">
+                              Applicant Details
+                            </p>
+                            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                              <span className="material-symbols-outlined text-primary text-xl">person</span>
+                              Personal Information
+                            </h3>
+                          </div>
+                          <button
+                            onClick={() => setCurrentStep(1)}
+                            className="px-3 py-1.5 text-xs font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
+                          >
+                            Edit
+                          </button>
                         </div>
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Coverage Amount</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            R{Number(formData.coverageAmount).toLocaleString()}
-                          </p>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="relative p-6 grid grid-cols-2 gap-6">
+                        {[
+                          { label: "Name", value: `${formData.firstName} ${formData.lastName}` },
+                          { label: "Email", value: formData.email },
+                          { label: "Phone", value: formData.phone },
+                          { label: "Area Code", value: formData.zipCode },
+                        ].map((item, i) => (
+                          <motion.div
+                            key={item.label}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 + i * 0.1 }}
+                          >
+                            <p className="text-xs text-slate-400 mb-1">{item.label}</p>
+                            <p className="text-base font-semibold text-white">{item.value}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    {/* Coverage Summary - Premium Dark Card */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800"
+                    >
+                      {/* Subtle Pattern Overlay */}
+                      <div
+                        className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                        }}
+                      />
+
+                      {/* Corner Accent */}
+                      <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden">
+                        <div className="absolute -top-10 -right-10 w-20 h-20 bg-emerald-500/20 rotate-45 transform origin-bottom-left" />
+                      </div>
+
+                      {/* Card Header */}
+                      <div className="relative px-6 py-5 border-b border-white/10">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">
+                              Coverage Summary
+                            </p>
+                            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                              <span className="material-symbols-outlined text-emerald-400 text-xl">shield</span>
+                              {coverageOptions.find((o) => o.id === formData.coverageType)?.title} Protection
+                            </h3>
+                          </div>
+                          <button
+                            onClick={() => setCurrentStep(2)}
+                            className="px-3 py-1.5 text-xs font-medium text-emerald-400 bg-emerald-500/10 rounded-lg hover:bg-emerald-500/20 transition-colors"
+                          >
+                            Edit
+                          </button>
                         </div>
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Excess</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            R{Number(formData.deductible).toLocaleString()}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-slate-500 dark:text-slate-400">Start Date</span>
-                          <p className="text-slate-900 dark:text-white font-medium">
-                            {formData.startDate}
-                          </p>
-                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="relative p-6 grid grid-cols-2 gap-6">
+                        {[
+                          { label: "Coverage Type", value: coverageOptions.find((o) => o.id === formData.coverageType)?.title },
+                          { label: "Coverage Amount", value: `R${Number(formData.coverageAmount).toLocaleString()}` },
+                          { label: "Excess", value: `R${Number(formData.deductible).toLocaleString()}` },
+                          { label: "Start Date", value: formData.startDate },
+                        ].map((item, i) => (
+                          <motion.div
+                            key={item.label}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 + i * 0.1 }}
+                          >
+                            <p className="text-xs text-slate-400 mb-1">{item.label}</p>
+                            <p className="text-base font-semibold text-white">{item.value}</p>
+                          </motion.div>
+                        ))}
                         {formData.additionalCoverage.length > 0 && (
-                          <div className="col-span-2">
-                            <span className="text-slate-500 dark:text-slate-400">
-                              Additional Coverage
-                            </span>
-                            <p className="text-slate-900 dark:text-white font-medium">
+                          <motion.div
+                            className="col-span-2"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.7 }}
+                          >
+                            <p className="text-xs text-slate-400 mb-2">Additional Coverage</p>
+                            <div className="flex flex-wrap gap-2">
                               {formData.additionalCoverage
                                 .map(
                                   (id) =>
@@ -918,12 +1016,19 @@ export default function QuotePage() {
                                     )?.label
                                 )
                                 .filter(Boolean)
-                                .join(", ")}
-                            </p>
-                          </div>
+                                .map((label, idx) => (
+                                  <span
+                                    key={idx}
+                                    className="px-3 py-1 text-xs font-medium bg-emerald-500/10 text-emerald-400 rounded-full"
+                                  >
+                                    {label}
+                                  </span>
+                                ))}
+                            </div>
+                          </motion.div>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
 
                     {/* Terms */}
                     <div className="p-4 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20">
@@ -1061,71 +1166,114 @@ export default function QuotePage() {
         )}
       </AnimatePresence>
 
-      {/* FAQ Section */}
-      <section ref={faqRef} className="pb-24 px-6">
+      {/* FAQ Section - Editorial Accordion */}
+      <section ref={faqRef} className="pb-24 px-6 bg-slate-50 dark:bg-slate-900/50 py-24">
         <div className="max-w-3xl mx-auto">
+          {/* Editorial Header */}
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
           >
+            <motion.span
+              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={faqInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              Common Questions
+            </motion.span>
             <motion.h2
-              className="text-3xl font-bold text-slate-900 dark:text-white mb-4"
+              className="text-4xl font-bold text-slate-900 dark:text-white mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
             >
-              Frequently Asked Questions
+              Everything you need to know
             </motion.h2>
             <motion.p
-              className="text-slate-600 dark:text-slate-300"
+              className="text-lg text-slate-600 dark:text-slate-300"
               initial={{ opacity: 0, y: 20 }}
               animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Have questions about getting a quote? We&apos;ve got answers.
+              Quick answers to help you get started with your quote.
             </motion.p>
           </motion.div>
 
+          {/* Accordion with Left Accent Line */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
-                className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all hover:shadow-md"
-                initial={{ opacity: 0, y: 20 }}
-                animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                className="group"
+                initial={{ opacity: 0, x: -20 }}
+                animate={faqInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
               >
-                <button
-                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="flex justify-between items-center w-full p-6 text-left"
+                <div
+                  className={`
+                    relative pl-6 border-l-2 transition-colors duration-300
+                    ${expandedFaq === index
+                      ? 'border-primary'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                    }
+                  `}
                 >
-                  <span className="font-semibold text-slate-900 dark:text-white pr-8">
-                    {faq.question}
-                  </span>
-                  <motion.span
-                    className="material-symbols-outlined text-primary"
-                    animate={{ rotate: expandedFaq === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                    className="w-full py-5 flex items-center justify-between text-left"
                   >
-                    expand_more
-                  </motion.span>
-                </button>
-                <AnimatePresence>
-                  {expandedFaq === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                    <div className="flex items-center gap-3 pr-4">
+                      <span
+                        className={`
+                          px-2.5 py-1 text-xs font-medium rounded-md transition-colors
+                          ${expandedFaq === index
+                            ? 'bg-primary/10 text-primary'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                          }
+                        `}
+                      >
+                        {faq.category}
+                      </span>
+                      <span
+                        className={`
+                          font-semibold transition-colors
+                          ${expandedFaq === index
+                            ? 'text-primary'
+                            : 'text-slate-900 dark:text-white group-hover:text-primary'
+                          }
+                        `}
+                      >
+                        {faq.question}
+                      </span>
+                    </div>
+                    <motion.span
+                      className="material-symbols-outlined text-slate-400 flex-shrink-0"
+                      animate={{ rotate: expandedFaq === index ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <p className="px-6 pb-6 text-slate-600 dark:text-slate-300 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      expand_more
+                    </motion.span>
+                  </button>
+
+                  <AnimatePresence>
+                    {expandedFaq === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="overflow-hidden"
+                      >
+                        <p className="pb-5 text-slate-600 dark:text-slate-300 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </motion.div>
             ))}
           </div>

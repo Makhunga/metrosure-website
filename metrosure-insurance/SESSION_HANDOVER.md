@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 41 - Complete)
+**Date:** December 29, 2025 (Session 42 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -43,11 +43,75 @@
 | Date validation | ✅ | Quote form validates future dates |
 | Server-side validation (Zod) | ✅ | Type-safe validation on all 4 API routes |
 | Dismissable mobile banners | ✅ | Dev & hiring banners with session persistence |
+| Partners Form - 3-Step Wizard | ✅ | Decluttered form with step progress indicator |
+| Quote Page - Editorial FAQ | ✅ | Left accent lines, category badges |
+| Quote Page - Enhanced Progress | ✅ | Pulse animations, completion glow |
+| Quote Page - Premium Summary | ✅ | Dark policy preview cards |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 42 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Design Polish - Partners & Quote Pages
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Partners Form: 3-step wizard redesign | `src/components/partners/PartnerInquiryForm.tsx` |
+| Quote Page: Editorial FAQ accordion | `src/app/quote/page.tsx` |
+| Quote Page: Animated progress indicator | `src/app/quote/page.tsx` |
+| Quote Page: Premium summary cards | `src/app/quote/page.tsx` |
+| Removed unused backup images | `public/images/` |
+
+### Partners Form Redesign
+
+The cluttered 14-field form was transformed into an elegant 3-step wizard:
+
+1. **Step 1 - Business Profile**: Company name, type, locations, province, city
+2. **Step 2 - Contact Details**: Name, job title, email, phone (with validation)
+3. **Step 3 - Partnership Interests**: Service pills, foot traffic, message, consents
+
+**Design Changes:**
+- Removed 6 heavy border dividers
+- Converted to centered single-column layout (was 2-column with sidebar)
+- Replaced mini-card checkboxes with pill toggle buttons
+- Added step progress indicator with pulse animation
+- Moved trust badges inline below form
+- Added completion checkmark with spring animation
+
+### Quote Page Enhancements
+
+1. **Editorial FAQ Section**
+   - Added "Common Questions" badge header
+   - Left accent line turns primary when expanded
+   - Category badges (Process, Security, Pricing, Coverage)
+   - Staggered entrance animation on scroll
+   - Subtle slate background section
+
+2. **Progress Indicator Animations**
+   - Pulse ring on active step (repeating 1.5s)
+   - Emerald glow burst on step completion
+   - Animated checkmark with spring physics
+   - Progress line fill animation
+
+3. **Premium Summary Cards (Step 4)**
+   - Dark gradient background (slate-900 to slate-800)
+   - Subtle cross-hatch pattern overlay (3% opacity)
+   - Corner accent decorations (primary/emerald)
+   - Staggered content reveal
+   - Additional coverage shown as emerald pills
+
+### Image Cleanup
+
+Removed unused backup images:
+- `Bak-mission-image-1.jpg`
+- `hero-family.webp`
 
 ---
 
@@ -335,7 +399,7 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN (Session 42)
+## NEXT SESSION PLAN (Session 43)
 
 ### Priority 1: Production Readiness
 
@@ -355,9 +419,8 @@ Uncomment in `src/components/ClientLayout.tsx`:
    - Consider applying editorial treatment similar to Mission section
    - Review content for dual-audience (B2C + B2B) messaging
 
-2. **Image Cleanup**
-   - Remove unused backup images from `public/images/`
-   - Verify all images have appropriate alt text
+2. **Image Alt Text Audit**
+   - Verify all images have appropriate alt text for accessibility
 
 ### Priority 3: Security (Optional)
 
@@ -378,7 +441,7 @@ Uncomment in `src/components/ClientLayout.tsx`:
    - Add event tracking for CTA clicks
 
 3. **SEO**
-   - Add structured data for FAQ sections
+   - Add structured data for FAQ sections (Quote page now has FAQ categories)
    - Consider adding breadcrumb schema
    - Review meta descriptions for keyword optimization
 
@@ -424,6 +487,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S42 | Dec 29 | Design polish - Partners 3-step wizard, Quote FAQ & progress animations |
 | S41 | Dec 29 | Dismissable mobile banners, quote page UI refinement |
 | S40 | Dec 29 | Server-side validation with Zod on all 4 API routes |
 | S39 | Dec 29 | Form validation improvements, character limits, date validation |
@@ -466,4 +530,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 41 Complete*
+*Document updated: December 29, 2025 - Session 42 Complete*
