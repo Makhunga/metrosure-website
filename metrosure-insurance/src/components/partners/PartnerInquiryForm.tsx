@@ -352,17 +352,17 @@ export default function PartnerInquiryForm() {
                     <motion.div
                       className="absolute inset-0 rounded-full border-2 border-primary"
                       initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: 1.5, opacity: 0 }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
+                      animate={{ scale: 1.4, opacity: 0 }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
                     />
                   )}
                   <motion.div
-                    className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
                       i < currentStep
-                        ? 'bg-emerald-500 text-white'
+                        ? 'bg-emerald-500 text-white shadow-xl shadow-emerald-500/30'
                         : i === currentStep
-                        ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                        : 'bg-slate-100 dark:bg-slate-700 text-slate-400'
+                        ? 'bg-primary text-white shadow-xl shadow-primary/40'
+                        : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-slate-200 dark:border-slate-600'
                     }`}
                   >
                     <AnimatePresence mode="wait">
@@ -373,7 +373,7 @@ export default function PartnerInquiryForm() {
                           animate={{ scale: 1, rotate: 0 }}
                           exit={{ scale: 0 }}
                           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                          className="material-symbols-outlined text-xl"
+                          className="material-symbols-outlined text-2xl"
                         >
                           check
                         </motion.span>
@@ -382,7 +382,7 @@ export default function PartnerInquiryForm() {
                           key="icon"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          className="material-symbols-outlined text-xl"
+                          className="material-symbols-outlined text-2xl"
                         >
                           {step.icon}
                         </motion.span>
@@ -399,7 +399,7 @@ export default function PartnerInquiryForm() {
 
               {/* Connecting line */}
               {i < steps.length - 1 && (
-                <div className="w-16 sm:w-24 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden -mt-6">
+                <div className="w-16 sm:w-24 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden -mt-8">
                   <motion.div
                     className="h-full bg-emerald-500"
                     initial={{ width: 0 }}
