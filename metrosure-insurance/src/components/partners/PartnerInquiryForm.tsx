@@ -391,9 +391,12 @@ export default function PartnerInquiryForm() {
                               onBlur={(e) => validateField("contactName", e.target.value, (v) => validateRequired(v, "Name"))}
                               placeholder="Full name"
                               required
+                              aria-required="true"
+                              aria-invalid={getFieldState("contactName").error ? "true" : undefined}
+                              aria-describedby={getFieldState("contactName").error ? "contactName-error" : undefined}
                             />
                           </div>
-                          <InlineError error={getFieldState("contactName").error} />
+                          <InlineError error={getFieldState("contactName").error} id="contactName-error" />
                         </div>
                         <div>
                           <label className={labelClasses} htmlFor="jobTitle">Job Title *</label>
@@ -412,9 +415,12 @@ export default function PartnerInquiryForm() {
                               onBlur={(e) => validateField("jobTitle", e.target.value, (v) => validateRequired(v, "Job title"))}
                               placeholder="Your role"
                               required
+                              aria-required="true"
+                              aria-invalid={getFieldState("jobTitle").error ? "true" : undefined}
+                              aria-describedby={getFieldState("jobTitle").error ? "jobTitle-error" : undefined}
                             />
                           </div>
-                          <InlineError error={getFieldState("jobTitle").error} />
+                          <InlineError error={getFieldState("jobTitle").error} id="jobTitle-error" />
                         </div>
                         <div>
                           <label className={labelClasses} htmlFor="email">Email Address *</label>
@@ -434,9 +440,12 @@ export default function PartnerInquiryForm() {
                               onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                               placeholder="you@company.com"
                               required
+                              aria-required="true"
+                              aria-invalid={getFieldState("email").error ? "true" : undefined}
+                              aria-describedby={getFieldState("email").error ? "email-error" : undefined}
                             />
                           </div>
-                          <InlineError error={getFieldState("email").error} />
+                          <InlineError error={getFieldState("email").error} id="email-error" />
                         </div>
                         <div>
                           <label className={labelClasses} htmlFor="phone">Phone Number *</label>
@@ -456,9 +465,12 @@ export default function PartnerInquiryForm() {
                               onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
                               placeholder="+27 XX XXX XXXX"
                               required
+                              aria-required="true"
+                              aria-invalid={getFieldState("phone").error ? "true" : undefined}
+                              aria-describedby={getFieldState("phone").error ? "phone-error" : undefined}
                             />
                           </div>
-                          <InlineError error={getFieldState("phone").error} />
+                          <InlineError error={getFieldState("phone").error} id="phone-error" />
                         </div>
                       </div>
                     </div>
@@ -507,12 +519,12 @@ export default function PartnerInquiryForm() {
                     </div>
 
                     {/* Services Interested Section */}
-                    <div className="pb-6 border-b border-slate-200 dark:border-slate-700">
-                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-primary">interests</span>
+                    <fieldset className="pb-6 border-b border-slate-200 dark:border-slate-700">
+                      <legend className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <span className="material-symbols-outlined text-primary" aria-hidden="true">interests</span>
                         Services Interested In
-                      </h3>
-                      <div className="space-y-3">
+                      </legend>
+                      <div className="space-y-3" role="group" aria-label="Select services you are interested in">
                         {services.map(service => (
                           <label
                             key={service.id}
@@ -523,12 +535,13 @@ export default function PartnerInquiryForm() {
                               checked={formData.servicesInterested.includes(service.id)}
                               onChange={() => handleServiceChange(service.id)}
                               className="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
+                              aria-label={service.label}
                             />
                             <span className="text-slate-900 dark:text-white font-medium">{service.label}</span>
                           </label>
                         ))}
                       </div>
-                    </div>
+                    </fieldset>
 
                     {/* Additional Information Section */}
                     <div className="pb-6 border-b border-slate-200 dark:border-slate-700">

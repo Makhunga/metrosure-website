@@ -34,7 +34,7 @@ const itemVariants = {
 const stats = [
   { value: "5000+", label: "Jobs Created" },
   { value: "2016", label: "Established" },
-  { value: "5", label: "Offices Nationwide" },
+  { value: "5+", label: "Offices Nationwide" },
   { value: "30+", label: "Insurance Partners" },
 ];
 

@@ -42,19 +42,22 @@ const validateRequired = (value: string, fieldName: string): string | null => {
   return null;
 };
 
-// Inline error message component
-function InlineError({ error }: { error: string | null }) {
+// Inline error message component with ARIA support
+function InlineError({ error, id }: { error: string | null; id?: string }) {
   return (
     <AnimatePresence>
       {error && (
         <motion.div
+          id={id}
+          role="alert"
+          aria-live="polite"
           initial={{ opacity: 0, y: -5, height: 0 }}
           animate={{ opacity: 1, y: 0, height: "auto" }}
           exit={{ opacity: 0, y: -5, height: 0 }}
           transition={{ duration: 0.2 }}
           className="flex items-center gap-1.5 mt-1.5 ml-1"
         >
-          <span className="material-symbols-outlined text-red-500 text-sm">error</span>
+          <span className="material-symbols-outlined text-red-500 text-sm" aria-hidden="true">error</span>
           <span className="text-red-500 text-xs font-medium">{error}</span>
         </motion.div>
       )}
@@ -385,11 +388,14 @@ export default function ContactForm() {
                               name="name"
                               placeholder="Jane Doe"
                               required
+                              aria-required="true"
+                              aria-invalid={getFieldState("name").error ? "true" : undefined}
+                              aria-describedby={getFieldState("name").error ? "name-error" : undefined}
                               type="text"
                               onBlur={(e) => validateField("name", e.target.value, (v) => validateRequired(v, "Name"))}
                             />
                           </div>
-                          <InlineError error={getFieldState("name").error} />
+                          <InlineError error={getFieldState("name").error} id="name-error" />
                         </motion.div>
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
@@ -411,11 +417,14 @@ export default function ContactForm() {
                               name="email"
                               placeholder="jane@company.com"
                               required
+                              aria-required="true"
+                              aria-invalid={getFieldState("email").error ? "true" : undefined}
+                              aria-describedby={getFieldState("email").error ? "email-error" : undefined}
                               type="email"
                               onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                             />
                           </div>
-                          <InlineError error={getFieldState("email").error} />
+                          <InlineError error={getFieldState("email").error} id="email-error" />
                         </motion.div>
                       </div>
                       <motion.div
@@ -547,11 +556,14 @@ export default function ContactForm() {
                             name="cb_name"
                             placeholder="John Smith"
                             required
+                            aria-required="true"
+                            aria-invalid={getFieldState("cb_name").error ? "true" : undefined}
+                            aria-describedby={getFieldState("cb_name").error ? "cb_name-error" : undefined}
                             type="text"
                             onBlur={(e) => validateField("cb_name", e.target.value, (v) => validateRequired(v, "Full name"))}
                           />
                         </div>
-                        <InlineError error={getFieldState("cb_name").error} />
+                        <InlineError error={getFieldState("cb_name").error} id="cb_name-error" />
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -573,11 +585,14 @@ export default function ContactForm() {
                             name="cb_phone"
                             placeholder="+27 XX XXX XXXX"
                             required
+                            aria-required="true"
+                            aria-invalid={getFieldState("cb_phone").error ? "true" : undefined}
+                            aria-describedby={getFieldState("cb_phone").error ? "cb_phone-error" : undefined}
                             type="tel"
                             onBlur={(e) => validateField("cb_phone", e.target.value, validatePhone)}
                           />
                         </div>
-                        <InlineError error={getFieldState("cb_phone").error} />
+                        <InlineError error={getFieldState("cb_phone").error} id="cb_phone-error" />
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}

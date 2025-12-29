@@ -421,9 +421,12 @@ export default function ApplicationForm({
                             }
                             placeholder="Your full name"
                             required
+                            aria-required="true"
+                            aria-invalid={getFieldState("fullName").error ? "true" : undefined}
+                            aria-describedby={getFieldState("fullName").error ? "fullName-error" : undefined}
                           />
                         </div>
-                        <InlineError error={getFieldState("fullName").error} />
+                        <InlineError error={getFieldState("fullName").error} id="fullName-error" />
                       </div>
                       <div>
                         <label className={labelClasses} htmlFor="email">
@@ -447,9 +450,12 @@ export default function ApplicationForm({
                             }
                             placeholder="you@email.com"
                             required
+                            aria-required="true"
+                            aria-invalid={getFieldState("email").error ? "true" : undefined}
+                            aria-describedby={getFieldState("email").error ? "email-error" : undefined}
                           />
                         </div>
-                        <InlineError error={getFieldState("email").error} />
+                        <InlineError error={getFieldState("email").error} id="email-error" />
                       </div>
                     </div>
 
@@ -475,9 +481,12 @@ export default function ApplicationForm({
                           }
                           placeholder="+27 XX XXX XXXX"
                           required
+                          aria-required="true"
+                          aria-invalid={getFieldState("phone").error ? "true" : undefined}
+                          aria-describedby={getFieldState("phone").error ? "phone-error" : undefined}
                         />
                       </div>
-                      <InlineError error={getFieldState("phone").error} />
+                      <InlineError error={getFieldState("phone").error} id="phone-error" />
                     </div>
 
                     {/* Position & Province */}

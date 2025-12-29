@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 37 - Complete)
+**Date:** December 29, 2025 (Session 38 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -37,11 +37,58 @@
 | Page-specific metadata | ✅ | About, Quote, Claims, Careers |
 | Performance optimization | ✅ | WebP images, preconnect, lazy loading |
 | Grid consistency | ✅ | Standardized to 10% opacity site-wide |
+| Form accessibility (ARIA) | ✅ | aria-required, aria-invalid, aria-describedby |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 38 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Form Accessibility Improvements
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Updated InlineError with role="alert" and id prop | `src/components/ui/InlineError.tsx` |
+| Added ARIA attributes to ContactForm | `src/components/contact/ContactForm.tsx` |
+| Added ARIA attributes to ApplicationForm | `src/components/careers/ApplicationForm.tsx` |
+| Added ARIA attributes to PartnerInquiryForm | `src/components/partners/PartnerInquiryForm.tsx` |
+| Added ARIA attributes to QuotePage | `src/app/quote/page.tsx` |
+| Fixed About page statistics (5 → 5+) | `src/app/about/page.tsx` |
+
+### Accessibility Improvements
+
+1. **InlineError Component**
+   - Added `id` prop for aria-describedby linking
+   - Added `role="alert"` for screen reader announcements
+   - Added `aria-live="polite"` for dynamic error messages
+   - Added `aria-hidden="true"` on decorative icons
+
+2. **Form Inputs (All 4 Forms)**
+   - Added `aria-required="true"` on required fields
+   - Added `aria-invalid` when validation fails
+   - Added `aria-describedby` linking inputs to error messages
+
+3. **Checkbox Groups**
+   - Added `<fieldset>` and `<legend>` around service checkboxes (PartnerInquiryForm)
+   - Added `role="group"` with `aria-label` for grouped selections
+
+### Forms Updated
+
+| Form | Fields with ARIA |
+|------|------------------|
+| ContactForm | name, email, cb_name, cb_phone |
+| ApplicationForm | fullName, email, phone |
+| PartnerInquiryForm | contactName, jobTitle, email, phone + services fieldset |
+| QuotePage | firstName, lastName, email, phone, zipCode |
+
+### Content Fix
+- Changed "5 Offices Nationwide" to "5+ Offices Nationwide" in About page statistics
 
 ---
 
@@ -147,9 +194,17 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN (Session 38)
+## NEXT SESSION PLAN (Session 39)
 
-### Priority 1: Production Readiness
+### Priority 1: Form Validation & Error Handling (User Request)
+
+1. **Proper Form Validation**
+   - Implement comprehensive client-side validation
+   - Add server-side validation in API routes
+   - Improve error handling and user feedback
+   - Files: All form components + API routes
+
+### Priority 2: Production Readiness
 
 1. **Email Configuration**
    - Configure Resend API key in Vercel production environment
@@ -160,18 +215,6 @@ Uncomment in `src/components/ClientLayout.tsx`:
    - Review which under-development routes are ready for production
    - Consider enabling: `/claims`, `/legal` (content complete)
    - Keep disabled: `/insurance/*`, `/tools/*` (need stakeholder review)
-
-### Priority 2: Accessibility Improvements
-
-1. **Form Labels**
-   - Add visible `<label>` elements to all form inputs
-   - Add `aria-describedby` for error messages
-   - Add `aria-required` on required fields
-   - Files: ContactForm.tsx, ApplicationForm.tsx, PartnerInquiryForm.tsx, quote/page.tsx
-
-2. **Focus States**
-   - Add consistent `focus:ring` classes to all interactive elements
-   - Ensure keyboard navigation works in dropdowns/modals
 
 ### Priority 3: Content & Polish
 
@@ -246,6 +289,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S38 | Dec 29 | Form accessibility (ARIA attributes), About page fix |
 | S37 | Dec 29 | Performance optimization, WebP hero, grid opacity standardization |
 | S36 | Dec 29 | SEO & social sharing, OG images, metadata |
 | S35 | Dec 29 | Mission section redesign, mobile quote fix |
@@ -284,4 +328,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 37 Complete*
+*Document updated: December 29, 2025 - Session 38 Complete*

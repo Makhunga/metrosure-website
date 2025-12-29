@@ -502,9 +502,12 @@ export default function QuotePage() {
                           onBlur={(e) => validateField("firstName", e.target.value, (v) => validateRequired(v, "First name"))}
                           className={getInputClassesWithIcon(getFieldState("firstName"))}
                           placeholder="John"
+                          aria-required="true"
+                          aria-invalid={getFieldState("firstName").error ? "true" : undefined}
+                          aria-describedby={getFieldState("firstName").error ? "firstName-error" : undefined}
                         />
                       </div>
-                      <InlineError error={getFieldState("firstName").error} />
+                      <InlineError error={getFieldState("firstName").error} id="firstName-error" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
@@ -523,9 +526,12 @@ export default function QuotePage() {
                           onBlur={(e) => validateField("lastName", e.target.value, (v) => validateRequired(v, "Last name"))}
                           className={getInputClassesWithIcon(getFieldState("lastName"))}
                           placeholder="Doe"
+                          aria-required="true"
+                          aria-invalid={getFieldState("lastName").error ? "true" : undefined}
+                          aria-describedby={getFieldState("lastName").error ? "lastName-error" : undefined}
                         />
                       </div>
-                      <InlineError error={getFieldState("lastName").error} />
+                      <InlineError error={getFieldState("lastName").error} id="lastName-error" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
@@ -544,9 +550,12 @@ export default function QuotePage() {
                           onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                           className={getInputClassesWithIcon(getFieldState("email"))}
                           placeholder="john@example.com"
+                          aria-required="true"
+                          aria-invalid={getFieldState("email").error ? "true" : undefined}
+                          aria-describedby={getFieldState("email").error ? "email-error" : undefined}
                         />
                       </div>
-                      <InlineError error={getFieldState("email").error} />
+                      <InlineError error={getFieldState("email").error} id="email-error" />
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
@@ -565,9 +574,12 @@ export default function QuotePage() {
                           onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
                           className={getInputClassesWithIcon(getFieldState("phone"))}
                           placeholder="+27 XX XXX XXXX"
+                          aria-required="true"
+                          aria-invalid={getFieldState("phone").error ? "true" : undefined}
+                          aria-describedby={getFieldState("phone").error ? "phone-error" : undefined}
                         />
                       </div>
-                      <InlineError error={getFieldState("phone").error} />
+                      <InlineError error={getFieldState("phone").error} id="phone-error" />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
@@ -586,9 +598,12 @@ export default function QuotePage() {
                           onBlur={(e) => validateField("zipCode", e.target.value, (v) => validateRequired(v, "Area code"))}
                           className={getInputClassesWithIcon(getFieldState("zipCode"))}
                           placeholder="4001"
+                          aria-required="true"
+                          aria-invalid={getFieldState("zipCode").error ? "true" : undefined}
+                          aria-describedby={getFieldState("zipCode").error ? "zipCode-error" : undefined}
                         />
                       </div>
-                      <InlineError error={getFieldState("zipCode").error} />
+                      <InlineError error={getFieldState("zipCode").error} id="zipCode-error" />
                     </div>
                   </div>
                 </motion.div>
