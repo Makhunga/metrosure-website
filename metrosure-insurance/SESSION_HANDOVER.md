@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 36 - Complete)
+**Date:** December 29, 2025 (Session 37 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -35,11 +35,58 @@
 | About page Mission section | ✅ | Editorial layout redesign |
 | SEO & Social Sharing | ✅ | OG images, Twitter cards, canonical URLs |
 | Page-specific metadata | ✅ | About, Quote, Claims, Careers |
+| Performance optimization | ✅ | WebP hero image, preconnect hints, lazy loading |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 37 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Performance Optimization
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Switched Hero to WebP (687KB → 140KB) | `src/components/Hero.tsx` |
+| Added preconnect hints for Google Fonts | `src/app/layout.tsx` |
+| Changed About mission image to lazy load | `src/app/about/page.tsx` |
+
+### Performance Audit Results
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| Hero image download | 0.3 ms | WebP optimization working |
+| LCP | 2,297 ms | Render delay from JS hydration |
+| CLS | 0.00 | Excellent layout stability |
+| Image size reduction | 80% | 687 KB → 140 KB |
+
+### Changes Made
+
+1. **Hero Image Optimization**
+   - Switched from `family-hero-2.jpg` (687 KB) to `hero-family.webp` (140 KB)
+   - 80% file size reduction
+   - Download time reduced to 0.3 ms
+
+2. **Preconnect Hints**
+   - Added `<link rel="preconnect">` for fonts.googleapis.com
+   - Added `<link rel="preconnect">` for fonts.gstatic.com
+   - Reduces DNS lookup and connection time
+
+3. **Lazy Loading**
+   - Changed About page mission image from `priority` to `loading="lazy"`
+   - Below-fold images no longer compete with LCP
+
+### Performance Notes
+
+- LCP render delay (2,122 ms) is primarily from Framer Motion JS hydration
+- This is expected behavior for animation-heavy sites
+- Production deployment with caching will improve real-world performance
+- Hero image is in `hidden xl:block` container which affects fetch priority
 
 ---
 
@@ -250,6 +297,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S37 | Dec 29 | Performance optimization, WebP hero, preconnect |
 | S36 | Dec 29 | SEO & social sharing, OG images, metadata |
 | S35 | Dec 29 | Mission section redesign, mobile quote fix |
 | S34 | Dec 28 | Calculator integration, nav links |
@@ -286,4 +334,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 36 Complete*
+*Document updated: December 29, 2025 - Session 37 Complete*

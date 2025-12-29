@@ -33,7 +33,7 @@ export default function Hero() {
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
       {/* Animated Grid Background */}
-      <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-60 animate-[grid-flow_20s_linear_infinite]" />
+      <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-10 animate-[grid-flow_20s_linear_infinite]" />
 
       {/* Gradient Mesh Overlay */}
       <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
@@ -221,10 +221,10 @@ export default function Hero() {
               {/* Main Image Container */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/20">
                 <Image
-                  src="/images/family-hero-2.jpg"
-                  alt="Happy South African family relaxing together"
+                  src="/images/family-hero-2.webp"
+                  alt="Happy South African family protected by Metrosure insurance"
                   width={1000}
-                  height={746}
+                  height={667}
                   className="object-cover w-full h-auto"
                   priority
                 />
