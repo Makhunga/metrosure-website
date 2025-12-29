@@ -1165,8 +1165,35 @@ export default function QuotePage() {
       </AnimatePresence>
 
       {/* FAQ Section - Editorial Accordion */}
-      <section ref={faqRef} className="pb-24 px-6 bg-slate-50 dark:bg-slate-900 py-24">
-        <div className="max-w-3xl mx-auto">
+      <section ref={faqRef} className="pb-24 px-6 py-24 relative">
+        {/* Square Pattern Background - extends into CTA section */}
+        <div
+          className="absolute -bottom-[120px] left-0 right-0 h-[420px] pointer-events-none opacity-70 dark:opacity-10 dark:[transform:scaleY(-1)] z-0"
+          style={{
+            backgroundImage: "url('/images/square-pattern.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
+        {/* Fade overlay for smooth blend - extends into CTA section */}
+        <div
+          className="absolute -bottom-[120px] left-0 right-0 h-[420px] pointer-events-none z-0 dark:hidden"
+          style={{
+            background: "linear-gradient(to bottom, rgb(250 250 249) 0%, transparent 30%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute -bottom-[120px] left-0 right-0 h-[420px] pointer-events-none z-0 hidden dark:block"
+          style={{
+            background: "linear-gradient(to bottom, rgb(15 23 42) 0%, transparent 30%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="max-w-3xl mx-auto relative z-10">
           {/* Editorial Header */}
           <motion.div
             className="text-center mb-16"
@@ -1200,85 +1227,36 @@ export default function QuotePage() {
             </motion.p>
           </motion.div>
 
-          {/* Accordion with Left Accent Line */}
+          {/* FAQ Cards - Contact Page Style */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <motion.details
                 key={index}
-                className="group"
-                initial={{ opacity: 0, x: -20 }}
-                animate={faqInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-300 hover:shadow-md open:border-l-4 open:border-l-primary open:shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
               >
-                <div
-                  className={`
-                    relative pl-6 border-l-2 transition-colors duration-300
-                    ${expandedFaq === index
-                      ? 'border-primary'
-                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
-                    }
-                  `}
-                >
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full py-5 flex items-center justify-between text-left"
-                  >
-                    <div className="flex items-center gap-3 pr-4">
-                      <span
-                        className={`
-                          px-2.5 py-1 text-xs font-medium rounded-md transition-colors
-                          ${expandedFaq === index
-                            ? 'bg-primary/10 text-primary'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-                          }
-                        `}
-                      >
-                        {faq.category}
-                      </span>
-                      <span
-                        className={`
-                          font-semibold transition-colors
-                          ${expandedFaq === index
-                            ? 'text-primary'
-                            : 'text-slate-900 dark:text-white group-hover:text-primary'
-                          }
-                        `}
-                      >
-                        {faq.question}
-                      </span>
-                    </div>
-                    <motion.span
-                      className="material-symbols-outlined text-slate-400 flex-shrink-0"
-                      animate={{ rotate: expandedFaq === index ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                <summary className="flex justify-between items-center w-full p-6 text-left cursor-pointer list-none select-none group-hover:bg-slate-50 dark:group-hover:bg-slate-700/50 group-open:bg-transparent transition-colors">
+                  <span className="font-semibold text-lg text-slate-900 dark:text-white group-hover:text-primary group-open:text-primary transition-colors pr-8">
+                    {faq.question}
+                  </span>
+                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary/10 group-open:bg-primary transition-all duration-300 shrink-0">
+                    <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary group-open:text-white text-xl transition-transform duration-300 group-open:rotate-180">
                       expand_more
-                    </motion.span>
-                  </button>
-
-                  <AnimatePresence>
-                    {expandedFaq === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="pb-5 text-slate-600 dark:text-slate-300 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                    </span>
+                  </div>
+                </summary>
+                <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 text-base leading-relaxed border-t border-slate-100 dark:border-slate-700">
+                  <p>{faq.answer}</p>
                 </div>
-              </motion.div>
+              </motion.details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Matching Partners Page Style */}
+      {/* CTA Section */}
       <section ref={ctaRef} className="pb-24 px-4">
         <motion.div
           className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
@@ -1290,28 +1268,10 @@ export default function QuotePage() {
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1008%26quot%3b)' fill='none'%3e%3cpath d='M29.17 140C29.17 131.06 2.86 142.25 0 128.52C-11.73 72.25 -33.5 30.76 0 0C36.5 -33.5 70 0 140 0C210 0 210 0 280 0C350 0 350 0 420 0C490 0 490 0 560 0C630 0 630 0 700 0C770 0 770 0 840 0C896 0 896.37 -2.89 952 0C966.37 0.75 970.32 -2.97 980 7.27C1036.47 67.03 1039.41 69.41 1084.29 140C1109.41 179.52 1098.54 227.5 1120 227.5C1143.32 227.5 1155 187.21 1173.85 140C1200.41 73.46 1178.66 52.25 1210.81 0C1221.73 -17.75 1235.4 0 1260 0C1330 0 1330 0 1400 0C1456 0 1473.99 -24.44 1512 0C1543.99 20.56 1530.85 44.26 1540 90C1544.85 114.26 1540 115 1540 140C1540 157.5 1543.17 157.89 1540 175C1530.2 227.89 1517.5 226.69 1514.07 280C1509.62 349.19 1512.96 353.06 1524.23 420C1525.92 430.06 1538.87 423.96 1540 434C1546.75 493.96 1573.16 530.16 1540 560C1503.16 593.16 1470 560 1400 560C1330 560 1330 560 1260 560C1199.74 560 1191.3 573.9 1139.49 560C1121.3 555.12 1137.07 533.68 1120 522.44C1057.32 481.18 1031.83 444.07 980 455C942.74 462.85 978.44 532.53 941.82 560C908.44 585.03 890.91 560 840 560C770 560 770 560 700 560C637.78 560 629.08 573.38 575.56 560C559.08 555.88 564.58 525 560 525C555.81 525 572.21 556.46 558.03 560C502.21 573.96 489.01 560 420 560C350 560 350 560 280 560C245 560 234.35 579.31 210 560C164.35 523.79 179.96 499.83 140 448.97C124.96 429.83 120.59 433.62 100 420C50.59 387.31 30.41 398.93 0 356.36C-19.59 328.93 0 318.18 0 280C0 225.22 -10.53 220.98 0 170.43C4.05 150.98 29.17 152.02 29.17 140' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3cpath d='M420 91.72C395.2 96.73 388.89 113.9 388.89 140C388.89 184.71 386.56 227.32 420 233.33C472.12 242.7 490.57 203.24 560 170.77C590.36 156.57 619.57 156.12 619.57 140C619.57 123.45 592.8 113.36 560 105.43C493.01 89.22 480.75 79.45 420 91.72' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3cpath d='M840 131.76C838.16 131.76 835 136.49 835 140C835 142.13 837.86 143.04 840 143.04C841.31 143.04 841.89 141.68 841.89 140C841.89 136.04 841.61 131.76 840 131.76' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3cpath d='M280 242.08C241.09 242.08 204.17 263.81 204.17 280C204.17 295.24 241.61 304.93 280 304.93C330.08 304.93 381.11 295.43 381.11 280C381.11 264 329.56 242.08 280 242.08' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1008'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e")`,
+              backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1008%26quot%3b)' fill='none'%3e%3cpath d='M29.17 140C29.17 131.06 2.86 142.25 0 128.52C-11.73 72.25 -33.5 30.76 0 0C36.5 -33.5 70 0 140 0C210 0 210 0 280 0C350 0 350 0 420 0C490 0 490 0 560 0C630 0 630 0 700 0C770 0 770 0 840 0C896 0 896.37 -2.89 952 0C966.37 0.75 970.32 -2.97 980 7.27C1036.47 67.03 1039.41 69.41 1084.29 140C1109.41 179.52 1098.54 227.5 1120 227.5C1143.32 227.5 1155 187.21 1173.85 140C1200.41 73.46 1178.66 52.25 1210.81 0C1221.73 -17.75 1235.4 0 1260 0C1330 0 1330 0 1400 0C1456 0 1473.99 -24.44 1512 0C1543.99 20.56 1530.85 44.26 1540 90C1544.85 114.26 1540 115 1540 140C1540 157.5 1543.17 157.89 1540 175C1530.2 227.89 1517.5 226.69 1514.07 280C1509.62 349.19 1512.96 353.06 1524.23 420C1525.92 430.06 1538.87 423.96 1540 434C1546.75 493.96 1573.16 530.16 1540 560C1503.16 593.16 1470 560 1400 560C1330 560 1330 560 1260 560C1199.74 560 1191.3 573.9 1139.49 560C1121.3 555.12 1137.07 533.68 1120 522.44C1057.32 481.18 1031.83 444.07 980 455C942.74 462.85 978.44 532.53 941.82 560C908.44 585.03 890.91 560 840 560C770 560 770 560 700 560C637.78 560 629.08 573.38 575.56 560C559.08 555.88 564.58 525 560 525C555.81 525 572.21 556.46 558.03 560C502.21 573.96 489.01 560 420 560C350 560 350 560 280 560C245 560 234.35 579.31 210 560C164.35 523.79 179.96 499.83 140 448.97C124.96 429.83 120.59 433.62 100 420C50.59 387.31 30.41 398.93 0 356.36C-19.59 328.93 0 318.18 0 280C0 225.22 -10.53 220.98 0 170.43C4.05 150.98 29.17 152.02 29.17 140' stroke='rgba(255%2c 255%2c 255%2c 0.12)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1008'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e")`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
-          />
-
-          {/* Decorative Blurs */}
-          <motion.div
-            className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.05, 0.1, 0.05],
-            }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-80 h-80 bg-black opacity-10 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.1, 0.15, 0.1],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
 
           <div className="relative z-10 flex flex-col items-center gap-8">

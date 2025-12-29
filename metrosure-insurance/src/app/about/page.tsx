@@ -587,6 +587,34 @@ export default function AboutPage() {
 
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
       <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
+        {/* Square Pattern Background - extends into CTA section */}
+        <div
+          className="absolute -bottom-[120px] left-0 right-0 h-[420px] pointer-events-none opacity-70 dark:opacity-10 dark:[transform:scaleY(-1)] z-0"
+          style={{
+            backgroundImage: "url('/images/square-pattern.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
+        {/* Fade overlay for smooth blend - Light mode */}
+        <div
+          className="absolute -bottom-[120px] left-0 right-0 h-[420px] pointer-events-none z-0 dark:hidden"
+          style={{
+            background: "linear-gradient(to bottom, rgb(var(--color-surface-card)) 0%, transparent 30%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
+        {/* Fade overlay for smooth blend - Dark mode */}
+        <div
+          className="absolute -bottom-[120px] left-0 right-0 h-[420px] pointer-events-none z-0 hidden dark:block"
+          style={{
+            background: "linear-gradient(to bottom, rgb(30 41 59) 0%, transparent 30%, transparent 100%)",
+          }}
+          aria-hidden="true"
+        />
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden">
 
         <motion.div
