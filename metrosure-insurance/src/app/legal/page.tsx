@@ -213,7 +213,6 @@ export default function LegalPage() {
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-56 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
 
         <div className="relative max-w-4xl mx-auto px-6 lg:px-12">
           <motion.div

@@ -53,7 +53,6 @@ export default function InsurancePageTemplate({
       {/* Hero Section */}
       <section className="relative pt-56 pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center">

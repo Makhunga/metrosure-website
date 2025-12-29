@@ -162,9 +162,6 @@ export default function AboutPage() {
 
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300 relative">
-      {/* Subtle Animated Grid Background */}
-      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-10 animate-[grid-flow_20s_linear_infinite] z-0" />
-
       <Header />
 
       {/* Hero Section with Portrait Image */}
