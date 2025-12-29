@@ -110,7 +110,7 @@ export default function PoliciesPage() {
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen relative">
       {/* Animated Grid Background */}
-      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-30 animate-[grid-flow_20s_linear_infinite] z-0" />
+      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-10 animate-[grid-flow_20s_linear_infinite] z-0" />
       <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />
 
       <Header />

@@ -28,7 +28,7 @@ export default function ContactPage() {
       {/* Main content with pattern background */}
       <div className="relative">
         {/* Animated Grid Background - same as home hero */}
-        <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-40 animate-[grid-flow_20s_linear_infinite]" />
+        <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-10 animate-[grid-flow_20s_linear_infinite]" />
 
         {/* Gradient Mesh Overlay */}
         <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
