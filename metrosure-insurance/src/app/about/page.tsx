@@ -451,7 +451,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section - Enhanced Visual Design (Static Style with Current Dates) */}
-      <section ref={timelineRef} className="py-24 md:py-32 bg-[rgb(var(--color-surface))]">
+      <section ref={timelineRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface))]">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <motion.div
             className="flex flex-col gap-6 mb-24 text-center items-center"

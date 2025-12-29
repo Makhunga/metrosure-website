@@ -120,14 +120,11 @@ export default function Testimonials() {
     }
   }, []);
 
-  // Navigate to previous slide (with cycling) - stable callback using functional update
+  // Navigate to previous slide (with cycling) - stable callback
   const goToPrevious = useCallback(() => {
-    setActiveIndex(prev => {
-      const newIndex = prev === 0 ? testimonialsData.length - 1 : prev - 1;
-      // Schedule scroll after state update
-      setTimeout(() => scrollToIndex(newIndex), 0);
-      return prev; // Don't update here, scrollToIndex will handle it
-    });
+    if (isScrollingRef.current) return;
+    const prevIndex = activeIndexRef.current === 0 ? testimonialsData.length - 1 : activeIndexRef.current - 1;
+    scrollToIndex(prevIndex);
   }, [scrollToIndex]);
 
   // Navigate to next slide (with cycling) - stable callback using functional update
@@ -246,7 +243,7 @@ export default function Testimonials() {
           <motion.div
             key={index}
             onClick={() => scrollToIndex(index)}
-            className={`min-w-[280px] sm:min-w-[320px] md:min-w-[420px] bg-[rgb(var(--color-surface-card))] p-6 sm:p-8 pb-6 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer
+            className={`flex-shrink-0 w-[280px] sm:w-[320px] md:w-[420px] bg-[rgb(var(--color-surface-card))] p-6 sm:p-8 pb-6 rounded-2xl border snap-center transition-all duration-300 flex flex-col justify-between h-[340px] cursor-pointer overflow-hidden
               ${
                 isActive
                   ? "border-primary shadow-lg shadow-primary/10"
@@ -280,7 +277,7 @@ export default function Testimonials() {
                   </motion.span>
                 ))}
               </div>
-              <p className="text-lg text-[rgb(var(--color-text-main))] leading-relaxed font-medium">
+              <p className="text-base sm:text-lg text-[rgb(var(--color-text-main))] leading-relaxed font-medium line-clamp-5">
                 &ldquo;{testimonial.text}&rdquo;
               </p>
             </div>
