@@ -35,7 +35,8 @@
 | About page Mission section | ✅ | Editorial layout redesign |
 | SEO & Social Sharing | ✅ | OG images, Twitter cards, canonical URLs |
 | Page-specific metadata | ✅ | About, Quote, Claims, Careers |
-| Performance optimization | ✅ | WebP hero image, preconnect hints, lazy loading |
+| Performance optimization | ✅ | WebP images, preconnect, lazy loading |
+| Grid consistency | ✅ | Standardized to 10% opacity site-wide |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
@@ -46,30 +47,32 @@
 
 ## Session 37 Summary (December 29, 2025) - COMPLETE
 
-**Focus:** Performance Optimization
+**Focus:** Performance Optimization & Visual Consistency
 
 ### Completed
 
 | Task | Files Modified |
 |------|----------------|
-| Switched Hero to WebP (687KB → 140KB) | `src/components/Hero.tsx` |
+| Switched Hero to WebP format | `src/components/Hero.tsx` |
 | Added preconnect hints for Google Fonts | `src/app/layout.tsx` |
 | Changed About mission image to lazy load | `src/app/about/page.tsx` |
+| Restored subtle grid to About page | `src/app/about/page.tsx` |
+| Standardized grid opacity to 10% | 17 files site-wide |
 
 ### Performance Audit Results
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| Hero image download | 0.3 ms | WebP optimization working |
+| Hero image size | 337 KB | Down from 687 KB (51% reduction) |
+| Hero download time | 0.3 ms | WebP optimization working |
 | LCP | 2,297 ms | Render delay from JS hydration |
 | CLS | 0.00 | Excellent layout stability |
-| Image size reduction | 80% | 687 KB → 140 KB |
 
 ### Changes Made
 
 1. **Hero Image Optimization**
-   - Switched from `family-hero-2.jpg` (687 KB) to `hero-family.webp` (140 KB)
-   - 80% file size reduction
+   - Switched from `family-hero-2.jpg` (687 KB) to `family-hero-2.webp` (337 KB)
+   - 51% file size reduction
    - Download time reduced to 0.3 ms
 
 2. **Preconnect Hints**
@@ -77,7 +80,14 @@
    - Added `<link rel="preconnect">` for fonts.gstatic.com
    - Reduces DNS lookup and connection time
 
-3. **Lazy Loading**
+3. **Grid Opacity Standardization**
+   - All 17 instances of `bg-grid-pattern` now use `opacity-10`
+   - Previously ranged from 30-60% causing visual inconsistency
+   - Files updated:
+     - Components: Hero.tsx, HeroCentered.tsx, Hero.split-layout.tsx, CareersHero.tsx, PartnersHero.tsx, InsurancePageTemplate.tsx
+     - Pages: about, careers, partners, quote, help, claims, policies, contact, terms, legal, privacy
+
+4. **Lazy Loading**
    - Changed About page mission image from `priority` to `loading="lazy"`
    - Below-fold images no longer compete with LCP
 
@@ -87,6 +97,12 @@
 - This is expected behavior for animation-heavy sites
 - Production deployment with caching will improve real-world performance
 - Hero image is in `hidden xl:block` container which affects fetch priority
+
+### Git Commits
+```
+96a668a Session 37: Performance optimization and grid refinement
+6998154 Standardize grid opacity to 10% across all pages
+```
 
 ---
 
@@ -108,98 +124,6 @@
 | Added Claims page metadata | `src/app/claims/layout.tsx` |
 | Added Careers page metadata | `src/app/careers/layout.tsx` |
 | Fixed testimonials carousel bugs | `src/components/Testimonials.tsx` |
-| Removed decorative grid from About | `src/app/about/page.tsx` |
-
-### Changes Made
-
-1. **Open Graph Image**
-   - Created professional 1200x630px OG image
-   - Dark background with Metrosure branding
-   - Geometric red shapes, tagline, FSP 47089 badge
-   - Saved as `public/og-image.png`
-
-2. **Root Layout Metadata Updates**
-   - Added `metadataBase` for canonical URLs
-   - Added `alternates.canonical`
-   - Added `openGraph.images` with dimensions
-   - Added `twitter` card configuration (summary_large_image)
-
-3. **Page-Specific Metadata**
-   - Created route layouts with metadata for:
-     - About: Company story, 5,000+ jobs messaging
-     - Quote: Free quote, real-time pricing
-     - Claims: Claims process, support messaging
-     - Careers: Job opportunities, 5,000+ jobs created
-
-4. **About Page Cleanup**
-   - Removed grainy SVG texture from mission section
-   - Removed decorative grid background entirely
-   - Clean solid backgrounds for all sections
-   - Added `relative z-10` to Timeline for proper stacking
-
-5. **Testimonials Carousel Fixes**
-   - Fixed card text overflow with `overflow-hidden` and `line-clamp-5`
-   - Changed `min-w` to `w` for consistent card widths
-   - Fixed `goToPrevious` navigation bug (race condition with state updates)
-   - Now uses `activeIndexRef.current` for reliable navigation
-
----
-
-## Session 35 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** About Page Mission Section Redesign & Mobile Quote Fix
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Mission section editorial redesign | `src/app/about/page.tsx` |
-| Mobile quote premium bar fix | `src/app/quote/page.tsx` |
-| Team photo update | `public/images/mission-image.jpg` |
-
-### Changes Made
-
-1. **About Page - Mission Section Redesign**
-   - New editorial two-column layout (Miter-inspired)
-   - Left: Bold heading "Building a nation where everyone is protected."
-   - Right: Content paragraphs with vertical red accent line
-   - Full-width team image at bottom (square corners, object-top)
-   - Dark background (#1a1a1a) with subtle grain texture
-   - Dual-audience messaging (consumers + B2B partners)
-
-2. **Quote Page - Mobile Fix**
-   - Fixed "Estimated Premium" bar being blocked by hiring banner
-   - Changed `bottom-0` to `bottom-12` (sits above hiring banner)
-   - Increased z-index from `z-40` to `z-50`
-
-3. **Content Updates**
-   - Mission story rewritten for dual audience (consumers + retail partners)
-   - Highlights: retail partnerships, job creation (5,000+), affordability
-   - Aspirational tone matching brand positioning
-
-### Mission Section Content (Final)
-
-**Heading:** "Building a nation where everyone is protected."
-
-**Paragraphs:**
-1. "We believe insurance should work for everyone. For families seeking peace of mind. For businesses seeking new opportunities."
-2. "That's why we built something different: a network of retail partnerships that brings financial services directly into communities across South Africa. For consumers, it means accessible, affordable protection. For retail partners, it means a new revenue stream with fully trained staff provided."
-3. "Since 2016, this model has created over 5,000 jobs nationwide. Every partnership we form, every policy we write, moves us closer to a future where financial security is the norm, not the exception."
-
----
-
-## Session 34 Summary (December 28, 2025)
-
-**Focus:** Stakeholder Presentation Polish - Calculator Integration
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Tools dropdown in header nav | `Header.tsx` |
-| Calculator CTA on insurance pages | `InsurancePageTemplate.tsx` |
-| Calculator link on homepage | `Products.tsx` |
-| Coverage calculator under development | `middleware.ts` |
 
 ---
 
@@ -223,45 +147,62 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN
+## NEXT SESSION PLAN (Session 38)
 
-### Priority Tasks
+### Priority 1: Production Readiness
 
-1. **Production Readiness**
-   - Configure Resend API key for email delivery
-   - Test all form submissions end-to-end
-   - Enable ready routes in production (insurance/*, legal, claims, tools)
+1. **Email Configuration**
+   - Configure Resend API key in Vercel production environment
+   - Test all 4 form submissions end-to-end (contact, quote, careers, partner inquiry)
+   - Verify email delivery to all configured addresses
 
-2. **Lighthouse Audit**
-   - Run performance audit
-   - Check accessibility scores
-   - Address any critical issues
+2. **Route Enablement Decision**
+   - Review which under-development routes are ready for production
+   - Consider enabling: `/claims`, `/legal` (content complete)
+   - Keep disabled: `/insurance/*`, `/tools/*` (need stakeholder review)
 
-3. **Content Review**
-   - Review all page content for consistency with mission messaging
-   - Ensure dual-audience (B2C + B2B) tone across site
+### Priority 2: Accessibility Improvements
+
+1. **Form Labels**
+   - Add visible `<label>` elements to all form inputs
+   - Add `aria-describedby` for error messages
+   - Add `aria-required` on required fields
+   - Files: ContactForm.tsx, ApplicationForm.tsx, PartnerInquiryForm.tsx, quote/page.tsx
+
+2. **Focus States**
+   - Add consistent `focus:ring` classes to all interactive elements
+   - Ensure keyboard navigation works in dropdowns/modals
+
+### Priority 3: Content & Polish
+
+1. **Values Section Enhancement**
+   - Consider applying editorial treatment similar to Mission section
+   - Review content for dual-audience (B2C + B2B) messaging
+
+2. **Image Cleanup**
+   - Remove unused backup images from `public/images/`
+   - Verify all images have appropriate alt text
 
 ### Recommendations
 
-1. **Hiring Banner**
-   - Consider making the mobile hiring banner dismissible
-   - Or add a close button after X seconds
+1. **Performance**
+   - Consider code-splitting Framer Motion for pages that don't need animations
+   - Monitor Vercel Analytics for real-world performance data
+   - LCP could be improved by reducing JS bundle or deferring animations
 
-2. **Mission Image**
-   - Current image works well; consider adding alt text with team context
-   - Could add hover effect or subtle parallax on scroll
-
-3. **Insurance Pages**
-   - The Car & Home combined approach is fine, but ensure content is clear
-   - Consider adding "Home" as a redirect hint in nav
-
-4. **Analytics**
+2. **Analytics**
    - Set up conversion tracking for quote form submissions
    - Track partner inquiry form completions
+   - Add event tracking for CTA clicks
 
-5. **Content**
-   - Values section could use the same editorial treatment as Mission
-   - Consider testimonials or case studies for social proof
+3. **Mobile UX**
+   - Consider making the hiring banner dismissible on mobile
+   - Or auto-hide after a few seconds
+
+4. **SEO**
+   - Add structured data for FAQ sections
+   - Consider adding breadcrumb schema
+   - Review meta descriptions for keyword optimization
 
 ---
 
@@ -291,13 +232,21 @@ npm run build
 | `/api/quote` | 10/hour |
 | `/api/contact` | 15/hour |
 
+### Image Assets
+| Image | Size | Usage |
+|-------|------|-------|
+| `family-hero-2.webp` | 337 KB | Hero section (xl screens) |
+| `mission-image.jpg` | 290 KB | About page mission |
+| `about-hero.jpg` | 358 KB | About page hero background |
+| `og-image.png` | 68 KB | Social sharing |
+
 ---
 
 ## SESSION HISTORY
 
 | Session | Date | Focus |
 |---------|------|-------|
-| S37 | Dec 29 | Performance optimization, WebP hero, preconnect |
+| S37 | Dec 29 | Performance optimization, WebP hero, grid opacity standardization |
 | S36 | Dec 29 | SEO & social sharing, OG images, metadata |
 | S35 | Dec 29 | Mission section redesign, mobile quote fix |
 | S34 | Dec 28 | Calculator integration, nav links |
@@ -329,6 +278,7 @@ npm run build
 | Issue | Severity | Notes |
 |-------|----------|-------|
 | Email delivery not configured | High | Needs Resend API key in production |
+| LCP render delay | Medium | 2.1s from Framer Motion hydration - expected |
 | No reCAPTCHA on forms | Low | Consider adding to reduce spam |
 | Browser extension error | None | "correspondingUseElement" error from extensions, harmless |
 
