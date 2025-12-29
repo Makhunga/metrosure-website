@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 35 - Complete)
+**Date:** December 29, 2025 (Session 36 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -33,11 +33,58 @@
 | Vercel Analytics | ✅ | @vercel/analytics integrated |
 | Rate limiting | ✅ | In-memory on all 4 API routes |
 | About page Mission section | ✅ | Editorial layout redesign |
+| SEO & Social Sharing | ✅ | OG images, Twitter cards, canonical URLs |
+| Page-specific metadata | ✅ | About, Quote, Claims, Careers |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 36 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** SEO & Social Sharing Enhancement
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Created OG image (1200x630px) | `public/og-image.png`, `public/og-image.html` |
+| Added OG images to metadata | `src/app/layout.tsx` |
+| Added Twitter cards | `src/app/layout.tsx` |
+| Added canonical URLs | `src/app/layout.tsx` |
+| Added About page metadata | `src/app/about/layout.tsx` |
+| Removed grain texture from mission | `src/app/about/page.tsx` |
+| Added Quote page metadata | `src/app/quote/layout.tsx` |
+| Added Claims page metadata | `src/app/claims/layout.tsx` |
+| Added Careers page metadata | `src/app/careers/layout.tsx` |
+
+### Changes Made
+
+1. **Open Graph Image**
+   - Created professional 1200x630px OG image
+   - Dark background with Metrosure branding
+   - Geometric red shapes, tagline, FSP 47089 badge
+   - Saved as `public/og-image.png`
+
+2. **Root Layout Metadata Updates**
+   - Added `metadataBase` for canonical URLs
+   - Added `alternates.canonical`
+   - Added `openGraph.images` with dimensions
+   - Added `twitter` card configuration (summary_large_image)
+
+3. **Page-Specific Metadata**
+   - Created route layouts with metadata for:
+     - About: Company story, 5,000+ jobs messaging
+     - Quote: Free quote, real-time pricing
+     - Claims: Claims process, support messaging
+     - Careers: Job opportunities, 5,000+ jobs created
+
+4. **About Page Cleanup**
+   - Removed grainy SVG texture from mission section
+   - Clean dark background now
 
 ---
 
@@ -123,19 +170,19 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ### Priority Tasks
 
-1. **Content Review**
-   - Review all page content for consistency with mission messaging
-   - Ensure dual-audience (B2C + B2B) tone across site
-
-2. **Production Readiness**
+1. **Production Readiness**
    - Configure Resend API key for email delivery
    - Test all form submissions end-to-end
-   - Review under-development routes for launch readiness
+   - Enable ready routes in production (insurance/*, legal, claims, tools)
 
-3. **SEO & Performance**
-   - Add meta descriptions to all pages
-   - Verify Open Graph tags
-   - Run Lighthouse audit
+2. **Lighthouse Audit**
+   - Run performance audit
+   - Check accessibility scores
+   - Address any critical issues
+
+3. **Content Review**
+   - Review all page content for consistency with mission messaging
+   - Ensure dual-audience (B2C + B2B) tone across site
 
 ### Recommendations
 
@@ -193,6 +240,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S36 | Dec 29 | SEO & social sharing, OG images, metadata |
 | S35 | Dec 29 | Mission section redesign, mobile quote fix |
 | S34 | Dec 28 | Calculator integration, nav links |
 | S33 | Dec 28 | Live pricing, WhatsApp, Coverage calculator |
@@ -228,4 +276,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 35 Complete*
+*Document updated: December 29, 2025 - Session 36 Complete*

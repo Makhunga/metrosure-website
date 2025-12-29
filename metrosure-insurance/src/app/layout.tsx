@@ -18,16 +18,34 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.metrosuregroup.co.za"),
   title: "Metrosure Insurance Brokers | Taking You to the Future",
   description: "Metrosure Insurance Brokers (FSP 47089) - Your trusted South African financial services provider. Insurance, retirement planning, investments, employee benefits, and in-store insurance solutions since 2016.",
   keywords: ["insurance broker", "car insurance", "home insurance", "life insurance", "funeral cover", "credit life insurance", "retirement planning", "investments", "employee benefits", "in-store insurance", "South Africa", "Durban", "FSP 47089"],
   authors: [{ name: "Metrosure Insurance Brokers (Pty) Ltd" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Metrosure Insurance Brokers | Taking You to the Future",
     description: "Your trusted South African insurance broker. Personal and business insurance, financial planning, and retail insurance solutions. FSP 47089.",
     type: "website",
     locale: "en_ZA",
     siteName: "Metrosure Insurance Brokers",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Metrosure Insurance Brokers - Taking You to the Future",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Metrosure Insurance Brokers | Taking You to the Future",
+    description: "Your trusted South African insurance broker. Personal and business insurance, financial planning, and retail insurance solutions. FSP 47089.",
+    images: ["/og-image.png"],
   },
 };
 
