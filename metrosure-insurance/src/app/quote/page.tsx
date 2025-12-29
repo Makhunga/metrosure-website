@@ -166,7 +166,6 @@ export default function QuotePage() {
     startDate: "",
     additionalCoverage: [],
   });
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -1164,34 +1163,26 @@ export default function QuotePage() {
         )}
       </AnimatePresence>
 
-      {/* FAQ Section - Editorial Accordion */}
-      <section ref={faqRef} className="pb-24 px-6 bg-slate-50 dark:bg-slate-900 py-24">
+      {/* FAQ Section - Card-based Accordion */}
+      <section ref={faqRef} className="py-24 px-6">
         <div className="max-w-3xl mx-auto">
-          {/* Editorial Header */}
+          {/* Header */}
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.span
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={faqInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              Common Questions
-            </motion.span>
             <motion.h2
-              className="text-4xl font-bold text-slate-900 dark:text-white mb-4"
+              className="text-3xl font-bold text-slate-900 dark:text-white mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Everything you need to know
+              Common Questions
             </motion.h2>
             <motion.p
-              className="text-lg text-slate-600 dark:text-slate-300"
+              className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -1200,86 +1191,37 @@ export default function QuotePage() {
             </motion.p>
           </motion.div>
 
-          {/* Accordion with Left Accent Line */}
+          {/* FAQ Items - Card-based like Contact page */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <motion.details
                 key={index}
-                className="group"
-                initial={{ opacity: 0, x: -20 }}
-                animate={faqInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                className="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-300 hover:shadow-md open:border-l-4 open:border-l-primary open:shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
               >
-                <div
-                  className={`
-                    relative pl-6 border-l-2 transition-colors duration-300
-                    ${expandedFaq === index
-                      ? 'border-primary'
-                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
-                    }
-                  `}
-                >
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full py-5 flex items-center justify-between text-left"
-                  >
-                    <div className="flex items-center gap-3 pr-4">
-                      <span
-                        className={`
-                          px-2.5 py-1 text-xs font-medium rounded-md transition-colors
-                          ${expandedFaq === index
-                            ? 'bg-primary/10 text-primary'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-                          }
-                        `}
-                      >
-                        {faq.category}
-                      </span>
-                      <span
-                        className={`
-                          font-semibold transition-colors
-                          ${expandedFaq === index
-                            ? 'text-primary'
-                            : 'text-slate-900 dark:text-white group-hover:text-primary'
-                          }
-                        `}
-                      >
-                        {faq.question}
-                      </span>
-                    </div>
-                    <motion.span
-                      className="material-symbols-outlined text-slate-400 flex-shrink-0"
-                      animate={{ rotate: expandedFaq === index ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                <summary className="flex justify-between items-center w-full p-6 text-left cursor-pointer list-none select-none group-hover:bg-slate-50 dark:group-hover:bg-slate-700/50 group-open:bg-transparent transition-colors">
+                  <span className="font-semibold text-lg text-slate-900 dark:text-white group-hover:text-primary group-open:text-primary transition-colors pr-8">
+                    {faq.question}
+                  </span>
+                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center group-hover:bg-primary/10 group-open:bg-primary transition-all duration-300 shrink-0">
+                    <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-primary group-open:text-white text-xl transition-transform duration-300 group-open:rotate-180">
                       expand_more
-                    </motion.span>
-                  </button>
-
-                  <AnimatePresence>
-                    {expandedFaq === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="pb-5 text-slate-600 dark:text-slate-300 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                    </span>
+                  </div>
+                </summary>
+                <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 text-base leading-relaxed border-t border-slate-100 dark:border-slate-700">
+                  <p>{faq.answer}</p>
                 </div>
-              </motion.div>
+              </motion.details>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section - Matching Partners Page Style */}
-      <section ref={ctaRef} className="pb-24 px-4">
+      <section ref={ctaRef} className="pt-8 pb-24 px-4">
         <motion.div
           className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
