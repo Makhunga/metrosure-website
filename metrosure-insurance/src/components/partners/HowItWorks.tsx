@@ -43,7 +43,7 @@ export default function HowItWorks() {
     <section
       ref={ref}
       id="how-it-works"
-      className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300"
+      className="relative py-24 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}

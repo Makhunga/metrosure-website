@@ -778,6 +778,111 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   SECTION SEPARATION UTILITIES (Session 44)
+   Visual hierarchy and section separation for light mode
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Section border separators */
+.section-border-top {
+  border-top: 1px solid rgb(var(--color-border-light));
+}
+
+.section-border-bottom {
+  border-bottom: 1px solid rgb(var(--color-border-light));
+}
+
+.section-border-y {
+  border-top: 1px solid rgb(var(--color-border-light));
+  border-bottom: 1px solid rgb(var(--color-border-light));
+}
+
+/* Warm section backgrounds - Primary tint */
+.section-warm {
+  background-color: #FEF2F2;
+}
+
+.dark .section-warm {
+  background-color: rgb(30 41 59 / 0.5); /* slate-800/50 */
+}
+
+/* Accent section backgrounds - Yellow tint */
+.section-accent {
+  background-color: rgb(247 248 220 / 0.4); /* accent-light/40 */
+}
+
+.dark .section-accent {
+  background-color: rgb(30 41 59 / 0.3); /* slate-800/30 */
+}
+
+/* Neutral section backgrounds */
+.section-neutral {
+  background-color: #FAFAF9; /* stone-50 */
+}
+
+.dark .section-neutral {
+  background-color: rgb(15 23 42); /* slate-900 */
+}
+
+/* Editorial section header styling */
+.editorial-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.editorial-accent-bar {
+  width: 3px;
+  height: 4rem;
+  background-color: rgb(var(--color-primary));
+  border-radius: 9999px;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+/* Editorial divider - centered dot with lines */
+.editorial-divider {
+  position: relative;
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editorial-divider::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6rem;
+  height: 1px;
+  background-color: rgb(var(--color-border-light));
+}
+
+.editorial-divider::after {
+  content: "";
+  position: relative;
+  z-index: 1;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: rgb(var(--color-primary));
+}
+
+/* Gradient line divider */
+.gradient-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(var(--color-border-light)) 20%,
+    rgb(var(--color-border-light)) 80%,
+    transparent
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    MATERIAL SYMBOLS STYLING
    ═══════════════════════════════════════════════════════════════════════════ */
 

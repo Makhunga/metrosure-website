@@ -385,7 +385,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section ref={valuesRef} className="relative z-10 py-24 bg-[rgb(var(--color-surface-card))]">
+      <section ref={valuesRef} className="relative z-10 py-24 section-warm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             className="text-center mb-16"
