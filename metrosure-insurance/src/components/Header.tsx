@@ -19,6 +19,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
+  const [isDevBannerDismissed, setIsDevBannerDismissed] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
@@ -36,6 +37,17 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Listen for dev banner dismissal
+  useEffect(() => {
+    const checkDismissed = () => {
+      setIsDevBannerDismissed(sessionStorage.getItem("devBannerDismissed") === "true");
+    };
+
+    checkDismissed();
+    window.addEventListener("devBannerDismissed", checkDismissed);
+    return () => window.removeEventListener("devBannerDismissed", checkDismissed);
   }, []);
 
   // Close dropdown when clicking outside
@@ -83,7 +95,9 @@ export default function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed w-full z-50 transition-all duration-500 top-10 ${
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        isDevBannerDismissed ? "top-0" : "top-10"
+      } ${
         isScrolled
           ? "bg-[rgb(var(--color-surface-card))] shadow-lg shadow-black/5 dark:shadow-black/20 border-b border-[rgb(var(--color-border-light))]"
           : "bg-[rgb(var(--color-surface-card))] border-b border-[rgb(var(--color-border-light))]"
