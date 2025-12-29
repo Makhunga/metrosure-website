@@ -137,7 +137,7 @@ export function FuneralCoverCalculator() {
                     onClick={() => toggleMember(member.id)}
                     className={`p-4 rounded-xl border-2 text-left transition-all ${
                       isSelected
-                        ? "border-primary bg-primary/5 dark:bg-primary/10"
+                        ? "border-primary bg-primary/5 dark:bg-primary/15"
                         : "border-slate-200 dark:border-slate-600 hover:border-primary/50 bg-white dark:bg-slate-700/30"
                     }`}
                     whileTap={{ scale: 0.98 }}
@@ -199,7 +199,7 @@ export function FuneralCoverCalculator() {
                     }}
                     className={`w-full p-5 rounded-xl border-2 text-left transition-all ${
                       isSelected
-                        ? "border-primary bg-primary/5 dark:bg-primary/10"
+                        ? "border-primary bg-primary/5 dark:bg-primary/15"
                         : "border-slate-200 dark:border-slate-600 hover:border-primary/50 bg-white dark:bg-slate-700/30"
                     }`}
                     whileTap={{ scale: 0.98 }}
@@ -369,7 +369,7 @@ export function FuneralCoverCalculator() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-200 dark:border-emerald-800"
+                  className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/15 rounded-xl border border-emerald-200 dark:border-emerald-800"
                 >
                   <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-2">
                     Plan Benefits
@@ -395,7 +395,7 @@ export function FuneralCoverCalculator() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800"
+                  className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/15 rounded-xl border border-amber-200 dark:border-amber-800"
                 >
                   <div className="flex items-start gap-3">
                     <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 mt-0.5">
@@ -439,7 +439,7 @@ export function FuneralCoverCalculator() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600 p-12 text-center"
+              className="bg-slate-50 dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600 p-12 text-center"
             >
               <span className="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-600 mb-4">
                 family_restroom

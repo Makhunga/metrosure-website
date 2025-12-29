@@ -456,7 +456,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
           >
             <motion.span
-              className="px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
+              className="px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/15 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={timelineInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -596,7 +596,7 @@ export default function AboutPage() {
           transition={{ duration: 0.6 }}
         >
           <motion.span
-            className="px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
+            className="px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/15 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={teamInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.5, delay: 0.1 }}

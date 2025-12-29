@@ -58,7 +58,7 @@ export default function CookieConsent() {
                   {/* Icon & Text */}
                   <div className="flex-1">
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center">
+                      <div className="flex-shrink-0 w-12 h-12 bg-primary/10 dark:bg-primary/15 rounded-xl flex items-center justify-center">
                         <span className="material-symbols-outlined text-2xl text-primary">
                           cookie
                         </span>

@@ -695,7 +695,7 @@ export default function QuotePage() {
                         onClick={() => updateFormData({ coverageType: option.id, additionalCoverage: [] })}
                         className={`relative p-6 rounded-xl border-2 text-left transition-all duration-300 group ${
                           formData.coverageType === option.id
-                            ? "border-primary bg-primary/5 dark:bg-primary/10 shadow-lg shadow-primary/10"
+                            ? "border-primary bg-primary/5 dark:bg-primary/15 shadow-lg shadow-primary/10"
                             : "border-slate-200 dark:border-slate-600 hover:border-primary/50 hover:shadow-md bg-white dark:bg-slate-700/30"
                         }`}
                       >
@@ -811,9 +811,9 @@ export default function QuotePage() {
                         onBlur={(e) => validateField("startDate", e.target.value, (v) => validateFutureDate(v, "Start date"))}
                         className={`w-full px-4 py-3.5 rounded-xl border ${
                           getFieldState("startDate").touched && getFieldState("startDate").error
-                            ? "border-2 border-red-400 bg-red-50 dark:bg-red-900/10"
+                            ? "border-2 border-red-400 bg-red-50 dark:bg-red-900/15"
                             : getFieldState("startDate").touched && getFieldState("startDate").valid
-                            ? "border-2 border-green-400 bg-green-50 dark:bg-green-900/10"
+                            ? "border-2 border-green-400 bg-green-50 dark:bg-green-900/15"
                             : "border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50"
                         } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all`}
                         aria-required="true"
@@ -1029,7 +1029,7 @@ export default function QuotePage() {
                     </motion.div>
 
                     {/* Terms */}
-                    <div className="p-4 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20">
+                    <div className="p-4 rounded-lg bg-primary/5 dark:bg-primary/15 border border-primary/20">
                       <p className="text-sm text-slate-600 dark:text-slate-300">
                         By submitting this form, you agree to our{" "}
                         <a href="/terms" className="text-primary hover:underline">
@@ -1052,7 +1052,7 @@ export default function QuotePage() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                  className="mt-6 p-4 bg-red-50 dark:bg-red-900/15 border border-red-200 dark:border-red-800 rounded-lg"
                 >
                   <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
                     <span className="material-symbols-outlined">error</span>
@@ -1165,7 +1165,7 @@ export default function QuotePage() {
       </AnimatePresence>
 
       {/* FAQ Section - Editorial Accordion */}
-      <section ref={faqRef} className="pb-24 px-6 bg-slate-50 dark:bg-slate-900/50 py-24">
+      <section ref={faqRef} className="pb-24 px-6 bg-slate-50 dark:bg-slate-900 py-24">
         <div className="max-w-3xl mx-auto">
           {/* Editorial Header */}
           <motion.div

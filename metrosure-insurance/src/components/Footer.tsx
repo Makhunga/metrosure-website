@@ -107,7 +107,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
+      className="relative bg-slate-100 dark:bg-slate-950 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
     >
       {/* Geometric pattern background - both modes */}
       <div
@@ -121,7 +121,7 @@ export default function Footer() {
       />
 
       {/* Gradient overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-100/90 via-slate-100/70 to-slate-100/95 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-100/90 via-slate-100/70 to-slate-100/95 dark:from-slate-950/80 dark:via-slate-950/60 dark:to-slate-950/90 pointer-events-none" />
 
       {/* Corner Accents - Light mode only */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none dark:hidden">

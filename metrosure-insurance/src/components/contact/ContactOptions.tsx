@@ -50,7 +50,7 @@ function ContactCard({ icon, title, description, linkText, href, index, isInView
       >
         {/* Icon */}
         <motion.div
-          className="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary transition-all duration-300"
+          className="w-14 h-14 bg-primary/10 dark:bg-primary/15 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary transition-all duration-300"
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring" as const, stiffness: 400, damping: 17 }}
         >

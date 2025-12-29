@@ -274,7 +274,7 @@ export function LifeCoverCalculator() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600 p-12 text-center"
+            className="bg-slate-50 dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-600 p-12 text-center"
           >
             <span className="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-600 mb-4">
               calculate

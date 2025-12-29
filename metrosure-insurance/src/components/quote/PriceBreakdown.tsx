@@ -78,7 +78,7 @@ function SavingsIndicator({
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
-      className="mt-4 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-200 dark:border-emerald-800"
+      className="mt-4 p-3 bg-emerald-50 dark:bg-emerald-900/15 rounded-xl border border-emerald-200 dark:border-emerald-800"
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
@@ -325,7 +325,7 @@ export function PriceBreakdown({
 
         {/* Footer */}
         <div className="px-6 pb-6">
-          <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl">
+          <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 text-lg">

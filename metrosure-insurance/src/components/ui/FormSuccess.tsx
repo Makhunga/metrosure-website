@@ -194,7 +194,7 @@ export function FormSuccess({
       {/* Quote Summary Card (when quote data provided) */}
       {quoteData && (
         <motion.div
-          className="w-full max-w-md bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 mb-6 border border-slate-200 dark:border-slate-700"
+          className="w-full max-w-md bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 mb-6 border border-slate-200 dark:border-slate-700"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.45 }}

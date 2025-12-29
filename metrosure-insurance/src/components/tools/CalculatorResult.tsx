@@ -258,7 +258,7 @@ export function CalculatorResult({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="mb-8 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800"
+            className="mb-8 p-4 bg-amber-50 dark:bg-amber-900/15 rounded-xl border border-amber-200 dark:border-amber-800"
           >
             <div className="flex items-start gap-3">
               <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 mt-0.5">
