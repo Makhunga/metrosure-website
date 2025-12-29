@@ -162,10 +162,6 @@ export default function AboutPage() {
 
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300 relative">
-      {/* Animated Grid Background */}
-      <div className="fixed inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white_80%,transparent)] pointer-events-none opacity-30 animate-[grid-flow_20s_linear_infinite] z-0" />
-      <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />
-
       <Header />
 
       {/* Hero Section with Portrait Image */}
@@ -717,7 +713,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section - Matching Landing Page Design */}
-      <section ref={ctaRef} className="py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
+      <section ref={ctaRef} className="relative z-10 py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
         <motion.div
           className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
           initial={{ opacity: 0, y: 40 }}

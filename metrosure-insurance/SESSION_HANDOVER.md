@@ -60,6 +60,8 @@
 | Added Quote page metadata | `src/app/quote/layout.tsx` |
 | Added Claims page metadata | `src/app/claims/layout.tsx` |
 | Added Careers page metadata | `src/app/careers/layout.tsx` |
+| Fixed testimonials carousel bugs | `src/components/Testimonials.tsx` |
+| Removed decorative grid from About | `src/app/about/page.tsx` |
 
 ### Changes Made
 
@@ -84,7 +86,15 @@
 
 4. **About Page Cleanup**
    - Removed grainy SVG texture from mission section
-   - Clean dark background now
+   - Removed decorative grid background entirely
+   - Clean solid backgrounds for all sections
+   - Added `relative z-10` to Timeline for proper stacking
+
+5. **Testimonials Carousel Fixes**
+   - Fixed card text overflow with `overflow-hidden` and `line-clamp-5`
+   - Changed `min-w` to `w` for consistent card widths
+   - Fixed `goToPrevious` navigation bug (race condition with state updates)
+   - Now uses `activeIndexRef.current` for reliable navigation
 
 ---
 
