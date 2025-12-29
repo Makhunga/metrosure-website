@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 40 - Complete)
+**Date:** December 29, 2025 (Session 41 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -42,11 +42,53 @@
 | Character limits | ✅ | Message fields limited to 2000 chars |
 | Date validation | ✅ | Quote form validates future dates |
 | Server-side validation (Zod) | ✅ | Type-safe validation on all 4 API routes |
+| Dismissable mobile banners | ✅ | Dev & hiring banners with session persistence |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 41 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Mobile UX Improvements & Quote Page Refinement
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Made development banner dismissable (mobile) | `src/components/DevelopmentBanner.tsx` |
+| Made hiring banner dismissable (mobile) | `src/components/ClientLayout.tsx` |
+| Header adjusts position when banner dismissed | `src/components/Header.tsx` |
+| Narrowed quote form container | `src/app/quote/page.tsx` |
+| Narrowed FAQ section | `src/app/quote/page.tsx` |
+
+### Mobile Banner Improvements
+
+1. **Development Banner (Amber)**
+   - Added X button with circular amber background (mobile only)
+   - Smooth slide-up exit animation with Framer Motion
+   - Session persistence via sessionStorage
+   - Header dynamically adjusts from `top-10` to `top-0` when dismissed
+
+2. **Hiring Banner (Green)**
+   - Added X button with circular white background
+   - Smooth slide-down exit animation
+   - Session persistence via sessionStorage
+   - Only shows on mobile (`md:hidden`)
+
+3. **Quote Page UI Refinement**
+   - Form container: `max-w-5xl` → `max-w-4xl` (default)
+   - Form container: `max-w-4xl` → `max-w-3xl` (with price breakdown)
+   - FAQ section: `max-w-4xl` → `max-w-3xl`
+
+### Technical Details
+
+- Banners use `sessionStorage` (resets on new browser session)
+- Custom event `devBannerDismissed` syncs Header position
+- Hydration handling prevents layout flicker on page load
 
 ---
 
@@ -293,7 +335,7 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN (Session 41)
+## NEXT SESSION PLAN (Session 42)
 
 ### Priority 1: Production Readiness
 
@@ -335,11 +377,7 @@ Uncomment in `src/components/ClientLayout.tsx`:
    - Track partner inquiry form completions
    - Add event tracking for CTA clicks
 
-3. **Mobile UX**
-   - Consider making the hiring banner dismissible on mobile
-   - Or auto-hide after a few seconds
-
-4. **SEO**
+3. **SEO**
    - Add structured data for FAQ sections
    - Consider adding breadcrumb schema
    - Review meta descriptions for keyword optimization
@@ -386,6 +424,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S41 | Dec 29 | Dismissable mobile banners, quote page UI refinement |
 | S40 | Dec 29 | Server-side validation with Zod on all 4 API routes |
 | S39 | Dec 29 | Form validation improvements, character limits, date validation |
 | S38 | Dec 29 | Form accessibility (ARIA attributes), About page fix |
@@ -427,4 +466,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 40 Complete*
+*Document updated: December 29, 2025 - Session 41 Complete*
