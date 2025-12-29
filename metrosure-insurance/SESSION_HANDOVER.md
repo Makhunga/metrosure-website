@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 42 - Complete)
+**Date:** December 29, 2025 (Session 43 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -36,7 +36,10 @@
 | SEO & Social Sharing | ✅ | OG images, Twitter cards, canonical URLs |
 | Page-specific metadata | ✅ | About, Quote, Claims, Careers |
 | Performance optimization | ✅ | WebP images, preconnect, lazy loading |
-| Grid consistency | ✅ | Standardized to 10% opacity site-wide |
+| Grid backgrounds | ⏸️ | Temporarily removed site-wide (will re-add later) |
+| Dark mode consistency | ✅ | Standardized backgrounds and accents |
+| Form container styling | ✅ | Consistent shadows, padding, borders |
+| Button styling | ✅ | Standardized primary button across all forms |
 | Form accessibility (ARIA) | ✅ | aria-required, aria-invalid, aria-describedby |
 | Form-level validation | ✅ | Validate all fields before submit, focus first error |
 | Character limits | ✅ | Message fields limited to 2000 chars |
@@ -52,6 +55,58 @@
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 43 Summary (December 29, 2025) - COMPLETE
+
+**Focus:** Visual Audit & Design Consistency
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Removed grid backgrounds site-wide (18 files) | globals.css, 11 pages, 6 components |
+| Standardized dark mode backgrounds | Footer, Contact tabs, FAQ section, 12+ files |
+| Standardized primary accent opacity to /15 | All pages with dark:bg-primary/* |
+| Standardized status color opacity to /15 | formValidation.ts, multiple forms |
+| Standardized form container styling | ContactForm, ApplicationForm, PartnerInquiryForm |
+| Standardized primary button styling | All 3 main form components |
+
+### Grid Background Removal
+
+Removed `.bg-grid-pattern` from entire site (user will re-add later):
+- **CSS:** Deleted class definition, keyframes, and animation token from globals.css
+- **Pages (11):** about, quote, contact, careers, partners, claims, help, policies, privacy, legal, terms
+- **Components (6):** Hero.tsx, HeroCentered.tsx, Hero.split-layout.tsx, PartnersHero.tsx, CareersHero.tsx, InsurancePageTemplate.tsx
+
+### Dark Mode Standardization
+
+| Change | Before | After |
+|--------|--------|-------|
+| Footer background | `dark:bg-slate-900` | `dark:bg-slate-950` (darker for contrast) |
+| Contact form tabs (active) | `dark:bg-slate-800` | `dark:bg-slate-700` |
+| Contact form tabs (inactive) | `dark:bg-slate-900/50` | `dark:bg-slate-800` |
+| FAQ section background | `dark:bg-slate-900/50` | `dark:bg-slate-900` |
+| Primary accent backgrounds | Mixed `/10` and `/20` | Standardized to `/15` |
+| Status color backgrounds | Mixed `/10` | Standardized to `/15` |
+
+### Form Container Standardization
+
+| Property | Before | After |
+|----------|--------|-------|
+| ContactForm max-width | `max-w-4xl` | `max-w-3xl` |
+| ApplicationForm max-width | `max-w-[1400px]` | `max-w-5xl` |
+| All form card shadows | Mixed `shadow-sm`, `shadow-xl` | `shadow-lg dark:shadow-slate-900/30` |
+| All form card padding | Mixed `p-8 md:p-12`, `p-4 sm:p-6 md:p-8 lg:p-10` | `p-6 md:p-10` |
+| All form card borders | Mixed `rounded-3xl` | `rounded-2xl` |
+
+### Button Styling Standardization
+
+All primary form buttons now use:
+```tsx
+className="py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
+```
 
 ---
 
@@ -487,6 +542,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S43 | Dec 29 | Visual audit - Grid removal, dark mode standardization, form/button consistency |
 | S42 | Dec 29 | Design polish - Partners 3-step wizard, Quote FAQ & progress animations |
 | S41 | Dec 29 | Dismissable mobile banners, quote page UI refinement |
 | S40 | Dec 29 | Server-side validation with Zod on all 4 API routes |
@@ -530,4 +586,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 42 Complete*
+*Document updated: December 29, 2025 - Session 43 Complete*

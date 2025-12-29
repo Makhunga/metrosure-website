@@ -324,13 +324,13 @@ export default function ContactForm() {
   return (
     <motion.div
       ref={ref}
-      className="max-w-4xl mx-auto mb-24"
+      className="max-w-3xl mx-auto mb-24"
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <motion.div
-        className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700"
+        className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700"
         whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" }}
         transition={{ duration: 0.3 }}
       >
@@ -402,7 +402,7 @@ export default function ContactForm() {
         </div>
 
         {/* Form Content */}
-        <div className="p-8 md:p-12 bg-white dark:bg-slate-800">
+        <div className="p-6 md:p-10 bg-white dark:bg-slate-800">
           <AnimatePresence mode="wait">
             {/* Message Tab */}
             {activeTab === "message" && (
@@ -576,7 +576,7 @@ export default function ContactForm() {
                           <p className="text-red-500 text-sm mb-3">{formState.error}</p>
                         )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           type="submit"
                           disabled={formState.isSubmitting}
                           whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}
@@ -790,7 +790,7 @@ export default function ContactForm() {
                           <p className="text-red-500 text-sm mb-3">{formState.error}</p>
                         )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] bg-primary hover:bg-[rgb(165,5,2)] text-white font-bold py-3.5 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           type="submit"
                           disabled={formState.isSubmitting}
                           whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}

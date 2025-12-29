@@ -417,7 +417,7 @@ export default function PartnerInquiryForm() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-12 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700"
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700"
         >
           <AnimatePresence mode="wait">
             {isSubmitted ? (
@@ -705,7 +705,7 @@ export default function PartnerInquiryForm() {
                       type="button"
                       onClick={handleNext}
                       disabled={!canProceed()}
-                      className="flex items-center gap-2 px-8 py-3 bg-primary text-white font-semibold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                       whileHover={canProceed() ? { scale: 1.02, y: -1 } : {}}
                       whileTap={canProceed() ? { scale: 0.98 } : {}}
                     >
@@ -716,7 +716,7 @@ export default function PartnerInquiryForm() {
                     <motion.button
                       type="submit"
                       disabled={isSubmitting || !canProceed()}
-                      className="flex items-center gap-2 px-8 py-3 bg-primary text-white font-semibold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                       whileHover={!isSubmitting && canProceed() ? { scale: 1.02, y: -1 } : {}}
                       whileTap={!isSubmitting && canProceed() ? { scale: 0.98 } : {}}
                     >

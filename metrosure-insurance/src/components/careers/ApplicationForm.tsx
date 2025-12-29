@@ -235,7 +235,7 @@ export default function ApplicationForm({
       id={id}
       className="relative py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Info */}
           <motion.div
@@ -352,7 +352,7 @@ export default function ApplicationForm({
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-white dark:bg-slate-800 rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 shadow-xl border border-slate-200 dark:border-slate-700">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700">
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
                   <FormSuccess
@@ -689,7 +689,7 @@ export default function ApplicationForm({
                     <motion.button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 px-8 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                      className="w-full py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
                       whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                       whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                     >
