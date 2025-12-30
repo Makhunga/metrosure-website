@@ -586,8 +586,17 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
-      <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden">
+      <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden">
+        {/* Decorative watermark - mirrors timeline card treatment */}
+        <motion.div
+          className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none"
+          initial={{ opacity: 0, x: -20 }}
+          animate={teamInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          The Team
+        </motion.div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative">
 
         <motion.div
           className="flex flex-col gap-6 mb-20 items-center text-center relative z-10"
@@ -595,14 +604,6 @@ export default function AboutPage() {
           animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span
-            className="px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/15 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={teamInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            The Team
-          </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-black tracking-tight text-[rgb(var(--color-text-main))]"
             initial={{ opacity: 0, y: 20 }}
