@@ -48,8 +48,18 @@ export default function ValueProposition() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} className="relative py-24 section-warm transition-colors duration-300">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="relative py-24 section-warm transition-colors duration-300 overflow-hidden">
+      {/* Decorative watermark - left aligned like "THE TEAM" on About page */}
+      <motion.div
+        className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
+        initial={{ opacity: 0, x: -20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        Partnership Models
+      </motion.div>
+
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
@@ -57,14 +67,6 @@ export default function ValueProposition() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <motion.span
-            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.2 }}
-          >
-            Partnership Models
-          </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}

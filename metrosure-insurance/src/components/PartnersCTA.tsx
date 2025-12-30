@@ -205,7 +205,7 @@ export default function PartnersCTA() {
             <motion.div
               key={item.title}
               variants={cardVariants}
-              className="group relative p-6 md:p-8 rounded-2xl bg-[rgb(120,10,25)] hover:bg-[rgb(140,15,30)] transition-all duration-500 shadow-xl shadow-black/10"
+              className="group relative p-6 md:p-8 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 shadow-xl shadow-black/10"
               whileHover={{
                 y: -6,
                 transition: { type: "spring", stiffness: 400, damping: 17 },
@@ -213,7 +213,7 @@ export default function PartnersCTA() {
             >
               {/* Icon */}
               <motion.div
-                className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center mb-5 group-hover:bg-white/20 transition-all duration-500"
+                className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-5 group-hover:bg-white/30 transition-all duration-500"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
@@ -225,7 +225,7 @@ export default function PartnersCTA() {
               {/* Stat badge */}
               <div className="flex items-baseline gap-2 mb-3">
                 <span className="text-3xl font-bold text-white">{item.stat}</span>
-                <span className="text-xs text-white/60 uppercase tracking-wide">
+                <span className="text-xs text-white/70 uppercase tracking-wide">
                   {item.statLabel}
                 </span>
               </div>
@@ -234,14 +234,14 @@ export default function PartnersCTA() {
               <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
 
               {/* Description */}
-              <p className="text-white/70 text-sm leading-relaxed">
+              <p className="text-white/80 text-sm leading-relaxed">
                 {item.description}
               </p>
 
               {/* Decorative corner accent */}
               <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
-                <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
-                <div className="absolute top-0 right-0 h-px w-8 bg-gradient-to-l from-white/20 to-transparent" />
+                <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
+                <div className="absolute top-0 right-0 h-px w-8 bg-gradient-to-l from-white/30 to-transparent" />
               </div>
             </motion.div>
           ))}

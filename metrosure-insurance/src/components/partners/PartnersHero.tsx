@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { MagneticButton } from "@/components/animations";
 
 export default function PartnersHero() {
   return (
@@ -133,10 +134,10 @@ export default function PartnersHero() {
             <span>Looking for personal insurance?</span>
             <a
               href="/quote"
-              className="text-primary font-medium hover:opacity-80 transition-opacity inline-flex items-center gap-1"
+              className="group text-primary font-medium hover:opacity-80 transition-opacity inline-flex items-center gap-1"
             >
               Get a free quote
-              <span className="material-symbols-outlined text-base">arrow_forward</span>
+              <span className="material-symbols-outlined text-base opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1 group-hover:translate-x-0">arrow_forward</span>
             </a>
           </motion.div>
 
@@ -170,38 +171,42 @@ export default function PartnersHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <Link href="#partner-inquiry">
-              <motion.span
-                className="h-16 px-10 rounded-xl bg-primary text-white text-lg font-bold transition-colors shadow-lg shadow-primary/25 flex items-center justify-center gap-2"
-                whileHover={{
-                  scale: 1.05,
-                  y: -3,
-                  boxShadow: "0 20px 40px -10px rgba(191, 6, 3, 0.4)"
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span>Become a Partner</span>
-                <span className="material-symbols-outlined">handshake</span>
-              </motion.span>
-            </Link>
-            <Link href="#how-it-works">
-              <motion.span
-                className="h-16 px-10 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-lg font-bold transition-colors flex items-center gap-2 group justify-center"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span>How It Works</span>
+            <MagneticButton strength={0.4}>
+              <Link href="#partner-inquiry">
                 <motion.span
-                  className="material-symbols-outlined text-xl"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
+                  className="h-16 px-10 rounded-xl bg-primary text-white text-lg font-bold transition-colors shadow-lg shadow-primary/25 flex items-center justify-center gap-2"
+                  whileHover={{
+                    scale: 1.05,
+                    y: -3,
+                    boxShadow: "0 20px 40px -10px rgba(191, 6, 3, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  arrow_forward
+                  <span>Become a Partner</span>
+                  <span className="material-symbols-outlined">handshake</span>
                 </motion.span>
-              </motion.span>
-            </Link>
+              </Link>
+            </MagneticButton>
+            <MagneticButton strength={0.3}>
+              <Link href="#how-it-works">
+                <motion.span
+                  className="h-16 px-10 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-lg font-bold transition-colors flex items-center gap-2 group justify-center"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <span>How It Works</span>
+                  <motion.span
+                    className="material-symbols-outlined text-xl"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                  >
+                    arrow_forward
+                  </motion.span>
+                </motion.span>
+              </Link>
+            </MagneticButton>
           </motion.div>
         </div>
       </div>

@@ -13,7 +13,7 @@ interface FAQItemProps {
 function FAQItem({ question, answer, index, isInView }: FAQItemProps) {
   return (
     <motion.details
-      className="group bg-[rgb(var(--color-surface-card))] rounded-xl border border-[rgb(var(--color-border-light))] overflow-hidden transition-all duration-300 hover:shadow-md open:border-l-4 open:border-l-primary open:shadow-lg"
+      className="group bg-[rgb(var(--color-surface-card))] rounded-xl border border-[rgb(var(--color-border-light))] overflow-hidden transition-all duration-300 hover:shadow-md open:shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
@@ -75,8 +75,18 @@ export default function PartnerFAQ() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300 overflow-hidden">
+      {/* Decorative watermark - centered like "HISTORY" on About page */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 -top-[2.4rem] text-[12rem] font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        FAQ
+      </motion.div>
+
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           className="text-center mb-12"
@@ -84,14 +94,6 @@ export default function PartnerFAQ() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span
-            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.2 }}
-          >
-            Partnership FAQ
-          </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +114,7 @@ export default function PartnerFAQ() {
         </motion.div>
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-6xl mx-auto items-start">
           {faqData.map((item, index) => (
             <FAQItem key={index} {...item} index={index} isInView={isInView} />
           ))}
