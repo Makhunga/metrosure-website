@@ -174,7 +174,7 @@ export default function HelpPage() {
 
       <main className="relative z-10">
       {/* Hero Section with Search */}
-      <section ref={heroRef} className="relative pt-36 pb-20 overflow-hidden">
+      <section ref={heroRef} className="relative pt-56 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
 
         <div className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">

@@ -165,7 +165,7 @@ export default function AboutPage() {
       <Header />
 
       {/* Hero Section with Portrait Image */}
-      <section ref={heroRef} className="relative pt-36 pb-24 overflow-hidden">
+      <section ref={heroRef} className="relative pt-56 pb-24 overflow-hidden">
         {/* Hero Image - Horizontally Flipped (face on right) */}
         <div
           className="absolute inset-0 bg-cover bg-right -scale-x-100"

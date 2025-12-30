@@ -346,7 +346,7 @@ export default function QuotePage() {
 
       <main className="relative z-10">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-36 pb-12 overflow-hidden">
+      <section ref={heroRef} className="relative pt-56 pb-12 overflow-hidden">
         {/* Square Pattern Background - fading from top */}
         <div
           className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-10"
