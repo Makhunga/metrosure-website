@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback, MutableRefObject } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { TextReveal } from "./animations";
 
 // Gradient palette for avatar backgrounds
@@ -67,11 +67,12 @@ const testimonialsData = [
 
 export default function Testimonials() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const prefersReducedMotion = useReducedMotion();
 
   // Refs for stable callbacks
   const activeIndexRef = useRef(activeIndex);
@@ -134,9 +135,9 @@ export default function Testimonials() {
     scrollToIndex(nextIndex);
   }, [scrollToIndex]);
 
-  // Autoplay with cycling - stable interval
+  // Autoplay with cycling - stable interval (disabled when reduced motion preferred)
   useEffect(() => {
-    if (isPaused || !isInView) return;
+    if (isPaused || !isInView || prefersReducedMotion) return;
 
     const interval = setInterval(() => {
       if (!isScrollingRef.current) {
@@ -146,7 +147,24 @@ export default function Testimonials() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isPaused, isInView, scrollToIndex]);
+  }, [isPaused, isInView, scrollToIndex, prefersReducedMotion]);
+
+  // Handle keyboard navigation
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      goToPrevious();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      goToNext();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      scrollToIndex(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      scrollToIndex(testimonialsData.length - 1);
+    }
+  }, [goToPrevious, goToNext, scrollToIndex]);
 
   // Handle manual scroll to update active index - debounced
   const handleScroll = useCallback(() => {
@@ -187,9 +205,16 @@ export default function Testimonials() {
     <section
       ref={sectionRef}
       id="stories"
-      className="py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden transition-colors duration-300 relative"
+      className="py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden transition-colors duration-300 relative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="region"
+      aria-label="Customer testimonials carousel"
+      aria-roledescription="carousel"
     >
       {/* Header */}
       <motion.div

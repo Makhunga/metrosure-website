@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, TargetAndTransition, Transition } from "framer-motion";
+import { motion, TargetAndTransition, Transition, useReducedMotion } from "framer-motion";
 import { MagneticButton } from "./animations";
 
 // Floating shape component
@@ -28,6 +28,8 @@ function FloatingShape({
 }
 
 export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
@@ -40,7 +42,7 @@ export default function Hero() {
         {/* Large quarter-circle - top left */}
         <FloatingShape
           className="absolute -top-20 -left-20 w-80 h-80 rounded-br-full bg-[#82B29A]/[0.07] dark:bg-[#82B29A]/[0.04]"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             y: [0, 30, 0],
             x: [0, 15, 0],
             scale: [1, 1.05, 1],
@@ -51,7 +53,7 @@ export default function Hero() {
         {/* Large quarter-circle - bottom right - hidden on xl */}
         <FloatingShape
           className="absolute -bottom-32 -right-32 w-96 h-96 rounded-tl-full bg-[#F2CC8E]/[0.08] dark:bg-[#F2CC8E]/[0.04] xl:hidden"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             y: [0, -25, 0],
             x: [0, -20, 0],
             scale: [1, 1.08, 1],
@@ -62,7 +64,7 @@ export default function Hero() {
         {/* Medium circle - right side - hidden on xl */}
         <FloatingShape
           className="absolute top-1/4 right-[10%] w-48 h-48 rounded-full bg-[#DF7A5E]/[0.06] dark:bg-[#DF7A5E]/[0.03] blur-sm xl:hidden"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             y: [0, 40, 0],
             x: [0, -20, 0],
           }}
@@ -72,7 +74,7 @@ export default function Hero() {
         {/* Medium quarter-circle - left side */}
         <FloatingShape
           className="absolute top-1/2 -left-10 w-40 h-40 rounded-tr-full bg-[#3C405B]/[0.06] dark:bg-[#F4F1DE]/[0.03]"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             y: [0, -35, 0],
             rotate: [0, 10, 0],
           }}
@@ -82,7 +84,7 @@ export default function Hero() {
         {/* Small circle - bottom left area */}
         <FloatingShape
           className="absolute bottom-40 left-[15%] w-24 h-24 rounded-full bg-[#82B29A]/[0.08] dark:bg-[#82B29A]/[0.04] hidden md:block"
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             y: [0, -30, 0],
             scale: [1, 1.1, 1],
           }}
@@ -93,7 +95,7 @@ export default function Hero() {
         <FloatingShape
           className="absolute top-[60%] left-[8%] w-12 h-12 bg-[#F2CC8E]/[0.1] dark:bg-[#F2CC8E]/[0.05] hidden lg:block"
           style={{ transform: 'rotate(45deg)' }}
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             y: [0, 25, 0],
             rotate: [45, 90, 45],
           }}
@@ -224,6 +226,7 @@ export default function Hero() {
                   height={667}
                   className="object-cover w-full h-auto"
                   priority
+                  fetchPriority="high"
                 />
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
@@ -232,17 +235,17 @@ export default function Hero() {
               {/* Decorative elements around image */}
               <motion.div
                 className="absolute -bottom-6 -left-6 w-40 h-40 rounded-br-full bg-[#82B29A]/20"
-                animate={{ scale: [1, 1.05, 1] }}
+                animate={prefersReducedMotion ? {} : { scale: [1, 1.05, 1] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.div
                 className="absolute -top-6 -right-6 w-32 h-32 rounded-tl-full bg-[#F2CC8E]/20"
-                animate={{ scale: [1, 1.08, 1] }}
+                animate={prefersReducedMotion ? {} : { scale: [1, 1.08, 1] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               />
               <motion.div
                 className="absolute top-1/2 -right-8 w-16 h-16 rounded-full bg-primary/10"
-                animate={{ y: [0, -10, 0] }}
+                animate={prefersReducedMotion ? {} : { y: [0, -10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               />
 

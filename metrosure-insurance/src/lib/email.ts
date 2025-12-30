@@ -2,14 +2,25 @@ import { Resend } from 'resend';
 
 // Initialize Resend lazily to avoid build-time errors
 let resend: Resend | null = null;
+let resendAvailable: boolean | null = null;
 
-function getResend(): Resend {
+/**
+ * Check if email service is available (API key is configured)
+ * Use this before attempting to send emails
+ */
+export function isEmailAvailable(): boolean {
+  if (resendAvailable === null) {
+    resendAvailable = !!process.env.RESEND_API_KEY;
+  }
+  return resendAvailable;
+}
+
+function getResend(): Resend | null {
+  if (!isEmailAvailable()) {
+    return null;
+  }
   if (!resend) {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      throw new Error('RESEND_API_KEY environment variable is not set');
-    }
-    resend = new Resend(apiKey);
+    resend = new Resend(process.env.RESEND_API_KEY);
   }
   return resend;
 }
@@ -37,9 +48,23 @@ interface SendEmailOptions {
   attachments?: EmailAttachment[];
 }
 
-export async function sendEmail({ to, subject, html, replyTo, attachments }: SendEmailOptions) {
+export interface SendEmailResult {
+  success: boolean;
+  id?: string;
+  unavailable?: boolean;
+  error?: string;
+}
+
+export async function sendEmail({ to, subject, html, replyTo, attachments }: SendEmailOptions): Promise<SendEmailResult> {
+  const resendClient = getResend();
+
+  if (!resendClient) {
+    console.warn('Email service unavailable: RESEND_API_KEY not configured');
+    return { success: false, unavailable: true };
+  }
+
   try {
-    const { data, error } = await getResend().emails.send({
+    const { data, error } = await resendClient.emails.send({
       from: FROM_EMAIL,
       to: Array.isArray(to) ? to : [to],
       subject,
@@ -50,13 +75,13 @@ export async function sendEmail({ to, subject, html, replyTo, attachments }: Sen
 
     if (error) {
       console.error('Resend error:', error);
-      throw new Error(error.message);
+      return { success: false, error: error.message };
     }
 
     return { success: true, id: data?.id };
   } catch (error) {
     console.error('Email send error:', error);
-    throw error;
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
 

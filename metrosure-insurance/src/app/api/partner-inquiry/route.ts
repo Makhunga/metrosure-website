@@ -14,7 +14,15 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
-import { partnerInquirySchema, formatZodErrors, type PartnerInquiryData } from "@/lib/validationSchemas";
+import { partnerInquirySchema, formatZodErrorsDetailed, type PartnerInquiryData } from "@/lib/validationSchemas";
+import {
+  validationError,
+  emailUnavailableError,
+  emailFailedError,
+  serverError,
+  errorStatusCodes,
+  ErrorType
+} from "@/lib/errors";
 
 // Service label mapping
 const serviceLabels: Record<string, string> = {
@@ -36,9 +44,10 @@ export async function POST(request: NextRequest) {
     // Validate with Zod schema (includes message character limit)
     const parseResult = partnerInquirySchema.safeParse(rawData);
     if (!parseResult.success) {
+      const error = validationError(formatZodErrorsDetailed(parseResult.error));
       return NextResponse.json(
-        { error: formatZodErrors(parseResult.error) },
-        { status: 400 }
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
       );
     }
 
@@ -48,24 +57,44 @@ export async function POST(request: NextRequest) {
     const emailHtml = generateEmailTemplate(data);
 
     // Send notification email to partnerships team
-    await sendEmail({
+    const internalEmailResult = await sendEmail({
       to: emailTo.partnerships,
       subject: `New Partnership Inquiry: ${data.companyName}`,
       html: emailHtml,
       replyTo: data.email,
     });
 
+    // Handle email failures
+    if (!internalEmailResult.success) {
+      if (internalEmailResult.unavailable) {
+        const error = emailUnavailableError();
+        return NextResponse.json(
+          { success: false, ...error },
+          { status: errorStatusCodes[ErrorType.EMAIL_UNAVAILABLE] }
+        );
+      }
+      const error = emailFailedError();
+      return NextResponse.json(
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.EMAIL_FAILED] }
+      );
+    }
+
     // Log the submission
     console.log("=== NEW PARTNER INQUIRY ===");
     console.log(JSON.stringify(data, null, 2));
     console.log("===========================");
 
-    // Send confirmation email to the inquirer
-    await sendEmail({
+    // Send confirmation email to the inquirer (non-blocking)
+    const confirmationResult = await sendEmail({
       to: data.email,
       subject: `Thank you for your partnership inquiry - Metrosure`,
       html: generateConfirmationEmail(data),
     });
+
+    if (!confirmationResult.success) {
+      console.warn("Partner confirmation email failed:", confirmationResult.error);
+    }
 
     return NextResponse.json(
       {
@@ -76,9 +105,10 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Partner inquiry error:", error);
+    const err = serverError(error instanceof Error ? error.message : 'Unknown error');
     return NextResponse.json(
-      { error: "Failed to process inquiry. Please try again." },
-      { status: 500 }
+      { success: false, ...err },
+      { status: errorStatusCodes[ErrorType.SERVER_ERROR] }
     );
   }
 }

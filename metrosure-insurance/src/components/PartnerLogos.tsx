@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 
 // Partner data from CONTENT_GUIDE.md
 const partners = {
@@ -49,6 +49,7 @@ const allPartners = [
 export default function PartnerLogos() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section
@@ -98,7 +99,7 @@ export default function PartnerLogos() {
 
           <motion.div
             className="flex gap-6"
-            animate={{
+            animate={prefersReducedMotion ? {} : {
               x: [0, -1920],
             }}
             transition={{
@@ -143,7 +144,7 @@ export default function PartnerLogos() {
 
           <motion.div
             className="flex gap-6"
-            animate={{
+            animate={prefersReducedMotion ? {} : {
               x: [-1920, 0],
             }}
             transition={{

@@ -14,10 +14,18 @@ import {
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 import {
   contactFormSchema,
-  formatZodErrors,
+  formatZodErrorsDetailed,
   type ContactMessageData,
   type ContactCallbackData
 } from "@/lib/validationSchemas";
+import {
+  validationError,
+  emailUnavailableError,
+  emailFailedError,
+  serverError,
+  errorStatusCodes,
+  ErrorType
+} from "@/lib/errors";
 
 // B2B topics that should be flagged in email subject
 const b2bTopics = ["retail-partnership", "business-insurance", "employee-benefits"];
@@ -64,9 +72,10 @@ export async function POST(request: NextRequest) {
     // Validate with Zod schema
     const parseResult = contactFormSchema.safeParse(rawData);
     if (!parseResult.success) {
+      const error = validationError(formatZodErrorsDetailed(parseResult.error));
       return NextResponse.json(
-        { error: formatZodErrors(parseResult.error) },
-        { status: 400 }
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
       );
     }
 
@@ -91,12 +100,28 @@ export async function POST(request: NextRequest) {
       emailSubject = `${b2bPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
     }
 
-    await sendEmail({
+    const emailResult = await sendEmail({
       to: emailTo.info,
       subject: emailSubject,
       html: emailHtml,
       replyTo: data.email || undefined,
     });
+
+    // Handle email failures
+    if (!emailResult.success) {
+      if (emailResult.unavailable) {
+        const error = emailUnavailableError();
+        return NextResponse.json(
+          { success: false, ...error },
+          { status: errorStatusCodes[ErrorType.EMAIL_UNAVAILABLE] }
+        );
+      }
+      const error = emailFailedError();
+      return NextResponse.json(
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.EMAIL_FAILED] }
+      );
+    }
 
     // Log for development
     console.log(`=== ${data.type === "message" ? "Contact Message" : "Callback Request"} Sent ===`);
@@ -113,9 +138,10 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Contact form error:", error);
+    const err = serverError(error instanceof Error ? error.message : 'Unknown error');
     return NextResponse.json(
-      { error: "Failed to process your request. Please try again." },
-      { status: 500 }
+      { success: false, ...err },
+      { status: errorStatusCodes[ErrorType.SERVER_ERROR] }
     );
   }
 }

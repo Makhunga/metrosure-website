@@ -12,7 +12,15 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
-import { quoteFormSchema, formatZodErrors, type QuoteFormData } from "@/lib/validationSchemas";
+import { quoteFormSchema, formatZodErrorsDetailed, type QuoteFormData } from "@/lib/validationSchemas";
+import {
+  validationError,
+  emailUnavailableError,
+  emailFailedError,
+  serverError,
+  errorStatusCodes,
+  ErrorType
+} from "@/lib/errors";
 
 type CoverageType = "home" | "auto" | "life" | "business";
 
@@ -76,9 +84,10 @@ export async function POST(request: NextRequest) {
     // Validate with Zod schema (includes future date validation)
     const parseResult = quoteFormSchema.safeParse(rawData);
     if (!parseResult.success) {
+      const error = validationError(formatZodErrorsDetailed(parseResult.error));
       return NextResponse.json(
-        { error: formatZodErrors(parseResult.error) },
-        { status: 400 }
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
       );
     }
 
@@ -89,19 +98,39 @@ export async function POST(request: NextRequest) {
     const confirmationEmailHtml = generateConfirmationEmail(data);
 
     // Send internal notification
-    await sendEmail({
+    const internalEmailResult = await sendEmail({
       to: emailTo.info,
       subject: `Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}`,
       html: internalEmailHtml,
       replyTo: data.email,
     });
 
-    // Send confirmation to customer
-    await sendEmail({
+    // Handle email failures
+    if (!internalEmailResult.success) {
+      if (internalEmailResult.unavailable) {
+        const error = emailUnavailableError();
+        return NextResponse.json(
+          { success: false, ...error },
+          { status: errorStatusCodes[ErrorType.EMAIL_UNAVAILABLE] }
+        );
+      }
+      const error = emailFailedError();
+      return NextResponse.json(
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.EMAIL_FAILED] }
+      );
+    }
+
+    // Send confirmation to customer (non-blocking - don't fail if this doesn't send)
+    const confirmationResult = await sendEmail({
       to: data.email,
       subject: "Your Quote Request - Metrosure Insurance Brokers",
       html: confirmationEmailHtml,
     });
+
+    if (!confirmationResult.success) {
+      console.warn("Customer confirmation email failed:", confirmationResult.error);
+    }
 
     // Log for development
     console.log("=== Quote Request Received ===");
@@ -116,9 +145,10 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Quote form error:", error);
+    const err = serverError(error instanceof Error ? error.message : 'Unknown error');
     return NextResponse.json(
-      { error: "Failed to process your quote request. Please try again." },
-      { status: 500 }
+      { success: false, ...err },
+      { status: errorStatusCodes[ErrorType.SERVER_ERROR] }
     );
   }
 }

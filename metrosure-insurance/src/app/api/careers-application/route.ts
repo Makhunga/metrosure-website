@@ -13,7 +13,15 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
-import { careersApplicationSchema, formatZodErrors } from "@/lib/validationSchemas";
+import { careersApplicationSchema, formatZodErrorsDetailed } from "@/lib/validationSchemas";
+import {
+  validationError,
+  emailUnavailableError,
+  emailFailedError,
+  serverError,
+  errorStatusCodes,
+  ErrorType
+} from "@/lib/errors";
 
 // Position labels mapping
 const positionLabels: Record<string, string> = {
@@ -80,9 +88,10 @@ export async function POST(request: NextRequest) {
     // Validate with Zod schema
     const parseResult = careersApplicationSchema.safeParse(rawData);
     if (!parseResult.success) {
+      const error = validationError(formatZodErrorsDetailed(parseResult.error));
       return NextResponse.json(
-        { error: formatZodErrors(parseResult.error) },
-        { status: 400 }
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
       );
     }
 
@@ -100,17 +109,19 @@ export async function POST(request: NextRequest) {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       ];
       if (!validTypes.includes(cvFile.type)) {
+        const error = validationError({ cv: "Invalid file type. Please upload a PDF or Word document." });
         return NextResponse.json(
-          { error: "Invalid file type. Please upload a PDF or Word document." },
-          { status: 400 }
+          { success: false, ...error },
+          { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
         );
       }
 
       // Validate file size (5MB max)
       if (cvFile.size > 5 * 1024 * 1024) {
+        const error = validationError({ cv: "File size must be less than 5MB" });
         return NextResponse.json(
-          { error: "File size must be less than 5MB" },
-          { status: 400 }
+          { success: false, ...error },
+          { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
         );
       }
 
@@ -145,13 +156,29 @@ export async function POST(request: NextRequest) {
     const emailHtml = generateApplicationEmail(applicationData, cvInfo);
 
     // Send email with CV attachment
-    await sendEmail({
+    const internalEmailResult = await sendEmail({
       to: emailTo.careers,
       subject: `New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
       html: emailHtml,
       replyTo: validatedData.email,
       attachments: cvAttachment ? [cvAttachment] : undefined,
     });
+
+    // Handle email failures
+    if (!internalEmailResult.success) {
+      if (internalEmailResult.unavailable) {
+        const error = emailUnavailableError();
+        return NextResponse.json(
+          { success: false, ...error },
+          { status: errorStatusCodes[ErrorType.EMAIL_UNAVAILABLE] }
+        );
+      }
+      const error = emailFailedError();
+      return NextResponse.json(
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.EMAIL_FAILED] }
+      );
+    }
 
     // Log the application
     console.log("=== New Career Application ===");
@@ -160,12 +187,16 @@ export async function POST(request: NextRequest) {
       console.log("CV File Info:", JSON.stringify(cvInfo, null, 2));
     }
 
-    // Send confirmation email to applicant
-    await sendEmail({
+    // Send confirmation email to applicant (non-blocking)
+    const confirmationResult = await sendEmail({
       to: validatedData.email,
       subject: `Application Received - ${applicationData.position} at Metrosure`,
       html: generateConfirmationEmail(applicationData),
     });
+
+    if (!confirmationResult.success) {
+      console.warn("Applicant confirmation email failed:", confirmationResult.error);
+    }
 
     return NextResponse.json({
       success: true,
@@ -178,9 +209,10 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error processing career application:", error);
+    const err = serverError(error instanceof Error ? error.message : 'Unknown error');
     return NextResponse.json(
-      { error: "Failed to process application. Please try again." },
-      { status: 500 }
+      { success: false, ...err },
+      { status: errorStatusCodes[ErrorType.SERVER_ERROR] }
     );
   }
 }
