@@ -23,6 +23,7 @@ module.exports = {
       '/about': 0.9,
       '/contact': 0.9,
       '/quote': 0.9,
+      '/careers': 0.85,
       '/insurance/auto': 0.8,
       '/insurance/home': 0.8,
       '/insurance/life': 0.8,
@@ -30,6 +31,16 @@ module.exports = {
       '/partners': 0.8,
       '/claims': 0.8,
     };
+
+    // Job detail pages get high priority for SEO
+    if (path.startsWith('/careers/') && path !== '/careers') {
+      return {
+        loc: path,
+        changefreq: 'weekly',
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      };
+    }
 
     return {
       loc: path,
