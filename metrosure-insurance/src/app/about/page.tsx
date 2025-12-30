@@ -583,11 +583,81 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+
       </section>
 
+      {/* Decorative scatter - positioned between Timeline and Leadership sections */}
+      <div className="relative z-30 h-0 hidden md:block">
+        <motion.div
+          className="absolute -top-40 right-12 lg:right-24 xl:right-32 w-72 h-96 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <svg
+            viewBox="0 0 220 320"
+            className="w-full h-full"
+            aria-hidden="true"
+          >
+            {/* Scattered diamonds - varying sizes and positions */}
+            <g className="fill-primary/[0.15] dark:fill-primary/[0.10]">
+              {/* Upper area - in Timeline section */}
+              <polygon points="170,30 190,50 170,70 150,50" />
+              <polygon points="100,60 112,72 100,84 88,72" />
+              <polygon points="60,40 70,50 60,60 50,50" />
+
+              {/* Middle area - crossing boundary */}
+              <polygon points="140,130 155,145 140,160 125,145" />
+              <polygon points="200,140 210,150 200,160 190,150" />
+              <polygon points="80,150 90,160 80,170 70,160" />
+
+              {/* Lower area - in Leadership section */}
+              <polygon points="160,220 172,232 160,244 148,232" />
+              <polygon points="110,250 118,258 110,266 102,258" />
+            </g>
+
+            {/* Scattered dots - organic counterpoint */}
+            <g className="fill-primary/[0.12] dark:fill-primary/[0.07]">
+              {/* Upper dots */}
+              <circle cx="130" cy="45" r="5" />
+              <circle cx="200" cy="80" r="4" />
+              <circle cx="45" cy="75" r="3" />
+
+              {/* Middle dots - at boundary */}
+              <circle cx="180" cy="155" r="6" />
+              <circle cx="55" cy="140" r="4" />
+              <circle cx="120" cy="170" r="3" />
+
+              {/* Lower dots */}
+              <circle cx="190" cy="230" r="4" />
+              <circle cx="70" cy="240" r="5" />
+              <circle cx="140" cy="280" r="3" />
+            </g>
+
+            {/* Accent elements - slightly stronger */}
+            <g className="fill-primary/[0.20] dark:fill-primary/[0.12]">
+              <circle cx="155" cy="90" r="2.5" />
+              <circle cx="90" cy="120" r="2" />
+              <circle cx="175" cy="190" r="2.5" />
+              <circle cx="100" cy="200" r="2" />
+              <circle cx="130" cy="260" r="2" />
+            </g>
+          </svg>
+        </motion.div>
+      </div>
+
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
-      <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden">
+      <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden">
+        {/* Decorative watermark - mirrors timeline card treatment */}
+        <motion.div
+          className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none"
+          initial={{ opacity: 0, x: -20 }}
+          animate={teamInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          The Team
+        </motion.div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative">
 
         <motion.div
           className="flex flex-col gap-6 mb-20 items-center text-center relative z-10"
@@ -595,14 +665,6 @@ export default function AboutPage() {
           animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span
-            className="px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/15 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={teamInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            The Team
-          </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-black tracking-tight text-[rgb(var(--color-text-main))]"
             initial={{ opacity: 0, y: 20 }}
