@@ -447,22 +447,23 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section - Enhanced Visual Design (Static Style with Current Dates) */}
-      <section ref={timelineRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface))]">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+      <section ref={timelineRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface))] overflow-hidden">
+        {/* Decorative watermark - centered, partially hidden behind top section */}
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 -top-[2.4rem] text-[12rem] font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={timelineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          History
+        </motion.div>
+        <div className="max-w-4xl mx-auto px-6 lg:px-12 relative">
           <motion.div
-            className="flex flex-col gap-6 mb-24 text-center items-center"
+            className="flex flex-col gap-6 mb-24 text-center items-center relative z-10"
             initial={{ opacity: 0, y: 30 }}
             animate={timelineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.span
-              className="px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/15 text-primary text-xs font-bold tracking-widest uppercase border border-primary/20"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={timelineInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              History
-            </motion.span>
             <motion.h2
               className="text-4xl md:text-5xl font-black tracking-tight text-[rgb(var(--color-text-main))]"
               initial={{ opacity: 0, y: 20 }}
@@ -589,7 +590,7 @@ export default function AboutPage() {
       <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden">
         {/* Decorative watermark - mirrors timeline card treatment */}
         <motion.div
-          className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none"
+          className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
           initial={{ opacity: 0, x: -20 }}
           animate={teamInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
           transition={{ duration: 0.8, delay: 0.2 }}
