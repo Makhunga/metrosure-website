@@ -27,6 +27,9 @@ export default function ContactPage() {
 
       {/* Main content with pattern background */}
       <div className="relative">
+        {/* Grid Pattern Background - matching under-development page */}
+        <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-10" />
+
         {/* Gradient Mesh Overlay */}
         <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
 

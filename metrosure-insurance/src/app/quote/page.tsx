@@ -347,6 +347,18 @@ export default function QuotePage() {
       <main className="relative z-10">
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-56 pb-12 overflow-hidden">
+        {/* Square Pattern Background - fading from top */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-40"
+          style={{
+            backgroundImage: 'url(/images/square-pattern.png)',
+            backgroundPosition: 'top center',
+            backgroundRepeat: 'repeat-x',
+            backgroundSize: 'auto',
+            maskImage: 'linear-gradient(to bottom, white 0%, white 30%, transparent 70%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, white 0%, white 30%, transparent 70%)',
+          }}
+        />
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <motion.h1
             className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight"
@@ -354,7 +366,7 @@ export default function QuotePage() {
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
           >
-            Get Your Free Quote
+            Get Your <span className="text-primary">Free Quote</span>
           </motion.h1>
           <motion.p
             className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8"
@@ -374,10 +386,11 @@ export default function QuotePage() {
           >
             <Link
               href="/partners"
-              className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm transition-colors"
+              className="group inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm transition-colors"
             >
               <span className="material-symbols-outlined text-base">storefront</span>
-              <span>Own a retail space? <span className="font-semibold underline">Partner with us</span></span>
+              <span>Own a retail space? <span className="font-semibold">Partner with us</span></span>
+              <span className="material-symbols-outlined text-base opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1 group-hover:translate-x-0">arrow_forward</span>
             </Link>
           </motion.div>
         </div>
