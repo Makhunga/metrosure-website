@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 30, 2025 (Session 46 - Complete)
+**Date:** December 30, 2025 (Session 48 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -32,7 +32,7 @@
 | Dark mode | ✅ | Tailwind dark: classes throughout |
 | Vercel Analytics | ✅ | @vercel/analytics integrated |
 | Rate limiting | ✅ | In-memory on all 4 API routes |
-| About page Mission section | ✅ | Editorial layout redesign |
+| About page Mission section | ✅ | Image offset into Values section |
 | SEO & Social Sharing | ✅ | OG images, Twitter cards, canonical URLs |
 | Page-specific metadata | ✅ | About, Quote, Claims, Careers |
 | Performance optimization | ✅ | WebP images, preconnect, lazy loading |
@@ -53,11 +53,119 @@
 | Leadership Section Watermark | ✅ | "THE TEAM" uppercase ghosted text |
 | Timeline Section Watermark | ✅ | "HISTORY" centered, partially hidden watermark |
 | Playground (Dev Sandbox) | ✅ | Hidden /playground with 7 experiment sub-pages |
+| Google Static Maps | ✅ | Grayscale with red Metrosure markers |
+| Login page mosaic background | ✅ | Mosaic pattern with gradient overlay |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 48 Summary (December 30, 2025) - COMPLETE
+
+**Focus:** UI Polish - Mission Image Offset, Static Maps, Login Background
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Mission section image offset into Values section | `src/app/about/page.tsx` |
+| Footer registration number removal | `src/components/Footer.tsx` |
+| Login page mosaic pattern background | `src/app/login/page.tsx` |
+| Contact page Google Static Maps integration | `src/components/contact/OfficeLocations.tsx` |
+| Added Google Maps to Next.js image config | `next.config.ts` |
+
+### About Page - Mission Image Offset
+
+Implemented "Option A" offset card effect where the mission image extends below the dark background section into the Values section:
+
+- **Technique:** `translateY(6rem)` inline style pushes image down
+- **Z-index:** Image at `z-20`, Values section at `z-10` (image overlaps)
+- **Values padding:** Extra `pt-40 md:pt-48` to accommodate image overflow
+- **Hover animation:** `scale: 1.02` with enhanced shadow on hover
+- **Removed:** Y-axis animation that was causing image to "move back" on load
+
+```tsx
+<motion.div
+  className="relative z-20 max-w-7xl mx-auto"
+  style={{ transform: 'translateY(6rem)' }}
+  // ... opacity animation only
+>
+```
+
+### Footer - Registration Number Removal
+
+Removed company registration number from copyright line:
+
+```tsx
+// Before
+<p>© 2025 Metrosure Insurance Brokers (Pty) Ltd | FSP 47089 | Reg. 2016/113504/07</p>
+
+// After
+<p>© 2025 Metrosure Insurance Brokers (Pty) Ltd | FSP 47089</p>
+```
+
+### Login Page - Mosaic Background
+
+Added mosaic pattern background to the right panel with gradient overlay for text readability:
+
+- **Background:** `/images/mosaic-pattern.jpg` (new asset)
+- **Overlay:** Gradient from `primary/85` to `secondary/80`
+- **Texture:** Subtle 5% opacity pattern overlay retained
+
+```tsx
+{/* Mosaic Pattern Background */}
+<div
+  className="absolute inset-0 bg-cover bg-center"
+  style={{ backgroundImage: "url('/images/mosaic-pattern.jpg')" }}
+/>
+{/* Dark overlay for text readability */}
+<div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/75 to-[rgb(var(--color-secondary))]/80" />
+```
+
+### Contact Page - Google Static Maps
+
+Replaced interactive iframe maps with static map images:
+
+1. **API Integration**
+   - Uses `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` environment variable
+   - Added `maps.googleapis.com` to Next.js image remote patterns
+
+2. **Grayscale Styling**
+   - `saturation:-100` on all features
+   - Custom colors: water (#e0e0e0), roads (#ffffff), landscape (#f5f5f5)
+   - POI visibility off for cleaner look
+
+3. **Red Metrosure Marker**
+   - Format: `markers=color:red|label:M|lat,lng`
+   - Red marker with "M" label at each office location
+
+4. **Office Coordinates**
+   - Durban (Head Office): -29.8579, 31.0292
+   - Pietermaritzburg: -29.6006, 30.3794
+   - Pretoria: -25.7479, 28.1879
+   - Boksburg: -26.2041, 28.2639
+   - Musgrave: -29.8450, 31.0000
+
+5. **UI Enhancements**
+   - AnimatePresence for smooth map transitions
+   - Location badge shows current region
+   - "Get Directions" button links to Google Maps
+   - Fallback UI when no API key configured
+
+### Git Commits
+
+```
+1f4c80a Implement UI polish: mission image offset, static maps, login bg
+```
+
+---
+
+## Session 47 Summary (December 30, 2025) - SKIPPED
+
+Session 47 was planned for Design System Enhancement but was skipped in favor of Session 48 UI polish fixes.
 
 ---
 
@@ -108,484 +216,8 @@
 ```
 c1e7cb7 Add 'History' watermark to Timeline section, uppercase both watermarks
 787fbd0 Add hidden playground page for UI/UX testing
-[pending] Refactor playground to index + sub-pages structure
+82788ed Refactor playground to index + sub-pages, update documentation
 ```
-
----
-
-## Session 45 Summary (December 30, 2025) - COMPLETE
-
-**Focus:** Leadership Section Decorative Elements
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Added "The Team" watermark to Leadership section | `src/app/about/page.tsx` |
-| Removed "The Team" badge (replaced by watermark) | `src/app/about/page.tsx` |
-| Created feature branch with decorative scatter | `feature/leadership-section-decorations` |
-
-### Leadership Section Watermark
-
-Added subtle background text watermark matching timeline card style:
-
-- **Position:** Top-left of Leadership section (`top-6 md:top-8`)
-- **Style:** `text-9xl font-black text-slate-100 dark:text-white/5`
-- **Animation:** Horizontal slide-in with Framer Motion (`x: -20 → 0`)
-- **Treatment:** Mirrors the timeline cards' ghosted number effect
-
-### Feature Branch (Not Merged)
-
-Branch `feature/leadership-section-decorations` contains additional decorative scatter:
-- Scattered diamonds and dots SVG straddling Timeline/Leadership sections
-- Positioned on right side crossing section boundary
-- Primary color at subtle opacity (12-20% light, 6-12% dark)
-- Three animation layers with staggered reveal
-
-### Git Commits
-
-```
-27e4b53 Add 'The Team' watermark to Leadership section (main)
-a566ccd Add decorative elements to Leadership section (feature branch)
-```
-
----
-
-## Session 44 Summary (December 30, 2025) - COMPLETE
-
-**Focus:** Square Pattern Backgrounds & Seamless Section Transitions
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Added geometric overlay CSS classes | `src/app/globals.css` |
-| Contact page corner patterns | `src/app/contact/page.tsx` |
-| Quote page FAQ pattern background | `src/app/quote/page.tsx` |
-| About page Leadership/CTA pattern | `src/app/about/page.tsx` |
-| Updated FAQ to Contact page card style | `src/app/quote/page.tsx` |
-| Added pattern images | `public/images/geometric-pattern.svg`, `public/images/square-pattern.png` |
-
-### Square Pattern Implementation
-
-Added subtle background patterns with seamless section transitions:
-
-1. **Quote Page - FAQ Section**
-   - Square pattern at bottom extending 120px into CTA section
-   - Light mode: 70% opacity
-   - Dark mode: 10% opacity, Y-axis flipped
-   - CSS mask-image for smooth left/right edge fades (15% → 85%)
-   - Separate gradient overlays for light/dark mode (prevents white line artifact)
-   - Pattern sits behind CTA card (z-index layering)
-
-2. **About Page - Leadership Section**
-   - Same pattern treatment between Leadership cards and CTA
-   - Extends into CTA section for seamless transition
-   - Proper dark mode gradient color (rgb(30 41 59))
-
-3. **Contact Page - Geometric Corners**
-   - Corner patterns using Approach section style
-   - Top-right and bottom-left positioning
-   - Radial fade masks
-
-4. **Quote Page - FAQ Redesign**
-   - Changed from left-accent accordion to Contact page card style
-   - Native `<details>`/`<summary>` elements
-   - White/slate-800 cards with rounded corners
-   - Circular expand icon buttons
-   - Left border accent when open
-
-### CSS Classes Added (globals.css)
-
-```css
-.bg-geometric-overlay - Fixed position pattern overlay
-.bg-geometric-overlay::before - Pattern layer with grayscale filter
-.bg-geometric-overlay::after - Vignette radial gradient mask
-.bg-geometric-overlay--animated - 30s drift animation
-.bg-geometric-overlay--edge-heavy - Stronger center visibility variant
-```
-
-### Git Branch
-
-Feature branch created and pushed:
-- Branch: `feature/square-pattern-backgrounds`
-- PR URL: https://github.com/Makhunga/metrosure-website/pull/new/feature/square-pattern-backgrounds
-
----
-
-## Session 43 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Visual Audit & Design Consistency
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Removed grid backgrounds site-wide (18 files) | globals.css, 11 pages, 6 components |
-| Standardized dark mode backgrounds | Footer, Contact tabs, FAQ section, 12+ files |
-| Standardized primary accent opacity to /15 | All pages with dark:bg-primary/* |
-| Standardized status color opacity to /15 | formValidation.ts, multiple forms |
-| Standardized form container styling | ContactForm, ApplicationForm, PartnerInquiryForm |
-| Standardized primary button styling | All 3 main form components |
-
-### Grid Background Removal
-
-Removed `.bg-grid-pattern` from entire site (user will re-add later):
-- **CSS:** Deleted class definition, keyframes, and animation token from globals.css
-- **Pages (11):** about, quote, contact, careers, partners, claims, help, policies, privacy, legal, terms
-- **Components (6):** Hero.tsx, HeroCentered.tsx, Hero.split-layout.tsx, PartnersHero.tsx, CareersHero.tsx, InsurancePageTemplate.tsx
-
-### Dark Mode Standardization
-
-| Change | Before | After |
-|--------|--------|-------|
-| Footer background | `dark:bg-slate-900` | `dark:bg-slate-950` (darker for contrast) |
-| Contact form tabs (active) | `dark:bg-slate-800` | `dark:bg-slate-700` |
-| Contact form tabs (inactive) | `dark:bg-slate-900/50` | `dark:bg-slate-800` |
-| FAQ section background | `dark:bg-slate-900/50` | `dark:bg-slate-900` |
-| Primary accent backgrounds | Mixed `/10` and `/20` | Standardized to `/15` |
-| Status color backgrounds | Mixed `/10` | Standardized to `/15` |
-
-### Form Container Standardization
-
-| Property | Before | After |
-|----------|--------|-------|
-| ContactForm max-width | `max-w-4xl` | `max-w-3xl` |
-| ApplicationForm max-width | `max-w-[1400px]` | `max-w-5xl` |
-| All form card shadows | Mixed `shadow-sm`, `shadow-xl` | `shadow-lg dark:shadow-slate-900/30` |
-| All form card padding | Mixed `p-8 md:p-12`, `p-4 sm:p-6 md:p-8 lg:p-10` | `p-6 md:p-10` |
-| All form card borders | Mixed `rounded-3xl` | `rounded-2xl` |
-
-### Button Styling Standardization
-
-All primary form buttons now use:
-```tsx
-className="py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
-```
-
----
-
-## Session 42 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Design Polish - Partners & Quote Pages
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Partners Form: 3-step wizard redesign | `src/components/partners/PartnerInquiryForm.tsx` |
-| Quote Page: Editorial FAQ accordion | `src/app/quote/page.tsx` |
-| Quote Page: Animated progress indicator | `src/app/quote/page.tsx` |
-| Quote Page: Premium summary cards | `src/app/quote/page.tsx` |
-| Removed unused backup images | `public/images/` |
-
-### Partners Form Redesign
-
-The cluttered 14-field form was transformed into an elegant 3-step wizard:
-
-1. **Step 1 - Business Profile**: Company name, type, locations, province, city
-2. **Step 2 - Contact Details**: Name, job title, email, phone (with validation)
-3. **Step 3 - Partnership Interests**: Service pills, foot traffic, message, consents
-
-**Design Changes:**
-- Removed 6 heavy border dividers
-- Converted to centered single-column layout (was 2-column with sidebar)
-- Replaced mini-card checkboxes with pill toggle buttons
-- Added step progress indicator with pulse animation
-- Moved trust badges inline below form
-- Added completion checkmark with spring animation
-
-### Quote Page Enhancements
-
-1. **Editorial FAQ Section**
-   - Added "Common Questions" badge header
-   - Left accent line turns primary when expanded
-   - Category badges (Process, Security, Pricing, Coverage)
-   - Staggered entrance animation on scroll
-   - Subtle slate background section
-
-2. **Progress Indicator Animations**
-   - Pulse ring on active step (repeating 1.5s)
-   - Emerald glow burst on step completion
-   - Animated checkmark with spring physics
-   - Progress line fill animation
-
-3. **Premium Summary Cards (Step 4)**
-   - Dark gradient background (slate-900 to slate-800)
-   - Subtle cross-hatch pattern overlay (3% opacity)
-   - Corner accent decorations (primary/emerald)
-   - Staggered content reveal
-   - Additional coverage shown as emerald pills
-
-### Image Cleanup
-
-Removed unused backup images:
-- `Bak-mission-image-1.jpg`
-- `hero-family.webp`
-
----
-
-## Session 41 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Mobile UX Improvements & Quote Page Refinement
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Made development banner dismissable (mobile) | `src/components/DevelopmentBanner.tsx` |
-| Made hiring banner dismissable (mobile) | `src/components/ClientLayout.tsx` |
-| Header adjusts position when banner dismissed | `src/components/Header.tsx` |
-| Narrowed quote form container | `src/app/quote/page.tsx` |
-| Narrowed FAQ section | `src/app/quote/page.tsx` |
-
-### Mobile Banner Improvements
-
-1. **Development Banner (Amber)**
-   - Added X button with circular amber background (mobile only)
-   - Smooth slide-up exit animation with Framer Motion
-   - Session persistence via sessionStorage
-   - Header dynamically adjusts from `top-10` to `top-0` when dismissed
-
-2. **Hiring Banner (Green)**
-   - Added X button with circular white background
-   - Smooth slide-down exit animation
-   - Session persistence via sessionStorage
-   - Only shows on mobile (`md:hidden`)
-
-3. **Quote Page UI Refinement**
-   - Form container: `max-w-5xl` → `max-w-4xl` (default)
-   - Form container: `max-w-4xl` → `max-w-3xl` (with price breakdown)
-   - FAQ section: `max-w-4xl` → `max-w-3xl`
-
-### Technical Details
-
-- Banners use `sessionStorage` (resets on new browser session)
-- Custom event `devBannerDismissed` syncs Header position
-- Hydration handling prevents layout flicker on page load
-
----
-
-## Session 40 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Server-Side Validation with Zod
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Created Zod validation schemas | `src/lib/validationSchemas.ts` (new) |
-| Added Zod validation to /api/contact | `src/app/api/contact/route.ts` |
-| Added Zod validation to /api/quote | `src/app/api/quote/route.ts` |
-| Added Zod validation to /api/partner-inquiry | `src/app/api/partner-inquiry/route.ts` |
-| Added Zod validation to /api/careers-application | `src/app/api/careers-application/route.ts` |
-
-### Server-Side Validation Features
-
-1. **New Validation Schemas (`src/lib/validationSchemas.ts`)**
-   - Type-safe Zod v4 schemas for all API routes
-   - Shared validators: `emailSchema`, `phoneSchema`, `futureDateSchema`, `messageSchema`
-   - `formatZodErrors()` helper for consistent error responses
-
-2. **Validation Rules Applied**
-   - **Email:** Required, valid format
-   - **Phone:** SA format, minimum 10 digits
-   - **Message fields:** Max 2000 characters
-   - **Quote start date:** Must be today or in the future
-   - **Privacy consent:** Required boolean (true)
-   - **Coverage type:** Enum validation (home, auto, life, business)
-   - **Callback "other" reason:** Conditional required field
-
-3. **API Route Updates**
-   - Replaced manual validation with Zod `safeParse()`
-   - Consistent error response format: `{ error: "message" }`
-   - Type-safe data extraction after validation
-   - Discriminated union for contact form (message vs callback)
-
-### Testing Results
-
-| Test Case | Result |
-|-----------|--------|
-| Missing required field | ✅ "Name is required" |
-| Invalid email | ✅ "Please enter a valid email address" |
-| Message > 2000 chars | ✅ "Message must be 2000 characters or less" |
-| Past date on quote | ✅ "Date must be today or in the future" |
-| Short phone number | ✅ "Phone number must be at least 10 digits" |
-| Callback missing other reason | ✅ "Please specify the reason for your call" |
-
----
-
-## Session 39 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Form Validation & Production Readiness
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Added validateFutureDate and validateMaxLength validators | `src/lib/formValidation.ts` |
-| Consolidated ContactForm validators (removed duplicates) | `src/components/contact/ContactForm.tsx` |
-| Added form-level validation before submit | `src/components/contact/ContactForm.tsx` |
-| Added message character limit with counter (2000 chars) | `src/components/contact/ContactForm.tsx` |
-| Added message character limit to PartnerInquiryForm | `src/components/partners/PartnerInquiryForm.tsx` |
-| Added date validation to Quote form (future dates only) | `src/app/quote/page.tsx` |
-| Updated canProceed to check for validation errors | `src/app/quote/page.tsx` |
-
-### Validation Improvements
-
-1. **New Validators in formValidation.ts**
-   - `validateFutureDate(dateString, fieldName)` - Ensures date is today or in the future
-   - `validateMaxLength(value, maxLength, fieldName)` - Character limit validation
-
-2. **ContactForm Enhancements**
-   - Removed duplicate local validators, now imports from `@/lib/formValidation`
-   - Added `validateMessageForm()` and `validateCallbackForm()` for form-level validation
-   - Validates all fields before API call, focuses first invalid field
-   - Added character counter to message field (0/2000)
-
-3. **PartnerInquiryForm Enhancements**
-   - Added character limit to optional message field (2000 chars)
-   - Character counter displays with warning color at limit
-
-4. **Quote Form Enhancements**
-   - Added date validation with inline error display
-   - Start date must be today or in the future
-   - Updated `canProceed()` to block progress if validation errors exist
-   - Added ARIA attributes to date input
-
-### Forms Already Had Loading States
-- ApplicationForm: Spinner on submit button
-- PartnerInquiryForm: Spinner on submit button
-- QuotePage: Spinner icon on submit button
-- ContactForm: Text changes to "Sending..." / "Submitting..."
-
----
-
-## Session 38 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Form Accessibility Improvements
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Updated InlineError with role="alert" and id prop | `src/components/ui/InlineError.tsx` |
-| Added ARIA attributes to ContactForm | `src/components/contact/ContactForm.tsx` |
-| Added ARIA attributes to ApplicationForm | `src/components/careers/ApplicationForm.tsx` |
-| Added ARIA attributes to PartnerInquiryForm | `src/components/partners/PartnerInquiryForm.tsx` |
-| Added ARIA attributes to QuotePage | `src/app/quote/page.tsx` |
-| Fixed About page statistics (5 → 5+) | `src/app/about/page.tsx` |
-
-### Accessibility Improvements
-
-1. **InlineError Component**
-   - Added `id` prop for aria-describedby linking
-   - Added `role="alert"` for screen reader announcements
-   - Added `aria-live="polite"` for dynamic error messages
-   - Added `aria-hidden="true"` on decorative icons
-
-2. **Form Inputs (All 4 Forms)**
-   - Added `aria-required="true"` on required fields
-   - Added `aria-invalid` when validation fails
-   - Added `aria-describedby` linking inputs to error messages
-
-3. **Checkbox Groups**
-   - Added `<fieldset>` and `<legend>` around service checkboxes (PartnerInquiryForm)
-   - Added `role="group"` with `aria-label` for grouped selections
-
-### Forms Updated
-
-| Form | Fields with ARIA |
-|------|------------------|
-| ContactForm | name, email, cb_name, cb_phone |
-| ApplicationForm | fullName, email, phone |
-| PartnerInquiryForm | contactName, jobTitle, email, phone + services fieldset |
-| QuotePage | firstName, lastName, email, phone, zipCode |
-
-### Content Fix
-- Changed "5 Offices Nationwide" to "5+ Offices Nationwide" in About page statistics
-
----
-
-## Session 37 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** Performance Optimization & Visual Consistency
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Switched Hero to WebP format | `src/components/Hero.tsx` |
-| Added preconnect hints for Google Fonts | `src/app/layout.tsx` |
-| Changed About mission image to lazy load | `src/app/about/page.tsx` |
-| Restored subtle grid to About page | `src/app/about/page.tsx` |
-| Standardized grid opacity to 10% | 17 files site-wide |
-
-### Performance Audit Results
-
-| Metric | Value | Notes |
-|--------|-------|-------|
-| Hero image size | 337 KB | Down from 687 KB (51% reduction) |
-| Hero download time | 0.3 ms | WebP optimization working |
-| LCP | 2,297 ms | Render delay from JS hydration |
-| CLS | 0.00 | Excellent layout stability |
-
-### Changes Made
-
-1. **Hero Image Optimization**
-   - Switched from `family-hero-2.jpg` (687 KB) to `family-hero-2.webp` (337 KB)
-   - 51% file size reduction
-   - Download time reduced to 0.3 ms
-
-2. **Preconnect Hints**
-   - Added `<link rel="preconnect">` for fonts.googleapis.com
-   - Added `<link rel="preconnect">` for fonts.gstatic.com
-   - Reduces DNS lookup and connection time
-
-3. **Grid Opacity Standardization**
-   - All 17 instances of `bg-grid-pattern` now use `opacity-10`
-   - Previously ranged from 30-60% causing visual inconsistency
-   - Files updated:
-     - Components: Hero.tsx, HeroCentered.tsx, Hero.split-layout.tsx, CareersHero.tsx, PartnersHero.tsx, InsurancePageTemplate.tsx
-     - Pages: about, careers, partners, quote, help, claims, policies, contact, terms, legal, privacy
-
-4. **Lazy Loading**
-   - Changed About page mission image from `priority` to `loading="lazy"`
-   - Below-fold images no longer compete with LCP
-
-### Performance Notes
-
-- LCP render delay (2,122 ms) is primarily from Framer Motion JS hydration
-- This is expected behavior for animation-heavy sites
-- Production deployment with caching will improve real-world performance
-- Hero image is in `hidden xl:block` container which affects fetch priority
-
-### Git Commits
-```
-96a668a Session 37: Performance optimization and grid refinement
-6998154 Standardize grid opacity to 10% across all pages
-```
-
----
-
-## Session 36 Summary (December 29, 2025) - COMPLETE
-
-**Focus:** SEO & Social Sharing Enhancement
-
-### Completed
-
-| Task | Files Modified |
-|------|----------------|
-| Created OG image (1200x630px) | `public/og-image.png`, `public/og-image.html` |
-| Added OG images to metadata | `src/app/layout.tsx` |
-| Added Twitter cards | `src/app/layout.tsx` |
-| Added canonical URLs | `src/app/layout.tsx` |
-| Added About page metadata | `src/app/about/layout.tsx` |
-| Removed grain texture from mission | `src/app/about/page.tsx` |
-| Added Quote page metadata | `src/app/quote/layout.tsx` |
-| Added Claims page metadata | `src/app/claims/layout.tsx` |
-| Added Careers page metadata | `src/app/careers/layout.tsx` |
-| Fixed testimonials carousel bugs | `src/components/Testimonials.tsx` |
 
 ---
 
@@ -599,6 +231,7 @@ Removed unused backup images:
 | reCAPTCHA | 🔜 Deferred | Low priority |
 | Cookie Consent | ⏸️ Disabled | Re-enable when ready |
 | Car & Home separation | ⏸️ Deferred | User decision to keep combined |
+| Design System Components | 🔜 Deferred | Session 47 plan moved to future |
 
 ### To Re-enable Cookie Consent
 Uncomment in `src/components/ClientLayout.tsx`:
@@ -609,93 +242,51 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN (Session 47)
+## NEXT SESSION PLAN (Session 49)
 
-### Design System Enhancement - Phase 1: Real Components
+### Option A: Design System Enhancement (Deferred from S47)
 
 Create a shared component library (`src/components/ui/`) with reusable Button, Card, Input, and Badge components. Update playground to use these real components.
 
-### Files to Create
+### Option B: Production Readiness Checklist
 
-| File | Purpose |
-|------|---------|
-| `src/components/ui/Button.tsx` | Reusable button with variants |
-| `src/components/ui/Card.tsx` | Reusable card with variants |
-| `src/components/ui/Input.tsx` | Form input with states |
-| `src/components/ui/Badge.tsx` | Status/label badges |
-| `src/components/ui/index.ts` | Barrel export |
+1. **Environment Variables Audit**
+   - Verify all required env vars documented in `.env.example`
+   - Test with missing API keys (graceful fallbacks)
 
-### Files to Modify
+2. **Error Handling Review**
+   - Ensure all API routes have proper try/catch
+   - User-friendly error messages on forms
 
-| File | Changes |
-|------|---------|
-| `src/app/playground/buttons/page.tsx` | Use real `<Button>` component |
-| `src/app/playground/cards/page.tsx` | Use real `<Card>` component |
-| `src/app/playground/forms/page.tsx` | Use real `<Input>` component |
+3. **Accessibility Audit**
+   - Keyboard navigation testing
+   - Screen reader compatibility
+   - Color contrast verification
 
-### Component API Design
+4. **Performance Audit**
+   - Lighthouse scores for all main pages
+   - Image optimization verification
+   - Bundle size analysis
 
-**Button:**
-```tsx
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'subtle';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  loading?: boolean;
-  icon?: ReactNode;
-  iconPosition?: 'left' | 'right';
-  fullWidth?: boolean;
-}
-```
+### Option C: Content & Copy Review
 
-**Card:**
-```tsx
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'elevated' | 'bordered' | 'gradient';
-  padding?: 'none' | 'sm' | 'md' | 'lg';
-  hoverable?: boolean;
-  gradient?: string;
-}
-```
+1. **Legal Pages**
+   - Privacy Policy content
+   - Terms of Service content
+   - POPIA compliance text
 
-**Input:**
-```tsx
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  success?: string;
-  helperText?: string;
-  icon?: ReactNode;
-  iconPosition?: 'left' | 'right';
-}
-```
+2. **Insurance Pages**
+   - Auto insurance page content
+   - Home insurance page content
+   - Life & Funeral page content
+   - Business insurance page content
 
-**Badge:**
-```tsx
-interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';
-  size?: 'sm' | 'md';
-  dot?: boolean;
-}
-```
+### Recommendations
 
-### Implementation Steps
-
-1. Create `src/components/ui/` directory
-2. Create `Button.tsx` with all variants and sizes
-3. Create `Card.tsx` with all variants
-4. Create `Input.tsx` with validation states
-5. Create `Badge.tsx` with status variants
-6. Create `index.ts` barrel export
-7. Update playground buttons page to demo real Button
-8. Update playground cards page to demo real Card
-9. Update playground forms page to demo real Input
-10. Verify build passes
-
-### Future Phases (Deferred)
-
-- **Phase 2:** Code snippets with copy functionality
-- **Phase 3:** Props playground (interactive controls)
-- **Phase 4:** Responsive preview (viewport switcher)
+1. **High Priority:** Enable Google Maps API key in production environment
+2. **Medium Priority:** Re-enable cookie consent banner before go-live
+3. **Consider:** Adding loading skeletons for map images
+4. **Consider:** Adding error boundary for map loading failures
 
 ---
 
@@ -710,6 +301,13 @@ npm run dev
 ### Build & Test
 ```bash
 npm run build
+```
+
+### Environment Variables Required
+```bash
+# .env.local
+RESEND_API_KEY=re_xxxxxxxxxx
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 ```
 
 ### Key Directories
@@ -731,6 +329,7 @@ npm run build
 | `family-hero-2.webp` | 337 KB | Hero section (xl screens) |
 | `mission-image.jpg` | 290 KB | About page mission |
 | `about-hero.jpg` | 358 KB | About page hero background |
+| `mosaic-pattern.jpg` | New | Login page background |
 | `og-image.png` | 68 KB | Social sharing |
 
 ---
@@ -739,6 +338,7 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S48 | Dec 30 | UI polish: Mission image offset, static maps, login mosaic background |
 | S46 | Dec 30 | Playground dev sandbox, Timeline "HISTORY" watermark, uppercase watermarks |
 | S45 | Dec 30 | Leadership section "The Team" watermark, decorative scatter feature branch |
 | S44 | Dec 30 | Square pattern backgrounds, seamless section transitions |
@@ -783,7 +383,8 @@ npm run build
 | LCP render delay | Medium | 2.1s from Framer Motion hydration - expected |
 | No reCAPTCHA on forms | Low | Consider adding to reduce spam |
 | Browser extension error | None | "correspondingUseElement" error from extensions, harmless |
+| Static map markers | Low | Requires valid Google Maps API key with Static Maps API enabled |
 
 ---
 
-*Document updated: December 30, 2025 - Session 46 Complete*
+*Document updated: December 30, 2025 - Session 48 Complete*
