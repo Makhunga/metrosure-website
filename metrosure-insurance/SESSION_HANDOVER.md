@@ -609,51 +609,93 @@ Uncomment in `src/components/ClientLayout.tsx`:
 
 ---
 
-## NEXT SESSION PLAN (Session 43)
+## NEXT SESSION PLAN (Session 47)
 
-### Priority 1: Production Readiness
+### Design System Enhancement - Phase 1: Real Components
 
-1. **Email Configuration**
-   - Configure Resend API key in Vercel production environment
-   - Test all 4 form submissions end-to-end (contact, quote, careers, partner inquiry)
-   - Verify email delivery to all configured addresses
+Create a shared component library (`src/components/ui/`) with reusable Button, Card, Input, and Badge components. Update playground to use these real components.
 
-2. **Route Enablement Decision**
-   - Review which under-development routes are ready for production
-   - Consider enabling: `/claims`, `/legal` (content complete)
-   - Keep disabled: `/insurance/*`, `/tools/*` (need stakeholder review)
+### Files to Create
 
-### Priority 2: Content & Polish
+| File | Purpose |
+|------|---------|
+| `src/components/ui/Button.tsx` | Reusable button with variants |
+| `src/components/ui/Card.tsx` | Reusable card with variants |
+| `src/components/ui/Input.tsx` | Form input with states |
+| `src/components/ui/Badge.tsx` | Status/label badges |
+| `src/components/ui/index.ts` | Barrel export |
 
-1. **Values Section Enhancement**
-   - Consider applying editorial treatment similar to Mission section
-   - Review content for dual-audience (B2C + B2B) messaging
+### Files to Modify
 
-2. **Image Alt Text Audit**
-   - Verify all images have appropriate alt text for accessibility
+| File | Changes |
+|------|---------|
+| `src/app/playground/buttons/page.tsx` | Use real `<Button>` component |
+| `src/app/playground/cards/page.tsx` | Use real `<Card>` component |
+| `src/app/playground/forms/page.tsx` | Use real `<Input>` component |
 
-### Priority 3: Security (Optional)
+### Component API Design
 
-1. **reCAPTCHA Integration**
-   - Add Google reCAPTCHA v3 to high-value forms (quote, partner inquiry)
-   - Invisible integration for better UX
+**Button:**
+```tsx
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'subtle';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  loading?: boolean;
+  icon?: ReactNode;
+  iconPosition?: 'left' | 'right';
+  fullWidth?: boolean;
+}
+```
 
-### Recommendations
+**Card:**
+```tsx
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  variant?: 'default' | 'elevated' | 'bordered' | 'gradient';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  hoverable?: boolean;
+  gradient?: string;
+}
+```
 
-1. **Performance**
-   - Consider code-splitting Framer Motion for pages that don't need animations
-   - Monitor Vercel Analytics for real-world performance data
-   - LCP could be improved by reducing JS bundle or deferring animations
+**Input:**
+```tsx
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  success?: string;
+  helperText?: string;
+  icon?: ReactNode;
+  iconPosition?: 'left' | 'right';
+}
+```
 
-2. **Analytics**
-   - Set up conversion tracking for quote form submissions
-   - Track partner inquiry form completions
-   - Add event tracking for CTA clicks
+**Badge:**
+```tsx
+interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';
+  size?: 'sm' | 'md';
+  dot?: boolean;
+}
+```
 
-3. **SEO**
-   - Add structured data for FAQ sections (Quote page now has FAQ categories)
-   - Consider adding breadcrumb schema
-   - Review meta descriptions for keyword optimization
+### Implementation Steps
+
+1. Create `src/components/ui/` directory
+2. Create `Button.tsx` with all variants and sizes
+3. Create `Card.tsx` with all variants
+4. Create `Input.tsx` with validation states
+5. Create `Badge.tsx` with status variants
+6. Create `index.ts` barrel export
+7. Update playground buttons page to demo real Button
+8. Update playground cards page to demo real Card
+9. Update playground forms page to demo real Input
+10. Verify build passes
+
+### Future Phases (Deferred)
+
+- **Phase 2:** Code snippets with copy functionality
+- **Phase 3:** Props playground (interactive controls)
+- **Phase 4:** Responsive preview (viewport switcher)
 
 ---
 
