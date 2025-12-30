@@ -13,12 +13,15 @@ export default function UnderDevelopment({
   description = "We're putting the finishing touches on this page. Check back soon for the full experience.",
 }: UnderDevelopmentProps) {
   return (
-    <section className="flex-1 flex items-center justify-center px-6 py-16">
+    <section className="flex-1 flex items-center justify-center px-6 py-16 relative">
+      {/* Grid background with bottom fade */}
+      <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-10" />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-3xl mx-auto text-center"
+        className="max-w-3xl mx-auto text-center relative z-10"
       >
         {/* Page name badge */}
         {pageName && (

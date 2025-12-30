@@ -31,7 +31,7 @@ export default async function UnderDevelopmentPage({ searchParams }: PageProps) 
   return (
     <div className="min-h-screen flex flex-col bg-[rgb(var(--color-surface))]">
       <Header />
-      <main className="flex-1 flex flex-col pt-56">
+      <main className="flex-1 flex flex-col pt-24">
         <UnderDevelopment pageName={pageName} />
       </main>
       <Footer />

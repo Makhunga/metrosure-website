@@ -102,7 +102,7 @@ export function Modal({
                   </h2>
                   <button
                     onClick={onClose}
-                    className="p-2 rounded-lg hover:bg-[rgb(var(--color-surface))] transition-colors text-[rgb(var(--color-text-muted))] hover:text-[rgb(var(--color-text-main))]"
+                    className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[rgb(var(--color-surface))] transition-colors text-[rgb(var(--color-text-muted))] hover:text-[rgb(var(--color-text-main))]"
                     aria-label="Close modal"
                   >
                     <span className="material-symbols-outlined">close</span>
@@ -114,7 +114,7 @@ export function Modal({
               {!title && (
                 <button
                   onClick={onClose}
-                  className="absolute top-4 right-4 z-10 p-2 rounded-lg bg-[rgb(var(--color-surface))]/80 backdrop-blur-sm hover:bg-[rgb(var(--color-surface))] transition-colors text-[rgb(var(--color-text-muted))] hover:text-[rgb(var(--color-text-main))]"
+                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-[rgb(var(--color-surface))]/80 backdrop-blur-sm hover:bg-[rgb(var(--color-surface))] transition-colors text-[rgb(var(--color-text-muted))] hover:text-[rgb(var(--color-text-main))]"
                   aria-label="Close modal"
                 >
                   <span className="material-symbols-outlined">close</span>

@@ -103,7 +103,7 @@ export default function WhyJoinUs() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            More Than Just a Job
+            More Than <span className="text-primary">Just a Job</span>
           </motion.h2>
 
           <motion.p
