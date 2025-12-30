@@ -545,7 +545,7 @@ export default function AboutPage() {
 
                   {/* Content Card */}
                   <motion.div
-                    className={`group p-8 md:p-10 rounded-3xl border shadow-sm relative overflow-hidden transition-all duration-300 ${
+                    className={`group/card p-8 md:p-10 rounded-3xl border shadow-sm relative transition-all duration-300 ${
                       item.isSpecial
                         ? "bg-[rgb(var(--color-surface-card))] border-primary/20"
                         : "bg-[rgb(var(--color-surface-card))] border-[rgb(var(--color-border-light))]"
@@ -556,7 +556,7 @@ export default function AboutPage() {
                       transition: { type: "spring", stiffness: 300, damping: 20 }
                     }}
                   >
-                    <div className="absolute -right-4 -bottom-8 text-9xl font-black text-primary/10 dark:text-primary/20 select-none z-0 translate-x-6 translate-y-6 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 [transition:transform_0.5s_cubic-bezier(0.34,1.56,0.64,1),opacity_0.4s_ease-out]">
+                    <div className="absolute -right-4 -bottom-8 text-9xl font-black text-primary/10 dark:text-primary/20 select-none z-0 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-500 ease-out">
                       {item.number}
                     </div>
                     <div className="relative z-10">
