@@ -545,20 +545,35 @@ export default function AboutPage() {
 
                   {/* Content Card */}
                   <motion.div
-                    className={`group/card p-8 md:p-10 rounded-3xl border shadow-sm relative transition-all duration-300 ${
+                    className={`p-8 md:p-10 rounded-3xl border shadow-sm relative overflow-hidden ${
                       item.isSpecial
                         ? "bg-[rgb(var(--color-surface-card))] border-primary/20"
                         : "bg-[rgb(var(--color-surface-card))] border-[rgb(var(--color-border-light))]"
                     }`}
-                    whileHover={{
-                      y: -4,
-                      boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.15)",
-                      transition: { type: "spring", stiffness: 300, damping: 20 }
+                    initial="rest"
+                    whileHover="hover"
+                    variants={{
+                      rest: { y: 0, boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)" },
+                      hover: {
+                        y: -4,
+                        boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.15)",
+                        transition: { type: "spring", stiffness: 300, damping: 20 }
+                      }
                     }}
                   >
-                    <div className="absolute -right-4 -bottom-8 text-9xl font-black text-primary/10 dark:text-primary/20 select-none z-0 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-500 ease-out">
+                    <motion.div
+                      className="absolute right-4 -bottom-6 text-9xl font-black text-primary/10 dark:text-primary/20 select-none z-0"
+                      variants={{
+                        rest: { y: 30, opacity: 0.6 },
+                        hover: {
+                          y: 0,
+                          opacity: 1,
+                          transition: { type: "spring", stiffness: 150, damping: 15 }
+                        }
+                      }}
+                    >
                       {item.number}
-                    </div>
+                    </motion.div>
                     <div className="relative z-10">
                       <div className="flex items-center gap-3 mb-4">
                         {item.isSpecial && (
