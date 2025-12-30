@@ -349,7 +349,7 @@ export default function QuotePage() {
       <section ref={heroRef} className="relative pt-56 pb-12 overflow-hidden">
         {/* Square Pattern Background - fading from top */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-40"
+          className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-10"
           style={{
             backgroundImage: 'url(/images/square-pattern.png)',
             backgroundPosition: 'top center',
@@ -1177,8 +1177,18 @@ export default function QuotePage() {
       </AnimatePresence>
 
       {/* FAQ Section - Card-based Accordion */}
-      <section ref={faqRef} className="py-24 px-6">
-        <div className="max-w-3xl mx-auto">
+      <section ref={faqRef} className="relative py-24 px-6 overflow-hidden">
+        {/* Decorative watermark */}
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 -top-[2.4rem] text-[12rem] font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          FAQ
+        </motion.div>
+
+        <div className="max-w-3xl mx-auto relative z-10">
           {/* Header */}
           <motion.div
             className="text-center mb-12"

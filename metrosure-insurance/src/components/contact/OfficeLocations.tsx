@@ -69,6 +69,10 @@ const offices: Office[] = [
 // Build Google Static Maps URL with grayscale styling and red marker
 function getStaticMapUrl(office: Office): string {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  // Debug: Log API key availability (remove after debugging)
+  if (typeof window !== 'undefined') {
+    console.log('[Maps Debug] API Key available:', !!apiKey, apiKey ? `(${apiKey.substring(0, 10)}...)` : '(none)');
+  }
   if (!apiKey) return "";
 
   // Grayscale map styling
