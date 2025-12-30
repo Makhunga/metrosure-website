@@ -293,7 +293,7 @@ export default function Footer() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd | FSP 47089 | Reg. 2016/113504/07</p>
+          <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd | FSP 47089</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               <motion.span whileHover={{ y: -2 }}>Privacy Policy</motion.span>

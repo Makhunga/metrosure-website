@@ -289,9 +289,9 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section - Editorial Layout */}
-      <section ref={missionRef} className="bg-[#1a1a1a] relative overflow-hidden">
+      <section ref={missionRef} className="bg-[#1a1a1a] relative pb-8">
         {/* Content Container */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-0">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-0">
           {/* Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 pb-20">
             {/* Left Column - Bold Heading */}
@@ -359,33 +359,40 @@ export default function AboutPage() {
               </div>
             </motion.div>
           </div>
-        </div>
 
-        {/* Full-width Image Section */}
-        <motion.div
-          className="relative w-full"
-          initial={{ opacity: 0, y: 60 }}
-          animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-          transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          {/* Image Container */}
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-8 pb-0">
-            <div className="relative w-full aspect-[16/9] md:aspect-[2/1] overflow-hidden">
+          {/* Image - positioned to extend below the dark section */}
+          <motion.div
+            className="relative z-20 max-w-7xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={missionInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.9, delay: 0.5 }}
+            style={{ transform: 'translateY(6rem)' }}
+          >
+            <motion.div
+              className="relative w-full aspect-[16/9] md:aspect-[2/1] overflow-hidden rounded-xl shadow-2xl cursor-pointer"
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)"
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <Image
                 src="/images/mission-image.jpg"
                 alt="The Metrosure team"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 loading="lazy"
               />
-            </div>
-          </div>
-        </motion.div>
+              {/* Subtle overlay on hover */}
+              <div className="absolute inset-0 bg-primary/0 hover:bg-primary/5 transition-colors duration-500" />
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Values Section */}
-      <section ref={valuesRef} className="relative z-10 py-24 section-warm">
+      {/* Values Section - extra top padding to accommodate image overflow from above */}
+      <section ref={valuesRef} className="relative z-10 pt-40 md:pt-48 pb-24 section-warm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.div
             className="text-center mb-16"

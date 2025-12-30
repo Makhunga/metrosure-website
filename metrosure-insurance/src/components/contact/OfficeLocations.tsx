@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 type OfficeLocation = "dbn" | "pmb" | "pta" | "jhb" | "msg";
 
@@ -12,7 +13,8 @@ interface Office {
   address1: string;
   address2: string;
   phone?: string;
-  mapUrl: string;
+  lat: number;
+  lng: number;
 }
 
 const offices: Office[] = [
@@ -23,8 +25,8 @@ const offices: Office[] = [
     address1: "391 Anton Lembede Street, Metropolitan Life Building",
     address2: "5th Floor, Durban, 4001",
     phone: "+27 31 301 1192",
-    mapUrl:
-      "https://maps.google.com/maps?q=391+Anton+Lembede+Street,Durban,South+Africa&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    lat: -29.8579,
+    lng: 31.0292,
   },
   {
     id: "pmb",
@@ -32,8 +34,8 @@ const offices: Office[] = [
     region: "KwaZulu-Natal",
     address1: "195 Boom Street",
     address2: "Pietermaritzburg, 3201",
-    mapUrl:
-      "https://maps.google.com/maps?q=195+Boom+Street,Pietermaritzburg,South+Africa&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    lat: -29.6006,
+    lng: 30.3794,
   },
   {
     id: "pta",
@@ -41,8 +43,8 @@ const offices: Office[] = [
     region: "Gauteng",
     address1: "325 Church Street and Thabo Sehume, Berlinton Building",
     address2: "Office 318, Pretoria, 0002",
-    mapUrl:
-      "https://maps.google.com/maps?q=325+Church+Street,Pretoria,South+Africa&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    lat: -25.7479,
+    lng: 28.1879,
   },
   {
     id: "jhb",
@@ -50,8 +52,8 @@ const offices: Office[] = [
     region: "Johannesburg",
     address1: "183 Bentel Avenue, Unit 13 Jansen Park",
     address2: "Boksburg, 1459",
-    mapUrl:
-      "https://maps.google.com/maps?q=183+Bentel+Avenue,Boksburg,South+Africa&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    lat: -26.2041,
+    lng: 28.2639,
   },
   {
     id: "msg",
@@ -59,10 +61,30 @@ const offices: Office[] = [
     region: "Durban",
     address1: "32 Stephen Dlamini Road",
     address2: "Musgrave, Durban, 4001",
-    mapUrl:
-      "https://maps.google.com/maps?q=32+Stephen+Dlamini+Road,Musgrave,Durban,South+Africa&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    lat: -29.8450,
+    lng: 31.0000,
   },
 ];
+
+// Build Google Static Maps URL with grayscale styling and red marker
+function getStaticMapUrl(office: Office): string {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  if (!apiKey) return "";
+
+  // Grayscale map styling
+  const styles = [
+    "feature:all|saturation:-100",
+    "feature:water|color:0xe0e0e0",
+    "feature:road|color:0xffffff",
+    "feature:landscape|color:0xf5f5f5",
+    "feature:poi|visibility:off",
+  ].map(s => `style=${encodeURIComponent(s)}`).join("&");
+
+  // Metrosure red marker with label
+  const marker = `markers=color:red%7Clabel:M%7C${office.lat},${office.lng}`;
+
+  return `https://maps.googleapis.com/maps/api/staticmap?center=${office.lat},${office.lng}&zoom=15&size=800x600&scale=2&maptype=roadmap&${styles}&${marker}&key=${apiKey}`;
+}
 
 const socialLinks = [
   {
@@ -233,37 +255,86 @@ export default function OfficeLocations() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {/* Loading State */}
-          <div className="absolute inset-0 bg-slate-100 dark:bg-slate-900 animate-pulse z-0" />
+          <div className="absolute inset-0 bg-slate-100 dark:bg-slate-900 z-0 flex items-center justify-center">
+            <span className="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600 animate-pulse">
+              map
+            </span>
+          </div>
 
-          {/* Map iframes */}
-          {offices.map((office) => (
-            <iframe
-              key={office.id}
-              allowFullScreen
-              className={`absolute inset-0 w-full h-full z-10 saturate-[0.7] hover:saturate-100 transition-all duration-500 ${
-                selectedOffice === office.id ? "opacity-100 visible" : "opacity-0 invisible"
-              }`}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src={office.mapUrl}
-              title={`${office.name} office location`}
-            />
-          ))}
+          {/* Static Map Images */}
+          <AnimatePresence mode="wait">
+            {offices.map((office) => {
+              const mapUrl = getStaticMapUrl(office);
+              if (selectedOffice !== office.id || !mapUrl) return null;
 
-          {/* Live Indicator */}
+              return (
+                <motion.div
+                  key={office.id}
+                  className="absolute inset-0 z-10"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Image
+                    src={mapUrl}
+                    alt={`${office.name} office location map`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 58vw"
+                    priority={office.id === "dbn"}
+                  />
+                  {/* Subtle red tint overlay for brand cohesion */}
+                  <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+
+          {/* Fallback when no API key */}
+          {!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && (
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800">
+              <span className="material-symbols-outlined text-5xl text-slate-400 dark:text-slate-500 mb-4">
+                location_on
+              </span>
+              <p className="text-slate-600 dark:text-slate-400 text-center px-8">
+                {offices.find(o => o.id === selectedOffice)?.address1}
+                <br />
+                {offices.find(o => o.id === selectedOffice)?.address2}
+              </p>
+            </div>
+          )}
+
+          {/* Location Badge */}
           <motion.div
             className="absolute bottom-6 left-6 z-20 pointer-events-none"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
-              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(191,6,3,0.6)]" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+              <span className="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(191,6,3,0.6)]" />
               <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                Live Map View
+                {offices.find(o => o.id === selectedOffice)?.region}
               </span>
             </div>
           </motion.div>
+
+          {/* Open in Google Maps link */}
+          <motion.a
+            href={`https://www.google.com/maps/search/?api=1&query=${offices.find(o => o.id === selectedOffice)?.lat},${offices.find(o => o.id === selectedOffice)?.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-6 right-6 z-20 inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg shadow-lg hover:bg-[rgb(var(--color-primary-hover))] transition-colors"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span className="material-symbols-outlined text-sm">directions</span>
+            <span className="text-xs font-bold uppercase tracking-wider">Get Directions</span>
+          </motion.a>
         </motion.div>
       </div>
     </motion.div>
