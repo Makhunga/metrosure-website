@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 30, 2025 (Session 48 - Complete)
+**Date:** December 30, 2025 (Session 49 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -12,7 +12,7 @@
 ## PROJECT STATUS
 
 ### Build Status: ✅ Successful
-- **Routes:** 35 (31 pages + 4 API routes)
+- **Routes:** 40 (36 pages + 4 API routes)
 - **Last Build:** December 30, 2025
 
 ### Feature Completion
@@ -55,11 +55,95 @@
 | Playground (Dev Sandbox) | ✅ | Hidden /playground with 7 experiment sub-pages |
 | Google Static Maps | ✅ | Grayscale with red Metrosure markers |
 | Login page mosaic background | ✅ | Mosaic pattern with gradient overlay |
+| Partners hero geometric background | ✅ | SVG pattern with fade effects |
+| Careers separate job pages | ✅ | 5 SEO-optimized detail pages |
+| JobPosting schema (Google for Jobs) | ✅ | JSON-LD structured data |
+| Careers card grid layout | ✅ | Replaced accordion with responsive grid |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 49 Summary (December 30, 2025) - COMPLETE
+
+**Focus:** Partners Hero Background & Careers Page Restructure
+
+### Completed
+
+| Task | Files Modified/Created |
+|------|------------------------|
+| Partners hero geometric background | `src/components/partners/PartnersHero.tsx`, `public/images/geometric-shapes-pattern.svg` |
+| Centralized job data | `src/data/jobs.ts` |
+| JobPosting schema generator | `src/lib/generateJobSchema.ts` |
+| Job detail pages (SSG) | `src/app/careers/[slug]/page.tsx` |
+| Job detail hero component | `src/components/careers/JobDetailHero.tsx` |
+| Job detail content component | `src/components/careers/JobDetailContent.tsx` |
+| Related jobs component | `src/components/careers/RelatedJobs.tsx` |
+| Job card component | `src/components/careers/JobCard.tsx` |
+| Refactored OpenPositions | `src/components/careers/OpenPositions.tsx` |
+| Updated sitemap config | `next-sitemap.config.js` |
+
+### Partners Hero - Geometric Background
+
+Added artistic SVG geometric pattern background with subtle blending:
+
+- **Pattern:** `/images/geometric-shapes-pattern.svg` (quarter-circles, triangles, arcs)
+- **Opacity:** 8% base with gradient overlays
+- **Red tint overlay:** `mix-blend-mode: multiply` for brand harmony
+- **Radial fade:** Center stays clear for content readability
+- **Bottom fade:** Smooth transition to next section
+
+### Careers Page - Separate Job Detail Pages
+
+Converted from single-page accordion to multi-page structure for SEO:
+
+**New Routes (5 job detail pages):**
+- `/careers/insurance-sales-consultant`
+- `/careers/call-centre-agent`
+- `/careers/telesales-representative`
+- `/careers/client-service-administrator`
+- `/careers/trainee-sales-agent`
+
+**Features:**
+- **Static Site Generation (SSG)** - Pages pre-rendered at build time
+- **Dynamic SEO** - Custom meta tags, OG data per job
+- **JobPosting Schema** - JSON-LD for Google for Jobs eligibility
+- **Shareable URLs** - Direct links for job boards, LinkedIn, referrals
+- **Card Grid Layout** - Overview page with responsive 3-column grid
+- **Category Filtering** - With job counts per department
+- **Quick Apply Modal** - On overview page
+- **Inline Application Form** - On detail pages
+- **Related Jobs** - Shows other positions in same category
+
+**Data Structure:**
+```typescript
+interface Job {
+  id: string;
+  slug: string;              // URL path
+  title: string;
+  department: string;
+  category: string;
+  location: string;
+  type: string;
+  description: string;
+  metaDescription: string;   // SEO
+  responsibilities: string[];
+  requirements: string[];
+  offers: string[];
+  datePosted: string;        // ISO date for schema
+  validThrough: string;      // Schema expiry
+}
+```
+
+### Git Commits
+
+```
+62193ef Add geometric shapes background to partners hero section
+0f053bb Implement separate job detail pages for careers section
+```
 
 ---
 
@@ -313,7 +397,8 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 ### Key Directories
 - `src/app/` - Pages and API routes
 - `src/components/` - Reusable components
-- `src/lib/` - Utilities (quoteCalculator, whatsapp, rateLimit, formValidation, validationSchemas)
+- `src/data/` - Data files (jobs.ts)
+- `src/lib/` - Utilities (quoteCalculator, whatsapp, rateLimit, formValidation, validationSchemas, generateJobSchema)
 
 ### Rate Limiting Config
 | Route | Limit |
@@ -338,6 +423,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S49 | Dec 30 | Partners hero geometric bg, Careers separate job pages with SEO |
 | S48 | Dec 30 | UI polish: Mission image offset, static maps, login mosaic background |
 | S46 | Dec 30 | Playground dev sandbox, Timeline "HISTORY" watermark, uppercase watermarks |
 | S45 | Dec 30 | Leadership section "The Team" watermark, decorative scatter feature branch |
@@ -387,4 +473,4 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 
 ---
 
-*Document updated: December 30, 2025 - Session 48 Complete*
+*Document updated: December 30, 2025 - Session 49 Complete*
