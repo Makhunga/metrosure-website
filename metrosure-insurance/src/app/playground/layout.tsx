@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import PlaygroundShell from "./PlaygroundShell";
 
 export const metadata: Metadata = {
   title: "Playground | Metrosure",
@@ -10,5 +11,5 @@ export default function PlaygroundLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <PlaygroundShell>{children}</PlaygroundShell>;
 }

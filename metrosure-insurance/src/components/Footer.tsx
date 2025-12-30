@@ -301,7 +301,7 @@ export default function Footer() {
             <Link href="/terms" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               <motion.span whileHover={{ y: -2 }}>Terms of Service</motion.span>
             </Link>
-            {process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production' && (
+            {!process.env.NEXT_PUBLIC_VERCEL_ENV && (
               <Link href="/playground" className="hover:text-slate-900 dark:hover:text-white transition-colors" title="Playground">
                 <motion.span whileHover={{ y: -2 }}>🧪</motion.span>
               </Link>

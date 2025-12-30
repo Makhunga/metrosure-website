@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover Document
 
-**Date:** December 29, 2025 (Session 43 - Complete)
+**Date:** December 30, 2025 (Session 46 - Complete)
 **Project:** Metrosure Insurance Brokers Website
 **Tech Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev Server:** `http://localhost:3000`
@@ -12,8 +12,8 @@
 ## PROJECT STATUS
 
 ### Build Status: ✅ Successful
-- **Routes:** 27 (23 pages + 4 API routes)
-- **Last Build:** December 29, 2025
+- **Routes:** 35 (31 pages + 4 API routes)
+- **Last Build:** December 30, 2025
 
 ### Feature Completion
 
@@ -50,11 +50,166 @@
 | Quote Page - Editorial FAQ | ✅ | Left accent lines, category badges |
 | Quote Page - Enhanced Progress | ✅ | Pulse animations, completion glow |
 | Quote Page - Premium Summary | ✅ | Dark policy preview cards |
+| Leadership Section Watermark | ✅ | "THE TEAM" uppercase ghosted text |
+| Timeline Section Watermark | ✅ | "HISTORY" centered, partially hidden watermark |
+| Playground (Dev Sandbox) | ✅ | Hidden /playground with 7 experiment sub-pages |
 
 ### Under Development Routes (Production Redirects)
 - `/insurance/*` (auto, home, life, business)
 - `/tools/coverage-calculator`
 - `/legal`, `/claims`, `/policies`
+
+---
+
+## Session 46 Summary (December 30, 2025) - COMPLETE
+
+**Focus:** Playground Dev Sandbox & Section Watermarks
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Added "HISTORY" watermark to Timeline section | `src/app/about/page.tsx` |
+| Removed History badge (replaced by watermark) | `src/app/about/page.tsx` |
+| Made both watermarks uppercase | `src/app/about/page.tsx` |
+| Created Playground with index + sub-pages | `src/app/playground/*` |
+| Added sidebar navigation to Playground | `src/app/playground/PlaygroundShell.tsx` |
+| Added dev-only footer link (local only) | `src/components/Footer.tsx` |
+
+### Timeline Section Watermark
+
+- **Text:** "HISTORY" (uppercase)
+- **Position:** Centered, partially hidden (`-top-[2.4rem]`)
+- **Size:** `text-[12rem]` (192px)
+- **Animation:** Vertical slide-in with Framer Motion (`y: 20 → 0`)
+
+### Playground Structure
+
+```
+/playground              → Index with card grid
+/playground/typography   → Font scales, headings, weights
+/playground/buttons      → Variants, sizes, states, icons
+/playground/cards        → Styles, interactive, status
+/playground/forms        → Inputs, validation, checkboxes
+/playground/animations   → Hover, continuous, spring physics
+/playground/colors       → Brand, status, gradients
+/playground/scratch      → Empty canvas for experiments
+```
+
+**Features:**
+- Sidebar navigation with active state (desktop)
+- Mobile floating menu button with slide-out drawer
+- Each experiment page is fully isolated
+- `noindex, nofollow` robots meta
+- Footer 🧪 link only visible on local dev (not Vercel)
+
+### Git Commits
+
+```
+c1e7cb7 Add 'History' watermark to Timeline section, uppercase both watermarks
+787fbd0 Add hidden playground page for UI/UX testing
+[pending] Refactor playground to index + sub-pages structure
+```
+
+---
+
+## Session 45 Summary (December 30, 2025) - COMPLETE
+
+**Focus:** Leadership Section Decorative Elements
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Added "The Team" watermark to Leadership section | `src/app/about/page.tsx` |
+| Removed "The Team" badge (replaced by watermark) | `src/app/about/page.tsx` |
+| Created feature branch with decorative scatter | `feature/leadership-section-decorations` |
+
+### Leadership Section Watermark
+
+Added subtle background text watermark matching timeline card style:
+
+- **Position:** Top-left of Leadership section (`top-6 md:top-8`)
+- **Style:** `text-9xl font-black text-slate-100 dark:text-white/5`
+- **Animation:** Horizontal slide-in with Framer Motion (`x: -20 → 0`)
+- **Treatment:** Mirrors the timeline cards' ghosted number effect
+
+### Feature Branch (Not Merged)
+
+Branch `feature/leadership-section-decorations` contains additional decorative scatter:
+- Scattered diamonds and dots SVG straddling Timeline/Leadership sections
+- Positioned on right side crossing section boundary
+- Primary color at subtle opacity (12-20% light, 6-12% dark)
+- Three animation layers with staggered reveal
+
+### Git Commits
+
+```
+27e4b53 Add 'The Team' watermark to Leadership section (main)
+a566ccd Add decorative elements to Leadership section (feature branch)
+```
+
+---
+
+## Session 44 Summary (December 30, 2025) - COMPLETE
+
+**Focus:** Square Pattern Backgrounds & Seamless Section Transitions
+
+### Completed
+
+| Task | Files Modified |
+|------|----------------|
+| Added geometric overlay CSS classes | `src/app/globals.css` |
+| Contact page corner patterns | `src/app/contact/page.tsx` |
+| Quote page FAQ pattern background | `src/app/quote/page.tsx` |
+| About page Leadership/CTA pattern | `src/app/about/page.tsx` |
+| Updated FAQ to Contact page card style | `src/app/quote/page.tsx` |
+| Added pattern images | `public/images/geometric-pattern.svg`, `public/images/square-pattern.png` |
+
+### Square Pattern Implementation
+
+Added subtle background patterns with seamless section transitions:
+
+1. **Quote Page - FAQ Section**
+   - Square pattern at bottom extending 120px into CTA section
+   - Light mode: 70% opacity
+   - Dark mode: 10% opacity, Y-axis flipped
+   - CSS mask-image for smooth left/right edge fades (15% → 85%)
+   - Separate gradient overlays for light/dark mode (prevents white line artifact)
+   - Pattern sits behind CTA card (z-index layering)
+
+2. **About Page - Leadership Section**
+   - Same pattern treatment between Leadership cards and CTA
+   - Extends into CTA section for seamless transition
+   - Proper dark mode gradient color (rgb(30 41 59))
+
+3. **Contact Page - Geometric Corners**
+   - Corner patterns using Approach section style
+   - Top-right and bottom-left positioning
+   - Radial fade masks
+
+4. **Quote Page - FAQ Redesign**
+   - Changed from left-accent accordion to Contact page card style
+   - Native `<details>`/`<summary>` elements
+   - White/slate-800 cards with rounded corners
+   - Circular expand icon buttons
+   - Left border accent when open
+
+### CSS Classes Added (globals.css)
+
+```css
+.bg-geometric-overlay - Fixed position pattern overlay
+.bg-geometric-overlay::before - Pattern layer with grayscale filter
+.bg-geometric-overlay::after - Vignette radial gradient mask
+.bg-geometric-overlay--animated - 30s drift animation
+.bg-geometric-overlay--edge-heavy - Stronger center visibility variant
+```
+
+### Git Branch
+
+Feature branch created and pushed:
+- Branch: `feature/square-pattern-backgrounds`
+- PR URL: https://github.com/Makhunga/metrosure-website/pull/new/feature/square-pattern-backgrounds
 
 ---
 
@@ -542,6 +697,9 @@ npm run build
 
 | Session | Date | Focus |
 |---------|------|-------|
+| S46 | Dec 30 | Playground dev sandbox, Timeline "HISTORY" watermark, uppercase watermarks |
+| S45 | Dec 30 | Leadership section "The Team" watermark, decorative scatter feature branch |
+| S44 | Dec 30 | Square pattern backgrounds, seamless section transitions |
 | S43 | Dec 29 | Visual audit - Grid removal, dark mode standardization, form/button consistency |
 | S42 | Dec 29 | Design polish - Partners 3-step wizard, Quote FAQ & progress animations |
 | S41 | Dec 29 | Dismissable mobile banners, quote page UI refinement |
@@ -586,4 +744,4 @@ npm run build
 
 ---
 
-*Document updated: December 29, 2025 - Session 43 Complete*
+*Document updated: December 30, 2025 - Session 46 Complete*
