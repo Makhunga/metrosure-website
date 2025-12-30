@@ -33,7 +33,7 @@ export default function ContactPage() {
         {/* Gradient Mesh Overlay */}
         <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
 
-        <main className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-56 pb-24">
+        <main className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-36 pb-24">
           <ContactHero />
           <ContactOptions />
           <FAQ />
