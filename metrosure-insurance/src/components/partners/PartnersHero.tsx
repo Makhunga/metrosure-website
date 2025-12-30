@@ -8,11 +8,45 @@ export default function PartnersHero() {
     <section
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
+      {/* Geometric Shapes Background - Artistic Integration */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Base geometric pattern layer */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/images/geometric-shapes-pattern.svg')",
+            opacity: 0.08,
+          }}
+        />
+        {/* Red color overlay to blend with brand */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(135deg, rgba(191, 6, 3, 0.15) 0%, rgba(191, 6, 3, 0.08) 50%, transparent 100%)",
+            mixBlendMode: "multiply",
+          }}
+        />
+        {/* Radial fade from center - content area stays clearer */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 80% 70% at 50% 40%, rgb(var(--color-surface-card)) 0%, transparent 70%)",
+          }}
+        />
+        {/* Bottom fade for smooth transition to next section */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to bottom, transparent 60%, rgb(var(--color-surface-card)) 100%)",
+          }}
+        />
+      </div>
+
       {/* Gradient Mesh Overlay */}
-      <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-mesh pointer-events-none opacity-50" />
 
       {/* Connection Network Lines - B2B Visual */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="connection-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
             <circle cx="50" cy="50" r="2" fill="rgb(191, 6, 3)" />
