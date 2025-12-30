@@ -19,6 +19,19 @@ const routeNames: Record<string, string> = {
   '/policies': 'Policy Management',
 };
 
+// Helper to get page name from route
+function getPageName(route: string): string {
+  // Check static routes first
+  if (routeNames[route]) {
+    return routeNames[route];
+  }
+  // Handle career detail pages
+  if (route.startsWith('/careers/')) {
+    return 'Job Details';
+  }
+  return 'This Feature';
+}
+
 interface PageProps {
   searchParams: Promise<{ from?: string }>;
 }
@@ -26,7 +39,7 @@ interface PageProps {
 export default async function UnderDevelopmentPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const fromRoute = params.from || '';
-  const pageName = routeNames[fromRoute] || 'This Feature';
+  const pageName = getPageName(fromRoute);
 
   return (
     <div className="min-h-screen flex flex-col bg-[rgb(var(--color-surface))]">
