@@ -48,14 +48,23 @@ export interface EducationalPoint {
 
 /**
  * Life cover calculator constants
+ * Statistics sourced from ASISA Insurance Gap Study 2025
  */
 export const LIFE_COVER_CONSTANTS = {
   /** Amount allocated per dependent for education (ZAR) */
   EDUCATION_FUND_PER_CHILD: 250000,
   /** Emergency fund as multiplier of annual income (0.5 = 6 months) */
   EMERGENCY_FUND_MULTIPLIER: 0.5,
-  /** Average SA life cover for comparison (ZAR) */
-  AVERAGE_SA_LIFE_COVER: 1500000,
+  /** Average SA life cover held (ZAR) - ASISA 2025 */
+  AVERAGE_SA_LIFE_COVER: 800000,
+  /** Average SA life cover needed (ZAR) - ASISA 2025 */
+  AVERAGE_SA_LIFE_COVER_NEEDED: 2100000,
+  /** Average SA life cover shortfall (ZAR) - ASISA 2025 */
+  AVERAGE_SA_LIFE_COVER_GAP: 1300000,
+  /** Total SA insurance gap (ZAR) - ASISA 2025 */
+  TOTAL_SA_INSURANCE_GAP: 50400000000000, // R50.4 trillion
+  /** Percentage of needs covered - ASISA 2025 */
+  COVERAGE_RATIO_PERCENT: 39,
   /** Rough premium estimate: ZAR per R1000 cover */
   PREMIUM_PER_THOUSAND: 1,
   /** Minimum years of support */
@@ -70,14 +79,23 @@ export const LIFE_COVER_CONSTANTS = {
 
 /**
  * Funeral cover calculator constants
+ * Cost statistics sourced from 1Life, MiWayLife, Metropolitan 2024/2025
  */
 export const FUNERAL_COVER_CONSTANTS = {
   /** Additional member premium multiplier (40% of base) */
   ADDITIONAL_MEMBER_MULTIPLIER: 0.4,
+  /** Basic funeral package cost (ZAR) */
+  BASIC_FUNERAL_COST: 15000,
+  /** Traditional funeral cost (ZAR) */
+  TRADITIONAL_FUNERAL_COST: 40000,
+  /** Full service funeral with catering (ZAR) */
+  FULL_SERVICE_FUNERAL_COST: 84000,
+  /** Metropolitan maximum estimate (ZAR) */
+  PREMIUM_FUNERAL_COST: 120000,
   /** Minimum funeral cost in SA (ZAR) */
-  MIN_FUNERAL_COST: 15000,
+  MIN_FUNERAL_COST: 8000,
   /** Maximum funeral cost in SA (ZAR) */
-  MAX_FUNERAL_COST: 50000,
+  MAX_FUNERAL_COST: 120000,
 } as const;
 
 // =============================================================================
@@ -141,52 +159,104 @@ export const calculatorTabs: CalculatorTab[] = [
 ];
 
 /**
- * Calculator page FAQs
+ * Calculator page FAQs - Life Cover
+ * Enhanced with ASISA 2025 statistics
  */
-export const calculatorFAQs: CalculatorFAQ[] = [
+export const lifeCoverFAQs: CalculatorFAQ[] = [
   {
     question: "How accurate is this calculator?",
     answer:
-      "Our calculator uses industry-standard formulas to provide a reliable estimate. However, your final premium will depend on factors like age, health, and specific policy terms. This tool gives you a solid starting point for conversations with our advisors.",
+      "This calculator provides an indicative estimate based on industry-standard formulas and the information you provide. Actual premiums depend on factors like age, health status, smoking habits, occupation, and insurer underwriting criteria. For a personalised quote, speak to one of our advisers.",
   },
   {
-    question: "Why do you ask about dependents?",
+    question: "Why do you ask about my dependents?",
     answer:
-      "Each dependent represents additional financial responsibility. We allocate R250,000 per dependent for education and living expenses. This ensures your family can maintain their lifestyle and educational goals.",
+      "Dependents significantly impact your life cover needs. Each dependent may require ongoing income support, education funding (approximately R250,000 per child through tertiary level), and daily living expenses. The more dependents you have, the higher your coverage should be to maintain their lifestyle.",
   },
   {
-    question: "What's included in the income replacement calculation?",
+    question: "What's included in income replacement?",
     answer:
-      "We multiply your annual income by the number of years you want your family supported. This covers daily expenses, bills, and maintaining your family's standard of living.",
+      "Income replacement covers the years of salary your family would need if you passed away. We calculate this by multiplying your annual income by your chosen support period (typically 5-30 years). This ensures your family can maintain their current standard of living, pay bills, and meet ongoing financial commitments.",
   },
   {
-    question: "Do I need to provide personal details?",
+    question: "How much life cover do most South Africans have?",
     answer:
-      "No. This calculator is completely anonymous. You only need to enter financial figures to get your estimate. Personal details are only required when you request an actual quote.",
+      "According to ASISA's 2025 Insurance Gap Study, the average South African income earner has only R800,000 in life cover—but needs at least R2.1 million. This leaves an average shortfall of R1.3 million per person. Over 60% of families would face financial hardship if the primary earner passed away unexpectedly.",
+  },
+  {
+    question: "Do I need life cover if I have employer group life?",
+    answer:
+      "Group life benefits from your employer are valuable but often insufficient. They typically provide 2-4 times your annual salary, whereas financial experts recommend 10-15 times. Additionally, group cover ends when you leave your job. A personal policy provides continuous protection regardless of employment status.",
+  },
+  {
+    question: "What happens to my debts when I die?",
+    answer:
+      "Outstanding debts like home loans, personal loans, and credit cards don't disappear when you pass away. Your estate (and potentially your family) may be responsible for settling these obligations. Life cover can clear these debts, preventing your family from losing assets or facing financial stress.",
   },
 ];
 
 /**
+ * Calculator page FAQs - Funeral Cover
+ * Enhanced with 2024/2025 cost statistics
+ */
+export const funeralCoverFAQs: CalculatorFAQ[] = [
+  {
+    question: "How much does an average funeral cost in South Africa?",
+    answer:
+      "Funeral costs in South Africa range widely depending on your choices. A basic burial starts at R8,000-R15,000, while a traditional funeral with catering for 50 guests can cost R70,000-R84,000. Metropolitan estimates many families spend between R23,500 and R120,000 when including tombstones, flowers, and catering.",
+  },
+  {
+    question: "What does funeral cover typically include?",
+    answer:
+      "Most funeral cover policies provide a lump-sum payout within 24-48 hours of claim submission. This covers funeral parlour fees, coffin or casket, burial plot, hearse, and basic ceremony. Premium plans may include grocery benefits, airtime, and repatriation services. Our plans also include funeral assistance to help with arrangements.",
+  },
+  {
+    question: "Can I cover extended family members?",
+    answer:
+      "Yes, most funeral policies allow you to add a spouse, children, and parents. Each additional member increases your premium by approximately 40% of the base rate. Children typically receive 50% of the main member's cover amount, while parents receive 75%. This ensures your entire family is protected.",
+  },
+  {
+    question: "Is there a waiting period for funeral cover?",
+    answer:
+      "Most funeral policies have a waiting period of 6 months for natural death claims. However, accidental death is typically covered immediately from day one. This waiting period helps prevent fraudulent claims and keeps premiums affordable for all policyholders.",
+  },
+  {
+    question: "Why do I need funeral cover if I have savings?",
+    answer:
+      "While savings can help, they may not be accessible immediately. Banks often freeze accounts upon death notification, and estate processes can take months. Funeral cover pays out within 24-48 hours, ensuring your family can proceed with dignified arrangements without financial stress or delays.",
+  },
+];
+
+/**
+ * Combined FAQs for the calculator page (legacy support)
+ */
+export const calculatorFAQs: CalculatorFAQ[] = [
+  ...lifeCoverFAQs.slice(0, 2),
+  ...funeralCoverFAQs.slice(0, 2),
+];
+
+/**
  * Educational points about coverage calculation
+ * Updated with ASISA 2025 statistics
  */
 export const educationalPoints: EducationalPoint[] = [
   {
     icon: "trending_down",
-    title: "Avoid Under-Insurance",
+    title: "The R50 Trillion Gap",
     description:
-      "Most South Africans are under-insured. The average life cover is R1.5 million, but many families need 3-5x more based on their circumstances.",
+      "South Africa's life insurance gap has widened to R50.4 trillion—that's 7 times our entire GDP. The average family would receive only 39% of what they need if the primary earner passed away today.",
   },
   {
     icon: "savings",
-    title: "Don't Overpay",
+    title: "R1.3 Million Shortfall",
     description:
-      "Over-insurance means wasted premiums every month. Our calculator helps you find the right balance between protection and affordability.",
+      "The average South African has R800,000 in life cover but needs R2.1 million. That's a R1.3 million gap that could leave your family struggling to maintain their lifestyle.",
   },
   {
     icon: "family_restroom",
-    title: "Protect Your Family",
+    title: "Your Debts Don't Die",
     description:
-      "Know exactly what your loved ones need if the unexpected happens. Cover income replacement, debts, education, and daily expenses.",
+      "Outstanding home loans, car finance, and credit cards must still be paid after death. Without adequate life cover, your family may be forced to sell assets or take on debt to settle your estate.",
   },
 ];
 
@@ -198,6 +268,19 @@ export const heroKeyPoints = [
   { icon: "lock", text: "No personal details required" },
   { icon: "verified", text: "Expert-backed formulas" },
 ];
+
+/**
+ * Calculator disclaimer text (FSCA-compliant)
+ */
+export const CALCULATOR_DISCLAIMER = {
+  /** Short disclaimer for display near results */
+  short:
+    "Indicative estimate only. Actual premiums depend on age, health, smoking status, and insurer underwriting. This calculator does not provide financial advice.",
+  /** Full disclaimer for footer/legal section */
+  full: `This calculator provides indicative estimates only and does not constitute financial advice as defined by the Financial Advisory and Intermediary Services Act (FAIS). Actual premiums are determined through underwriting and depend on factors including age, gender, health status, medical history, smoking status, occupation, and insurer-specific criteria. Results are intended for informational purposes to help you understand your potential coverage needs. For a personalised quote and professional advice, please speak to one of our licensed advisers. Metrosure Insurance Brokers (Pty) Ltd is an authorised Financial Services Provider (FSP 47089).`,
+  /** Minimal disclaimer */
+  minimal: "Estimates are indicative only. Actual premiums subject to underwriting.",
+} as const;
 
 /**
  * Funeral plan benefits shown in results
@@ -242,12 +325,17 @@ export function formatZAR(amount: number): string {
 
 /**
  * Calculate comparison text for life cover
+ * Updated to reference ASISA 2025 statistics
  */
 export function getLifeCoverComparisonText(totalCover: number): string {
-  const averageCover = LIFE_COVER_CONSTANTS.AVERAGE_SA_LIFE_COVER;
-  if (totalCover > averageCover) {
-    const percentHigher = Math.round(((totalCover - averageCover) / averageCover) * 100);
-    return `Your recommended cover is ${percentHigher}% higher than the average South African life cover of R1.5 million. This accounts for your specific financial responsibilities.`;
+  const averageCoverHeld = LIFE_COVER_CONSTANTS.AVERAGE_SA_LIFE_COVER;
+  const averageCoverNeeded = LIFE_COVER_CONSTANTS.AVERAGE_SA_LIFE_COVER_NEEDED;
+
+  if (totalCover >= averageCoverNeeded) {
+    return `Your recommended cover of R${formatZAR(totalCover)} meets or exceeds the R2.1 million that ASISA recommends for the average income earner. You're taking the right steps to protect your family.`;
+  } else if (totalCover > averageCoverHeld) {
+    const percentAboveAverage = Math.round(((totalCover - averageCoverHeld) / averageCoverHeld) * 100);
+    return `Your recommended cover is ${percentAboveAverage}% higher than what the average South African has (R800,000). However, ASISA research suggests most families need at least R2.1 million.`;
   }
-  return "The average South African has R1.5 million in life cover. Your calculation considers your unique financial situation.";
+  return `The average South African has only R800,000 in life cover—but needs at least R2.1 million. Consider whether your calculation reflects all your family's needs.`;
 }

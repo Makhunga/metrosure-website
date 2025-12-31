@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { CalculatorResult } from "./CalculatorResult";
+import { CalculatorProgress, lifeCalculatorSteps } from "./CalculatorProgress";
 import { LIFE_COVER_CONSTANTS, getLifeCoverComparisonText } from "@/data/calculatorData";
 
 interface LifeCoverData {
@@ -78,6 +79,24 @@ export function LifeCoverCalculator() {
 
   const canCalculate = parseAmount(data.annualIncome) > 0;
 
+  // Track completed steps for progress indicator
+  const completedSteps = useMemo(() => {
+    const completed: number[] = [];
+    if (parseAmount(data.annualIncome) > 0) completed.push(0); // Income
+    if (parseAmount(data.outstandingDebts) > 0) completed.push(1); // Debts
+    if (data.dependents > 0) completed.push(2); // Dependents
+    if (data.yearsOfSupport !== LIFE_COVER_CONSTANTS.DEFAULT_YEARS_SUPPORT) completed.push(3); // Years
+    return completed;
+  }, [data]);
+
+  // Determine current step (first incomplete step)
+  const currentStep = useMemo(() => {
+    if (parseAmount(data.annualIncome) === 0) return 0;
+    if (parseAmount(data.outstandingDebts) === 0) return 1;
+    if (data.dependents === 0) return 2;
+    return 3;
+  }, [data]);
+
   const breakdown = calculation
     ? [
         { label: "Income Replacement", value: calculation.incomeReplacement, color: "#BF0603" },
@@ -100,13 +119,22 @@ export function LifeCoverCalculator() {
         transition={{ duration: 0.5 }}
         className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 shadow-lg"
       >
-        <div className="mb-8">
+        <div className="mb-6">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
             Life Cover Calculator
           </h2>
           <p className="text-slate-600 dark:text-slate-400">
             Answer a few questions to find out how much life insurance you need.
           </p>
+        </div>
+
+        {/* Progress Stepper */}
+        <div className="mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
+          <CalculatorProgress
+            steps={lifeCalculatorSteps}
+            currentStep={currentStep}
+            completedSteps={completedSteps}
+          />
         </div>
 
         <div className="space-y-6">

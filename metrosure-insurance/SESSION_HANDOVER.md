@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 62)
+**Updated:** December 31, 2025 (Session 63)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,68 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 63 (Dec 31, 2025)
+
+### Focus: Coverage Calculator Visual Enhancement
+
+Enhanced the coverage calculator with research-backed content and polished UI components using the `content-research-writer` and `frontend-design` skills.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Researched SA insurance calculator best practices | `src/data/CALCULATOR_RESEARCH.md` (NEW) |
+| Updated calculatorData.ts with ASISA 2025 statistics | `src/data/calculatorData.ts` |
+| Created FAQAccordion component | `src/components/tools/FAQAccordion.tsx` (NEW) |
+| Created CalculatorProgress stepper component | `src/components/tools/CalculatorProgress.tsx` (NEW) |
+| Integrated FAQAccordion into calculator page | `src/app/tools/coverage-calculator/page.tsx` |
+| Added progress stepper to LifeCoverCalculator | `src/components/tools/LifeCoverCalculator.tsx` |
+
+### Research Findings (ASISA 2025)
+| Statistic | Value |
+|-----------|-------|
+| Total SA insurance gap | R50.4 trillion |
+| Average cover needed | R2.1 million |
+| Average cover held | R800,000 |
+| Average shortfall | R1.3 million per earner |
+| Coverage ratio | 39% of needs covered |
+
+### New Components
+
+**`FAQAccordion.tsx`** (~200 lines)
+- Single FAQ open at a time (accordion behaviour)
+- Smooth height animations with Framer Motion
+- Rotating chevron icon
+- Primary colour accent bar on expanded items
+- Dark mode support
+- Full accessibility (aria-expanded, aria-controls)
+
+**`CalculatorProgress.tsx`** (~180 lines)
+- 4-step horizontal stepper
+- Visual states: incomplete (grey), current (pulsing red), completed (green checkmark)
+- Animated transitions between states
+- Mobile responsive (step labels hidden on xs, step counter shown)
+- Accessibility support (aria-current, screen reader text)
+
+### Data Enhancements
+
+**Updated `calculatorData.ts`:**
+- Added ASISA 2025 constants: `AVERAGE_SA_LIFE_COVER_NEEDED`, `AVERAGE_SA_LIFE_COVER_GAP`, `COVERAGE_RATIO_PERCENT`
+- Added funeral cost constants: `BASIC_FUNERAL_COST` (R15k), `TRADITIONAL_FUNERAL_COST` (R40k), `FULL_SERVICE_FUNERAL_COST` (R84k)
+- Created separate `lifeCoverFAQs` (6 items) and `funeralCoverFAQs` (5 items) arrays
+- Added `CALCULATOR_DISCLAIMER` constant with short/full/minimal disclaimer variants
+- Updated educational points with R50.4 trillion gap messaging
+- Enhanced `getLifeCoverComparisonText()` with ASISA references
+
+### Skills Used
+- **content-research-writer**: SA insurance calculator research, competitor analysis, FSCA disclaimer requirements
+- **frontend-design**: FAQAccordion and CalculatorProgress component creation
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
 
 ---
 
@@ -743,6 +805,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S63 | **Coverage Calculator Visual Enhancement:** FAQAccordion + CalculatorProgress components, ASISA 2025 research, 11 new FAQs |
 | S62 | **Data Centralisation - Claims, Policies & Calculator:** 3 new data files, 5 components refactored, ~260 lines extracted, PartnerLogos removed from homepage |
 | S61 | **Partner Logos Grid Conversion:** Carousel→grid, 18 logos extracted from PDF, production visibility enabled |
 | S60 | **Technical Debt - Data Centralisation:** 3 new data files, 6 components updated, ~330 lines extracted |
@@ -768,4 +831,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: December 31, 2025 (Session 62)*
+*Document updated: December 31, 2025 (Session 63)*

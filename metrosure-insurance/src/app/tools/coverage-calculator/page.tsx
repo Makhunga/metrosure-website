@@ -6,9 +6,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { LifeCoverCalculator } from "@/components/tools/LifeCoverCalculator";
 import { FuneralCoverCalculator } from "@/components/tools/FuneralCoverCalculator";
+import { FAQAccordion } from "@/components/tools/FAQAccordion";
 import {
   calculatorTabs,
-  calculatorFAQs,
+  lifeCoverFAQs,
+  funeralCoverFAQs,
   educationalPoints,
   heroKeyPoints,
 } from "@/data/calculatorData";
@@ -227,35 +229,20 @@ export default function CoverageCalculatorPage() {
 
         {/* FAQ Section */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
-
-          <div className="space-y-4">
-            {calculatorFAQs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6"
-              >
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  {faq.question}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400">{faq.answer}</p>
-              </motion.div>
-            ))}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <FAQAccordion
+                faqs={activeTab === "life" ? lifeCoverFAQs : funeralCoverFAQs}
+                title={`${activeTab === "life" ? "Life Cover" : "Funeral Cover"} FAQs`}
+              />
+            </motion.div>
+          </AnimatePresence>
         </section>
 
         {/* CTA Section */}
