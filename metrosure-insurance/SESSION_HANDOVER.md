@@ -25,7 +25,7 @@
 | Quote page: Square pattern bg, "Free Quote" red, FAQ watermark | `src/app/quote/page.tsx` |
 | Quote page: Partner link - remove underline, add hover arrow | `src/app/quote/page.tsx` |
 | Google Maps: Fixed on Vercel (env var needed redeploy) | `OfficeLocations.tsx` |
-| Job detail pages: Redirect to under-development | `src/app/careers/[slug]/page.tsx` |
+| Job detail pages: Redirect to under-development (middleware fix) | `middleware.ts`, `src/app/careers/[slug]/page.tsx` |
 
 ### Environment Setup (Vercel)
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` must be set in Vercel dashboard
