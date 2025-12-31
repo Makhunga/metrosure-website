@@ -90,7 +90,17 @@ export default function WhyChooseUs() {
         }}
       />
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative">
+      {/* Decorative watermark */}
+      <motion.div
+        className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
+        initial={{ opacity: 0, x: -20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        Why Trust Us
+      </motion.div>
+
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           className="text-center max-w-3xl mx-auto mb-20"
@@ -98,14 +108,6 @@ export default function WhyChooseUs() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <motion.span
-            className="text-primary font-bold tracking-widest uppercase text-xs mb-4 block"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            Why Metrosure
-          </motion.span>
           <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight">
             <TextReveal text="People trust us because we put them first" delay={0.2} staggerDelay={0.03} />
           </h2>
