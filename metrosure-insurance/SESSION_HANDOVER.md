@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 57)
+**Updated:** December 31, 2025 (Session 58)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,56 @@
 
 - **Routes:** 40 (36 pages + 4 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 58 (Dec 31, 2025)
+
+### Focus: Housekeeping, Legal B2B Updates & Partner Logos
+
+Documentation fixes, legal page B2B content additions, and partner logo integration.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Corrected claims/policies status (fully built, not under dev) | `SESSION_HANDOVER.md` |
+| Removed claims/policies from under-development route mapping | `src/app/under-development/page.tsx` |
+| Deleted unused SquigglyDivider component | `src/components/SquigglyDivider.tsx`, `src/components/index.ts` |
+| Added B2B Services Data Handling section to Privacy Policy | `src/app/privacy/page.tsx` |
+| Added B2B Services & Partnership Terms to Terms of Service | `src/app/terms/page.tsx` |
+| Added B2B scope clarification to Legal Information FSP disclosure | `src/app/legal/page.tsx` |
+| Added TFG and Bolttech logos to PartnerLogos component | `src/components/PartnerLogos.tsx` |
+| Copied TFG/Bolttech SVG logos to public folder | `public/images/partners/` |
+
+### Legal Page B2B Additions
+**Privacy Policy (Section 3):** B2B Services Data Handling
+- Device Leasing data (ID, credit assessment, device serials)
+- Call Centre data (recordings, 95% QA average)
+- In-Store Campaign data (transactions, performance)
+- POPIA-compliant data sharing disclosures
+- 5-year retention per financial regulations
+
+**Terms of Service (Section 5):** B2B Partnership Terms
+- Service agreements scope
+- Quality assurance commitments (95% QA)
+- Data processing responsibilities (POPIA)
+- Intellectual property protection
+- Limitation of liability
+
+**Legal Information:** FSP Disclosure Clarification
+- Distinguishes regulated services (FSP 47089, FAIS)
+- Non-regulated B2B services (In-Store, Device Leasing, Call Centre)
+
+### Partner Logos Enhancement
+- Created dedicated "Retail B2B Partners" section
+- Added TFG and Bolttech SVG logos with Next.js Image
+- Grayscale-to-colour hover effect
+- Dark mode support with brightness/invert filters
+- Hover tooltips with partner descriptions
+
+### Build Status
+- Build passing with 40 routes
+- Sitemap generated successfully
 
 ---
 
@@ -370,11 +420,11 @@ If stakeholder wants corporate services visible:
 - **Website-Wide 2013 Consistency** (Session 54)
 - Insurance detail pages (auto, home, life, business)
 - Careers job detail pages with SEO
+- **Claims page** - Full guide with claim types, required documents, process steps, emergency contacts
+- **Policies page** - Dashboard preview with login wall, feature showcase, account prompts
 
 ### Under Development (Redirects to /under-development)
 - `/tools/coverage-calculator` (functional but could be enhanced)
-- `/claims` (placeholder)
-- `/policies` (placeholder)
 
 ### Disabled
 - Cookie consent banner (re-enable in `ClientLayout.tsx`)
@@ -441,6 +491,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S58 | **Housekeeping & Legal B2B:** Doc fixes, SquigglyDivider removal, legal B2B content, TFG/Bolttech logos |
 | S57 | **B2B Forms & Navigation:** Quote form B2B wizard, Contact B2B fields, Header/Footer B2B, Help FAQs |
 | S56 | **Visual Polish:** Testimonial arrows mobile, email rename, red dots removed |
 | S55 | **Homepage B2B Enhancement:** 2 new B2B cards, QuoteCTABanner component, 6-card grid |

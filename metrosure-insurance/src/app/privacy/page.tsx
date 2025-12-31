@@ -55,8 +55,41 @@ As an Authorised Financial Service Provider (FSP No: 47089, Registration No: 201
 **Insurance-Related Information:** Claims history, risk assessments, beneficiary details, and policy preferences.`,
   },
   {
+    id: "b2b-services",
+    title: "3. B2B Services Data Handling",
+    content: `In addition to our insurance brokerage services, Metrosure provides business-to-business (B2B) services to retail partners. These services involve the collection and processing of specific categories of personal and business information.
+
+**Device Leasing Programme:**
+• Identification documents for verification
+• Contact information (mobile, email, address)
+• Financial information for credit assessment
+• Device details (serial numbers, IMEI, purchase records)
+• Payment and instalment tracking data
+
+**Call Centre Services:**
+• Contact information (names, telephone numbers, emails)
+• Call recordings for quality assurance purposes
+• Interaction history and outcomes
+• Consent records for marketing communications
+
+We maintain a 95% quality assurance average across all call centre operations. All calls are recorded and reviewed to ensure compliance with regulatory requirements and service standards.
+
+**In-Store Campaign Services:**
+• Customer enquiry data voluntarily provided during consultations
+• Transaction records and quotations provided
+• Campaign performance metrics
+
+**Data Sharing with B2B Partners:**
+We share relevant transactional and performance data with our retail partners as required to fulfil our contractual obligations. This data sharing is governed by formal data processing agreements that ensure POPIA compliance. We do not sell personal information to third parties.
+
+**B2B Data Retention:**
+B2B service records are retained for a minimum of 5 years in accordance with the Financial Intelligence Centre Act and our contractual obligations with retail partners.
+
+For B2B data enquiries, contact: clients@metrosuregroup.co.za`,
+  },
+  {
     id: "how-we-use",
-    title: "3. How We Use Your Information",
+    title: "4. How We Use Your Information",
     content: `We use your personal information for the following purposes:
 
 • To provide insurance brokerage services and financial advice
@@ -71,7 +104,7 @@ As an Authorised Financial Service Provider (FSP No: 47089, Registration No: 201
   },
   {
     id: "legal-basis",
-    title: "4. Legal Basis for Processing (POPIA)",
+    title: "5. Legal Basis for Processing (POPIA)",
     content: `Under POPIA, we process your personal information based on one or more of the following legal grounds:
 
 **Consent:** Where you have given us explicit consent to process your information.
@@ -84,7 +117,7 @@ As an Authorised Financial Service Provider (FSP No: 47089, Registration No: 201
   },
   {
     id: "sharing",
-    title: "5. Sharing Your Information",
+    title: "6. Sharing Your Information",
     content: `We may share your personal information with:
 
 **Insurance Partners:** Liberty, Sanlam, Discovery, Old Mutual, and other insurers we work with to provide you with quotes and policies.
@@ -99,7 +132,7 @@ We will never sell your personal information to third parties for marketing purp
   },
   {
     id: "data-security",
-    title: "6. Data Security",
+    title: "7. Data Security",
     content: `We implement appropriate technical and organisational measures to protect your personal information against unauthorised access, alteration, disclosure, or destruction. These measures include:
 
 • Secure servers and encrypted data transmission
@@ -110,14 +143,14 @@ We will never sell your personal information to third parties for marketing purp
   },
   {
     id: "retention",
-    title: "7. Data Retention",
+    title: "8. Data Retention",
     content: `We retain your personal information for as long as necessary to fulfil the purposes for which it was collected, including to satisfy legal, accounting, or reporting requirements.
 
 For insurance records, we typically retain information for a minimum of 5 years after the end of the policy period, or longer if required by law or for legitimate business purposes.`,
   },
   {
     id: "your-rights",
-    title: "8. Your Rights Under POPIA",
+    title: "9. Your Rights Under POPIA",
     content: `You have the following rights regarding your personal information:
 
 **Right to Access:** Request a copy of your personal information we hold.
@@ -136,7 +169,7 @@ To exercise any of these rights, please contact our Information Officer.`,
   },
   {
     id: "cookies",
-    title: "9. Cookies and Tracking",
+    title: "10. Cookies and Tracking",
     content: `Our website uses cookies and similar tracking technologies to enhance your browsing experience. Cookies are small text files stored on your device that help us:
 
 • Remember your preferences
@@ -148,7 +181,7 @@ You can control cookies through your browser settings. However, disabling cookie
   },
   {
     id: "contact",
-    title: "10. Contact Us",
+    title: "11. Contact Us",
     content: `If you have any questions about this Privacy Policy or wish to exercise your rights, please contact:
 
 **Information Officer**
@@ -165,7 +198,7 @@ Email: inforeg@justice.gov.za`,
   },
   {
     id: "changes",
-    title: "11. Changes to This Policy",
+    title: "12. Changes to This Policy",
     content: `We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated policy on our website with a new effective date.
 
 We encourage you to review this policy periodically.`,

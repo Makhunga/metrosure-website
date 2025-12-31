@@ -40,8 +40,9 @@ These Terms constitute a legally binding agreement between you and Metrosure Ins
   {
     id: "services",
     title: "2. Description of Services",
-    content: `Metrosure Insurance Brokers provides insurance brokerage and financial advisory services, including but not limited to:
+    content: `Metrosure Insurance Brokers provides insurance brokerage, financial advisory, and business-to-business sales and marketing services, including but not limited to:
 
+**Consumer Insurance Services:**
 • Short-term insurance (car, home, commercial)
 • Life and funeral cover
 • Retirement planning
@@ -49,7 +50,13 @@ These Terms constitute a legally binding agreement between you and Metrosure Ins
 • Investment advice
 • Risk advisory services
 
-Our services are provided in accordance with our FSP licence and the Financial Advisory and Intermediary Services Act (FAIS).`,
+**B2B Partnership Services:**
+• In-Store Insurance Campaigns – Trained sales teams deployed at retail partner locations
+• Device Leasing Programme – Cell phone and device financing at point of sale
+• Call Centre Services – Lead generation, customer acquisition, and telemarketing
+• Sales & Marketing Outsourcing – End-to-end sales division management for retail partners
+
+Our insurance brokerage services are provided in accordance with our FSP licence (FSP 47089) and the Financial Advisory and Intermediary Services Act (FAIS). B2B partnership services are governed by separate commercial agreements with our retail partners.`,
   },
   {
     id: "not-advice",
@@ -73,8 +80,33 @@ Any quotes, illustrations, or estimates provided through this Website are indica
 If you are using our services on behalf of a business, you represent that you have the authority to bind that business to these Terms.`,
   },
   {
+    id: "b2b-terms",
+    title: "5. B2B Partnership Terms",
+    content: `If you engage with Metrosure as a business partner for our B2B services (In-Store Campaigns, Device Leasing, Call Centre Services, or Sales & Marketing Outsourcing), the following additional terms apply:
+
+**Service Agreements:**
+B2B services are governed by separate commercial agreements that specify scope, pricing, performance metrics, and service level agreements. These commercial agreements supplement these general Terms of Service.
+
+**Quality Assurance:**
+We maintain a 95% quality assurance average across all sales operations. Our B2B services include dedicated quality assurance processes with regular monitoring and performance reporting.
+
+**Data Processing:**
+When providing B2B services, we act as a data processor on behalf of our retail partners. Data handling is governed by formal data processing agreements in compliance with POPIA. Partners warrant they have lawful grounds to share customer data and have obtained necessary consents.
+
+**Performance Reporting:**
+We provide regular performance reports and data-driven insights to our B2B partners as specified in the relevant service agreement.
+
+**Intellectual Property:**
+Sales methodologies, training materials, QA frameworks, and proprietary processes shared by Metrosure remain our intellectual property. Partners may not reproduce or distribute these materials without prior written consent.
+
+**Limitation of Liability:**
+Our aggregate liability under B2B agreements shall not exceed the fees paid by the partner in the twelve (12) months preceding any claim, unless otherwise specified in the commercial agreement.
+
+For B2B partnership enquiries: **clients@metrosuregroup.co.za**`,
+  },
+  {
     id: "user-obligations",
-    title: "5. Your Obligations",
+    title: "6. Your Obligations",
     content: `When using our Website and services, you agree to:
 
 • Provide accurate, current, and complete information
@@ -88,7 +120,7 @@ If you are using our services on behalf of a business, you represent that you ha
   },
   {
     id: "intellectual-property",
-    title: "6. Intellectual Property",
+    title: "7. Intellectual Property",
     content: `All content on this Website, including but not limited to text, graphics, logos, images, and software, is the property of Metrosure Insurance Brokers (Pty) Ltd or its licensors and is protected by South African and international intellectual property laws.
 
 **Trademarks:** "Metrosure", "Metrosure Group", and our logo are trademarks of Metrosure Insurance Brokers (Pty) Ltd. You may not use these trademarks without our prior written consent.
@@ -97,14 +129,14 @@ If you are using our services on behalf of a business, you represent that you ha
   },
   {
     id: "third-party",
-    title: "7. Third-Party Links and Services",
+    title: "8. Third-Party Links and Services",
     content: `Our Website may contain links to third-party websites or services that are not owned or controlled by Metrosure. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.
 
 When we connect you with insurance products from our partners (such as Liberty, Sanlam, Discovery, Old Mutual, and others), those products are subject to the terms and conditions of the respective insurer.`,
   },
   {
     id: "limitation-liability",
-    title: "8. Limitation of Liability",
+    title: "9. Limitation of Liability",
     content: `To the fullest extent permitted by South African law:
 
 **No Warranties:** This Website is provided "as is" and "as available" without warranties of any kind, whether express or implied.
@@ -117,7 +149,7 @@ These limitations do not apply to liability that cannot be excluded by law.`,
   },
   {
     id: "indemnification",
-    title: "9. Indemnification",
+    title: "10. Indemnification",
     content: `You agree to indemnify, defend, and hold harmless Metrosure Insurance Brokers (Pty) Ltd, its directors, officers, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable legal fees) arising out of or in any way connected with:
 
 • Your use of our Website or services
@@ -127,21 +159,21 @@ These limitations do not apply to liability that cannot be excluded by law.`,
   },
   {
     id: "termination",
-    title: "10. Termination",
+    title: "11. Termination",
     content: `We may terminate or suspend your access to our Website and services immediately, without prior notice or liability, for any reason, including if you breach these Terms.
 
 Upon termination, your right to use our Website and services will cease immediately. All provisions of these Terms which by their nature should survive termination shall survive.`,
   },
   {
     id: "governing-law",
-    title: "11. Governing Law and Jurisdiction",
+    title: "12. Governing Law and Jurisdiction",
     content: `These Terms shall be governed by and construed in accordance with the laws of the Republic of South Africa, without regard to its conflict of law provisions.
 
 Any disputes arising from these Terms or your use of our services shall be subject to the exclusive jurisdiction of the courts of South Africa, with the High Court of South Africa (KwaZulu-Natal Division, Durban) having preference.`,
   },
   {
     id: "dispute-resolution",
-    title: "12. Dispute Resolution",
+    title: "13. Dispute Resolution",
     content: `**Complaints:** If you have a complaint about our services, please contact us first. We will endeavour to resolve your complaint within 6 weeks.
 
 **FAIS Ombud:** If you are not satisfied with our response, you may refer your complaint to the FAIS Ombud:
@@ -155,14 +187,14 @@ Any disputes arising from these Terms or your use of our services shall be subje
   },
   {
     id: "changes",
-    title: "13. Changes to Terms",
+    title: "14. Changes to Terms",
     content: `We reserve the right to modify these Terms at any time. We will notify you of any material changes by posting the updated Terms on this Website with a new effective date.
 
 Your continued use of our Website and services after such changes constitutes your acceptance of the modified Terms.`,
   },
   {
     id: "contact",
-    title: "14. Contact Information",
+    title: "15. Contact Information",
     content: `If you have any questions about these Terms, please contact us:
 
 **Metrosure Insurance Brokers (Pty) Ltd**
