@@ -6,6 +6,7 @@ export { default as Approach } from "./Approach";
 export { default as Products } from "./Products";
 export { default as Difference } from "./Difference";
 export { default as WhyChooseUs } from "./WhyChooseUs";
+export { default as QuoteCTABanner } from "./QuoteCTABanner";
 export { default as PartnersCTA } from "./PartnersCTA";
 export { default as Testimonials } from "./Testimonials";
 export { default as CallToAction } from "./CallToAction";

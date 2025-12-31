@@ -71,7 +71,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            In 2016, we started with a simple mission: to take South Africa to the future.
+            In 2013, we started with a simple mission: to take South Africa to the future.
             Since then, we&apos;ve created over 5,000 jobs, built a team known for consistency,
             reliability, and integrity, and helped thousands of families feel secure.
             Now, we&apos;re looking for passionate people to join us on this journey.

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 53)
+**Updated:** December 31, 2025 (Session 55)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,103 @@
 
 - **Routes:** 40 (36 pages + 4 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 55 (Dec 31, 2025)
+
+### Focus: Homepage B2B Enhancement & Quote CTA
+
+Enhanced homepage with stronger B2B positioning and prominent quote call-to-action.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Added 2 new B2B service cards (In-Store Campaigns, Sales & Marketing) | `src/components/Features.tsx` |
+| Updated Features grid from 2x2 to 3x2 layout | `src/components/Features.tsx` |
+| Created full-width QuoteCTABanner component | `src/components/QuoteCTABanner.tsx` (NEW) |
+| Added QuoteCTABanner to homepage after WhyChooseUs | `src/app/page.tsx` |
+| Exported QuoteCTABanner from components index | `src/components/index.ts` |
+
+### New Service Cards Added
+1. **In-Store Campaigns** - Deploy trained sales teams in retail spaces
+2. **Sales & Marketing** - Data-driven customer acquisition with 95% QA, 75% sales increase
+
+### QuoteCTABanner Component
+- Full-width gradient banner with primary red (#BF0603)
+- Chevron pattern overlay suggesting protection/shelter
+- Animated entrance with Framer Motion
+- Two CTAs: "Get a Free Quote" + "Talk to an Agent"
+- Mobile responsive
+- Trust badge: "5,000+ families trust us"
+
+### Homepage Section Order (Updated)
+```
+Hero → StatsBar → Features (6 cards) → Approach → Products → WhyChooseUs → QuoteCTABanner (NEW) → PartnersCTA → Testimonials → CallToAction
+```
+
+### Build Status
+- Build passing with 40 routes
+- Sitemap generated successfully
+
+### Deferred to Next Session
+- [ ] Update navigation menu to reflect new services
+- [ ] Update quote form with B2B options
+- [ ] Update contact form with B2B inquiry types
+- [ ] Update help centre FAQs with new services
+- [ ] Update legal pages to mention new services
+
+---
+
+## SESSION 54 (Dec 31, 2025)
+
+### Focus: Website-Wide Content Audit & Consistency
+
+Comprehensive audit to ensure all pages consistently reflect the 2025 B2B positioning, particularly the founding year (2013 vs 2016).
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Fixed founding year from 2016 → 2013 in 8 locations | Multiple files (see below) |
+| Updated structured data `foundingDate` to 2013 | `src/app/layout.tsx` |
+| Updated all meta descriptions to reference 2013 | `layout.tsx`, `about/layout.tsx` |
+| Enhanced business insurance page with B2B stats | `src/app/insurance/business/page.tsx` |
+
+### Files Modified
+```
+src/components/WhyChooseUs.tsx         # Line 186: "since 2013"
+src/components/StatsBar.tsx            # Line 142: "2013" Established
+src/components/careers/CareersHero.tsx # Line 74: "In 2013, we started..."
+src/components/contact/FAQ.tsx         # Line 67: "Since 2013, we've created..."
+src/app/layout.tsx                     # Lines 23, 78: meta + foundingDate
+src/app/about/layout.tsx               # Lines 5, 8, 12: meta descriptions
+src/app/help/page.tsx                  # Line 101: "since 2013"
+src/app/insurance/business/page.tsx    # B2B stats added to benefits
+```
+
+### Business Insurance Page Enhancements
+Added B2B differentiators:
+- "100+ retail partners including TFG trust us"
+- "75% average sales increase within 6 months"
+- "95% daily quality assurance average"
+- Updated description with TFG partnership mention
+
+### Content Audit Summary
+| Page | Status | Notes |
+|------|--------|-------|
+| Homepage | ✅ Updated | StatsBar now shows 2013 |
+| About | ✅ Current | Timeline already correct (2013 Group, 2016 Brokers) |
+| Help/FAQ | ✅ Updated | "since 2013" |
+| Careers | ✅ Updated | Hero now says "In 2013, we started..." |
+| Contact | ✅ Updated | FAQ references 2013 |
+| Legal pages | ✅ Current | Dec 2025 dates, FSP 47089 |
+| Business Insurance | ✅ Enhanced | B2B stats added |
+| Partners | ✅ Current | Already B2B aligned |
+
+### Build Status
+- Build passing with 40 routes (36 pages + 4 API routes)
+- No console errors
+- Sitemap generated successfully
 
 ---
 
@@ -121,22 +218,22 @@ These are ready to add when presenting MVP or if requested:
 
 ## NEXT SESSION PLAN
 
-### Priority 1: Content Refinement
-- [ ] Review copy with stakeholder for accuracy
+### Priority 1: Content Review
+- [ ] Review copy with stakeholder for final accuracy
 - [ ] Verify 75% sales stat with stakeholder before production
-- [ ] Consider adding TFG logo if provided
+- [ ] Add TFG logo to partners section if provided
 - [ ] Add Bolttech logo when available
 
-### Priority 3: Corporate Solutions (Optional)
+### Priority 2: Corporate Solutions (Optional)
 If stakeholder wants corporate services visible:
 - [ ] Create `/corporate` or `/business-solutions` page
 - [ ] Add Group Medical Aid, Retirement, Benefits sections
 - [ ] Link from Partners page and footer
 
-### Priority 4: Outstanding Features
-- [ ] Insurance detail pages (`/insurance/*`) - currently redirecting
-- [ ] Coverage calculator tool
-- [ ] Claims, Legal, Policies pages
+### Priority 3: Outstanding Features
+- [ ] Claims page functionality
+- [ ] Policies page functionality
+- [ ] Coverage calculator tool improvements
 
 ---
 
@@ -174,13 +271,15 @@ If stakeholder wants corporate services visible:
 - Google Static Maps (grayscale + red markers)
 - Accessibility: keyboard nav, focus rings, reduced motion
 - Skeleton loaders, LCP optimization
-- **2025 Content Update** (NEW)
+- **2025 Content Update** (Session 52)
+- **Website-Wide 2013 Consistency** (Session 54)
+- Insurance detail pages (auto, home, life, business)
+- Careers job detail pages with SEO
 
 ### Under Development (Redirects to /under-development)
-- `/insurance/*` (auto, home, life, business)
-- `/tools/coverage-calculator`
-- `/legal`, `/claims`, `/policies`
-- `/careers/[slug]` (job detail pages)
+- `/tools/coverage-calculator` (functional but could be enhanced)
+- `/claims` (placeholder)
+- `/policies` (placeholder)
 
 ### Disabled
 - Cookie consent banner (re-enable in `ClientLayout.tsx`)
@@ -247,6 +346,8 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S55 | **Homepage B2B Enhancement:** 2 new B2B cards, QuoteCTABanner component, 6-card grid |
+| S54 | **Content Audit:** 2016→2013 fixes (8 files), business page B2B stats, meta updates |
 | S53 | **Visual QA & Fixes:** CFO placeholder avatar, dark mode colors, FAQ touch targets |
 | S52 | **2025 Content Update:** B2B positioning, new services, metrics, CONTENT_GUIDE rewrite |
 | S51 | UI polish: Partners magnetic buttons, Quote pattern bg, Maps fix, Job redirects |

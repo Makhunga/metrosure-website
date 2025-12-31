@@ -98,11 +98,13 @@ const planTiers = [
 ];
 
 const benefits = [
+  "Proven track record: 100+ retail partners including TFG trust us with their business",
+  "75% average sales increase for partners within 6 months of implementation",
   "One relationship manager for all your business insurance needs",
   "Group employee benefits that help you attract and keep good people",
   "Competitive rates by leveraging our buying power across 30+ insurers",
   "Fast claims handling so your business isn't disrupted",
-  "Risk assessment and recommendations to prevent claims before they happen",
+  "95% daily quality assurance average ensures every interaction meets the highest standards",
   "Flexible payment terms to match your business cash flow",
 ];
 
@@ -141,7 +143,7 @@ export default function BusinessInsurancePage() {
       title="Protect Your Business and Your People"
       subtitle="You've worked hard to build this. We'll make sure one incident doesn't undo years of progress. Commercial cover and employee benefits, sorted."
       heroIcon="business"
-      description="Running a business in South Africa means dealing with risk every day. Load shedding, theft, vehicle accidents, employee issues, the list goes on. At Metrosure, we help businesses like yours manage those risks with the right insurance and employee benefits. We don't believe in one-size-fits-all. We take the time to understand your business, then put together a package that actually makes sense. And when something goes wrong, we're in your corner, fighting to get your claim paid fast so you can get back to business."
+      description="Running a business in South Africa means dealing with risk every day. Load shedding, theft, vehicle accidents, employee issues, the list goes on. At Metrosure, we help businesses like yours manage those risks with the right insurance and employee benefits. Since 2013, we've partnered with over 100 retail businesses including major brands like TFG, delivering a 75% average sales increase within 6 months. We don't believe in one-size-fits-all. We take the time to understand your business, then put together a package that actually makes sense. And when something goes wrong, we're in your corner, fighting to get your claim paid fast so you can get back to business."
       coverageFeatures={coverageFeatures}
       planTiers={planTiers}
       benefits={benefits}

@@ -20,7 +20,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.metrosuregroup.co.za"),
   title: "Metrosure Insurance Brokers | Taking You to the Future",
-  description: "Metrosure Insurance Brokers (FSP 47089) - Your trusted South African financial services provider. Insurance, retirement planning, investments, employee benefits, and in-store insurance solutions since 2016.",
+  description: "Metrosure Insurance Brokers (FSP 47089) - Your trusted South African financial services provider. Insurance, retirement planning, investments, employee benefits, and in-store insurance solutions since 2013.",
   keywords: ["insurance broker", "car insurance", "home insurance", "life insurance", "funeral cover", "credit life insurance", "retirement planning", "investments", "employee benefits", "in-store insurance", "South Africa", "Durban", "FSP 47089"],
   authors: [{ name: "Metrosure Insurance Brokers (Pty) Ltd" }],
   alternates: {
@@ -75,7 +75,7 @@ export default function RootLayout({
                 "Authorised Financial Services Provider offering insurance brokerage, retirement planning, and employee benefits across South Africa.",
               url: "https://www.metrosuregroup.co.za",
               logo: "https://www.metrosuregroup.co.za/images/logo.png",
-              foundingDate: "2016",
+              foundingDate: "2013",
               telephone: "+27 31 301 1192",
               email: "info@metrosuregroup.co.za",
               address: {

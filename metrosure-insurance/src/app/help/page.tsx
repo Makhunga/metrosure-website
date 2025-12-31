@@ -98,7 +98,7 @@ const popularQuestions = [
   },
   {
     question: "Is Metrosure a legitimate company?",
-    answer: "Yes, Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider (FSP No: 47089) regulated by the Financial Services Conduct Authority (FSCA). We've been in business since 2016.",
+    answer: "Yes, Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider (FSP No: 47089) regulated by the Financial Services Conduct Authority (FSCA). We've been in business since 2013.",
     link: "/legal",
   },
   {

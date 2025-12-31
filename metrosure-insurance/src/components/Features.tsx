@@ -6,6 +6,7 @@ import { motion, useInView } from "framer-motion";
 import { HoverCard, TextReveal } from "./animations";
 
 const features = [
+  // B2C Services
   {
     icon: "directions_car",
     title: "Car & Home Cover",
@@ -30,11 +31,28 @@ const features = [
     accent: "primary",
     href: "/insurance/business",
   },
+  // B2B Services
   {
     icon: "handshake",
     title: "Retail Partnerships",
     description:
       "Own a store? Partner with us to offer insurance, earn commission, and create local jobs. We handle training, compliance, and sales - you provide the space.",
+    accent: "secondary",
+    href: "/partners",
+  },
+  {
+    icon: "storefront",
+    title: "In-Store Campaigns",
+    description:
+      "Deploy trained sales teams in your retail space. We handle staff, training, and compliance. You earn commission on every policy sold while creating local employment.",
+    accent: "primary",
+    href: "/partners",
+  },
+  {
+    icon: "trending_up",
+    title: "Sales & Marketing",
+    description:
+      "Data-driven customer acquisition for your business. Our 95% QA average ensures every interaction meets the highest standards. 75% sales increase within 6 months.",
     accent: "secondary",
     href: "/partners",
   },
@@ -181,11 +199,11 @@ export default function Features() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            {/* 2x2 Grid with offset for visual interest */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 3x2 Grid with offset for visual interest */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => {
-                // Add offset to alternate rows for asymmetric feel
-                const isOffsetRow = index >= 2;
+                // Add offset to second row (indices 3, 4, 5) for asymmetric feel
+                const isOffsetRow = index >= 3;
 
                 // Card content shared between both branches
                 const cardContent = (

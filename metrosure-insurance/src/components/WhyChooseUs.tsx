@@ -157,20 +157,31 @@ export default function WhyChooseUs() {
           ))}
         </motion.div>
 
-        {/* CTA Banner */}
+        {/* CTA Banner - Enhanced for visibility */}
         <motion.div
-          className="mt-20 p-8 rounded-2xl bg-[rgb(var(--color-surface))] border border-dashed border-[rgb(var(--color-border-light))] flex flex-col md:flex-row items-center justify-between gap-8"
+          className="mt-20 p-8 md:p-10 rounded-2xl bg-gradient-to-br from-primary to-[#8a0502] shadow-xl shadow-primary/20 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           whileHover={{ scale: 1.01 }}
         >
-          <div className="flex items-center gap-4">
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-10">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+                backgroundSize: "24px 24px",
+              }}
+            />
+          </div>
+
+          <div className="flex items-center gap-5 relative z-10">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map((i) => (
                 <motion.div
                   key={i}
-                  className="w-10 h-10 rounded-full border-2 border-[rgb(var(--color-surface))] bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700"
+                  className="w-11 h-11 rounded-full border-2 border-white/30 bg-gradient-to-br from-white/40 to-white/20 backdrop-blur-sm"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
                   transition={{ delay: 0.9 + i * 0.1, type: "spring", stiffness: 400 }}
@@ -178,28 +189,25 @@ export default function WhyChooseUs() {
               ))}
             </div>
             <motion.p
-              className="text-sm font-medium text-[rgb(var(--color-text-main))]"
+              className="text-base md:text-lg font-medium text-white"
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               transition={{ delay: 1.3 }}
             >
-              Join <span className="text-primary font-bold">5,000+</span> individuals and 100+ retail partners since 2016
+              Join <span className="font-bold">5,000+</span> individuals and 100+ retail partners since 2013
             </motion.p>
           </div>
-          <Link href="/quote" className="group">
+          <Link href="/quote" className="group relative z-10">
             <motion.span
-              className="text-primary font-bold flex items-center gap-2 group-hover:gap-4 transition-all"
-              whileHover={{ x: 5 }}
-              transition={{ type: "spring", stiffness: 400 }}
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-primary font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               Get a free quote today
-              <motion.span
-                className="material-symbols-outlined"
-                initial={{ x: 0 }}
-                whileHover={{ x: 5 }}
-              >
+              <span className="material-symbols-outlined">
                 arrow_forward
-              </motion.span>
+              </span>
             </motion.span>
           </Link>
         </motion.div>
