@@ -16,6 +16,9 @@ const underDevelopmentRoutes = [
   '/tools/coverage-calculator',
 ];
 
+// Job detail pages pattern (matches /careers/[slug] but not /careers itself)
+const jobDetailPattern = /^\/careers\/[^/]+$/;
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -26,7 +29,10 @@ export function middleware(request: NextRequest) {
       route => pathname === route || pathname.startsWith(route + '/')
     );
 
-    if (isUnderDevelopment) {
+    // Check if it's a job detail page (e.g., /careers/insurance-sales-consultant)
+    const isJobDetailPage = jobDetailPattern.test(pathname);
+
+    if (isUnderDevelopment || isJobDetailPage) {
       const url = new URL('/under-development', request.url);
       // Pass the original path as a query param for context
       url.searchParams.set('from', pathname);
@@ -44,5 +50,6 @@ export const config = {
     '/claims',
     '/policies',
     '/tools/:path*',
+    '/careers/:slug',
   ],
 };

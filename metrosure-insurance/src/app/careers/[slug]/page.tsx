@@ -15,6 +15,13 @@ export default async function JobDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const job = getJobBySlug(slug);
 
-  // Redirect all job detail pages to under-development
-  redirect(`/under-development?from=/careers/${job?.slug || slug}`);
+  // In production, middleware handles the redirect to /under-development
+  // This redirect is a fallback for development mode only
+  if (process.env.NODE_ENV !== "production") {
+    redirect(`/under-development?from=/careers/${job?.slug || slug}`);
+  }
+
+  // This should never be reached in production (middleware redirects first)
+  // but we need to return something for the build
+  return null;
 }
