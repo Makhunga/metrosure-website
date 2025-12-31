@@ -78,17 +78,6 @@ export default function WhyChooseUs() {
       ref={sectionRef}
       className="pt-20 pb-32 bg-[rgb(var(--color-surface-card))] transition-colors duration-300 relative overflow-hidden"
     >
-      {/* Subtle background image */}
-      <div
-        className="absolute inset-0 opacity-[0.08] dark:opacity-[0.04]"
-        style={{
-          backgroundImage: 'url(/images/pexels-gdtography-277628-911738.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          filter: 'grayscale(100%)',
-        }}
-      />
 
       {/* Decorative watermark */}
       <motion.div
@@ -157,57 +146,21 @@ export default function WhyChooseUs() {
           ))}
         </motion.div>
 
-        {/* CTA Banner - Enhanced for visibility */}
+        {/* CTA Button */}
         <motion.div
-          className="mt-20 p-8 md:p-10 rounded-2xl bg-gradient-to-br from-primary to-[#8a0502] shadow-xl shadow-primary/20 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          whileHover={{ scale: 1.01 }}
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.8 }}
         >
-          {/* Subtle pattern overlay */}
-          <div className="absolute inset-0 opacity-10">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-          </div>
-
-          <div className="flex items-center gap-5 relative z-10">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
-                <motion.div
-                  key={i}
-                  className="w-11 h-11 rounded-full border-2 border-white/30 bg-gradient-to-br from-white/40 to-white/20 backdrop-blur-sm"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                  transition={{ delay: 0.9 + i * 0.1, type: "spring", stiffness: 400 }}
-                />
-              ))}
-            </div>
-            <motion.p
-              className="text-base md:text-lg font-medium text-white"
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ delay: 1.3 }}
-            >
-              Join <span className="font-bold">5,000+</span> individuals and 100+ retail partners since 2013
-            </motion.p>
-          </div>
-          <Link href="/quote" className="group relative z-10">
+          <Link href="/quote">
             <motion.span
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-primary font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Get a free quote today
-              <span className="material-symbols-outlined">
-                arrow_forward
-              </span>
+              <span>Get a Free Quote</span>
+              <span className="material-symbols-outlined">arrow_forward</span>
             </motion.span>
           </Link>
         </motion.div>
