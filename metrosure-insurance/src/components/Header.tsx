@@ -290,7 +290,7 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden absolute top-20 left-0 w-full bg-[rgb(var(--color-surface-card))]/95 backdrop-blur-xl border-b border-[rgb(var(--color-border-light))] shadow-lg overflow-hidden"
+            className="md:hidden absolute top-20 left-0 w-full z-[60] bg-[rgb(var(--color-surface-card))]/95 backdrop-blur-xl border-b border-[rgb(var(--color-border-light))] shadow-lg overflow-hidden"
           >
             <div className="py-4 px-4 flex flex-col gap-2">
               {navLinks.map((link, index) => (

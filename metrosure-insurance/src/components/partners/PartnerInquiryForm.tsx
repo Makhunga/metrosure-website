@@ -12,6 +12,104 @@ import {
   validateRequired,
 } from "@/lib/formValidation";
 
+// Floating label input classes - shared by both components
+const floatingInputClasses =
+  "peer w-full pt-6 pb-3 px-4 border-2 border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-transparent";
+
+// Floating input component - defined outside to prevent recreation
+interface FloatingInputProps {
+  name: string;
+  label: string;
+  type?: string;
+  value: string;
+  required?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  fieldState: FieldState;
+}
+
+function FloatingInput({
+  name,
+  label,
+  type = "text",
+  value,
+  required = false,
+  onChange,
+  onBlur,
+  fieldState,
+}: FloatingInputProps) {
+  return (
+    <div className="relative">
+      <input
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        placeholder={label}
+        required={required}
+        className={`${floatingInputClasses} ${fieldState.error ? 'border-red-400 dark:border-red-400' : ''}`}
+        aria-required={required}
+        aria-invalid={fieldState.error ? "true" : undefined}
+        aria-describedby={fieldState.error ? `${name}-error` : undefined}
+      />
+      <label
+        htmlFor={name}
+        className="absolute left-4 top-2 text-xs text-slate-400 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary"
+      >
+        {label} {required && <span className="text-primary">*</span>}
+      </label>
+      <InlineError error={fieldState.error} id={`${name}-error`} />
+    </div>
+  );
+}
+
+// Floating select component - defined outside to prevent recreation
+interface FloatingSelectProps {
+  name: string;
+  label: string;
+  options: string[];
+  value: string;
+  required?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+function FloatingSelect({
+  name,
+  label,
+  options,
+  value,
+  required = false,
+  onChange,
+}: FloatingSelectProps) {
+  return (
+    <div className="relative">
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className={`${floatingInputClasses} appearance-none cursor-pointer ${value ? 'pt-6 pb-3' : 'py-4'}`}
+      >
+        <option value="">{label}</option>
+        {options.map(opt => (
+          <option key={opt} value={opt}>{opt}</option>
+        ))}
+      </select>
+      {value && (
+        <label className="absolute left-4 top-2 text-xs text-slate-400">
+          {label} {required && <span className="text-primary">*</span>}
+        </label>
+      )}
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+        <span className="material-symbols-outlined">expand_more</span>
+      </div>
+    </div>
+  );
+}
+
 interface FormData {
   // Business Information
   companyName: string;
@@ -171,10 +269,6 @@ export default function PartnerInquiryForm() {
     }
   };
 
-  // Floating label input classes
-  const floatingInputClasses =
-    "peer w-full pt-6 pb-3 px-4 border-2 border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-transparent";
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
@@ -229,86 +323,6 @@ export default function PartnerInquiryForm() {
     setFieldStates({});
     setCurrentStep(0);
   };
-
-  // Floating label component
-  const FloatingInput = ({
-    name,
-    label,
-    type = "text",
-    value,
-    required = false,
-    onBlur
-  }: {
-    name: string;
-    label: string;
-    type?: string;
-    value: string;
-    required?: boolean;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  }) => (
-    <div className="relative">
-      <input
-        type={type}
-        id={name}
-        name={name}
-        value={value}
-        onChange={handleInputChange}
-        onBlur={onBlur}
-        placeholder={label}
-        required={required}
-        className={`${floatingInputClasses} ${getFieldState(name).error ? 'border-red-400 dark:border-red-400' : ''}`}
-        aria-required={required}
-        aria-invalid={getFieldState(name).error ? "true" : undefined}
-        aria-describedby={getFieldState(name).error ? `${name}-error` : undefined}
-      />
-      <label
-        htmlFor={name}
-        className="absolute left-4 top-2 text-xs text-slate-400 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary"
-      >
-        {label} {required && <span className="text-primary">*</span>}
-      </label>
-      <InlineError error={getFieldState(name).error} id={`${name}-error`} />
-    </div>
-  );
-
-  // Select component with floating style
-  const FloatingSelect = ({
-    name,
-    label,
-    options,
-    value,
-    required = false
-  }: {
-    name: string;
-    label: string;
-    options: string[];
-    value: string;
-    required?: boolean;
-  }) => (
-    <div className="relative">
-      <select
-        id={name}
-        name={name}
-        value={value}
-        onChange={handleInputChange}
-        required={required}
-        className={`${floatingInputClasses} appearance-none cursor-pointer ${value ? 'pt-6 pb-3' : 'py-4'}`}
-      >
-        <option value="">{label}</option>
-        {options.map(opt => (
-          <option key={opt} value={opt}>{opt}</option>
-        ))}
-      </select>
-      {value && (
-        <label className="absolute left-4 top-2 text-xs text-slate-400">
-          {label} {required && <span className="text-primary">*</span>}
-        </label>
-      )}
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-        <span className="material-symbols-outlined">expand_more</span>
-      </div>
-    </div>
-  );
 
   return (
     <section
@@ -478,6 +492,8 @@ export default function PartnerInquiryForm() {
                         label="Company Name"
                         value={formData.companyName}
                         required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("companyName")}
                       />
 
                       <FloatingSelect
@@ -486,6 +502,7 @@ export default function PartnerInquiryForm() {
                         options={businessTypes}
                         value={formData.businessType}
                         required
+                        onChange={handleInputChange}
                       />
 
                       <FloatingSelect
@@ -494,6 +511,7 @@ export default function PartnerInquiryForm() {
                         options={locationCounts}
                         value={formData.numberOfLocations}
                         required
+                        onChange={handleInputChange}
                       />
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -503,6 +521,7 @@ export default function PartnerInquiryForm() {
                           options={provinces}
                           value={formData.province}
                           required
+                          onChange={handleInputChange}
                         />
 
                         <FloatingInput
@@ -510,6 +529,8 @@ export default function PartnerInquiryForm() {
                           label="City/Town"
                           value={formData.city}
                           required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("city")}
                         />
                       </div>
                     </motion.div>
@@ -539,6 +560,8 @@ export default function PartnerInquiryForm() {
                         label="Full Name"
                         value={formData.contactName}
                         required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("contactName")}
                         onBlur={(e) => validateField("contactName", e.target.value, (v) => validateRequired(v, "Name"))}
                       />
 
@@ -547,6 +570,8 @@ export default function PartnerInquiryForm() {
                         label="Job Title"
                         value={formData.jobTitle}
                         required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("jobTitle")}
                         onBlur={(e) => validateField("jobTitle", e.target.value, (v) => validateRequired(v, "Job title"))}
                       />
 
@@ -556,6 +581,8 @@ export default function PartnerInquiryForm() {
                         type="email"
                         value={formData.email}
                         required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("email")}
                         onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                       />
 
@@ -565,6 +592,8 @@ export default function PartnerInquiryForm() {
                         type="tel"
                         value={formData.phone}
                         required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("phone")}
                         onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
                       />
                     </motion.div>
@@ -632,6 +661,7 @@ export default function PartnerInquiryForm() {
                         label="Current Customer Foot Traffic (Optional)"
                         options={trafficLevels}
                         value={formData.currentFootTraffic}
+                        onChange={handleInputChange}
                       />
 
                       {/* Message */}
