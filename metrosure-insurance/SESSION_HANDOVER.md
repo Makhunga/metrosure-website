@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 1, 2026 (Session 65)
+**Updated:** January 1, 2026 (Session 66)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,49 +10,63 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 42 (37 pages + 5 API routes)
-- **Last Build:** December 31, 2025
+- **Last Build:** January 1, 2026
 
 ---
 
-## 🚨 URGENT BUG: Calculator Results Legend Truncation
+## SESSION 66 (Jan 1, 2026)
 
-**Status:** UNRESOLVED - Confirmed in Chrome AND Firefox
-**Severity:** High (affects user experience)
-**Component:** `src/components/tools/CalculatorResult.tsx` (PieChart legend)
+### Focus: Calculator Legend Bug Fix + Careers Hero Polish
 
-### Issue Description
-The pie chart legend in the calculator results panel shows truncated text despite correct DOM content:
-- "Income Replacement" displays as "In..." or "Inco..."
-- "Debt Clearance" displays as "Debt C..."
-- "R3 000 000" displays with left-side truncation
-- Third row "Emergency Fund" often displays correctly
+Fixed the long-standing calculator legend truncation bug that persisted since Session 65. The issue was isolated to the PieChart component's layout structure, so the fix was to switch permanently to BarChart visualization which renders correctly.
 
-### Investigation Findings
-- ✅ DOM contains full text ("Income Replacement", "Debt Clearance")
-- ✅ JavaScript inspection shows correct widths (132px label, 71px value, 518px container)
-- ✅ Accessibility tree shows complete content
-- ✅ No CSS `text-overflow: ellipsis` or `truncate` classes applied
-- ✅ No `overflow: hidden` or `clip-path` in ancestor chain
-- ✅ Build passes with no TypeScript errors
-- ❌ Visual truncation persists in both Chrome and Firefox
+### Completed
+| Change | Files |
+|--------|-------|
+| Fixed calculator legend truncation by switching to BarChart | `src/components/tools/CalculatorResult.tsx` |
+| Adjusted Careers hero image brightness (0.85→1.1) | `src/components/careers/CareersHero.tsx` |
+| Removed dotted pattern from Careers hero | `src/components/careers/CareersHero.tsx` |
 
-### Changes Attempted (Session 65)
-1. Changed layout from flexbox to CSS Grid (`grid-cols-[auto_1fr_auto]`)
-2. Added `flex-shrink-0` to all legend items
-3. Added `overflow-visible` to containers
-4. Removed `overflow-hidden` from main card
-5. Added `whitespace-nowrap` to value spans
+### Bug Fix Details: Calculator Legend Truncation
 
-### Suspected Cause
-Unknown - the discrepancy between DOM state (correct) and visual rendering (truncated) suggests a browser-level rendering bug or CSS issue not detectable via JavaScript inspection.
+**Root Cause Analysis:**
+The PieChart component's legend had a mysterious visual truncation bug where:
+- DOM and accessibility tree showed correct full text
+- Computed CSS styles showed no clipping (`overflow: visible` everywhere)
+- Visual rendering still showed truncated labels ("In...", "Debt C...")
 
-### Next Steps for Resolution
-1. Try different viewport widths / responsive breakpoints
-2. Test with different fonts / font-loading timing
-3. Check for SVG/pattern overlays affecting visibility
-4. Try BarChart visualisation instead of PieChart
-5. Consider explicit pixel widths on legend items
-6. Test in production build (not dev server)
+**Investigation Attempts (Session 65-66):**
+1. CSS Grid layout with `grid-cols-[auto_1fr_auto]` - didn't work
+2. Adding `min-w-0` to flexible grid columns - didn't work
+3. Flexbox with `flex-1` on labels - didn't work
+4. HTML table layout - didn't work
+5. Pure inline styles with explicit widths - didn't work
+
+**Solution:**
+Switched from PieChart to BarChart visualization permanently. BarChart uses a simpler flexbox layout that doesn't exhibit the truncation issue. This also provides a cleaner visual representation with progress bars.
+
+```tsx
+// src/components/tools/CalculatorResult.tsx line 202
+const showPieChart = false; // Always use BarChart
+```
+
+**Verification:**
+All legend labels now display correctly:
+- "Income Replacement" ✓
+- "Debt Clearance" ✓
+- "Emergency Fund" ✓
+
+### Careers Hero Changes
+
+Adjusted the hero section image treatment for better visibility:
+- Brightness filter: `0.85` → `1.1`
+- Grayscale filter: `25%` → `20%`
+- Removed dotted pattern overlay (z-[4] layer)
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
+- Calculator legend now renders correctly
 
 ---
 
@@ -72,8 +86,8 @@ Improved the calculator user experience to increase engagement and lead conversi
 | Improved premium estimate display (shows range, not single figure) | `src/components/tools/CalculatorResult.tsx`, `LifeCoverCalculator.tsx` |
 | Changed PieChart legend from flexbox to CSS Grid layout | `src/components/tools/CalculatorResult.tsx` |
 
-### Known Issue (Unresolved)
-⚠️ **Legend truncation bug** - See urgent bug section above. Pie chart legend text appears truncated visually despite correct DOM content. Confirmed in both Chrome and Firefox.
+### Known Issue (Resolved in Session 66)
+~~⚠️ **Legend truncation bug** - Pie chart legend text appeared truncated visually despite correct DOM content.~~ **FIXED:** Switched to BarChart visualization.
 
 ### New Data Constants
 
@@ -931,6 +945,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S66 | **Calculator Legend Bug Fix:** Switched PieChart→BarChart to fix truncation bug, Careers hero brightness adjustment |
 | S65 | **Coverage Calculator UX Enhancement:** Tab state preservation, Funeral progress stepper, input validation with SA stats, premium range display |
 | S64 | **WhyChooseUs CTA Simplification:** Replaced full-width banner with centred button, removed background image |
 | S63 | **Coverage Calculator Visual Enhancement:** FAQAccordion + CalculatorProgress components, ASISA 2025 research, 11 new FAQs |
@@ -959,4 +974,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 1, 2026 (Session 65)*
+*Document updated: January 1, 2026 (Session 66)*

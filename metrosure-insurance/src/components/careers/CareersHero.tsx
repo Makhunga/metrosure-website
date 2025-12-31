@@ -46,7 +46,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
           sizes="100vw"
           className="object-cover object-center"
           style={{
-            filter: "grayscale(25%) brightness(0.85) contrast(1.05)",
+            filter: "grayscale(20%) brightness(1.1) contrast(1.05)",
           }}
         />
       </motion.div>
@@ -97,17 +97,6 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
         }}
       />
 
-      {/* Subtle Dotted Pattern Overlay - very light over image */}
-      <div className="absolute inset-0 z-[4] pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.8) 1px, transparent 0)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
 
       {/* Noise Texture for depth */}
       <div

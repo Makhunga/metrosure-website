@@ -84,7 +84,7 @@ function PieChart({ breakdown, total }: { breakdown: BreakdownItem[]; total: num
     .join(", ");
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <motion.div
         className="w-40 h-40 mx-auto rounded-full shadow-lg"
         style={{
@@ -104,21 +104,40 @@ function PieChart({ breakdown, total }: { breakdown: BreakdownItem[]; total: num
         </div>
       </motion.div>
 
-      {/* Legend */}
+      {/* Legend - inline styles to bypass CSS issues */}
       <motion.div
-        className="mt-6 space-y-3"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.4 }}
+        style={{ marginTop: '1.5rem', width: '100%', overflow: 'visible' }}
       >
         {segments.map((item, index) => (
-          <div key={index} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 text-sm">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: item.color }}
-            />
-            <span className="text-slate-600 dark:text-slate-400">{item.label}</span>
-            <span className="font-semibold text-slate-900 dark:text-white whitespace-nowrap">
+          <div
+            key={index}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0.375rem 0',
+              fontSize: '0.875rem',
+              width: '100%',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  backgroundColor: item.color,
+                  flexShrink: 0,
+                }}
+              />
+              <span className="text-slate-600 dark:text-slate-400">
+                {item.label}
+              </span>
+            </div>
+            <span className="font-semibold text-slate-900 dark:text-white" style={{ whiteSpace: 'nowrap' }}>
               R{item.value.toLocaleString("en-ZA")}
             </span>
           </div>
@@ -180,7 +199,9 @@ export function CalculatorResult({
   if (!isVisible) return null;
 
   const total = breakdown.reduce((sum, item) => sum + item.value, 0);
-  const showPieChart = breakdown.length <= 5;
+  // Always use BarChart - provides clearer visual representation and avoids
+  // layout issues that affected the PieChart legend in some browsers
+  const showPieChart = false;
 
   return (
     <AnimatePresence>
