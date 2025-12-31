@@ -330,24 +330,13 @@ export default function LoginPage() {
 
       {/* Right Panel - Visual */}
       <motion.div
-        className="hidden lg:flex lg:flex-1 relative overflow-hidden"
+        className="hidden lg:flex lg:flex-1 relative bg-gradient-to-br from-primary to-[rgb(var(--color-secondary))] overflow-hidden"
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
       >
-        {/* Mosaic Pattern Background */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/mosaic-pattern.jpg')",
-          }}
-        />
-
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/75 to-[rgb(var(--color-secondary))]/80" />
-
-        {/* Subtle pattern overlay for texture */}
-        <div className="absolute inset-0 opacity-5">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
             style={{
