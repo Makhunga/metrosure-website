@@ -6,13 +6,18 @@ import { motion, useInView } from "framer-motion";
 const benefits = [
   {
     icon: "trending_up",
-    title: "Additional Revenue Stream",
-    description: "Earn commission on every insurance product sold in your store. Our partners see significant additional income without any upfront investment.",
+    title: "Proven Sales Growth",
+    description: "Our partners see an average 75% sales increase within the first 6 months. We don't just promise results, we deliver them consistently.",
   },
   {
-    icon: "groups",
-    title: "Increased Foot Traffic",
-    description: "Insurance campaigns drive customers to your store. People come for insurance and stay to shop, boosting your overall sales.",
+    icon: "analytics",
+    title: "Data-Driven Insights",
+    description: "Customer profiling and segmentation using data analytics. We provide regular reports so you can make informed decisions and optimize performance.",
+  },
+  {
+    icon: "verified",
+    title: "Quality Assurance Team",
+    description: "Our dedicated QA team maintains a 95% daily average, ensuring every sale is compliant and every customer interaction meets the highest standards.",
   },
   {
     icon: "account_balance_wallet",
@@ -20,18 +25,13 @@ const benefits = [
     description: "We handle staffing, training, compliance, and marketing materials. You provide the space; we bring everything else.",
   },
   {
-    icon: "verified",
-    title: "Brand Enhancement",
-    description: "Offer financial services to your customers under a licensed provider. Enhance your store's reputation as a one-stop destination.",
-  },
-  {
     icon: "volunteer_activism",
-    title: "Community Impact",
-    description: "Every partnership creates local jobs. You're not just earning revenue, you're contributing to employment in your community.",
+    title: "Youth Employment",
+    description: "We recruit and develop young individuals, they are the future. Every partnership creates local jobs and builds skills in your community.",
   },
   {
     icon: "shield",
-    title: "Compliance Handled",
+    title: "Full Compliance Handled",
     description: "We're an FSP-licensed provider (47089). All regulatory requirements, compliance, and auditing are our responsibility, not yours.",
   }
 ];
@@ -160,7 +160,7 @@ export default function PartnerBenefits() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.9 }}
             >
-              Ready to Transform Your Retail Space?
+              Ready for 75% Sales Growth?
             </motion.h2>
             <motion.p
               className="text-xl text-white/90 max-w-2xl font-medium"
@@ -168,8 +168,8 @@ export default function PartnerBenefits() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 1 }}
             >
-              Join over 100 retail partners who are already earning additional revenue
-              and creating jobs in their communities.
+              Join retail partners like TFG who are seeing proven results. Our data-driven
+              approach and quality assurance team deliver consistent, reliable growth.
             </motion.p>
 
             <motion.div

@@ -93,7 +93,10 @@ const trafficLevels = [
 const services = [
   { id: "instore-campaigns", label: "In-Store Campaigns", description: "Insurance sales at point of purchase" },
   { id: "outsourced-sales", label: "Sales & Marketing", description: "Dedicated sales team support" },
-  { id: "credit-facility", label: "Credit Facility", description: "In-store financing options" }
+  { id: "credit-facility", label: "Credit Facility", description: "In-store financing options" },
+  { id: "device-leasing", label: "Device Leasing", description: "Cell phone & device financing" },
+  { id: "device-insurance", label: "Device Insurance", description: "Protection for financed devices" },
+  { id: "call-centre", label: "Call Centre Services", description: "Lead generation & customer acquisition" }
 ];
 
 const MAX_MESSAGE_CHARS = 2000;

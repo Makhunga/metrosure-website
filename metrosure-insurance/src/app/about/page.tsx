@@ -33,9 +33,9 @@ const itemVariants = {
 
 const stats = [
   { value: "5000+", label: "Jobs Created" },
-  { value: "2016", label: "Established" },
-  { value: "5+", label: "Offices Nationwide" },
-  { value: "30+", label: "Insurance Partners" },
+  { value: "75%", label: "Sales Increase" },
+  { value: "95%", label: "QA Average" },
+  { value: "7", label: "Provinces" },
 ];
 
 const values = [
@@ -73,10 +73,18 @@ const values = [
 
 const timeline = [
   {
+    icon: "corporate_fare",
+    year: "2013",
+    number: "13",
+    title: "Metrosure Group Founded",
+    description:
+      "Metrosure Group was established as an umbrella body for business ventures, laying the foundation for what would become a leading sales and marketing company in financial services.",
+  },
+  {
     icon: "flag",
     year: "2016",
     number: "16",
-    title: "The Beginning",
+    title: "Insurance Brokers Launch",
     description:
       "Metrosure Insurance Brokers was founded in Durban by BG Chiliza with a vision to take the company to a formidable position in the South African market.",
   },
@@ -336,7 +344,7 @@ export default function AboutPage() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  We believe insurance should work for everyone. For families seeking peace of mind. For businesses seeking new opportunities.
+                  We&apos;re not just an insurance broker, we&apos;re a fast-growing sales and marketing company that delivers results. For families seeking peace of mind. For retailers seeking proven growth.
                 </motion.p>
 
                 <motion.p
@@ -345,7 +353,7 @@ export default function AboutPage() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  That&apos;s why we built something different: a network of retail partnerships that brings financial services directly into communities across South Africa. For consumers, it means accessible, affordable protection. For retail partners, it means a new revenue stream with fully trained staff provided.
+                  Our data-driven approach and quality assurance team (95% daily average) have delivered 75% average sales increases for retail partners within the first 6 months. Partners like TFG trust us to drive their financial services growth.
                 </motion.p>
 
                 <motion.p
@@ -354,7 +362,7 @@ export default function AboutPage() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  Since 2016, this model has created over 5,000 jobs nationwide. Every partnership we form, every policy we write, moves us closer to a future where financial security is the norm, not the exception.
+                  We recruit and develop young individuals, they are the future. Since 2013, this model has created over 5,000 jobs across 7 provinces. Every partnership we form moves us closer to consistent, reliable growth for all.
                 </motion.p>
               </div>
             </motion.div>

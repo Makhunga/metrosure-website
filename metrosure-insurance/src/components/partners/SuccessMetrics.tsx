@@ -127,22 +127,22 @@ export default function SuccessMetrics() {
       description: "Employment opportunities"
     },
     {
-      value: "100+",
-      label: "Retail Partners",
-      icon: "storefront",
-      description: "Nationwide coverage"
+      value: "75%",
+      label: "Sales Increase",
+      icon: "trending_up",
+      description: "Average in first 6 months"
     },
     {
-      value: "5+",
-      label: "Regional Offices",
+      value: "95%",
+      label: "QA Average",
+      icon: "verified",
+      description: "Daily quality assurance"
+    },
+    {
+      value: "7",
+      label: "Provinces",
       icon: "location_on",
-      description: "Across South Africa"
-    },
-    {
-      value: "9+",
-      label: "Years Experience",
-      icon: "calendar_month",
-      description: "Serving South Africa"
+      description: "National footprint"
     },
   ];
 

@@ -7,40 +7,40 @@ import { TextReveal } from "./animations";
 
 const differentiators = [
   {
-    icon: "support_agent",
-    title: "Dedicated Portfolio Managers",
+    icon: "trending_up",
+    title: "75% Sales Increase",
     description:
-      "You get a real person who knows your name and your needs. Each portfolio manager is backed by dedicated claims and underwriting staff.",
+      "Our retail partners see an average 75% sales increase within the first 6 months. We deliver proven, measurable results.",
   },
   {
     icon: "verified",
-    title: "FSP Authorised",
+    title: "95% QA Average",
     description:
-      "We're a registered Financial Service Provider (FSP 47089), regulated by the FSCA. Your protection and peace of mind is our priority.",
+      "Our dedicated quality assurance team maintains a 95% daily average, ensuring every sale is compliant and every interaction meets the highest standards.",
   },
   {
-    icon: "handshake",
-    title: "30+ Insurance Partners",
+    icon: "analytics",
+    title: "Data-Driven Approach",
     description:
-      "We work with South Africa's leading insurers, Liberty, Sanlam, Discovery, Old Mutual, and more, to find you the best cover.",
+      "Customer profiling and segmentation using data analytics. We provide insights that help you make informed business decisions.",
   },
   {
     icon: "location_on",
-    title: "Nationwide Coverage",
+    title: "7 Provinces",
     description:
-      "With offices in Durban, Pietermaritzburg, Pretoria, and Boksburg, we're never too far away when you need us.",
+      "National footprint across South Africa with offices in Durban, Johannesburg, Pretoria, and Pietermaritzburg. We're where you need us.",
   },
   {
     icon: "groups",
     title: "5,000+ Jobs Created",
     description:
-      "We're proud to be part of building South Africa's economy. Since 2016, we've created opportunities for thousands of people.",
+      "We recruit and develop young individuals, they are the future. Since 2013, we've created opportunities for thousands of South Africans.",
   },
   {
-    icon: "timer",
-    title: "Fast, Effective Service",
+    icon: "shield",
+    title: "FSP Licensed & Compliant",
     description:
-      "Your time is precious, so we won't waste it. We process your instructions quickly and keep you informed every step of the way.",
+      "We're an FSP-licensed provider (47089). All regulatory requirements, compliance, and auditing are handled by our expert team.",
   },
 ];
 

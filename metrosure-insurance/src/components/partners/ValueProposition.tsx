@@ -40,6 +40,42 @@ const services = [
       "Customer support included"
     ],
     highlight: null
+  },
+  {
+    icon: "devices",
+    title: "Device Leasing",
+    description: "Offer your customers cell phone and device leasing directly at point of sale. We manage the full leasing process while you earn commission on every deal.",
+    features: [
+      "Cell phone & device financing",
+      "Quick approval process",
+      "Commission on every lease",
+      "Full compliance handled"
+    ],
+    highlight: null
+  },
+  {
+    icon: "verified_user",
+    title: "Device Insurance",
+    description: "Protect your customers' financed devices with comprehensive insurance coverage. Seamlessly integrated with device sales for maximum uptake.",
+    features: [
+      "Screen damage protection",
+      "Theft & loss coverage",
+      "Easy claims process",
+      "Bundled with device leasing"
+    ],
+    highlight: null
+  },
+  {
+    icon: "headset_mic",
+    title: "Call Centre Services",
+    description: "Leverage our inhouse call centre for lead generation, customer acquisition, and growing your financial services book with quality clientele.",
+    features: [
+      "Lead calling (warm & hot leads)",
+      "Cold calling for acquisition",
+      "Quality assurance (95% average)",
+      "Data-driven customer profiling"
+    ],
+    highlight: "New"
   }
 ];
 
@@ -73,7 +109,7 @@ export default function ValueProposition() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
           >
-            Three Ways We Partner With Retailers
+            Six Ways We Partner With Retailers
           </motion.h2>
           <motion.p
             className="text-xl text-[rgb(var(--color-text-body))] max-w-3xl mx-auto"
@@ -81,8 +117,8 @@ export default function ValueProposition() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.4 }}
           >
-            Flexible partnership models designed for your business. Choose what works best for your
-            retail environment and customer base.
+            Flexible partnership models designed for your business. From in-store campaigns to call centre
+            services, choose what works best for your retail environment.
           </motion.p>
         </motion.div>
 
@@ -159,6 +195,26 @@ export default function ValueProposition() {
             </motion.div>
           ))}
         </div>
+
+        {/* Corporate Solutions Mention */}
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8 }}
+        >
+          <p className="text-[rgb(var(--color-text-body))] mb-4">
+            Looking for corporate employee benefits solutions? We also offer Group Medical Aid,
+            Group Retirement Funds, and Employee Benefits packages.
+          </p>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
+          >
+            Contact us for corporate solutions
+            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

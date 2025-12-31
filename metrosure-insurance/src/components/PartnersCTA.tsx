@@ -9,24 +9,24 @@ import { MagneticButton } from "./animations";
 const highlights = [
   {
     icon: "trending_up",
-    title: "Earn While You Build",
-    description: "Competitive commission rates on every policy sold through your location",
-    stat: "15-25%",
-    statLabel: "commission rates",
-  },
-  {
-    icon: "groups",
-    title: "Create Local Jobs",
-    description: "Jobs created nationwide, each partnership directly funds employment",
-    stat: "5,000+",
-    statLabel: "jobs created",
+    title: "Proven Sales Growth",
+    description: "Our retail partners see average sales increases within the first 6 months of partnership",
+    stat: "75%",
+    statLabel: "average increase",
   },
   {
     icon: "verified",
-    title: "Zero Hassle",
-    description: "We handle staffing, training, marketing, and full regulatory compliance",
-    stat: "100%",
-    statLabel: "managed for you",
+    title: "Quality Assurance",
+    description: "Our dedicated QA team ensures every sale is compliant and meets the highest standards",
+    stat: "95%",
+    statLabel: "daily QA average",
+  },
+  {
+    icon: "groups",
+    title: "Youth Employment",
+    description: "We recruit and develop young individuals, creating jobs across 7 provinces",
+    stat: "5,000+",
+    statLabel: "jobs created",
   },
 ];
 
@@ -188,9 +188,9 @@ export default function PartnersCTA() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            We&apos;ve created 5,000+ jobs across South Africa by partnering with
-            retailers and businesses like yours. Together, we bring trusted insurance
-            to communities that need it most, while you earn competitive commissions.
+            Retail partners like TFG trust our data-driven approach to drive their
+            financial services growth. Our proven track record delivers consistent,
+            reliable results across 7 provinces.
           </motion.p>
         </div>
 
@@ -297,7 +297,7 @@ export default function PartnersCTA() {
               <span className="material-symbols-outlined text-lg">
                 schedule
               </span>
-              Since 2016
+              Since 2013
             </span>
           </motion.div>
         </motion.div>
