@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 60)
+**Updated:** December 31, 2025 (Session 61)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,62 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 61 (Dec 31, 2025)
+
+### Focus: Partner Logos Grid Conversion
+
+Converted the homepage PartnerLogos component from an animated scrolling carousel to a clean 4-column responsive grid. Added real logo images for 18 insurance partners extracted from company PDFs.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Created partner data file with types and helpers | `src/data/partners.ts` (NEW) |
+| Extracted 18 logos from Meeting PDF | `public/images/partners/*.png` (NEW) |
+| Refactored PartnerLogos to 4-column grid layout | `src/components/PartnerLogos.tsx` |
+| Enabled production visibility (removed dev-only) | `src/app/page.tsx` |
+
+### New Data File
+
+**`src/data/partners.ts`** (~300 lines)
+- `InsurancePartner` interface with `id`, `name`, `category`, `logo?`, `description?`, `priority`
+- `PartnerCategory` type: `life`, `short-term`, `medical`, `retail`
+- 28 partners total (18 with logos, 10 text-only)
+- Helper functions: `getSortedPartners()`, `getPartnersWithLogos()`, `getPartnersByCategory()`, `getPartnerById()`, `getLogoCount()`
+
+### Partner Logos Added
+**Life & Investments (10):** Discovery, Sanlam, Old Mutual, Momentum, Metropolitan, PPS, BrightRock, Allan Gray, 1Life, AVBOB
+
+**Short-Term (6):** MiWay, Auto & General, Momentum Insure, 1st for Women, Dotsure, Absa
+
+**Medical (2):** Bonitas, EssentialMED
+
+**Retail (2):** TFG, Bolttech (already existed)
+
+### Component Changes
+
+**PartnerLogos.tsx** (refactored from ~315 lines to ~147 lines)
+- Removed: Scrolling carousel animation (2 rows)
+- Removed: Category cards section
+- Removed: Separate retail partners section
+- Added: 4-column responsive grid (`grid-cols-2 sm:grid-cols-3 lg:grid-cols-4`)
+- Added: Staggered entrance animation
+- Added: Simple hover effect (opacity + border highlight)
+- Added: Import from centralised `partners.ts` data file
+
+**page.tsx** (homepage)
+- PartnerLogos remains dev-only (hidden on production pending stakeholder approval)
+
+**CareersHero.tsx**
+- Added: Dotted pattern background with radial fade
+- Dots transparent in center, visible at edges (framing effect)
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
+- All 28 partners display correctly in grid
 
 ---
 
@@ -588,9 +644,10 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 ```
 src/app/        # Pages & API routes
 src/components/ # UI components
-src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions)
+src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions, partners)
 src/lib/        # Utilities
 resources/      # Source documents (proposals, PDFs)
+public/images/partners/  # Partner logo images (18 PNGs + 2 SVGs)
 ```
 
 ### Key Files Modified (Session 52)
@@ -622,6 +679,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S61 | **Partner Logos Grid Conversion:** Carousel→grid, 18 logos extracted from PDF, production visibility enabled |
 | S60 | **Technical Debt - Data Centralisation:** 3 new data files, 6 components updated, ~330 lines extracted |
 | S59 | **Corporate Solutions Page:** 6 components, API route, calculator disclaimers, navigation updates |
 | S58 | **Housekeeping & Legal B2B:** Doc fixes, SquigglyDivider removal, legal B2B content, TFG/Bolttech logos |

@@ -18,8 +18,22 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
     <section
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
+      {/* Dotted Pattern Background - transparent center, visible at edges */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute inset-0 opacity-[0.20]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 2px 2px, rgb(var(--color-text-main)) 1.5px, transparent 0)",
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse 60% 50% at 50% 45%, transparent 0%, transparent 50%, black 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 60% 50% at 50% 45%, transparent 0%, transparent 50%, black 100%)",
+          }}
+        />
+      </div>
+
       {/* Gradient Mesh Overlay */}
-      <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-mesh pointer-events-none opacity-50" />
 
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
         <div className="w-full flex flex-col gap-8 text-center items-center">
