@@ -56,7 +56,7 @@ export default function PartnerTestimonials() {
   return (
     <section
       ref={sectionRef}
-      className="py-28 md:py-36 bg-[#f5f5f7] dark:bg-slate-900 transition-colors duration-300 relative"
+      className="pt-28 md:pt-36 pb-16 md:pb-20 bg-[#f5f5f7] dark:bg-slate-900 transition-colors duration-300 relative"
     >
       {/* Full-width container for navigation buttons */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -115,7 +115,7 @@ export default function PartnerTestimonials() {
           {/* Navigation Buttons - positioned relative to outer container */}
           <motion.button
             onClick={goToPrevious}
-            className="absolute left-0 md:-left-20 lg:-left-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
+            className="absolute left-0 md:-left-20 lg:-left-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
             aria-label="Previous testimonial"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -140,7 +140,7 @@ export default function PartnerTestimonials() {
 
           <motion.button
             onClick={goToNext}
-            className="absolute right-0 md:-right-20 lg:-right-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
+            className="absolute right-0 md:-right-20 lg:-right-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
             aria-label="Next testimonial"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}

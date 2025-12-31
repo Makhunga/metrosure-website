@@ -100,8 +100,11 @@ export async function POST(request: NextRequest) {
       emailSubject = `${b2bPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
     }
 
+    // Route B2B inquiries to clients email, others to info
+    const emailRecipient = isB2B ? emailTo.clients : emailTo.info;
+
     const emailResult = await sendEmail({
-      to: emailTo.info,
+      to: emailRecipient,
       subject: emailSubject,
       html: emailHtml,
       replyTo: data.email || undefined,

@@ -137,7 +137,6 @@ export default function Features() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">For Individuals & Businesses</span>
             </motion.div>
 

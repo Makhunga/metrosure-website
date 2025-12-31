@@ -26,17 +26,27 @@ import {
 import { QuoteData, generateQuoteReference } from "@/lib/whatsapp";
 
 type CoverageType = "home" | "auto" | "life" | "business" | null;
+type CustomerType = "individual" | "business" | null;
+type BusinessType = "retail" | "franchise" | "manufacturing" | "services" | "hospitality" | "healthcare" | "other" | "";
+type EmployeeRange = "1-10" | "11-50" | "51-200" | "201-500" | "500+" | "";
 
 interface FormData {
-  // Step 1: Personal Info
+  // Step 1: Customer Type
+  customerType: CustomerType;
+  // Step 2: Business Info (only for business customers)
+  companyName: string;
+  businessType: BusinessType;
+  numberOfEmployees: EmployeeRange;
+  industry: string;
+  // Step 3: Contact Info
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   zipCode: string;
-  // Step 2: Coverage Type
+  // Step 4: Coverage Type
   coverageType: CoverageType;
-  // Step 3: Coverage Details
+  // Step 5: Coverage Details
   coverageAmount: string;
   deductible: string;
   startDate: string;
@@ -72,6 +82,39 @@ const coverageOptions = [
     description: "Commercial insurance for businesses of all sizes",
     popular: false,
   },
+];
+
+const customerTypeOptions = [
+  {
+    id: "individual" as const,
+    icon: "person",
+    title: "Personal Quote",
+    description: "I'm getting insurance for myself or my family",
+  },
+  {
+    id: "business" as const,
+    icon: "business",
+    title: "Business Quote",
+    description: "I need coverage for my company or employees",
+  },
+];
+
+const businessTypeOptions = [
+  { id: "retail", label: "Retail Store" },
+  { id: "franchise", label: "Franchise" },
+  { id: "manufacturing", label: "Manufacturing" },
+  { id: "services", label: "Professional Services" },
+  { id: "hospitality", label: "Hospitality" },
+  { id: "healthcare", label: "Healthcare" },
+  { id: "other", label: "Other" },
+];
+
+const employeeRangeOptions = [
+  { id: "1-10", label: "1-10 employees" },
+  { id: "11-50", label: "11-50 employees" },
+  { id: "51-200", label: "51-200 employees" },
+  { id: "201-500", label: "201-500 employees" },
+  { id: "500+", label: "500+ employees" },
 ];
 
 const additionalCoverageOptions: Record<CoverageType & string, { id: string; label: string }[]> = {
@@ -155,6 +198,11 @@ const itemVariants = {
 export default function QuotePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
+    customerType: null,
+    companyName: "",
+    businessType: "",
+    numberOfEmployees: "",
+    industry: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -166,6 +214,9 @@ export default function QuotePage() {
     startDate: "",
     additionalCoverage: [],
   });
+
+  // Calculate total steps based on customer type (5 for individual, 6 for business)
+  const totalSteps = formData.customerType === "business" ? 6 : 5;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -208,12 +259,31 @@ export default function QuotePage() {
   const faqInView = useInView(faqRef, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
-  const steps = [
-    { number: 1, title: "Personal Info", icon: "person" },
-    { number: 2, title: "Coverage Type", icon: "shield" },
-    { number: 3, title: "Details", icon: "tune" },
-    { number: 4, title: "Review", icon: "check_circle" },
-  ];
+  // Dynamic steps based on customer type
+  const steps = useMemo(() => {
+    const baseSteps = [
+      { number: 1, title: "Quote Type", icon: "category" },
+    ];
+
+    if (formData.customerType === "business") {
+      return [
+        ...baseSteps,
+        { number: 2, title: "Business Info", icon: "business" },
+        { number: 3, title: "Contact Info", icon: "person" },
+        { number: 4, title: "Coverage", icon: "shield" },
+        { number: 5, title: "Details", icon: "tune" },
+        { number: 6, title: "Review", icon: "check_circle" },
+      ];
+    }
+
+    return [
+      ...baseSteps,
+      { number: 2, title: "Contact Info", icon: "person" },
+      { number: 3, title: "Coverage", icon: "shield" },
+      { number: 4, title: "Details", icon: "tune" },
+      { number: 5, title: "Review", icon: "check_circle" },
+    ];
+  }, [formData.customerType]);
 
   // Update field validation state
   const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
@@ -239,12 +309,38 @@ export default function QuotePage() {
   };
 
   const handleNext = () => {
-    if (currentStep < 4) setCurrentStep(currentStep + 1);
+    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
   };
 
   const handleBack = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
+
+  // Get the actual step content based on current step and customer type
+  const getStepContent = () => {
+    if (currentStep === 1) return "customerType";
+
+    if (formData.customerType === "business") {
+      switch (currentStep) {
+        case 2: return "businessInfo";
+        case 3: return "contactInfo";
+        case 4: return "coverageType";
+        case 5: return "coverageDetails";
+        case 6: return "review";
+        default: return "customerType";
+      }
+    } else {
+      switch (currentStep) {
+        case 2: return "contactInfo";
+        case 3: return "coverageType";
+        case 4: return "coverageDetails";
+        case 5: return "review";
+        default: return "customerType";
+      }
+    }
+  };
+
+  const stepContent = getStepContent();
 
   const handleSubmit = useCallback(async () => {
     setIsSubmitting(true);
@@ -285,6 +381,11 @@ export default function QuotePage() {
 
   const handleReset = useCallback(() => {
     setFormData({
+      customerType: null,
+      companyName: "",
+      businessType: "",
+      numberOfEmployees: "",
+      industry: "",
       firstName: "",
       lastName: "",
       email: "",
@@ -313,8 +414,16 @@ export default function QuotePage() {
   };
 
   const canProceed = () => {
-    switch (currentStep) {
-      case 1:
+    switch (stepContent) {
+      case "customerType":
+        return formData.customerType !== null;
+      case "businessInfo":
+        return (
+          formData.companyName &&
+          formData.businessType &&
+          formData.numberOfEmployees
+        );
+      case "contactInfo":
         return (
           formData.firstName &&
           formData.lastName &&
@@ -324,15 +433,17 @@ export default function QuotePage() {
           !getFieldState("email").error &&
           !getFieldState("phone").error
         );
-      case 2:
+      case "coverageType":
         return formData.coverageType !== null;
-      case 3:
+      case "coverageDetails":
         return (
           formData.coverageAmount &&
           formData.deductible &&
           formData.startDate &&
           !getFieldState("startDate").error
         );
+      case "review":
+        return true;
       default:
         return true;
     }
@@ -401,13 +512,13 @@ export default function QuotePage() {
         <div className="max-w-7xl mx-auto">
           {/* Two column layout: Form + Price Breakdown (only when price visible) */}
           <div className={`flex flex-col gap-8 ${
-            currentStep >= 3 && formData.coverageType && priceBreakdown
+            (stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown
               ? "lg:flex-row lg:gap-12"
               : ""
           }`}>
             {/* Left: Form */}
             <div className={`flex-1 w-full ${
-              currentStep >= 3 && formData.coverageType && priceBreakdown
+              (stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown
                 ? "max-w-3xl"
                 : "max-w-4xl mx-auto"
             }`}>
@@ -420,7 +531,7 @@ export default function QuotePage() {
               <motion.div
                 className="absolute top-8 left-[10%] h-1 bg-primary rounded-full"
                 initial={{ width: 0 }}
-                animate={{ width: `${((currentStep - 1) / 3) * 80}%` }}
+                animate={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 80}%` }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               />
 
@@ -539,10 +650,10 @@ export default function QuotePage() {
               ) : (
               <>
               <AnimatePresence mode="wait">
-              {/* Step 1: Personal Info */}
-              {currentStep === 1 && (
+              {/* Step: Customer Type */}
+              {stepContent === "customerType" && (
                 <motion.div
-                  key="step1"
+                  key="customerType"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
@@ -550,10 +661,227 @@ export default function QuotePage() {
                 >
                   <div className="text-center mb-10">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                      Personal Information
+                      Who&apos;s This Quote For?
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400">
-                      Let&apos;s start with some basic information to personalize your quote.
+                      Select whether you&apos;re looking for personal or business insurance.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                    {customerTypeOptions.map((option) => (
+                      <button
+                        key={option.id}
+                        onClick={() => {
+                          updateFormData({ customerType: option.id });
+                          // Reset business fields if switching to individual
+                          if (option.id === "individual") {
+                            updateFormData({
+                              companyName: "",
+                              businessType: "",
+                              numberOfEmployees: "",
+                              industry: "",
+                            });
+                          }
+                        }}
+                        className={`relative p-8 rounded-xl border-2 text-left transition-all duration-300 group ${
+                          formData.customerType === option.id
+                            ? "border-primary bg-primary/5 dark:bg-primary/15 shadow-lg shadow-primary/10"
+                            : "border-slate-200 dark:border-slate-600 hover:border-primary/50 hover:shadow-md bg-white dark:bg-slate-700/30"
+                        }`}
+                      >
+                        <div
+                          className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all ${
+                            formData.customerType === option.id
+                              ? "bg-primary text-white"
+                              : "bg-primary/10 text-primary group-hover:bg-primary/20"
+                          }`}
+                        >
+                          <span className="material-symbols-outlined text-3xl">
+                            {option.icon}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                          {option.title}
+                        </h3>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
+                          {option.description}
+                        </p>
+                        {formData.customerType === option.id && (
+                          <div className="absolute top-4 right-4">
+                            <span className="material-symbols-outlined text-primary text-2xl">
+                              check_circle
+                            </span>
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* B2B cross-link for individual users */}
+                  {formData.customerType === "individual" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center mt-8 text-sm text-slate-500 dark:text-slate-400"
+                    >
+                      <span className="material-symbols-outlined text-base align-middle mr-1">info</span>
+                      Own a retail business?{" "}
+                      <Link href="/partners" className="text-primary hover:underline font-medium">
+                        Partner with us
+                      </Link>{" "}
+                      for in-store insurance campaigns.
+                    </motion.p>
+                  )}
+                </motion.div>
+              )}
+
+              {/* Step: Business Info (only for business customers) */}
+              {stepContent === "businessInfo" && (
+                <motion.div
+                  key="businessInfo"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                      Business Details
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Tell us about your company so we can tailor your quote.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
+                        Company Name
+                      </label>
+                      <div className="relative">
+                        <InputIcon
+                          icon="business"
+                          valid={getFieldState("companyName").valid}
+                          touched={getFieldState("companyName").touched}
+                        />
+                        <input
+                          type="text"
+                          value={formData.companyName}
+                          onChange={(e) => updateFormData({ companyName: e.target.value })}
+                          onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
+                          className={getInputClassesWithIcon(getFieldState("companyName"))}
+                          placeholder="Acme Corporation (Pty) Ltd"
+                          aria-required="true"
+                        />
+                      </div>
+                      <InlineError error={getFieldState("companyName").error} id="companyName-error" />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
+                        Business Type
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.businessType}
+                          onChange={(e) => updateFormData({ businessType: e.target.value as BusinessType })}
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
+                        >
+                          <option value="">Select business type</option>
+                          {businessTypeOptions.map((option) => (
+                            <option key={option.id} value={option.id}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
+                          <span className="material-symbols-outlined text-xl">expand_more</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
+                        Number of Employees
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.numberOfEmployees}
+                          onChange={(e) => updateFormData({ numberOfEmployees: e.target.value as EmployeeRange })}
+                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
+                        >
+                          <option value="">Select employee range</option>
+                          {employeeRangeOptions.map((option) => (
+                            <option key={option.id} value={option.id}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
+                          <span className="material-symbols-outlined text-xl">expand_more</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
+                        Industry <span className="font-normal text-slate-400">(Optional)</span>
+                      </label>
+                      <div className="relative">
+                        <InputIcon
+                          icon="category"
+                          valid={false}
+                          touched={false}
+                        />
+                        <input
+                          type="text"
+                          value={formData.industry}
+                          onChange={(e) => updateFormData({ industry: e.target.value })}
+                          className={getInputClassesWithIcon({ touched: false, error: null, valid: false })}
+                          placeholder="e.g. Clothing, Electronics, Furniture"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* B2B benefits callout */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-8 p-4 bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/20"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="material-symbols-outlined text-primary text-xl mt-0.5">verified</span>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white">Business Quote Benefits</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
+                          Get dedicated account management, group rates, and our B2B team will contact you within 24 hours.
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+
+              {/* Step: Contact Info */}
+              {stepContent === "contactInfo" && (
+                <motion.div
+                  key="contactInfo"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                      Contact Information
+                    </h2>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      {formData.customerType === "business"
+                        ? "Who should we contact about this quote?"
+                        : "Let's get your contact details to personalize your quote."}
                     </p>
                   </div>
 
@@ -682,10 +1010,10 @@ export default function QuotePage() {
                 </motion.div>
               )}
 
-              {/* Step 2: Coverage Type */}
-              {currentStep === 2 && (
+              {/* Step: Coverage Type */}
+              {stepContent === "coverageType" && (
                 <motion.div
-                  key="step2"
+                  key="coverageType"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
@@ -746,10 +1074,10 @@ export default function QuotePage() {
                 </motion.div>
               )}
 
-              {/* Step 3: Coverage Details */}
-              {currentStep === 3 && (
+              {/* Step: Coverage Details */}
+              {stepContent === "coverageDetails" && (
                 <motion.div
-                  key="step3"
+                  key="coverageDetails"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
@@ -868,10 +1196,10 @@ export default function QuotePage() {
                 </motion.div>
               )}
 
-              {/* Step 4: Review */}
-              {currentStep === 4 && (
+              {/* Step: Review */}
+              {stepContent === "review" && (
                 <motion.div
-                  key="step4"
+                  key="review"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
@@ -887,11 +1215,68 @@ export default function QuotePage() {
                   </div>
 
                   <div className="space-y-6">
-                    {/* Personal Info Summary - Premium Dark Card */}
+                    {/* Business Info Summary (only for business customers) */}
+                    {formData.customerType === "business" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.05 }}
+                        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800"
+                      >
+                        <div
+                          className="absolute inset-0 opacity-[0.03]"
+                          style={{
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                          }}
+                        />
+                        <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden">
+                          <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/20 rotate-45 transform origin-bottom-left" />
+                        </div>
+                        <div className="relative px-6 py-5 border-b border-white/10">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">
+                                Business Quote
+                              </p>
+                              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                <span className="material-symbols-outlined text-blue-400 text-xl">business</span>
+                                Company Details
+                              </h3>
+                            </div>
+                            <button
+                              onClick={() => setCurrentStep(2)}
+                              className="px-3 py-1.5 text-xs font-medium text-blue-400 bg-blue-500/10 rounded-lg hover:bg-blue-500/20 transition-colors"
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative p-6 grid grid-cols-2 gap-6">
+                          {[
+                            { label: "Company", value: formData.companyName },
+                            { label: "Business Type", value: businessTypeOptions.find((o) => o.id === formData.businessType)?.label || formData.businessType },
+                            { label: "Employees", value: formData.numberOfEmployees },
+                            { label: "Industry", value: formData.industry || "Not specified" },
+                          ].map((item, i) => (
+                            <motion.div
+                              key={item.label}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.1 + i * 0.1 }}
+                            >
+                              <p className="text-xs text-slate-400 mb-1">{item.label}</p>
+                              <p className="text-base font-semibold text-white">{item.value}</p>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Contact Info Summary - Premium Dark Card */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: 0.1 }}
+                      transition={{ duration: 0.4, delay: formData.customerType === "business" ? 0.15 : 0.1 }}
                       className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800"
                     >
                       {/* Subtle Pattern Overlay */}
@@ -912,15 +1297,15 @@ export default function QuotePage() {
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">
-                              Applicant Details
+                              {formData.customerType === "business" ? "Contact Person" : "Applicant Details"}
                             </p>
                             <h3 className="text-lg font-bold text-white flex items-center gap-2">
                               <span className="material-symbols-outlined text-primary text-xl">person</span>
-                              Personal Information
+                              Contact Information
                             </h3>
                           </div>
                           <button
-                            onClick={() => setCurrentStep(1)}
+                            onClick={() => setCurrentStep(formData.customerType === "business" ? 3 : 2)}
                             className="px-3 py-1.5 text-xs font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
                           >
                             Edit
@@ -940,7 +1325,7 @@ export default function QuotePage() {
                             key={item.label}
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.2 + i * 0.1 }}
+                            transition={{ delay: (formData.customerType === "business" ? 0.25 : 0.2) + i * 0.1 }}
                           >
                             <p className="text-xs text-slate-400 mb-1">{item.label}</p>
                             <p className="text-base font-semibold text-white">{item.value}</p>
@@ -953,7 +1338,7 @@ export default function QuotePage() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: 0.2 }}
+                      transition={{ duration: 0.4, delay: formData.customerType === "business" ? 0.25 : 0.2 }}
                       className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800"
                     >
                       {/* Subtle Pattern Overlay */}
@@ -982,7 +1367,7 @@ export default function QuotePage() {
                             </h3>
                           </div>
                           <button
-                            onClick={() => setCurrentStep(2)}
+                            onClick={() => setCurrentStep(formData.customerType === "business" ? 4 : 3)}
                             className="px-3 py-1.5 text-xs font-medium text-emerald-400 bg-emerald-500/10 rounded-lg hover:bg-emerald-500/20 transition-colors"
                           >
                             Edit
@@ -1089,7 +1474,7 @@ export default function QuotePage() {
                   <div />
                 )}
 
-                {currentStep < 4 ? (
+                {currentStep < totalSteps ? (
                   <motion.button
                     onClick={handleNext}
                     disabled={!canProceed()}
@@ -1139,11 +1524,11 @@ export default function QuotePage() {
             {/* Right: Price Breakdown (sticky on desktop) */}
             <div className="hidden lg:block">
               <AnimatePresence>
-                {currentStep >= 2 && formData.coverageType && priceBreakdown && (
+                {(stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown && (
                   <PriceBreakdown
                     breakdown={priceBreakdown}
                     coverageType={formData.coverageType}
-                    isVisible={currentStep >= 3}
+                    isVisible={stepContent === "coverageDetails" || stepContent === "review"}
                   />
                 )}
               </AnimatePresence>
@@ -1154,7 +1539,7 @@ export default function QuotePage() {
 
       {/* Mobile Price Summary (shows on mobile when price is available) */}
       <AnimatePresence>
-        {currentStep >= 3 && formData.coverageType && priceBreakdown && !isSubmitted && (
+        {(stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown && !isSubmitted && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

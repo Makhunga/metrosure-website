@@ -56,9 +56,9 @@ export async function POST(request: NextRequest) {
     // Generate email content
     const emailHtml = generateEmailTemplate(data);
 
-    // Send notification email to partnerships team
+    // Send notification email to clients team
     const internalEmailResult = await sendEmail({
-      to: emailTo.partnerships,
+      to: emailTo.clients,
       subject: `New Partnership Inquiry: ${data.companyName}`,
       html: emailHtml,
       replyTo: data.email,
@@ -194,7 +194,7 @@ function generateConfirmationEmail(data: PartnerInquiryData): string {
     ${createParagraph("If you have any urgent questions, feel free to contact us:")}
 
     ${createFieldRow("Phone:", createLink("tel:+27313011192", "+27 31 301 1192"))}
-    ${createFieldRow("Email:", createLink("mailto:partnerships@metrosuregroup.co.za", "partnerships@metrosuregroup.co.za"))}
+    ${createFieldRow("Email:", createLink("mailto:clients@metrosuregroup.co.za", "clients@metrosuregroup.co.za"))}
 
     ${createParagraph("We look forward to helping you transform your retail space into a revenue engine!")}
 

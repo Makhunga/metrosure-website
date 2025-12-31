@@ -235,30 +235,42 @@ export default function PartnerInquiryForm() {
     return fieldStates[fieldName] || { touched: false, error: null, valid: false };
   };
 
-  // Step validation
-  const validateStep = (step: number): boolean => {
+  // Check if step is valid (without triggering state updates)
+  const isStepValid = useCallback((step: number): boolean => {
     switch (step) {
       case 0:
-        return !!(formData.companyName && formData.businessType && formData.numberOfLocations && formData.province && formData.city);
+        // Province and city are now optional for national businesses
+        return !!(formData.companyName && formData.businessType && formData.numberOfLocations);
       case 1:
-        const emailValid = validateField("email", formData.email, validateEmail);
-        const phoneValid = validateField("phone", formData.phone, validatePhone);
-        const nameValid = validateField("contactName", formData.contactName, (v) => validateRequired(v, "Name"));
-        const titleValid = validateField("jobTitle", formData.jobTitle, (v) => validateRequired(v, "Job title"));
-        return emailValid && phoneValid && nameValid && titleValid;
+        // Only check validity, don't update state
+        const emailError = validateEmail(formData.email);
+        const phoneError = validatePhone(formData.phone);
+        const nameError = validateRequired(formData.contactName, "Name");
+        const titleError = validateRequired(formData.jobTitle, "Job title");
+        return emailError === null && phoneError === null && nameError === null && titleError === null;
       case 2:
         return formData.privacyConsent;
       default:
         return false;
     }
+  }, [formData]);
+
+  // Validate step and update field states (called on navigation)
+  const validateStepFields = (step: number): boolean => {
+    if (step === 1) {
+      const emailValid = validateField("email", formData.email, validateEmail);
+      const phoneValid = validateField("phone", formData.phone, validatePhone);
+      const nameValid = validateField("contactName", formData.contactName, (v) => validateRequired(v, "Name"));
+      const titleValid = validateField("jobTitle", formData.jobTitle, (v) => validateRequired(v, "Job title"));
+      return emailValid && phoneValid && nameValid && titleValid;
+    }
+    return isStepValid(step);
   };
 
-  const canProceed = (): boolean => {
-    return validateStep(currentStep);
-  };
+  const canProceed = isStepValid(currentStep);
 
   const handleNext = () => {
-    if (canProceed() && currentStep < steps.length - 1) {
+    if (validateStepFields(currentStep) && currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -517,22 +529,23 @@ export default function PartnerInquiryForm() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FloatingSelect
                           name="province"
-                          label="Province"
+                          label="Head Office Province (Optional)"
                           options={provinces}
                           value={formData.province}
-                          required
                           onChange={handleInputChange}
                         />
 
                         <FloatingInput
                           name="city"
-                          label="City/Town"
+                          label="Head Office City (Optional)"
                           value={formData.city}
-                          required
                           onChange={handleInputChange}
                           fieldState={getFieldState("city")}
                         />
                       </div>
+                      <p className="text-xs text-slate-400 dark:text-slate-500 -mt-2">
+                        For national businesses, these fields are optional
+                      </p>
                     </motion.div>
                   )}
 
@@ -737,10 +750,10 @@ export default function PartnerInquiryForm() {
                     <motion.button
                       type="button"
                       onClick={handleNext}
-                      disabled={!canProceed()}
+                      disabled={!canProceed}
                       className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={canProceed() ? { scale: 1.02, y: -1 } : {}}
-                      whileTap={canProceed() ? { scale: 0.98 } : {}}
+                      whileHover={canProceed ? { scale: 1.02, y: -1 } : {}}
+                      whileTap={canProceed ? { scale: 0.98 } : {}}
                     >
                       Continue
                       <span className="material-symbols-outlined text-xl">arrow_forward</span>
@@ -748,10 +761,10 @@ export default function PartnerInquiryForm() {
                   ) : (
                     <motion.button
                       type="submit"
-                      disabled={isSubmitting || !canProceed()}
+                      disabled={isSubmitting || !canProceed}
                       className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={!isSubmitting && canProceed() ? { scale: 1.02, y: -1 } : {}}
-                      whileTap={!isSubmitting && canProceed() ? { scale: 0.98 } : {}}
+                      whileHover={!isSubmitting && canProceed ? { scale: 1.02, y: -1 } : {}}
+                      whileTap={!isSubmitting && canProceed ? { scale: 0.98 } : {}}
                     >
                       {isSubmitting ? (
                         <>

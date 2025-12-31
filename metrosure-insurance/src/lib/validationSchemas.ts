@@ -95,8 +95,12 @@ export type ContactCallbackData = z.infer<typeof contactCallbackSchema>;
 // ============================================
 
 const coverageTypes = ["home", "auto", "life", "business"] as const;
+const customerTypes = ["individual", "business"] as const;
+const businessTypes = ["retail", "franchise", "manufacturing", "services", "hospitality", "healthcare", "other"] as const;
+const employeeRanges = ["1-10", "11-50", "51-200", "201-500", "500+"] as const;
 
-export const quoteFormSchema = z.object({
+// Base quote schema without customer type discrimination
+const baseQuoteFields = {
   firstName: requiredString("First name"),
   lastName: requiredString("Last name"),
   email: emailSchema,
@@ -107,9 +111,44 @@ export const quoteFormSchema = z.object({
   deductible: requiredString("Excess"),
   startDate: futureDateSchema,
   additionalCoverage: z.array(z.string()).optional().default([]),
+};
+
+// Individual quote schema
+export const individualQuoteSchema = z.object({
+  ...baseQuoteFields,
+  customerType: z.literal("individual"),
+});
+
+// Business quote schema with additional business fields
+export const businessQuoteSchema = z.object({
+  ...baseQuoteFields,
+  customerType: z.literal("business"),
+  companyName: requiredString("Company name"),
+  businessType: z.enum(businessTypes, { message: "Invalid business type" }),
+  numberOfEmployees: z.enum(employeeRanges, { message: "Please select employee range" }),
+  industry: optionalString,
+});
+
+// Combined quote form schema using discriminated union
+export const quoteFormSchema = z.discriminatedUnion("customerType", [
+  individualQuoteSchema,
+  businessQuoteSchema,
+]);
+
+// Legacy schema for backwards compatibility (optional, for existing submissions)
+export const legacyQuoteFormSchema = z.object({
+  ...baseQuoteFields,
+  customerType: z.enum(customerTypes).optional().default("individual"),
+  companyName: optionalString,
+  businessType: z.enum([...businessTypes, ""]).optional(),
+  numberOfEmployees: z.enum([...employeeRanges, ""]).optional(),
+  industry: optionalString,
 });
 
 export type QuoteFormData = z.infer<typeof quoteFormSchema>;
+export type IndividualQuoteData = z.infer<typeof individualQuoteSchema>;
+export type BusinessQuoteData = z.infer<typeof businessQuoteSchema>;
+export type LegacyQuoteFormData = z.infer<typeof legacyQuoteFormSchema>;
 
 // ============================================
 // PARTNER INQUIRY SCHEMA

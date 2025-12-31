@@ -77,13 +77,16 @@ const MAX_MESSAGE_CHARS = 2000;
 
 // Message form topic options (including B2B)
 const messageTopics = [
-  { value: "general", label: "General Inquiry" },
-  { value: "claim-status", label: "Claim Status" },
-  { value: "retail-partnership", label: "Retail Partnership (B2B)" },
-  { value: "business-insurance", label: "Business Insurance (B2B)" },
-  { value: "employee-benefits", label: "Employee Benefits (B2B)" },
-  { value: "feedback", label: "Feedback" },
+  { value: "general", label: "General Inquiry", isB2B: false },
+  { value: "claim-status", label: "Claim Status", isB2B: false },
+  { value: "retail-partnership", label: "Retail Partnership (B2B)", isB2B: true },
+  { value: "business-insurance", label: "Business Insurance (B2B)", isB2B: true },
+  { value: "employee-benefits", label: "Employee Benefits (B2B)", isB2B: true },
+  { value: "feedback", label: "Feedback", isB2B: false },
 ];
+
+// B2B topic values for easy checking
+const b2bTopics = messageTopics.filter(t => t.isB2B).map(t => t.value);
 
 export default function ContactForm() {
   const [activeTab, setActiveTab] = useState<ContactTab>("message");
@@ -92,12 +95,16 @@ export default function ContactForm() {
   const [callbackReason, setCallbackReason] = useState("");
   const [otherReason, setOtherReason] = useState("");
   const [messageContent, setMessageContent] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("general");
   const [formState, setFormState] = useState<FormState>({ isSubmitting: false, error: null });
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const ref = useRef(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const cbNameRef = useRef<HTMLInputElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  // Check if current topic is B2B
+  const isB2BTopic = b2bTopics.includes(selectedTopic);
 
   // Update field validation state
   const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
@@ -123,6 +130,7 @@ export default function ContactForm() {
     setActiveTab(tab);
     setFieldStates({});
     setMessageContent("");
+    setSelectedTopic("general");
     setFormState({ isSubmitting: false, error: null });
   };
 
@@ -139,6 +147,9 @@ export default function ContactForm() {
     const name = formData.get("name") as string || "";
     const email = formData.get("email") as string || "";
     const message = formData.get("message") as string || "";
+    const companyName = formData.get("companyName") as string || "";
+    const topic = formData.get("subject") as string || "";
+    const topicIsB2B = b2bTopics.includes(topic);
 
     let isValid = true;
     const newFieldStates: FieldStates = {};
@@ -153,6 +164,13 @@ export default function ContactForm() {
     newFieldStates.email = { touched: true, error: emailError, valid: !emailError && email.length > 0 };
     if (emailError) isValid = false;
 
+    // Validate company name (required for B2B topics)
+    if (topicIsB2B) {
+      const companyError = validateRequired(companyName, "Company name");
+      newFieldStates.companyName = { touched: true, error: companyError, valid: !companyError && companyName.length > 0 };
+      if (companyError) isValid = false;
+    }
+
     // Validate message
     const messageError = validateRequired(message, "Message");
     newFieldStates.message = { touched: true, error: messageError, valid: !messageError && message.length > 0 };
@@ -164,6 +182,7 @@ export default function ContactForm() {
     if (!isValid) {
       if (nameError) nameRef.current?.focus();
       else if (emailError) document.getElementById("email")?.focus();
+      else if (topicIsB2B && newFieldStates.companyName?.error) document.getElementById("companyName")?.focus();
       else if (messageError) document.getElementById("message")?.focus();
     }
 
@@ -504,7 +523,13 @@ export default function ContactForm() {
                           Topic
                         </label>
                         <div className="relative">
-                          <select className={`${inputClasses} appearance-none pr-12`} id="subject" name="subject">
+                          <select
+                            className={`${inputClasses} appearance-none pr-12`}
+                            id="subject"
+                            name="subject"
+                            value={selectedTopic}
+                            onChange={(e) => setSelectedTopic(e.target.value)}
+                          >
                             {messageTopics.map((topic) => (
                               <option key={topic.value} value={topic.value}>
                                 {topic.label}
@@ -522,15 +547,32 @@ export default function ContactForm() {
                         transition={{ delay: 0.22 }}
                       >
                         <label className={labelClasses} htmlFor="companyName">
-                          Company Name <span className="text-slate-400 font-normal normal-case">(optional - for business enquiries)</span>
+                          Company Name{" "}
+                          {isB2BTopic ? (
+                            <span className="text-primary font-normal normal-case">(required for B2B)</span>
+                          ) : (
+                            <span className="text-slate-400 font-normal normal-case">(optional)</span>
+                          )}
                         </label>
-                        <input
-                          className={inputClasses}
-                          id="companyName"
-                          name="companyName"
-                          placeholder="Your company or store name"
-                          type="text"
-                        />
+                        <div className="relative">
+                          {isB2BTopic && (
+                            <InputIcon
+                              icon="business"
+                              valid={getFieldState("companyName").valid}
+                              touched={getFieldState("companyName").touched}
+                            />
+                          )}
+                          <input
+                            className={isB2BTopic ? getInputClasses("companyName") : inputClasses}
+                            id="companyName"
+                            name="companyName"
+                            placeholder={isB2BTopic ? "Your company name (required)" : "Your company or store name"}
+                            type="text"
+                            aria-required={isB2BTopic}
+                            onBlur={isB2BTopic ? (e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name")) : undefined}
+                          />
+                        </div>
+                        {isB2BTopic && <InlineError error={getFieldState("companyName").error} id="companyName-error" />}
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}

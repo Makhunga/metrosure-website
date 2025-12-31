@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 55)
+**Updated:** December 31, 2025 (Session 57)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,100 @@
 
 - **Routes:** 40 (36 pages + 4 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 57 (Dec 31, 2025)
+
+### Focus: B2B Form Enhancement & Navigation Updates
+
+Major B2B UX improvements across forms, navigation, and help centre.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Quote form: Added Customer Type step (Individual/Business) | `src/app/quote/page.tsx` |
+| Quote form: Added Business Info step (company, type, employees, industry) | `src/app/quote/page.tsx` |
+| Quote form: Dynamic 5/6 step wizard based on customer type | `src/app/quote/page.tsx` |
+| Quote API: B2B detection and email routing to clients@ | `src/app/api/quote/route.ts` |
+| Validation: Added discriminated union schemas for B2B | `src/lib/validationSchemas.ts` |
+| Contact form: Conditional required company name for B2B topics | `src/components/contact/ContactForm.tsx` |
+| Contact API: B2B email routing to clients@ | `src/app/api/contact/route.ts` |
+| Header: Added "B2B" badge to Partners link | `src/components/Header.tsx` |
+| Footer: Added B2B Services section (4 services) | `src/components/Footer.tsx` |
+| Help Centre: Added B2B Services category | `src/app/help/page.tsx` |
+| Help Centre: Added 4 B2B FAQs (In-Store, Device Leasing, Call Centre, Sales) | `src/app/help/page.tsx` |
+
+### Quote Form Changes
+- **Step 1 (NEW):** Customer Type selection (Personal/Business cards)
+- **Step 2 (NEW for Business):** Business Info (company name, business type dropdown, employee count, industry)
+- **Dynamic steps:** Individual = 5 steps, Business = 6 steps
+- **Business Quote Benefits:** Callout showing dedicated account management, group rates
+
+### Email Routing
+| Inquiry Type | Routed To |
+|--------------|-----------|
+| Individual quotes | info@metrosuregroup.co.za |
+| Business quotes | clients@metrosuregroup.co.za |
+| B2B contact topics | clients@metrosuregroup.co.za |
+| General contact | info@metrosuregroup.co.za |
+
+### B2B Contact Topics
+- Retail Partnership (B2B)
+- Business Insurance (B2B)
+- Employee Benefits (B2B)
+
+### Help Centre Additions
+**New Category:** B2B Services
+- In-Store Campaign partnerships
+- Sales & Marketing support
+- Device Leasing program
+- Call Centre Services
+
+**New FAQs:**
+1. What is the In-Store Campaign program?
+2. How does the Device Leasing program work?
+3. What Call Centre Services does Metrosure offer?
+4. Can Metrosure help with sales and marketing?
+
+### Performance Analysis
+| Metric | Value | Status |
+|--------|-------|--------|
+| CLS | 0.00 | ✅ Excellent |
+| LCP (dev) | 3014ms | ⚠️ Dev mode |
+| DOM Size | 810 elements | ✅ Reasonable |
+| Render Blocking | 30ms CSS | ✅ Minimal |
+
+Note: LCP render delay (2.7s) is due to React hydration + Framer Motion in dev mode. Production with CDN caching would be significantly faster.
+
+### Build Status
+- Build passing with 40 routes
+- Sitemap generated successfully
+
+---
+
+## SESSION 56 (Dec 31, 2025)
+
+### Focus: Visual Polish & UI Refinements
+
+Partners page UX improvements and section dividers for visual hierarchy.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Reduced spacing between testimonials and CTA (pt-28/pb-16) | `src/components/partners/PartnerTestimonials.tsx` |
+| Hide testimonial slider arrows on mobile (keep dots for touch) | `src/components/partners/PartnerTestimonials.tsx` |
+| Changed email from partnerships@ to clients@metrosuregroup.co.za | `src/lib/email.ts`, `src/app/api/partner-inquiry/route.ts` |
+| Removed red dot entirely from B2B badge | `src/components/partners/PartnersHero.tsx` |
+| Removed red dot from Features "What we can do" badge | `src/components/Features.tsx` |
+
+### Email Change
+- `partnerships@metrosuregroup.co.za` → `clients@metrosuregroup.co.za`
+- Updated in email config and partner-inquiry API route
+
+### Build Status
+- Build passing with 40 routes
+- Sitemap generated successfully
 
 ---
 
@@ -346,6 +440,8 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S57 | **B2B Forms & Navigation:** Quote form B2B wizard, Contact B2B fields, Header/Footer B2B, Help FAQs |
+| S56 | **Visual Polish:** Testimonial arrows mobile, email rename, red dots removed |
 | S55 | **Homepage B2B Enhancement:** 2 new B2B cards, QuoteCTABanner component, 6-card grid |
 | S54 | **Content Audit:** 2016→2013 fixes (8 files), business page B2B stats, meta updates |
 | S53 | **Visual QA & Fixes:** CFO placeholder avatar, dark mode colors, FAQ touch targets |

@@ -27,7 +27,7 @@ function getResend(): Resend | null {
 
 // Email addresses
 const EMAIL_INFO = 'info@metrosuregroup.co.za';
-const EMAIL_PARTNERSHIPS = 'partnerships@metrosuregroup.co.za';
+const EMAIL_CLIENTS = 'clients@metrosuregroup.co.za';
 const EMAIL_CAREERS = 'careers@metrosuregroup.co.za';
 
 // For development/testing, use Resend's test email
@@ -88,7 +88,7 @@ export async function sendEmail({ to, subject, html, replyTo, attachments }: Sen
 // Pre-configured email senders for different purposes
 export const emailTo = {
   info: EMAIL_INFO,
-  partnerships: EMAIL_PARTNERSHIPS,
+  clients: EMAIL_CLIENTS,
   careers: EMAIL_CAREERS,
 };
 

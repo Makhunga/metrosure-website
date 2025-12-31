@@ -12,7 +12,7 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
-import { quoteFormSchema, formatZodErrorsDetailed, type QuoteFormData } from "@/lib/validationSchemas";
+import { legacyQuoteFormSchema, formatZodErrorsDetailed, type LegacyQuoteFormData } from "@/lib/validationSchemas";
 import {
   validationError,
   emailUnavailableError,
@@ -23,12 +23,23 @@ import {
 } from "@/lib/errors";
 
 type CoverageType = "home" | "auto" | "life" | "business";
+type CustomerType = "individual" | "business";
 
 const coverageTypeLabels: Record<CoverageType, string> = {
   home: "Home & Property",
   auto: "Auto & Vehicle",
   life: "Life & Health",
   business: "Business Insurance",
+};
+
+const businessTypeLabels: Record<string, string> = {
+  retail: "Retail Store",
+  franchise: "Franchise",
+  manufacturing: "Manufacturing",
+  services: "Professional Services",
+  hospitality: "Hospitality",
+  healthcare: "Healthcare",
+  other: "Other",
 };
 
 const additionalCoverageLabels: Record<string, string> = {
@@ -82,7 +93,7 @@ export async function POST(request: NextRequest) {
     const rawData = await request.json();
 
     // Validate with Zod schema (includes future date validation)
-    const parseResult = quoteFormSchema.safeParse(rawData);
+    const parseResult = legacyQuoteFormSchema.safeParse(rawData);
     if (!parseResult.success) {
       const error = validationError(formatZodErrorsDetailed(parseResult.error));
       return NextResponse.json(
@@ -93,14 +104,22 @@ export async function POST(request: NextRequest) {
 
     const data = parseResult.data;
 
+    // Determine if this is a B2B quote
+    const isB2B = data.customerType === "business";
+
     // Generate and send email to Metrosure team
     const internalEmailHtml = generateInternalEmail(data);
     const confirmationEmailHtml = generateConfirmationEmail(data);
 
+    // Route B2B quotes to clients email, individual quotes to info
+    const emailRecipient = isB2B ? emailTo.clients : emailTo.info;
+    const subjectPrefix = isB2B ? "[B2B] " : "";
+    const companyNote = isB2B && data.companyName ? ` (${data.companyName})` : "";
+
     // Send internal notification
     const internalEmailResult = await sendEmail({
-      to: emailTo.info,
-      subject: `Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}`,
+      to: emailRecipient,
+      subject: `${subjectPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
       html: internalEmailHtml,
       replyTo: data.email,
     });
@@ -153,16 +172,29 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateInternalEmail(data: QuoteFormData): string {
+function generateInternalEmail(data: LegacyQuoteFormData): string {
   const additionalCoverageItems = data.additionalCoverage
     .map((id) => additionalCoverageLabels[id] || id)
     .filter(Boolean);
 
+  const isB2B = data.customerType === "business";
+  const headerSubtitle = isB2B
+    ? `B2B ${coverageTypeLabels[data.coverageType]} Insurance - ${data.companyName}`
+    : `${coverageTypeLabels[data.coverageType]} Insurance`;
+
   const content = `
-    ${createEmailHeader("New Quote Request", `${coverageTypeLabels[data.coverageType]} Insurance`)}
+    ${createEmailHeader(isB2B ? "New B2B Quote Request" : "New Quote Request", headerSubtitle)}
+
+    ${isB2B && data.companyName ? createSection(`
+      ${createSectionTitle("Business Details")}
+      ${createFieldRow("Company:", data.companyName)}
+      ${data.businessType ? createFieldRow("Business Type:", businessTypeLabels[data.businessType] || data.businessType) : ""}
+      ${data.numberOfEmployees ? createFieldRow("Employees:", data.numberOfEmployees) : ""}
+      ${data.industry ? createFieldRow("Industry:", data.industry) : ""}
+    `) : ""}
 
     ${createSection(`
-      ${createSectionTitle("Customer Details")}
+      ${createSectionTitle(isB2B ? "Contact Person" : "Customer Details")}
       ${createFieldRow("Name:", `${data.firstName} ${data.lastName}`)}
       ${createFieldRow("Email:", createLink(`mailto:${data.email}`, data.email))}
       ${createFieldRow("Phone:", createLink(`tel:${data.phone}`, data.phone))}
@@ -182,16 +214,23 @@ function generateInternalEmail(data: QuoteFormData): string {
       ${createBulletList(additionalCoverageItems)}
     `) : ""}
 
-    ${createAlertBox("<strong>Action Required:</strong> Please prepare a quote and contact this customer within 24 hours.", "warning")}
+    ${createAlertBox(
+      isB2B
+        ? "<strong>B2B Quote:</strong> This is a business inquiry. Please assign to the B2B team and respond within 24 hours."
+        : "<strong>Action Required:</strong> Please prepare a quote and contact this customer within 24 hours.",
+      isB2B ? "info" : "warning"
+    )}
   `;
 
-  return wrapEmailTemplate(content, "New Quote Request");
+  return wrapEmailTemplate(content, isB2B ? "New B2B Quote Request" : "New Quote Request");
 }
 
-function generateConfirmationEmail(data: QuoteFormData): string {
+function generateConfirmationEmail(data: LegacyQuoteFormData): string {
   const additionalCoverageItems = data.additionalCoverage
     .map((id) => additionalCoverageLabels[id] || id)
     .filter(Boolean);
+
+  const isB2B = data.customerType === "business";
 
   const content = `
     ${createEmailHeader("Quote Request Received", "Thank you for choosing Metrosure")}
@@ -201,7 +240,9 @@ function generateConfirmationEmail(data: QuoteFormData): string {
         Dear ${data.firstName},
       </p>
       <p style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #333333; line-height: 1.6; margin: 0 0 15px 0;">
-        Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance with Metrosure Insurance Brokers. We've received your quote request and a licensed insurance advisor will be in touch within 24 hours.
+        ${isB2B
+          ? `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance for ${data.companyName || "your business"} with Metrosure Insurance Brokers. We've received your quote request and a dedicated B2B account manager will be in touch within 24 hours.`
+          : `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance with Metrosure Insurance Brokers. We've received your quote request and a licensed insurance advisor will be in touch within 24 hours.`}
       </p>
     `)}
 

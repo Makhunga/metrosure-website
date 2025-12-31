@@ -14,4 +14,5 @@ export { default as PartnerLogos } from "./PartnerLogos";
 export { default as Footer } from "./Footer";
 export { default as ScrollToTop } from "./ScrollToTop";
 export { default as SectionDivider } from "./SectionDivider";
+export { default as SquigglyDivider } from "./SquigglyDivider";
 export { ThemeProvider, useTheme } from "./theme-provider";

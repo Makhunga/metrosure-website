@@ -78,6 +78,18 @@ const categories = [
       { title: "Contact our partnerships team", href: "/contact" },
     ],
   },
+  {
+    id: "b2b-services",
+    icon: "business_center",
+    title: "B2B Services",
+    description: "Explore our business-to-business solutions.",
+    articles: [
+      { title: "In-Store Campaign partnerships", href: "/partners" },
+      { title: "Sales & Marketing support", href: "/partners" },
+      { title: "Device Leasing program", href: "/partners" },
+      { title: "Call Centre Services", href: "/partners" },
+    ],
+  },
 ];
 
 const popularQuestions = [
@@ -119,6 +131,26 @@ const popularQuestions = [
   {
     question: "What are the benefits of partnering with Metrosure?",
     answer: "Partners earn commission on every policy sold from their location, create local employment opportunities, and add a new revenue stream with zero overhead. We provide full training, compliance support, and dedicated partnership managers.",
+    link: "/partners",
+  },
+  {
+    question: "What is the In-Store Campaign program?",
+    answer: "Our In-Store Campaign program places trained Metrosure sales representatives at your retail location to sell insurance products to your customers. You earn commission on every policy sold while we handle all staffing, training, and compliance. It's a zero-overhead revenue stream for your business.",
+    link: "/partners",
+  },
+  {
+    question: "How does the Device Leasing program work?",
+    answer: "We provide all necessary devices and equipment for insurance sales at your location at no upfront cost. This includes tablets, point-of-sale systems, and promotional materials. Equipment is maintained and upgraded by Metrosure, ensuring your sales team always has the latest tools.",
+    link: "/partners",
+  },
+  {
+    question: "What Call Centre Services does Metrosure offer?",
+    answer: "Our dedicated call centre handles customer inquiries, policy administration, and claims support on behalf of our partners. This means you can offer insurance products without needing to build your own support infrastructure. We provide white-label services that integrate seamlessly with your brand.",
+    link: "/partners",
+  },
+  {
+    question: "Can Metrosure help with sales and marketing?",
+    answer: "Yes! Our Sales & Marketing support includes trained staff deployment, branded promotional materials, marketing campaigns, and lead generation strategies tailored to your customer base. We work with you to develop effective insurance sales strategies that complement your existing business.",
     link: "/partners",
   },
 ];
@@ -255,7 +287,7 @@ export default function HelpPage() {
             Browse by Topic
           </motion.h2>
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={containerVariants}
             initial="hidden"
             animate={categoriesInView ? "visible" : "hidden"}
