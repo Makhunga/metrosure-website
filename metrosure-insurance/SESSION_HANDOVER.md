@@ -31,6 +31,7 @@ Documentation fixes, legal page B2B content additions, and partner logo integrat
 | Added B2B scope clarification to Legal Information FSP disclosure | `src/app/legal/page.tsx` |
 | Added TFG and Bolttech logos to PartnerLogos component | `src/components/PartnerLogos.tsx` |
 | Copied TFG/Bolttech SVG logos to public folder | `public/images/partners/` |
+| Added PartnerLogos to homepage (dev-only, hidden on Vercel) | `src/app/page.tsx` |
 
 ### Legal Page B2B Additions
 **Privacy Policy (Section 3):** B2B Services Data Handling
@@ -57,6 +58,7 @@ Documentation fixes, legal page B2B content additions, and partner logo integrat
 - Grayscale-to-colour hover effect
 - Dark mode support with brightness/invert filters
 - Hover tooltips with partner descriptions
+- **Dev-only:** Hidden on Vercel production (`NODE_ENV === "development"`)
 
 ### Build Status
 - Build passing with 40 routes
