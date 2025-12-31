@@ -139,11 +139,11 @@ export default function PartnerFAQ() {
               <span>+27 31 301 1192</span>
             </a>
             <a
-              href="mailto:partnerships@metrosuregroup.co.za"
+              href="mailto:clients@metrosuregroup.co.za"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-[rgb(var(--color-border-light))] rounded-xl text-[rgb(var(--color-text-main))] font-medium hover:border-primary hover:text-primary transition-colors"
             >
               <span className="material-symbols-outlined text-xl">mail</span>
-              <span>partnerships@metrosuregroup.co.za</span>
+              <span>clients@metrosuregroup.co.za</span>
             </a>
           </div>
         </motion.div>

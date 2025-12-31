@@ -56,19 +56,29 @@ export default function PartnerTestimonials() {
   return (
     <section
       ref={sectionRef}
-      className="pt-28 md:pt-36 pb-16 md:pb-20 bg-[#f5f5f7] dark:bg-slate-900 transition-colors duration-300 relative"
+      className="pt-28 md:pt-36 pb-16 md:pb-20 bg-[#f5f5f7] dark:bg-slate-900 transition-colors duration-300 relative overflow-hidden"
     >
+      {/* Decorative watermark */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 top-8 md:top-12 text-[8rem] md:text-[12rem] lg:text-[14rem] font-black text-slate-200/60 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+        initial={{ opacity: 0, y: -20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
+      >
+        Success
+      </motion.div>
+
       {/* Full-width container for navigation buttons */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
         {/* Title */}
         <motion.h2
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white text-center mb-20 tracking-tight"
+          className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white text-center mb-20 tracking-tight relative z-10"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Client success stories
+          Client Success Stories
         </motion.h2>
 
         {/* Testimonial Wrapper with quote marks */}

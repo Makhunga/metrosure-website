@@ -340,9 +340,19 @@ export default function PartnerInquiryForm() {
     <section
       ref={ref}
       id="partner-inquiry"
-      className="relative py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors duration-300"
+      className="relative py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors duration-300 overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Decorative watermark */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 top-4 md:top-8 text-[7rem] md:text-[10rem] lg:text-[12rem] font-black text-slate-200/50 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+        initial={{ opacity: 0, y: -20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
+      >
+        Partner
+      </motion.div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

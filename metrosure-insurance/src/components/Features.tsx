@@ -104,7 +104,7 @@ export default function Features() {
   return (
     <section
       ref={sectionRef}
-      className="py-28 bg-[rgb(var(--color-surface-card))] relative transition-colors duration-300 overflow-hidden"
+      className="pt-28 pb-16 bg-[rgb(var(--color-surface-card))] relative transition-colors duration-300 overflow-hidden"
     >
       {/* Background image - blended for light/dark modes */}
       <div

@@ -76,7 +76,7 @@ export default function WhyChooseUs() {
   return (
     <section
       ref={sectionRef}
-      className="py-32 bg-[rgb(var(--color-surface-card))] transition-colors duration-300 relative overflow-hidden"
+      className="pt-20 pb-32 bg-[rgb(var(--color-surface-card))] transition-colors duration-300 relative overflow-hidden"
     >
       {/* Subtle background image */}
       <div
