@@ -3,96 +3,26 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { HoverCard } from "@/components/animations";
+import { corporateServices } from "@/data/corporateServices";
 
-const services = [
-  {
-    icon: "campaign",
-    title: "In-Store Insurance Campaigns",
-    description: "We deploy trained sales representatives directly at your retail locations. Our teams engage customers, explain insurance products, and handle the entire sales process.",
-    features: [
-      "Dedicated sales teams at your location",
-      "Full product training provided",
-      "Customer engagement strategies",
-      "Performance tracking & reporting"
-    ],
-    highlight: "Most Popular"
-  },
-  {
-    icon: "groups",
-    title: "Outsourced Sales & Marketing",
-    description: "Let us handle your insurance sales division entirely. From recruitment to training to performance management, we become your in-house insurance arm.",
-    features: [
-      "End-to-end sales management",
-      "Staff recruitment & training",
-      "Marketing collateral provided",
-      "Ongoing performance coaching"
-    ],
-    highlight: null
-  },
-  {
-    icon: "credit_card",
-    title: "In-Store Credit Facility",
-    description: "Enable your customers to access credit products alongside their purchases. We handle compliance, applications, and disbursements seamlessly.",
-    features: [
-      "Quick credit assessments",
-      "Compliant lending processes",
-      "Integration with your POS",
-      "Customer support included"
-    ],
-    highlight: null
-  },
-  {
-    icon: "devices",
-    title: "Device Leasing",
-    description: "Offer your customers cell phone and device leasing directly at point of sale. We manage the full leasing process while you earn commission on every deal.",
-    features: [
-      "Cell phone & device financing",
-      "Quick approval process",
-      "Commission on every lease",
-      "Full compliance handled"
-    ],
-    highlight: null
-  },
-  {
-    icon: "verified_user",
-    title: "Device Insurance",
-    description: "Protect your customers' financed devices with comprehensive insurance coverage. Seamlessly integrated with device sales for maximum uptake.",
-    features: [
-      "Screen damage protection",
-      "Theft & loss coverage",
-      "Easy claims process",
-      "Bundled with device leasing"
-    ],
-    highlight: null
-  },
-  {
-    icon: "headset_mic",
-    title: "Call Centre Services",
-    description: "Leverage our inhouse call centre for lead generation, customer acquisition, and growing your financial services book with quality clientele.",
-    features: [
-      "Lead calling (warm & hot leads)",
-      "Cold calling for acquisition",
-      "Quality assurance (95% average)",
-      "Data-driven customer profiling"
-    ],
-    highlight: "New"
-  }
-];
-
-export default function ValueProposition() {
+export default function CorporateServices() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section ref={ref} className="relative py-24 section-warm transition-colors duration-300 overflow-hidden">
-      {/* Decorative watermark - left aligned like "THE TEAM" on About page */}
+    <section
+      ref={ref}
+      id="corporate-services"
+      className="relative py-24 section-warm transition-colors duration-300 overflow-hidden"
+    >
+      {/* Decorative watermark - left aligned */}
       <motion.div
         className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
         initial={{ opacity: 0, x: -20 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        Partnership Models
+        Corporate Services
       </motion.div>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -109,7 +39,7 @@ export default function ValueProposition() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
           >
-            Six Ways We Partner With Retailers
+            Six Employee Benefit Solutions
           </motion.h2>
           <motion.p
             className="text-xl text-[rgb(var(--color-text-body))] max-w-3xl mx-auto"
@@ -117,16 +47,16 @@ export default function ValueProposition() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.4 }}
           >
-            Flexible partnership models designed for your business. From in-store campaigns to call centre
-            services, choose what works best for your retail environment.
+            Comprehensive packages designed to protect your employees and their families.
+            From healthcare to retirement, we handle the complexity so you can focus on your business.
           </motion.p>
         </motion.div>
 
         {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {corporateServices.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.id}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
@@ -135,8 +65,8 @@ export default function ValueProposition() {
                 <div className="relative h-full p-8 rounded-2xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-all duration-300 hover:shadow-xl group">
                   {/* Highlight Badge */}
                   {service.highlight && (
-                    <div className="absolute -top-3 left-8 px-3 py-1 rounded-full bg-primary text-white text-xs font-bold">
-                      {service.highlight}
+                    <div className="absolute -top-3 left-8 px-3 py-1 rounded-full bg-primary text-white text-xs font-bold capitalize">
+                      {service.highlight === "popular" ? "Most Popular" : "New"}
                     </div>
                   )}
 
@@ -196,7 +126,7 @@ export default function ValueProposition() {
           ))}
         </div>
 
-        {/* Corporate Solutions Mention */}
+        {/* Partners Mention */}
         <motion.div
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -204,14 +134,14 @@ export default function ValueProposition() {
           transition={{ delay: 0.8 }}
         >
           <p className="text-[rgb(var(--color-text-body))] mb-4">
-            Looking for corporate employee benefits solutions? We also offer Group Medical Aid,
-            Group Retirement Funds, and Employee Benefits packages.
+            Looking for retail partnership opportunities instead? We also offer in-store campaigns,
+            device leasing, and call centre services for retailers.
           </p>
           <a
-            href="/corporate"
+            href="/partners"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
           >
-            Explore our corporate solutions
+            Explore B2B retail partnerships
             <span className="material-symbols-outlined text-lg">arrow_forward</span>
           </a>
         </motion.div>

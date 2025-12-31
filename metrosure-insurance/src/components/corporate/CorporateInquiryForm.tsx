@@ -1,0 +1,898 @@
+"use client";
+
+import { useState, useRef, useCallback, Fragment } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { FormSuccess } from "@/components/ui/FormSuccess";
+import { InlineError } from "@/components/ui/InlineError";
+import {
+  FieldState,
+  FieldStates,
+  validateEmail,
+  validatePhone,
+  validateRequired,
+} from "@/lib/formValidation";
+import {
+  employeeCountOptions,
+  serviceInterestOptions,
+} from "@/data/corporateServices";
+
+// Floating label input classes - shared by both components
+const floatingInputClasses =
+  "peer w-full pt-6 pb-3 px-4 border-2 border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-transparent";
+
+// Floating input component
+interface FloatingInputProps {
+  name: string;
+  label: string;
+  type?: string;
+  value: string;
+  required?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  fieldState: FieldState;
+}
+
+function FloatingInput({
+  name,
+  label,
+  type = "text",
+  value,
+  required = false,
+  onChange,
+  onBlur,
+  fieldState,
+}: FloatingInputProps) {
+  return (
+    <div className="relative">
+      <input
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        placeholder={label}
+        required={required}
+        className={`${floatingInputClasses} ${fieldState.error ? "border-red-400 dark:border-red-400" : ""}`}
+        aria-required={required}
+        aria-invalid={fieldState.error ? "true" : undefined}
+        aria-describedby={fieldState.error ? `${name}-error` : undefined}
+      />
+      <label
+        htmlFor={name}
+        className="absolute left-4 top-2 text-xs text-slate-400 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary"
+      >
+        {label} {required && <span className="text-primary">*</span>}
+      </label>
+      <InlineError error={fieldState.error} id={`${name}-error`} />
+    </div>
+  );
+}
+
+// Floating select component
+interface FloatingSelectProps {
+  name: string;
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  required?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+function FloatingSelect({
+  name,
+  label,
+  options,
+  value,
+  required = false,
+  onChange,
+}: FloatingSelectProps) {
+  return (
+    <div className="relative">
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className={`${floatingInputClasses} appearance-none cursor-pointer ${value ? "pt-6 pb-3" : "py-4"}`}
+      >
+        <option value="">{label}</option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      {value && (
+        <label className="absolute left-4 top-2 text-xs text-slate-400">
+          {label} {required && <span className="text-primary">*</span>}
+        </label>
+      )}
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+        <span className="material-symbols-outlined">expand_more</span>
+      </div>
+    </div>
+  );
+}
+
+interface FormData {
+  // Company Information
+  companyName: string;
+  industry: string;
+  employeeCount: string;
+  // Contact Information
+  contactName: string;
+  jobTitle: string;
+  email: string;
+  phone: string;
+  // Services Interested
+  servicesInterested: string[];
+  // Additional Information
+  currentBenefits: string;
+  message: string;
+  // Consent
+  marketingConsent: boolean;
+  privacyConsent: boolean;
+}
+
+const initialFormData: FormData = {
+  companyName: "",
+  industry: "",
+  employeeCount: "",
+  contactName: "",
+  jobTitle: "",
+  email: "",
+  phone: "",
+  servicesInterested: [],
+  currentBenefits: "",
+  message: "",
+  marketingConsent: false,
+  privacyConsent: false,
+};
+
+const industries = [
+  { value: "manufacturing", label: "Manufacturing" },
+  { value: "retail", label: "Retail" },
+  { value: "financial-services", label: "Financial Services" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "technology", label: "Technology" },
+  { value: "construction", label: "Construction" },
+  { value: "hospitality", label: "Hospitality" },
+  { value: "professional-services", label: "Professional Services" },
+  { value: "education", label: "Education" },
+  { value: "other", label: "Other" },
+];
+
+const currentBenefitsOptions = [
+  { value: "none", label: "No current benefits" },
+  { value: "basic", label: "Basic medical aid only" },
+  { value: "medical-retirement", label: "Medical aid and retirement fund" },
+  { value: "comprehensive", label: "Comprehensive package" },
+  { value: "reviewing", label: "Currently reviewing/changing providers" },
+];
+
+const MAX_MESSAGE_CHARS = 2000;
+
+// Step configuration
+const steps = [
+  { id: 0, title: "Company", icon: "apartment" },
+  { id: 1, title: "Contact", icon: "person" },
+  { id: 2, title: "Services", icon: "health_and_safety" },
+];
+
+export default function CorporateInquiryForm() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [fieldStates, setFieldStates] = useState<FieldStates>({});
+  const [currentStep, setCurrentStep] = useState(0);
+
+  // Validate a field and update state
+  const validateField = useCallback(
+    (
+      fieldName: string,
+      value: string,
+      validator: (val: string) => string | null
+    ) => {
+      const error = validator(value);
+      setFieldStates((prev) => ({
+        ...prev,
+        [fieldName]: {
+          touched: true,
+          error,
+          valid: error === null && value.length > 0,
+        },
+      }));
+      return error === null;
+    },
+    []
+  );
+
+  // Get field state helper
+  const getFieldState = (fieldName: string): FieldState => {
+    return (
+      fieldStates[fieldName] || { touched: false, error: null, valid: false }
+    );
+  };
+
+  // Check if step is valid
+  const isStepValid = useCallback(
+    (step: number): boolean => {
+      switch (step) {
+        case 0:
+          return !!(
+            formData.companyName &&
+            formData.industry &&
+            formData.employeeCount
+          );
+        case 1:
+          const emailError = validateEmail(formData.email);
+          const phoneError = validatePhone(formData.phone);
+          const nameError = validateRequired(formData.contactName, "Name");
+          const titleError = validateRequired(formData.jobTitle, "Job title");
+          return (
+            emailError === null &&
+            phoneError === null &&
+            nameError === null &&
+            titleError === null
+          );
+        case 2:
+          return formData.privacyConsent;
+        default:
+          return false;
+      }
+    },
+    [formData]
+  );
+
+  // Validate step and update field states
+  const validateStepFields = (step: number): boolean => {
+    if (step === 1) {
+      const emailValid = validateField("email", formData.email, validateEmail);
+      const phoneValid = validateField("phone", formData.phone, validatePhone);
+      const nameValid = validateField("contactName", formData.contactName, (v) =>
+        validateRequired(v, "Name")
+      );
+      const titleValid = validateField("jobTitle", formData.jobTitle, (v) =>
+        validateRequired(v, "Job title")
+      );
+      return emailValid && phoneValid && nameValid && titleValid;
+    }
+    return isStepValid(step);
+  };
+
+  const canProceed = isStepValid(currentStep);
+
+  const handleNext = () => {
+    if (validateStepFields(currentStep) && currentStep < steps.length - 1) {
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1);
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value, type } = e.target;
+    if (type === "checkbox") {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+    } else if (name === "message" && value.length > MAX_MESSAGE_CHARS) {
+      return;
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleServiceChange = (serviceId: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      servicesInterested: prev.servicesInterested.includes(serviceId)
+        ? prev.servicesInterested.filter((s) => s !== serviceId)
+        : [...prev.servicesInterested, serviceId],
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/corporate-inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to submit inquiry");
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "An error occurred. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormData);
+    setIsSubmitted(false);
+    setError(null);
+    setFieldStates({});
+    setCurrentStep(0);
+  };
+
+  return (
+    <section
+      ref={ref}
+      id="corporate-inquiry"
+      className="relative py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors duration-300 overflow-hidden"
+    >
+      {/* Decorative watermark */}
+      <motion.div
+        className="absolute left-1/2 -translate-x-1/2 top-4 md:top-8 text-[7rem] md:text-[10rem] lg:text-[12rem] font-black text-slate-200/50 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+        initial={{ opacity: 0, y: -20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
+      >
+        Corporate
+      </motion.div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+            Request a Consultation
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            Get Your Benefits Package
+          </h2>
+          <p className="text-lg text-slate-600 dark:text-slate-300">
+            Complete the form below and we&apos;ll contact you within{" "}
+            <strong className="text-slate-900 dark:text-white">
+              24 hours
+            </strong>
+          </p>
+        </motion.div>
+
+        {/* Step Progress Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex items-center justify-center gap-4 mb-12"
+        >
+          {steps.map((step, i) => (
+            <Fragment key={step.id}>
+              <div className="flex flex-col items-center gap-2">
+                <motion.div
+                  className="relative"
+                  animate={i === currentStep ? { scale: [1, 1.05, 1] } : {}}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Pulse ring on active step */}
+                  {i === currentStep && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full border-2 border-primary"
+                      initial={{ scale: 1, opacity: 0.6 }}
+                      animate={{ scale: 1.4, opacity: 0 }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeOut",
+                      }}
+                    />
+                  )}
+                  <motion.div
+                    className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      i < currentStep
+                        ? "bg-emerald-500 text-white shadow-xl shadow-emerald-500/30"
+                        : i === currentStep
+                          ? "bg-primary text-white shadow-xl shadow-primary/40"
+                          : "bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-slate-200 dark:border-slate-600"
+                    }`}
+                  >
+                    <AnimatePresence mode="wait">
+                      {i < currentStep ? (
+                        <motion.span
+                          key="check"
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          exit={{ scale: 0 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 30,
+                          }}
+                          className="material-symbols-outlined text-2xl"
+                        >
+                          check
+                        </motion.span>
+                      ) : (
+                        <motion.span
+                          key="icon"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="material-symbols-outlined text-2xl"
+                        >
+                          {step.icon}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </motion.div>
+                <span
+                  className={`text-xs font-medium transition-colors ${
+                    i <= currentStep
+                      ? "text-slate-900 dark:text-white"
+                      : "text-slate-400"
+                  }`}
+                >
+                  {step.title}
+                </span>
+              </div>
+
+              {/* Connecting line */}
+              {i < steps.length - 1 && (
+                <div className="w-16 sm:w-24 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden -mt-8">
+                  <motion.div
+                    className="h-full bg-emerald-500"
+                    initial={{ width: 0 }}
+                    animate={{ width: i < currentStep ? "100%" : "0%" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+                </div>
+              )}
+            </Fragment>
+          ))}
+        </motion.div>
+
+        {/* Form Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700"
+        >
+          <AnimatePresence mode="wait">
+            {isSubmitted ? (
+              <FormSuccess
+                title="Inquiry Submitted!"
+                description="Thank you for your interest in corporate employee benefits. Our team will review your requirements and contact you within 24 hours with a tailored proposal."
+                buttonText="Submit Another Inquiry"
+                onReset={resetForm}
+                accentColor="green"
+              />
+            ) : (
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {/* Error Message */}
+                {error && (
+                  <motion.div
+                    className="p-4 rounded-xl bg-red-50 dark:bg-red-900/15 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 mb-8"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-lg">
+                        error
+                      </span>
+                      <span>{error}</span>
+                    </div>
+                  </motion.div>
+                )}
+
+                <AnimatePresence mode="wait">
+                  {/* Step 1: Company Information */}
+                  {currentStep === 0 && (
+                    <motion.div
+                      key="step-0"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
+                    >
+                      <div className="mb-8">
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                          Tell us about your company
+                        </h3>
+                        <p className="text-slate-500 dark:text-slate-400">
+                          Help us understand your business so we can design the
+                          right benefits package.
+                        </p>
+                      </div>
+
+                      <FloatingInput
+                        name="companyName"
+                        label="Company Name"
+                        value={formData.companyName}
+                        required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("companyName")}
+                      />
+
+                      <FloatingSelect
+                        name="industry"
+                        label="Industry"
+                        options={industries}
+                        value={formData.industry}
+                        required
+                        onChange={handleInputChange}
+                      />
+
+                      <FloatingSelect
+                        name="employeeCount"
+                        label="Number of Employees"
+                        options={employeeCountOptions.map((opt) => ({
+                          value: opt.value,
+                          label: opt.label,
+                        }))}
+                        value={formData.employeeCount}
+                        required
+                        onChange={handleInputChange}
+                      />
+
+                      <FloatingSelect
+                        name="currentBenefits"
+                        label="Current Benefits Situation (Optional)"
+                        options={currentBenefitsOptions}
+                        value={formData.currentBenefits}
+                        onChange={handleInputChange}
+                      />
+                    </motion.div>
+                  )}
+
+                  {/* Step 2: Contact Information */}
+                  {currentStep === 1 && (
+                    <motion.div
+                      key="step-1"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
+                    >
+                      <div className="mb-8">
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                          Your contact details
+                        </h3>
+                        <p className="text-slate-500 dark:text-slate-400">
+                          We&apos;ll use this information to send your
+                          personalised proposal.
+                        </p>
+                      </div>
+
+                      <FloatingInput
+                        name="contactName"
+                        label="Full Name"
+                        value={formData.contactName}
+                        required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("contactName")}
+                        onBlur={(e) =>
+                          validateField("contactName", e.target.value, (v) =>
+                            validateRequired(v, "Name")
+                          )
+                        }
+                      />
+
+                      <FloatingInput
+                        name="jobTitle"
+                        label="Job Title"
+                        value={formData.jobTitle}
+                        required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("jobTitle")}
+                        onBlur={(e) =>
+                          validateField("jobTitle", e.target.value, (v) =>
+                            validateRequired(v, "Job title")
+                          )
+                        }
+                      />
+
+                      <FloatingInput
+                        name="email"
+                        label="Email Address"
+                        type="email"
+                        value={formData.email}
+                        required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("email")}
+                        onBlur={(e) =>
+                          validateField("email", e.target.value, validateEmail)
+                        }
+                      />
+
+                      <FloatingInput
+                        name="phone"
+                        label="Phone Number"
+                        type="tel"
+                        value={formData.phone}
+                        required
+                        onChange={handleInputChange}
+                        fieldState={getFieldState("phone")}
+                        onBlur={(e) =>
+                          validateField("phone", e.target.value, validatePhone)
+                        }
+                      />
+                    </motion.div>
+                  )}
+
+                  {/* Step 3: Services & Submit */}
+                  {currentStep === 2 && (
+                    <motion.div
+                      key="step-2"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-8"
+                    >
+                      <div className="mb-8">
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                          Benefits you&apos;re interested in
+                        </h3>
+                        <p className="text-slate-500 dark:text-slate-400">
+                          Select the employee benefits you&apos;d like to
+                          explore.
+                        </p>
+                      </div>
+
+                      {/* Service Pills */}
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                          Services you&apos;re interested in
+                        </label>
+                        <div
+                          className="flex flex-wrap gap-3"
+                          role="group"
+                          aria-label="Select services"
+                        >
+                          {serviceInterestOptions.map((service) => (
+                            <button
+                              key={service.id}
+                              type="button"
+                              onClick={() => handleServiceChange(service.id)}
+                              className={`
+                                group relative px-5 py-3 rounded-full text-sm font-medium transition-all duration-300
+                                ${
+                                  formData.servicesInterested.includes(
+                                    service.id
+                                  )
+                                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                                    : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+                                }
+                              `}
+                              aria-pressed={formData.servicesInterested.includes(
+                                service.id
+                              )}
+                            >
+                              <span className="flex items-center gap-2">
+                                {formData.servicesInterested.includes(
+                                  service.id
+                                ) && (
+                                  <motion.span
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    className="material-symbols-outlined text-sm"
+                                  >
+                                    check
+                                  </motion.span>
+                                )}
+                                {service.label}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Message */}
+                      <div className="relative">
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          placeholder="Tell us about your employee benefits requirements..."
+                          rows={4}
+                          className={`${floatingInputClasses} resize-none pt-4`}
+                        />
+                        <div className="flex justify-between items-center mt-2">
+                          <span className="text-xs text-slate-400">
+                            Optional
+                          </span>
+                          <span
+                            className={`text-xs ${formData.message.length >= MAX_MESSAGE_CHARS ? "text-red-500" : "text-slate-400"}`}
+                          >
+                            {formData.message.length}/{MAX_MESSAGE_CHARS}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Consent Checkboxes */}
+                      <div className="space-y-4 pt-4">
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            name="privacyConsent"
+                            checked={formData.privacyConsent}
+                            onChange={handleInputChange}
+                            required
+                            className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0"
+                          />
+                          <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                            I agree to the{" "}
+                            <a
+                              href="/privacy"
+                              className="text-primary hover:underline"
+                            >
+                              Privacy Policy
+                            </a>{" "}
+                            and consent to Metrosure processing my data.{" "}
+                            <span className="text-primary">*</span>
+                          </span>
+                        </label>
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            name="marketingConsent"
+                            checked={formData.marketingConsent}
+                            onChange={handleInputChange}
+                            className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0"
+                          />
+                          <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                            Send me updates about corporate benefits and
+                            industry news.
+                          </span>
+                        </label>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Navigation Buttons */}
+                <div className="flex items-center justify-between mt-10 pt-8 border-t border-slate-100 dark:border-slate-700">
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    disabled={currentStep === 0}
+                    className={`
+                      flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all
+                      ${
+                        currentStep === 0
+                          ? "text-slate-300 dark:text-slate-600 cursor-not-allowed"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                      }
+                    `}
+                  >
+                    <span className="material-symbols-outlined text-xl">
+                      arrow_back
+                    </span>
+                    Back
+                  </button>
+
+                  {currentStep < steps.length - 1 ? (
+                    <motion.button
+                      type="button"
+                      onClick={handleNext}
+                      disabled={!canProceed}
+                      className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      whileHover={canProceed ? { scale: 1.02, y: -1 } : {}}
+                      whileTap={canProceed ? { scale: 0.98 } : {}}
+                    >
+                      Continue
+                      <span className="material-symbols-outlined text-xl">
+                        arrow_forward
+                      </span>
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      type="submit"
+                      disabled={isSubmitting || !canProceed}
+                      className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      whileHover={
+                        !isSubmitting && canProceed ? { scale: 1.02, y: -1 } : {}
+                      }
+                      whileTap={
+                        !isSubmitting && canProceed ? { scale: 0.98 } : {}
+                      }
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <svg
+                            className="animate-spin h-5 w-5"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                              fill="none"
+                            />
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            />
+                          </svg>
+                          <span>Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Submit Inquiry</span>
+                          <span className="material-symbols-outlined text-xl">
+                            send
+                          </span>
+                        </>
+                      )}
+                    </motion.button>
+                  )}
+                </div>
+              </motion.form>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Trust Badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex items-center justify-center gap-8 mt-8 pt-8"
+        >
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            <span className="material-symbols-outlined text-emerald-500 text-lg">
+              verified
+            </span>
+            <span>FSP 47089</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            <span className="material-symbols-outlined text-emerald-500 text-lg">
+              security
+            </span>
+            <span>FSCA Compliant</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            <span className="material-symbols-outlined text-emerald-500 text-lg">
+              schedule
+            </span>
+            <span>24hr Response</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

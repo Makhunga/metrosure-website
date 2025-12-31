@@ -13,6 +13,8 @@ export const rateLimits = {
   careersApplication: { maxRequests: 3, windowMs: 60 * 60 * 1000 },
   // Partner inquiries: 5 per hour (B2B - less frequent)
   partnerInquiry: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
+  // Corporate inquiries: 5 per hour (B2B - less frequent)
+  corporateInquiry: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
   // Quote requests: 10 per hour (2 emails per request)
   quote: { maxRequests: 10, windowMs: 60 * 60 * 1000 },
   // Contact form: 15 per hour (most common use case)

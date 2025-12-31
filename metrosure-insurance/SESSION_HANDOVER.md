@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 58)
+**Updated:** December 31, 2025 (Session 59)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -9,8 +9,79 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 40 (36 pages + 4 API routes)
+- **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 59 (Dec 31, 2025)
+
+### Focus: Corporate Solutions Page & Calculator Disclaimers
+
+Created comprehensive Corporate Solutions page for B2B employee benefits, fulfilling the deferred corporate services feature from Session 52.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Committed Session 58 pending changes (spacing, email, watermarks) | 6 files |
+| Created corporate services data file with TypeScript interfaces | `src/data/corporateServices.ts` (NEW) |
+| Created corporate research documentation | `src/data/CORPORATE_RESEARCH.md` (NEW) |
+| Created 6 corporate page components | `src/components/corporate/` (NEW) |
+| Created corporate page with SEO metadata | `src/app/corporate/page.tsx`, `layout.tsx` (NEW) |
+| Created corporate-inquiry API route with rate limiting | `src/app/api/corporate-inquiry/route.ts` (NEW) |
+| Added corporateInquirySchema validation | `src/lib/validationSchemas.ts` |
+| Added corporateInquiry rate limit (5/hour) | `src/lib/rateLimit.ts` |
+| Added Corporate Solutions link to Footer | `src/components/Footer.tsx` |
+| Updated partners ValueProposition corporate link | `src/components/partners/ValueProposition.tsx` |
+| Added calculator disclaimer text | `src/components/tools/LifeCoverCalculator.tsx`, `FuneralCoverCalculator.tsx` |
+| Updated sitemap with /corporate route | `public/sitemap.xml` |
+
+### Corporate Solutions Page (`/corporate`)
+**6 Components Created:**
+1. `CorporateHero.tsx` - Badge, headline, stats, CTAs, geometric background
+2. `CorporateServices.tsx` - 6 service cards with HoverCard animations
+3. `CorporateBenefits.tsx` - 6 benefit cards with CTA banner
+4. `CorporateProcess.tsx` - 4-step onboarding process
+5. `CorporateFAQ.tsx` - 8 FAQs in 2-column accordion
+6. `CorporateInquiryForm.tsx` - 3-step wizard form (Company, Contact, Services)
+
+**Services Offered:**
+1. Group Medical Aid - Discovery, Bonitas, Momentum, etc.
+2. Group Funeral Cover - 24-48 hour claims payout
+3. Retirement Fund Administration - Provident/Pension/Hybrid
+4. Income Protection & Disability - Dread disease cover
+5. Estate Planning & Life Cover - Will drafting services
+6. Investment & Retirement Planning - Tax-efficient strategies
+
+### Data Architecture
+**New file:** `src/data/corporateServices.ts`
+- TypeScript interfaces for all data types
+- 6 corporate services with features array
+- 6 business benefits
+- 8 FAQ items
+- 4 hero stats
+- Employee count options for form
+- SEO metadata
+
+### API Route
+**Endpoint:** `POST /api/corporate-inquiry`
+- Rate limited: 5 requests/hour
+- Emails to: `clients@metrosuregroup.co.za`
+- Zod validation with detailed error messages
+- Confirmation email to inquirer
+- Same pattern as partner-inquiry route
+
+### Calculator Disclaimers Added
+Both calculators now show amber info box below Calculate button:
+> **Indicative estimates only.** Actual premiums depend on age, health, smoking status, and insurer underwriting. This calculator provides a general guide—speak to our advisers for an accurate quote.
+
+### Skills Used
+- **content-research-writer**: SA corporate benefits market research
+- **frontend-design**: Production-grade component creation
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- Sitemap updated with /corporate
 
 ---
 
@@ -339,27 +410,21 @@ Major content overhaul based on 2025 Business Proposal Letter and company docume
 
 ---
 
-## DEFERRED (This Session)
+## DEFERRED
 
 | Feature | Reason |
 |---------|--------|
-| Corporate Services Page | User chose Option A: retail focus only, document for future |
-| Group Medical Aid | Deferred to Corporate Solutions page |
-| Group Funeral Insurance | Deferred to Corporate Solutions page |
-| Group Retirement Funds | Deferred to Corporate Solutions page |
-| Employee Benefits | Deferred to Corporate Solutions page |
-| Estate Planning | Deferred to Corporate Solutions page |
 | Bolttech Logo | User will provide later |
+| Partner Logos on Production | Awaiting stakeholder approval (dev-only for now) |
 
-### Corporate Services (Documented in CONTENT_GUIDE.md)
-These are ready to add when presenting MVP or if requested:
+### ~~Corporate Services~~ ✅ COMPLETED (Session 59)
+Corporate Solutions page now live at `/corporate` with:
 - Group Medical Aid
-- Group Funeral Insurance
-- Group Retirement Funds
-- Employee Benefits
-- Estate Planning (Life Covers, Will Drafting)
-- Investment Planning
-- Retirement Planning
+- Group Funeral Cover
+- Retirement Fund Administration
+- Income Protection & Disability
+- Estate Planning & Life Cover
+- Investment & Retirement Planning
 
 ---
 
@@ -420,6 +485,7 @@ If stakeholder wants corporate services visible:
 - Skeleton loaders, LCP optimization
 - **2025 Content Update** (Session 52)
 - **Website-Wide 2013 Consistency** (Session 54)
+- **Corporate Solutions Page** (Session 59) - 6 employee benefit services with inquiry form
 - Insurance detail pages (auto, home, life, business)
 - Careers job detail pages with SEO
 - **Claims page** - Full guide with claim types, required documents, process steps, emergency contacts
@@ -452,6 +518,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 |-------|-------|
 | `/api/careers-application` | 3/hour |
 | `/api/partner-inquiry` | 5/hour |
+| `/api/corporate-inquiry` | 5/hour |
 | `/api/quote` | 10/hour |
 | `/api/contact` | 15/hour |
 
@@ -493,6 +560,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S59 | **Corporate Solutions Page:** 6 components, API route, calculator disclaimers, navigation updates |
 | S58 | **Housekeeping & Legal B2B:** Doc fixes, SquigglyDivider removal, legal B2B content, TFG/Bolttech logos |
 | S57 | **B2B Forms & Navigation:** Quote form B2B wizard, Contact B2B fields, Header/Footer B2B, Help FAQs |
 | S56 | **Visual Polish:** Testimonial arrows mobile, email rename, red dots removed |

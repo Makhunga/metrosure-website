@@ -176,6 +176,29 @@ export const partnerInquirySchema = z.object({
 export type PartnerInquiryData = z.infer<typeof partnerInquirySchema>;
 
 // ============================================
+// CORPORATE INQUIRY SCHEMA
+// ============================================
+
+export const corporateInquirySchema = z.object({
+  companyName: requiredString("Company name"),
+  industry: requiredString("Industry"),
+  employeeCount: requiredString("Number of employees"),
+  contactName: requiredString("Contact name"),
+  jobTitle: requiredString("Job title"),
+  email: emailSchema,
+  phone: phoneSchema,
+  servicesInterested: z.array(z.string()).optional().default([]),
+  currentBenefits: optionalString,
+  message: messageSchema,
+  marketingConsent: z.boolean().optional().default(false),
+  privacyConsent: z.boolean().refine((val) => val === true, {
+    message: "Privacy policy consent is required",
+  }),
+});
+
+export type CorporateInquiryData = z.infer<typeof corporateInquirySchema>;
+
+// ============================================
 // CAREERS APPLICATION SCHEMA
 // Note: This route uses FormData, so validation is done differently
 // ============================================

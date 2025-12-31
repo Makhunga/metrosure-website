@@ -254,6 +254,18 @@ export function LifeCoverCalculator() {
           >
             Calculate My Cover
           </motion.button>
+
+          {/* Disclaimer */}
+          <div className="mt-4 p-4 bg-amber-50 dark:bg-amber-900/15 rounded-xl border border-amber-200 dark:border-amber-800">
+            <div className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 text-lg mt-0.5">
+                info
+              </span>
+              <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
+                <strong>Indicative estimates only.</strong> Actual premiums depend on age, health, smoking status, and insurer underwriting. This calculator provides a general guide—speak to our advisers for an accurate quote.
+              </p>
+            </div>
+          </div>
         </div>
       </motion.div>
 

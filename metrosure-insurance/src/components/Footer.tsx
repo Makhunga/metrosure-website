@@ -11,6 +11,7 @@ const footerLinks = {
   company: [
     { label: "About Us", href: "/about", badge: null },
     { label: "Partner With Us", href: "/partners", badge: "B2B" },
+    { label: "Corporate Solutions", href: "/corporate", badge: "B2B" },
     { label: "Careers", href: "/careers", badge: "Hiring" },
     { label: "Contact", href: "/contact", badge: null },
   ],
