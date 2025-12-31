@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 63)
+**Updated:** December 31, 2025 (Session 64)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,37 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 64 (Dec 31, 2025)
+
+### Focus: WhyChooseUs CTA Simplification
+
+Simplified the homepage WhyChooseUs section CTA based on Drawbridge task annotation.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Replaced full-width red CTA banner with simple centred button | `src/components/WhyChooseUs.tsx` |
+| Removed background image overlay from section | `src/components/WhyChooseUs.tsx` |
+
+### Changes Detail
+
+**Before:**
+- Full-width red gradient banner with avatar circles
+- "Join 5,000+ individuals and 100+ retail partners since 2013" text
+- White "Get a free quote today" button on red background
+- Background image overlay (grayscale photo)
+
+**After:**
+- Simple centred "Get a Free Quote" button (matching Partners page style)
+- Clean section background without image overlay
+- Reduced from 56 lines to 9 lines of code
+
+### Drawbridge Task
+- Task ID: `d3501880-507c-482f-9f89-85f88f752d57`
+- Status: Done
 
 ---
 
@@ -805,6 +836,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S64 | **WhyChooseUs CTA Simplification:** Replaced full-width banner with centred button, removed background image |
 | S63 | **Coverage Calculator Visual Enhancement:** FAQAccordion + CalculatorProgress components, ASISA 2025 research, 11 new FAQs |
 | S62 | **Data Centralisation - Claims, Policies & Calculator:** 3 new data files, 5 components refactored, ~260 lines extracted, PartnerLogos removed from homepage |
 | S61 | **Partner Logos Grid Conversion:** Carousel→grid, 18 logos extracted from PDF, production visibility enabled |
@@ -831,4 +863,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: December 31, 2025 (Session 63)*
+*Document updated: December 31, 2025 (Session 64)*
