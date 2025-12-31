@@ -9,6 +9,7 @@ import {
   FUNERAL_COVER_CONSTANTS,
   funeralPlanBenefits,
 } from "@/data/calculatorData";
+import { CalculatorProgress, funeralCalculatorSteps } from "./CalculatorProgress";
 
 export function FuneralCoverCalculator() {
   const [selectedMembers, setSelectedMembers] = useState<string[]>(["self"]);
@@ -64,6 +65,24 @@ export function FuneralCoverCalculator() {
     }
   };
 
+  // Track completed steps for progress indicator
+  const completedSteps = useMemo(() => {
+    const completed: number[] = [];
+    // Step 0: Family members selected (always complete since "self" is default)
+    if (selectedMembers.length > 0) completed.push(0);
+    // Step 1: Tier selected (always complete since "standard" is default)
+    if (selectedTier) completed.push(1);
+    return completed;
+  }, [selectedMembers, selectedTier]);
+
+  // Determine current step (which step the user is likely on)
+  const currentStep = useMemo(() => {
+    // If they haven't added anyone beyond self, they're on family selection
+    if (selectedMembers.length === 1 && selectedMembers[0] === "self") return 0;
+    // Otherwise they're on tier selection
+    return 1;
+  }, [selectedMembers]);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
       {/* Calculator Form */}
@@ -73,13 +92,22 @@ export function FuneralCoverCalculator() {
         transition={{ duration: 0.5 }}
         className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 shadow-lg"
       >
-        <div className="mb-8">
+        <div className="mb-6">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
             Funeral Cover Calculator
           </h2>
           <p className="text-slate-600 dark:text-slate-400">
             Find the right funeral plan for you and your family.
           </p>
+        </div>
+
+        {/* Progress Stepper */}
+        <div className="mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
+          <CalculatorProgress
+            steps={funeralCalculatorSteps}
+            currentStep={currentStep}
+            completedSteps={completedSteps}
+          />
         </div>
 
         <div className="space-y-8">
@@ -385,7 +413,7 @@ export function FuneralCoverCalculator() {
                   transition={{ delay: 0.6 }}
                 >
                   <Link
-                    href={`/quote?coverageType=life&coverageAmount=${calculation.totalCover}`}
+                    href={`/quote?coverageType=funeral&coverageAmount=${calculation.totalCover}&planTier=${calculation.tier.id}`}
                     className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#a50502] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 group"
                   >
                     Apply for This Plan

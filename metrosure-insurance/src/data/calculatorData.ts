@@ -65,8 +65,12 @@ export const LIFE_COVER_CONSTANTS = {
   TOTAL_SA_INSURANCE_GAP: 50400000000000, // R50.4 trillion
   /** Percentage of needs covered - ASISA 2025 */
   COVERAGE_RATIO_PERCENT: 39,
-  /** Rough premium estimate: ZAR per R1000 cover */
+  /** Rough premium estimate: ZAR per R1000 cover (base) */
   PREMIUM_PER_THOUSAND: 1,
+  /** Premium range low multiplier (young, healthy, non-smoker) */
+  PREMIUM_LOW_MULTIPLIER: 0.5,
+  /** Premium range high multiplier (older, health factors, smoker) */
+  PREMIUM_HIGH_MULTIPLIER: 2.5,
   /** Minimum years of support */
   MIN_YEARS_SUPPORT: 5,
   /** Maximum years of support */
@@ -75,6 +79,49 @@ export const LIFE_COVER_CONSTANTS = {
   DEFAULT_YEARS_SUPPORT: 10,
   /** Maximum dependents */
   MAX_DEPENDENTS: 10,
+} as const;
+
+/**
+ * Input validation constants
+ * Sources: Stats SA 2025, SARB, WesBank, ooba Home Loans
+ */
+export const VALIDATION_CONSTANTS = {
+  /** Income validation (ZAR) */
+  INCOME: {
+    /** Minimum: Below minimum wage threshold */
+    MIN: 50000,
+    /** Maximum: Top executive level */
+    MAX: 10000000,
+    /** Average SA salary (Stats SA 2025) */
+    AVERAGE: 339468,
+    /** Median SA salary */
+    MEDIAN: 326400,
+    /** Typical low income */
+    TYPICAL_LOW: 120000,
+    /** Typical high income */
+    TYPICAL_HIGH: 2000000,
+  },
+  /** Debt validation (ZAR) */
+  DEBT: {
+    /** Minimum: No debt */
+    MIN: 0,
+    /** Maximum: Large home + vehicles + other */
+    MAX: 20000000,
+    /** Average home loan (ooba Q3 2025) */
+    AVERAGE_MORTGAGE: 1674442,
+    /** Average vehicle loan (WesBank 2024) */
+    AVERAGE_VEHICLE: 410000,
+    /** Typical maximum for middle-income */
+    TYPICAL_MAX: 5000000,
+  },
+  /** Validation messages */
+  MESSAGES: {
+    INCOME_TOO_LOW: "This seems below typical income levels. Are you sure?",
+    INCOME_TOO_HIGH: "This exceeds typical income ranges. Please verify.",
+    INCOME_HINT: "Most SA earners: R120k–R2m per year",
+    DEBT_TOO_HIGH: "This exceeds typical debt levels. Please verify.",
+    DEBT_HINT: "Include home loan, vehicle finance, credit cards, etc.",
+  },
 } as const;
 
 /**

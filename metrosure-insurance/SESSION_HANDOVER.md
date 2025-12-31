@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 64)
+**Updated:** January 1, 2026 (Session 65)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,101 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## 🚨 URGENT BUG: Calculator Results Legend Truncation
+
+**Status:** UNRESOLVED - Confirmed in Chrome AND Firefox
+**Severity:** High (affects user experience)
+**Component:** `src/components/tools/CalculatorResult.tsx` (PieChart legend)
+
+### Issue Description
+The pie chart legend in the calculator results panel shows truncated text despite correct DOM content:
+- "Income Replacement" displays as "In..." or "Inco..."
+- "Debt Clearance" displays as "Debt C..."
+- "R3 000 000" displays with left-side truncation
+- Third row "Emergency Fund" often displays correctly
+
+### Investigation Findings
+- ✅ DOM contains full text ("Income Replacement", "Debt Clearance")
+- ✅ JavaScript inspection shows correct widths (132px label, 71px value, 518px container)
+- ✅ Accessibility tree shows complete content
+- ✅ No CSS `text-overflow: ellipsis` or `truncate` classes applied
+- ✅ No `overflow: hidden` or `clip-path` in ancestor chain
+- ✅ Build passes with no TypeScript errors
+- ❌ Visual truncation persists in both Chrome and Firefox
+
+### Changes Attempted (Session 65)
+1. Changed layout from flexbox to CSS Grid (`grid-cols-[auto_1fr_auto]`)
+2. Added `flex-shrink-0` to all legend items
+3. Added `overflow-visible` to containers
+4. Removed `overflow-hidden` from main card
+5. Added `whitespace-nowrap` to value spans
+
+### Suspected Cause
+Unknown - the discrepancy between DOM state (correct) and visual rendering (truncated) suggests a browser-level rendering bug or CSS issue not detectable via JavaScript inspection.
+
+### Next Steps for Resolution
+1. Try different viewport widths / responsive breakpoints
+2. Test with different fonts / font-loading timing
+3. Check for SVG/pattern overlays affecting visibility
+4. Try BarChart visualisation instead of PieChart
+5. Consider explicit pixel widths on legend items
+6. Test in production build (not dev server)
+
+---
+
+## SESSION 65 (Dec 31, 2025)
+
+### Focus: Coverage Calculator UX Enhancement
+
+Improved the calculator user experience to increase engagement and lead conversion. Used `content-research-writer` skill for SA income/debt statistics research and `frontend-design` skill for validation UI.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Fixed Funeral calculator quote link (was `life`, now `funeral`) | `src/components/tools/FuneralCoverCalculator.tsx` |
+| Added progress stepper to Funeral calculator (2-step flow) | `src/components/tools/FuneralCoverCalculator.tsx`, `CalculatorProgress.tsx` |
+| Fixed tab switch data loss (both calculators stay mounted) | `src/app/tools/coverage-calculator/page.tsx` |
+| Added input validation with SA income/debt statistics | `src/data/calculatorData.ts`, `LifeCoverCalculator.tsx` |
+| Improved premium estimate display (shows range, not single figure) | `src/components/tools/CalculatorResult.tsx`, `LifeCoverCalculator.tsx` |
+| Changed PieChart legend from flexbox to CSS Grid layout | `src/components/tools/CalculatorResult.tsx` |
+
+### Known Issue (Unresolved)
+⚠️ **Legend truncation bug** - See urgent bug section above. Pie chart legend text appears truncated visually despite correct DOM content. Confirmed in both Chrome and Firefox.
+
+### New Data Constants
+
+**`VALIDATION_CONSTANTS`** in `calculatorData.ts`:
+| Constant | Value | Source |
+|----------|-------|--------|
+| Income MIN | R50,000 | Below minimum wage threshold |
+| Income MAX | R10,000,000 | Top executive level |
+| Income AVERAGE | R339,468 | Stats SA 2025 |
+| Debt MAX | R20,000,000 | Large home + vehicles |
+| Average Mortgage | R1,674,442 | ooba Q3 2025 |
+| Average Vehicle Loan | R410,000 | WesBank 2024 |
+
+### Premium Range Display
+
+**Before:** Single estimate (R1 per R1,000 cover)
+**After:** Range with age/health caveat
+- Low multiplier: 0.5× (young, healthy, non-smoker)
+- High multiplier: 2.5× (older, health factors, smoker)
+- Example: "R500–R2,500/month" with subtext "Varies by age, health, and smoking status"
+
+### Tab State Preservation
+
+Changed calculator page from `AnimatePresence mode="wait"` (unmount/remount) to dual-mounted approach with opacity toggle. Both calculators now stay mounted with their state preserved when switching tabs.
+
+### Skills Used
+- **content-research-writer**: SA income/debt statistics research (Stats SA, SARB, ooba, WesBank)
+- **frontend-design**: Input validation UI with warning states and Framer Motion animations
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
 
 ---
 
@@ -836,6 +931,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S65 | **Coverage Calculator UX Enhancement:** Tab state preservation, Funeral progress stepper, input validation with SA stats, premium range display |
 | S64 | **WhyChooseUs CTA Simplification:** Replaced full-width banner with centred button, removed background image |
 | S63 | **Coverage Calculator Visual Enhancement:** FAQAccordion + CalculatorProgress components, ASISA 2025 research, 11 new FAQs |
 | S62 | **Data Centralisation - Claims, Policies & Calculator:** 3 new data files, 5 components refactored, ~260 lines extracted, PartnerLogos removed from homepage |
@@ -863,4 +959,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: December 31, 2025 (Session 64)*
+*Document updated: January 1, 2026 (Session 65)*

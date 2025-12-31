@@ -170,18 +170,38 @@ export default function CoverageCalculatorPage() {
             </div>
           </motion.div>
 
-          {/* Calculator Content */}
-          <AnimatePresence mode="wait">
+          {/* Calculator Content - Both mounted to preserve state */}
+          <div className="relative">
+            {/* Life Cover Calculator */}
             <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              initial={false}
+              animate={{
+                opacity: activeTab === "life" ? 1 : 0,
+                scale: activeTab === "life" ? 1 : 0.98,
+                zIndex: activeTab === "life" ? 1 : 0,
+              }}
               transition={{ duration: 0.3 }}
+              className={activeTab === "life" ? "relative" : "absolute inset-0 pointer-events-none"}
+              aria-hidden={activeTab !== "life"}
             >
-              {activeTab === "life" ? <LifeCoverCalculator /> : <FuneralCoverCalculator />}
+              <LifeCoverCalculator />
             </motion.div>
-          </AnimatePresence>
+
+            {/* Funeral Cover Calculator */}
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: activeTab === "funeral" ? 1 : 0,
+                scale: activeTab === "funeral" ? 1 : 0.98,
+                zIndex: activeTab === "funeral" ? 1 : 0,
+              }}
+              transition={{ duration: 0.3 }}
+              className={activeTab === "funeral" ? "relative" : "absolute inset-0 pointer-events-none"}
+              aria-hidden={activeTab !== "funeral"}
+            >
+              <FuneralCoverCalculator />
+            </motion.div>
+          </div>
         </section>
 
         {/* Educational Section */}

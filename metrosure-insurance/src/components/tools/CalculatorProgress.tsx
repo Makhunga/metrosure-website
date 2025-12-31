@@ -33,6 +33,14 @@ export const lifeCalculatorSteps: CalculatorStep[] = [
   { id: "years", label: "Years", icon: "schedule" },
 ];
 
+/**
+ * Funeral Cover Calculator steps
+ */
+export const funeralCalculatorSteps: CalculatorStep[] = [
+  { id: "members", label: "Family", icon: "family_restroom" },
+  { id: "tier", label: "Coverage", icon: "workspace_premium" },
+];
+
 // =============================================================================
 // Sub-components
 // =============================================================================
@@ -101,7 +109,7 @@ function StepCircle({ step, index, isCurrent, isCompleted }: StepCircleProps) {
         ) : step.icon ? (
           <span
             className={`
-              material-symbols-rounded text-lg transition-colors duration-200
+              material-symbols-outlined text-lg transition-colors duration-200
               sm:text-xl
               ${isCurrent ? "text-white" : "text-slate-500 dark:text-slate-400"}
             `}

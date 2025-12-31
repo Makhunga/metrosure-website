@@ -14,6 +14,10 @@ interface CalculatorResultProps {
   title: string;
   totalAmount: number;
   monthlyPremium?: number;
+  /** Low end of premium range (for age/health factors) */
+  premiumLow?: number;
+  /** High end of premium range (for age/health factors) */
+  premiumHigh?: number;
   breakdown: BreakdownItem[];
   comparisonText: string;
   ctaText: string;
@@ -82,18 +86,18 @@ function PieChart({ breakdown, total }: { breakdown: BreakdownItem[]; total: num
   return (
     <div className="relative">
       <motion.div
-        className="w-48 h-48 mx-auto rounded-full shadow-lg"
+        className="w-40 h-40 mx-auto rounded-full shadow-lg"
         style={{
           background: `conic-gradient(${gradientStops})`,
         }}
-        initial={{ scale: 0, rotate: -90 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.3 }}
+        initial={{ opacity: 0, rotate: -90 }}
+        animate={{ opacity: 1, rotate: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
       >
         {/* Inner circle for donut effect */}
-        <div className="absolute inset-6 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-inner">
+        <div className="absolute inset-5 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-inner">
           <div className="text-center">
-            <span className="material-symbols-outlined text-primary text-3xl">
+            <span className="material-symbols-outlined text-primary text-2xl">
               shield
             </span>
           </div>
@@ -102,21 +106,19 @@ function PieChart({ breakdown, total }: { breakdown: BreakdownItem[]; total: num
 
       {/* Legend */}
       <motion.div
-        className="mt-6 space-y-2"
+        className="mt-6 space-y-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
         {segments.map((item, index) => (
-          <div key={index} className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: item.color }}
-              />
-              <span className="text-slate-600 dark:text-slate-400">{item.label}</span>
-            </div>
-            <span className="font-medium text-slate-900 dark:text-white">
+          <div key={index} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 text-sm">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: item.color }}
+            />
+            <span className="text-slate-600 dark:text-slate-400">{item.label}</span>
+            <span className="font-semibold text-slate-900 dark:text-white whitespace-nowrap">
               R{item.value.toLocaleString("en-ZA")}
             </span>
           </div>
@@ -167,6 +169,8 @@ export function CalculatorResult({
   title,
   totalAmount,
   monthlyPremium,
+  premiumLow,
+  premiumHigh,
   breakdown,
   comparisonText,
   ctaText,
@@ -185,10 +189,10 @@ export function CalculatorResult({
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -30 }}
         transition={{ type: "spring", stiffness: 100, damping: 15 }}
-        className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-xl"
+        className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl"
       >
         {/* Header */}
-        <div className="bg-gradient-to-br from-primary via-primary to-[#a50502] p-8 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-br from-primary via-primary to-[#a50502] p-8 text-white relative overflow-hidden rounded-t-3xl">
           {/* Decorative pattern */}
           <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -223,7 +227,24 @@ export function CalculatorResult({
               />
             </motion.div>
 
-            {monthlyPremium && (
+            {(premiumLow && premiumHigh) ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-3"
+              >
+                <p className="text-white/80">
+                  Estimated premium:{" "}
+                  <span className="font-semibold text-white">
+                    R{premiumLow.toLocaleString("en-ZA")}–R{premiumHigh.toLocaleString("en-ZA")}/month
+                  </span>
+                </p>
+                <p className="mt-1 text-xs text-white/60">
+                  Varies by age, health, and smoking status
+                </p>
+              </motion.div>
+            ) : monthlyPremium && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

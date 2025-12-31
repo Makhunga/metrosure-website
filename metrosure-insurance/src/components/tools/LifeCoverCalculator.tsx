@@ -4,7 +4,8 @@ import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { CalculatorResult } from "./CalculatorResult";
 import { CalculatorProgress, lifeCalculatorSteps } from "./CalculatorProgress";
-import { LIFE_COVER_CONSTANTS, getLifeCoverComparisonText } from "@/data/calculatorData";
+import { LIFE_COVER_CONSTANTS, VALIDATION_CONSTANTS, getLifeCoverComparisonText } from "@/data/calculatorData";
+import { AnimatePresence } from "framer-motion";
 
 interface LifeCoverData {
   annualIncome: string;
@@ -58,8 +59,10 @@ export function LifeCoverCalculator() {
 
     const total = incomeReplacement + debtClearance + educationFund + emergencyFund;
 
-    // Estimate monthly premium (rough estimate: R1 per R1000 cover)
-    const estimatedPremium = Math.round(total / (1000 / LIFE_COVER_CONSTANTS.PREMIUM_PER_THOUSAND));
+    // Estimate monthly premium range (based on age/health factors)
+    const basePremium = Math.round(total / (1000 / LIFE_COVER_CONSTANTS.PREMIUM_PER_THOUSAND));
+    const premiumLow = Math.round(basePremium * LIFE_COVER_CONSTANTS.PREMIUM_LOW_MULTIPLIER);
+    const premiumHigh = Math.round(basePremium * LIFE_COVER_CONSTANTS.PREMIUM_HIGH_MULTIPLIER);
 
     return {
       incomeReplacement,
@@ -67,7 +70,8 @@ export function LifeCoverCalculator() {
       educationFund,
       emergencyFund,
       total,
-      estimatedPremium,
+      premiumLow,
+      premiumHigh,
     };
   }, [data]);
 
@@ -78,6 +82,21 @@ export function LifeCoverCalculator() {
   };
 
   const canCalculate = parseAmount(data.annualIncome) > 0;
+
+  // Validation states
+  const incomeValidation = useMemo(() => {
+    const income = parseAmount(data.annualIncome);
+    if (income === 0) return { type: "hint" as const, message: VALIDATION_CONSTANTS.MESSAGES.INCOME_HINT };
+    if (income < VALIDATION_CONSTANTS.INCOME.MIN) return { type: "warning" as const, message: VALIDATION_CONSTANTS.MESSAGES.INCOME_TOO_LOW };
+    if (income > VALIDATION_CONSTANTS.INCOME.MAX) return { type: "warning" as const, message: VALIDATION_CONSTANTS.MESSAGES.INCOME_TOO_HIGH };
+    return { type: "hint" as const, message: VALIDATION_CONSTANTS.MESSAGES.INCOME_HINT };
+  }, [data.annualIncome]);
+
+  const debtValidation = useMemo(() => {
+    const debts = parseAmount(data.outstandingDebts);
+    if (debts > VALIDATION_CONSTANTS.DEBT.MAX) return { type: "warning" as const, message: VALIDATION_CONSTANTS.MESSAGES.DEBT_TOO_HIGH };
+    return { type: "hint" as const, message: VALIDATION_CONSTANTS.MESSAGES.DEBT_HINT };
+  }, [data.outstandingDebts]);
 
   // Track completed steps for progress indicator
   const completedSteps = useMemo(() => {
@@ -153,12 +172,32 @@ export function LifeCoverCalculator() {
                 value={formatCurrency(data.annualIncome)}
                 onChange={(e) => handleCurrencyChange("annualIncome", e.target.value)}
                 placeholder="500,000"
-                className="w-full pl-8 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white text-lg font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                className={`w-full pl-8 pr-4 py-4 rounded-xl border bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white text-lg font-medium focus:outline-none focus:ring-2 transition-all ${
+                  incomeValidation.type === "warning"
+                    ? "border-amber-400 dark:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 focus:border-amber-500"
+                    : "border-slate-200 dark:border-slate-600 focus:ring-primary/20 focus:border-primary"
+                }`}
               />
             </div>
-            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
-              Your gross annual salary before tax
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={incomeValidation.type + incomeValidation.message}
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className={`mt-1.5 flex items-center gap-1.5 text-xs ${
+                  incomeValidation.type === "warning"
+                    ? "text-amber-600 dark:text-amber-400"
+                    : "text-slate-500 dark:text-slate-400"
+                }`}
+              >
+                <span className="material-symbols-outlined text-sm">
+                  {incomeValidation.type === "warning" ? "warning" : "info"}
+                </span>
+                <span>{incomeValidation.message}</span>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Outstanding Debts */}
@@ -176,12 +215,32 @@ export function LifeCoverCalculator() {
                 value={formatCurrency(data.outstandingDebts)}
                 onChange={(e) => handleCurrencyChange("outstandingDebts", e.target.value)}
                 placeholder="1,000,000"
-                className="w-full pl-8 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white text-lg font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                className={`w-full pl-8 pr-4 py-4 rounded-xl border bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white text-lg font-medium focus:outline-none focus:ring-2 transition-all ${
+                  debtValidation.type === "warning"
+                    ? "border-amber-400 dark:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 focus:border-amber-500"
+                    : "border-slate-200 dark:border-slate-600 focus:ring-primary/20 focus:border-primary"
+                }`}
               />
             </div>
-            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
-              Include mortgage, car loans, credit cards, etc.
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={debtValidation.type + debtValidation.message}
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className={`mt-1.5 flex items-center gap-1.5 text-xs ${
+                  debtValidation.type === "warning"
+                    ? "text-amber-600 dark:text-amber-400"
+                    : "text-slate-500 dark:text-slate-400"
+                }`}
+              >
+                <span className="material-symbols-outlined text-sm">
+                  {debtValidation.type === "warning" ? "warning" : "info"}
+                </span>
+                <span>{debtValidation.message}</span>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Number of Dependents */}
@@ -295,7 +354,8 @@ export function LifeCoverCalculator() {
           <CalculatorResult
             title="Recommended Life Cover"
             totalAmount={calculation.total}
-            monthlyPremium={calculation.estimatedPremium}
+            premiumLow={calculation.premiumLow}
+            premiumHigh={calculation.premiumHigh}
             breakdown={breakdown}
             comparisonText={comparisonText}
             ctaText="Get a Quote for This Amount"
