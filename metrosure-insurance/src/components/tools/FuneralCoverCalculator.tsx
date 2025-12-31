@@ -3,52 +3,12 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-
-interface FamilyMember {
-  id: string;
-  label: string;
-  icon: string;
-  coverAmount: number;
-}
-
-interface CeremonyTier {
-  id: string;
-  name: string;
-  description: string;
-  coverAmount: number;
-  basePremium: number;
-}
-
-const FAMILY_MEMBERS: FamilyMember[] = [
-  { id: "self", label: "Yourself", icon: "person", coverAmount: 1 },
-  { id: "spouse", label: "Spouse", icon: "favorite", coverAmount: 1 },
-  { id: "children", label: "Children", icon: "child_care", coverAmount: 0.5 },
-  { id: "parents", label: "Parents", icon: "elderly", coverAmount: 0.75 },
-];
-
-const CEREMONY_TIERS: CeremonyTier[] = [
-  {
-    id: "basic",
-    name: "Basic",
-    description: "Essential funeral expenses",
-    coverAmount: 15000,
-    basePremium: 99,
-  },
-  {
-    id: "standard",
-    name: "Standard",
-    description: "Dignified send-off with catering",
-    coverAmount: 30000,
-    basePremium: 199,
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    description: "Comprehensive memorial service",
-    coverAmount: 50000,
-    basePremium: 349,
-  },
-];
+import {
+  familyMembers,
+  funeralTiers,
+  FUNERAL_COVER_CONSTANTS,
+  funeralPlanBenefits,
+} from "@/data/calculatorData";
 
 export function FuneralCoverCalculator() {
   const [selectedMembers, setSelectedMembers] = useState<string[]>(["self"]);
@@ -68,20 +28,20 @@ export function FuneralCoverCalculator() {
   };
 
   const calculation = useMemo(() => {
-    const tier = CEREMONY_TIERS.find((t) => t.id === selectedTier);
+    const tier = funeralTiers.find((t) => t.id === selectedTier);
     if (!tier) return null;
 
     // Calculate total cover based on selected members
     const memberMultiplier = selectedMembers.reduce((sum, memberId) => {
-      const member = FAMILY_MEMBERS.find((m) => m.id === memberId);
-      return sum + (member?.coverAmount || 0);
+      const member = familyMembers.find((m) => m.id === memberId);
+      return sum + (member?.coverMultiplier || 0);
     }, 0);
 
     const totalCover = Math.round(tier.coverAmount * memberMultiplier);
 
     // Calculate premium (base + additional members)
     const additionalMembers = selectedMembers.length - 1;
-    const monthlyPremium = tier.basePremium + additionalMembers * Math.round(tier.basePremium * 0.4);
+    const monthlyPremium = tier.basePremium + additionalMembers * Math.round(tier.basePremium * FUNERAL_COVER_CONSTANTS.ADDITIONAL_MEMBER_MULTIPLIER);
 
     // Determine recommended plan name
     let planName = tier.name;
@@ -129,7 +89,7 @@ export function FuneralCoverCalculator() {
               Who do you want to cover?
             </label>
             <div className="grid grid-cols-2 gap-3">
-              {FAMILY_MEMBERS.map((member) => {
+              {familyMembers.map((member) => {
                 const isSelected = selectedMembers.includes(member.id);
                 return (
                   <motion.button
@@ -188,7 +148,7 @@ export function FuneralCoverCalculator() {
               Choose your ceremony preference
             </label>
             <div className="space-y-3">
-              {CEREMONY_TIERS.map((tier) => {
+              {funeralTiers.map((tier) => {
                 const isSelected = selectedTier === tier.id;
                 return (
                   <motion.button
@@ -214,7 +174,7 @@ export function FuneralCoverCalculator() {
                           >
                             {tier.name}
                           </span>
-                          {tier.id === "standard" && (
+                          {tier.isPopular && (
                             <span className="px-2 py-0.5 bg-primary text-white text-xs font-bold rounded-full">
                               Popular
                             </span>
@@ -345,10 +305,10 @@ export function FuneralCoverCalculator() {
                   </h4>
                   <div className="space-y-3">
                     {selectedMembers.map((memberId) => {
-                      const member = FAMILY_MEMBERS.find((m) => m.id === memberId);
+                      const member = familyMembers.find((m) => m.id === memberId);
                       if (!member) return null;
                       const memberCover = Math.round(
-                        calculation.tier.coverAmount * member.coverAmount
+                        calculation.tier.coverAmount * member.coverMultiplier
                       );
                       return (
                         <motion.div
@@ -387,18 +347,12 @@ export function FuneralCoverCalculator() {
                     Plan Benefits
                   </h4>
                   <ul className="space-y-1.5 text-sm text-emerald-700 dark:text-emerald-400">
-                    <li className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-sm">check</span>
-                      24-hour claims payout
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-sm">check</span>
-                      No waiting period for accidental death
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-sm">check</span>
-                      Funeral assistance services included
-                    </li>
+                    {funeralPlanBenefits.map((benefit, index) => (
+                      <li key={index} className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm">check</span>
+                        {benefit}
+                      </li>
+                    ))}
                   </ul>
                 </motion.div>
 

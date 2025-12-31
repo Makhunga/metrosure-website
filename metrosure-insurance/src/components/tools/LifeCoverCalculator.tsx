@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { CalculatorResult } from "./CalculatorResult";
+import { LIFE_COVER_CONSTANTS, getLifeCoverComparisonText } from "@/data/calculatorData";
 
 interface LifeCoverData {
   annualIncome: string;
@@ -10,12 +11,6 @@ interface LifeCoverData {
   dependents: number;
   yearsOfSupport: number;
 }
-
-const EDUCATION_FUND_PER_CHILD = 250000; // R250,000 per dependent
-const EMERGENCY_FUND_MULTIPLIER = 0.5; // 6 months income
-
-// Average SA life cover for comparison
-const AVERAGE_SA_LIFE_COVER = 1500000; // R1.5 million
 
 export function LifeCoverCalculator() {
   const [data, setData] = useState<LifeCoverData>({
@@ -57,13 +52,13 @@ export function LifeCoverCalculator() {
 
     const incomeReplacement = income * yearsOfSupport;
     const debtClearance = debts;
-    const educationFund = dependents * EDUCATION_FUND_PER_CHILD;
-    const emergencyFund = Math.round(income * EMERGENCY_FUND_MULTIPLIER);
+    const educationFund = dependents * LIFE_COVER_CONSTANTS.EDUCATION_FUND_PER_CHILD;
+    const emergencyFund = Math.round(income * LIFE_COVER_CONSTANTS.EMERGENCY_FUND_MULTIPLIER);
 
     const total = incomeReplacement + debtClearance + educationFund + emergencyFund;
 
     // Estimate monthly premium (rough estimate: R1 per R1000 cover)
-    const estimatedPremium = Math.round(total / 1000);
+    const estimatedPremium = Math.round(total / (1000 / LIFE_COVER_CONSTANTS.PREMIUM_PER_THOUSAND));
 
     return {
       incomeReplacement,
@@ -92,12 +87,9 @@ export function LifeCoverCalculator() {
       ].filter((item) => item.value > 0)
     : [];
 
-  const comparisonText =
-    calculation && calculation.total > AVERAGE_SA_LIFE_COVER
-      ? `Your recommended cover is ${Math.round(
-          ((calculation.total - AVERAGE_SA_LIFE_COVER) / AVERAGE_SA_LIFE_COVER) * 100
-        )}% higher than the average South African life cover of R1.5 million. This accounts for your specific financial responsibilities.`
-      : `The average South African has R1.5 million in life cover. Your calculation considers your unique financial situation.`;
+  const comparisonText = calculation
+    ? getLifeCoverComparisonText(calculation.total)
+    : "";
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -195,7 +187,7 @@ export function LifeCoverCalculator() {
                 onClick={() =>
                   setData((prev) => ({
                     ...prev,
-                    dependents: Math.min(10, prev.dependents + 1),
+                    dependents: Math.min(LIFE_COVER_CONSTANTS.MAX_DEPENDENTS, prev.dependents + 1),
                   }))
                 }
                 className="w-14 h-14 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 font-bold text-2xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
@@ -217,8 +209,8 @@ export function LifeCoverCalculator() {
             <div className="px-2">
               <input
                 type="range"
-                min="5"
-                max="30"
+                min={LIFE_COVER_CONSTANTS.MIN_YEARS_SUPPORT}
+                max={LIFE_COVER_CONSTANTS.MAX_YEARS_SUPPORT}
                 value={data.yearsOfSupport}
                 onChange={(e) => {
                   setData((prev) => ({
@@ -230,9 +222,9 @@ export function LifeCoverCalculator() {
                 className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer accent-primary"
               />
               <div className="flex justify-between mt-2">
-                <span className="text-xs text-slate-500 dark:text-slate-400">5 years</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{LIFE_COVER_CONSTANTS.MIN_YEARS_SUPPORT} years</span>
                 <span className="text-lg font-bold text-primary">{data.yearsOfSupport} years</span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">30 years</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{LIFE_COVER_CONSTANTS.MAX_YEARS_SUPPORT} years</span>
               </div>
             </div>
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 text-center">

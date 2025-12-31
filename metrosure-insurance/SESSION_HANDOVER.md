@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 61)
+**Updated:** December 31, 2025 (Session 62)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,69 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 62 (Dec 31, 2025)
+
+### Focus: Data Centralisation - Claims, Policies & Calculator
+
+Continued the data centralisation pattern from Session 60, extracting embedded data from Claims, Policies, and Coverage Calculator pages into dedicated data files.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Removed PartnerLogos from homepage (user decision) | `src/app/page.tsx` |
+| Created claims data file | `src/data/claims.ts` (NEW) |
+| Created policies data file | `src/data/policies.ts` (NEW) |
+| Created calculator data file | `src/data/calculatorData.ts` (NEW) |
+| Refactored Claims page to use data file | `src/app/claims/page.tsx` |
+| Refactored Policies page to use data file | `src/app/policies/page.tsx` |
+| Refactored FuneralCoverCalculator to use data file | `src/components/tools/FuneralCoverCalculator.tsx` |
+| Refactored LifeCoverCalculator to use data file | `src/components/tools/LifeCoverCalculator.tsx` |
+| Refactored Coverage Calculator page to use data file | `src/app/tools/coverage-calculator/page.tsx` |
+
+### New Data Files
+
+**`src/data/claims.ts`** (~150 lines)
+- `ClaimType` interface with id, icon, title, description, documents
+- `ClaimStep` interface with number, icon, title, description
+- `EmergencyContact` interface with icon, title, number, description
+- `claimTypes` (4 items), `claimSteps` (5 items), `emergencyContacts` (3 items)
+- Helper functions: `getClaimTypeById()`, `getClaimTypeByTitle()`, `getClaimTypeCount()`, `getClaimStepCount()`
+
+**`src/data/policies.ts`** (~100 lines)
+- `PolicyFeature` interface with icon, title, description
+- `SamplePolicy` interface with type, icon, policyNumber, status, statusColour, insurer, renewalDate, premium
+- `policyFeatures` (6 items), `samplePolicies` (3 demo items)
+- Helper functions: `getFeatureByTitle()`, `getFeatureCount()`, `getSamplePolicyCount()`
+
+**`src/data/calculatorData.ts`** (~200 lines)
+- `FamilyMember`, `FuneralTier`, `CalculatorTab`, `CalculatorFAQ`, `EducationalPoint` interfaces
+- `LIFE_COVER_CONSTANTS` - education fund per child (R250k), emergency multiplier (0.5), average SA cover (R1.5m), premium per thousand, min/max years support (5-30), max dependents (10)
+- `FUNERAL_COVER_CONSTANTS` - additional member multiplier (0.4), min/max funeral costs
+- `familyMembers` (4 items), `funeralTiers` (3 tiers), `calculatorTabs` (2 tabs)
+- `calculatorFAQs` (4 items), `educationalPoints` (3 items), `heroKeyPoints` (3 items), `funeralPlanBenefits` (3 items)
+- Helper functions: `getFuneralTierById()`, `getFamilyMemberById()`, `getPopularFuneralTier()`, `formatZAR()`, `getLifeCoverComparisonText()`
+
+### Lines Removed from Components
+| Component | Lines Removed |
+|-----------|---------------|
+| `claims/page.tsx` | ~107 |
+| `policies/page.tsx` | ~65 |
+| `FuneralCoverCalculator.tsx` | ~40 |
+| `LifeCoverCalculator.tsx` | ~10 |
+| `coverage-calculator/page.tsx` | ~40 |
+| **Total** | **~260 lines** |
+
+### User Decisions
+- **PartnerLogos:** Removed from homepage entirely (component and data files retained for future use)
+- **Focus:** Technical debt reduction over new features
+- **Timeline:** No production deadline - quality focus
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
 
 ---
 
@@ -644,7 +707,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 ```
 src/app/        # Pages & API routes
 src/components/ # UI components
-src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions, partners)
+src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions, partners, claims, policies, calculatorData)
 src/lib/        # Utilities
 resources/      # Source documents (proposals, PDFs)
 public/images/partners/  # Partner logo images (18 PNGs + 2 SVGs)
@@ -679,6 +742,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S62 | **Data Centralisation - Claims, Policies & Calculator:** 3 new data files, 5 components refactored, ~260 lines extracted, PartnerLogos removed from homepage |
 | S61 | **Partner Logos Grid Conversion:** Carousel→grid, 18 logos extracted from PDF, production visibility enabled |
 | S60 | **Technical Debt - Data Centralisation:** 3 new data files, 6 components updated, ~330 lines extracted |
 | S59 | **Corporate Solutions Page:** 6 components, API route, calculator disclaimers, navigation updates |
@@ -703,4 +767,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: December 31, 2025*
+*Document updated: December 31, 2025 (Session 62)*

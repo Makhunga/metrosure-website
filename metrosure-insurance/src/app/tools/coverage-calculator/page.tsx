@@ -6,23 +6,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { LifeCoverCalculator } from "@/components/tools/LifeCoverCalculator";
 import { FuneralCoverCalculator } from "@/components/tools/FuneralCoverCalculator";
+import {
+  calculatorTabs,
+  calculatorFAQs,
+  educationalPoints,
+  heroKeyPoints,
+} from "@/data/calculatorData";
 
 type CalculatorTab = "life" | "funeral";
-
-const tabs: { id: CalculatorTab; label: string; icon: string; description: string }[] = [
-  {
-    id: "life",
-    label: "Life Cover",
-    icon: "favorite",
-    description: "Calculate how much life insurance you need to protect your family",
-  },
-  {
-    id: "funeral",
-    label: "Funeral Cover",
-    icon: "sentiment_satisfied",
-    description: "Find the right funeral plan to honour your loved ones",
-  },
-];
 
 export default function CoverageCalculatorPage() {
   const [activeTab, setActiveTab] = useState<CalculatorTab>("life");
@@ -85,11 +76,7 @@ export default function CoverageCalculatorPage() {
 
               {/* Key Points */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {[
-                  { icon: "timer", text: "Takes 2 minutes" },
-                  { icon: "lock", text: "No personal details required" },
-                  { icon: "verified", text: "Expert-backed formulas" },
-                ].map((item, index) => (
+                {heroKeyPoints.map((item, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 10 }}
@@ -134,7 +121,7 @@ export default function CoverageCalculatorPage() {
             className="mb-10"
           >
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-200 dark:border-slate-700">
-              {tabs.map((tab) => (
+              {calculatorTabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
@@ -214,26 +201,7 @@ export default function CoverageCalculatorPage() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: "trending_down",
-                  title: "Avoid Under-Insurance",
-                  description:
-                    "Most South Africans are under-insured. The average life cover is R1.5 million, but many families need 3-5x more based on their circumstances.",
-                },
-                {
-                  icon: "savings",
-                  title: "Don't Overpay",
-                  description:
-                    "Over-insurance means wasted premiums every month. Our calculator helps you find the right balance between protection and affordability.",
-                },
-                {
-                  icon: "family_restroom",
-                  title: "Protect Your Family",
-                  description:
-                    "Know exactly what your loved ones need if the unexpected happens. Cover income replacement, debts, education, and daily expenses.",
-                },
-              ].map((item, index) => (
+              {educationalPoints.map((item, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -272,24 +240,7 @@ export default function CoverageCalculatorPage() {
           </motion.div>
 
           <div className="space-y-4">
-            {[
-              {
-                q: "How accurate is this calculator?",
-                a: "Our calculator uses industry-standard formulas to provide a reliable estimate. However, your final premium will depend on factors like age, health, and specific policy terms. This tool gives you a solid starting point for conversations with our advisors.",
-              },
-              {
-                q: "Why do you ask about dependents?",
-                a: "Each dependent represents additional financial responsibility. We allocate R250,000 per dependent for education and living expenses. This ensures your family can maintain their lifestyle and educational goals.",
-              },
-              {
-                q: "What's included in the income replacement calculation?",
-                a: "We multiply your annual income by the number of years you want your family supported. This covers daily expenses, bills, and maintaining your family's standard of living.",
-              },
-              {
-                q: "Do I need to provide personal details?",
-                a: "No. This calculator is completely anonymous. You only need to enter financial figures to get your estimate. Personal details are only required when you request an actual quote.",
-              },
-            ].map((faq, index) => (
+            {calculatorFAQs.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
@@ -299,9 +250,9 @@ export default function CoverageCalculatorPage() {
                 className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6"
               >
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  {faq.q}
+                  {faq.question}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400">{faq.a}</p>
+                <p className="text-slate-600 dark:text-slate-400">{faq.answer}</p>
               </motion.div>
             ))}
           </div>

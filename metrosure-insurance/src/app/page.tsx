@@ -7,15 +7,11 @@ import {
   Products,
   WhyChooseUs,
   PartnersCTA,
-  PartnerLogos,
   Testimonials,
   CallToAction,
   Footer,
   ScrollToTop,
 } from "@/components";
-
-// Show PartnerLogos only in development (hide on Vercel production)
-const showPartnerLogos = process.env.NODE_ENV === "development";
 
 export default function Home() {
   return (
@@ -29,7 +25,6 @@ export default function Home() {
         <Products />
         <WhyChooseUs />
         <PartnersCTA />
-        {showPartnerLogos && <PartnerLogos />}
         <Testimonials />
         <CallToAction />
       </main>
