@@ -14,6 +14,9 @@ import {
   ScrollToTop,
 } from "@/components";
 
+// Show PartnerLogos only in development (hide on Vercel production)
+const showPartnerLogos = process.env.NODE_ENV === "development";
+
 export default function Home() {
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
@@ -26,7 +29,7 @@ export default function Home() {
         <Products />
         <WhyChooseUs />
         <PartnersCTA />
-        <PartnerLogos />
+        {showPartnerLogos && <PartnerLogos />}
         <Testimonials />
         <CallToAction />
       </main>
