@@ -144,6 +144,7 @@ const team = [
     name: "S Basi",
     role: "Chief Financial Officer",
     image: "",
+    initials: "SB",
     quote: "Sound financial management is the foundation that lets us serve our clients with confidence.",
     icon: "account_balance",
     badges: ["Financial Governance", "Risk Management", "Corporate Finance"],
@@ -297,7 +298,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section - Editorial Layout */}
-      <section ref={missionRef} className="bg-[#1a1a1a] relative pb-8">
+      <section ref={missionRef} className="bg-slate-900 dark:bg-slate-950 relative pb-8">
         {/* Content Container */}
         <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-0">
           {/* Two Column Layout */}
@@ -686,8 +687,23 @@ export default function AboutPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
                     <div
                       className="w-full h-full bg-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                      style={{ backgroundImage: `url("${member.image}")`, backgroundPosition: 'center 15%' }}
-                    />
+                      style={{
+                        backgroundImage: member.image ? `url("${member.image}")` : 'none',
+                        backgroundPosition: 'center 15%',
+                        backgroundColor: !member.image ? '#475569' : undefined
+                      }}
+                    >
+                      {/* Placeholder initials when no image */}
+                      {!member.image && (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="w-32 h-32 rounded-full bg-slate-600 group-hover:bg-primary/90 flex items-center justify-center shadow-xl transition-colors duration-700">
+                            <span className="text-5xl font-bold text-white/90 group-hover:text-white tracking-wide transition-colors duration-700">
+                              {(member as { initials?: string }).initials || member.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   {/* Name and Title - auto-height section at bottom */}
                   <div className="p-6 bg-[rgb(var(--color-surface-card))] relative z-20">

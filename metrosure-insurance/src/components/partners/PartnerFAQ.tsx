@@ -22,7 +22,7 @@ function FAQItem({ question, answer, index, isInView }: FAQItemProps) {
         <span className="font-semibold text-lg text-[rgb(var(--color-text-main))] group-hover:text-primary group-open:text-primary transition-colors pr-8">
           {question}
         </span>
-        <div className="w-8 h-8 rounded-full bg-[rgb(var(--color-surface))] flex items-center justify-center group-hover:bg-primary/10 group-open:bg-primary transition-all duration-300 shrink-0">
+        <div className="w-11 h-11 rounded-full bg-[rgb(var(--color-surface))] flex items-center justify-center group-hover:bg-primary/10 group-open:bg-primary transition-all duration-300 shrink-0">
           <span className="material-symbols-outlined text-[rgb(var(--color-text-muted))] group-hover:text-primary group-open:text-white text-xl transition-transform duration-300 group-open:rotate-180">
             expand_more
           </span>
