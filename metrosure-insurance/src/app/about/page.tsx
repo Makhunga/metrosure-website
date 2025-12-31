@@ -617,7 +617,7 @@ export default function AboutPage() {
           animate={teamInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          The Team
+          Executive Team
         </motion.div>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative">
 
