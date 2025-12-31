@@ -14,6 +14,11 @@ import {
   getInputClassesWithIcon,
   labelClasses,
 } from "@/lib/formValidation";
+import {
+  provincesWithAny as provinces,
+  experienceLevels,
+  jobPositions as positions,
+} from "@/data/formOptions";
 
 interface ApplicationFormProps {
   id?: string;
@@ -44,36 +49,6 @@ const initialFormData: FormData = {
   cv: null,
   privacyConsent: false,
 };
-
-const positions = [
-  { value: "sales-consultant", label: "Sales Consultant" },
-  { value: "call-centre-agent", label: "Call Centre Agent" },
-  { value: "telesales-rep", label: "Telesales Representative" },
-  { value: "client-service-admin", label: "Client Service Administrator" },
-  { value: "trainee-sales", label: "Trainee/Entry Level" },
-  { value: "other", label: "Other" },
-];
-
-const provinces = [
-  { value: "kwazulu-natal", label: "KwaZulu-Natal" },
-  { value: "gauteng", label: "Gauteng" },
-  { value: "western-cape", label: "Western Cape" },
-  { value: "eastern-cape", label: "Eastern Cape" },
-  { value: "free-state", label: "Free State" },
-  { value: "mpumalanga", label: "Mpumalanga" },
-  { value: "limpopo", label: "Limpopo" },
-  { value: "north-west", label: "North West" },
-  { value: "northern-cape", label: "Northern Cape" },
-  { value: "any", label: "Any Province" },
-];
-
-const experienceLevels = [
-  { value: "none", label: "No Experience" },
-  { value: "0-1", label: "Less than 1 year" },
-  { value: "1-3", label: "1-3 years" },
-  { value: "3-5", label: "3-5 years" },
-  { value: "5+", label: "5+ years" },
-];
 
 export default function ApplicationForm({
   id,

@@ -11,6 +11,13 @@ import {
   validatePhone,
   validateRequired,
 } from "@/lib/formValidation";
+import {
+  provinceLabels as provinces,
+  businessTypes,
+  locationCounts,
+  trafficLevels,
+} from "@/data/formOptions";
+import { partnerServicesSimple as services } from "@/data/partnerServices";
 
 // Floating label input classes - shared by both components
 const floatingInputClasses =
@@ -149,53 +156,6 @@ const initialFormData: FormData = {
   marketingConsent: false,
   privacyConsent: false
 };
-
-const provinces = [
-  "Gauteng",
-  "KwaZulu-Natal",
-  "Western Cape",
-  "Eastern Cape",
-  "Free State",
-  "Limpopo",
-  "Mpumalanga",
-  "North West",
-  "Northern Cape"
-];
-
-const businessTypes = [
-  "Retail Store",
-  "Franchise",
-  "Supermarket/Grocery",
-  "Furniture Store",
-  "Electronics Store",
-  "Clothing Store",
-  "Wholesale",
-  "Other"
-];
-
-const locationCounts = [
-  "1 location",
-  "2-5 locations",
-  "6-10 locations",
-  "11-50 locations",
-  "50+ locations"
-];
-
-const trafficLevels = [
-  "Under 100 customers/day",
-  "100-500 customers/day",
-  "500-1000 customers/day",
-  "1000+ customers/day"
-];
-
-const services = [
-  { id: "instore-campaigns", label: "In-Store Campaigns", description: "Insurance sales at point of purchase" },
-  { id: "outsourced-sales", label: "Sales & Marketing", description: "Dedicated sales team support" },
-  { id: "credit-facility", label: "Credit Facility", description: "In-store financing options" },
-  { id: "device-leasing", label: "Device Leasing", description: "Cell phone & device financing" },
-  { id: "device-insurance", label: "Device Insurance", description: "Protection for financed devices" },
-  { id: "call-centre", label: "Call Centre Services", description: "Lead generation & customer acquisition" }
-];
 
 const MAX_MESSAGE_CHARS = 2000;
 

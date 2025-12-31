@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** December 31, 2025 (Session 59)
+**Updated:** December 31, 2025 (Session 60)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,66 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** December 31, 2025
+
+---
+
+## SESSION 60 (Dec 31, 2025)
+
+### Focus: Technical Debt - Data Centralisation
+
+Extracted embedded data from components into centralised data files, following the excellent patterns established in `corporateServices.ts` and `jobs.ts`. Improves maintainability and reduces code duplication.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Created form options data file | `src/data/formOptions.ts` (NEW) |
+| Created partner services data file | `src/data/partnerServices.ts` (NEW) |
+| Created about page data file | `src/data/aboutPage.ts` (NEW) |
+| Updated ValueProposition to use partnerServices | `src/components/partners/ValueProposition.tsx` |
+| Updated PartnerInquiryForm to use centralised data | `src/components/partners/PartnerInquiryForm.tsx` |
+| Updated PartnerFAQ to use partnerFAQs | `src/components/partners/PartnerFAQ.tsx` |
+| Updated about page to use aboutPage data | `src/app/about/page.tsx` |
+| Updated ApplicationForm to use formOptions | `src/components/careers/ApplicationForm.tsx` |
+| Updated ApplicationModal to use formOptions | `src/components/careers/ApplicationModal.tsx` |
+
+### New Data Files
+
+**`src/data/formOptions.ts`** (~100 lines)
+- `SelectOption` interface
+- `provinces`, `provincesWithAny`, `provinceLabels` - SA provinces
+- `businessTypes`, `locationCounts`, `trafficLevels` - partner form options
+- `experienceLevels`, `jobPositions` - career form options
+
+**`src/data/partnerServices.ts`** (~220 lines)
+- `PartnerService`, `PartnerServiceSimple`, `PartnerFAQ` interfaces
+- `partnerServices` - 6 full B2B service definitions
+- `partnerServicesSimple` - simplified for form checkboxes
+- `partnerFAQs` - 8 FAQ items
+- Helper functions: `getPartnerServiceById()`, `getAllServiceIds()`
+
+**`src/data/aboutPage.ts`** (~180 lines)
+- `CompanyStat`, `CoreValue`, `TimelineItem`, `TeamMember` interfaces
+- `companyStats` - 4 company statistics
+- `coreValues` - 5 core values
+- `companyTimeline` - 6 milestones (2013-2025)
+- `executiveTeam` - 3 executives
+- Helper functions: `getTeamMemberByName()`, `getTimelineUpToYear()`
+
+### Lines Removed from Components
+| Component | Lines Removed |
+|-----------|---------------|
+| `ValueProposition.tsx` | ~73 |
+| `PartnerInquiryForm.tsx` | ~45 |
+| `PartnerFAQ.tsx` | ~34 |
+| `about/page.tsx` | ~119 |
+| `ApplicationForm.tsx` | ~29 |
+| `ApplicationModal.tsx` | ~29 |
+| **Total** | **~330 lines** |
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
+- No visual changes to any page
 
 ---
 
@@ -458,8 +518,9 @@ If stakeholder wants corporate services visible:
 4. **Case studies** - Consider adding a case study section showing TFG/Jet results
 
 ### Technical
-1. **Services data file** - Consider creating `src/data/services.ts` to centralize service definitions (currently duplicated in ValueProposition + PartnerInquiryForm)
-2. **About page data** - Consider extracting timeline, values, team to data files for easier maintenance
+1. ~~**Services data file**~~ ✅ COMPLETED (Session 60) - Created `src/data/partnerServices.ts`
+2. ~~**About page data**~~ ✅ COMPLETED (Session 60) - Created `src/data/aboutPage.ts`
+3. ~~**Form options centralisation**~~ ✅ COMPLETED (Session 60) - Created `src/data/formOptions.ts`
 
 ### Future Enhancements
 1. **B2B Quote Flow** - Consider separate quote form for business partners
@@ -486,6 +547,7 @@ If stakeholder wants corporate services visible:
 - **2025 Content Update** (Session 52)
 - **Website-Wide 2013 Consistency** (Session 54)
 - **Corporate Solutions Page** (Session 59) - 6 employee benefit services with inquiry form
+- **Data Centralisation** (Session 60) - 3 data files, 6 components refactored
 - Insurance detail pages (auto, home, life, business)
 - Careers job detail pages with SEO
 - **Claims page** - Full guide with claim types, required documents, process steps, emergency contacts
@@ -526,7 +588,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 ```
 src/app/        # Pages & API routes
 src/components/ # UI components
-src/data/       # Data files (jobs.ts)
+src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions)
 src/lib/        # Utilities
 resources/      # Source documents (proposals, PDFs)
 ```
@@ -560,6 +622,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S60 | **Technical Debt - Data Centralisation:** 3 new data files, 6 components updated, ~330 lines extracted |
 | S59 | **Corporate Solutions Page:** 6 components, API route, calculator disclaimers, navigation updates |
 | S58 | **Housekeeping & Legal B2B:** Doc fixes, SquigglyDivider removal, legal B2B content, TFG/Bolttech logos |
 | S57 | **B2B Forms & Navigation:** Quote form B2B wizard, Contact B2B fields, Header/Footer B2B, Help FAQs |

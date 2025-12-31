@@ -3,81 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { HoverCard } from "@/components/animations";
-
-const services = [
-  {
-    icon: "campaign",
-    title: "In-Store Insurance Campaigns",
-    description: "We deploy trained sales representatives directly at your retail locations. Our teams engage customers, explain insurance products, and handle the entire sales process.",
-    features: [
-      "Dedicated sales teams at your location",
-      "Full product training provided",
-      "Customer engagement strategies",
-      "Performance tracking & reporting"
-    ],
-    highlight: "Most Popular"
-  },
-  {
-    icon: "groups",
-    title: "Outsourced Sales & Marketing",
-    description: "Let us handle your insurance sales division entirely. From recruitment to training to performance management, we become your in-house insurance arm.",
-    features: [
-      "End-to-end sales management",
-      "Staff recruitment & training",
-      "Marketing collateral provided",
-      "Ongoing performance coaching"
-    ],
-    highlight: null
-  },
-  {
-    icon: "credit_card",
-    title: "In-Store Credit Facility",
-    description: "Enable your customers to access credit products alongside their purchases. We handle compliance, applications, and disbursements seamlessly.",
-    features: [
-      "Quick credit assessments",
-      "Compliant lending processes",
-      "Integration with your POS",
-      "Customer support included"
-    ],
-    highlight: null
-  },
-  {
-    icon: "devices",
-    title: "Device Leasing",
-    description: "Offer your customers cell phone and device leasing directly at point of sale. We manage the full leasing process while you earn commission on every deal.",
-    features: [
-      "Cell phone & device financing",
-      "Quick approval process",
-      "Commission on every lease",
-      "Full compliance handled"
-    ],
-    highlight: null
-  },
-  {
-    icon: "verified_user",
-    title: "Device Insurance",
-    description: "Protect your customers' financed devices with comprehensive insurance coverage. Seamlessly integrated with device sales for maximum uptake.",
-    features: [
-      "Screen damage protection",
-      "Theft & loss coverage",
-      "Easy claims process",
-      "Bundled with device leasing"
-    ],
-    highlight: null
-  },
-  {
-    icon: "headset_mic",
-    title: "Call Centre Services",
-    description: "Leverage our inhouse call centre for lead generation, customer acquisition, and growing your financial services book with quality clientele.",
-    features: [
-      "Lead calling (warm & hot leads)",
-      "Cold calling for acquisition",
-      "Quality assurance (95% average)",
-      "Data-driven customer profiling"
-    ],
-    highlight: "New"
-  }
-];
+import { partnerServices } from "@/data/partnerServices";
 
 export default function ValueProposition() {
   const ref = useRef(null);
@@ -124,7 +50,7 @@ export default function ValueProposition() {
 
         {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {partnerServices.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
