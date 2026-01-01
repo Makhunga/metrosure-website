@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 1, 2026 (Session 67)
+**Updated:** January 1, 2026 (Session 68)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,57 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** January 1, 2026
+
+---
+
+## SESSION 68 (Jan 1, 2026)
+
+### Focus: Visual Gallery Components (Biologica-inspired)
+
+Created masonry-style visual gallery components for About and Careers pages, inspired by Biologica.com's premium editorial aesthetic. Components are kept local pending additional images from stakeholder.
+
+### Created (Local Only - Not Committed)
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| `CultureGallery.tsx` | `src/components/careers/` | "Life at Metrosure" gallery for Careers page |
+| `AboutGallery.tsx` | `src/components/about/` | "Moments That Define Us" gallery for About page |
+
+### Design Features (Biologica-inspired)
+| Feature | Implementation |
+|---------|---------------|
+| Dark background | `bg-slate-900` with atmospheric gradient overlays |
+| Masonry grid | 4-column responsive with `row-span-2` for tall, `col-span-2` for wide |
+| B&W → Colour | `grayscale group-hover:grayscale-0` transition on hover |
+| Watermarks | Left-aligned, container-breaking (matching site pattern) |
+| Animations | Staggered entrance with spring physics, hover scale |
+| Captions | Slide-up reveal with animated underline on hover |
+| Texture | Subtle noise overlay for premium feel |
+
+### Gallery Images Used
+1. `/images/mission-image.jpg` - Team collaboration (wide)
+2. `/images/team-fp-tshabalala.jpg` - Leadership (tall)
+3. `/images/work_1.jpg` - Office workspace
+4. `/images/team-bg-chiliza.jpg` - Executive
+5. `/images/about-hero.jpg` - Professional setting (tall)
+6. `/images/family-hero-2.webp` - Family/community
+
+### Placement (When Integrated)
+- **Careers:** Between WhyJoinUs and OpenPositions sections
+- **About:** Between Team and CTA sections
+
+### Skills Used
+- **frontend-design**: Premium masonry gallery components with editorial aesthetic
+
+### Status
+- Components created and tested locally
+- Awaiting additional images from stakeholder before integration
+- Build passing with 42 routes
+
+### Next Steps
+- [ ] Receive additional gallery images from stakeholder
+- [ ] Update gallery image arrays with new content
+- [ ] Integrate components into pages
+- [ ] Commit and deploy
 
 ---
 
@@ -1008,6 +1059,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S68 | **Visual Gallery Components (Biologica-inspired):** Masonry galleries for About/Careers pages, B&W→colour hover, left-aligned watermarks (local only, pending images) |
 | S67 | **Calculator Premium Refinement + B2B Testimonials:** Age slider, smoker toggle, refined premium estimates, scroll-to-results, 2 new B2B testimonials |
 | S66 | **Calculator Legend Bug Fix:** Switched PieChart→BarChart to fix truncation bug, Careers hero brightness adjustment |
 | S65 | **Coverage Calculator UX Enhancement:** Tab state preservation, Funeral progress stepper, input validation with SA stats, premium range display |
@@ -1038,4 +1090,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 1, 2026 (Session 67)*
+*Document updated: January 1, 2026 (Session 68)*
