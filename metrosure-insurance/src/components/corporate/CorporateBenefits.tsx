@@ -88,7 +88,7 @@ export default function CorporateBenefits() {
 
         {/* Bottom CTA Bar */}
         <motion.div
-          className="mt-16 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+          className="mt-16 rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl bg-[#3a0a0a]"
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
