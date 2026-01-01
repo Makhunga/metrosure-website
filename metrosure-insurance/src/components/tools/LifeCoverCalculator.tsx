@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { useState, useMemo, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CalculatorResult } from "./CalculatorResult";
 import { CalculatorProgress, lifeCalculatorSteps } from "./CalculatorProgress";
-import { LIFE_COVER_CONSTANTS, VALIDATION_CONSTANTS, getLifeCoverComparisonText } from "@/data/calculatorData";
-import { AnimatePresence } from "framer-motion";
+import { LIFE_COVER_CONSTANTS, VALIDATION_CONSTANTS, getLifeCoverComparisonText, getAgePremiumFactor } from "@/data/calculatorData";
 
 interface LifeCoverData {
   annualIncome: string;
   outstandingDebts: string;
   dependents: number;
   yearsOfSupport: number;
+  age: number;
+  isSmoker: boolean;
 }
 
 export function LifeCoverCalculator() {
@@ -20,9 +21,19 @@ export function LifeCoverCalculator() {
     outstandingDebts: "",
     dependents: 0,
     yearsOfSupport: 10,
+    age: LIFE_COVER_CONSTANTS.DEFAULT_AGE,
+    isSmoker: false,
   });
 
   const [showResult, setShowResult] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to results on mobile
+  const scrollToResults = () => {
+    if (resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   // Parse currency input
   const parseAmount = (value: string): number => {
@@ -48,7 +59,7 @@ export function LifeCoverCalculator() {
   const calculation = useMemo(() => {
     const income = parseAmount(data.annualIncome);
     const debts = parseAmount(data.outstandingDebts);
-    const { dependents, yearsOfSupport } = data;
+    const { dependents, yearsOfSupport, age, isSmoker } = data;
 
     if (income === 0) return null;
 
@@ -59,10 +70,14 @@ export function LifeCoverCalculator() {
 
     const total = incomeReplacement + debtClearance + educationFund + emergencyFund;
 
-    // Estimate monthly premium range (based on age/health factors)
+    // Calculate personalised premium using age and smoker factors
+    const ageFactor = getAgePremiumFactor(age);
+    const smokerFactor = isSmoker ? LIFE_COVER_CONSTANTS.SMOKER_LOADING : 1.0;
     const basePremium = Math.round(total / (1000 / LIFE_COVER_CONSTANTS.PREMIUM_PER_THOUSAND));
-    const premiumLow = Math.round(basePremium * LIFE_COVER_CONSTANTS.PREMIUM_LOW_MULTIPLIER);
-    const premiumHigh = Math.round(basePremium * LIFE_COVER_CONSTANTS.PREMIUM_HIGH_MULTIPLIER);
+    const adjustedPremium = Math.round(basePremium * ageFactor * smokerFactor);
+    const variance = LIFE_COVER_CONSTANTS.PREMIUM_VARIANCE;
+    const premiumLow = Math.round(adjustedPremium * (1 - variance));
+    const premiumHigh = Math.round(adjustedPremium * (1 + variance));
 
     return {
       incomeReplacement,
@@ -72,6 +87,8 @@ export function LifeCoverCalculator() {
       total,
       premiumLow,
       premiumHigh,
+      age,
+      isSmoker,
     };
   }, [data]);
 
@@ -103,8 +120,11 @@ export function LifeCoverCalculator() {
     const completed: number[] = [];
     if (parseAmount(data.annualIncome) > 0) completed.push(0); // Income
     if (parseAmount(data.outstandingDebts) > 0) completed.push(1); // Debts
-    if (data.dependents > 0) completed.push(2); // Dependents
+    if (data.dependents > 0) completed.push(2); // Family
     if (data.yearsOfSupport !== LIFE_COVER_CONSTANTS.DEFAULT_YEARS_SUPPORT) completed.push(3); // Years
+    if (data.age !== LIFE_COVER_CONSTANTS.DEFAULT_AGE) completed.push(4); // Age
+    // Profile (smoker) is always "complete" once user has made a choice (default is non-smoker)
+    completed.push(5);
     return completed;
   }, [data]);
 
@@ -113,7 +133,9 @@ export function LifeCoverCalculator() {
     if (parseAmount(data.annualIncome) === 0) return 0;
     if (parseAmount(data.outstandingDebts) === 0) return 1;
     if (data.dependents === 0) return 2;
-    return 3;
+    if (data.yearsOfSupport === LIFE_COVER_CONSTANTS.DEFAULT_YEARS_SUPPORT) return 3;
+    if (data.age === LIFE_COVER_CONSTANTS.DEFAULT_AGE) return 4;
+    return 5;
   }, [data]);
 
   const breakdown = calculation
@@ -319,6 +341,89 @@ export function LifeCoverCalculator() {
             </p>
           </div>
 
+          {/* Age Input */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              Your current age
+            </label>
+            <div className="px-2">
+              <input
+                type="range"
+                min={LIFE_COVER_CONSTANTS.MIN_AGE}
+                max={LIFE_COVER_CONSTANTS.MAX_AGE}
+                value={data.age}
+                onChange={(e) => {
+                  setData((prev) => ({
+                    ...prev,
+                    age: parseInt(e.target.value),
+                  }));
+                  setShowResult(false);
+                }}
+                className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer accent-primary"
+              />
+              <div className="flex justify-between mt-2">
+                <span className="text-xs text-slate-500 dark:text-slate-400">{LIFE_COVER_CONSTANTS.MIN_AGE}</span>
+                <span className="text-lg font-bold text-primary">{data.age} years</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{LIFE_COVER_CONSTANTS.MAX_AGE}</span>
+              </div>
+            </div>
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 text-center">
+              Premiums increase with age
+            </p>
+          </div>
+
+          {/* Smoker Toggle */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+              Do you smoke?
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { value: false, label: "Non-smoker", icon: "smoke_free" },
+                { value: true, label: "Smoker", icon: "smoking_rooms" },
+              ].map((option) => (
+                <motion.button
+                  key={option.label}
+                  type="button"
+                  onClick={() => {
+                    setData((prev) => ({ ...prev, isSmoker: option.value }));
+                    setShowResult(false);
+                  }}
+                  className={`p-4 rounded-xl border-2 transition-all ${
+                    data.isSmoker === option.value
+                      ? "border-primary bg-primary/5 dark:bg-primary/15"
+                      : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
+                  }`}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex flex-col items-center gap-2">
+                    <span
+                      className={`material-symbols-outlined text-2xl ${
+                        data.isSmoker === option.value
+                          ? "text-primary"
+                          : "text-slate-500 dark:text-slate-400"
+                      }`}
+                    >
+                      {option.icon}
+                    </span>
+                    <span
+                      className={`text-sm font-medium ${
+                        data.isSmoker === option.value
+                          ? "text-primary"
+                          : "text-slate-700 dark:text-slate-300"
+                      }`}
+                    >
+                      {option.label}
+                    </span>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 text-center">
+              Smokers typically pay 50% more due to health risks
+            </p>
+          </div>
+
           {/* Calculate Button */}
           <motion.button
             onClick={handleCalculate}
@@ -334,6 +439,24 @@ export function LifeCoverCalculator() {
             Calculate My Cover
           </motion.button>
 
+          {/* Mobile scroll-to-results button */}
+          <AnimatePresence>
+            {showResult && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                onClick={scrollToResults}
+                className="lg:hidden w-full mt-3 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold flex items-center justify-center gap-2 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+              >
+                <span className="material-symbols-outlined text-lg">
+                  arrow_downward
+                </span>
+                See Your Results
+              </motion.button>
+            )}
+          </AnimatePresence>
+
           {/* Disclaimer */}
           <div className="mt-4 p-4 bg-amber-50 dark:bg-amber-900/15 rounded-xl border border-amber-200 dark:border-amber-800">
             <div className="flex items-start gap-3">
@@ -341,7 +464,7 @@ export function LifeCoverCalculator() {
                 info
               </span>
               <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
-                <strong>Indicative estimates only.</strong> Actual premiums depend on age, health, smoking status, and insurer underwriting. This calculator provides a general guide—speak to our advisers for an accurate quote.
+                <strong>Personalised estimate.</strong> This calculation uses your age ({data.age}) and smoking status for a more accurate range. Actual premiums depend on detailed health history, occupation, and insurer underwriting. Speak to our advisers for a final quote.
               </p>
             </div>
           </div>
@@ -349,7 +472,7 @@ export function LifeCoverCalculator() {
       </motion.div>
 
       {/* Results */}
-      <div className="lg:sticky lg:top-32 h-fit">
+      <div ref={resultsRef} className="lg:sticky lg:top-32 h-fit">
         {showResult && calculation ? (
           <CalculatorResult
             title="Recommended Life Cover"

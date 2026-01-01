@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 1, 2026 (Session 66)
+**Updated:** January 1, 2026 (Session 67)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,69 @@
 
 - **Routes:** 42 (37 pages + 5 API routes)
 - **Last Build:** January 1, 2026
+
+---
+
+## SESSION 67 (Jan 1, 2026)
+
+### Focus: Calculator Premium Refinement + B2B Testimonials
+
+Enhanced both calculators with refined premium estimates and mobile scroll-to-results. Added 2 new B2B testimonials focusing on QA/compliance and job creation themes.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Added age-based premium factors (20-70 age range with interpolation) | `src/data/calculatorData.ts` |
+| Added smoker loading factor (1.5x for smokers) | `src/data/calculatorData.ts` |
+| Reduced premium variance to ±25% (2x range instead of 5x) | `src/data/calculatorData.ts` |
+| Added age slider input (20-70 years) to Life Calculator | `src/components/tools/LifeCoverCalculator.tsx` |
+| Added smoker toggle (Non-smoker/Smoker) to Life Calculator | `src/components/tools/LifeCoverCalculator.tsx` |
+| Updated premium calculation using age factor × smoker factor | `src/components/tools/LifeCoverCalculator.tsx` |
+| Added mobile scroll-to-results button (lg:hidden) | `LifeCoverCalculator.tsx`, `FuneralCoverCalculator.tsx` |
+| Updated progress stepper from 4 to 6 steps | `src/components/tools/CalculatorProgress.tsx` |
+| Added 2 new B2B testimonials (Priya Naidoo, Sibusiso Dube) | `src/components/Testimonials.tsx` |
+
+### New Calculator Features
+
+**Age-Based Premium Factors:**
+| Age | Factor |
+|-----|--------|
+| 20 | 0.5× |
+| 35 | 1.0× (base) |
+| 50 | 2.0× |
+| 70 | 5.0× |
+
+Interpolation between defined ages for smooth transitions.
+
+**Smoker Loading:** 1.5× multiplier for smokers
+
+**Premium Variance:** ±25% (was ±60% for 5x range, now gives ~2x range)
+
+**Example Calculation:**
+- Non-smoker, age 35: R3,938–R6,563/month (1.7x range)
+- Smoker, age 50: ~R11,814–R19,689/month
+
+### New Life Calculator Steps
+```
+1. Income → 2. Debts → 3. Family → 4. Years → 5. Age → 6. Profile (Smoker)
+```
+
+### New B2B Testimonials
+
+**Priya Naidoo** (Retail Partner • Electronics Chain)
+> "Every sales advisor Metrosure places is FSP-licensed and properly trained. Our customers notice the difference—they get real advice, not pushy sales tactics. The 95% QA standard they maintain gives us confidence."
+
+**Sibusiso Dube** (Retail Partner • Home Appliances)
+> "We started with two advisors in Tembisa. Now we've got 18 permanent staff across four stores. The revenue share covers more than our space costs—it's become a proper income stream for us."
+
+### Skills Used
+- **frontend-design**: Age slider, smoker toggle, scroll-to-results button UI
+- **content-research-writer**: Authentic SA B2B partner testimonials
+
+### Build Status
+- Build passing with 42 routes (37 pages + 5 API routes)
+- TypeScript compilation: no errors
+- Visual testing: Calculator and testimonials verified
 
 ---
 
@@ -945,6 +1008,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S67 | **Calculator Premium Refinement + B2B Testimonials:** Age slider, smoker toggle, refined premium estimates, scroll-to-results, 2 new B2B testimonials |
 | S66 | **Calculator Legend Bug Fix:** Switched PieChart→BarChart to fix truncation bug, Careers hero brightness adjustment |
 | S65 | **Coverage Calculator UX Enhancement:** Tab state preservation, Funeral progress stepper, input validation with SA stats, premium range display |
 | S64 | **WhyChooseUs CTA Simplification:** Replaced full-width banner with centred button, removed background image |
@@ -974,4 +1038,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 1, 2026 (Session 66)*
+*Document updated: January 1, 2026 (Session 67)*

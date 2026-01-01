@@ -52,6 +52,18 @@ const testimonialsData = [
     isPartner: true,
   },
   {
+    text: "Every sales advisor Metrosure places is FSP-licensed and properly trained. Our customers notice the difference—they get real advice, not pushy sales tactics. The 95% QA standard they maintain gives us confidence.",
+    name: "Priya Naidoo",
+    role: "Retail Partner • Electronics Chain",
+    isPartner: true,
+  },
+  {
+    text: "We started with two advisors in Tembisa. Now we've got 18 permanent staff across four stores. The revenue share covers more than our space costs—it's become a proper income stream for us.",
+    name: "Sibusiso Dube",
+    role: "Retail Partner • Home Appliances",
+    isPartner: true,
+  },
+  {
     text: "After years of feeling like just another policy number, Metrosure made me feel like family. Their team goes above and beyond every single time.",
     name: "David Nkosi",
     role: "Retirement Planning",

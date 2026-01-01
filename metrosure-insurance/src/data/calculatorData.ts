@@ -79,6 +79,30 @@ export const LIFE_COVER_CONSTANTS = {
   DEFAULT_YEARS_SUPPORT: 10,
   /** Maximum dependents */
   MAX_DEPENDENTS: 10,
+  /** Age-based premium multipliers (relative to base rate at age 35) */
+  AGE_PREMIUM_FACTORS: {
+    20: 0.5,
+    25: 0.6,
+    30: 0.8,
+    35: 1.0,
+    40: 1.3,
+    45: 1.6,
+    50: 2.0,
+    55: 2.5,
+    60: 3.2,
+    65: 4.0,
+    70: 5.0,
+  } as const,
+  /** Smoker premium loading (50% higher premiums for smokers) */
+  SMOKER_LOADING: 1.5,
+  /** Premium range variance (±25% gives ~2x range instead of 5x) */
+  PREMIUM_VARIANCE: 0.25,
+  /** Minimum age for calculator */
+  MIN_AGE: 20,
+  /** Maximum age for calculator */
+  MAX_AGE: 70,
+  /** Default age for calculator */
+  DEFAULT_AGE: 35,
 } as const;
 
 /**
@@ -368,6 +392,32 @@ export function getPopularFuneralTier(): FuneralTier | undefined {
  */
 export function formatZAR(amount: number): string {
   return amount.toLocaleString("en-ZA");
+}
+
+/**
+ * Get age-based premium factor with interpolation
+ * Returns a multiplier based on age (20-70 range)
+ */
+export function getAgePremiumFactor(age: number): number {
+  const factors = LIFE_COVER_CONSTANTS.AGE_PREMIUM_FACTORS;
+  const ages = Object.keys(factors).map(Number).sort((a, b) => a - b);
+
+  // Clamp to min/max
+  if (age <= ages[0]) return factors[ages[0] as keyof typeof factors];
+  if (age >= ages[ages.length - 1]) return factors[ages[ages.length - 1] as keyof typeof factors];
+
+  // Find surrounding ages and interpolate
+  for (let i = 0; i < ages.length - 1; i++) {
+    if (age >= ages[i] && age <= ages[i + 1]) {
+      const lowerAge = ages[i];
+      const upperAge = ages[i + 1];
+      const lowerFactor = factors[lowerAge as keyof typeof factors];
+      const upperFactor = factors[upperAge as keyof typeof factors];
+      const ratio = (age - lowerAge) / (upperAge - lowerAge);
+      return lowerFactor + (upperFactor - lowerFactor) * ratio;
+    }
+  }
+  return 1.0;
 }
 
 /**

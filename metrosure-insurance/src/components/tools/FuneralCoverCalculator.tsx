@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -15,6 +15,14 @@ export function FuneralCoverCalculator() {
   const [selectedMembers, setSelectedMembers] = useState<string[]>(["self"]);
   const [selectedTier, setSelectedTier] = useState<string>("standard");
   const [showResult, setShowResult] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to results on mobile
+  const scrollToResults = () => {
+    if (resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   const toggleMember = (memberId: string) => {
     setSelectedMembers((prev) => {
@@ -244,6 +252,24 @@ export function FuneralCoverCalculator() {
             Calculate My Cover
           </motion.button>
 
+          {/* Mobile scroll-to-results button */}
+          <AnimatePresence>
+            {showResult && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                onClick={scrollToResults}
+                className="lg:hidden w-full mt-3 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold flex items-center justify-center gap-2 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+              >
+                <span className="material-symbols-outlined text-lg">
+                  arrow_downward
+                </span>
+                See Your Plan
+              </motion.button>
+            )}
+          </AnimatePresence>
+
           {/* Disclaimer */}
           <div className="mt-4 p-4 bg-amber-50 dark:bg-amber-900/15 rounded-xl border border-amber-200 dark:border-amber-800">
             <div className="flex items-start gap-3">
@@ -259,7 +285,7 @@ export function FuneralCoverCalculator() {
       </motion.div>
 
       {/* Results */}
-      <div className="lg:sticky lg:top-32 h-fit">
+      <div ref={resultsRef} className="lg:sticky lg:top-32 h-fit">
         <AnimatePresence mode="wait">
           {showResult && calculation ? (
             <motion.div

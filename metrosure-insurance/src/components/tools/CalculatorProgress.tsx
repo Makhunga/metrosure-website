@@ -29,8 +29,10 @@ interface CalculatorProgressProps {
 export const lifeCalculatorSteps: CalculatorStep[] = [
   { id: "income", label: "Income", icon: "payments" },
   { id: "debts", label: "Debts", icon: "credit_card" },
-  { id: "dependents", label: "Dependents", icon: "family_restroom" },
+  { id: "dependents", label: "Family", icon: "family_restroom" },
   { id: "years", label: "Years", icon: "schedule" },
+  { id: "age", label: "Age", icon: "cake" },
+  { id: "profile", label: "Profile", icon: "person" },
 ];
 
 /**
