@@ -78,13 +78,6 @@ export default function CorporateProcess() {
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* Icon */}
-                <div className="w-12 h-12 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <span className="material-symbols-outlined text-primary text-2xl">
-                    {step.icon}
-                  </span>
-                </div>
-
                 <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3">
                   {step.title}
                 </h3>
