@@ -4,6 +4,7 @@ export { default as SuccessMetrics } from "./SuccessMetrics";
 export { default as ValueProposition } from "./ValueProposition";
 export { default as HowItWorks } from "./HowItWorks";
 export { default as PartnerBenefits } from "./PartnerBenefits";
+export { default as CaseStudies } from "./CaseStudies";
 export { default as PartnerTestimonials } from "./PartnerTestimonials";
 // Original carousel style stashed - see PartnerTestimonials.stashed.tsx
 export { default as PartnerFAQ } from "./PartnerFAQ";

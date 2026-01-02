@@ -6,6 +6,7 @@ import {
   ValueProposition,
   HowItWorks,
   PartnerBenefits,
+  CaseStudies,
   PartnerTestimonials,
   PartnerFAQ,
   PartnerInquiryForm,
@@ -56,6 +57,7 @@ export default function PartnersPage() {
         <ValueProposition />
         <HowItWorks />
         <PartnerBenefits />
+        <CaseStudies />
         <PartnerTestimonials />
         <PartnerFAQ />
         <PartnerInquiryForm />

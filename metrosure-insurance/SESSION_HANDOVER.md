@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 2, 2026 (Session 69)
+**Updated:** January 2, 2026 (Session 71)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -14,14 +14,130 @@
 
 ---
 
+## SESSION 71 (Jan 2, 2026)
+
+### Focus: Premium Calculation Documentation & Market Research
+
+Created comprehensive stakeholder documentation explaining all premium calculation logic, mathematical formulas, and worked examples. Conducted market research to benchmark against industry standards.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Documented Life Cover premium calculation formulas | `PREMIUM_CALCULATION_DOCUMENTATION.md` (NEW) |
+| Documented Funeral Cover premium calculation formulas | `PREMIUM_CALCULATION_DOCUMENTATION.md` |
+| Created worked examples with step-by-step calculations | `PREMIUM_CALCULATION_DOCUMENTATION.md` |
+| Compiled 17 stakeholder questions for refinement | `PREMIUM_CALCULATION_DOCUMENTATION.md` |
+| Researched ASISA 2025 Insurance Gap Study | Market research addendum |
+| Researched SA funeral costs (2025 data) | Market research addendum |
+| Compared competitor calculators (1Life, MiWayLife, Discovery) | Market research addendum |
+| Researched smoker loading industry benchmarks | Market research addendum |
+
+### New Files Created
+| File | Purpose |
+|------|---------|
+| `PREMIUM_CALCULATION_DOCUMENTATION.md` | Stakeholder presentation document with formulas, examples, research |
+
+### Documentation Contents
+| Section | Description |
+|---------|-------------|
+| **1. Life Cover Calculator** | Total cover formula, premium estimation, age factors, smoker loading |
+| **2. Funeral Cover Calculator** | Tier structure, family multipliers, premium formula |
+| **3. Current Assumptions** | All hardcoded values and their sources |
+| **4. Stakeholder Questions** | 17 specific questions for refinement |
+| **5. Recommendations** | Future enhancements to consider |
+| **6. Code Locations** | File paths and line numbers for each formula |
+| **7. Next Steps** | Action items post-stakeholder-feedback |
+| **8. Market Research** | ASISA data, competitor analysis, funeral costs, smoker loading |
+
+### Key Research Findings
+| Finding | Implication |
+|---------|-------------|
+| ASISA: R50.4 trillion insurance gap | Current messaging aligned |
+| Average funeral = R70k–R84k | Current R50k max tier may underinsure |
+| Smoker loading industry = 1.5–2.5× | Current 1.5× may be conservative |
+| AVBOB uses age-based funeral pricing | Metrosure's funeral calc doesn't |
+| Competitors don't show premium estimates | Metrosure more transparent but higher accuracy risk |
+
+### Skills Used
+- **content-research-writer**: ASISA research, funeral costs, competitor analysis, smoker loading benchmarks
+- **Explore agent**: Codebase analysis of calculator logic
+
+### Build Status
+- Build passing with 43 routes (37 pages + 6 API routes)
+- TypeScript compilation: no errors
+- Documentation ready for stakeholder presentation
+
+---
+
+## SESSION 70 (Jan 2, 2026)
+
+### Focus: B2B Case Studies Section
+
+Added comprehensive B2B case studies to the Partners page, showcasing partnership success stories with TFG/Jet, electronics retailers, and furniture stores.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Verified Session 69 calculator enhancements (all 4 working) | Browser testing |
+| Created case studies data file with 3 detailed case studies | `src/data/caseStudies.ts` (NEW) |
+| Created CaseStudies component with expandable cards | `src/components/partners/CaseStudies.tsx` (NEW) |
+| Integrated CaseStudies into Partners page | `src/app/partners/page.tsx`, `src/components/partners/index.ts` |
+
+### New Files Created
+| File | Purpose |
+|------|---------|
+| `src/data/caseStudies.ts` | Centralised case study data (types, content, helpers) |
+| `src/components/partners/CaseStudies.tsx` | Case studies section with expandable cards |
+
+### Case Studies Added
+| Partner | Industry | Key Metrics |
+|---------|----------|-------------|
+| **TFG Retail (Jet Stores)** | Fashion & Home | 45 locations, 127 jobs, 18% attachment rate, 4.7/5 rating |
+| **TechZone Electronics** | Consumer Electronics | 62% insurance uptake, 82% revenue growth, 18 staff, 35% default reduction |
+| **HomeStyle Furnishers** | Home Furnishings | 71% credit life uptake, 48hr claims, 42 jobs, 28% default reduction |
+
+### Component Features
+- Hero stats section (75% sales, 95% QA, 5,000+ jobs, 7 provinces)
+- Expandable case study cards with Challenge → Solution → Results format
+- Metrics display with Material Symbols icons
+- Partner quotes with attribution
+- Framer Motion animations (entrance, expand/collapse)
+- Dark mode compatible
+- Mobile responsive (single column → 2-column grid)
+- CTA linking to partner inquiry form
+
+### Data Architecture (`caseStudies.ts`)
+```typescript
+interface CaseStudy {
+  id, partnerName, partnerType, industry, location, logoPlaceholder,
+  challenge, solution[], results[], metrics[], quote, duration, servicesUsed[], featured
+}
+interface CaseStudyStats { label, value, description }
+interface WhyPartnerReason { icon, title, description }
+```
+
+### Skills Used
+- **content-research-writer**: Case study content, partner narratives, performance metrics
+- **frontend-design**: CaseStudies component with expandable cards and animations
+
+### Build Status
+- Build passing with 43 routes (37 pages + 6 API routes)
+- TypeScript compilation: no errors
+- Partners page now includes CaseStudies section
+
+---
+
 ## SESSION 69 (Jan 2, 2026)
 
 ### Focus: Coverage Calculator Enhancements
 
 Enhanced both Life and Funeral calculators with sharing, lead capture, and educational features based on SA insurance industry best practices research.
 
-### Next Session: First Task
-- [ ] Start dev server (`npm run dev`) and verify all 4 enhancements work correctly
+### Verification Status (Session 70)
+- [x] WhatsApp Share Results - ✅ Working
+- [x] Email Results with Lead Capture - ✅ Working
+- [x] Real-time Premium Preview - ✅ Working
+- [x] Funeral Cost Breakdown - ✅ Working
 
 ### Completed
 | Change | Files |
@@ -1024,42 +1140,62 @@ Corporate Solutions page now live at `/corporate` with:
 
 ## NEXT SESSION PLAN
 
-### Priority 1: Content Review
-- [ ] Review copy with stakeholder for final accuracy
-- [ ] Verify 75% sales stat with stakeholder before production
-- [ ] Add TFG logo to partners section if provided
-- [ ] Add Bolttech logo when available
+### Priority 1: Stakeholder Review (Premium Calculations)
+Present `PREMIUM_CALCULATION_DOCUMENTATION.md` to stakeholders and capture decisions:
+- [ ] Review premium calculation formulas with product team
+- [ ] Validate R1.00/R1,000 base rate against actual insurer rates
+- [ ] Confirm smoker loading (currently 1.5×, industry uses 1.5–2.5×)
+- [ ] Decide on age-banding for funeral calculator
+- [ ] Confirm funeral tier pricing (R99/R199/R349) or adjust
+- [ ] Decide on adding R75k/R100k funeral tiers
 
-### Priority 2: Corporate Solutions (Optional)
-If stakeholder wants corporate services visible:
-- [ ] Create `/corporate` or `/business-solutions` page
-- [ ] Add Group Medical Aid, Retirement, Benefits sections
-- [ ] Link from Partners page and footer
+### Priority 2: Calculator Refinements (Post-Stakeholder)
+Based on stakeholder feedback:
+- [ ] Update `calculatorData.ts` with validated rates
+- [ ] Add "existing cover" input for gap calculation
+- [ ] Implement age-based funeral pricing (if approved)
+- [ ] Add higher funeral cover tiers (if approved)
+- [ ] Increase smoker loading (if approved)
 
-### Priority 3: Outstanding Features
-- [ ] Claims page functionality
-- [ ] Policies page functionality
-- [ ] Coverage calculator tool improvements
+### Priority 3: Content & Assets
+- [ ] Add TFG logo to partners section (if provided)
+- [ ] Add Bolttech logo (when available)
+- [ ] Enable gallery components on production (pending images)
+- [ ] Review 75% sales stat with stakeholder before production
+
+### Priority 4: Technical Debt
+- [ ] Consider adding product-specific calculators (Discovery, Sanlam, etc.)
+- [ ] Add inflation projection to education fund calculation
+- [ ] Improve premium variance explanation for users
 
 ---
 
 ## RECOMMENDATIONS
 
+### Calculator Improvements (Based on Session 71 Research)
+1. **Increase smoker loading** - Current 1.5× is conservative; industry uses 1.75–2.0×
+2. **Add funeral age-banding** - AVBOB uses age-based pricing; improves accuracy
+3. **Add R75k/R100k funeral tiers** - Average SA funeral costs R70k–R84k
+4. **Add "existing cover" input** - 1Life does this; shows insurance gap
+5. **Validate base rate** - Request actual rate cards from Discovery, Sanlam, Old Mutual
+
 ### Content
-1. **Verify 75% stat** - Confirm this figure with stakeholder before production
-2. **TFG relationship** - Consider adding TFG logo to partners section if permitted
-3. **Testimonials** - Update customer testimonials to reflect B2B success stories
-4. **Case studies** - Consider adding a case study section showing TFG/Jet results
+1. ~~**Case studies**~~ ✅ COMPLETED (Session 70) - 3 B2B case studies added
+2. **Verify 75% stat** - Confirm this figure with stakeholder before production
+3. **TFG relationship** - Consider adding TFG logo to partners section if permitted
 
 ### Technical
 1. ~~**Services data file**~~ ✅ COMPLETED (Session 60) - Created `src/data/partnerServices.ts`
 2. ~~**About page data**~~ ✅ COMPLETED (Session 60) - Created `src/data/aboutPage.ts`
 3. ~~**Form options centralisation**~~ ✅ COMPLETED (Session 60) - Created `src/data/formOptions.ts`
+4. ~~**Premium calculation documentation**~~ ✅ COMPLETED (Session 71) - Created `PREMIUM_CALCULATION_DOCUMENTATION.md`
 
 ### Future Enhancements
-1. **B2B Quote Flow** - Consider separate quote form for business partners
-2. **Partner Portal** - Login area for existing partners to track performance
-3. **Analytics Dashboard** - Show partners their sales metrics (long-term)
+1. **Product-specific calculators** - Discovery Life, Sanlam Sky with accurate rates
+2. **Inflation projections** - Show future value of education fund
+3. **B2B Quote Flow** - Consider separate quote form for business partners
+4. **Partner Portal** - Login area for existing partners to track performance
+5. **Analytics Dashboard** - Show partners their sales metrics (long-term)
 
 ---
 
@@ -1123,7 +1259,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 ```
 src/app/        # Pages & API routes
 src/components/ # UI components
-src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions, partners, claims, policies, calculatorData)
+src/data/       # Data files (jobs, corporateServices, partnerServices, aboutPage, formOptions, partners, claims, policies, calculatorData, caseStudies)
 src/lib/        # Utilities
 resources/      # Source documents (proposals, PDFs)
 public/images/partners/  # Partner logo images (18 PNGs + 2 SVGs)
@@ -1158,6 +1294,8 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S71 | **Premium Calculation Documentation:** Stakeholder document with formulas, worked examples, 17 questions, ASISA research, competitor analysis, funeral cost benchmarks |
+| S70 | **B2B Case Studies Section:** 3 case studies (TFG/Jet, TechZone, HomeStyle), expandable cards, hero stats, Challenge→Solution→Results format |
 | S69 | **Coverage Calculator Enhancements:** WhatsApp share, Email lead capture, Real-time preview, Funeral cost breakdown |
 | S68 | **Visual Gallery Components (Biologica-inspired):** Masonry galleries for About/Careers pages, B&W→colour hover, left-aligned watermarks (dev-only, pending images) |
 | S67 | **Calculator Premium Refinement + B2B Testimonials:** Age slider, smoker toggle, refined premium estimates, scroll-to-results, 2 new B2B testimonials |
@@ -1190,4 +1328,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 2, 2026 (Session 69)*
+*Document updated: January 2, 2026 (Session 71)*
