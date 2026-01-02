@@ -91,7 +91,9 @@ Added white logo image to email header banner (replacing text-only "METROSURE"):
 </td>
 ```
 
-**Logo Source:** `/public/images/logo-white.png` (served via production URL for email compatibility)
+**Logo Source:** `/public/images/logo-white.png`
+**Email URL:** `https://metrosure-website-git-main-makhungas-projects.vercel.app/images/logo-white.png`
+**Note:** Update to production domain URL when custom domain is configured
 
 ### Production Readiness Notes
 

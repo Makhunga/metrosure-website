@@ -375,7 +375,7 @@ export function wrapEmailTemplate(content: string, title: string): string {
                       <!-- White Logo Image -->
                       <tr>
                         <td align="center" style="padding-bottom: 8px;">
-                          <img src="https://www.metrosuregroup.co.za/images/logo-white.png" alt="Metrosure Insurance Brokers" width="180" height="auto" style="display: block; max-width: 180px; height: auto; border: 0;" />
+                          <img src="https://metrosure-website-git-main-makhungas-projects.vercel.app/images/logo-white.png" alt="Metrosure Insurance Brokers" width="180" height="auto" style="display: block; max-width: 180px; height: auto; border: 0;" />
                         </td>
                       </tr>
                       <tr>
