@@ -16,9 +16,9 @@
 
 ## SESSION 74 (Jan 2, 2026)
 
-### Focus: Tawk.to Live Chat Integration
+### Focus: Live Chat, ScrollToTop Removal & Stakeholder Documentation
 
-Implemented Tawk.to free live chat widget across all pages of the website. Chat configured for Mon-Fri 08:00-17:00 SAST business hours with offline form for after-hours enquiries.
+Implemented Tawk.to live chat widget, removed ScrollToTop component site-wide, and comprehensively updated stakeholder email documentation to reflect current website status.
 
 ### Completed
 | Change | Files |
@@ -67,10 +67,65 @@ export default function TawkToChat({ propertyId, widgetId = "default" }) {
 }
 ```
 
+### ScrollToTop Removal
+
+Removed ScrollToTop component site-wide (user requested cleaner UX with chat widget).
+
+| Change | Files |
+|--------|-------|
+| Removed ScrollToTop import and usage | 14 page files |
+| Deleted ScrollToTop component | `src/components/ScrollToTop.tsx` (DELETED) |
+| Removed export from index | `src/components/index.ts` |
+
+**Pages Updated:**
+- `src/app/page.tsx`
+- `src/app/terms/page.tsx`
+- `src/app/legal/page.tsx`
+- `src/app/about/page.tsx`
+- `src/app/corporate/page.tsx`
+- `src/app/careers/page.tsx`
+- `src/app/partners/page.tsx`
+- `src/app/privacy/page.tsx`
+- `src/app/help/page.tsx`
+- `src/app/home-alt/page.tsx`
+- `src/app/claims/page.tsx`
+- `src/app/policies/page.tsx`
+- `src/app/contact/page.tsx`
+- `src/components/insurance/InsurancePageTemplate.tsx`
+
+### Stakeholder Email Update
+
+Updated `STAKEHOLDER_EMAIL.md` to reflect current website status (Session 74):
+
+| Before (S32) | After (S74) |
+|--------------|-------------|
+| 25 routes | 44 routes (37 pages + 7 API) |
+| 4 forms (preview mode) | 7 working forms |
+| Email not configured | Premium templates, Outlook-compatible |
+| No chat | Tawk.to live chat |
+| No calculator | Full coverage calculator with sharing |
+
+**New Features Documented:**
+- Live Chat (Tawk.to) with Mon-Fri 08:00-17:00 business hours
+- Coverage Calculator with WhatsApp and email sharing
+- Corporate Solutions page for B2B employee benefits
+- B2B Case Studies (TFG/Jet, TechZone, HomeStyle)
+- Premium Email Templates (Outlook-compatible)
+- 67% faster page loads after optimisation
+- Claims Guide with documents list
+- Policy Dashboard preview
+
+**Email Versions Updated:**
+1. Full Email (comprehensive, 7-10 min read)
+2. Executive Summary (quick update, 2-3 min read)
+3. Meeting Request (funeral policy walkthrough, 1 min read)
+
 ### Build Status
 - Build passing with 44 routes (37 pages + 7 API routes)
 - TypeScript compilation: no errors
 - Chat widget verified in browser
+- ScrollToTop removed from all pages
+- Stakeholder email documentation updated
 
 ---
 
@@ -1596,7 +1651,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
-| S74 | **Tawk.to Live Chat Integration:** TawkToChat component, hydration-safe script loading, site-wide widget, Mon-Fri 08:00-17:00 SAST business hours |
+| S74 | **Live Chat, ScrollToTop Removal & Stakeholder Docs:** Tawk.to chat widget (Mon-Fri 08:00-17:00), ScrollToTop removed from 14 pages, STAKEHOLDER_EMAIL.md comprehensive update (25→44 routes, new features documented) |
 | S73 | **Performance Optimisation + Bug Fix + Chat Research:** Font optimisation (1.1MB→872KB), dynamic imports, LCP 67% faster, testimonials carousel bug fix, chat solution evaluation (5 options ranked) |
 | S72 | **Email Template Outlook Compatibility:** Fixed 6 bugs, VML CTA buttons, Outlook.com line-height fix, margin→spacing rows, test email API route |
 | S71 | **Premium Calculation Documentation:** Stakeholder document with formulas, worked examples, 17 questions, ASISA research, competitor analysis, funeral cost benchmarks |
@@ -1633,4 +1688,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 2, 2026 (Session 73)*
+*Document updated: January 2, 2026 (Session 74)*
