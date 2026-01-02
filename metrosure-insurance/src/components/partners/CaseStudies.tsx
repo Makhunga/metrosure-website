@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   caseStudies,
@@ -15,18 +15,17 @@ import {
 function CaseStudyCard({
   study,
   index,
-  isInView,
 }: {
   study: CaseStudy;
   index: number;
-  isInView: boolean;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
       className="group"
     >
@@ -74,7 +73,8 @@ function CaseStudyCard({
                 key={i}
                 className="p-3 rounded-xl bg-[rgb(var(--color-surface))]/50 border border-[rgb(var(--color-border-light))] text-center"
                 initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: 0.5 + index * 0.15 + i * 0.1 }}
               >
                 <span className="material-symbols-outlined text-primary text-lg mb-1 block">
@@ -263,19 +263,16 @@ function CaseStudyCard({
  * CaseStudies - Main component for B2B partnership success stories
  */
 export default function CaseStudies() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <section
-      ref={ref}
       className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300 overflow-hidden"
     >
       {/* Decorative watermark */}
       <motion.div
         className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-8xl md:text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
         initial={{ opacity: 0, x: -20 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         Success Stories
@@ -286,13 +283,15 @@ export default function CaseStudies() {
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
           <motion.span
             className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.2 }}
           >
             Proven Results
@@ -300,7 +299,8 @@ export default function CaseStudies() {
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.3 }}
           >
             Partnership Success Stories
@@ -308,7 +308,8 @@ export default function CaseStudies() {
           <motion.p
             className="text-xl text-[rgb(var(--color-text-body))] max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.4 }}
           >
             See how South African retailers are growing their businesses with Metrosure.
@@ -320,7 +321,8 @@ export default function CaseStudies() {
         <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {caseStudyHeroStats.map((stat, index) => (
@@ -328,14 +330,16 @@ export default function CaseStudies() {
               key={index}
               className="relative p-6 rounded-2xl bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))] text-center group hover:border-primary/30 transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.3 + index * 0.1 }}
               whileHover={{ y: -4 }}
             >
               <motion.div
                 className="text-4xl md:text-5xl font-black text-primary mb-2"
                 initial={{ scale: 0.5 }}
-                animate={isInView ? { scale: 1 } : {}}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{
                   delay: 0.4 + index * 0.1,
                   type: "spring",
@@ -361,7 +365,6 @@ export default function CaseStudies() {
               key={study.id}
               study={study}
               index={index}
-              isInView={isInView}
             />
           ))}
         </div>
@@ -370,7 +373,8 @@ export default function CaseStudies() {
         <motion.div
           className="text-center rounded-2xl p-8 md:p-12 bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ delay: 0.8 }}
         >
           <h3 className="text-2xl md:text-3xl font-bold text-[rgb(var(--color-text-main))] mb-4">

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonialsData = [
   {
@@ -36,8 +36,6 @@ const QUOTE_COLOR_DARK = "rgba(251, 180, 160, 0.25)";
 
 export default function PartnerTestimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
 
   const goToPrevious = () => {
     setActiveIndex((prev) =>
@@ -55,14 +53,14 @@ export default function PartnerTestimonials() {
 
   return (
     <section
-      ref={sectionRef}
       className="pt-28 md:pt-36 pb-16 md:pb-20 bg-[#f5f5f7] dark:bg-slate-900 transition-colors duration-300 relative overflow-hidden"
     >
       {/* Decorative watermark */}
       <motion.div
         className="absolute left-1/2 -translate-x-1/2 top-8 md:top-12 text-[8rem] md:text-[12rem] lg:text-[14rem] font-black text-slate-200/60 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
         initial={{ opacity: 0, y: -20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, delay: 0.1 }}
       >
         Success
@@ -75,7 +73,8 @@ export default function PartnerTestimonials() {
         <motion.h2
           className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white text-center mb-20 tracking-tight relative z-10"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           Client Success Stories
@@ -96,7 +95,8 @@ export default function PartnerTestimonials() {
               color: QUOTE_COLOR,
             }}
             initial={{ opacity: 0, x: -30, rotate: -10 }}
-            animate={isInView ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: -30, rotate: -10 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
             <span className="dark:hidden">&ldquo;</span>
@@ -115,7 +115,8 @@ export default function PartnerTestimonials() {
               color: QUOTE_COLOR,
             }}
             initial={{ opacity: 0, x: 30, rotate: 10 }}
-            animate={isInView ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: 30, rotate: 10 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
             <span className="dark:hidden">&rdquo;</span>
@@ -128,7 +129,8 @@ export default function PartnerTestimonials() {
             className="absolute left-0 md:-left-20 lg:-left-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
             aria-label="Previous testimonial"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.5 }}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
@@ -153,7 +155,8 @@ export default function PartnerTestimonials() {
             className="absolute right-0 md:-right-20 lg:-right-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
             aria-label="Next testimonial"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.5 }}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
@@ -207,7 +210,8 @@ export default function PartnerTestimonials() {
         <motion.div
           className="flex justify-center items-center gap-3 mt-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           {testimonialsData.map((_, index) => (

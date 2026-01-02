@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/animations";
 
 const steps = [
@@ -36,12 +35,8 @@ const steps = [
 ];
 
 export default function HowItWorks() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <section
-      ref={ref}
       id="how-it-works"
       className="relative py-24 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
@@ -50,13 +45,15 @@ export default function HowItWorks() {
         <motion.div
           className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.2 }}
           >
             Here&apos;s how it works
@@ -64,7 +61,8 @@ export default function HowItWorks() {
           <motion.p
             className="text-lg text-[rgb(var(--color-text-body))] max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.3 }}
           >
             At Metrosure, we know that partnering with an insurance broker is a
@@ -79,7 +77,8 @@ export default function HowItWorks() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
               className="relative pt-10"
             >
@@ -128,7 +127,8 @@ export default function HowItWorks() {
         <motion.div
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ delay: 0.8 }}
         >
           <MagneticButton strength={0.4}>

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 2, 2026 (Session 74)
+**Updated:** January 2, 2026 (Session 76)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,203 @@
 
 - **Routes:** 44 (37 pages + 7 API routes)
 - **Last Build:** January 2, 2026
+
+---
+
+## SESSION 76 (Jan 2, 2026)
+
+### Focus: Partners Page Bug Fix & Email Template Logo
+
+Fixed critical bug where Partners page content was invisible until user scrolled to the bottom. Also added white logo to email templates.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Fixed animation pattern in ValueProposition | `src/components/partners/ValueProposition.tsx` |
+| Fixed animation pattern in SuccessMetrics | `src/components/partners/SuccessMetrics.tsx` |
+| Fixed animation pattern in PartnerBenefits | `src/components/partners/PartnerBenefits.tsx` |
+| Fixed animation pattern in HowItWorks | `src/components/partners/HowItWorks.tsx` |
+| Fixed animation pattern in CaseStudies | `src/components/partners/CaseStudies.tsx` |
+| Fixed animation pattern in PartnerTestimonials | `src/components/partners/PartnerTestimonials.tsx` |
+| Fixed animation pattern in PartnerFAQ | `src/components/partners/PartnerFAQ.tsx` |
+| Fixed animation pattern in PartnerInquiryForm | `src/components/partners/PartnerInquiryForm.tsx` |
+| Added white logo to email header | `src/lib/email.ts` |
+
+### Bug Fix: Partners Page Loading Issue
+
+**Problem:** Partners page content was invisible until user scrolled to the bottom of the page.
+
+**Root Cause:** All 8 partner components used `useInView` with conditional animations that kept content in `initial={{ opacity: 0 }}` state until viewport was triggered. The problematic pattern:
+
+```tsx
+// BROKEN PATTERN - content invisible until scroll
+const ref = useRef(null);
+const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+<motion.div
+  ref={ref}
+  initial={{ opacity: 0, y: 30 }}
+  animate={isInView ? { opacity: 1, y: 0 } : {}}  // Empty object = stays invisible
+/>
+```
+
+**Solution:** Converted to `whileInView` pattern which animates on viewport entry while keeping content visible:
+
+```tsx
+// FIXED PATTERN - content visible, animates on scroll
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-50px" }}
+/>
+```
+
+**Files Fixed (8 components):**
+1. `ValueProposition.tsx` - Removed `useRef`/`useInView`, converted all animations
+2. `SuccessMetrics.tsx` - Kept `useInView` in `MetricItem` for animated counter, fixed main animations
+3. `PartnerBenefits.tsx` - Removed `useRef`/`useInView`, converted all animations
+4. `HowItWorks.tsx` - Removed `useRef`/`useInView`, converted all animations
+5. `CaseStudies.tsx` - Removed `useRef`/`useInView`, updated `CaseStudyCard` component signature
+6. `PartnerTestimonials.tsx` - Removed `useRef`/`useInView`, fixed all animations including dot indicators
+7. `PartnerFAQ.tsx` - Removed `useRef`/`useInView`, updated `FAQItem` component signature
+8. `PartnerInquiryForm.tsx` - Removed `useRef`/`useInView`, fixed watermark/header/progress/form/badges
+
+### Email Template Enhancement
+
+Added white logo image to email header banner (replacing text-only "METROSURE"):
+
+```html
+<!-- Before: Text-only header -->
+<td style="font-size: 26px; font-weight: 700; color: #ffffff;">
+  METROSURE
+</td>
+
+<!-- After: Logo image + "Insurance Brokers" subtitle -->
+<img src="https://www.metrosuregroup.co.za/images/logo-white.png"
+     alt="Metrosure Insurance Brokers"
+     width="180" />
+<td style="color: rgba(255,255,255,0.8);">
+  Insurance Brokers
+</td>
+```
+
+**Logo Source:** `/public/images/logo-white.png` (served via production URL for email compatibility)
+
+### Production Readiness Notes
+
+**Items Ready for Production:**
+- Partners page now loads content immediately ✅
+- Email templates include branded logo ✅
+- All 44 routes building successfully ✅
+
+**Items Requiring Attention Before Production:**
+| Item | Location | Action Required |
+|------|----------|-----------------|
+| Development Banner | `DevelopmentBanner.tsx`, `ClientLayout.tsx` | Remove/hide before launch |
+| Placeholder Policy Data | `src/data/policies.ts` | Replace with real data |
+| Calculator Rates | `src/lib/quoteCalculator.ts` | Validate with product team |
+| Cookie Consent | `ClientLayout.tsx` | Re-enable when ready |
+| Gallery Components | About/Careers pages | Activate when images provided |
+
+**Deferred Items:**
+- Bolttech Logo (awaiting asset)
+- Partner Logos on Production (awaiting stakeholder approval)
+- Gallery Components (awaiting additional images)
+- Calculator rate validation (requires stakeholder meeting)
+
+---
+
+## SESSION 75 (Jan 2, 2026)
+
+### Focus: Starbucks-Inspired UI Enhancements
+
+Implemented three Starbucks-inspired UI elements based on https://about.starbucks.com/ reference:
+1. Footer rounded top corners
+2. Latest News section (3-column editorial grid)
+3. Our Impact carousel (stats slider)
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Created news data file with categories and articles | `src/data/news.ts` (NEW) |
+| Created impact data file with carousel content | `src/data/impact.ts` (NEW) |
+| Created LatestNews component with 3-column grid | `src/components/LatestNews.tsx` (NEW) |
+| Created OurImpact carousel with auto-play | `src/components/OurImpact.tsx` (NEW) |
+| Updated Footer with rounded top corners | `src/components/Footer.tsx` |
+| Integrated new sections into homepage | `src/app/page.tsx` |
+| Exported new components from index | `src/components/index.ts` |
+
+### New Files Created
+| File | Purpose |
+|------|---------|
+| `src/data/news.ts` | News categories and article data (3 placeholder articles) |
+| `src/data/impact.ts` | Impact carousel content (3 slides with stats) |
+| `src/components/LatestNews.tsx` | Editorial-style news grid with category tags |
+| `src/components/OurImpact.tsx` | Stats carousel with image, title, and large stat display |
+
+### Latest News Section
+- **Red angled background** using `clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%)` - Starbucks-inspired
+- **White news cards** that overflow/float above the angled background (creates visual depth)
+- 3-column responsive grid (`grid-cols-1 md:grid-cols-3`)
+- Category tags: NEWS, PEOPLE & IMPACT, INSURANCE TIPS
+- Animated title hover with arrow reveal and underline
+- Read time indicators
+- "View All Stories" link
+- Staggered entrance animations
+
+**Placeholder Articles:**
+1. "Metrosure expands operations to Western Cape with 15 new retail partnerships"
+2. "Creating futures: How Metrosure has employed over 5,000 young South Africans since 2013"
+3. "Understanding your life cover needs: A comprehensive guide for South African families"
+
+### Our Impact Carousel
+- Dark maroon background (`bg-secondary` / `#690025`)
+- Header row with "OUR IMPACT" heading + supporting text
+- Carousel card with 3-column layout:
+  - Left (4 cols): Full-height image
+  - Middle (5 cols): Title + read time
+  - Right (3 cols): Large stat (5,000+, 100+, 75%)
+- Navigation: Dot indicators (left), circular prev/next buttons (right)
+- Auto-play (6 seconds) with pause on hover
+- Keyboard navigation (left/right arrows)
+- `useReducedMotion` accessibility support
+- AnimatePresence for smooth slide transitions
+
+**Carousel Slides:**
+| Slide | Title | Stat |
+|-------|-------|------|
+| 1 | Creating opportunities for South African youth since 2013 | 5,000+ jobs |
+| 2 | Empowering retail partners with insurance solutions | 100+ partners |
+| 3 | Driving partner success through dedicated training and support | 75% sales increase |
+
+### Footer Rounded Corners
+- Changed from `border-t` to rounded top corners
+- Radius: 48px (mobile) → 64px (desktop)
+- Negative margin (`-mt-8 md:-mt-12`) for visual overlap
+- Subtle top shadow for depth
+
+```tsx
+// Before:
+className="... border-t border-slate-200 dark:border-white/10 ..."
+
+// After:
+className="... rounded-t-[48px] md:rounded-t-[64px] -mt-8 md:-mt-12 shadow-[0_-8px_30px_-12px_rgba(0,0,0,0.08)] ..."
+```
+
+### Homepage Section Order (Updated)
+```
+Hero → StatsBar → OurImpact (NEW) → Features → Approach → Products → WhyChooseUs → LatestNews (NEW) → PartnersCTA → Testimonials → CallToAction
+```
+
+### Skills Used
+- **frontend-design**: LatestNews and OurImpact component creation with premium editorial aesthetic
+- **chrome-devtools MCP**: Starbucks reference site analysis (CSS inspection, screenshots)
+
+### Build Status
+- Build passing with 44 routes (37 pages + 7 API routes)
+- TypeScript compilation: no errors
+- Dark mode verified
+- Responsive layout tested
 
 ---
 
@@ -1651,6 +1848,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S75 | **Starbucks-Inspired UI Enhancements:** Footer rounded corners (48-64px), Latest News 3-column grid, Our Impact carousel (auto-play, keyboard nav), 2 new data files, dark mode verified |
 | S74 | **Live Chat, ScrollToTop Removal & Stakeholder Docs:** Tawk.to chat widget (Mon-Fri 08:00-17:00), ScrollToTop removed from 14 pages, STAKEHOLDER_EMAIL.md comprehensive update (25→44 routes, new features documented) |
 | S73 | **Performance Optimisation + Bug Fix + Chat Research:** Font optimisation (1.1MB→872KB), dynamic imports, LCP 67% faster, testimonials carousel bug fix, chat solution evaluation (5 options ranked) |
 | S72 | **Email Template Outlook Compatibility:** Fixed 6 bugs, VML CTA buttons, Outlook.com line-height fix, margin→spacing rows, test email API route |
@@ -1688,4 +1886,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 2, 2026 (Session 74)*
+*Document updated: January 2, 2026 (Session 75)*

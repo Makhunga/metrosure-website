@@ -116,8 +116,6 @@ function MetricItem({ stat, index }: MetricItemProps) {
 }
 
 export default function SuccessMetrics() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const metrics = [
     {
@@ -148,14 +146,14 @@ export default function SuccessMetrics() {
 
   return (
     <section
-      ref={ref}
       className="relative overflow-hidden bg-primary py-16 md:py-20"
     >
       {/* Geometric Pattern - Left Side */}
       <motion.div
         className="absolute left-0 top-0 bottom-0 w-[40%] pointer-events-none hidden lg:block"
         initial={{ opacity: 0, x: -50 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <div className="absolute inset-0 [mask-image:linear-gradient(to_right,white_0%,white_30%,transparent_100%)]">
@@ -175,7 +173,8 @@ export default function SuccessMetrics() {
       <motion.div
         className="absolute right-0 top-0 bottom-0 w-[40%] pointer-events-none hidden lg:block"
         initial={{ opacity: 0, x: 50 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
       >
         <div className="absolute inset-0 [mask-image:linear-gradient(to_left,white_0%,white_30%,transparent_100%)]">
@@ -243,13 +242,15 @@ export default function SuccessMetrics() {
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
           <motion.span
             className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-semibold mb-4 backdrop-blur-sm border border-white/10"
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
           >
             Our Impact
@@ -257,7 +258,8 @@ export default function SuccessMetrics() {
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-white"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.3 }}
           >
             Creating Opportunities Across South Africa

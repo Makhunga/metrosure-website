@@ -370,15 +370,13 @@ export function wrapEmailTemplate(content: string, title: string): string {
                 </tr>
                 <!-- Logo & Title -->
                 <tr>
-                  <td align="center" style="padding: 32px 40px;">
+                  <td align="center" style="padding: 28px 40px;">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                      <!-- White Logo Image -->
                       <tr>
-                        <td align="center" style="font-family: ${FONT_FAMILY}; font-size: ${FONT_SIZE_2XL}; font-weight: 700; color: #ffffff; letter-spacing: -0.5px;">
-                          METROSURE
+                        <td align="center" style="padding-bottom: 8px;">
+                          <img src="https://www.metrosuregroup.co.za/images/logo-white.png" alt="Metrosure Insurance Brokers" width="180" height="auto" style="display: block; max-width: 180px; height: auto; border: 0;" />
                         </td>
-                      </tr>
-                      <tr>
-                        <td height="6" style="font-size: 1px; line-height: 6px;">&nbsp;</td>
                       </tr>
                       <tr>
                         <td align="center" style="font-family: ${FONT_FAMILY}; font-size: ${FONT_SIZE_XS}; font-weight: 400; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 2px;">

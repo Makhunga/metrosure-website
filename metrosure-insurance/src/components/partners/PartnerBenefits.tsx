@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 const benefits = [
   {
@@ -37,23 +36,22 @@ const benefits = [
 ];
 
 export default function PartnerBenefits() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
-    <section ref={ref} className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300">
+    <section className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
           <motion.span
             className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.2 }}
           >
             Why Partner With Us
@@ -61,7 +59,8 @@ export default function PartnerBenefits() {
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.3 }}
           >
             Benefits That Impact Your Bottom Line
@@ -69,7 +68,8 @@ export default function PartnerBenefits() {
           <motion.p
             className="text-xl text-[rgb(var(--color-text-body))] max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.4 }}
           >
             Our partnership model is designed to maximize value for your business
@@ -83,7 +83,8 @@ export default function PartnerBenefits() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               className="group"
             >
@@ -122,7 +123,8 @@ export default function PartnerBenefits() {
         <motion.div
           className="mt-16 bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
         >
           {/* Organic Blob Pattern - Matching Home Page CTA */}
@@ -157,7 +159,8 @@ export default function PartnerBenefits() {
             <motion.h2
               className="text-4xl md:text-6xl font-bold tracking-tight text-white"
               initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 0.9 }}
             >
               Ready for 75% Sales Growth?
@@ -165,7 +168,8 @@ export default function PartnerBenefits() {
             <motion.p
               className="text-xl text-white/90 max-w-2xl font-medium"
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 1 }}
             >
               Join retail partners like TFG who are seeing proven results. Our data-driven
@@ -175,7 +179,8 @@ export default function PartnerBenefits() {
             <motion.div
               className="flex flex-col sm:flex-row gap-4 mt-4"
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 1.1 }}
             >
               <motion.a
@@ -196,7 +201,8 @@ export default function PartnerBenefits() {
             <motion.p
               className="text-sm text-white/70 mt-2 flex items-center gap-2"
               initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: 1.2 }}
             >
               <motion.span

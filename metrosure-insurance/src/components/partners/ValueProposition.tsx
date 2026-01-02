@@ -1,21 +1,18 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { HoverCard } from "@/components/animations";
 import { partnerServices } from "@/data/partnerServices";
 
 export default function ValueProposition() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
-    <section ref={ref} className="relative py-24 section-warm transition-colors duration-300 overflow-hidden">
+    <section className="relative py-24 section-warm transition-colors duration-300 overflow-hidden">
       {/* Decorative watermark - left aligned like "THE TEAM" on About page */}
       <motion.div
         className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
         initial={{ opacity: 0, x: -20 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         Partnership Models
@@ -26,13 +23,15 @@ export default function ValueProposition() {
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.3 }}
           >
             Six Ways We Partner With Retailers
@@ -40,7 +39,8 @@ export default function ValueProposition() {
           <motion.p
             className="text-xl text-[rgb(var(--color-text-body))] max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.4 }}
           >
             Flexible partnership models designed for your business. From in-store campaigns to call centre
@@ -54,7 +54,8 @@ export default function ValueProposition() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
             >
               <HoverCard className="h-full" intensity={8}>
@@ -93,7 +94,8 @@ export default function ValueProposition() {
                         key={i}
                         className="flex items-start gap-3"
                         initial={{ opacity: 0, x: -10 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
                         transition={{ delay: 0.5 + index * 0.15 + i * 0.1 }}
                       >
                         <span className="material-symbols-outlined text-primary text-lg mt-0.5 flex-shrink-0">
@@ -126,7 +128,8 @@ export default function ValueProposition() {
         <motion.div
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ delay: 0.8 }}
         >
           <p className="text-[rgb(var(--color-text-body))] mb-4">

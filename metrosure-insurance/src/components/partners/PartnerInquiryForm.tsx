@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback, Fragment } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useState, useCallback, Fragment } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import { InlineError } from "@/components/ui/InlineError";
 import {
@@ -167,8 +167,6 @@ const steps = [
 ];
 
 export default function PartnerInquiryForm() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -298,7 +296,6 @@ export default function PartnerInquiryForm() {
 
   return (
     <section
-      ref={ref}
       id="partner-inquiry"
       className="relative py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors duration-300 overflow-hidden"
     >
@@ -306,7 +303,8 @@ export default function PartnerInquiryForm() {
       <motion.div
         className="absolute left-1/2 -translate-x-1/2 top-4 md:top-8 text-[7rem] md:text-[10rem] lg:text-[12rem] font-black text-slate-200/50 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
         initial={{ opacity: 0, y: -20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, delay: 0.1 }}
       >
         Partner
@@ -316,7 +314,8 @@ export default function PartnerInquiryForm() {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
@@ -334,7 +333,8 @@ export default function PartnerInquiryForm() {
         {/* Step Progress Indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex items-center justify-center gap-4 mb-12"
         >
@@ -414,7 +414,8 @@ export default function PartnerInquiryForm() {
         {/* Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700"
         >
@@ -761,7 +762,8 @@ export default function PartnerInquiryForm() {
         {/* Trust Badges - Inline below form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex items-center justify-center gap-8 mt-8 pt-8"
         >

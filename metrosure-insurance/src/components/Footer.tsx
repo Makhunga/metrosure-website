@@ -114,7 +114,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden"
+      className="relative bg-slate-100 dark:bg-slate-900 py-16 text-slate-900 dark:text-white rounded-t-[48px] md:rounded-t-[64px] -mt-8 md:-mt-12 shadow-[0_-8px_30px_-12px_rgba(0,0,0,0.08)] transition-colors duration-300 overflow-hidden"
     >
       {/* Geometric pattern background - both modes */}
       <div
