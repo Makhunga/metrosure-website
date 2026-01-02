@@ -108,6 +108,12 @@ export default function Testimonials() {
     if (!scrollContainerRef.current || isScrollingRef.current) return;
     const container = scrollContainerRef.current;
 
+    // Clear any pending scroll handler to prevent race conditions
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = null;
+    }
+
     // Wrap around for cycling
     let targetIndex = index;
     if (index < 0) targetIndex = testimonialsData.length - 1;
@@ -124,12 +130,14 @@ export default function Testimonials() {
         behavior: "smooth",
       });
 
+      // Update both state and ref immediately to prevent race conditions
       setActiveIndex(targetIndex);
+      activeIndexRef.current = targetIndex;
 
-      // Reset scrolling flag after animation completes
+      // Reset scrolling flag after animation completes (800ms for longer wrap-around scrolls)
       setTimeout(() => {
         isScrollingRef.current = false;
-      }, 500);
+      }, 800);
     }
   }, []);
 

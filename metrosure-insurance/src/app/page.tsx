@@ -1,17 +1,16 @@
-import {
-  Header,
-  Hero,
-  StatsBar,
-  Features,
-  Approach,
-  Products,
-  WhyChooseUs,
-  PartnersCTA,
-  Testimonials,
-  CallToAction,
-  Footer,
-  ScrollToTop,
-} from "@/components";
+import dynamic from "next/dynamic";
+import { Header, Hero, StatsBar, Footer } from "@/components";
+
+// Below-fold components - dynamically imported for code splitting
+// SSR is enabled to maintain SEO, but JS bundle is split for faster hydration
+const Features = dynamic(() => import("@/components/Features"));
+const Approach = dynamic(() => import("@/components/Approach"));
+const Products = dynamic(() => import("@/components/Products"));
+const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
+const PartnersCTA = dynamic(() => import("@/components/PartnersCTA"));
+const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const CallToAction = dynamic(() => import("@/components/CallToAction"));
+const ScrollToTop = dynamic(() => import("@/components/ScrollToTop"));
 
 export default function Home() {
   return (
