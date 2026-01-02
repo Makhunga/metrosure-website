@@ -382,3 +382,144 @@ export function createParagraph(text: string): string {
 export function createLink(href: string, text: string): string {
   return `<a href="${href}" style="color: ${COLOR_PRIMARY}; text-decoration: none;">${text}</a>`;
 }
+
+// ============================================================================
+// CALCULATOR RESULTS EMAIL TEMPLATE
+// ============================================================================
+
+interface CalculatorEmailData {
+  calculatorType: "life" | "funeral";
+  totalAmount: number;
+  premiumLow?: number;
+  premiumHigh?: number;
+  monthlyPremium?: number;
+  breakdown: Array<{ label: string; value: number }>;
+  yearsOfSupport?: number;
+  dependents?: number;
+  planName?: string;
+  memberCount?: number;
+}
+
+function formatZAR(amount: number): string {
+  return new Intl.NumberFormat("en-ZA", {
+    style: "currency",
+    currency: "ZAR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+/**
+ * Creates a CTA button (table-based for Outlook compatibility)
+ */
+function createCTAButton(href: string, text: string): string {
+  return `
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin: 25px 0;">
+      <tr>
+        <td align="center" style="background-color: ${COLOR_PRIMARY}; border-radius: 8px;">
+          <a href="${href}" target="_blank" style="display: inline-block; padding: 14px 32px; font-family: ${FONT_FAMILY}; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none;">
+            ${text}
+          </a>
+        </td>
+      </tr>
+    </table>
+  `;
+}
+
+/**
+ * Generates email template for calculator results
+ */
+export function generateCalculatorResultsEmail(data: CalculatorEmailData): string {
+  const isLife = data.calculatorType === "life";
+  const title = isLife ? "Your Life Cover Calculation" : "Your Funeral Cover Plan";
+  const icon = isLife ? "🛡️" : "🕊️";
+
+  // Build breakdown rows
+  const breakdownRows = data.breakdown
+    .filter(item => item.value > 0)
+    .map(item => createFieldRow(item.label, formatZAR(item.value)))
+    .join("");
+
+  // Premium display
+  let premiumText = "";
+  if (data.premiumLow && data.premiumHigh) {
+    premiumText = `${formatZAR(data.premiumLow)} – ${formatZAR(data.premiumHigh)} per month`;
+  } else if (data.monthlyPremium) {
+    premiumText = `${formatZAR(data.monthlyPremium)} per month`;
+  }
+
+  // Additional context
+  let contextRows = "";
+  if (isLife) {
+    if (data.yearsOfSupport) {
+      contextRows += createFieldRow("Income Replacement", `${data.yearsOfSupport} years`);
+    }
+    if (data.dependents && data.dependents > 0) {
+      contextRows += createFieldRow("Dependents Covered", data.dependents.toString());
+    }
+  } else {
+    if (data.planName) {
+      contextRows += createFieldRow("Plan", data.planName);
+    }
+    if (data.memberCount && data.memberCount > 1) {
+      contextRows += createFieldRow("Family Members", data.memberCount.toString());
+    }
+  }
+
+  // CTA link
+  const ctaLink = isLife
+    ? `https://www.metrosuregroup.co.za/quote?coverageType=life&coverageAmount=${data.totalAmount}`
+    : `https://www.metrosuregroup.co.za/quote?coverageType=funeral&coverageAmount=${data.totalAmount}`;
+
+  const content = `
+    ${createEmailHeader(`${icon} ${title}`)}
+
+    ${createSection(`
+      ${createParagraph("Thank you for using the Metrosure Coverage Calculator. Here's a summary of your calculation:")}
+    `)}
+
+    ${createSection(`
+      ${createSectionTitle("Coverage Summary")}
+      ${createFieldRow("Recommended Cover", formatZAR(data.totalAmount))}
+      ${premiumText ? createFieldRow("Estimated Premium", premiumText) : ""}
+      ${contextRows}
+    `)}
+
+    ${data.breakdown.length > 0 ? createSection(`
+      ${createSectionTitle("Coverage Breakdown")}
+      ${breakdownRows}
+    `) : ""}
+
+    ${createSection(`
+      ${createAlertBox(
+        "<strong>Next Step:</strong> Get a personalised quote from our advisers. Your actual premium may vary based on age, health, and other factors.",
+        "info"
+      )}
+    `)}
+
+    ${createSection(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td align="center">
+            ${createCTAButton(ctaLink, "Get Your Personalised Quote")}
+          </td>
+        </tr>
+      </table>
+    `)}
+
+    ${createSection(`
+      ${createParagraph("Have questions? Our team is here to help:")}
+      ${createBulletList([
+        "Call us: <strong>087 265 1891</strong>",
+        "Email: <strong>info@metrosuregroup.co.za</strong>",
+        "Visit: <strong>www.metrosuregroup.co.za</strong>",
+      ])}
+    `)}
+
+    ${createSection(`
+      ${createParagraph("<em style=\"color: ${COLOR_TEXT_LIGHT}; font-size: 12px;\">This calculation is an estimate only and does not constitute financial advice. Actual premiums are determined through underwriting and depend on factors including age, health status, smoking status, and occupation. Metrosure Insurance Brokers (Pty) Ltd is an authorised Financial Services Provider (FSP 47089).</em>")}
+    `)}
+  `;
+
+  return wrapEmailTemplate(content, title);
+}

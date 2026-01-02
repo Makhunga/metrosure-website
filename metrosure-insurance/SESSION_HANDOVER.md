@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 1, 2026 (Session 68)
+**Updated:** January 2, 2026 (Session 69)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -9,8 +9,88 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 42 (37 pages + 5 API routes)
-- **Last Build:** January 1, 2026
+- **Routes:** 43 (37 pages + 6 API routes)
+- **Last Build:** January 2, 2026
+
+---
+
+## SESSION 69 (Jan 2, 2026)
+
+### Focus: Coverage Calculator Enhancements
+
+Enhanced both Life and Funeral calculators with sharing, lead capture, and educational features based on SA insurance industry best practices research.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| WhatsApp Share Results - share calculator results via WhatsApp | `src/lib/whatsapp.ts`, `CalculatorResult.tsx`, `FuneralCoverCalculator.tsx`, `LifeCoverCalculator.tsx` |
+| Email Results with Lead Capture - capture email and send formatted results | `EmailResultsModal.tsx` (NEW), `email.ts`, `validationSchemas.ts`, `rateLimit.ts`, `/api/calculator/email-results/route.ts` (NEW) |
+| Real-time Premium Preview - live calculation preview before clicking Calculate | `LifeCoverCalculator.tsx`, `FuneralCoverCalculator.tsx` |
+| Funeral Cost Breakdown - educational collapsible showing typical SA funeral costs | `FuneralCostBreakdown.tsx` (NEW), `calculatorData.ts`, `FuneralCoverCalculator.tsx` |
+
+### Enhancement Details
+
+**1. WhatsApp Share Results**
+- Added `CalculatorResultData` interface and `generateCalculatorWhatsAppUrl()` to `whatsapp.ts`
+- WhatsApp share button in both calculators (alongside Email button)
+- Pre-formatted message with breakdown, total, and premium estimate
+- 98% open rate advantage over email (SA market research)
+
+**2. Email Results with Lead Capture**
+- New API route `/api/calculator/email-results` with Zod validation
+- Rate limited: 10 requests/hour
+- Outlook-compatible table-based email template
+- `EmailResultsModal.tsx` - simple modal with email input, loading state, success animation
+- Auto-closes after successful send
+- Lead captured at moment of highest intent (5-minute response = 9x conversions)
+
+**3. Real-time Premium Preview**
+- Live Preview card appears before Calculate button
+- Shows total cover and estimated premium as user adjusts inputs
+- Reduces friction by showing value before commitment
+- Styled with primary colour accent and subtle animation
+
+**4. Funeral Cost Breakdown**
+- Educational component showing typical SA funeral costs (Gauteng/Western Cape)
+- Collapsible UI with animated expand/collapse
+- 6 cost categories: Coffin, Burial Plot, Catering, Transport, Flowers, Ceremony
+- Coverage percentage indicator comparing selected cover to typical costs
+- Total range: R15,800 – R68,000
+
+### New Files Created
+| File | Purpose |
+|------|---------|
+| `src/components/tools/EmailResultsModal.tsx` | Email capture modal for calculator results |
+| `src/components/tools/FuneralCostBreakdown.tsx` | Educational funeral cost breakdown |
+| `src/app/api/calculator/email-results/route.ts` | API endpoint for emailing results |
+
+### Data Additions (`calculatorData.ts`)
+```typescript
+export interface FuneralCostItem {
+  id: string;
+  label: string;
+  description: string;
+  costRange: { min: number; max: number };
+  icon: string;
+}
+
+export const funeralCostBreakdown: FuneralCostItem[] = [...]; // 6 items
+export function getFuneralCostTotals(): { min: number; max: number }
+```
+
+### Rate Limiting
+| Route | Limit |
+|-------|-------|
+| `/api/calculator/email-results` | 10/hour |
+
+### Skills Used
+- **content-research-writer**: SA insurance calculator best practices, WhatsApp marketing stats
+- **frontend-design**: EmailResultsModal, FuneralCostBreakdown components
+
+### Build Status
+- Build passing with 43 routes (37 pages + 6 API routes)
+- TypeScript compilation: no errors
+- All calculators tested and functional
 
 ---
 
@@ -1032,6 +1112,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSy...
 | `/api/careers-application` | 3/hour |
 | `/api/partner-inquiry` | 5/hour |
 | `/api/corporate-inquiry` | 5/hour |
+| `/api/calculator/email-results` | 10/hour |
 | `/api/quote` | 10/hour |
 | `/api/contact` | 15/hour |
 
@@ -1074,6 +1155,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S69 | **Coverage Calculator Enhancements:** WhatsApp share, Email lead capture, Real-time preview, Funeral cost breakdown |
 | S68 | **Visual Gallery Components (Biologica-inspired):** Masonry galleries for About/Careers pages, B&W→colour hover, left-aligned watermarks (dev-only, pending images) |
 | S67 | **Calculator Premium Refinement + B2B Testimonials:** Age slider, smoker toggle, refined premium estimates, scroll-to-results, 2 new B2B testimonials |
 | S66 | **Calculator Legend Bug Fix:** Switched PieChart→BarChart to fix truncation bug, Careers hero brightness adjustment |
@@ -1105,4 +1187,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 1, 2026 (Session 68)*
+*Document updated: January 2, 2026 (Session 69)*

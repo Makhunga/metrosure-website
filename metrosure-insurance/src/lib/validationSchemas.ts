@@ -245,6 +245,33 @@ export const careersApplicationSchema = z.object({
 export type CareersApplicationData = z.infer<typeof careersApplicationSchema>;
 
 // ============================================
+// CALCULATOR EMAIL RESULTS
+// ============================================
+
+const validCalculatorTypes = ["life", "funeral"] as const;
+
+export const calculatorEmailSchema = z.object({
+  email: emailSchema,
+  calculatorType: z.enum(validCalculatorTypes, { message: "Invalid calculator type" }),
+  totalAmount: z.number().positive("Cover amount must be positive"),
+  premiumLow: z.number().optional(),
+  premiumHigh: z.number().optional(),
+  monthlyPremium: z.number().optional(),
+  breakdown: z.array(z.object({
+    label: z.string(),
+    value: z.number(),
+  })),
+  // Life cover specific
+  yearsOfSupport: z.number().optional(),
+  dependents: z.number().optional(),
+  // Funeral cover specific
+  planName: z.string().optional(),
+  memberCount: z.number().optional(),
+});
+
+export type CalculatorEmailData = z.infer<typeof calculatorEmailSchema>;
+
+// ============================================
 // HELPER: Format Zod errors for API response
 // ============================================
 

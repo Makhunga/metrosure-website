@@ -126,3 +126,116 @@ export function isWhatsAppSupported(): boolean {
   // On desktop, it will open WhatsApp Web or prompt to download
   return true;
 }
+
+// =============================================================================
+// Calculator Results Sharing
+// =============================================================================
+
+export interface CalculatorBreakdownItem {
+  label: string;
+  value: number;
+}
+
+export interface CalculatorResultData {
+  calculatorType: "life" | "funeral";
+  totalAmount: number;
+  premiumLow?: number;
+  premiumHigh?: number;
+  monthlyPremium?: number;
+  breakdown: CalculatorBreakdownItem[];
+  /** Life cover specific */
+  yearsOfSupport?: number;
+  dependents?: number;
+  /** Funeral cover specific */
+  planName?: string;
+  memberCount?: number;
+}
+
+const CALCULATOR_ICONS: Record<string, string> = {
+  life: "🛡️",
+  funeral: "🕊️",
+};
+
+const CALCULATOR_LABELS: Record<string, string> = {
+  life: "Life Cover Calculation",
+  funeral: "Funeral Cover Plan",
+};
+
+/**
+ * Generate WhatsApp message for calculator results
+ */
+export function generateCalculatorResultMessage(data: CalculatorResultData): string {
+  const icon = CALCULATOR_ICONS[data.calculatorType] || "📊";
+  const label = CALCULATOR_LABELS[data.calculatorType] || "Cover Calculation";
+
+  const lines = [
+    `${icon} *My ${label}*`,
+    ``,
+  ];
+
+  // Total amount
+  lines.push(`💰 *Recommended Cover:* ${formatCurrency(data.totalAmount)}`);
+
+  // Premium range or single premium
+  if (data.premiumLow && data.premiumHigh) {
+    lines.push(
+      `📊 *Estimated Premium:* ${formatCurrency(data.premiumLow)}–${formatCurrency(data.premiumHigh)}/month`
+    );
+  } else if (data.monthlyPremium) {
+    lines.push(`📊 *Monthly Premium:* ${formatCurrency(data.monthlyPremium)}/month`);
+  }
+
+  // Additional context based on calculator type
+  if (data.calculatorType === "life") {
+    if (data.yearsOfSupport) {
+      lines.push(`📅 *Income Replacement:* ${data.yearsOfSupport} years`);
+    }
+    if (data.dependents && data.dependents > 0) {
+      lines.push(`👨‍👩‍👧‍👦 *Dependents Covered:* ${data.dependents}`);
+    }
+  } else if (data.calculatorType === "funeral") {
+    if (data.planName) {
+      lines.push(`📋 *Plan:* ${data.planName}`);
+    }
+    if (data.memberCount && data.memberCount > 1) {
+      lines.push(`👥 *Family Members:* ${data.memberCount}`);
+    }
+  }
+
+  // Breakdown section (top 3 items)
+  if (data.breakdown.length > 0) {
+    lines.push(``);
+    lines.push(`📋 *Breakdown:*`);
+    const topItems = data.breakdown.slice(0, 4);
+    topItems.forEach((item) => {
+      lines.push(`• ${item.label}: ${formatCurrency(item.value)}`);
+    });
+  }
+
+  // Footer
+  lines.push(
+    ``,
+    `_Calculate yours at metrosuregroup.co.za/tools/coverage-calculator_`,
+    ``,
+    `📞 087 265 1891 | FSP 47089`
+  );
+
+  return lines.join("\n");
+}
+
+/**
+ * Generate WhatsApp URL for calculator results
+ */
+export function generateCalculatorWhatsAppUrl(data: CalculatorResultData): string {
+  const message = generateCalculatorResultMessage(data);
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/?text=${encodedMessage}`;
+}
+
+/**
+ * Share calculator results via WhatsApp
+ */
+export function shareCalculatorResult(data: CalculatorResultData): void {
+  const url = generateCalculatorWhatsAppUrl(data);
+  window.open(url, "_blank", "noopener,noreferrer");
+}

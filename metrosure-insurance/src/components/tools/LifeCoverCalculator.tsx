@@ -424,6 +424,33 @@ export function LifeCoverCalculator() {
             </p>
           </div>
 
+          {/* Live Preview - shows before Calculate is clicked */}
+          <AnimatePresence>
+            {calculation && !showResult && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto" }}
+                exit={{ opacity: 0, y: -10, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mb-4 p-4 bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/20"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="material-symbols-outlined text-primary text-sm">preview</span>
+                  <span className="text-xs font-semibold text-primary uppercase tracking-wider">Live Preview</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold text-slate-900 dark:text-white">
+                    R{calculation.total.toLocaleString("en-ZA")}
+                  </span>
+                  <span className="text-sm text-slate-600 dark:text-slate-400">estimated cover</span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  ~R{calculation.premiumLow.toLocaleString("en-ZA")}–R{calculation.premiumHigh.toLocaleString("en-ZA")}/mo
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Calculate Button */}
           <motion.button
             onClick={handleCalculate}
@@ -484,6 +511,11 @@ export function LifeCoverCalculator() {
             ctaText="Get a Quote for This Amount"
             ctaLink={`/quote?coverageType=life&coverageAmount=${calculation.total}`}
             isVisible={showResult}
+            calculatorType="life"
+            shareData={{
+              yearsOfSupport: data.yearsOfSupport,
+              dependents: data.dependents,
+            }}
           />
         ) : (
           <motion.div

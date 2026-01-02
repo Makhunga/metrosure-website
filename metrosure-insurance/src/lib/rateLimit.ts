@@ -19,6 +19,8 @@ export const rateLimits = {
   quote: { maxRequests: 10, windowMs: 60 * 60 * 1000 },
   // Contact form: 15 per hour (most common use case)
   contact: { maxRequests: 15, windowMs: 60 * 60 * 1000 },
+  // Calculator email results: 10 per hour (lead capture)
+  calculatorEmail: { maxRequests: 10, windowMs: 60 * 60 * 1000 },
 } as const;
 
 // Track request counts per IP

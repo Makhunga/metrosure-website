@@ -436,3 +436,77 @@ export function getLifeCoverComparisonText(totalCover: number): string {
   }
   return `The average South African has only R800,000 in life cover—but needs at least R2.1 million. Consider whether your calculation reflects all your family's needs.`;
 }
+
+// =============================================================================
+// Funeral Cost Breakdown (Educational)
+// =============================================================================
+
+export interface FuneralCostItem {
+  id: string;
+  label: string;
+  description: string;
+  costRange: { min: number; max: number };
+  icon: string;
+}
+
+/**
+ * Typical funeral cost breakdown in South Africa
+ * Based on industry averages and research from funeral parlours
+ */
+export const funeralCostBreakdown: FuneralCostItem[] = [
+  {
+    id: "coffin",
+    label: "Coffin or Casket",
+    description: "From basic pine to premium solid wood",
+    costRange: { min: 2000, max: 15000 },
+    icon: "inventory_2",
+  },
+  {
+    id: "burial",
+    label: "Burial Plot",
+    description: "Municipal or private cemetery",
+    costRange: { min: 2200, max: 14000 },
+    icon: "landscape",
+  },
+  {
+    id: "parlour",
+    label: "Funeral Parlour",
+    description: "Preparation, hearse, service coordination",
+    costRange: { min: 3000, max: 8000 },
+    icon: "local_florist",
+  },
+  {
+    id: "catering",
+    label: "Catering",
+    description: "After-service refreshments (50 guests)",
+    costRange: { min: 5000, max: 15000 },
+    icon: "restaurant",
+  },
+  {
+    id: "transport",
+    label: "Transport",
+    description: "Hearse and family vehicles",
+    costRange: { min: 2000, max: 5000 },
+    icon: "airport_shuttle",
+  },
+  {
+    id: "other",
+    label: "Other Expenses",
+    description: "Flowers, programmes, tombstone deposit",
+    costRange: { min: 1800, max: 8000 },
+    icon: "more_horiz",
+  },
+];
+
+/**
+ * Get total cost range for all funeral items
+ */
+export function getFuneralCostTotals(): { min: number; max: number } {
+  return funeralCostBreakdown.reduce(
+    (acc, item) => ({
+      min: acc.min + item.costRange.min,
+      max: acc.max + item.costRange.max,
+    }),
+    { min: 0, max: 0 }
+  );
+}
