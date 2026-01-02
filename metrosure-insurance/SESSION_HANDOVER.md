@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 2, 2026 (Session 73)
+**Updated:** January 2, 2026 (Session 74)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,66 @@
 
 - **Routes:** 44 (37 pages + 7 API routes)
 - **Last Build:** January 2, 2026
+
+---
+
+## SESSION 74 (Jan 2, 2026)
+
+### Focus: Tawk.to Live Chat Integration
+
+Implemented Tawk.to free live chat widget across all pages of the website. Chat configured for Mon-Fri 08:00-17:00 SAST business hours with offline form for after-hours enquiries.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Created TawkToChat client component with hydration-safe script loading | `src/components/TawkToChat.tsx` (NEW) |
+| Integrated chat widget into root layout | `src/app/layout.tsx` |
+| Exported component from index | `src/components/index.ts` |
+| Added TypeScript declarations for Tawk.to API | `src/components/TawkToChat.tsx` (inline) |
+
+### New Files Created
+| File | Purpose |
+|------|---------|
+| `src/components/TawkToChat.tsx` | Client component that dynamically loads Tawk.to embed script |
+
+### Tawk.to Configuration
+| Setting | Value |
+|---------|-------|
+| Property ID | `6957e95179755a19831386b8` |
+| Widget ID | `1jdvmepqi` |
+| Position | Bottom right |
+| Business Hours | Mon-Fri 08:00-17:00 SAST |
+| Offline Form | Enabled for after-hours |
+
+### Implementation Pattern
+
+```tsx
+"use client";
+
+export default function TawkToChat({ propertyId, widgetId = "default" }) {
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated || window.Tawk_API) return;
+
+    const script = document.createElement("script");
+    script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
+    script.async = true;
+    document.body.appendChild(script);
+  }, [isHydrated, propertyId, widgetId]);
+
+  return null;
+}
+```
+
+### Build Status
+- Build passing with 44 routes (37 pages + 7 API routes)
+- TypeScript compilation: no errors
+- Chat widget verified in browser
 
 ---
 
@@ -1378,255 +1438,10 @@ Corporate Solutions page now live at `/corporate` with:
 
 ## NEXT SESSION PLAN
 
-### Priority 1: Chat Feature Implementation
+### ~~Priority 1: Chat Feature Implementation~~ ✅ COMPLETED (Session 74)
+Tawk.to live chat implemented across all pages. See Session 74 notes above.
 
-Evaluate and implement a chat solution for the website. Five solutions have been researched and ranked below.
-
-#### Chat Solution Evaluation (Ranked)
-
-| Rank | Solution | Monthly Cost | Best For |
-|------|----------|--------------|----------|
-| 1 | **Tawk.to** | Free | Budget-conscious, quick start |
-| 2 | **WhatsApp Business API** | R499+/mo (via BSP) | SA market, mobile users |
-| 3 | **Crisp** | $28–$295/mo | SMB with growth plans |
-| 4 | **Tidio + Lyro AI** | $29–$149+/mo | AI automation focus |
-| 5 | **Intercom** | $139+/seat/mo | Enterprise (overkill for now) |
-
----
-
-#### 1. Tawk.to (Recommended for Phase 1)
-
-**Suitability for Metrosure: ★★★★★ (Excellent)**
-
-| Aspect | Details |
-|--------|---------|
-| **Cost** | 100% Free forever (no agent/message limits) |
-| **POPIA** | GDPR compliant; data processing agreements available |
-| **Lead Capture** | Built-in forms, pre-chat surveys, CRM integrations |
-| **Next.js** | Simple script integration, React wrapper available |
-| **Mobile** | Responsive widget, iOS/Android agent apps |
-| **After-hours** | Automated responses, ticketing system, offline forms |
-| **Multilingual** | 45+ languages including Zulu, Afrikaans |
-| **SA Presence** | No local office, but global support |
-
-**Advantages:**
-- Zero cost barrier to start
-- Native ticketing system
-- Real-time visitor monitoring
-- Customisable widget (brand colours)
-- Knowledge base feature
-- Screen sharing capability
-- Unlimited agents and chats
-
-**Disadvantages:**
-- No built-in AI chatbot (manual responses only)
-- "Powered by Tawk.to" branding (removal costs $29/mo)
-- Limited automation compared to paid solutions
-- No WhatsApp integration on free plan
-
-**Verdict:** Perfect starting point for Metrosure. Zero risk to trial. Can upgrade or switch later.
-
----
-
-#### 2. WhatsApp Business API (via BSP)
-
-**Suitability for Metrosure: ★★★★☆ (Very Good)**
-
-| Aspect | Details |
-|--------|---------|
-| **Cost** | BSP fees R499–R2,000/mo + Meta per-message fees |
-| **POPIA** | Compliant with proper BSP (look for SA-hosted data) |
-| **Lead Capture** | Excellent - users share phone number by default |
-| **Next.js** | Click-to-chat links easy; full API needs backend work |
-| **Mobile** | Native WhatsApp app (95%+ SA smartphone penetration) |
-| **After-hours** | Template messages, chatbot flows via BSP |
-| **Multilingual** | Users type in their language; templates can be localised |
-| **SA Presence** | Local BSPs: BizAI, Cellfind, CM.com |
-
-**SA-Specific Advantages:**
-- WhatsApp is THE messaging app in SA (98% usage)
-- Users already trust WhatsApp for business
-- Mobile-first (aligns with SA demographics)
-- Authentication pricing reduced for SA from Feb 2025
-- Site already has WhatsApp share functionality
-
-**Disadvantages:**
-- Requires Business Solution Provider (BSP)
-- Per-message costs can escalate with marketing
-- 24-hour response window rules
-- More complex setup than widget solutions
-- No website widget (separate from site chat)
-
-**Recommended SA BSPs:**
-- **BizAI** (R499/mo, POPIA compliant, local support)
-- **Cellfind** (established SA provider, onboarding included)
-- **CM.com** (global with SA presence, enterprise-grade)
-
-**Verdict:** Excellent for SA market but consider as Phase 2 addition to website chat, not replacement.
-
----
-
-#### 3. Crisp
-
-**Suitability for Metrosure: ★★★★☆ (Very Good)**
-
-| Aspect | Details |
-|--------|---------|
-| **Cost** | Free (2 agents) → $28/mo Pro → $295/mo Plus |
-| **POPIA** | GDPR compliant, EU data centres |
-| **Lead Capture** | CRM integrations, Zapier (5000+ apps) |
-| **Next.js** | Official guide, TypeScript SDK, 2-minute setup |
-| **Mobile** | Responsive widget, native iOS/Android apps |
-| **After-hours** | Chatbot (Unlimited plan), triggers, auto-replies |
-| **Multilingual** | Knowledge base with multi-language support |
-| **SA Presence** | No local office |
-
-**Advantages:**
-- Modern UI, excellent UX
-- Video/audio calls (Pro+)
-- Shared inbox for team collaboration
-- Knowledge base builder
-- 30% startup discount available
-- Unlimited conversations on all plans
-- React Native SDK for future mobile app
-
-**Disadvantages:**
-- Chatbot requires $106/mo Unlimited plan
-- AI limited to 50 uses/mo on Essentials
-- Full features need $295/mo Plus plan
-- No local SA support
-
-**Verdict:** Best value if growing beyond free tier. Excellent Next.js integration.
-
----
-
-#### 4. Tidio + Lyro AI
-
-**Suitability for Metrosure: ★★★☆☆ (Good)**
-
-| Aspect | Details |
-|--------|---------|
-| **Cost** | Free (50 chats) → $29/mo Starter → $39+/mo for Lyro AI |
-| **POPIA** | GDPR compliant (uses Claude AI - privacy focused) |
-| **Lead Capture** | Built-in flows for lead qualification |
-| **Next.js** | JavaScript widget, React integration |
-| **Mobile** | Responsive, mobile apps |
-| **After-hours** | Lyro AI handles 24/7 (89% resolution rate reported) |
-| **Multilingual** | AI can respond in multiple languages |
-| **SA Presence** | No local office |
-
-**Advantages:**
-- AI chatbot (Lyro) can handle insurance FAQs
-- 50 free AI conversations to trial
-- Lead qualification automation
-- Pre-built chatbot flows
-- Handles pricing/coverage questions automatically
-- Powered by Claude (same AI as this tool)
-
-**Disadvantages:**
-- AI costs add up ($0.50–$0.58/conversation)
-- 10 agent cap on most plans
-- Separate pricing for AI vs human chats
-- Can get expensive at scale ($149+/mo for 1000 AI chats)
-- Complex pricing structure
-
-**Verdict:** Best for AI-first approach but costs can escalate. Consider if human agent availability is limited.
-
----
-
-#### 5. Intercom
-
-**Suitability for Metrosure: ★★☆☆☆ (Overkill)**
-
-| Aspect | Details |
-|--------|---------|
-| **Cost** | $139/seat/mo (Essential) → $289/seat/mo (Advanced) |
-| **POPIA** | Enterprise-grade compliance |
-| **Lead Capture** | Excellent CRM, email marketing integration |
-| **Next.js** | Official SDK, well-documented |
-| **Mobile** | Premium mobile experience |
-| **After-hours** | Fin AI Agent (uses help centre content) |
-| **Multilingual** | Full localisation support |
-| **SA Presence** | No local office |
-
-**Advantages:**
-- Industry-leading features
-- Fin AI Agent learns from your content
-- Unified inbox (chat, email, in-app)
-- Advanced analytics and reporting
-- Enterprise security
-
-**Disadvantages:**
-- Prohibitively expensive ($139+/seat)
-- Designed for larger teams (5+ agents)
-- Complex for simple use cases
-- Overkill for current Metrosure scale
-
-**Verdict:** Too expensive for current needs. Revisit if Metrosure scales to 10+ support agents.
-
----
-
-#### Implementation Recommendation
-
-**Phase 1 (Immediate - Session 74):**
-1. Implement **Tawk.to** (free, quick setup)
-2. Brand widget with Metrosure colours
-3. Set up pre-chat form for lead capture (name, email, inquiry type)
-4. Configure business hours and offline form
-5. Install on all pages
-
-**Phase 2 (Future - When Budget Allows):**
-1. Add **WhatsApp Business API** via BizAI or Cellfind
-2. Create click-to-WhatsApp buttons alongside chat widget
-3. Set up automated template messages for quotes
-
-**Phase 3 (Growth Stage):**
-1. Evaluate **Crisp Pro** or **Tidio + Lyro** for AI capabilities
-2. Consider if AI chatbot can handle insurance FAQs 24/7
-
----
-
-#### Technical Implementation Notes (Tawk.to + Next.js)
-
-```tsx
-// src/components/TawkTo.tsx
-"use client";
-import { useEffect } from "react";
-
-export default function TawkTo() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://embed.tawk.to/YOUR_PROPERTY_ID/default";
-    script.async = true;
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  return null;
-}
-
-// Add to layout.tsx or ClientLayout.tsx
-<TawkTo />
-```
-
----
-
-#### Sources
-- [Tawk.to vs Tidio comparison](https://crisp.chat/en/comparisons/tawkto-vs-tidio/)
-- [Crisp Next.js Integration Guide](https://help.crisp.chat/en/article/how-do-i-install-crisp-live-chat-on-nextjs-xh9yse/)
-- [Tidio Pricing 2025](https://www.tidio.com/pricing/)
-- [WhatsApp API Pricing SA 2025](https://www.askyazi.com/articles/whatsapp-business-api-pricing---how-south-africa-compares-globally-2025)
-- [WhatsApp Business Automation SA](https://www.bizai.co.za/blog/whatsapp-business-automation-south-africa)
-- [Crisp Pricing Analysis](https://www.featurebase.app/blog/crisp-pricing)
-
----
-
-### Priority 2: Stakeholder Review (Premium Calculations)
+### Priority 1: Stakeholder Review (Premium Calculations)
 Present `PREMIUM_CALCULATION_DOCUMENTATION.md` to stakeholders and capture decisions:
 - [ ] Review premium calculation formulas with product team
 - [ ] Validate R1.00/R1,000 base rate against actual insurer rates
@@ -1688,6 +1503,7 @@ Based on stakeholder feedback:
 ## FEATURE STATUS
 
 ### Complete ✅
+- **Live Chat (Tawk.to)** - Site-wide chat widget with offline form (Session 74)
 - Multi-page navigation with dropdowns
 - Email integration (Resend) - all 4 forms
 - Quote form with live pricing + WhatsApp delivery
@@ -1780,6 +1596,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S74 | **Tawk.to Live Chat Integration:** TawkToChat component, hydration-safe script loading, site-wide widget, Mon-Fri 08:00-17:00 SAST business hours |
 | S73 | **Performance Optimisation + Bug Fix + Chat Research:** Font optimisation (1.1MB→872KB), dynamic imports, LCP 67% faster, testimonials carousel bug fix, chat solution evaluation (5 options ranked) |
 | S72 | **Email Template Outlook Compatibility:** Fixed 6 bugs, VML CTA buttons, Outlook.com line-height fix, margin→spacing rows, test email API route |
 | S71 | **Premium Calculation Documentation:** Stakeholder document with formulas, worked examples, 17 questions, ASISA research, competitor analysis, funeral cost benchmarks |

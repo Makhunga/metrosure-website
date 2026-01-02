@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ClientLayout from "@/components/ClientLayout";
 import { Analytics } from "@vercel/analytics/react";
+import TawkToChat from "@/components/TawkToChat";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -179,6 +180,10 @@ export default function RootLayout({
             {children}
           </ClientLayout>
         </ThemeProvider>
+        <TawkToChat
+          propertyId="6957e95179755a19831386b8"
+          widgetId="1jdvmepqi"
+        />
         <Analytics />
       </body>
     </html>
