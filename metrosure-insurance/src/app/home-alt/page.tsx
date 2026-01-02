@@ -9,7 +9,6 @@ import {
   Testimonials,
   CallToAction,
   Footer,
-  ScrollToTop,
 } from "@/components";
 import HeroCentered from "@/components/HeroCentered";
 
@@ -29,7 +28,6 @@ export default function HomeAlt() {
         <CallToAction />
       </main>
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

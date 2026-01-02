@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -376,7 +376,6 @@ export default function TermsPage() {
       </section>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import {
   PartnersHero,
   SuccessMetrics,
@@ -63,7 +63,6 @@ export default function PartnersPage() {
         <PartnerInquiryForm />
       </main>
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
@@ -488,7 +488,6 @@ export default function HelpPage() {
       </main>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

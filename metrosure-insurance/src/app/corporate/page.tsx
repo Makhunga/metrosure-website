@@ -1,4 +1,4 @@
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import {
   CorporateHero,
   CorporateServices,
@@ -23,7 +23,6 @@ export default function CorporatePage() {
         <CorporateInquiryForm />
       </main>
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

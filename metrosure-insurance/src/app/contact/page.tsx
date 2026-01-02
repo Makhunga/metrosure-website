@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import {
   ContactHero,
   ContactOptions,
@@ -43,7 +43,6 @@ export default function ContactPage() {
       </div>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 
 export interface CoverageFeature {
   icon: string;
@@ -389,7 +389,6 @@ export default function InsurancePageTemplate({
       </section>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

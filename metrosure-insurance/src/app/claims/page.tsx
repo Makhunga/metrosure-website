@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { claimTypes, claimSteps, emergencyContacts } from "@/data/claims";
@@ -381,7 +381,6 @@ export default function ClaimsPage() {
       </main>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

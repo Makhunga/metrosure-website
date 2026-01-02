@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MagneticButton } from "@/components/animations";
@@ -770,7 +770,6 @@ export default function AboutPage() {
       </section>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

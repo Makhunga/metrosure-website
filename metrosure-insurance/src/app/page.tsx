@@ -10,8 +10,6 @@ const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
 const PartnersCTA = dynamic(() => import("@/components/PartnersCTA"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
 const CallToAction = dynamic(() => import("@/components/CallToAction"));
-const ScrollToTop = dynamic(() => import("@/components/ScrollToTop"));
-
 export default function Home() {
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
@@ -28,7 +26,6 @@ export default function Home() {
         <CallToAction />
       </main>
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

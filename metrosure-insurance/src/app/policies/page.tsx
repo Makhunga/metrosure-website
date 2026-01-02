@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { policyFeatures, samplePolicies } from "@/data/policies";
@@ -346,7 +346,6 @@ export default function PoliciesPage() {
       </main>
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }

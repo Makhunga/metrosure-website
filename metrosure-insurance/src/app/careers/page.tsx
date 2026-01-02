@@ -1,6 +1,6 @@
 "use client";
 
-import { Header, Footer, ScrollToTop } from "@/components";
+import { Header, Footer } from "@/components";
 import CareersHero from "@/components/careers/CareersHero";
 import WhyJoinUs from "@/components/careers/WhyJoinUs";
 import CultureGallery from "@/components/careers/CultureGallery";
@@ -293,7 +293,6 @@ export default function CareersPage() {
       />
 
       <Footer />
-      <ScrollToTop />
     </div>
   );
 }
