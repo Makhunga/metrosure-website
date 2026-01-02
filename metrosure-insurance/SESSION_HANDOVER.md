@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** January 2, 2026 (Session 71)
+**Updated:** January 2, 2026 (Session 72)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -9,8 +9,126 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 43 (37 pages + 6 API routes)
+- **Routes:** 44 (37 pages + 7 API routes)
 - **Last Build:** January 2, 2026
+
+---
+
+## SESSION 72 (Jan 2, 2026)
+
+### Focus: Email Template Outlook Compatibility, Testing & Premium Redesign
+
+Improved email template compatibility across all Outlook versions (desktop, web, mobile), created a test email API route, and redesigned templates with premium financial services aesthetic.
+
+### Completed
+| Change | Files |
+|--------|-------|
+| Fixed template literal interpolation bug | `src/lib/email.ts` (line 520) |
+| Removed vestigial code from header row | `src/lib/email.ts` (line 284) |
+| Added Outlook.com `.ExternalClass` line-height fix | `src/lib/email.ts` (style block) |
+| Replaced CSS margin with spacing rows (all functions) | `src/lib/email.ts` |
+| Removed unsupported `border-radius` from alert boxes | `src/lib/email.ts` |
+| Implemented VML CTA button for Outlook desktop | `src/lib/email.ts` |
+| Updated FROM_EMAIL to use metrosure.app domain | `src/lib/email.ts` |
+| Created test email API route (dev-only) | `src/app/api/test-email/route.ts` (NEW) |
+| **Redesigned email template system** | `src/lib/email.ts` |
+
+### Premium Email Template Redesign
+
+Redesigned all email components with premium financial services aesthetic while maintaining Outlook compatibility:
+
+| Component | Changes |
+|-----------|---------|
+| `wrapEmailTemplate()` | Premium header with "METROSURE Insurance Brokers", dark red accent line, refined footer with divider |
+| `createEmailHeader()` | Bold title, optional subtitle, red underline accent bar |
+| `createSectionTitle()` | Uppercase with red vertical accent bar |
+| `createFieldRow()` | Uppercase labels, bottom border, highlight option |
+| `createMessageBox()` | Quote-style with red left accent, subtle background |
+| `createAlertBox()` | Icons, left accent border, refined colour palette |
+| `createBulletList()` | Red square bullets, proper spacing |
+| `createParagraph()` | Table-based spacing for Outlook |
+| `createCTAButton()` | Refined VML, 50px height, 260px width |
+
+### Expanded Colour System
+```typescript
+// Brand Colours
+COLOR_PRIMARY = "#BF0603";       // Metrosure red
+COLOR_PRIMARY_DARK = "#8B0000";  // Darker red for accents
+COLOR_TEXT = "#1a1a1a";          // Near-black for better readability
+COLOR_TEXT_SECONDARY = "#4a4a4a"; // Secondary text
+COLOR_TEXT_MUTED = "#6b6b6b";    // Muted text
+COLOR_LABEL = "#374151";         // Label colour (slate-700)
+
+// Background Colours
+COLOR_BG_BODY = "#f3f4f6";       // Light grey body (gray-100)
+COLOR_BG_WHITE = "#ffffff";
+COLOR_BG_SUBTLE = "#f9fafb";     // Very subtle grey (gray-50)
+COLOR_BG_ACCENT = "#fef2f2";     // Light red tint for accents
+
+// Alert Colours (refined palette)
+ALERT_COLORS = {
+  warning: { bg: '#fffbeb', border: '#f59e0b', text: '#92400e', icon: '⚠️' },
+  success: { bg: '#ecfdf5', border: '#10b981', text: '#065f46', icon: '✓' },
+  info: { bg: '#eff6ff', border: '#3b82f6', text: '#1e40af', icon: 'ℹ' },
+};
+```
+
+### Bug Fixes
+| Bug | Fix |
+|-----|-----|
+| `COLOR_TEXT_LIGHT` undefined | Changed to `COLOR_TEXT_MUTED` on line 774 |
+
+### New Files Created
+| File | Purpose |
+|------|---------|
+| `src/app/api/test-email/route.ts` | Development-only API for testing all 7 email templates |
+
+### Outlook Compatibility Fixes
+
+| Issue | Fix |
+|-------|-----|
+| `margin` CSS on tables | Replaced with spacing rows using `height` attribute |
+| `border-radius` on alert boxes | Removed (not supported in Outlook desktop Word engine) |
+| Line-height issues in Outlook.com | Added `.ExternalClass` styles to reset line-height |
+| CTA buttons without rounded corners | Added VML `v:roundrect` fallback for Outlook desktop |
+| Template literal not interpolating | Fixed nested string to use template literal syntax |
+
+### VML Button Implementation
+```html
+<!--[if mso]>
+<v:roundrect href="..." style="height:44px;width:220px;" arcsize="18%" fillcolor="#BF0603">
+  <center style="color:#ffffff;font-weight:bold;">Button Text</center>
+</v:roundrect>
+<![endif]-->
+<!--[if !mso]><!-->
+<a href="..." style="border-radius:8px;background-color:#BF0603;">Button Text</a>
+<!--<![endif]-->
+```
+
+### Test Email API Usage
+```bash
+# GET - List available templates
+curl http://localhost:3000/api/test-email
+
+# POST - Send test email
+curl -X POST http://localhost:3000/api/test-email \
+  -H "Content-Type: application/json" \
+  -d '{"to": "your@email.com", "template": "contact"}'
+```
+
+**Available templates:** contact, quote, partner-inquiry, corporate-inquiry, calculator-life, calculator-funeral, careers
+
+### Email Configuration
+| Setting | Value |
+|---------|-------|
+| Development FROM | `noreply@metrosure.app` |
+| Production FROM | `noreply@metrosuregroup.co.za` |
+| Override | Set `RESEND_FROM_EMAIL` in `.env.local` |
+
+### Build Status
+- Build passing with 44 routes (37 pages + 7 API routes)
+- TypeScript compilation: no errors
+- Test emails sent and verified
 
 ---
 
@@ -1294,6 +1412,7 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 | Session | Focus |
 |---------|-------|
+| S72 | **Email Template Outlook Compatibility:** Fixed 6 bugs, VML CTA buttons, Outlook.com line-height fix, margin→spacing rows, test email API route |
 | S71 | **Premium Calculation Documentation:** Stakeholder document with formulas, worked examples, 17 questions, ASISA research, competitor analysis, funeral cost benchmarks |
 | S70 | **B2B Case Studies Section:** 3 case studies (TFG/Jet, TechZone, HomeStyle), expandable cards, hero stats, Challenge→Solution→Results format |
 | S69 | **Coverage Calculator Enhancements:** WhatsApp share, Email lead capture, Real-time preview, Funeral cost breakdown |
@@ -1328,4 +1447,4 @@ src/components/PartnersCTA.tsx                # TFG, new stats
 
 ---
 
-*Document updated: January 2, 2026 (Session 71)*
+*Document updated: January 2, 2026 (Session 72)*
