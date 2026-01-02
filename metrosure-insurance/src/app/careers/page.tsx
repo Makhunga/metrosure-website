@@ -3,12 +3,16 @@
 import { Header, Footer, ScrollToTop } from "@/components";
 import CareersHero from "@/components/careers/CareersHero";
 import WhyJoinUs from "@/components/careers/WhyJoinUs";
+import CultureGallery from "@/components/careers/CultureGallery";
 import OpenPositions from "@/components/careers/OpenPositions";
+
 import ApplicationModal from "@/components/careers/ApplicationModal";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+const isDev = process.env.NODE_ENV === "development";
 
 // Stats data
 const stats = [
@@ -153,6 +157,9 @@ export default function CareersPage() {
 
       {/* Why Join Us */}
       <WhyJoinUs />
+
+      {/* Culture Gallery - Dev Only (pending more images) */}
+      {isDev && <CultureGallery />}
 
       {/* Open Positions */}
       <OpenPositions onApplyClick={openApplicationModal} />

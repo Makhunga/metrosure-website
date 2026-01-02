@@ -6,12 +6,15 @@ import { Header, Footer, ScrollToTop } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MagneticButton } from "@/components/animations";
+import AboutGallery from "@/components/about/AboutGallery";
 import {
   companyStats as stats,
   coreValues as values,
   companyTimeline as timeline,
   executiveTeam as team,
 } from "@/data/aboutPage";
+
+const isDev = process.env.NODE_ENV === "development";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -645,6 +648,9 @@ export default function AboutPage() {
         </motion.div>
         </div>
       </section>
+
+      {/* Visual Gallery - Dev Only (pending more images) */}
+      {isDev && <AboutGallery />}
 
       {/* CTA Section - Matching Landing Page Design */}
       <section ref={ctaRef} className="relative z-10 py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
