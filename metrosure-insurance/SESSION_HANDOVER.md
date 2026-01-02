@@ -20,6 +20,9 @@
 
 Enhanced both Life and Funeral calculators with sharing, lead capture, and educational features based on SA insurance industry best practices research.
 
+### Next Session: First Task
+- [ ] Start dev server (`npm run dev`) and verify all 4 enhancements work correctly
+
 ### Completed
 | Change | Files |
 |--------|-------|
