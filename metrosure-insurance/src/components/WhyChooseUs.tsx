@@ -8,13 +8,13 @@ import { TextReveal } from "./animations";
 const differentiators = [
   {
     icon: "trending_up",
-    title: "75% Sales Increase",
+    title: "75% Partner Sales Growth",
     description:
       "Our retail partners see an average 75% sales increase within the first 6 months. We deliver proven, measurable results.",
   },
   {
     icon: "verified",
-    title: "95% QA Average",
+    title: "95% Daily Quality Standard",
     description:
       "Our dedicated quality assurance team maintains a 95% daily average, ensuring every sale is compliant and every interaction meets the highest standards.",
   },
@@ -98,7 +98,7 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6 leading-tight">
-            <TextReveal text="People trust us because we put them first" delay={0.2} staggerDelay={0.03} />
+            <TextReveal text="Why 100+ retailers and 10,000+ families trust us" delay={0.2} staggerDelay={0.03} />
           </h2>
           <motion.p
             className="text-lg text-[rgb(var(--color-text-body))] leading-relaxed"
@@ -106,7 +106,7 @@ export default function WhyChooseUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            We&apos;re not just another insurance company. We&apos;re a team that genuinely cares about securing individuals and empowering business partners.
+            Since 2013, we&apos;ve built a reputation for results. From protecting families to helping retailers grow, we deliver on our promises.
           </motion.p>
         </motion.div>
 

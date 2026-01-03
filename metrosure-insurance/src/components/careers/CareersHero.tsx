@@ -18,6 +18,36 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
     <section
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
+      {/* Layered Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Large geometric accent - top right */}
+        <motion.div
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 blur-3xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+
+        {/* Accent blob - bottom left */}
+        <motion.div
+          className="absolute -bottom-48 -left-48 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#F2CC8E]/10 to-[#F2CC8E]/5 dark:from-[#F2CC8E]/15 dark:to-[#F2CC8E]/10 blur-3xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+        />
+
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgb(var(--color-text-main)) 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }}
+          />
+        </div>
+      </div>
+
       {/* Gradient Mesh Overlay */}
       <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
 
@@ -55,12 +85,32 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
             </motion.span>{" "}
             <br />
             <motion.span
-              className="text-primary inline-block"
+              className="text-primary inline-block relative"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
               Future With Us
+              {/* Hand-drawn underline accent */}
+              <motion.svg
+                className="absolute -bottom-2 left-0 w-[45%] h-4"
+                viewBox="0 0 200 12"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1 }}
+              >
+                <motion.path
+                  d="M2 8 C50 2, 150 14, 198 6"
+                  stroke="#F2CC8E"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  fill="none"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                />
+              </motion.svg>
             </motion.span>
           </motion.h1>
 

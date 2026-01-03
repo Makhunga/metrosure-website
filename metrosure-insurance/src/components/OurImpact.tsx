@@ -149,7 +149,7 @@ export default function OurImpact() {
           </motion.h2>
 
           <motion.p
-            className="text-base md:text-lg lg:text-xl text-white/70 max-w-md lg:max-w-sm lg:text-right leading-relaxed"
+            className="text-base md:text-lg lg:text-xl text-white/70 max-w-md lg:max-w-lg lg:text-right leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}

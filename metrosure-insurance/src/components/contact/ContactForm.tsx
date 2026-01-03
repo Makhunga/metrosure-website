@@ -322,20 +322,20 @@ export default function ContactForm() {
   // Dynamic input classes based on validation state
   const getInputClasses = (fieldName?: string) => {
     const state = fieldName ? getFieldState(fieldName) : { touched: false, error: null, valid: false };
-    const baseClasses = "w-full rounded-xl shadow-sm transition-all py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
+    const baseClasses = "w-full rounded-xl shadow-sm transition-all duration-300 ease-out py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none";
 
     if (state.touched && state.error) {
-      return `${baseClasses} border-2 border-red-400 bg-red-50 dark:bg-red-900/15 focus:border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-800/30 pl-12 pr-4`;
+      return `${baseClasses} border-2 border-red-400 bg-red-50 dark:bg-red-900/15 focus:border-red-500 focus:ring-4 focus:ring-red-500/20 dark:focus:ring-red-500/30 focus:shadow-[0_0_0_4px_rgba(239,68,68,0.1)] pl-12 pr-4`;
     }
     if (state.touched && state.valid) {
-      return `${baseClasses} border-2 border-green-400 bg-green-50 dark:bg-green-900/15 focus:border-green-500 focus:ring-2 focus:ring-green-200 dark:focus:ring-green-800/30 pl-12 pr-4`;
+      return `${baseClasses} border-2 border-green-400 bg-green-50 dark:bg-green-900/15 focus:border-green-500 focus:ring-4 focus:ring-green-500/20 dark:focus:ring-green-500/30 focus:shadow-[0_0_0_4px_rgba(34,197,94,0.1)] pl-12 pr-4`;
     }
-    return `${baseClasses} border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 pl-12 pr-4`;
+    return `${baseClasses} border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 focus:border-primary focus:ring-4 focus:ring-primary/15 dark:focus:ring-primary/25 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] pl-12 pr-4`;
   };
 
   // Standard input classes without icon
   const inputClasses =
-    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
+    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-4 focus:ring-primary/15 dark:focus:ring-primary/25 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] transition-all duration-300 ease-out py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none";
 
   const labelClasses =
     "block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2";

@@ -44,10 +44,10 @@ export interface TeamMember {
 // =============================================================================
 
 export const companyStats: CompanyStat[] = [
-  { value: "5000+", label: "Jobs Created" },
-  { value: "75%", label: "Sales Increase" },
-  { value: "95%", label: "QA Average" },
-  { value: "7", label: "Provinces" },
+  { value: "5,000+", label: "Jobs Created Nationwide" },
+  { value: "75%", label: "Average Partner Sales Growth" },
+  { value: "95%", label: "Daily Quality Standard" },
+  { value: "7", label: "Provinces Covered" },
 ];
 
 // =============================================================================

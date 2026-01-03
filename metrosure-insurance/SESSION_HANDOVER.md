@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 3 January 2026 (Session 79)
+**Updated:** 3 January 2026 (Session 80)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,36 @@
 
 - **Routes:** 44 (37 pages + 7 API routes)
 - **Last Build:** 3 January 2026
+
+---
+
+## SESSION 80 (3 Jan 2026) - UI/Content Polish
+
+### Focus
+Used `frontend-design` and `content-research-writer` skills:
+1. Careers Hero redesign (asymmetric layout, floating testimonials, growth path)
+2. Product messaging update (added Hospitalization & Disability)
+3. Content consistency (stats labels, "revenue engine" standardisation)
+4. Form UX polish (glow focus effects, smoother transitions)
+5. Dark mode warmth (shifted from cold blue slate to warm neutral)
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/careers/CareersHero.tsx` | Major redesign - split layout, testimonials, milestones |
+| `src/components/Products.tsx` | Added "Health & Income Protection" card |
+| `src/data/aboutPage.ts` | Stats labels expanded with context |
+| `src/components/WhyChooseUs.tsx` | New heading, updated differentiator labels |
+| `src/components/Hero.tsx` | "revenue stream" → "revenue engine" |
+| `src/components/contact/ContactForm.tsx` | Enhanced focus glow effects |
+| `src/app/globals.css` | Dark mode warmer undertones |
+
+### CareersHero New Features
+- Asymmetric split layout (text left, visuals right)
+- 3 floating testimonial cards with parallax scroll
+- 4-step career growth path (Training → Growth → Leadership → Impact)
+- Hand-drawn SVG underline accent
+- Scroll indicator animation
 
 ---
 
@@ -172,10 +202,15 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-74)
+## SESSION HISTORY (40-79)
 
 | Session | Focus |
 |---------|-------|
+| S79 | Visual polish, dark mode, doc cleanup |
+| S78 | Critical bug fixes (page visibility, footer) |
+| S77 | Visual polish, animation patterns |
+| S76 | Partners page fix, email logo |
+| S75 | Starbucks-inspired UI, Footer, LatestNews |
 | S74 | Live Chat (Tawk.to), ScrollToTop removal |
 | S73 | Performance optimisation (LCP 67% faster) |
 | S72 | Email template Outlook compatibility |
@@ -205,4 +240,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 3 January 2026 (Session 79)*
+*Document updated: 3 January 2026 (Session 80)*

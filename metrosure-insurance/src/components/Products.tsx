@@ -19,22 +19,22 @@ const products = [
     title: "Life & Funeral Cover",
     description:
       "Ensure your loved ones are looked after. From individual life policies to group funeral cover and credit life, we've got your family covered.",
-    features: ["Life Insurance", "Funeral Plans", "Credit Life", "Estate Planning"],
+    features: ["Life Insurance", "Funeral Plans", "Credit Life"],
     href: "/insurance/life",
   },
   {
-    icon: "savings",
-    title: "Retirement & Investments",
+    icon: "health_and_safety",
+    title: "Health & Income Protection",
     description:
-      "Plan your future today. We help you build wealth and prepare for retirement with personalised investment strategies.",
-    features: ["Retirement Funds", "Investment Planning", "Tax Benefits"],
+      "Safeguard your income when life happens. From hospitalisation cover to disability benefits, stay financially secure during difficult times.",
+    features: ["Hospitalisation", "Disability Cover", "Income Protection"],
     href: "/insurance/life",
   },
   {
     icon: "storefront",
     title: "Retail Partnerships",
     description:
-      "Turn your store into a revenue stream. We bring trained staff, handle compliance, and share profits - you focus on your business.",
+      "Turn your store into a revenue engine. We bring trained staff, handle compliance, and share profits - you focus on your business.",
     features: ["Revenue Share", "Staff Provided", "Zero Overhead"],
     href: "/partners",
   },

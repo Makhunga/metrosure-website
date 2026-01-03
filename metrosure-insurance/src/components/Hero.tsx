@@ -140,7 +140,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              From protecting your home and loved ones to transforming your retail space into a revenue stream - we help families feel secure and businesses grow.
+              From protecting your home and loved ones to transforming your retail space into a revenue engine - we help families feel secure and businesses grow.
             </motion.p>
 
             {/* CTAs */}
