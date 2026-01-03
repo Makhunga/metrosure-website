@@ -149,7 +149,7 @@ export default function LatestNews() {
           Creates visual depth with news cards overflowing
       ═══════════════════════════════════════════════════════════════════════ */}
       <div
-        className="absolute left-0 right-0 top-0 h-[85%] md:h-[80%] bg-[rgb(var(--color-secondary))] dark:bg-slate-800"
+        className="absolute left-0 right-0 top-0 h-[85%] md:h-[80%] bg-[rgb(var(--color-secondary))] dark:bg-[#1a0a10]"
         style={{
           clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
         }}
@@ -164,7 +164,7 @@ export default function LatestNews() {
           }}
         />
         {/* Gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/15 dark:from-primary/10 dark:via-transparent dark:to-black/20" />
       </div>
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -205,7 +205,7 @@ export default function LatestNews() {
             <motion.div
               key={article.id}
               variants={itemVariants}
-              className="bg-white dark:bg-slate-800 rounded-xl p-6 md:p-8 shadow-xl shadow-black/10 dark:shadow-black/30"
+              className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/10 dark:shadow-black/30"
             >
               <NewsCard article={article} index={index} />
             </motion.div>

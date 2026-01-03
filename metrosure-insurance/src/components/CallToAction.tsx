@@ -97,7 +97,7 @@ export default function CallToAction() {
             <MagneticButton strength={0.3}>
               <Link href="/quote">
                 <motion.span
-                  className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg shadow-xl flex items-center justify-center"
+                  className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-xl shadow-lg shadow-primary/25 flex items-center justify-center"
                   whileHover={{
                     boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
                   }}
@@ -111,7 +111,7 @@ export default function CallToAction() {
             <MagneticButton strength={0.3}>
               <Link href="/partners">
                 <motion.span
-                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2"
+                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-xl flex items-center justify-center gap-2"
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >

@@ -76,12 +76,12 @@ export default function WhyChooseUs() {
   return (
     <section
       ref={sectionRef}
-      className="pt-20 pb-32 bg-[rgb(var(--color-surface-card))] transition-colors duration-300 relative overflow-hidden"
+      className="py-24 md:py-32 bg-[rgb(var(--color-surface))] transition-colors duration-300 relative overflow-hidden"
     >
 
       {/* Decorative watermark */}
       <motion.div
-        className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
+        className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/[0.08] select-none z-0 whitespace-nowrap pointer-events-none uppercase"
         initial={{ opacity: 0, x: -20 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
         transition={{ duration: 0.8, delay: 0.2 }}

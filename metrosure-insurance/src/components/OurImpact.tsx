@@ -112,7 +112,7 @@ export default function OurImpact() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-28 lg:py-36 bg-[rgb(var(--color-secondary))] dark:bg-slate-900 overflow-hidden transition-colors duration-300"
+      className="relative py-24 md:py-32 lg:py-40 bg-[rgb(var(--color-secondary))] dark:bg-[#1a0a10] overflow-hidden transition-colors duration-300"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}

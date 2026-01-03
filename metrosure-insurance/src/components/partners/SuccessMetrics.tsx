@@ -60,7 +60,8 @@ function MetricItem({ stat, index }: MetricItemProps) {
       ref={ref}
       className="relative p-8 flex flex-col items-center justify-center text-center group"
       initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{
         duration: 0.6,
         delay: index * 0.15,
@@ -96,7 +97,8 @@ function MetricItem({ stat, index }: MetricItemProps) {
       <motion.span
         className="text-base font-semibold text-white/90 mb-1"
         initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ delay: index * 0.15 + 0.3, duration: 0.4 }}
       >
         {stat.label}
@@ -106,7 +108,8 @@ function MetricItem({ stat, index }: MetricItemProps) {
       <motion.span
         className="text-sm text-white/60"
         initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ delay: index * 0.15 + 0.4, duration: 0.4 }}
       >
         {stat.description}
