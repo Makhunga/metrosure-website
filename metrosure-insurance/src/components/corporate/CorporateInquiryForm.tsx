@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, Fragment } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { track } from "@vercel/analytics";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import { InlineError } from "@/components/ui/InlineError";
 import {
@@ -322,6 +323,12 @@ export default function CorporateInquiryForm() {
       }
 
       setIsSubmitted(true);
+
+      // Track successful submission
+      track("corporate_inquiry_submitted", {
+        industry: formData.industry,
+        employeeCount: formData.employeeCount,
+      });
     } catch (err) {
       setError(
         err instanceof Error

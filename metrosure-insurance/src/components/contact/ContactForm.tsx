@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { track } from "@vercel/analytics";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import {
   validateEmail,
@@ -254,6 +255,12 @@ export default function ContactForm() {
       setMessageSent(true);
       setMessageContent("");
       form.reset();
+
+      // Track successful submission
+      track("contact_submitted", {
+        formType: "message",
+        topic: formData.get("subject") as string,
+      });
     } catch (error) {
       setFormState({
         isSubmitting: false,
@@ -302,6 +309,12 @@ export default function ContactForm() {
       setCallbackReason("");
       setOtherReason("");
       form.reset();
+
+      // Track successful submission
+      track("contact_submitted", {
+        formType: "callback",
+        reason: callbackReason,
+      });
     } catch (error) {
       setFormState({
         isSubmitting: false,

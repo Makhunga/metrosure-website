@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 4 January 2026 (Session 83)
+**Updated:** 4 January 2026 (Session 84)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,50 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 4 January 2026
+
+---
+
+## SESSION 84 (4 Jan 2026) - Analytics Setup
+
+### Focus
+Implemented Vercel Analytics with Speed Insights and custom event tracking for all forms.
+
+### Analytics Solution
+Chose Vercel Analytics (already installed) over alternatives:
+- **Vercel Analytics** - Free, cookie-free, POPIA compliant, native Next.js integration
+- Rejected: Plausible ($19/mo), PostHog (overkill), GA4 (requires consent banner), Fathom ($15/mo)
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `package.json` | Added `@vercel/speed-insights` |
+| `src/app/layout.tsx` | Added `<SpeedInsights />` component |
+| `src/components/contact/ContactForm.tsx` | Added `track("contact_submitted")` |
+| `src/app/quote/page.tsx` | Added `track("quote_submitted")` |
+| `src/components/partners/PartnerInquiryForm.tsx` | Added `track("partner_inquiry_submitted")` |
+| `src/components/corporate/CorporateInquiryForm.tsx` | Added `track("corporate_inquiry_submitted")` |
+| `src/components/careers/ApplicationForm.tsx` | Added `track("career_application_submitted")` |
+| `src/components/tools/CalculatorResult.tsx` | Added WhatsApp share tracking |
+| `src/components/tools/EmailResultsModal.tsx` | Added email share tracking |
+
+### New File
+| File | Description |
+|------|-------------|
+| `docs/analytics-report-template.md` | Google Sheets template for analysing exported Vercel data |
+
+### Custom Events Tracked
+| Event | Properties | Trigger |
+|-------|------------|---------|
+| `quote_submitted` | customerType, coverageType | Quote form success |
+| `contact_submitted` | formType, topic/reason | Contact form success |
+| `partner_inquiry_submitted` | businessType, servicesCount | Partner form success |
+| `corporate_inquiry_submitted` | industry, employeeCount | Corporate form success |
+| `career_application_submitted` | position, experience | Career form success |
+| `calculator_results_shared` | method, calculatorType | Calculator share via email/WhatsApp |
+
+### Export Capabilities
+- **CSV Export:** Available in Vercel Dashboard under Analytics tab
+- **Vercel Drains:** Enterprise feature for streaming to BigQuery, Datadog, etc.
 
 ---
 
@@ -376,10 +420,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-83)
+## SESSION HISTORY (40-84)
 
 | Session | Focus |
 |---------|-------|
+| S84 | Analytics setup, Speed Insights, custom event tracking |
 | S83 | Content creation, CLAUDE.md, comparison page, FAQ data |
 | S82 | Web Development Brief (Zoocora) |
 | S81 | British English compliance, em dash cleanup |
@@ -418,4 +463,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 4 January 2026 (Session 83)*
+*Document updated: 4 January 2026 (Session 84)*

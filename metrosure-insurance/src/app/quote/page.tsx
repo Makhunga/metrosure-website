@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FormSuccess } from "@/components/ui/FormSuccess";
@@ -370,6 +371,12 @@ export default function QuotePage() {
       }
 
       setIsSubmitted(true);
+
+      // Track successful submission
+      track("quote_submitted", {
+        customerType: formData.customerType || "unknown",
+        coverageType: formData.coverageType || "unknown",
+      });
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "An unexpected error occurred"

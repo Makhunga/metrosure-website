@@ -2,6 +2,7 @@
 
 import { useState, useCallback, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { track } from "@vercel/analytics";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import { InlineError } from "@/components/ui/InlineError";
 import {
@@ -279,6 +280,12 @@ export default function PartnerInquiryForm() {
       }
 
       setIsSubmitted(true);
+
+      // Track successful submission
+      track("partner_inquiry_submitted", {
+        businessType: formData.businessType,
+        servicesCount: formData.servicesInterested.length,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred. Please try again.");
     } finally {

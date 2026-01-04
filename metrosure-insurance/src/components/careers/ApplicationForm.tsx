@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { track } from "@vercel/analytics";
 import { FormSuccess } from "@/components/ui/FormSuccess";
 import { InputIcon } from "@/components/ui/InputIcon";
 import { InlineError } from "@/components/ui/InlineError";
@@ -184,6 +185,12 @@ export default function ApplicationForm({
       }
 
       setIsSubmitted(true);
+
+      // Track successful submission
+      track("career_application_submitted", {
+        position: formData.position,
+        experience: formData.experience,
+      });
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An error occurred. Please try again."
