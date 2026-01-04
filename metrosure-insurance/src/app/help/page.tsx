@@ -367,10 +367,11 @@ export default function HelpPage() {
           </motion.div>
 
           <motion.div
+            key={selectedCategory || "popular"}
             className="space-y-4"
             variants={containerVariants}
             initial="hidden"
-            animate={faqInView ? "visible" : "hidden"}
+            animate="visible"
           >
             {displayedFAQs.map((faq) => (
               <motion.div
