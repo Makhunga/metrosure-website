@@ -136,7 +136,7 @@ export default function AboutGallery() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            From boardroom decisions to community impact—the faces and places behind Metrosure.
+            From boardroom decisions to community impact - the faces and places behind Metrosure.
           </motion.p>
         </motion.div>
 

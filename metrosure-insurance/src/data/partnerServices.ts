@@ -81,9 +81,9 @@ export const partnerServices: PartnerService[] = [
     icon: "devices",
     title: "Device Leasing",
     description:
-      "Offer your customers cell phone and device leasing directly at point of sale. We manage the full leasing process while you earn commission on every deal.",
+      "Offer your customers mobile and device leasing directly at point of sale. We manage the full leasing process while you earn commission on every deal.",
     features: [
-      "Cell phone & device financing",
+      "Mobile & device financing",
       "Quick approval process",
       "Commission on every lease",
       "Full compliance handled",
@@ -109,7 +109,7 @@ export const partnerServices: PartnerService[] = [
     icon: "headset_mic",
     title: "Call Centre Services",
     description:
-      "Leverage our inhouse call centre for lead generation, customer acquisition, and growing your financial services book with quality clientele.",
+      "Leverage our in-house call centre for lead generation, customer acquisition, and growing your financial services book with quality clientele.",
     features: [
       "Lead calling (warm & hot leads)",
       "Cold calling for acquisition",

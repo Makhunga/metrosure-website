@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 3 January 2026 (Session 80)
+**Updated:** 3 January 2026 (Session 81)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,36 @@
 
 - **Routes:** 44 (37 pages + 7 API routes)
 - **Last Build:** 3 January 2026
+
+---
+
+## SESSION 81 (3 Jan 2026) - British English Compliance
+
+### Focus
+Ensured all web copy conforms to British English (South African context).
+
+### British English Fixes
+| File | Change |
+|------|--------|
+| `src/data/partnerServices.ts` | "cell phone" → "mobile", "inhouse" → "in-house" |
+| `src/components/partners/PartnerBenefits.tsx` | "optimize" → "optimise" |
+
+### Em Dash Replacements (11 occurrences)
+Replaced em dashes (—) with standard dashes (-) or semicolons/commas as contextually appropriate:
+| File | Count |
+|------|-------|
+| `src/components/Testimonials.tsx` | 2 |
+| `src/components/about/AboutGallery.tsx` | 1 |
+| `src/components/tools/FuneralCoverCalculator.tsx` | 1 |
+| `src/components/tools/FuneralCostBreakdown.tsx` | 1 |
+| `src/data/caseStudies.ts` | 3 |
+| `src/data/calculatorData.ts` | 3 |
+
+### Not Changed (Framework Standards)
+- `behavior: "smooth"` - JavaScript API property
+- `unoptimized` - Next.js config property
+- Tailwind `gray-*` classes - Framework convention
+- CSS `center` - Framework standard
 
 ---
 
@@ -202,10 +232,12 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-79)
+## SESSION HISTORY (40-81)
 
 | Session | Focus |
 |---------|-------|
+| S81 | British English compliance, em dash cleanup |
+| S80 | UI/content polish, Careers Hero, dark mode warmth |
 | S79 | Visual polish, dark mode, doc cleanup |
 | S78 | Critical bug fixes (page visibility, footer) |
 | S77 | Visual polish, animation patterns |
@@ -240,4 +272,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 3 January 2026 (Session 80)*
+*Document updated: 3 January 2026 (Session 81)*

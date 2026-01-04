@@ -11,7 +11,7 @@ const benefits = [
   {
     icon: "analytics",
     title: "Data-Driven Insights",
-    description: "Customer profiling and segmentation using data analytics. We provide regular reports so you can make informed decisions and optimize performance.",
+    description: "Customer profiling and segmentation using data analytics. We provide regular reports so you can make informed decisions and optimise performance.",
   },
   {
     icon: "verified",

@@ -311,7 +311,7 @@ export function FuneralCoverCalculator() {
                 info
               </span>
               <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
-                <strong>Indicative estimates only.</strong> Actual premiums depend on age, health, and insurer underwriting. This calculator provides a general guide—speak to our advisers for an accurate quote.
+                <strong>Indicative estimates only.</strong> Actual premiums depend on age, health, and insurer underwriting. This calculator provides a general guide - speak to our advisers for an accurate quote.
               </p>
             </div>
           </div>

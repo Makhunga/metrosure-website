@@ -252,7 +252,7 @@ export const lifeCoverFAQs: CalculatorFAQ[] = [
   {
     question: "How much life cover do most South Africans have?",
     answer:
-      "According to ASISA's 2025 Insurance Gap Study, the average South African income earner has only R800,000 in life cover—but needs at least R2.1 million. This leaves an average shortfall of R1.3 million per person. Over 60% of families would face financial hardship if the primary earner passed away unexpectedly.",
+      "According to ASISA's 2025 Insurance Gap Study, the average South African income earner has only R800,000 in life cover, but needs at least R2.1 million. This leaves an average shortfall of R1.3 million per person. Over 60% of families would face financial hardship if the primary earner passed away unexpectedly.",
   },
   {
     question: "Do I need life cover if I have employer group life?",
@@ -315,7 +315,7 @@ export const educationalPoints: EducationalPoint[] = [
     icon: "trending_down",
     title: "The R50 Trillion Gap",
     description:
-      "South Africa's life insurance gap has widened to R50.4 trillion—that's 7 times our entire GDP. The average family would receive only 39% of what they need if the primary earner passed away today.",
+      "South Africa's life insurance gap has widened to R50.4 trillion - that's 7 times our entire GDP. The average family would receive only 39% of what they need if the primary earner passed away today.",
   },
   {
     icon: "savings",
@@ -434,7 +434,7 @@ export function getLifeCoverComparisonText(totalCover: number): string {
     const percentAboveAverage = Math.round(((totalCover - averageCoverHeld) / averageCoverHeld) * 100);
     return `Your recommended cover is ${percentAboveAverage}% higher than what the average South African has (R800,000). However, ASISA research suggests most families need at least R2.1 million.`;
   }
-  return `The average South African has only R800,000 in life cover—but needs at least R2.1 million. Consider whether your calculation reflects all your family's needs.`;
+  return `The average South African has only R800,000 in life cover, but needs at least R2.1 million. Consider whether your calculation reflects all your family's needs.`;
 }
 
 // =============================================================================

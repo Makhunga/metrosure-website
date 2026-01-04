@@ -144,7 +144,7 @@ export const caseStudies: CaseStudy[] = [
       { value: "35%", label: "Default Reduction", icon: "security" },
     ],
     quote: {
-      text: "We started with two advisors in Tembisa as a trial. Within a year, we've got 18 permanent Metrosure staff across all four stores. The revenue share covers more than our space costs—it's become a proper income stream for us, not just a side benefit.",
+      text: "We started with two advisors in Tembisa as a trial. Within a year, we've got 18 permanent Metrosure staff across all four stores. The revenue share covers more than our space costs; it's become a proper income stream for us, not just a side benefit.",
       author: "Sibusiso Dube",
       role: "Owner • TechZone Electronics",
     },
@@ -182,7 +182,7 @@ export const caseStudies: CaseStudy[] = [
       { value: "28%", label: "Default Reduction", icon: "trending_down" },
     ],
     quote: {
-      text: "Every sales advisor Metrosure places is FSP-licensed and properly trained. Our customers notice the difference—they get real advice, not pushy sales tactics. The 95% QA standard they maintain gives us confidence that our brand is protected.",
+      text: "Every sales advisor Metrosure places is FSP-licensed and properly trained. Our customers notice the difference - they get real advice, not pushy sales tactics. The 95% QA standard they maintain gives us confidence that our brand is protected.",
       author: "Priya Naidoo",
       role: "Operations Director • HomeStyle Furnishers",
     },
@@ -245,7 +245,7 @@ export const whyPartnerReasons: WhyPartnerReason[] = [
     icon: "support_agent",
     title: "End-to-End Support",
     description:
-      "From recruitment to training to performance management—we handle everything so you can focus on retail.",
+      "From recruitment to training to performance management - we handle everything so you can focus on retail.",
   },
   {
     icon: "analytics",
