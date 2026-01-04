@@ -5,7 +5,96 @@
  * Used on the Partners page to demonstrate B2B value.
  *
  * Created: Session 70 (January 2026)
+ * Updated: Session 83 - Added template and documentation
+ *
+ * =============================================================================
+ * HOW TO ADD A NEW CASE STUDY
+ * =============================================================================
+ *
+ * 1. Copy the CASE_STUDY_TEMPLATE below
+ * 2. Fill in all required fields
+ * 3. Add to the caseStudies array at the bottom
+ * 4. Set featured: true to display on homepage carousel
+ *
+ * Required Information to Gather:
+ * - Partner company name and industry
+ * - Locations/provinces covered
+ * - The challenge they faced (1-2 paragraphs)
+ * - Our solution (3-5 bullet points)
+ * - Results achieved (3-5 bullet points with numbers)
+ * - 4 key metrics with values
+ * - A testimonial quote from the partner
+ * - Duration of partnership
+ * - Services used (see SERVICE_IDS below)
+ *
+ * Metrics Tips:
+ * - Always include specific numbers (percentages, counts, timeframes)
+ * - Use icons from Material Symbols: store, groups, trending_up, star,
+ *   verified_user, payments, schedule, badge, security, trending_down
+ *
+ * =============================================================================
  */
+
+// =============================================================================
+// SERVICE IDS (for servicesUsed array)
+// =============================================================================
+
+export const SERVICE_IDS = {
+  INSTORE_CAMPAIGNS: "instore-campaigns",
+  OUTSOURCED_SALES: "outsourced-sales",
+  CREDIT_FACILITY: "credit-facility",
+  DEVICE_LEASING: "device-leasing",
+  DEVICE_INSURANCE: "device-insurance",
+  CALL_CENTRE: "call-centre",
+  SALES_MARKETING: "sales-marketing",
+} as const;
+
+// =============================================================================
+// CASE STUDY TEMPLATE
+// =============================================================================
+
+/**
+ * Copy this template to create a new case study.
+ * Replace all placeholder values with actual data.
+ */
+export const CASE_STUDY_TEMPLATE = {
+  id: "partner-name-slug", // kebab-case, unique identifier
+  partnerName: "Partner Company Name",
+  partnerType: "Business Type (e.g., National Retail Chain)",
+  industry: "Industry (e.g., Fashion & Home)",
+  location: "Provinces (e.g., Gauteng, KwaZulu-Natal)",
+  logoPlaceholder: "ABC", // 2-3 letter initials for avatar
+  challenge:
+    "Describe the challenge the partner faced. What problem were they trying to solve? What had they tried before? Keep to 2-3 sentences.",
+  solution: [
+    "First key action we took to solve their problem",
+    "Second key action or implementation detail",
+    "Third action showing our approach",
+    "Fourth action (optional)",
+    "Fifth action (optional)",
+  ],
+  results: [
+    "First measurable result with specific numbers",
+    "Second measurable result (e.g., X% increase in Y)",
+    "Third measurable result",
+    "Fourth result showing business impact",
+    "Fifth result (optional)",
+  ],
+  metrics: [
+    { value: "XX", label: "Metric Name", icon: "store" },
+    { value: "XX%", label: "Metric Name", icon: "trending_up" },
+    { value: "XX", label: "Jobs Created", icon: "groups" },
+    { value: "X.X/5", label: "Customer Rating", icon: "star" },
+  ],
+  quote: {
+    text: "A testimonial quote from the partner about working with Metrosure. Should be 2-3 sentences highlighting the value we delivered.",
+    author: "Contact Name",
+    role: "Job Title - Company Name",
+  },
+  duration: "XX months",
+  servicesUsed: [SERVICE_IDS.INSTORE_CAMPAIGNS, SERVICE_IDS.OUTSOURCED_SALES],
+  featured: false, // Set to true to feature on homepage
+} as const;
 
 // =============================================================================
 // TYPE DEFINITIONS

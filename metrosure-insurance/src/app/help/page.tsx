@@ -4,6 +4,14 @@ import Link from "next/link";
 import { Header, Footer } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  allFAQs,
+  faqCategories,
+  searchFAQs,
+  getFAQsByCategory,
+  type FAQ,
+  type FAQCategory,
+} from "@/data/faqs";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -92,68 +100,24 @@ const categories = [
   },
 ];
 
-const popularQuestions = [
-  {
-    question: "How do I file a claim?",
-    answer: "You can file a claim by calling us at +27 31 301 1192, emailing info@metrosuregroup.co.za, or visiting our claims page. Have your policy number and incident details ready.",
-    link: "/claims",
-  },
-  {
-    question: "What insurers do you work with?",
-    answer: "We partner with over 30 leading insurers including Liberty, Sanlam, Discovery, Old Mutual, MiWay, King Price, and many more. This allows us to find the best cover at the best price for you.",
-    link: "/about",
-  },
-  {
-    question: "How long does it take to get a quote?",
-    answer: "Online quotes typically take 5-10 minutes to complete. Once submitted, our portfolio managers review your details and can usually provide a tailored quote within 24 hours.",
-    link: "/quote",
-  },
-  {
-    question: "Is Metrosure a legitimate company?",
-    answer: "Yes, Metrosure Insurance Brokers (Pty) Ltd is an Authorised Financial Service Provider (FSP No: 47089) regulated by the Financial Services Conduct Authority (FSCA). We've been in business since 2013.",
-    link: "/legal",
-  },
-  {
-    question: "How do I contact my portfolio manager?",
-    answer: "You can reach your dedicated portfolio manager by calling our main line at +27 31 301 1192 or emailing info@metrosuregroup.co.za. Please have your policy number ready for faster assistance.",
-    link: "/contact",
-  },
-  {
-    question: "What areas do you cover?",
-    answer: "We provide services throughout South Africa with offices in Durban (Head Office and Musgrave), Pietermaritzburg, Pretoria, and Boksburg.",
-    link: "/contact",
-  },
-  {
-    question: "How can I become a retail partner?",
-    answer: "If you own a retail space and want to earn additional revenue, you can partner with us. We deploy trained sales staff to your location, handle all compliance and training, and share the revenue with you. You provide the space, we handle everything else.",
-    link: "/partners",
-  },
-  {
-    question: "What are the benefits of partnering with Metrosure?",
-    answer: "Partners earn commission on every policy sold from their location, create local employment opportunities, and add a new revenue stream with zero overhead. We provide full training, compliance support, and dedicated partnership managers.",
-    link: "/partners",
-  },
-  {
-    question: "What is the In-Store Campaign program?",
-    answer: "Our In-Store Campaign program places trained Metrosure sales representatives at your retail location to sell insurance products to your customers. You earn commission on every policy sold while we handle all staffing, training, and compliance. It's a zero-overhead revenue stream for your business.",
-    link: "/partners",
-  },
-  {
-    question: "How does the Device Leasing program work?",
-    answer: "We provide all necessary devices and equipment for insurance sales at your location at no upfront cost. This includes tablets, point-of-sale systems, and promotional materials. Equipment is maintained and upgraded by Metrosure, ensuring your sales team always has the latest tools.",
-    link: "/partners",
-  },
-  {
-    question: "What Call Centre Services does Metrosure offer?",
-    answer: "Our dedicated call centre handles customer inquiries, policy administration, and claims support on behalf of our partners. This means you can offer insurance products without needing to build your own support infrastructure. We provide white-label services that integrate seamlessly with your brand.",
-    link: "/partners",
-  },
-  {
-    question: "Can Metrosure help with sales and marketing?",
-    answer: "Yes! Our Sales & Marketing support includes trained staff deployment, branded promotional materials, marketing campaigns, and lead generation strategies tailored to your customer base. We work with you to develop effective insurance sales strategies that complement your existing business.",
-    link: "/partners",
-  },
+// Popular FAQ IDs for the default view (most commonly asked)
+const popularFAQIds = [
+  "how-file-claim",
+  "which-insurers",
+  "how-get-quote",
+  "is-metrosure-legit",
+  "life-vs-funeral",
+  "funeral-payout-speed",
+  "claim-timeline",
+  "change-beneficiary",
+  "popia-rights",
+  "cooling-off-period",
 ];
+
+// Get popular FAQs from the centralised data
+const getPopularFAQs = (): FAQ[] => {
+  return allFAQs.filter((faq) => popularFAQIds.includes(faq.id));
+};
 
 const contactOptions = [
   {
@@ -181,7 +145,8 @@ const contactOptions = [
 
 export default function HelpPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<FAQCategory | null>(null);
   const heroRef = useRef(null);
   const categoriesRef = useRef(null);
   const faqRef = useRef(null);
@@ -192,11 +157,21 @@ export default function HelpPage() {
   const faqInView = useInView(faqRef, { once: true, margin: "-50px" });
   const contactInView = useInView(contactRef, { once: true, margin: "-50px" });
 
-  const filteredQuestions = popularQuestions.filter(
-    (q) =>
-      q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      q.answer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Get FAQs based on current state
+  const getDisplayedFAQs = (): FAQ[] => {
+    if (searchQuery) {
+      return searchFAQs(searchQuery);
+    }
+    if (selectedCategory) {
+      return getFAQsByCategory(selectedCategory);
+    }
+    return getPopularFAQs();
+  };
+
+  const displayedFAQs = getDisplayedFAQs();
+  const currentCategoryInfo = selectedCategory
+    ? faqCategories.find((c) => c.id === selectedCategory)
+    : null;
 
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen relative">
@@ -268,7 +243,7 @@ export default function HelpPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
-                  Found {filteredQuestions.length} result{filteredQuestions.length !== 1 ? "s" : ""}
+                  Found {displayedFAQs.length} result{displayedFAQs.length !== 1 ? "s" : ""}
                 </motion.p>
               )}
             </motion.div>
@@ -328,20 +303,67 @@ export default function HelpPage() {
         </div>
       </section>
 
-      {/* Popular Questions */}
+      {/* FAQ Questions */}
       <section ref={faqRef} className="py-16 bg-[rgb(var(--color-surface-card))]">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           >
             <h2 className="text-3xl font-bold text-[rgb(var(--color-text-main))] mb-4">
-              Popular Questions
+              {searchQuery
+                ? `Search Results`
+                : currentCategoryInfo
+                ? currentCategoryInfo.label
+                : "Popular Questions"}
             </h2>
             <p className="text-[rgb(var(--color-text-body))]">
-              Quick answers to the most common questions
+              {searchQuery
+                ? `${displayedFAQs.length} result${displayedFAQs.length !== 1 ? "s" : ""} for "${searchQuery}"`
+                : currentCategoryInfo
+                ? currentCategoryInfo.description
+                : "Quick answers to the most common questions"}
             </p>
+          </motion.div>
+
+          {/* Category Filter Pills */}
+          <motion.div
+            className="flex flex-wrap gap-2 justify-center mb-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={faqInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ delay: 0.1 }}
+          >
+            <button
+              onClick={() => {
+                setSelectedCategory(null);
+                setSearchQuery("");
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                !selectedCategory && !searchQuery
+                  ? "bg-primary text-white"
+                  : "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-body))] hover:bg-primary/10 hover:text-primary border border-[rgb(var(--color-border-light))]"
+              }`}
+            >
+              Popular
+            </button>
+            {faqCategories.slice(0, 6).map((category) => (
+              <button
+                key={category.id}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  setSearchQuery("");
+                }}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
+                  selectedCategory === category.id
+                    ? "bg-primary text-white"
+                    : "bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-body))] hover:bg-primary/10 hover:text-primary border border-[rgb(var(--color-border-light))]"
+                }`}
+              >
+                <span className="material-symbols-outlined text-sm">{category.icon}</span>
+                {category.label}
+              </button>
+            ))}
           </motion.div>
 
           <motion.div
@@ -350,14 +372,14 @@ export default function HelpPage() {
             initial="hidden"
             animate={faqInView ? "visible" : "hidden"}
           >
-            {(searchQuery ? filteredQuestions : popularQuestions).map((faq, index) => (
+            {displayedFAQs.map((faq) => (
               <motion.div
-                key={index}
+                key={faq.id}
                 className="rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] overflow-hidden"
                 variants={itemVariants}
               >
                 <button
-                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  onClick={() => setOpenFaq(openFaq === faq.id ? null : faq.id)}
                   className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[rgb(var(--color-surface-card))] transition-colors"
                 >
                   <span className="font-bold text-[rgb(var(--color-text-main))] pr-4">
@@ -365,14 +387,14 @@ export default function HelpPage() {
                   </span>
                   <motion.span
                     className="material-symbols-outlined text-primary flex-shrink-0"
-                    animate={{ rotate: openFaq === index ? 180 : 0 }}
+                    animate={{ rotate: openFaq === faq.id ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     expand_more
                   </motion.span>
                 </button>
                 <AnimatePresence>
-                  {openFaq === index && (
+                  {openFaq === faq.id && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
@@ -386,7 +408,7 @@ export default function HelpPage() {
                             href={faq.link}
                             className="inline-flex items-center gap-1 text-primary text-sm font-bold hover:underline"
                           >
-                            Learn more
+                            {faq.linkText || "Learn more"}
                             <span className="material-symbols-outlined text-sm">arrow_forward</span>
                           </Link>
                         )}
@@ -398,7 +420,7 @@ export default function HelpPage() {
             ))}
           </motion.div>
 
-          {searchQuery && filteredQuestions.length === 0 && (
+          {displayedFAQs.length === 0 && (
             <motion.div
               className="text-center py-12"
               initial={{ opacity: 0 }}

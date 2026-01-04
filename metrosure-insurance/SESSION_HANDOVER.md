@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 4 January 2026 (Session 82)
+**Updated:** 4 January 2026 (Session 83)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -9,8 +9,93 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 44 (37 pages + 7 API routes)
-- **Last Build:** 3 January 2026
+- **Routes:** 45 (38 pages + 7 API routes)
+- **Last Build:** 4 January 2026
+
+---
+
+## SESSION 83 (4 Jan 2026) - Content Creation & Project Documentation
+
+### Focus
+Content creation using `content-research-writer` and `frontend-design` skills. Created comparison page, comprehensive FAQ data, case study template, and project-specific CLAUDE.md.
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `CLAUDE.md` | Project-specific coding conventions and lessons learned |
+| `src/app/insurance/compare/page.tsx` | Life vs Funeral cover comparison page |
+| `src/app/insurance/compare/layout.tsx` | SEO metadata for comparison page |
+| `src/data/insuranceComparison.ts` | Comparison table, scenarios, statistics, misconceptions |
+| `src/data/faqs.ts` | Comprehensive FAQ data (40+ questions across 9 categories) |
+| `src/lib/designTokens.ts` | Formalised design system tokens (colours, radii, shadows, typography) |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/caseStudies.ts` | Added template and documentation for creating new case studies |
+| `src/app/help/page.tsx` | Integrated centralised FAQ data with category filtering |
+
+### New Page: `/insurance/compare`
+- Side-by-side Life Cover vs Funeral Cover comparison table
+- 4 scenario cards (breadwinner, single, retired, young professional)
+- Statistics section with ASISA 2025 data
+- Common misconceptions myth-busting section
+- Calculator CTA and final CTA sections
+- Full dark mode support and mobile responsive
+
+### FAQ Data Structure
+Created centralised FAQ file with:
+- 9 categories: Getting Started, Claims, Policies, Life Cover, Funeral Cover, Auto, Home, Legal, Payments
+- 40+ researched questions with detailed answers
+- Helper functions: `getFAQsByCategory()`, `searchFAQs()`, `getPopularFAQs()`
+- SA-specific content: POPIA rights, FAIS protection, TCF principles, cooling-off period
+
+### Case Study Template
+Enhanced `caseStudies.ts` with:
+- `SERVICE_IDS` constants for consistent service references
+- `CASE_STUDY_TEMPLATE` object for easy duplication
+- Documentation header explaining how to add new case studies
+- Metrics tips and icon suggestions
+
+### CLAUDE.md Contents
+Project-specific instructions covering:
+- Quick reference commands and directories
+- Component, data file, API route patterns
+- Design system (colours, radii, shadows)
+- South African context (phone validation, currency, dates)
+- Lessons learned from 82 sessions (architecture, UI, performance, forms)
+- Efficiency tips and common mistakes to avoid
+
+### Design Tokens File (`src/lib/designTokens.ts`)
+Formalised design system with:
+- Brand colours with full scales (primary, secondary, semantic)
+- CSS variable references for theming
+- Border radius scale (sm through full, plus semantic names)
+- Shadow scale with brand-coloured variants
+- Spacing scale (0-96 following Tailwind)
+- Typography (fonts, sizes, weights)
+- Breakpoints and media query helpers
+- Animation easings and durations
+- Z-index scale
+- Component presets (buttonPrimary, card, input, etc.)
+
+### Help Page FAQ Integration
+Updated `/help` page to use centralised FAQ data:
+- Replaced hardcoded FAQs with `src/data/faqs.ts` data
+- Added category filter pills (Popular, Claims, Life Cover, Funeral Cover, etc.)
+- Search now uses `searchFAQs()` function from data file
+- FAQ items use unique IDs for accordion state
+- Dynamic section title based on selected category or search
+
+### Research Sources Used
+- ASISA Insurance Gap Study 2025 (R50.4 trillion gap)
+- MiWayLife & 1Life funeral cost data
+- FNB Retirement Survey 2025 (78% funeral vs 38% life coverage)
+- Old Mutual, Discovery, Standard Bank comparison guides
+
+### Skills Used
+- `frontend-design` - Comparison page UI with editorial design
+- `content-research-writer` - Research-backed content with citations
 
 ---
 
@@ -271,10 +356,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-82)
+## SESSION HISTORY (40-83)
 
 | Session | Focus |
 |---------|-------|
+| S83 | Content creation, CLAUDE.md, comparison page, FAQ data |
 | S82 | Web Development Brief (Zoocora) |
 | S81 | British English compliance, em dash cleanup |
 | S80 | UI/content polish, Careers Hero, dark mode warmth |
@@ -312,4 +398,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 4 January 2026 (Session 82)*
+*Document updated: 4 January 2026 (Session 83)*
