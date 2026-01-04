@@ -343,6 +343,10 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 - [ ] Replace placeholder policy data
 - [ ] Re-enable cookie consent
 
+### Future Enhancements
+- [ ] WhatsApp click-to-chat button (floating widget like Tawk.to)
+- [ ] WhatsApp Business API integration (automated replies, chatbots)
+
 ---
 
 ## FEATURE STATUS
