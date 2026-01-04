@@ -45,10 +45,11 @@ Content creation using `content-research-writer` and `frontend-design` skills. C
 
 ### FAQ Data Structure
 Created centralised FAQ file with:
-- 9 categories: Getting Started, Claims, Policies, Life Cover, Funeral Cover, Auto, Home, Legal, Payments
-- 40+ researched questions with detailed answers
+- 11 categories: Getting Started, Claims, Policies, Life Cover, Funeral Cover, Auto, Home, Legal, Payments, **Retail Partnerships**, **Business Services**
+- 55+ researched questions with detailed answers
 - Helper functions: `getFAQsByCategory()`, `searchFAQs()`, `getPopularFAQs()`
 - SA-specific content: POPIA rights, FAIS protection, TCF principles, cooling-off period
+- **B2B FAQs**: 15 questions covering retail partnerships, device insurance, call centre services, corporate group insurance, outsourced sales
 
 ### Case Study Template
 Enhanced `caseStudies.ts` with:

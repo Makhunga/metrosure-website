@@ -110,8 +110,8 @@ const popularFAQIds = [
   "funeral-payout-speed",
   "claim-timeline",
   "change-beneficiary",
-  "popia-rights",
-  "cooling-off-period",
+  "become-retail-partner",
+  "corporate-group-insurance",
 ];
 
 // Get popular FAQs from the centralised data
@@ -347,7 +347,7 @@ export default function HelpPage() {
             >
               Popular
             </button>
-            {faqCategories.slice(0, 6).map((category) => (
+            {faqCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => {

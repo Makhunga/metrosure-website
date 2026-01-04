@@ -96,6 +96,18 @@ export const faqCategories: FAQCategoryInfo[] = [
     icon: "payments",
     description: "Premium payments and billing",
   },
+  {
+    id: "partnerships",
+    label: "Retail Partnerships",
+    icon: "handshake",
+    description: "Become a B2B partner with Metrosure",
+  },
+  {
+    id: "business",
+    label: "Business Services",
+    icon: "business_center",
+    description: "B2B and corporate insurance solutions",
+  },
 ];
 
 // =============================================================================
@@ -391,6 +403,139 @@ export const allFAQs: FAQ[] = [
     answer:
       "If your debit order fails, most insurers retry once. You'll receive notification and have a 30-31 day grace period to pay before cover lapses. Failed debit orders may incur bank charges. If struggling to pay, contact us immediately - we may be able to arrange alternative payment dates, reduced cover, or a payment plan to keep your policy active.",
     category: "payments",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Retail Partnerships (B2B)
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    id: "become-retail-partner",
+    question: "How do I become a retail partner with Metrosure?",
+    answer:
+      "To become a partner: 1) Complete our partnership enquiry form or call our B2B team on +27 31 301 1192. 2) We schedule a discovery meeting to understand your business and customer base. 3) Our team conducts a site assessment. 4) We present a tailored partnership proposal with revenue projections. 5) Once agreed, we handle recruitment, training, and compliance - you provide the floor space. Most partnerships launch within 6-8 weeks.",
+    category: "partnerships",
+    link: "/partners",
+    linkText: "Start a partnership enquiry",
+  },
+  {
+    id: "who-can-partner",
+    question: "What types of businesses can partner with Metrosure?",
+    answer:
+      "We partner with businesses that have regular customer foot traffic. This includes: retail chains (fashion, furniture, electronics), furniture and appliance stores, mobile and telecommunications retailers, automotive dealerships, and financial services outlets. Whether you have 1 store or 100, we design a partnership model that works for your scale. The key requirements are floor space for our team and alignment with our community-focused values.",
+    category: "partnerships",
+    link: "/partners",
+    linkText: "View partnership options",
+  },
+  {
+    id: "partner-fsp-compliance",
+    question: "Do I need an FSP licence to partner with Metrosure?",
+    answer:
+      "No - that's the key benefit. Metrosure holds FSP licence 47089 and handles all FAIS compliance, licensing, and regulatory requirements. We deploy our own FSP-licensed advisors in your stores. You simply provide the floor space and access to customers. This eliminates compliance burden, training costs, and regulatory risk for your business. We manage all record-keeping, audits, and FSCA submissions.",
+    category: "partnerships",
+  },
+  {
+    id: "partner-revenue-share",
+    question: "How does the revenue sharing model work?",
+    answer:
+      "Partners earn a percentage of insurance premiums sold in their stores - genuine passive income with no upfront costs. The exact percentage depends on store location, customer volume, and services offered. We cover recruitment, training, equipment, and compliance. Many partners find the revenue share exceeds the value of floor space provided within 6 months. Contact us for a personalised revenue projection.",
+    category: "partnerships",
+    link: "/contact",
+    linkText: "Request revenue projections",
+  },
+  {
+    id: "what-metrosure-provides",
+    question: "What does Metrosure provide to retail partners?",
+    answer:
+      "We provide everything needed: fully trained, FSP-licensed sales advisors; all compliance and regulatory management; branded point-of-sale materials and equipment; ongoing training and performance coaching; a dedicated partnership manager; daily quality assurance monitoring (95% average); and monthly performance reports. You focus on your core retail business while we handle the insurance operation.",
+    category: "partnerships",
+  },
+  {
+    id: "partner-requirements",
+    question: "What are the minimum requirements to partner?",
+    answer:
+      "Basic requirements include: dedicated floor space for an advisor (typically 4-6 square metres), customer foot traffic of at least 500 people per week, alignment with our product offerings, willingness to integrate our team into your customer journey, and a 12-month minimum partnership commitment. We're flexible on setup and can adapt to your store environment.",
+    category: "partnerships",
+  },
+  {
+    id: "partner-quality-assurance",
+    question: "How do you ensure quality in partner stores?",
+    answer:
+      "We maintain a 95% quality assurance standard across all locations. This includes: daily call monitoring and transaction audits, mystery shopper assessments, customer satisfaction surveys, weekly performance reviews with advisors, monthly partner reports with detailed metrics, and immediate escalation of compliance concerns. Our QA team ensures your brand is protected and customers receive excellent service.",
+    category: "partnerships",
+    link: "/partners",
+    linkText: "View our case studies",
+  },
+  {
+    id: "partnership-setup-time",
+    question: "How long does it take to launch a partnership?",
+    answer:
+      "From signed agreement to go-live typically takes 6-8 weeks: site assessment and planning (week 1-2), recruitment and selection of advisors (week 2-4), comprehensive FAIS training (week 4-6), equipment installation and branding (week 5-6), and soft launch with full support (week 6-8). Larger rollouts across multiple stores are phased. We assign a dedicated project manager to ensure smooth implementation.",
+    category: "partnerships",
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Business Services (B2B)
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    id: "instore-campaigns",
+    question: "What are in-store insurance campaigns?",
+    answer:
+      "Our in-store campaigns deploy trained Metrosure representatives directly at your retail locations. Our teams engage customers, explain insurance products (funeral cover, life insurance, credit life), and handle the entire sales process. We provide dedicated sales teams, full product training, customer engagement strategies, and performance tracking. This is our most popular partnership model.",
+    category: "business",
+    link: "/partners",
+    linkText: "Learn about in-store campaigns",
+  },
+  {
+    id: "device-insurance-retailers",
+    question: "What is device insurance for retailers?",
+    answer:
+      "Our device insurance programme lets electronics and mobile retailers offer protection at point of sale. When customers purchase phones, laptops, or tablets, our advisors present affordable plans covering accidental damage, screen breakage, theft, and mechanical breakdown. This increases average transaction value and creates ongoing revenue from premiums. We've achieved attachment rates of up to 62% on financed devices.",
+    category: "business",
+    link: "/partners",
+    linkText: "Learn about device programmes",
+  },
+  {
+    id: "device-leasing-programme",
+    question: "How does the device leasing programme work?",
+    answer:
+      "Our device leasing helps retailers offer affordable financing on electronics without credit risk. Metrosure provides the financing facility, handles credit assessments, and manages collections. Insurance is bundled to protect against defaults. Benefits include: increased sales of higher-value items, no credit risk to you, reduced default rates (we've seen 35% reductions), and revenue share on financing and insurance.",
+    category: "business",
+  },
+  {
+    id: "call-centre-services",
+    question: "What call centre services does Metrosure offer?",
+    answer:
+      "Our call centre handles outbound sales campaigns, customer service, and lead generation for partners. Services include: telesales for insurance products, appointment setting, customer retention calls, welcome calls for new policyholders, and lead qualification. All agents are FAIS-accredited with 95% quality assurance. We operate as a white-label extension of your brand or under the Metrosure name.",
+    category: "business",
+    link: "/contact",
+    linkText: "Enquire about call centre services",
+  },
+  {
+    id: "corporate-group-insurance",
+    question: "Do you offer corporate group insurance for businesses?",
+    answer:
+      "Yes, we provide comprehensive group benefits for businesses with 10+ employees. This includes: group medical aid, group funeral cover, group retirement funds (pension and provident), employee risk benefits (income protection, disability, dread disease), and group life assurance. Group schemes offer lower premiums than individual policies and simplified underwriting.",
+    category: "business",
+    link: "/corporate",
+    linkText: "Explore corporate solutions",
+  },
+  {
+    id: "corporate-minimum-employees",
+    question: "What's the minimum employee count for group cover?",
+    answer:
+      "Most group schemes work best with 10 or more employees for favourable underwriting and group rates. However, we can arrange cover for smaller groups through specially negotiated arrangements with insurers. Benefits include employer tax deductions, lower premiums than individual policies, and a single point of contact for all employee benefits.",
+    category: "business",
+    link: "/corporate",
+    linkText: "Get a corporate quote",
+  },
+  {
+    id: "outsourced-sales-teams",
+    question: "Can Metrosure manage our entire insurance sales division?",
+    answer:
+      "Yes, through our Outsourced Sales & Marketing service. We become your in-house insurance arm, handling everything from recruitment and FAIS training to performance management and compliance. We provide staff, marketing collateral, and ongoing coaching. This lets you offer insurance products without building internal capability. Many retailers have grown from 2 advisors to 18+ permanent staff through this model.",
+    category: "business",
+    link: "/partners",
+    linkText: "Learn about outsourced sales",
   },
 ];
 
