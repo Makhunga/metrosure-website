@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 3 January 2026 (Session 81)
+**Updated:** 4 January 2026 (Session 82)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,45 @@
 
 - **Routes:** 44 (37 pages + 7 API routes)
 - **Last Build:** 3 January 2026
+
+---
+
+## SESSION 82 (4 Jan 2026) - Web Development Brief (Zoocora)
+
+### Focus
+Created professional web development requirements brief for Zoocora to send to insurance broker prospects.
+
+### Documents Created
+| File | Description |
+|------|-------------|
+| `docs/zoocora-insurance-broker-website-brief.md` | Full brief with indicative pricing |
+| `docs/zoocora-insurance-broker-website-brief.pdf` | PDF version (231 KB) |
+| `docs/zoocora-insurance-broker-website-brief-no-pricing.md` | Version without pricing |
+| `docs/zoocora-insurance-broker-website-brief-no-pricing.pdf` | PDF version (218 KB) |
+
+### Brief Contents
+- Executive summary and value proposition
+- Digital landscape statistics (consumer behaviour data)
+- Discovery questionnaire (brand, design preferences, content, competitors)
+- FSCA/FAIS/TCF regulatory compliance checklist
+- Core website features (Essential Package)
+- Recommended enhancements (optional add-ons)
+- Technical specifications
+- Indicative pricing (R25k-R150k by package)
+- Project timeline (10 weeks)
+- Satisfaction guarantee and payment milestones
+- "Why Zoocora" credibility section
+
+### Research Sources Used
+- HubSpot Marketing Statistics 2025
+- Network Solutions SMB Report
+- FSCA/FAIS Act requirements
+- Stanford Web Credibility Research
+- Industry conversion optimisation best practices
+
+### Skills Used
+- `content-research-writer` - Industry research and persuasive copy
+- `md-to-pdf` - PDF conversion
 
 ---
 
@@ -232,10 +271,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-81)
+## SESSION HISTORY (40-82)
 
 | Session | Focus |
 |---------|-------|
+| S82 | Web Development Brief (Zoocora) |
 | S81 | British English compliance, em dash cleanup |
 | S80 | UI/content polish, Careers Hero, dark mode warmth |
 | S79 | Visual polish, dark mode, doc cleanup |
@@ -272,4 +312,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 3 January 2026 (Session 81)*
+*Document updated: 4 January 2026 (Session 82)*
