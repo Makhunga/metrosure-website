@@ -31,7 +31,6 @@ Create a new Google Sheet with the following tabs:
 | Unique Visitors | `=COUNTUNIQUE('Raw Data'!B:B)` | - | - |
 | Form Submissions | `=COUNTIF('Events'!A:A,"*_submitted")` | - | - |
 | Quote Requests | `=COUNTIF('Events'!A:A,"quote_submitted")` | - | - |
-| Calculator Shares | `=COUNTIF('Events'!A:A,"calculator_*")` | - | - |
 
 **Key Performance Indicators:**
 - **Conversion Rate:** `=(Quote Requests / Unique Visitors) * 100`
@@ -76,12 +75,10 @@ Create a new Google Sheet with the following tabs:
 | `partner_inquiry_submitted` | - | - |
 | `corporate_inquiry_submitted` | - | - |
 | `career_application_submitted` | - | - |
-| `calculator_results_shared` | - | - |
 
 **Filter by source:**
 - Quote by customer type (individual/business)
 - Contact by form type (message/callback)
-- Calculator by method (email/whatsapp)
 
 ### Tab 5: Geographic Distribution
 
@@ -111,7 +108,7 @@ Create a new Google Sheet with the following tabs:
 
 ## Event Tracking Reference
 
-### Form Submission Events
+### Form Submission Events (Conservative Tracking - Hobby Plan)
 
 | Event Name | Properties | Trigger |
 |------------|------------|---------|
@@ -120,15 +117,16 @@ Create a new Google Sheet with the following tabs:
 | `partner_inquiry_submitted` | `businessType`, `servicesCount` | Partner form submitted |
 | `corporate_inquiry_submitted` | `industry`, `employeeCount` | Corporate form submitted |
 | `career_application_submitted` | `position`, `experience` | Job application submitted |
-| `calculator_results_shared` | `method`, `calculatorType` | Calculator results shared |
 
 ### Property Values
 
 **customerType:** `individual`, `business`, `unknown`
 **coverageType:** `life`, `funeral`, `auto`, `home`, etc.
 **formType:** `message`, `callback`
-**method:** `email`, `whatsapp`
-**calculatorType:** `life`, `funeral`
+
+### Plan Limits
+- **Hobby (Free):** 2,500 events/month
+- **Pro ($20/mo):** 25,000 events/month included
 
 ---
 

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useSpring, AnimatePresence } from "framer-motion";
-import { track } from "@vercel/analytics";
 import {
   CalculatorResultData,
   generateCalculatorWhatsAppUrl,
@@ -234,12 +233,6 @@ export function CalculatorResult({
   const handleWhatsAppShare = () => {
     const url = generateCalculatorWhatsAppUrl(sharePayload);
     window.open(url, "_blank", "noopener,noreferrer");
-
-    // Track WhatsApp share
-    track("calculator_results_shared", {
-      method: "whatsapp",
-      calculatorType,
-    });
   };
   // Always use BarChart - provides clearer visual representation and avoids
   // layout issues that affected the PieChart legend in some browsers

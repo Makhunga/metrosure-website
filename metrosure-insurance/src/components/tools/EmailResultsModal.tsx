@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { track } from "@vercel/analytics";
 import { Modal } from "@/components/ui/Modal";
 import { CalculatorResultData } from "@/lib/whatsapp";
 
@@ -78,12 +77,6 @@ export function EmailResultsModal({
       }
 
       setSubmitState("success");
-
-      // Track successful email share
-      track("calculator_results_shared", {
-        method: "email",
-        calculatorType: calculatorData.calculatorType,
-      });
     } catch (error) {
       setSubmitState("error");
       setErrorMessage(

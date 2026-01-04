@@ -34,15 +34,13 @@ Chose Vercel Analytics (already installed) over alternatives:
 | `src/components/partners/PartnerInquiryForm.tsx` | Added `track("partner_inquiry_submitted")` |
 | `src/components/corporate/CorporateInquiryForm.tsx` | Added `track("corporate_inquiry_submitted")` |
 | `src/components/careers/ApplicationForm.tsx` | Added `track("career_application_submitted")` |
-| `src/components/tools/CalculatorResult.tsx` | Added WhatsApp share tracking |
-| `src/components/tools/EmailResultsModal.tsx` | Added email share tracking |
 
 ### New File
 | File | Description |
 |------|-------------|
 | `docs/analytics-report-template.md` | Google Sheets template for analysing exported Vercel data |
 
-### Custom Events Tracked
+### Custom Events Tracked (Conservative - Free Plan)
 | Event | Properties | Trigger |
 |-------|------------|---------|
 | `quote_submitted` | customerType, coverageType | Quote form success |
@@ -50,7 +48,8 @@ Chose Vercel Analytics (already installed) over alternatives:
 | `partner_inquiry_submitted` | businessType, servicesCount | Partner form success |
 | `corporate_inquiry_submitted` | industry, employeeCount | Corporate form success |
 | `career_application_submitted` | position, experience | Career form success |
-| `calculator_results_shared` | method, calculatorType | Calculator share via email/WhatsApp |
+
+**Note:** Calculator sharing events removed to conserve 2,500 events/month limit on Hobby plan.
 
 ### Export Capabilities
 - **CSV Export:** Available in Vercel Dashboard under Analytics tab
