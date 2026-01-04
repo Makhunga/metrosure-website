@@ -14,10 +14,10 @@
 
 ---
 
-## SESSION 83 (4 Jan 2026) - Content Creation & Project Documentation
+## SESSION 83 (4 Jan 2026) - Content Creation, Documentation & Bug Fix
 
 ### Focus
-Content creation using `content-research-writer` and `frontend-design` skills. Created comparison page, comprehensive FAQ data, case study template, and project-specific CLAUDE.md.
+Content creation using `content-research-writer` and `frontend-design` skills. Created comparison page, comprehensive FAQ data, case study template, and project-specific CLAUDE.md. Fixed FAQ category animation bug.
 
 ### Files Created
 | File | Description |
@@ -33,7 +33,7 @@ Content creation using `content-research-writer` and `frontend-design` skills. C
 | File | Change |
 |------|--------|
 | `src/data/caseStudies.ts` | Added template and documentation for creating new case studies |
-| `src/app/help/page.tsx` | Integrated centralised FAQ data with category filtering |
+| `src/app/help/page.tsx` | Integrated centralised FAQ data with category filtering; fixed animation bug |
 
 ### New Page: `/insurance/compare`
 - Side-by-side Life Cover vs Funeral Cover comparison table
@@ -97,6 +97,25 @@ Updated `/help` page to use centralised FAQ data:
 ### Skills Used
 - `frontend-design` - Comparison page UI with editorial design
 - `content-research-writer` - Research-backed content with citations
+
+### Bug Fix: FAQ Category Animation
+**Issue:** FAQ items invisible when switching categories (only first item showing)
+
+**Root Cause:** Framer Motion staggered animation with `useInView({ once: true })` didn't re-trigger when FAQ list changed.
+
+**Fix:** Added `key={selectedCategory || "popular"}` to FAQ container and changed `animate` to always be "visible" since user is already viewing section when switching:
+
+```tsx
+<motion.div
+  key={selectedCategory || "popular"}
+  className="space-y-4"
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+>
+```
+
+**Files Modified:** `src/app/help/page.tsx`
 
 ---
 
