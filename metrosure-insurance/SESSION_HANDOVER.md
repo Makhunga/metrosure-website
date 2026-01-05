@@ -32,6 +32,7 @@ Created comprehensive website separation strategy documentation with research-ba
 | File | Change |
 |------|--------|
 | `EMAIL_DRAFT_Website_Separation_Strategy.md` | Transformed into concise executive summary linking to full strategy doc |
+| `STAKEHOLDER_EMAIL.md` | Enhanced WhatsApp mentions, added website separation as near-term priority |
 
 ### Strategy Document Contents
 - **Part 1:** Business case with regulatory analysis (FSCA/FSP compliance)
@@ -61,6 +62,17 @@ Created comprehensive website separation strategy documentation with research-ba
 - [PwC](https://www.pwc.com/us/en/services/consulting/deals/divestitures/successful-spinoffs.html)
 - [EY](https://www.ey.com/en_us/insights/divestitures)
 - [FSCA](https://www.fsca.co.za/)
+
+### Stakeholder Email Updates
+| Section | Change |
+|---------|--------|
+| Coverage Calculator | WhatsApp sharing highlighted prominently |
+| Platform Stats | "clients share results instantly" emphasis |
+| Sharing Features | Expanded WhatsApp benefits description |
+| New Section | "Strategic Priority: Website Separation" with 3-site architecture |
+| Next Steps | Added separation strategy discussion (30 min) |
+| Checklist | Added "Website separation strategy reviewed and approved" |
+| All 3 versions | Updated with WhatsApp + separation mentions |
 
 ---
 
