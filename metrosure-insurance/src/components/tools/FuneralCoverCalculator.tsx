@@ -279,7 +279,7 @@ export function FuneralCoverCalculator() {
           {/* Calculate Button */}
           <motion.button
             onClick={handleCalculate}
-            className="w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-[#a50502] shadow-lg shadow-primary/20 transition-all"
+            className="w-full py-4 rounded-xl bg-primary text-white font-bold text-lg hover:bg-[rgb(var(--color-primary-hover))] shadow-lg shadow-primary/20 transition-all"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -478,7 +478,7 @@ export function FuneralCoverCalculator() {
                 >
                   <Link
                     href={`/quote?coverageType=funeral&coverageAmount=${calculation.totalCover}&planTier=${calculation.tier.id}`}
-                    className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#a50502] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 group"
+                    className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 group"
                   >
                     Apply for This Plan
                     <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">

@@ -128,6 +128,22 @@ export function isWhatsAppSupported(): boolean {
 }
 
 // =============================================================================
+// General Enquiry (Floating Widget)
+// =============================================================================
+
+/**
+ * Generate WhatsApp URL for general enquiry
+ * Used by the floating chat widget
+ */
+export function generateGeneralEnquiryUrl(
+  phoneNumber: string = "27872651891",
+  message: string = "Hi Metrosure! I'd like to enquire about your insurance products."
+): string {
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+}
+
+// =============================================================================
 // Calculator Results Sharing
 // =============================================================================
 

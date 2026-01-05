@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 4 January 2026 (Session 84)
+**Updated:** 5 January 2026 (Session 85)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,7 +10,60 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 4 January 2026
+- **Last Build:** 5 January 2026
+
+---
+
+## SESSION 85 (5 Jan 2026) - WhatsApp Widget & UI Polish
+
+### Focus
+Implemented WhatsApp floating chat widget and UI consistency polish. Updated stakeholder email with Sessions 75-84 progress.
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/components/WhatsAppChatWidget.tsx` | Floating WhatsApp click-to-chat button |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/lib/whatsapp.ts` | Added `generateGeneralEnquiryUrl()` function |
+| `src/app/layout.tsx` | Added `<WhatsAppChatWidget />` component |
+| `src/components/contact/ContactForm.tsx` | Standardised focus rings to `/20`, button hover to CSS variable |
+| `src/components/corporate/CorporateInquiryForm.tsx` | Button hover consistency fix |
+| `src/components/careers/ApplicationForm.tsx` | Button hover consistency fix |
+| `src/components/partners/PartnerInquiryForm.tsx` | Button hover consistency fix |
+| `src/components/tools/*.tsx` | Button hover consistency fixes (5 files) |
+| `STAKEHOLDER_EMAIL.md` | Updated with Sessions 75-84 features |
+
+### WhatsApp Widget Features
+- Floating button positioned above Tawk.to (bottom: 100px, right: 20px)
+- WhatsApp green (#25D366) with spring animation entrance
+- 2-second delay before showing
+- Pulse ring animation for attention
+- Respects reduced motion preferences
+- Opens WhatsApp with pre-filled enquiry message
+- Phone: 087 265 1891 (27872651891)
+
+### UI Consistency Fixes
+| Issue | Fix |
+|-------|-----|
+| Button hover states | Replaced hardcoded `#a50502` with `rgb(var(--color-primary-hover))` in 10 files |
+| Focus ring opacity | Standardised from `/15 dark:/25` to `/20` across all forms |
+
+### Page Updates
+| Page | Change |
+|------|--------|
+| About (`/about`) | Removed "About Us" badge from hero section |
+| Careers (`/careers`) | Added blocks3D.jpg background to hero (8% opacity light, 20% inverted dark) |
+
+### Stakeholder Email Updates
+Added to email templates:
+- Analytics Dashboard feature
+- Insurance Comparison Tool feature
+- Centralised FAQ System feature
+- WhatsApp Click-to-Chat feature
+- Updated stats: 45 routes, analytics active, British English copy
 
 ---
 
@@ -423,10 +476,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-84)
+## SESSION HISTORY (40-85)
 
 | Session | Focus |
 |---------|-------|
+| S85 | WhatsApp floating widget, UI consistency polish, stakeholder email update |
 | S84 | Analytics setup, Speed Insights, custom event tracking |
 | S83 | Content creation, CLAUDE.md, comparison page, FAQ data |
 | S82 | Web Development Brief (Zoocora) |
@@ -466,4 +520,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 4 January 2026 (Session 84)*
+*Document updated: 5 January 2026 (Session 85)*

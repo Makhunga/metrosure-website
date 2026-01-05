@@ -126,7 +126,7 @@ export default function PartnerTestimonials() {
           {/* Navigation Buttons - positioned relative to outer container */}
           <motion.button
             onClick={goToPrevious}
-            className="absolute left-0 md:-left-20 lg:-left-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
+            className="absolute left-0 md:-left-20 lg:-left-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[rgb(var(--color-primary-hover))] hover:shadow-red-900/30 transition-all duration-300 z-20"
             aria-label="Previous testimonial"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -152,7 +152,7 @@ export default function PartnerTestimonials() {
 
           <motion.button
             onClick={goToNext}
-            className="absolute right-0 md:-right-20 lg:-right-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[#a50502] hover:shadow-red-900/30 transition-all duration-300 z-20"
+            className="absolute right-0 md:-right-20 lg:-right-28 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#C80604] text-white hidden md:flex items-center justify-center shadow-xl shadow-red-900/20 hover:bg-[rgb(var(--color-primary-hover))] hover:shadow-red-900/30 transition-all duration-300 z-20"
             aria-label="Next testimonial"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}

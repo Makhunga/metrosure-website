@@ -25,7 +25,7 @@ export default function ButtonsPage() {
             Variants
           </h2>
           <div className="flex flex-wrap gap-4">
-            <button className="py-3 px-6 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all">
+            <button className="py-3 px-6 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all">
               Primary
             </button>
             <button className="py-3 px-6 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 font-bold rounded-xl transition-all">

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface CareersHeroProps {
   onApplyClick: () => void;
@@ -18,6 +19,20 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
     <section
       className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
     >
+      {/* 3D Blocks Background Image */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Image
+          src="/resources/blocks3D.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-[0.08] dark:opacity-20 dark:invert dark:brightness-50"
+          priority
+          aria-hidden="true"
+        />
+        {/* Light mode overlay - subtle gradient for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[rgb(var(--color-surface-card))]/70 via-transparent to-[rgb(var(--color-surface-card))]/90 dark:from-[rgb(var(--color-surface))]/80 dark:via-[rgb(var(--color-surface))]/40 dark:to-[rgb(var(--color-surface))]/95" />
+      </div>
+
       {/* Layered Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large geometric accent - top right */}
@@ -35,17 +50,6 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
         />
-
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgb(var(--color-text-main)) 1px, transparent 0)`,
-              backgroundSize: '40px 40px'
-            }}
-          />
-        </div>
       </div>
 
       {/* Gradient Mesh Overlay */}

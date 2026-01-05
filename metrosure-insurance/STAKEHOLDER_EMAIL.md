@@ -1,7 +1,7 @@
 # Metrosure Website Revamp - Stakeholder Communication
 
 **Purpose:** Email templates for introducing the new website to stakeholders
-**Date:** January 2, 2026 (Session 74)
+**Date:** January 5, 2026 (Session 85)
 **Versions:** 3 (Full, Executive Summary, Meeting Request)
 
 ---
@@ -32,19 +32,25 @@ Your new website has evolved significantly since we last spoke. This is no longe
 | **Premium Email Notifications** | Every form submission triggers professionally designed emails - Outlook-compatible, mobile-responsive, with your branding. Both clients and your team receive instant notifications. |
 | **Claims Guide** | Complete claims process documentation: claim types, required documents, step-by-step process, emergency contacts. Reduces support calls by answering common questions upfront. |
 | **Policy Dashboard Preview** | Shows clients what policy management will look like once logged in. Builds anticipation for future portal features while capturing login interest. |
+| **Analytics Dashboard** | Vercel Analytics tracks visitor behaviour, form submissions, and conversion events. 5 custom events track quote, contact, partner, corporate, and career form completions. Speed Insights monitors real-user performance metrics. |
+| **Insurance Comparison Tool** | Side-by-side Life vs Funeral cover comparison with 4 customer scenarios (breadwinner, single, retired, young professional). Includes ASISA 2025 statistics and common misconceptions section. `/insurance/compare` |
+| **Centralised FAQ System** | 55+ researched questions across 11 categories including B2B. Category filtering, search functionality, and helper functions for future integrations. Based on ASISA, MiWayLife, and 1Life research. |
+| **WhatsApp Click-to-Chat** | Floating WhatsApp button enables instant enquiries. Positioned above live chat for two-channel engagement. Pre-filled message captures intent. |
 
 ### Platform Statistics
 
-- **44 Routes** (37 pages + 7 functional API endpoints)
+- **45 Routes** (38 pages + 7 functional API endpoints)
 - **7 Working Forms** (Quote, Contact, Careers, Partner Inquiry, Corporate Inquiry, Calculator Email, Test Email)
-- **Live Chat** with business hours and offline form
+- **Live Chat + WhatsApp** with business hours and instant messaging options
 - **Coverage Calculator** with WhatsApp and email sharing
+- **Analytics Active** with 5 custom conversion events tracked
 - **3 B2B Case Studies** with real metrics
 - **Premium Email Templates** tested across Outlook, Gmail, and mobile
 - **67% Faster Page Loads** after performance optimisation
 - **POPIA-Compliant** with proper data handling disclosures
 - **FSP 47089** displayed throughout with legal compliance
 - **SEO-Ready** with sitemap, meta tags, and structured data
+- **British English** throughout all copy (SA context)
 
 ---
 
@@ -234,22 +240,24 @@ Your new website has evolved into a full lead-generation platform. Here's the up
 
 | Feature | Status |
 |---------|--------|
-| **Live Chat** | Tawk.to installed - Mon-Fri 08:00-17:00 with offline form |
+| **Live Chat + WhatsApp** | Tawk.to (Mon-Fri 08:00-17:00) + WhatsApp floating button |
 | **Coverage Calculator** | Life & Funeral calculators with WhatsApp/email sharing |
+| **Analytics Dashboard** | Vercel Analytics with 5 custom conversion events |
+| **Insurance Comparison** | Life vs Funeral cover comparison page with scenarios |
+| **FAQ System** | 55+ questions across 11 categories with search |
 | **Corporate Solutions** | Dedicated B2B page for employee benefits |
 | **B2B Case Studies** | 3 partner success stories with real metrics |
 | **Premium Emails** | Outlook-compatible templates, fully operational |
-| **Claims Guide** | Complete claims process documentation |
-| **Policy Dashboard** | Preview of future policy management |
 
 ### Platform Stats
 
-**44 pages built. 7 forms functional. Live chat active. Emails working. SEO-ready.**
+**45 pages built. 7 forms functional. Live chat + WhatsApp active. Analytics tracking. SEO-ready.**
 
+- Analytics active with 5 custom conversion events
 - 67% faster page loads after optimisation
 - Premium email templates tested across all clients
 - B2B routing to clients@metrosuregroup.co.za
-- Calculator captures leads via email at peak intent
+- British English copy throughout
 
 ### Content Status
 
@@ -353,4 +361,4 @@ Before launch, ensure stakeholders have verified:
 ---
 
 *Created: December 26, 2025*
-*Updated: January 2, 2026 (Session 74) - Major update reflecting 44 routes, live chat, coverage calculator, corporate solutions, case studies, premium emails, and performance optimisation*
+*Updated: January 5, 2026 (Session 85) - Added analytics dashboard, WhatsApp click-to-chat, insurance comparison tool, centralised FAQ system, British English compliance. 45 routes total.*

@@ -457,7 +457,7 @@ export function LifeCoverCalculator() {
             disabled={!canCalculate}
             className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
               canCalculate
-                ? "bg-primary text-white hover:bg-[#a50502] shadow-lg shadow-primary/20"
+                ? "bg-primary text-white hover:bg-[rgb(var(--color-primary-hover))] shadow-lg shadow-primary/20"
                 : "bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed"
             }`}
             whileHover={canCalculate ? { scale: 1.02 } : {}}

@@ -80,17 +80,6 @@ export default function AboutPage() {
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            {/* Badge */}
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold uppercase tracking-wider mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <span className="material-symbols-outlined text-sm">info</span>
-              About Us
-            </motion.div>
-
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
               initial={{ opacity: 0, y: 30 }}

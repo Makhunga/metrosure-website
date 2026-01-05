@@ -6,6 +6,7 @@ import ClientLayout from "@/components/ClientLayout";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import TawkToChat from "@/components/TawkToChat";
+import WhatsAppChatWidget from "@/components/WhatsAppChatWidget";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -185,6 +186,7 @@ export default function RootLayout({
           propertyId="6957e95179755a19831386b8"
           widgetId="1jdvmepqi"
         />
+        <WhatsAppChatWidget />
         <Analytics />
         <SpeedInsights />
       </body>

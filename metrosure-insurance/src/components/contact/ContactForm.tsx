@@ -343,12 +343,12 @@ export default function ContactForm() {
     if (state.touched && state.valid) {
       return `${baseClasses} border-2 border-green-400 bg-green-50 dark:bg-green-900/15 focus:border-green-500 focus:ring-4 focus:ring-green-500/20 dark:focus:ring-green-500/30 focus:shadow-[0_0_0_4px_rgba(34,197,94,0.1)] pl-12 pr-4`;
     }
-    return `${baseClasses} border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 focus:border-primary focus:ring-4 focus:ring-primary/15 dark:focus:ring-primary/25 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] pl-12 pr-4`;
+    return `${baseClasses} border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 focus:border-primary focus:ring-4 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] pl-12 pr-4`;
   };
 
   // Standard input classes without icon
   const inputClasses =
-    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-4 focus:ring-primary/15 dark:focus:ring-primary/25 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] transition-all duration-300 ease-out py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none";
+    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-4 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] transition-all duration-300 ease-out py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none";
 
   const labelClasses =
     "block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2";
@@ -631,7 +631,7 @@ export default function ContactForm() {
                           <p className="text-red-500 text-sm mb-3">{formState.error}</p>
                         )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           type="submit"
                           disabled={formState.isSubmitting}
                           whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}
@@ -845,7 +845,7 @@ export default function ContactForm() {
                           <p className="text-red-500 text-sm mb-3">{formState.error}</p>
                         )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[#a50502] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                           type="submit"
                           disabled={formState.isSubmitting}
                           whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}

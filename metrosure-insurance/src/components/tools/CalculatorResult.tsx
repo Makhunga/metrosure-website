@@ -361,7 +361,7 @@ export function CalculatorResult({
           >
             <Link
               href={ctaLink}
-              className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#a50502] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 group"
+              className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 group"
             >
               {ctaText}
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
