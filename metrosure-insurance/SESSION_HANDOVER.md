@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 5 January 2026 (Session 87)
+**Updated:** 5 January 2026 (Session 88)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,68 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 5 January 2026
+
+---
+
+## SESSION 88 (5 Jan 2026) - Form UI Standardisation
+
+### Focus
+Created shared floating label form components and migrated ContactForm. Also verified FAQ accordion functionality on Partners page.
+
+### Skills Used
+- `frontend-design` - Shared form component design system
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Create shared FloatingInput component | ✅ Complete |
+| Create shared FloatingSelect component | ✅ Complete |
+| Create shared FloatingTextarea component | ✅ Complete |
+| Create UI components barrel export | ✅ Complete |
+| Migrate ContactForm to floating labels | ✅ Complete |
+| FAQ accordion bug investigation | Verified working correctly |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/components/ui/FloatingInput.tsx` | Shared floating label input with validation states |
+| `src/components/ui/FloatingSelect.tsx` | Shared floating label select (supports string[] and {value,label}[]) |
+| `src/components/ui/FloatingTextarea.tsx` | Shared floating label textarea with char count |
+| `src/components/ui/index.ts` | Barrel exports for all UI components |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/contact/ContactForm.tsx` | Complete rewrite: icon-based labels → floating labels pattern |
+
+### Shared Component Features
+All three floating components include:
+- Dark mode support via CSS variables
+- Validation states (error: red border, success: green border)
+- `forwardRef` for controlled forms
+- `fieldState` prop for integration with validation lib
+- Accessible ARIA attributes (`aria-required`, `aria-invalid`, `aria-describedby`)
+- Character count support (FloatingInput, FloatingTextarea)
+- Helper text support (FloatingTextarea)
+
+### ContactForm Migration
+- **Before:** Icon-based labels above inputs, ~869 lines
+- **After:** Floating label pattern using shared components, ~659 lines
+- **Pattern changed:** Individual useState per field (was object-based)
+- **Validation:** Maintained same Zod schema and API integration
+
+### Bug Investigation: Partners Page FAQ Accordions
+- **Reported Issue:** Accordions opening together
+- **Finding:** Accordions operate independently using native `<details>` elements
+- **Status:** ✅ Already fixed / working as expected
+
+### Remaining Form Migrations (Deferred to S89)
+| Form | Current Pattern | Priority |
+|------|-----------------|----------|
+| ApplicationForm.tsx | Icon-based labels | Medium |
+| ApplicationModal.tsx | Icon-based labels | Medium |
+| PartnerInquiryForm.tsx | Already has local FloatingInput | Low (just import shared) |
+| CorporateInquiryForm.tsx | Already has local FloatingInput | Low (just import shared) |
 
 ---
 
@@ -485,24 +547,26 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 
 ---
 
-## NEXT SESSION PRIORITIES
+## NEXT SESSION PRIORITIES (Session 89)
 
-### Priority 1: Form UI Standardisation (Deferred from S87)
-- [ ] Create shared `FloatingInput.tsx` component
-- [ ] Create shared `FloatingSelect.tsx` component
-- [ ] Create shared `FloatingTextarea.tsx` component
-- [ ] Migrate ContactForm.tsx to floating labels
+### Priority 1: Complete Form Migrations
+- [x] ~~Create shared `FloatingInput.tsx` component~~ (Done S88)
+- [x] ~~Create shared `FloatingSelect.tsx` component~~ (Done S88)
+- [x] ~~Create shared `FloatingTextarea.tsx` component~~ (Done S88)
+- [x] ~~Migrate ContactForm.tsx to floating labels~~ (Done S88)
 - [ ] Migrate ApplicationForm.tsx to floating labels
 - [ ] Migrate ApplicationModal.tsx to floating labels
+- [ ] Update PartnerInquiryForm to use shared components (has local copy)
+- [ ] Update CorporateInquiryForm to use shared components (has local copy)
 
-### Priority 2: Remaining UI Polish
+### Priority 2: Quick Wins Available
+- [ ] Enable gallery components (images already exist in `/public/images/`)
+  - Remove `isDev` gate from `AboutGallery.tsx`
+  - Remove `isDev` gate from `CultureGallery.tsx`
 - [ ] Standardise icon sizes across components
   - Card icons: `text-3xl` (30px)
   - Button icons: `text-xl` (20px)
   - Inline icons: `text-lg` (18px)
-- [ ] Enable gallery components (images already exist in `/public/images/`)
-  - Remove `isDev` gate from `AboutGallery.tsx`
-  - Remove `isDev` gate from `CultureGallery.tsx`
 
 ### Priority 3: Stakeholder Review (Premium Calculations)
 - [ ] Review premium calculation formulas with product team
@@ -521,21 +585,24 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 
 ---
 
-## RECOMMENDATIONS (Session 87)
+## RECOMMENDATIONS (Session 88)
 
 ### Quick Wins Available
 1. **Enable galleries** - Images already exist, just remove `isDev` checks (5 min)
 2. **Remove dev banner** - Single component removal when ready for production
 
-### Technical Debt to Address
-1. **Form inconsistency** - 3 different label patterns (labels-above, floating, placeholder-only)
-   - Recommended: Create shared FloatingInput components, migrate all forms
-   - Effort: ~2 hours
+### Technical Debt Progress (S88)
+1. ~~**Form inconsistency** - 3 different label patterns~~ → **RESOLVED**
+   - ✅ Created shared FloatingInput, FloatingSelect, FloatingTextarea in `src/components/ui/`
+   - ✅ Migrated ContactForm to floating labels
+   - Remaining: ApplicationForm, ApplicationModal (use icon-based), Partner/Corporate forms (use local copies)
 
-2. **Duplicated FloatingInput code** - PartnerInquiryForm and CorporateInquiryForm have identical FloatingInput/FloatingSelect implementations
-   - Recommended: Extract to `src/components/ui/` as shared components
+2. ~~**Duplicated FloatingInput code**~~ → **PARTIALLY RESOLVED**
+   - ✅ Shared components now exist at `src/components/ui/`
+   - Remaining: Update PartnerInquiryForm and CorporateInquiryForm to import from shared
 
-3. **Legacy ContactForm** - Largest form, uses labels-above pattern, would benefit most from floating labels migration
+3. ~~**Legacy ContactForm**~~ → **RESOLVED**
+   - ✅ Fully migrated to floating labels pattern (659 lines, down from 869)
 
 ### Design System Now Documented
 The following standards were established in S87 and should be followed for all future components:
@@ -629,10 +696,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-87)
+## SESSION HISTORY (40-88)
 
 | Session | Focus |
 |---------|-------|
+| S88 | Form UI standardisation, shared FloatingInput/Select/Textarea, ContactForm migration |
 | S87 | UI consistency audit, CTA/spacing/container standardisation, cookie consent |
 | S86 | Website separation strategy documentation, migration playbook |
 | S85 | UI consistency polish, page updates, stakeholder email update |
@@ -675,4 +743,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 5 January 2026 (Session 87)*
+*Document updated: 5 January 2026 (Session 88)*

@@ -4,6 +4,9 @@ import { useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
 import { FormSuccess } from "@/components/ui/FormSuccess";
+import { FloatingInput } from "@/components/ui/FloatingInput";
+import { FloatingSelect } from "@/components/ui/FloatingSelect";
+import { FloatingTextarea } from "@/components/ui/FloatingTextarea";
 import {
   validateEmail,
   validatePhone,
@@ -12,6 +15,11 @@ import {
   type FieldStates,
 } from "@/lib/formValidation";
 
+// ═══════════════════════════════════════════════════════════════════════════
+// CONTACT FORM COMPONENT
+// Migrated to use shared floating label components (Session 88)
+// ═══════════════════════════════════════════════════════════════════════════
+
 type ContactTab = "message" | "callback";
 
 interface FormState {
@@ -19,46 +27,7 @@ interface FormState {
   error: string | null;
 }
 
-// Inline error message component with ARIA support
-function InlineError({ error, id }: { error: string | null; id?: string }) {
-  return (
-    <AnimatePresence>
-      {error && (
-        <motion.div
-          id={id}
-          role="alert"
-          aria-live="polite"
-          initial={{ opacity: 0, y: -5, height: 0 }}
-          animate={{ opacity: 1, y: 0, height: "auto" }}
-          exit={{ opacity: 0, y: -5, height: 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-center gap-1.5 mt-1.5 ml-1"
-        >
-          <span className="material-symbols-outlined text-red-500 text-sm" aria-hidden="true">error</span>
-          <span className="text-red-500 text-xs font-medium">{error}</span>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-// Input wrapper with icon and validation state
-function InputIcon({ icon, valid, touched }: { icon: string; valid?: boolean; touched?: boolean }) {
-  return (
-    <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-      <span className={`material-symbols-outlined text-lg transition-colors ${
-        touched && valid ? "text-green-500" :
-        touched && !valid ? "text-red-400" :
-        "text-slate-400"
-      }`}>
-        {touched && valid ? "check_circle" : icon}
-      </span>
-    </div>
-  );
-}
-
 const callbackReasons = [
-  { value: "", label: "Select a reason..." },
   { value: "car-insurance", label: "Car Insurance" },
   { value: "home-insurance", label: "Home Insurance" },
   { value: "life-insurance", label: "Life Insurance" },
@@ -78,34 +47,45 @@ const MAX_MESSAGE_CHARS = 2000;
 
 // Message form topic options (including B2B)
 const messageTopics = [
-  { value: "general", label: "General Inquiry", isB2B: false },
-  { value: "claim-status", label: "Claim Status", isB2B: false },
-  { value: "retail-partnership", label: "Retail Partnership (B2B)", isB2B: true },
-  { value: "business-insurance", label: "Business Insurance (B2B)", isB2B: true },
-  { value: "employee-benefits", label: "Employee Benefits (B2B)", isB2B: true },
-  { value: "feedback", label: "Feedback", isB2B: false },
+  { value: "general", label: "General Enquiry" },
+  { value: "claim-status", label: "Claim Status" },
+  { value: "retail-partnership", label: "Retail Partnership (B2B)" },
+  { value: "business-insurance", label: "Business Insurance (B2B)" },
+  { value: "employee-benefits", label: "Employee Benefits (B2B)" },
+  { value: "feedback", label: "Feedback" },
 ];
 
 // B2B topic values for easy checking
-const b2bTopics = messageTopics.filter(t => t.isB2B).map(t => t.value);
+const b2bTopicValues = ["retail-partnership", "business-insurance", "employee-benefits"];
 
 export default function ContactForm() {
   const [activeTab, setActiveTab] = useState<ContactTab>("message");
   const [messageSent, setMessageSent] = useState(false);
   const [callbackSent, setCallbackSent] = useState(false);
+
+  // Message form state
+  const [messageName, setMessageName] = useState("");
+  const [messageEmail, setMessageEmail] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [messageContent, setMessageContent] = useState("");
+
+  // Callback form state
+  const [callbackName, setCallbackName] = useState("");
+  const [callbackPhone, setCallbackPhone] = useState("");
   const [callbackReason, setCallbackReason] = useState("");
   const [otherReason, setOtherReason] = useState("");
-  const [messageContent, setMessageContent] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("general");
+  const [callbackDate, setCallbackDate] = useState("");
+  const [callbackTime, setCallbackTime] = useState("Morning (8AM - 12PM)");
+
   const [formState, setFormState] = useState<FormState>({ isSubmitting: false, error: null });
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
+
   const ref = useRef(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const cbNameRef = useRef<HTMLInputElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   // Check if current topic is B2B
-  const isB2BTopic = b2bTopics.includes(selectedTopic);
+  const isB2BTopic = b2bTopicValues.includes(selectedTopic);
 
   // Update field validation state
   const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
@@ -130,8 +110,6 @@ export default function ContactForm() {
   const handleTabChange = (tab: ContactTab) => {
     setActiveTab(tab);
     setFieldStates({});
-    setMessageContent("");
-    setSelectedTopic("general");
     setFormState({ isSubmitting: false, error: null });
   };
 
@@ -143,78 +121,34 @@ export default function ContactForm() {
     }
   };
 
-  // Validate all message form fields before submit
-  const validateMessageForm = (formData: FormData): boolean => {
-    const name = formData.get("name") as string || "";
-    const email = formData.get("email") as string || "";
-    const message = formData.get("message") as string || "";
-    const companyName = formData.get("companyName") as string || "";
-    const topic = formData.get("subject") as string || "";
-    const topicIsB2B = b2bTopics.includes(topic);
+  // Handle other reason change with character limit
+  const handleOtherReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= MAX_OTHER_CHARS) {
+      setOtherReason(value);
+    }
+  };
 
+  // Validate message form
+  const validateMessageForm = (): boolean => {
     let isValid = true;
-    const newFieldStates: FieldStates = {};
 
-    // Validate name
-    const nameError = validateRequired(name, "Name");
-    newFieldStates.name = { touched: true, error: nameError, valid: !nameError && name.length > 0 };
-    if (nameError) isValid = false;
-
-    // Validate email
-    const emailError = validateEmail(email);
-    newFieldStates.email = { touched: true, error: emailError, valid: !emailError && email.length > 0 };
-    if (emailError) isValid = false;
-
-    // Validate company name (required for B2B topics)
-    if (topicIsB2B) {
-      const companyError = validateRequired(companyName, "Company name");
-      newFieldStates.companyName = { touched: true, error: companyError, valid: !companyError && companyName.length > 0 };
-      if (companyError) isValid = false;
-    }
-
-    // Validate message
-    const messageError = validateRequired(message, "Message");
-    newFieldStates.message = { touched: true, error: messageError, valid: !messageError && message.length > 0 };
-    if (messageError) isValid = false;
-
-    setFieldStates(prev => ({ ...prev, ...newFieldStates }));
-
-    // Focus first invalid field
-    if (!isValid) {
-      if (nameError) nameRef.current?.focus();
-      else if (emailError) document.getElementById("email")?.focus();
-      else if (topicIsB2B && newFieldStates.companyName?.error) document.getElementById("companyName")?.focus();
-      else if (messageError) document.getElementById("message")?.focus();
-    }
+    if (!validateField("name", messageName, (v) => validateRequired(v, "Name"))) isValid = false;
+    if (!validateField("email", messageEmail, validateEmail)) isValid = false;
+    if (isB2BTopic && !validateField("companyName", companyName, (v) => validateRequired(v, "Company name"))) isValid = false;
+    if (!validateField("message", messageContent, (v) => validateRequired(v, "Message"))) isValid = false;
 
     return isValid;
   };
 
-  // Validate all callback form fields before submit
-  const validateCallbackForm = (formData: FormData): boolean => {
-    const name = formData.get("cb_name") as string || "";
-    const phone = formData.get("cb_phone") as string || "";
-
+  // Validate callback form
+  const validateCallbackForm = (): boolean => {
     let isValid = true;
-    const newFieldStates: FieldStates = {};
 
-    // Validate name
-    const nameError = validateRequired(name, "Full name");
-    newFieldStates.cb_name = { touched: true, error: nameError, valid: !nameError && name.length > 0 };
-    if (nameError) isValid = false;
-
-    // Validate phone
-    const phoneError = validatePhone(phone);
-    newFieldStates.cb_phone = { touched: true, error: phoneError, valid: !phoneError && phone.length > 0 };
-    if (phoneError) isValid = false;
-
-    setFieldStates(prev => ({ ...prev, ...newFieldStates }));
-
-    // Focus first invalid field
-    if (!isValid) {
-      if (nameError) cbNameRef.current?.focus();
-      else if (phoneError) document.getElementById("cb_phone")?.focus();
-    }
+    if (!validateField("cb_name", callbackName, (v) => validateRequired(v, "Full name"))) isValid = false;
+    if (!validateField("cb_phone", callbackPhone, validatePhone)) isValid = false;
+    if (!validateField("cb_reason", callbackReason, (v) => validateRequired(v, "Reason"))) isValid = false;
+    if (callbackReason === "other" && !validateField("cb_other", otherReason, (v) => validateRequired(v, "Reason"))) isValid = false;
 
     return isValid;
   };
@@ -222,13 +156,7 @@ export default function ContactForm() {
   const handleMessageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    // Validate all fields before submit
-    if (!validateMessageForm(formData)) {
-      return;
-    }
+    if (!validateMessageForm()) return;
 
     setFormState({ isSubmitting: true, error: null });
 
@@ -238,11 +166,11 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "message",
-          name: formData.get("name"),
-          email: formData.get("email"),
-          subject: formData.get("subject"),
-          message: formData.get("message"),
-          companyName: formData.get("companyName") || undefined,
+          name: messageName,
+          email: messageEmail,
+          subject: selectedTopic || "general",
+          message: messageContent,
+          companyName: companyName || undefined,
         }),
       });
 
@@ -253,13 +181,19 @@ export default function ContactForm() {
       }
 
       setMessageSent(true);
+
+      // Reset form
+      setMessageName("");
+      setMessageEmail("");
+      setSelectedTopic("");
+      setCompanyName("");
       setMessageContent("");
-      form.reset();
+      setFieldStates({});
 
       // Track successful submission
       track("contact_submitted", {
         formType: "message",
-        topic: formData.get("subject") as string,
+        topic: selectedTopic || "general",
       });
     } catch (error) {
       setFormState({
@@ -274,13 +208,7 @@ export default function ContactForm() {
   const handleCallbackSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    // Validate all fields before submit
-    if (!validateCallbackForm(formData)) {
-      return;
-    }
+    if (!validateCallbackForm()) return;
 
     setFormState({ isSubmitting: true, error: null });
 
@@ -290,12 +218,12 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "callback",
-          name: formData.get("cb_name"),
-          phone: formData.get("cb_phone"),
+          name: callbackName,
+          phone: callbackPhone,
           reason: callbackReason,
           otherReason: callbackReason === "other" ? otherReason : undefined,
-          preferredDate: formData.get("cb_date"),
-          preferredTime: formData.get("cb_time"),
+          preferredDate: callbackDate,
+          preferredTime: callbackTime,
         }),
       });
 
@@ -306,9 +234,15 @@ export default function ContactForm() {
       }
 
       setCallbackSent(true);
+
+      // Reset form
+      setCallbackName("");
+      setCallbackPhone("");
       setCallbackReason("");
       setOtherReason("");
-      form.reset();
+      setCallbackDate("");
+      setCallbackTime("Morning (8AM - 12PM)");
+      setFieldStates({});
 
       // Track successful submission
       track("contact_submitted", {
@@ -324,34 +258,6 @@ export default function ContactForm() {
       setFormState(prev => ({ ...prev, isSubmitting: false }));
     }
   };
-
-  const handleOtherReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    if (value.length <= MAX_OTHER_CHARS) {
-      setOtherReason(value);
-    }
-  };
-
-  // Dynamic input classes based on validation state
-  const getInputClasses = (fieldName?: string) => {
-    const state = fieldName ? getFieldState(fieldName) : { touched: false, error: null, valid: false };
-    const baseClasses = "w-full rounded-xl shadow-sm transition-all duration-300 ease-out py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none";
-
-    if (state.touched && state.error) {
-      return `${baseClasses} border-2 border-red-400 bg-red-50 dark:bg-red-900/15 focus:border-red-500 focus:ring-4 focus:ring-red-500/20 dark:focus:ring-red-500/30 focus:shadow-[0_0_0_4px_rgba(239,68,68,0.1)] pl-12 pr-4`;
-    }
-    if (state.touched && state.valid) {
-      return `${baseClasses} border-2 border-green-400 bg-green-50 dark:bg-green-900/15 focus:border-green-500 focus:ring-4 focus:ring-green-500/20 dark:focus:ring-green-500/30 focus:shadow-[0_0_0_4px_rgba(34,197,94,0.1)] pl-12 pr-4`;
-    }
-    return `${baseClasses} border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 focus:border-primary focus:ring-4 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] pl-12 pr-4`;
-  };
-
-  // Standard input classes without icon
-  const inputClasses =
-    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-4 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 focus:shadow-[0_0_20px_-5px_rgba(191,6,3,0.15)] transition-all duration-300 ease-out py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none";
-
-  const labelClasses =
-    "block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2";
 
   return (
     <motion.div
@@ -461,8 +367,7 @@ export default function ContactForm() {
                         Send us a direct message
                       </h2>
                       <p className="text-slate-500 dark:text-slate-400">
-                        Prefer to write? Fill out the form below and we&apos;ll route it to the right
-                        team.
+                        Prefer to write? Fill out the form below and we&apos;ll route it to the right team.
                       </p>
                     </div>
                     <form className="space-y-6" onSubmit={handleMessageSubmit}>
@@ -472,155 +377,88 @@ export default function ContactForm() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1 }}
                         >
-                          <label className={labelClasses} htmlFor="name">
-                            Name
-                          </label>
-                          <div className="relative">
-                            <InputIcon
-                              icon="person"
-                              valid={getFieldState("name").valid}
-                              touched={getFieldState("name").touched}
-                            />
-                            <input
-                              ref={nameRef}
-                              className={getInputClasses("name")}
-                              id="name"
-                              name="name"
-                              placeholder="Jane Doe"
-                              required
-                              aria-required="true"
-                              aria-invalid={getFieldState("name").error ? "true" : undefined}
-                              aria-describedby={getFieldState("name").error ? "name-error" : undefined}
-                              type="text"
-                              onBlur={(e) => validateField("name", e.target.value, (v) => validateRequired(v, "Name"))}
-                            />
-                          </div>
-                          <InlineError error={getFieldState("name").error} id="name-error" />
+                          <FloatingInput
+                            name="name"
+                            label="Full Name"
+                            value={messageName}
+                            required
+                            onChange={(e) => setMessageName(e.target.value)}
+                            onBlur={(e) => validateField("name", e.target.value, (v) => validateRequired(v, "Name"))}
+                            fieldState={getFieldState("name")}
+                          />
                         </motion.div>
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 }}
                         >
-                          <label className={labelClasses} htmlFor="email">
-                            Work Email
-                          </label>
-                          <div className="relative">
-                            <InputIcon
-                              icon="mail"
-                              valid={getFieldState("email").valid}
-                              touched={getFieldState("email").touched}
-                            />
-                            <input
-                              className={getInputClasses("email")}
-                              id="email"
-                              name="email"
-                              placeholder="jane@company.com"
-                              required
-                              aria-required="true"
-                              aria-invalid={getFieldState("email").error ? "true" : undefined}
-                              aria-describedby={getFieldState("email").error ? "email-error" : undefined}
-                              type="email"
-                              onBlur={(e) => validateField("email", e.target.value, validateEmail)}
-                            />
-                          </div>
-                          <InlineError error={getFieldState("email").error} id="email-error" />
+                          <FloatingInput
+                            name="email"
+                            label="Email Address"
+                            type="email"
+                            value={messageEmail}
+                            required
+                            onChange={(e) => setMessageEmail(e.target.value)}
+                            onBlur={(e) => validateField("email", e.target.value, validateEmail)}
+                            fieldState={getFieldState("email")}
+                          />
                         </motion.div>
                       </div>
+
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                       >
-                        <label className={labelClasses} htmlFor="subject">
-                          Topic
-                        </label>
-                        <div className="relative">
-                          <select
-                            className={`${inputClasses} appearance-none pr-12`}
-                            id="subject"
-                            name="subject"
-                            value={selectedTopic}
-                            onChange={(e) => setSelectedTopic(e.target.value)}
+                        <FloatingSelect
+                          name="subject"
+                          label="Topic"
+                          options={messageTopics}
+                          value={selectedTopic}
+                          onChange={(e) => setSelectedTopic(e.target.value)}
+                        />
+                      </motion.div>
+
+                      <AnimatePresence>
+                        {isB2BTopic && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
                           >
-                            {messageTopics.map((topic) => (
-                              <option key={topic.value} value={topic.value}>
-                                {topic.label}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                            <span className="material-symbols-outlined text-xl">expand_more</span>
-                          </div>
-                        </div>
-                      </motion.div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.22 }}
-                      >
-                        <label className={labelClasses} htmlFor="companyName">
-                          Company Name{" "}
-                          {isB2BTopic ? (
-                            <span className="text-primary font-normal normal-case">(required for B2B)</span>
-                          ) : (
-                            <span className="text-slate-400 font-normal normal-case">(optional)</span>
-                          )}
-                        </label>
-                        <div className="relative">
-                          {isB2BTopic && (
-                            <InputIcon
-                              icon="business"
-                              valid={getFieldState("companyName").valid}
-                              touched={getFieldState("companyName").touched}
+                            <FloatingInput
+                              name="companyName"
+                              label="Company Name"
+                              value={companyName}
+                              required
+                              onChange={(e) => setCompanyName(e.target.value)}
+                              onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
+                              fieldState={getFieldState("companyName")}
                             />
-                          )}
-                          <input
-                            className={isB2BTopic ? getInputClasses("companyName") : inputClasses}
-                            id="companyName"
-                            name="companyName"
-                            placeholder={isB2BTopic ? "Your company name (required)" : "Your company or store name"}
-                            type="text"
-                            aria-required={isB2BTopic}
-                            onBlur={isB2BTopic ? (e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name")) : undefined}
-                          />
-                        </div>
-                        {isB2BTopic && <InlineError error={getFieldState("companyName").error} id="companyName-error" />}
-                      </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25 }}
                       >
-                        <label className={labelClasses} htmlFor="message">
-                          Message
-                        </label>
-                        <textarea
-                          className={`${inputClasses} resize-none`}
-                          id="message"
+                        <FloatingTextarea
                           name="message"
-                          placeholder="How can we help?"
-                          required
-                          rows={4}
+                          label="Your Message"
                           value={messageContent}
+                          required
+                          rows={5}
+                          maxLength={MAX_MESSAGE_CHARS}
+                          showCharCount
                           onChange={handleMessageChange}
-                          aria-required="true"
-                          aria-invalid={getFieldState("message").error ? "true" : undefined}
-                          aria-describedby={getFieldState("message").error ? "message-error" : undefined}
+                          onBlur={() => validateField("message", messageContent, (v) => validateRequired(v, "Message"))}
+                          fieldState={getFieldState("message")}
                         />
-                        <div className="flex justify-between mt-1.5 ml-1">
-                          <InlineError error={getFieldState("message").error} id="message-error" />
-                          <span
-                            className={`text-xs ${
-                              messageContent.length >= MAX_MESSAGE_CHARS
-                                ? "text-red-500"
-                                : "text-slate-400 dark:text-slate-500"
-                            }`}
-                          >
-                            {messageContent.length}/{MAX_MESSAGE_CHARS}
-                          </span>
-                        </div>
                       </motion.div>
+
                       <motion.div
                         className="pt-2 text-center md:text-left"
                         initial={{ opacity: 0, y: 10 }}
@@ -671,8 +509,7 @@ export default function ContactForm() {
                         Request a Call Back
                       </h2>
                       <p className="text-slate-500 dark:text-slate-400">
-                        Short on time? Leave your details and we&apos;ll contact you when it suits you
-                        best.
+                        Short on time? Leave your details and we&apos;ll contact you when it suits you best.
                       </p>
                     </div>
                     <form className="space-y-6 max-w-2xl mx-auto" onSubmit={handleCallbackSubmit}>
@@ -681,92 +518,56 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
                       >
-                        <label className={labelClasses} htmlFor="cb_name">
-                          Full Name
-                        </label>
-                        <div className="relative">
-                          <InputIcon
-                            icon="person"
-                            valid={getFieldState("cb_name").valid}
-                            touched={getFieldState("cb_name").touched}
-                          />
-                          <input
-                            ref={cbNameRef}
-                            className={getInputClasses("cb_name")}
-                            id="cb_name"
-                            name="cb_name"
-                            placeholder="John Smith"
-                            required
-                            aria-required="true"
-                            aria-invalid={getFieldState("cb_name").error ? "true" : undefined}
-                            aria-describedby={getFieldState("cb_name").error ? "cb_name-error" : undefined}
-                            type="text"
-                            onBlur={(e) => validateField("cb_name", e.target.value, (v) => validateRequired(v, "Full name"))}
-                          />
-                        </div>
-                        <InlineError error={getFieldState("cb_name").error} id="cb_name-error" />
+                        <FloatingInput
+                          name="cb_name"
+                          label="Full Name"
+                          value={callbackName}
+                          required
+                          onChange={(e) => setCallbackName(e.target.value)}
+                          onBlur={(e) => validateField("cb_name", e.target.value, (v) => validateRequired(v, "Full name"))}
+                          fieldState={getFieldState("cb_name")}
+                        />
                       </motion.div>
+
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
                       >
-                        <label className={labelClasses} htmlFor="cb_phone">
-                          Phone Number
-                        </label>
-                        <div className="relative">
-                          <InputIcon
-                            icon="call"
-                            valid={getFieldState("cb_phone").valid}
-                            touched={getFieldState("cb_phone").touched}
-                          />
-                          <input
-                            className={getInputClasses("cb_phone")}
-                            id="cb_phone"
-                            name="cb_phone"
-                            placeholder="+27 XX XXX XXXX"
-                            required
-                            aria-required="true"
-                            aria-invalid={getFieldState("cb_phone").error ? "true" : undefined}
-                            aria-describedby={getFieldState("cb_phone").error ? "cb_phone-error" : undefined}
-                            type="tel"
-                            onBlur={(e) => validateField("cb_phone", e.target.value, validatePhone)}
-                          />
-                        </div>
-                        <InlineError error={getFieldState("cb_phone").error} id="cb_phone-error" />
+                        <FloatingInput
+                          name="cb_phone"
+                          label="Phone Number"
+                          type="tel"
+                          value={callbackPhone}
+                          required
+                          onChange={(e) => setCallbackPhone(e.target.value)}
+                          onBlur={(e) => validateField("cb_phone", e.target.value, validatePhone)}
+                          fieldState={getFieldState("cb_phone")}
+                        />
                       </motion.div>
+
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.18 }}
                       >
-                        <label className={labelClasses} htmlFor="cb_reason">
-                          Reason for Call
-                        </label>
-                        <div className="relative">
-                          <select
-                            className={`${inputClasses} appearance-none pr-12`}
-                            id="cb_reason"
-                            value={callbackReason}
-                            onChange={(e) => {
-                              setCallbackReason(e.target.value);
-                              if (e.target.value !== "other") {
-                                setOtherReason("");
-                              }
-                            }}
-                            required
-                          >
-                            {callbackReasons.map((reason) => (
-                              <option key={reason.value} value={reason.value}>
-                                {reason.label}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                            <span className="material-symbols-outlined text-xl">expand_more</span>
-                          </div>
-                        </div>
+                        <FloatingSelect
+                          name="cb_reason"
+                          label="Reason for Call"
+                          options={callbackReasons}
+                          value={callbackReason}
+                          required
+                          onChange={(e) => {
+                            setCallbackReason(e.target.value);
+                            if (e.target.value !== "other") {
+                              setOtherReason("");
+                            }
+                          }}
+                          onBlur={() => validateField("cb_reason", callbackReason, (v) => validateRequired(v, "Reason"))}
+                          fieldState={getFieldState("cb_reason")}
+                        />
                       </motion.div>
+
                       <AnimatePresence>
                         {callbackReason === "other" && (
                           <motion.div
@@ -775,66 +576,56 @@ export default function ContactForm() {
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <label className={labelClasses} htmlFor="cb_other_reason">
-                              Please Specify
-                            </label>
-                            <textarea
-                              className={`${inputClasses} resize-none`}
-                              id="cb_other_reason"
-                              placeholder="Briefly describe the reason for your call..."
+                            <FloatingTextarea
+                              name="cb_other"
+                              label="Please Specify"
                               value={otherReason}
-                              onChange={handleOtherReasonChange}
-                              rows={3}
                               required
+                              rows={3}
+                              maxLength={MAX_OTHER_CHARS}
+                              showCharCount
+                              onChange={handleOtherReasonChange}
+                              onBlur={() => validateField("cb_other", otherReason, (v) => validateRequired(v, "Reason"))}
+                              fieldState={getFieldState("cb_other")}
                             />
-                            <div className="flex justify-end mt-1">
-                              <span
-                                className={`text-xs ${
-                                  otherReason.length >= MAX_OTHER_CHARS
-                                    ? "text-red-500"
-                                    : "text-slate-400 dark:text-slate-500"
-                                }`}
-                              >
-                                {otherReason.length}/{MAX_OTHER_CHARS} characters
-                              </span>
-                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
                         >
-                          <label className={labelClasses} htmlFor="cb_date">
-                            Preferred Date
-                          </label>
-                          <input className={inputClasses} id="cb_date" name="cb_date" required type="date" />
+                          <FloatingInput
+                            name="cb_date"
+                            label="Preferred Date"
+                            type="date"
+                            value={callbackDate}
+                            required
+                            onChange={(e) => setCallbackDate(e.target.value)}
+                            fieldState={getFieldState("cb_date")}
+                          />
                         </motion.div>
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.25 }}
                         >
-                          <label className={labelClasses} htmlFor="cb_time">
-                            Preferred Time
-                          </label>
-                          <div className="relative">
-                            <select
-                              className={`${inputClasses} appearance-none pr-12`}
-                              id="cb_time"
-                              name="cb_time"
-                            >
-                              <option>Morning (8AM - 12PM)</option>
-                              <option>Afternoon (12PM - 5PM)</option>
-                            </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                              <span className="material-symbols-outlined text-xl">expand_more</span>
-                            </div>
-                          </div>
+                          <FloatingSelect
+                            name="cb_time"
+                            label="Preferred Time"
+                            options={[
+                              { value: "Morning (8AM - 12PM)", label: "Morning (8AM - 12PM)" },
+                              { value: "Afternoon (12PM - 5PM)", label: "Afternoon (12PM - 5PM)" },
+                            ]}
+                            value={callbackTime}
+                            onChange={(e) => setCallbackTime(e.target.value)}
+                          />
                         </motion.div>
                       </div>
+
                       <motion.div
                         className="pt-4 text-center"
                         initial={{ opacity: 0, y: 10 }}
@@ -865,4 +656,3 @@ export default function ContactForm() {
     </motion.div>
   );
 }
-
