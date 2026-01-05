@@ -528,9 +528,9 @@ export default function ApplicationModal({
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 px-8 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.99 } : {}}
+                className="w-full h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                whileHover={!isSubmitting ? { scale: 1.03, y: -2 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
                 {isSubmitting ? (
                   <>

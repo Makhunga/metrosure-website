@@ -13,10 +13,10 @@ export default function CallToAction() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
+      className="py-24 md:py-32 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
       <motion.div
-        className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+        className="max-w-[1400px] mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
         animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
@@ -97,7 +97,7 @@ export default function CallToAction() {
             <MagneticButton strength={0.3}>
               <Link href="/quote">
                 <motion.span
-                  className="bg-white text-primary text-lg font-bold py-4 px-10 rounded-xl shadow-lg shadow-primary/25 flex items-center justify-center"
+                  className="bg-white text-primary text-base font-bold h-12 px-8 rounded-xl shadow-lg shadow-primary/25 flex items-center justify-center"
                   whileHover={{
                     boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
                   }}
@@ -111,7 +111,7 @@ export default function CallToAction() {
             <MagneticButton strength={0.3}>
               <Link href="/partners">
                 <motion.span
-                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-xl flex items-center justify-center gap-2"
+                  className="bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-base font-bold h-12 px-8 rounded-xl flex items-center justify-center gap-2"
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >

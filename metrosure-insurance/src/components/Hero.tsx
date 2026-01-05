@@ -153,7 +153,7 @@ export default function Hero() {
               <MagneticButton strength={0.4}>
                 <Link href="/quote">
                   <motion.span
-                    className="h-14 px-8 rounded-xl bg-primary text-white text-lg font-bold transition-colors shadow-lg shadow-primary/25 flex items-center justify-center"
+                    className="h-12 px-8 rounded-xl bg-primary text-white text-base font-bold transition-colors shadow-lg shadow-primary/25 flex items-center justify-center"
                     whileHover={{
                       boxShadow: "0 20px 40px -10px rgba(191, 6, 3, 0.5)"
                     }}
@@ -166,7 +166,7 @@ export default function Hero() {
               </MagneticButton>
               <Link href="#products">
                 <motion.span
-                  className="h-14 px-8 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-lg font-bold transition-colors flex items-center gap-2 group justify-center"
+                  className="h-12 px-8 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-base font-bold transition-colors flex items-center gap-2 group justify-center"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}

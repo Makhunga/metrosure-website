@@ -141,7 +141,7 @@ export default function LatestNews() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 lg:py-40 bg-[rgb(var(--color-surface))] transition-colors duration-300 overflow-visible"
+      className="relative py-24 md:py-32 bg-[rgb(var(--color-surface))] transition-colors duration-300 overflow-visible"
       aria-labelledby="latest-news-heading"
     >
       {/* ═══════════════════════════════════════════════════════════════════════

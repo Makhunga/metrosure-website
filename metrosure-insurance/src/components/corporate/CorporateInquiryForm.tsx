@@ -813,8 +813,8 @@ export default function CorporateInquiryForm() {
                       type="button"
                       onClick={handleNext}
                       disabled={!canProceed}
-                      className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={canProceed ? { scale: 1.02, y: -1 } : {}}
+                      className="flex items-center gap-2 h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      whileHover={canProceed ? { scale: 1.03, y: -2 } : {}}
                       whileTap={canProceed ? { scale: 0.98 } : {}}
                     >
                       Continue
@@ -826,9 +826,9 @@ export default function CorporateInquiryForm() {
                     <motion.button
                       type="submit"
                       disabled={isSubmitting || !canProceed}
-                      className="flex items-center gap-2 py-3.5 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="flex items-center gap-2 h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                       whileHover={
-                        !isSubmitting && canProceed ? { scale: 1.02, y: -1 } : {}
+                        !isSubmitting && canProceed ? { scale: 1.03, y: -2 } : {}
                       }
                       whileTap={
                         !isSubmitting && canProceed ? { scale: 0.98 } : {}

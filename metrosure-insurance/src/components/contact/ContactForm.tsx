@@ -631,10 +631,10 @@ export default function ContactForm() {
                           <p className="text-red-500 text-sm mb-3">{formState.error}</p>
                         )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full md:w-auto min-w-[200px] h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                           type="submit"
                           disabled={formState.isSubmitting}
-                          whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}
+                          whileHover={formState.isSubmitting ? {} : { scale: 1.03, y: -2 }}
                           whileTap={formState.isSubmitting ? {} : { scale: 0.98 }}
                         >
                           {formState.isSubmitting ? "Sending..." : "Send Message"}
@@ -845,10 +845,10 @@ export default function ContactForm() {
                           <p className="text-red-500 text-sm mb-3">{formState.error}</p>
                         )}
                         <motion.button
-                          className="w-full md:w-auto min-w-[200px] py-3.5 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full md:w-auto min-w-[200px] h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                           type="submit"
                           disabled={formState.isSubmitting}
-                          whileHover={formState.isSubmitting ? {} : { scale: 1.02, y: -2 }}
+                          whileHover={formState.isSubmitting ? {} : { scale: 1.03, y: -2 }}
                           whileTap={formState.isSubmitting ? {} : { scale: 0.98 }}
                         >
                           {formState.isSubmitting ? "Submitting..." : "Schedule Call"}

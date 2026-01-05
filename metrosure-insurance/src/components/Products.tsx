@@ -186,7 +186,7 @@ export default function Products() {
         >
           <Link
             href="/tools/coverage-calculator"
-            className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border-2 border-[rgb(var(--color-border-light))] hover:border-primary bg-[rgb(var(--color-surface))] hover:bg-primary/5 transition-all duration-300"
+            className="group inline-flex items-center gap-3 h-12 px-6 rounded-xl border-2 border-[rgb(var(--color-border-light))] hover:border-primary bg-[rgb(var(--color-surface))] hover:bg-primary/5 transition-all duration-300"
           >
             <span className="material-symbols-outlined text-primary text-xl">
               calculate

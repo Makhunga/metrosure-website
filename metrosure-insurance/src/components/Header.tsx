@@ -249,9 +249,9 @@ export default function Header() {
             >
               <Link href="/quote">
                 <motion.span
-                  className="flex items-center justify-center rounded-lg bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-colors h-10 px-6 text-white text-sm font-bold shadow-md shadow-primary/20"
+                  className="flex items-center justify-center rounded-xl bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-colors h-12 px-8 text-white text-sm font-bold shadow-lg shadow-primary/25"
                   whileHover={{
-                    scale: 1.05,
+                    scale: 1.03,
                     y: -2,
                     boxShadow: "0 10px 25px -5px rgba(191, 6, 3, 0.4)"
                   }}

@@ -164,7 +164,7 @@ export default function Testimonials() {
         const nextIndex = (activeIndexRef.current + 1) % testimonialsData.length;
         scrollToIndex(nextIndex);
       }
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [isPaused, isInView, scrollToIndex, prefersReducedMotion]);

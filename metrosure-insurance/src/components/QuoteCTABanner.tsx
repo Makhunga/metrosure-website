@@ -132,7 +132,7 @@ export default function QuoteCTABanner() {
             {/* Primary CTA */}
             <Link href="/quote">
               <motion.div
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-white text-primary font-bold text-lg shadow-xl shadow-black/20 overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-3 h-12 px-8 rounded-xl bg-white text-primary font-bold text-base shadow-lg shadow-black/20 overflow-hidden"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -157,7 +157,7 @@ export default function QuoteCTABanner() {
             {/* Secondary CTA */}
             <a href="tel:+27313011192">
               <motion.div
-                className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl border-2 border-white/40 text-white font-bold text-lg hover:bg-white/10 hover:border-white/60 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-3 h-12 px-8 rounded-xl border-2 border-white/40 text-white font-bold text-base hover:bg-white/10 hover:border-white/60 transition-all duration-300"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}

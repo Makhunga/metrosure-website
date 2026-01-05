@@ -56,8 +56,8 @@ export default function JobCard({ job, index, onQuickApply }: JobCardProps) {
           <div className="flex flex-col sm:flex-row gap-3 mt-auto pt-4 border-t border-[rgb(var(--color-border-light))]">
             <Link href={`/careers/${job.slug}`} className="flex-1">
               <motion.span
-                className="inline-flex items-center justify-center gap-2 w-full h-11 px-5 rounded-xl bg-primary text-white font-semibold text-sm shadow-md shadow-primary/20 transition-all"
-                whileHover={{ scale: 1.02 }}
+                className="inline-flex items-center justify-center gap-2 w-full h-12 px-6 rounded-xl bg-primary text-white font-semibold text-sm shadow-lg shadow-primary/25 transition-all"
+                whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <span>View Details</span>
@@ -70,7 +70,7 @@ export default function JobCard({ job, index, onQuickApply }: JobCardProps) {
             {onQuickApply && (
               <motion.button
                 onClick={() => onQuickApply(job.title)}
-                className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] font-semibold text-sm hover:border-primary/30 transition-colors"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl border border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] font-semibold text-sm hover:border-primary/30 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

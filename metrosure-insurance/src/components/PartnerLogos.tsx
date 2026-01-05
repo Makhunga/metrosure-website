@@ -70,9 +70,9 @@ export default function PartnerLogos() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 bg-[rgb(var(--color-surface-card))] overflow-hidden"
+      className="py-16 md:py-20 bg-[rgb(var(--color-surface-card))] overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="text-center mb-10"

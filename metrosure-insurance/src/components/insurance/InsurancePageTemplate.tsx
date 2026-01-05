@@ -54,7 +54,7 @@ export default function InsurancePageTemplate({
       <section className="relative pt-56 pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-[rgb(var(--color-secondary))]/5" />
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 dark:bg-primary/15 border border-primary/20 dark:border-primary/30 text-primary text-xs font-bold uppercase tracking-wider mb-6">
@@ -72,14 +72,14 @@ export default function InsurancePageTemplate({
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/quote"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-14 px-8 text-white text-lg font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-12 px-8 text-white text-base font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1"
                 >
                   Get a Free Quote
                   <span className="material-symbols-outlined">arrow_forward</span>
                 </Link>
                 <a
                   href="tel:+27313011192"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[rgb(var(--color-border-light))] hover:border-primary transition-all h-14 px-8 text-[rgb(var(--color-text-main))] text-lg font-bold hover:text-primary"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[rgb(var(--color-border-light))] hover:border-primary transition-all h-12 px-8 text-[rgb(var(--color-text-main))] text-base font-bold hover:text-primary"
                 >
                   <span className="material-symbols-outlined">call</span>
                   +27 31 301 1192
@@ -122,8 +122,8 @@ export default function InsurancePageTemplate({
       </section>
 
       {/* Coverage Features */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[rgb(var(--color-text-main))] mb-4">
               What&apos;s Covered
@@ -157,8 +157,8 @@ export default function InsurancePageTemplate({
       </section>
 
       {/* Plan Tiers */}
-      <section className="py-24 bg-[rgb(var(--color-surface-card))]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section className="py-24 md:py-32 bg-[rgb(var(--color-surface-card))]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[rgb(var(--color-text-main))] mb-4">
               Choose Your Plan
@@ -238,7 +238,7 @@ export default function InsurancePageTemplate({
           />
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-6 lg:px-12">
+        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Icon/Visual */}
             <div className="shrink-0">
@@ -279,8 +279,8 @@ export default function InsurancePageTemplate({
       </section>
 
       {/* Benefits */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[rgb(var(--color-text-main))] mb-6">
