@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 5 January 2026 (Session 86)
+**Updated:** 5 January 2026 (Session 87)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,71 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 5 January 2026
+
+---
+
+## SESSION 87 (5 Jan 2026) - UI Consistency Audit & Standardisation
+
+### Focus
+Comprehensive UI audit identifying 45+ inconsistencies across the website. Standardised CTAs, section spacing, container widths, and animation timing. Simplified Cookie Consent banner.
+
+### Skills Used
+- `frontend-design` - Design system standardisation
+- `Explore` agents (3 parallel) - Thorough codebase audit
+
+### Completed Tasks
+| Task | Files | Impact |
+|------|-------|--------|
+| Cookie Consent simplification | 2 | Ultra-minimal design, enabled |
+| CTA button standardisation | 12 | h-12, rounded-xl, scale 1.03 hover |
+| Section spacing | 5 | py-24 md:py-32 standard |
+| Container widths | 3 | max-w-[1400px] standard |
+| Animation timing | 1 | Carousels aligned to 6000ms |
+
+### Deferred Tasks
+| Task | Reason | Priority |
+|------|--------|----------|
+| Shared FloatingInput/Select/Textarea components | Time - complex refactor | Medium |
+| Form migration to floating labels | Requires shared components first | Medium |
+| Icon size standardisation | Lower impact | Low |
+
+### Design System Standards Established
+
+**CTA Buttons:**
+```
+Primary:   h-12, px-8, rounded-xl, shadow-lg shadow-primary/25
+Hover:     scale: 1.03, y: -2
+Secondary: h-12, px-8, rounded-xl, border-2
+Tertiary:  h-11, px-6, rounded-xl
+```
+
+**Section Spacing:**
+```
+Major sections: py-24 md:py-32
+Sub-sections:   py-16 md:py-20
+```
+
+**Container Width:** `max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8`
+
+### Files Modified (20 files)
+| Category | Files |
+|----------|-------|
+| Cookie Consent | `CookieConsent.tsx`, `ClientLayout.tsx` |
+| CTAs | `Header.tsx`, `Hero.tsx`, `CallToAction.tsx`, `QuoteCTABanner.tsx`, `Products.tsx`, `JobCard.tsx` |
+| Forms | `ContactForm.tsx`, `ApplicationForm.tsx`, `ApplicationModal.tsx`, `PartnerInquiryForm.tsx`, `CorporateInquiryForm.tsx` |
+| Spacing/Layout | `Features.tsx`, `OurImpact.tsx`, `LatestNews.tsx`, `PartnerLogos.tsx`, `InsurancePageTemplate.tsx` |
+| Animation | `Testimonials.tsx` |
+
+### Cookie Consent Changes
+| Before | After |
+|--------|-------|
+| Cookie types grid (3 categories) | Removed |
+| `p-6 md:p-8` padding | `p-4 md:p-5` |
+| `shadow-2xl` | `shadow-lg` |
+| `max-w-6xl` | `max-w-3xl` |
+| 1500ms delay | 2500ms delay |
+| Spring slide animation | Simple fade |
+| Disabled | **Enabled** |
 
 ---
 
@@ -422,25 +487,69 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Stakeholder Review (Premium Calculations)
+### Priority 1: Form UI Standardisation (Deferred from S87)
+- [ ] Create shared `FloatingInput.tsx` component
+- [ ] Create shared `FloatingSelect.tsx` component
+- [ ] Create shared `FloatingTextarea.tsx` component
+- [ ] Migrate ContactForm.tsx to floating labels
+- [ ] Migrate ApplicationForm.tsx to floating labels
+- [ ] Migrate ApplicationModal.tsx to floating labels
+
+### Priority 2: Remaining UI Polish
+- [ ] Standardise icon sizes across components
+  - Card icons: `text-3xl` (30px)
+  - Button icons: `text-xl` (20px)
+  - Inline icons: `text-lg` (18px)
+- [ ] Enable gallery components (images already exist in `/public/images/`)
+  - Remove `isDev` gate from `AboutGallery.tsx`
+  - Remove `isDev` gate from `CultureGallery.tsx`
+
+### Priority 3: Stakeholder Review (Premium Calculations)
 - [ ] Review premium calculation formulas with product team
 - [ ] Validate R1.00/R1,000 base rate
 - [ ] Confirm smoker loading (1.5× vs industry 1.5–2.5×)
 - [ ] Decide on funeral age-banding and tier pricing
 
-### Priority 2: Content & Assets
-- [ ] Add TFG/Bolttech logos (when available)
-- [ ] Enable gallery components on production (pending images)
-- [ ] Review 75% sales stat with stakeholder
-
-### Priority 3: Pre-Production
-- [ ] Remove Development Banner
+### Priority 4: Pre-Production
+- [ ] Remove Development Banner (when ready)
 - [ ] Replace placeholder policy data
-- [ ] Re-enable cookie consent
+- [x] ~~Re-enable cookie consent~~ (Done in S87)
 
 ### Future Enhancements
 - [ ] WhatsApp click-to-chat button (floating widget like Tawk.to)
 - [ ] WhatsApp Business API integration (automated replies, chatbots)
+
+---
+
+## RECOMMENDATIONS (Session 87)
+
+### Quick Wins Available
+1. **Enable galleries** - Images already exist, just remove `isDev` checks (5 min)
+2. **Remove dev banner** - Single component removal when ready for production
+
+### Technical Debt to Address
+1. **Form inconsistency** - 3 different label patterns (labels-above, floating, placeholder-only)
+   - Recommended: Create shared FloatingInput components, migrate all forms
+   - Effort: ~2 hours
+
+2. **Duplicated FloatingInput code** - PartnerInquiryForm and CorporateInquiryForm have identical FloatingInput/FloatingSelect implementations
+   - Recommended: Extract to `src/components/ui/` as shared components
+
+3. **Legacy ContactForm** - Largest form, uses labels-above pattern, would benefit most from floating labels migration
+
+### Design System Now Documented
+The following standards were established in S87 and should be followed for all future components:
+
+| Element | Standard |
+|---------|----------|
+| Primary CTA | `h-12 px-8 rounded-xl shadow-lg shadow-primary/25` |
+| Hover effect | `scale: 1.03, y: -2` |
+| Major sections | `py-24 md:py-32` |
+| Container | `max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8` |
+| Carousel timing | `6000ms` |
+
+### Cookie Consent Now Live
+The simplified cookie consent banner is now enabled. Monitor user interactions and adjust delay (currently 2500ms) if needed based on analytics.
 
 ---
 
@@ -454,10 +563,12 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 - Corporate Solutions page (`/corporate`)
 - Dark mode, mobile responsive
 - Performance optimised (LCP 67% faster)
+- Cookie consent banner (ultra-minimal, POPIA compliant) ✨ NEW
+- UI consistency standards (CTAs, spacing, containers) ✨ NEW
 
-### Disabled
-- Cookie consent banner (re-enable in `ClientLayout.tsx`)
-- Gallery components (dev-only, pending images)
+### Disabled (Ready to Enable)
+- Gallery components (dev-only - images exist, just remove `isDev` gate)
+- Development banner (remove when ready for production)
 
 ---
 
@@ -518,10 +629,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-86)
+## SESSION HISTORY (40-87)
 
 | Session | Focus |
 |---------|-------|
+| S87 | UI consistency audit, CTA/spacing/container standardisation, cookie consent |
 | S86 | Website separation strategy documentation, migration playbook |
 | S85 | UI consistency polish, page updates, stakeholder email update |
 | S84 | Analytics setup, Speed Insights, custom event tracking |
@@ -563,4 +675,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 5 January 2026 (Session 86)*
+*Document updated: 5 January 2026 (Session 87)*
