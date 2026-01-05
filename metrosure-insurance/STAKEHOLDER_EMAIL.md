@@ -35,13 +35,12 @@ Your new website has evolved significantly since we last spoke. This is no longe
 | **Analytics Dashboard** | Vercel Analytics tracks visitor behaviour, form submissions, and conversion events. 5 custom events track quote, contact, partner, corporate, and career form completions. Speed Insights monitors real-user performance metrics. |
 | **Insurance Comparison Tool** | Side-by-side Life vs Funeral cover comparison with 4 customer scenarios (breadwinner, single, retired, young professional). Includes ASISA 2025 statistics and common misconceptions section. `/insurance/compare` |
 | **Centralised FAQ System** | 55+ researched questions across 11 categories including B2B. Category filtering, search functionality, and helper functions for future integrations. Based on ASISA, MiWayLife, and 1Life research. |
-| **WhatsApp Click-to-Chat** | Floating WhatsApp button enables instant enquiries. Positioned above live chat for two-channel engagement. Pre-filled message captures intent. |
 
 ### Platform Statistics
 
 - **45 Routes** (38 pages + 7 functional API endpoints)
 - **7 Working Forms** (Quote, Contact, Careers, Partner Inquiry, Corporate Inquiry, Calculator Email, Test Email)
-- **Live Chat + WhatsApp** with business hours and instant messaging options
+- **Live Chat (Tawk.to)** with business hours and offline form capture
 - **Coverage Calculator** with WhatsApp and email sharing
 - **Analytics Active** with 5 custom conversion events tracked
 - **3 B2B Case Studies** with real metrics
@@ -240,7 +239,7 @@ Your new website has evolved into a full lead-generation platform. Here's the up
 
 | Feature | Status |
 |---------|--------|
-| **Live Chat + WhatsApp** | Tawk.to (Mon-Fri 08:00-17:00) + WhatsApp floating button |
+| **Live Chat** | Tawk.to (Mon-Fri 08:00-17:00) with offline message capture |
 | **Coverage Calculator** | Life & Funeral calculators with WhatsApp/email sharing |
 | **Analytics Dashboard** | Vercel Analytics with 5 custom conversion events |
 | **Insurance Comparison** | Life vs Funeral cover comparison page with scenarios |
@@ -251,7 +250,7 @@ Your new website has evolved into a full lead-generation platform. Here's the up
 
 ### Platform Stats
 
-**45 pages built. 7 forms functional. Live chat + WhatsApp active. Analytics tracking. SEO-ready.**
+**45 pages built. 7 forms functional. Live chat active. Analytics tracking. SEO-ready.**
 
 - Analytics active with 5 custom conversion events
 - 67% faster page loads after optimisation
@@ -361,4 +360,4 @@ Before launch, ensure stakeholders have verified:
 ---
 
 *Created: December 26, 2025*
-*Updated: January 5, 2026 (Session 85) - Added analytics dashboard, WhatsApp click-to-chat, insurance comparison tool, centralised FAQ system, British English compliance. 45 routes total.*
+*Updated: January 5, 2026 (Session 85) - Added analytics dashboard, insurance comparison tool, centralised FAQ system, British English compliance. 45 routes total.*

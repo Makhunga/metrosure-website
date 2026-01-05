@@ -14,36 +14,23 @@
 
 ---
 
-## SESSION 85 (5 Jan 2026) - WhatsApp Widget & UI Polish
+## SESSION 85 (5 Jan 2026) - UI Polish & Page Updates
 
 ### Focus
-Implemented WhatsApp floating chat widget and UI consistency polish. Updated stakeholder email with Sessions 75-84 progress.
-
-### Files Created
-| File | Description |
-|------|-------------|
-| `src/components/WhatsAppChatWidget.tsx` | Floating WhatsApp click-to-chat button |
+UI consistency polish, page updates (About hero, Careers hero). Updated stakeholder email with Sessions 75-84 progress. WhatsApp widget implemented then removed (postponed for later).
 
 ### Files Modified
 | File | Change |
 |------|--------|
-| `src/lib/whatsapp.ts` | Added `generateGeneralEnquiryUrl()` function |
-| `src/app/layout.tsx` | Added `<WhatsAppChatWidget />` component |
+| `src/lib/whatsapp.ts` | Added `generateGeneralEnquiryUrl()` function (kept for future use) |
 | `src/components/contact/ContactForm.tsx` | Standardised focus rings to `/20`, button hover to CSS variable |
 | `src/components/corporate/CorporateInquiryForm.tsx` | Button hover consistency fix |
 | `src/components/careers/ApplicationForm.tsx` | Button hover consistency fix |
 | `src/components/partners/PartnerInquiryForm.tsx` | Button hover consistency fix |
 | `src/components/tools/*.tsx` | Button hover consistency fixes (5 files) |
+| `src/app/about/page.tsx` | Removed "About Us" badge from hero |
+| `src/components/careers/CareersHero.tsx` | Added blocks3D.jpg background (8% light, 20% inverted dark) |
 | `STAKEHOLDER_EMAIL.md` | Updated with Sessions 75-84 features |
-
-### WhatsApp Widget Features
-- Floating button positioned above Tawk.to (bottom: 100px, right: 20px)
-- WhatsApp green (#25D366) with spring animation entrance
-- 2-second delay before showing
-- Pulse ring animation for attention
-- Respects reduced motion preferences
-- Opens WhatsApp with pre-filled enquiry message
-- Phone: 087 265 1891 (27872651891)
 
 ### UI Consistency Fixes
 | Issue | Fix |
@@ -51,18 +38,11 @@ Implemented WhatsApp floating chat widget and UI consistency polish. Updated sta
 | Button hover states | Replaced hardcoded `#a50502` with `rgb(var(--color-primary-hover))` in 10 files |
 | Focus ring opacity | Standardised from `/15 dark:/25` to `/20` across all forms |
 
-### Page Updates
-| Page | Change |
-|------|--------|
-| About (`/about`) | Removed "About Us" badge from hero section |
-| Careers (`/careers`) | Added blocks3D.jpg background to hero (8% opacity light, 20% inverted dark) |
-
 ### Stakeholder Email Updates
 Added to email templates:
 - Analytics Dashboard feature
 - Insurance Comparison Tool feature
 - Centralised FAQ System feature
-- WhatsApp Click-to-Chat feature
 - Updated stats: 45 routes, analytics active, British English copy
 
 ---
@@ -480,7 +460,7 @@ public/images/  # Static assets
 
 | Session | Focus |
 |---------|-------|
-| S85 | WhatsApp floating widget, UI consistency polish, stakeholder email update |
+| S85 | UI consistency polish, page updates, stakeholder email update |
 | S84 | Analytics setup, Speed Insights, custom event tracking |
 | S83 | Content creation, CLAUDE.md, comparison page, FAQ data |
 | S82 | Web Development Brief (Zoocora) |
