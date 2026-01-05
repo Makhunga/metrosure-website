@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 5 January 2026 (Session 85)
+**Updated:** 5 January 2026 (Session 86)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,56 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 5 January 2026
+
+---
+
+## SESSION 86 (5 Jan 2026) - Website Separation Strategy
+
+### Focus
+Created comprehensive website separation strategy documentation with research-backed recommendations for splitting Metrosure Insurance from Metrosure Consult.
+
+### Skills Used
+- `content-research-writer` - Industry research with citations
+- `Explore` agent - Codebase analysis
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `docs/WEBSITE_SEPARATION_STRATEGY.md` | Full strategy document (~950 lines) with playbook, site maps, technical appendix |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `EMAIL_DRAFT_Website_Separation_Strategy.md` | Transformed into concise executive summary linking to full strategy doc |
+
+### Strategy Document Contents
+- **Part 1:** Business case with regulatory analysis (FSCA/FSP compliance)
+- **Part 2:** Current state analysis (8.5/10 separation readiness score)
+- **Part 3:** Recommended three-site architecture
+- **Part 4:** Site structures with navigation maps
+- **Part 5:** 12-week migration playbook (5 phases)
+- **Part 6:** Risk mitigation (SEO, redirects, analytics)
+- **Part 7:** Investment & resources (with removable budget estimates)
+- **Part 8:** Success metrics & KPIs
+- **Appendices:** Technical specs, redirect map template, launch checklist
+
+### Key Findings
+| Aspect | Insurance (B2C) | Consulting (B2B) |
+|--------|-----------------|------------------|
+| Regulator | FSCA (FSP 47089) | None |
+| Decision timeline | Days to weeks | Months to years |
+| Average value | R500-R50,000/year | R500,000-R5M/project |
+
+### Industry Precedents Cited
+- eBay/PayPal (2015): PayPal grew from $49B to $82B post-separation
+- HP/HPE (2015): HPE reported $28B revenue by 2022
+- Gap Inc.: Distinct brands, shared backend
+
+### Research Sources
+- [Webstacks](https://www.webstacks.com/blog/multi-brand-websites)
+- [PwC](https://www.pwc.com/us/en/services/consulting/deals/divestitures/successful-spinoffs.html)
+- [EY](https://www.ey.com/en_us/insights/divestitures)
+- [FSCA](https://www.fsca.co.za/)
 
 ---
 
@@ -456,10 +506,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-85)
+## SESSION HISTORY (40-86)
 
 | Session | Focus |
 |---------|-------|
+| S86 | Website separation strategy documentation, migration playbook |
 | S85 | UI consistency polish, page updates, stakeholder email update |
 | S84 | Analytics setup, Speed Insights, custom event tracking |
 | S83 | Content creation, CLAUDE.md, comparison page, FAQ data |
@@ -500,4 +551,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 5 January 2026 (Session 85)*
+*Document updated: 5 January 2026 (Session 86)*
