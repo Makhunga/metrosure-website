@@ -267,15 +267,15 @@ export default function CaseStudies() {
     <section
       className="relative py-24 bg-[rgb(var(--color-surface))] transition-colors duration-300 overflow-hidden"
     >
-      {/* Decorative watermark */}
+      {/* Extended decorative watermark - Proven Results */}
       <motion.div
-        className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-8xl md:text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        className="absolute left-1/2 -translate-x-1/2 top-0 md:top-4 text-[8rem] md:text-[12rem] lg:text-[14rem] font-black text-slate-200/40 dark:text-white/[0.04] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tighter"
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={{ duration: 1, delay: 0.1 }}
       >
-        Success Stories
+        Proven Results
       </motion.div>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -287,21 +287,12 @@ export default function CaseStudies() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span
-            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: 0.2 }}
-          >
-            Proven Results
-          </motion.span>
           <motion.h2
             className="text-4xl md:text-5xl font-bold text-[rgb(var(--color-text-main))] mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.2 }}
           >
             Partnership Success Stories
           </motion.h2>

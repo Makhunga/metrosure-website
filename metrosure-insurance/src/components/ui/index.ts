@@ -12,6 +12,9 @@ export type { FloatingSelectProps, SelectOption } from "./FloatingSelect";
 export { FloatingTextarea } from "./FloatingTextarea";
 export type { FloatingTextareaProps } from "./FloatingTextarea";
 
+export { FloatingDateInput } from "./FloatingDateInput";
+export type { FloatingDateInputProps } from "./FloatingDateInput";
+
 // Form components - Icon pattern
 export { InputIcon } from "./InputIcon";
 

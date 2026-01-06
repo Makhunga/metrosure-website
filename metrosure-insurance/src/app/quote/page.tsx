@@ -5,10 +5,12 @@ import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { FormSuccess } from "@/components/ui/FormSuccess";
+import {
+  FormSuccess,
+  FloatingInput,
+  FloatingSelect,
+} from "@/components/ui";
 import { MagneticButton } from "@/components/animations";
-import { InputIcon } from "@/components/ui/InputIcon";
-import { InlineError } from "@/components/ui/InlineError";
 import { PriceBreakdown } from "@/components/quote/PriceBreakdown";
 import {
   FieldState,
@@ -17,7 +19,6 @@ import {
   validatePhone,
   validateRequired,
   validateFutureDate,
-  getInputClassesWithIcon
 } from "@/lib/formValidation";
 import {
   calculatePremium,
@@ -763,92 +764,42 @@ export default function QuotePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2">
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Company Name
-                      </label>
-                      <div className="relative">
-                        <InputIcon
-                          icon="business"
-                          valid={getFieldState("companyName").valid}
-                          touched={getFieldState("companyName").touched}
-                        />
-                        <input
-                          type="text"
-                          value={formData.companyName}
-                          onChange={(e) => updateFormData({ companyName: e.target.value })}
-                          onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
-                          className={getInputClassesWithIcon(getFieldState("companyName"))}
-                          placeholder="Acme Corporation (Pty) Ltd"
-                          aria-required="true"
-                        />
-                      </div>
-                      <InlineError error={getFieldState("companyName").error} id="companyName-error" />
+                      <FloatingInput
+                        name="companyName"
+                        label="Company Name"
+                        value={formData.companyName}
+                        required
+                        onChange={(e) => updateFormData({ companyName: e.target.value })}
+                        onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
+                        fieldState={getFieldState("companyName")}
+                      />
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Business Type
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={formData.businessType}
-                          onChange={(e) => updateFormData({ businessType: e.target.value as BusinessType })}
-                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
-                        >
-                          <option value="">Select business type</option>
-                          {businessTypeOptions.map((option) => (
-                            <option key={option.id} value={option.id}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                          <span className="material-symbols-outlined text-xl">expand_more</span>
-                        </div>
-                      </div>
-                    </div>
+                    <FloatingSelect
+                      name="businessType"
+                      label="Business Type"
+                      options={businessTypeOptions.map((o) => ({ value: o.id, label: o.label }))}
+                      value={formData.businessType}
+                      required
+                      onChange={(e) => updateFormData({ businessType: e.target.value as BusinessType })}
+                    />
 
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Number of Employees
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={formData.numberOfEmployees}
-                          onChange={(e) => updateFormData({ numberOfEmployees: e.target.value as EmployeeRange })}
-                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
-                        >
-                          <option value="">Select employee range</option>
-                          {employeeRangeOptions.map((option) => (
-                            <option key={option.id} value={option.id}>
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                          <span className="material-symbols-outlined text-xl">expand_more</span>
-                        </div>
-                      </div>
-                    </div>
+                    <FloatingSelect
+                      name="numberOfEmployees"
+                      label="Number of Employees"
+                      options={employeeRangeOptions.map((o) => ({ value: o.id, label: o.label }))}
+                      value={formData.numberOfEmployees}
+                      required
+                      onChange={(e) => updateFormData({ numberOfEmployees: e.target.value as EmployeeRange })}
+                    />
 
                     <div className="md:col-span-2">
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Industry <span className="font-normal text-slate-400">(Optional)</span>
-                      </label>
-                      <div className="relative">
-                        <InputIcon
-                          icon="category"
-                          valid={false}
-                          touched={false}
-                        />
-                        <input
-                          type="text"
-                          value={formData.industry}
-                          onChange={(e) => updateFormData({ industry: e.target.value })}
-                          className={getInputClassesWithIcon({ touched: false, error: null, valid: false })}
-                          placeholder="e.g. Clothing, Electronics, Furniture"
-                        />
-                      </div>
+                      <FloatingInput
+                        name="industry"
+                        label="Industry (Optional)"
+                        value={formData.industry}
+                        onChange={(e) => updateFormData({ industry: e.target.value })}
+                      />
                     </div>
                   </div>
 
@@ -893,125 +844,58 @@ export default function QuotePage() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        First Name
-                      </label>
-                      <div className="relative">
-                        <InputIcon
-                          icon="person"
-                          valid={getFieldState("firstName").valid}
-                          touched={getFieldState("firstName").touched}
-                        />
-                        <input
-                          type="text"
-                          value={formData.firstName}
-                          onChange={(e) => updateFormData({ firstName: e.target.value })}
-                          onBlur={(e) => validateField("firstName", e.target.value, (v) => validateRequired(v, "First name"))}
-                          className={getInputClassesWithIcon(getFieldState("firstName"))}
-                          placeholder="John"
-                          aria-required="true"
-                          aria-invalid={getFieldState("firstName").error ? "true" : undefined}
-                          aria-describedby={getFieldState("firstName").error ? "firstName-error" : undefined}
-                        />
-                      </div>
-                      <InlineError error={getFieldState("firstName").error} id="firstName-error" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Last Name
-                      </label>
-                      <div className="relative">
-                        <InputIcon
-                          icon="badge"
-                          valid={getFieldState("lastName").valid}
-                          touched={getFieldState("lastName").touched}
-                        />
-                        <input
-                          type="text"
-                          value={formData.lastName}
-                          onChange={(e) => updateFormData({ lastName: e.target.value })}
-                          onBlur={(e) => validateField("lastName", e.target.value, (v) => validateRequired(v, "Last name"))}
-                          className={getInputClassesWithIcon(getFieldState("lastName"))}
-                          placeholder="Doe"
-                          aria-required="true"
-                          aria-invalid={getFieldState("lastName").error ? "true" : undefined}
-                          aria-describedby={getFieldState("lastName").error ? "lastName-error" : undefined}
-                        />
-                      </div>
-                      <InlineError error={getFieldState("lastName").error} id="lastName-error" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Email Address
-                      </label>
-                      <div className="relative">
-                        <InputIcon
-                          icon="mail"
-                          valid={getFieldState("email").valid}
-                          touched={getFieldState("email").touched}
-                        />
-                        <input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => updateFormData({ email: e.target.value })}
-                          onBlur={(e) => validateField("email", e.target.value, validateEmail)}
-                          className={getInputClassesWithIcon(getFieldState("email"))}
-                          placeholder="john@example.com"
-                          aria-required="true"
-                          aria-invalid={getFieldState("email").error ? "true" : undefined}
-                          aria-describedby={getFieldState("email").error ? "email-error" : undefined}
-                        />
-                      </div>
-                      <InlineError error={getFieldState("email").error} id="email-error" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Phone Number
-                      </label>
-                      <div className="relative">
-                        <InputIcon
-                          icon="call"
-                          valid={getFieldState("phone").valid}
-                          touched={getFieldState("phone").touched}
-                        />
-                        <input
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => updateFormData({ phone: e.target.value })}
-                          onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
-                          className={getInputClassesWithIcon(getFieldState("phone"))}
-                          placeholder="+27 XX XXX XXXX"
-                          aria-required="true"
-                          aria-invalid={getFieldState("phone").error ? "true" : undefined}
-                          aria-describedby={getFieldState("phone").error ? "phone-error" : undefined}
-                        />
-                      </div>
-                      <InlineError error={getFieldState("phone").error} id="phone-error" />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Area Code
-                      </label>
-                      <div className="relative w-full md:w-1/2">
-                        <InputIcon
-                          icon="location_on"
-                          valid={getFieldState("zipCode").valid}
-                          touched={getFieldState("zipCode").touched}
-                        />
-                        <input
-                          type="text"
-                          value={formData.zipCode}
-                          onChange={(e) => updateFormData({ zipCode: e.target.value })}
-                          onBlur={(e) => validateField("zipCode", e.target.value, (v) => validateRequired(v, "Area code"))}
-                          className={getInputClassesWithIcon(getFieldState("zipCode"))}
-                          placeholder="4001"
-                          aria-required="true"
-                          aria-invalid={getFieldState("zipCode").error ? "true" : undefined}
-                          aria-describedby={getFieldState("zipCode").error ? "zipCode-error" : undefined}
-                        />
-                      </div>
-                      <InlineError error={getFieldState("zipCode").error} id="zipCode-error" />
+                    <FloatingInput
+                      name="firstName"
+                      label="First Name"
+                      value={formData.firstName}
+                      required
+                      onChange={(e) => updateFormData({ firstName: e.target.value })}
+                      onBlur={(e) => validateField("firstName", e.target.value, (v) => validateRequired(v, "First name"))}
+                      fieldState={getFieldState("firstName")}
+                    />
+
+                    <FloatingInput
+                      name="lastName"
+                      label="Last Name"
+                      value={formData.lastName}
+                      required
+                      onChange={(e) => updateFormData({ lastName: e.target.value })}
+                      onBlur={(e) => validateField("lastName", e.target.value, (v) => validateRequired(v, "Last name"))}
+                      fieldState={getFieldState("lastName")}
+                    />
+
+                    <FloatingInput
+                      name="email"
+                      label="Email Address"
+                      type="email"
+                      value={formData.email}
+                      required
+                      onChange={(e) => updateFormData({ email: e.target.value })}
+                      onBlur={(e) => validateField("email", e.target.value, validateEmail)}
+                      fieldState={getFieldState("email")}
+                    />
+
+                    <FloatingInput
+                      name="phone"
+                      label="Phone Number"
+                      type="tel"
+                      value={formData.phone}
+                      required
+                      onChange={(e) => updateFormData({ phone: e.target.value })}
+                      onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
+                      fieldState={getFieldState("phone")}
+                    />
+
+                    <div className="md:col-span-2 md:w-1/2">
+                      <FloatingInput
+                        name="zipCode"
+                        label="Area Code"
+                        value={formData.zipCode}
+                        required
+                        onChange={(e) => updateFormData({ zipCode: e.target.value })}
+                        onBlur={(e) => validateField("zipCode", e.target.value, (v) => validateRequired(v, "Area code"))}
+                        fieldState={getFieldState("zipCode")}
+                      />
                     </div>
                   </div>
                 </motion.div>
@@ -1100,75 +984,47 @@ export default function QuotePage() {
                   </div>
 
                   <div className="space-y-6">
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Coverage Amount
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={formData.coverageAmount}
-                          onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
-                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
-                        >
-                          <option value="">Select coverage amount</option>
-                          <option value="1000000">R1,000,000</option>
-                          <option value="2500000">R2,500,000</option>
-                          <option value="5000000">R5,000,000</option>
-                          <option value="10000000">R10,000,000</option>
-                          <option value="15000000">R15,000,000</option>
-                          <option value="20000000">R20,000,000</option>
-                          <option value="custom">Custom Amount</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                          <span className="material-symbols-outlined text-xl">expand_more</span>
-                        </div>
-                      </div>
-                    </div>
+                    <FloatingSelect
+                      name="coverageAmount"
+                      label="Coverage Amount"
+                      options={[
+                        { value: "1000000", label: "R1,000,000" },
+                        { value: "2500000", label: "R2,500,000" },
+                        { value: "5000000", label: "R5,000,000" },
+                        { value: "10000000", label: "R10,000,000" },
+                        { value: "15000000", label: "R15,000,000" },
+                        { value: "20000000", label: "R20,000,000" },
+                        { value: "custom", label: "Custom Amount" },
+                      ]}
+                      value={formData.coverageAmount}
+                      required
+                      onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
+                    />
 
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Excess
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={formData.deductible}
-                          onChange={(e) => updateFormData({ deductible: e.target.value })}
-                          className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all appearance-none pr-10 sm:pr-12"
-                        >
-                          <option value="">Select excess</option>
-                          <option value="5000">R5,000 (Higher Premium)</option>
-                          <option value="10000">R10,000 (Recommended)</option>
-                          <option value="25000">R25,000 (Lower Premium)</option>
-                          <option value="50000">R50,000 (Lowest Premium)</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500 dark:text-slate-400">
-                          <span className="material-symbols-outlined text-xl">expand_more</span>
-                        </div>
-                      </div>
-                    </div>
+                    <FloatingSelect
+                      name="deductible"
+                      label="Excess"
+                      options={[
+                        { value: "5000", label: "R5,000 (Higher Premium)" },
+                        { value: "10000", label: "R10,000 (Recommended)" },
+                        { value: "25000", label: "R25,000 (Lower Premium)" },
+                        { value: "50000", label: "R50,000 (Lowest Premium)" },
+                      ]}
+                      value={formData.deductible}
+                      required
+                      onChange={(e) => updateFormData({ deductible: e.target.value })}
+                    />
 
-                    <div>
-                      <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wider ml-1 mb-2">
-                        Desired Start Date
-                      </label>
-                      <input
-                        type="date"
-                        value={formData.startDate}
-                        onChange={(e) => updateFormData({ startDate: e.target.value })}
-                        onBlur={(e) => validateField("startDate", e.target.value, (v) => validateFutureDate(v, "Start date"))}
-                        className={`w-full px-4 py-3.5 rounded-xl border ${
-                          getFieldState("startDate").touched && getFieldState("startDate").error
-                            ? "border-2 border-red-400 bg-red-50 dark:bg-red-900/15"
-                            : getFieldState("startDate").touched && getFieldState("startDate").valid
-                            ? "border-2 border-green-400 bg-green-50 dark:bg-green-900/15"
-                            : "border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50"
-                        } text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-slate-700 transition-all`}
-                        aria-required="true"
-                        aria-invalid={getFieldState("startDate").error ? "true" : undefined}
-                        aria-describedby={getFieldState("startDate").error ? "startDate-error" : undefined}
-                      />
-                      <InlineError error={getFieldState("startDate").error} id="startDate-error" />
-                    </div>
+                    <FloatingInput
+                      name="startDate"
+                      label="Desired Start Date"
+                      type="date"
+                      value={formData.startDate}
+                      required
+                      onChange={(e) => updateFormData({ startDate: e.target.value })}
+                      onBlur={(e) => validateField("startDate", e.target.value, (v) => validateFutureDate(v, "Start date"))}
+                      fieldState={getFieldState("startDate")}
+                    />
 
                     {formData.coverageType && additionalCoverageOptions[formData.coverageType] && (
                       <div>

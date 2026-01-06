@@ -2,18 +2,18 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Modal } from "@/components/ui/Modal";
-import { FormSuccess } from "@/components/ui/FormSuccess";
-import { InputIcon } from "@/components/ui/InputIcon";
-import { InlineError } from "@/components/ui/InlineError";
+import {
+  Modal,
+  FormSuccess,
+  FloatingInput,
+  FloatingSelect,
+} from "@/components/ui";
 import {
   FieldState,
   FieldStates,
   validateEmail,
   validatePhone,
   validateRequired,
-  getInputClassesWithIcon,
-  labelClasses,
 } from "@/lib/formValidation";
 import {
   provincesWithAny as provinces,
@@ -117,10 +117,6 @@ export default function ApplicationModal({
       return () => clearTimeout(timeout);
     }
   }, [isOpen]);
-
-  // Standard input classes for selects (no icon/validation state)
-  const selectClasses =
-    "w-full rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all py-3.5 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm";
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -267,193 +263,92 @@ export default function ApplicationModal({
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Personal Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className={labelClasses} htmlFor="modal-fullName">
-                    Full Name *
-                  </label>
-                  <div className="relative">
-                    <InputIcon
-                      icon="person"
-                      valid={getFieldState("fullName").valid}
-                      touched={getFieldState("fullName").touched}
-                    />
-                    <input
-                      className={getInputClassesWithIcon(getFieldState("fullName"))}
-                      id="modal-fullName"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      onBlur={(e) =>
-                        validateField("fullName", e.target.value, (v) =>
-                          validateRequired(v, "Full name")
-                        )
-                      }
-                      placeholder="Your full name"
-                      required
-                    />
-                  </div>
-                  <InlineError error={getFieldState("fullName").error} />
-                </div>
-                <div>
-                  <label className={labelClasses} htmlFor="modal-email">
-                    Email Address *
-                  </label>
-                  <div className="relative">
-                    <InputIcon
-                      icon="mail"
-                      valid={getFieldState("email").valid}
-                      touched={getFieldState("email").touched}
-                    />
-                    <input
-                      className={getInputClassesWithIcon(getFieldState("email"))}
-                      id="modal-email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      onBlur={(e) => validateField("email", e.target.value, validateEmail)}
-                      placeholder="you@email.com"
-                      required
-                    />
-                  </div>
-                  <InlineError error={getFieldState("email").error} />
-                </div>
+                <FloatingInput
+                  name="fullName"
+                  label="Full Name"
+                  value={formData.fullName}
+                  required
+                  onChange={handleInputChange}
+                  onBlur={(e) =>
+                    validateField("fullName", e.target.value, (v) =>
+                      validateRequired(v, "Full name")
+                    )
+                  }
+                  fieldState={getFieldState("fullName")}
+                />
+
+                <FloatingInput
+                  name="email"
+                  label="Email Address"
+                  type="email"
+                  value={formData.email}
+                  required
+                  onChange={handleInputChange}
+                  onBlur={(e) => validateField("email", e.target.value, validateEmail)}
+                  fieldState={getFieldState("email")}
+                />
               </div>
 
-              <div>
-                <label className={labelClasses} htmlFor="modal-phone">
-                  Phone Number *
-                </label>
-                <div className="relative">
-                  <InputIcon
-                    icon="call"
-                    valid={getFieldState("phone").valid}
-                    touched={getFieldState("phone").touched}
-                  />
-                  <input
-                    className={getInputClassesWithIcon(getFieldState("phone"))}
-                    id="modal-phone"
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
-                    placeholder="+27 XX XXX XXXX"
-                    required
-                  />
-                </div>
-                <InlineError error={getFieldState("phone").error} />
-              </div>
+              <FloatingInput
+                name="phone"
+                label="Phone Number"
+                type="tel"
+                value={formData.phone}
+                required
+                onChange={handleInputChange}
+                onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
+                fieldState={getFieldState("phone")}
+              />
 
               {/* Position & Province */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className={labelClasses} htmlFor="modal-position">
-                    Position Interested In *
-                  </label>
-                  <div className="relative">
-                    <select
-                      className={`${selectClasses} appearance-none pr-10`}
-                      id="modal-position"
-                      name="position"
-                      value={formData.position}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select position...</option>
-                      {positions.map((pos) => (
-                        <option key={pos.value} value={pos.value}>
-                          {pos.label}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
-                      <span className="material-symbols-outlined text-lg">expand_more</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <label className={labelClasses} htmlFor="modal-province">
-                    Province *
-                  </label>
-                  <div className="relative">
-                    <select
-                      className={`${selectClasses} appearance-none pr-10`}
-                      id="modal-province"
-                      name="province"
-                      value={formData.province}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select province...</option>
-                      {provinces.map((prov) => (
-                        <option key={prov.value} value={prov.value}>
-                          {prov.label}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
-                      <span className="material-symbols-outlined text-lg">expand_more</span>
-                    </div>
-                  </div>
-                </div>
+                <FloatingSelect
+                  name="position"
+                  label="Position Interested In"
+                  options={positions}
+                  value={formData.position}
+                  required
+                  onChange={handleInputChange}
+                />
+
+                <FloatingSelect
+                  name="province"
+                  label="Province"
+                  options={provinces}
+                  value={formData.province}
+                  required
+                  onChange={handleInputChange}
+                />
               </div>
 
               {/* Experience & Relocation */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className={labelClasses} htmlFor="modal-experience">
-                    Years of Experience *
-                  </label>
-                  <div className="relative">
-                    <select
-                      className={`${selectClasses} appearance-none pr-10`}
-                      id="modal-experience"
-                      name="experience"
-                      value={formData.experience}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select experience...</option>
-                      {experienceLevels.map((exp) => (
-                        <option key={exp.value} value={exp.value}>
-                          {exp.label}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
-                      <span className="material-symbols-outlined text-lg">expand_more</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <label className={labelClasses} htmlFor="modal-willingToRelocate">
-                    Willing to Relocate? *
-                  </label>
-                  <div className="relative">
-                    <select
-                      className={`${selectClasses} appearance-none pr-10`}
-                      id="modal-willingToRelocate"
-                      name="willingToRelocate"
-                      value={formData.willingToRelocate}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select...</option>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                      <option value="depends">Depends on location</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500 dark:text-slate-400">
-                      <span className="material-symbols-outlined text-lg">expand_more</span>
-                    </div>
-                  </div>
-                </div>
+                <FloatingSelect
+                  name="experience"
+                  label="Years of Experience"
+                  options={experienceLevels}
+                  value={formData.experience}
+                  required
+                  onChange={handleInputChange}
+                />
+
+                <FloatingSelect
+                  name="willingToRelocate"
+                  label="Willing to Relocate?"
+                  options={[
+                    { value: "yes", label: "Yes" },
+                    { value: "no", label: "No" },
+                    { value: "depends", label: "Depends on location" },
+                  ]}
+                  value={formData.willingToRelocate}
+                  required
+                  onChange={handleInputChange}
+                />
               </div>
 
               {/* CV Upload */}
               <div>
-                <label className={labelClasses}>Upload CV (Optional)</label>
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Upload CV (Optional)</label>
                 <div
                   className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${
                     fileName

@@ -1,6 +1,7 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { InlineError } from "@/components/ui/InlineError";
 import type { FieldState } from "@/lib/formValidation";
@@ -61,14 +62,31 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>(
       showCharCount = false,
       charCount,
       maxLength,
+      onFocus,
+      onBlur,
       ...props
     },
     ref
   ) => {
+    const [isFocused, setIsFocused] = useState(false);
     const hasError = fieldState.touched && fieldState.error;
     const isValid = fieldState.touched && fieldState.valid;
     const currentLength = charCount ?? (typeof value === "string" ? value.length : 0);
     const isAtLimit = maxLength ? currentLength >= maxLength : false;
+    const hasValue = value !== "" && value !== undefined;
+
+    // Label should float when focused OR has value
+    const shouldFloat = isFocused || hasValue;
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
+      onFocus?.(e);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+      onBlur?.(e);
+    };
 
     return (
       <div className={cn("relative", wrapperClassName)}>
@@ -78,16 +96,17 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>(
           id={name}
           name={name}
           value={value}
-          placeholder={label}
+          placeholder=" "
           required={required}
           maxLength={maxLength}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           className={cn(
             // Base styles
-            "peer w-full pt-6 pb-3 px-4 rounded-xl",
+            "w-full pt-6 pb-3 px-4 rounded-xl",
             "bg-white dark:bg-slate-800",
             "text-slate-900 dark:text-white",
-            "placeholder-transparent",
-            "transition-all duration-200",
+            "transition-colors duration-200",
             "focus:outline-none focus:ring-0",
             // Border styles
             "border-2",
@@ -102,27 +121,36 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>(
           aria-describedby={hasError ? `${name}-error` : undefined}
           {...props}
         />
-        <label
+        <motion.label
           htmlFor={name}
           className={cn(
-            "absolute left-4 transition-all duration-200 pointer-events-none",
-            // Default position (floating)
-            "top-2 text-xs",
-            // When empty and not focused
-            "peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base",
-            // On focus
-            "peer-focus:top-2 peer-focus:text-xs peer-focus:-translate-y-0",
+            "absolute left-3 pointer-events-none origin-left",
+            // Background to mask border when floating
+            shouldFloat && "bg-white dark:bg-slate-800 px-1",
             // Colour states
             hasError
               ? "text-red-500"
               : isValid
                 ? "text-green-500"
-                : "text-slate-400 peer-focus:text-primary"
+                : isFocused
+                  ? "text-primary"
+                  : "text-slate-400"
           )}
+          initial={false}
+          animate={{
+            y: shouldFloat ? -24 : 8,
+            scale: shouldFloat ? 0.85 : 1,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 25,
+          }}
+          style={{ top: 16 }}
         >
           {label}
           {required && <span className="text-primary ml-0.5">*</span>}
-        </label>
+        </motion.label>
 
         {/* Character count */}
         {showCharCount && maxLength && (

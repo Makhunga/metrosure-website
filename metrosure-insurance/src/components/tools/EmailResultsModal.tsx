@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Modal } from "@/components/ui/Modal";
+import { Modal, FloatingInput } from "@/components/ui";
 import { CalculatorResultData } from "@/lib/whatsapp";
+import { FieldState } from "@/lib/formValidation";
 
 interface EmailResultsModalProps {
   isOpen: boolean;
@@ -172,54 +173,23 @@ export function EmailResultsModal({
               className="space-y-4"
             >
               {/* Email Input */}
-              <div>
-                <label
-                  htmlFor="email-results"
-                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
-                >
-                  Email address
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
-                    <span className="material-symbols-outlined text-xl">
-                      mail
-                    </span>
-                  </span>
-                  <input
-                    type="email"
-                    id="email-results"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (errorMessage) setErrorMessage("");
-                    }}
-                    placeholder="you@example.com"
-                    disabled={submitState === "loading"}
-                    className={`w-full pl-12 pr-4 py-3.5 rounded-xl border bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 transition-all ${
-                      errorMessage
-                        ? "border-red-400 dark:border-red-500 focus:ring-red-200 dark:focus:ring-red-800"
-                        : "border-slate-200 dark:border-slate-600 focus:ring-primary/20 focus:border-primary"
-                    } disabled:opacity-60 disabled:cursor-not-allowed`}
-                  />
-                </div>
-
-                {/* Error Message */}
-                <AnimatePresence>
-                  {errorMessage && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -4, height: 0 }}
-                      animate={{ opacity: 1, y: 0, height: "auto" }}
-                      exit={{ opacity: 0, y: -4, height: 0 }}
-                      className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1.5"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        error
-                      </span>
-                      {errorMessage}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </div>
+              <FloatingInput
+                name="email-results"
+                label="Email Address"
+                type="email"
+                value={email}
+                required
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errorMessage) setErrorMessage("");
+                }}
+                disabled={submitState === "loading"}
+                fieldState={{
+                  touched: !!errorMessage,
+                  error: errorMessage || null,
+                  valid: !errorMessage && email.length > 0,
+                } as FieldState}
+              />
 
               {/* Submit Button */}
               <motion.button

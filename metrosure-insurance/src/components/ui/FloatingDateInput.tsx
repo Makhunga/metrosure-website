@@ -7,85 +7,52 @@ import { InlineError } from "@/components/ui/InlineError";
 import type { FieldState } from "@/lib/formValidation";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// FLOATING SELECT COMPONENT
-// Shared floating label select following the Metrosure design system
+// FLOATING DATE INPUT COMPONENT
+// Shared floating label date input following the Metrosure design system
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** Option can be a string or an object with value and label */
-export type SelectOption = string | { value: string; label: string };
-
-export interface FloatingSelectProps
-  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "className"> {
-  /** Select label text */
+export interface FloatingDateInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "className" | "type"> {
+  /** Input label text */
   label: string;
-  /** Array of options - can be strings or { value, label } objects */
-  options: SelectOption[];
   /** Field validation state from formValidation lib */
   fieldState?: FieldState;
   /** Additional wrapper className */
   wrapperClassName?: string;
-  /** Placeholder text shown when no value selected */
-  placeholder?: string;
 }
 
 /**
- * Normalise option to { value, label } format
- */
-function normaliseOption(option: SelectOption): { value: string; label: string } {
-  if (typeof option === "string") {
-    return { value: option, label: option };
-  }
-  return option;
-}
-
-/**
- * FloatingSelect - A floating label select component
+ * FloatingDateInput - A floating label date input component
  *
  * Features:
- * - Floating label that appears when value is selected
- * - Supports both string[] and { value, label }[] options
+ * - Floating label that animates on focus/value
  * - Dark mode support via CSS variables
  * - Validation states (error, success)
- * - Custom dropdown arrow icon
+ * - Custom calendar icon
  * - Full accessibility support
  *
  * @example
  * ```tsx
- * // With string options
- * <FloatingSelect
- *   name="province"
- *   label="Province"
- *   options={["Gauteng", "Western Cape", "KwaZulu-Natal"]}
- *   value={province}
+ * <FloatingDateInput
+ *   name="startDate"
+ *   label="Start Date"
+ *   value={startDate}
  *   required
  *   onChange={handleChange}
- * />
- *
- * // With object options
- * <FloatingSelect
- *   name="industry"
- *   label="Industry"
- *   options={[
- *     { value: "retail", label: "Retail" },
- *     { value: "tech", label: "Technology" }
- *   ]}
- *   value={industry}
- *   required
- *   onChange={handleChange}
+ *   onBlur={handleBlur}
+ *   fieldState={getFieldState("startDate")}
  * />
  * ```
  */
-export const FloatingSelect = forwardRef<HTMLSelectElement, FloatingSelectProps>(
+export const FloatingDateInput = forwardRef<HTMLInputElement, FloatingDateInputProps>(
   (
     {
       name,
       label,
-      options,
       value,
       required = false,
       fieldState = { touched: false, error: null, valid: false },
       wrapperClassName,
-      placeholder,
       onFocus,
       onBlur,
       ...props
@@ -100,20 +67,21 @@ export const FloatingSelect = forwardRef<HTMLSelectElement, FloatingSelectProps>
     // Label should float when focused OR has value
     const shouldFloat = isFocused || hasValue;
 
-    const handleFocus = (e: React.FocusEvent<HTMLSelectElement>) => {
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
       onFocus?.(e);
     };
 
-    const handleBlur = (e: React.FocusEvent<HTMLSelectElement>) => {
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(false);
       onBlur?.(e);
     };
 
     return (
       <div className={cn("relative", wrapperClassName)}>
-        <select
+        <input
           ref={ref}
+          type="date"
           id={name}
           name={name}
           value={value}
@@ -122,11 +90,18 @@ export const FloatingSelect = forwardRef<HTMLSelectElement, FloatingSelectProps>
           onBlur={handleBlur}
           className={cn(
             // Base styles
-            "w-full pt-6 pb-3 px-4 rounded-xl appearance-none cursor-pointer",
+            "w-full pt-6 pb-3 px-4 rounded-xl",
             "bg-white dark:bg-slate-800",
             "text-slate-900 dark:text-white",
             "transition-colors duration-200",
             "focus:outline-none focus:ring-0",
+            // Hide default calendar icon on some browsers
+            "[&::-webkit-calendar-picker-indicator]:opacity-0",
+            "[&::-webkit-calendar-picker-indicator]:absolute",
+            "[&::-webkit-calendar-picker-indicator]:right-0",
+            "[&::-webkit-calendar-picker-indicator]:w-full",
+            "[&::-webkit-calendar-picker-indicator]:h-full",
+            "[&::-webkit-calendar-picker-indicator]:cursor-pointer",
             // Border styles
             "border-2",
             hasError
@@ -139,19 +114,7 @@ export const FloatingSelect = forwardRef<HTMLSelectElement, FloatingSelectProps>
           aria-invalid={hasError ? "true" : undefined}
           aria-describedby={hasError ? `${name}-error` : undefined}
           {...props}
-        >
-          <option value="">{placeholder || `Select ${label.toLowerCase()}...`}</option>
-          {options.map((opt) => {
-            const { value: optValue, label: optLabel } = normaliseOption(opt);
-            return (
-              <option key={optValue} value={optValue}>
-                {optLabel}
-              </option>
-            );
-          })}
-        </select>
-
-        {/* Floating label - animates on focus or value */}
+        />
         <motion.label
           htmlFor={name}
           className={cn(
@@ -183,9 +146,9 @@ export const FloatingSelect = forwardRef<HTMLSelectElement, FloatingSelectProps>
           {required && <span className="text-primary ml-0.5">*</span>}
         </motion.label>
 
-        {/* Dropdown arrow */}
+        {/* Calendar icon */}
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-          <span className="material-symbols-outlined">expand_more</span>
+          <span className="material-symbols-outlined">calendar_today</span>
         </div>
 
         {/* Error message */}
@@ -195,6 +158,6 @@ export const FloatingSelect = forwardRef<HTMLSelectElement, FloatingSelectProps>
   }
 );
 
-FloatingSelect.displayName = "FloatingSelect";
+FloatingDateInput.displayName = "FloatingDateInput";
 
-export default FloatingSelect;
+export default FloatingDateInput;

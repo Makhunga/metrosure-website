@@ -3,8 +3,12 @@
 import { useState, useCallback, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
-import { FormSuccess } from "@/components/ui/FormSuccess";
-import { InlineError } from "@/components/ui/InlineError";
+import {
+  FormSuccess,
+  FloatingInput,
+  FloatingSelect,
+  FloatingTextarea,
+} from "@/components/ui";
 import {
   FieldState,
   FieldStates,
@@ -19,104 +23,6 @@ import {
   trafficLevels,
 } from "@/data/formOptions";
 import { partnerServicesSimple as services } from "@/data/partnerServices";
-
-// Floating label input classes - shared by both components
-const floatingInputClasses =
-  "peer w-full pt-6 pb-3 px-4 border-2 border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:border-primary focus:ring-0 transition-all text-slate-900 dark:text-white placeholder-transparent";
-
-// Floating input component - defined outside to prevent recreation
-interface FloatingInputProps {
-  name: string;
-  label: string;
-  type?: string;
-  value: string;
-  required?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  fieldState: FieldState;
-}
-
-function FloatingInput({
-  name,
-  label,
-  type = "text",
-  value,
-  required = false,
-  onChange,
-  onBlur,
-  fieldState,
-}: FloatingInputProps) {
-  return (
-    <div className="relative">
-      <input
-        type={type}
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        placeholder={label}
-        required={required}
-        className={`${floatingInputClasses} ${fieldState.error ? 'border-red-400 dark:border-red-400' : ''}`}
-        aria-required={required}
-        aria-invalid={fieldState.error ? "true" : undefined}
-        aria-describedby={fieldState.error ? `${name}-error` : undefined}
-      />
-      <label
-        htmlFor={name}
-        className="absolute left-4 top-2 text-xs text-slate-400 transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary"
-      >
-        {label} {required && <span className="text-primary">*</span>}
-      </label>
-      <InlineError error={fieldState.error} id={`${name}-error`} />
-    </div>
-  );
-}
-
-// Floating select component - defined outside to prevent recreation
-interface FloatingSelectProps {
-  name: string;
-  label: string;
-  options: string[];
-  value: string;
-  required?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-}
-
-function FloatingSelect({
-  name,
-  label,
-  options,
-  value,
-  required = false,
-  onChange,
-}: FloatingSelectProps) {
-  return (
-    <div className="relative">
-      <select
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        className={`${floatingInputClasses} appearance-none cursor-pointer ${value ? 'pt-6 pb-3' : 'py-4'}`}
-      >
-        <option value="">{label}</option>
-        {options.map(opt => (
-          <option key={opt} value={opt}>{opt}</option>
-        ))}
-      </select>
-      {value && (
-        <label className="absolute left-4 top-2 text-xs text-slate-400">
-          {label} {required && <span className="text-primary">*</span>}
-        </label>
-      )}
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-        <span className="material-symbols-outlined">expand_more</span>
-      </div>
-    </div>
-  );
-}
 
 interface FormData {
   // Business Information
@@ -306,15 +212,15 @@ export default function PartnerInquiryForm() {
       id="partner-inquiry"
       className="relative py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors duration-300 overflow-hidden"
     >
-      {/* Decorative watermark */}
+      {/* Extended decorative watermark */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 top-4 md:top-8 text-[7rem] md:text-[10rem] lg:text-[12rem] font-black text-slate-200/50 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
-        initial={{ opacity: 0, y: -20 }}
+        className="absolute left-1/2 -translate-x-1/2 top-0 md:top-4 text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-slate-200/40 dark:text-white/[0.04] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tighter"
+        initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, delay: 0.1 }}
+        transition={{ duration: 1, delay: 0.1 }}
       >
-        Partner
+        Partner With Us
       </motion.div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -326,9 +232,6 @@ export default function PartnerInquiryForm() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-            Partner With Us
-          </span>
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Start Your Partnership
           </h2>
@@ -656,23 +559,16 @@ export default function PartnerInquiryForm() {
                       />
 
                       {/* Message */}
-                      <div className="relative">
-                        <textarea
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          placeholder="Tell us about your partnership goals..."
-                          rows={4}
-                          className={`${floatingInputClasses} resize-none pt-4`}
-                        />
-                        <div className="flex justify-between items-center mt-2">
-                          <span className="text-xs text-slate-400">Optional</span>
-                          <span className={`text-xs ${formData.message.length >= MAX_MESSAGE_CHARS ? 'text-red-500' : 'text-slate-400'}`}>
-                            {formData.message.length}/{MAX_MESSAGE_CHARS}
-                          </span>
-                        </div>
-                      </div>
+                      <FloatingTextarea
+                        name="message"
+                        label="Tell us about your partnership goals"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        rows={4}
+                        maxLength={MAX_MESSAGE_CHARS}
+                        showCharCount
+                        helperText="Optional"
+                      />
 
                       {/* Consent Checkboxes */}
                       <div className="space-y-4 pt-4">

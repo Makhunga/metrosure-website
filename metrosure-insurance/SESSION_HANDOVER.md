@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 5 January 2026 (Session 88)
+**Updated:** 6 January 2026 (Session 89)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,63 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 5 January 2026
+
+---
+
+## SESSION 89 (5 Jan 2026) - Complete Form Migration to Floating Labels
+
+### Focus
+Migrated all remaining forms to use shared floating label components from `src/components/ui/`. Removed duplicate local implementations and standardised all forms across the website.
+
+### Skills Used
+- `frontend-design` - Form component migration guidance
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Migrate PartnerInquiryForm to shared components | ✅ Complete |
+| Migrate CorporateInquiryForm to shared components | ✅ Complete |
+| Migrate Quote form (18 fields, multi-step) to floating labels | ✅ Complete |
+| Migrate ApplicationForm to floating labels | ✅ Complete |
+| Migrate ApplicationModal to floating labels | ✅ Complete |
+| Migrate EmailResultsModal to floating labels | ✅ Complete |
+| Remove duplicate local FloatingInput/Select definitions | ✅ Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/partners/PartnerInquiryForm.tsx` | Removed local FloatingInput/Select, uses shared components |
+| `src/components/corporate/CorporateInquiryForm.tsx` | Removed local FloatingInput/Select, uses shared components |
+| `src/app/quote/page.tsx` | Replaced InputIcon pattern with FloatingInput/Select |
+| `src/components/careers/ApplicationForm.tsx` | Replaced InputIcon pattern with floating labels |
+| `src/components/careers/ApplicationModal.tsx` | Replaced InputIcon pattern with floating labels |
+| `src/components/tools/EmailResultsModal.tsx` | Updated to use FloatingInput |
+
+### Technical Changes
+- **Code reduction:** Removed ~200 lines of duplicate component code from Partner/Corporate forms
+- **Quote form:** Simplified 18-field multi-step wizard with consistent floating labels
+- **Imports standardised:** All forms now import from `@/components/ui` barrel export
+- **Unused imports removed:** `InputIcon`, `InlineError`, `getInputClassesWithIcon`, `labelClasses`
+
+### Form Migration Summary
+| Form | Before | After |
+|------|--------|-------|
+| PartnerInquiryForm | Local FloatingInput/Select | Shared components |
+| CorporateInquiryForm | Local FloatingInput/Select | Shared components |
+| Quote Form | InputIcon + manual inputs | FloatingInput/Select |
+| ApplicationForm | InputIcon + labels | FloatingInput/Select |
+| ApplicationModal | InputIcon + labels | FloatingInput/Select |
+| EmailResultsModal | Manual input with icon | FloatingInput |
+| ContactForm | Shared components (S88) | No change |
+
+### All Forms Now Use Floating Labels
+- `/contact` - ContactForm ✅
+- `/quote` - Quote Form ✅
+- `/partners` - PartnerInquiryForm ✅
+- `/corporate` - CorporateInquiryForm ✅
+- `/careers` - ApplicationForm ✅
+- `/careers/[slug]` - ApplicationModal ✅
+- Calculator tools - EmailResultsModal ✅
 
 ---
 
@@ -547,17 +604,31 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 89)
+## NEXT SESSION PRIORITIES (Session 90)
 
-### Priority 1: Complete Form Migrations
-- [x] ~~Create shared `FloatingInput.tsx` component~~ (Done S88)
-- [x] ~~Create shared `FloatingSelect.tsx` component~~ (Done S88)
-- [x] ~~Create shared `FloatingTextarea.tsx` component~~ (Done S88)
-- [x] ~~Migrate ContactForm.tsx to floating labels~~ (Done S88)
-- [ ] Migrate ApplicationForm.tsx to floating labels
-- [ ] Migrate ApplicationModal.tsx to floating labels
-- [ ] Update PartnerInquiryForm to use shared components (has local copy)
-- [ ] Update CorporateInquiryForm to use shared components (has local copy)
+### Priority 1: REVERT TO NORMAL INPUT LABELS ⚠️
+**User Decision:** Floating labels have too many unintended issues and bugs. Revert all forms to use standard labels above inputs.
+
+**Action Required:**
+- [ ] Create standard `LabelledInput`, `LabelledSelect`, `LabelledTextarea` components
+- [ ] Migrate all 7 forms from floating labels to standard labels:
+  - ContactForm
+  - PartnerInquiryForm
+  - CorporateInquiryForm
+  - Quote form (18 fields)
+  - ApplicationForm
+  - ApplicationModal
+  - EmailResultsModal
+- [ ] Remove or deprecate FloatingInput/Select/Textarea/DateInput components
+- [ ] Update barrel exports in `src/components/ui/index.ts`
+
+**Pattern to use:** Labels above inputs (simpler, more reliable):
+```tsx
+<div>
+  <label htmlFor="email" className="...">Email *</label>
+  <input id="email" name="email" ... />
+</div>
+```
 
 ### Priority 2: Quick Wins Available
 - [ ] Enable gallery components (images already exist in `/public/images/`)
@@ -585,24 +656,26 @@ Attempted re-enable with `initial={false}` pattern - **still causes visibility b
 
 ---
 
-## RECOMMENDATIONS (Session 88)
+## RECOMMENDATIONS (Session 89)
 
 ### Quick Wins Available
 1. **Enable galleries** - Images already exist, just remove `isDev` checks (5 min)
 2. **Remove dev banner** - Single component removal when ready for production
 
-### Technical Debt Progress (S88)
-1. ~~**Form inconsistency** - 3 different label patterns~~ → **RESOLVED**
+### Technical Debt Progress (S89) - COMPLETE ✅
+1. ~~**Form inconsistency** - 3 different label patterns~~ → **FULLY RESOLVED**
    - ✅ Created shared FloatingInput, FloatingSelect, FloatingTextarea in `src/components/ui/`
-   - ✅ Migrated ContactForm to floating labels
-   - Remaining: ApplicationForm, ApplicationModal (use icon-based), Partner/Corporate forms (use local copies)
+   - ✅ All 7 forms now use shared floating label components
 
-2. ~~**Duplicated FloatingInput code**~~ → **PARTIALLY RESOLVED**
-   - ✅ Shared components now exist at `src/components/ui/`
-   - Remaining: Update PartnerInquiryForm and CorporateInquiryForm to import from shared
+2. ~~**Duplicated FloatingInput code**~~ → **FULLY RESOLVED**
+   - ✅ Removed local FloatingInput/Select from PartnerInquiryForm
+   - ✅ Removed local FloatingInput/Select from CorporateInquiryForm
+   - ✅ All forms import from shared `@/components/ui` barrel
 
-3. ~~**Legacy ContactForm**~~ → **RESOLVED**
-   - ✅ Fully migrated to floating labels pattern (659 lines, down from 869)
+3. ~~**Legacy form patterns**~~ → **FULLY RESOLVED**
+   - ✅ Quote form: InputIcon pattern replaced with floating labels
+   - ✅ ApplicationForm/Modal: InputIcon pattern replaced with floating labels
+   - ✅ EmailResultsModal: Manual input replaced with FloatingInput
 
 ### Design System Now Documented
 The following standards were established in S87 and should be followed for all future components:
@@ -696,10 +769,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (40-88)
+## SESSION HISTORY (40-89)
 
 | Session | Focus |
 |---------|-------|
+| S89 | Complete form migration to floating labels - all 6 remaining forms migrated |
 | S88 | Form UI standardisation, shared FloatingInput/Select/Textarea, ContactForm migration |
 | S87 | UI consistency audit, CTA/spacing/container standardisation, cookie consent |
 | S86 | Website separation strategy documentation, migration playbook |
@@ -743,4 +817,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 5 January 2026 (Session 88)*
+*Document updated: 6 January 2026 (Session 89)*
