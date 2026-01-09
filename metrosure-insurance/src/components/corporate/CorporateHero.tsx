@@ -141,7 +141,7 @@ export default function CorporateHero() {
               className="group text-primary font-medium hover:opacity-80 transition-opacity inline-flex items-center gap-1"
             >
               Get a free quote
-              <span className="material-symbols-outlined text-base opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1 group-hover:translate-x-0">arrow_forward</span>
+              <span className="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1 group-hover:translate-x-0">arrow_forward</span>
             </a>
           </motion.div>
 

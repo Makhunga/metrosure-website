@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
 import {
   FormSuccess,
-  FloatingInput,
-  FloatingSelect,
-  FloatingTextarea,
+  LabelledInput,
+  LabelledSelect,
+  LabelledTextarea,
 } from "@/components/ui";
 import {
   FieldState,
@@ -380,7 +380,7 @@ export default function PartnerInquiryForm() {
                         </p>
                       </div>
 
-                      <FloatingInput
+                      <LabelledInput
                         name="companyName"
                         label="Company Name"
                         value={formData.companyName}
@@ -389,7 +389,7 @@ export default function PartnerInquiryForm() {
                         fieldState={getFieldState("companyName")}
                       />
 
-                      <FloatingSelect
+                      <LabelledSelect
                         name="businessType"
                         label="Business Type"
                         options={businessTypes}
@@ -398,7 +398,7 @@ export default function PartnerInquiryForm() {
                         onChange={handleInputChange}
                       />
 
-                      <FloatingSelect
+                      <LabelledSelect
                         name="numberOfLocations"
                         label="Number of Locations"
                         options={locationCounts}
@@ -408,7 +408,7 @@ export default function PartnerInquiryForm() {
                       />
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <FloatingSelect
+                        <LabelledSelect
                           name="province"
                           label="Head Office Province (Optional)"
                           options={provinces}
@@ -416,7 +416,7 @@ export default function PartnerInquiryForm() {
                           onChange={handleInputChange}
                         />
 
-                        <FloatingInput
+                        <LabelledInput
                           name="city"
                           label="Head Office City (Optional)"
                           value={formData.city}
@@ -449,7 +449,7 @@ export default function PartnerInquiryForm() {
                         </p>
                       </div>
 
-                      <FloatingInput
+                      <LabelledInput
                         name="contactName"
                         label="Full Name"
                         value={formData.contactName}
@@ -459,7 +459,7 @@ export default function PartnerInquiryForm() {
                         onBlur={(e) => validateField("contactName", e.target.value, (v) => validateRequired(v, "Name"))}
                       />
 
-                      <FloatingInput
+                      <LabelledInput
                         name="jobTitle"
                         label="Job Title"
                         value={formData.jobTitle}
@@ -469,7 +469,7 @@ export default function PartnerInquiryForm() {
                         onBlur={(e) => validateField("jobTitle", e.target.value, (v) => validateRequired(v, "Job title"))}
                       />
 
-                      <FloatingInput
+                      <LabelledInput
                         name="email"
                         label="Email Address"
                         type="email"
@@ -480,7 +480,7 @@ export default function PartnerInquiryForm() {
                         onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                       />
 
-                      <FloatingInput
+                      <LabelledInput
                         name="phone"
                         label="Phone Number"
                         type="tel"
@@ -550,7 +550,7 @@ export default function PartnerInquiryForm() {
                       </div>
 
                       {/* Foot Traffic */}
-                      <FloatingSelect
+                      <LabelledSelect
                         name="currentFootTraffic"
                         label="Current Customer Foot Traffic (Optional)"
                         options={trafficLevels}
@@ -559,7 +559,7 @@ export default function PartnerInquiryForm() {
                       />
 
                       {/* Message */}
-                      <FloatingTextarea
+                      <LabelledTextarea
                         name="message"
                         label="Tell us about your partnership goals"
                         value={formData.message}

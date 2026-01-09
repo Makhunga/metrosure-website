@@ -2,12 +2,25 @@
 // UI COMPONENTS - BARREL EXPORTS
 // ═══════════════════════════════════════════════════════════════════════════
 
-// Form components - Floating label pattern
+// Form components - Standard label pattern (preferred)
+export { LabelledInput } from "./LabelledInput";
+export type { LabelledInputProps } from "./LabelledInput";
+
+export { LabelledSelect } from "./LabelledSelect";
+export type { LabelledSelectProps, SelectOption } from "./LabelledSelect";
+
+export { LabelledTextarea } from "./LabelledTextarea";
+export type { LabelledTextareaProps } from "./LabelledTextarea";
+
+export { LabelledDateInput } from "./LabelledDateInput";
+export type { LabelledDateInputProps } from "./LabelledDateInput";
+
+// Form components - Floating label pattern (deprecated)
 export { FloatingInput } from "./FloatingInput";
 export type { FloatingInputProps } from "./FloatingInput";
 
 export { FloatingSelect } from "./FloatingSelect";
-export type { FloatingSelectProps, SelectOption } from "./FloatingSelect";
+export type { FloatingSelectProps } from "./FloatingSelect";
 
 export { FloatingTextarea } from "./FloatingTextarea";
 export type { FloatingTextareaProps } from "./FloatingTextarea";
@@ -15,7 +28,7 @@ export type { FloatingTextareaProps } from "./FloatingTextarea";
 export { FloatingDateInput } from "./FloatingDateInput";
 export type { FloatingDateInputProps } from "./FloatingDateInput";
 
-// Form components - Icon pattern
+// Form components - Icon pattern (legacy)
 export { InputIcon } from "./InputIcon";
 
 // Form feedback

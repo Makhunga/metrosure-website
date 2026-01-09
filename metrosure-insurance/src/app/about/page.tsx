@@ -141,7 +141,7 @@ export default function AboutPage() {
               >
                 <span className="material-symbols-outlined text-base">storefront</span>
                 <span>Own a retail space? <span className="font-semibold">Partner with us</span></span>
-                <span className="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+                <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
               </Link>
             </motion.div>
           </motion.div>

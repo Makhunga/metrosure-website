@@ -205,7 +205,7 @@ export default function HeroCentered() {
               className="text-primary font-medium hover:opacity-80 transition-opacity inline-flex items-center gap-1"
             >
               Partner with us
-              <span className="material-symbols-outlined text-base">arrow_forward</span>
+              <span className="material-symbols-outlined text-lg">arrow_forward</span>
             </Link>
           </motion.div>
         </div>

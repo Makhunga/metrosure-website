@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Modal,
   FormSuccess,
-  FloatingInput,
-  FloatingSelect,
+  LabelledInput,
+  LabelledSelect,
 } from "@/components/ui";
 import {
   FieldState,
@@ -263,7 +263,7 @@ export default function ApplicationModal({
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Personal Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FloatingInput
+                <LabelledInput
                   name="fullName"
                   label="Full Name"
                   value={formData.fullName}
@@ -277,7 +277,7 @@ export default function ApplicationModal({
                   fieldState={getFieldState("fullName")}
                 />
 
-                <FloatingInput
+                <LabelledInput
                   name="email"
                   label="Email Address"
                   type="email"
@@ -289,7 +289,7 @@ export default function ApplicationModal({
                 />
               </div>
 
-              <FloatingInput
+              <LabelledInput
                 name="phone"
                 label="Phone Number"
                 type="tel"
@@ -302,7 +302,7 @@ export default function ApplicationModal({
 
               {/* Position & Province */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FloatingSelect
+                <LabelledSelect
                   name="position"
                   label="Position Interested In"
                   options={positions}
@@ -311,7 +311,7 @@ export default function ApplicationModal({
                   onChange={handleInputChange}
                 />
 
-                <FloatingSelect
+                <LabelledSelect
                   name="province"
                   label="Province"
                   options={provinces}
@@ -323,7 +323,7 @@ export default function ApplicationModal({
 
               {/* Experience & Relocation */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FloatingSelect
+                <LabelledSelect
                   name="experience"
                   label="Years of Experience"
                   options={experienceLevels}
@@ -332,7 +332,7 @@ export default function ApplicationModal({
                   onChange={handleInputChange}
                 />
 
-                <FloatingSelect
+                <LabelledSelect
                   name="willingToRelocate"
                   label="Willing to Relocate?"
                   options={[

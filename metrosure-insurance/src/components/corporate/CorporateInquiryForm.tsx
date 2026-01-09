@@ -5,9 +5,9 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
 import {
   FormSuccess,
-  FloatingInput,
-  FloatingSelect,
-  FloatingTextarea,
+  LabelledInput,
+  LabelledSelect,
+  LabelledTextarea,
 } from "@/components/ui";
 import {
   FieldState,
@@ -443,7 +443,7 @@ export default function CorporateInquiryForm() {
                         </p>
                       </div>
 
-                      <FloatingInput
+                      <LabelledInput
                         name="companyName"
                         label="Company Name"
                         value={formData.companyName}
@@ -452,7 +452,7 @@ export default function CorporateInquiryForm() {
                         fieldState={getFieldState("companyName")}
                       />
 
-                      <FloatingSelect
+                      <LabelledSelect
                         name="industry"
                         label="Industry"
                         options={industries}
@@ -461,7 +461,7 @@ export default function CorporateInquiryForm() {
                         onChange={handleInputChange}
                       />
 
-                      <FloatingSelect
+                      <LabelledSelect
                         name="employeeCount"
                         label="Number of Employees"
                         options={employeeCountOptions.map((opt) => ({
@@ -473,7 +473,7 @@ export default function CorporateInquiryForm() {
                         onChange={handleInputChange}
                       />
 
-                      <FloatingSelect
+                      <LabelledSelect
                         name="currentBenefits"
                         label="Current Benefits Situation (Optional)"
                         options={currentBenefitsOptions}
@@ -503,7 +503,7 @@ export default function CorporateInquiryForm() {
                         </p>
                       </div>
 
-                      <FloatingInput
+                      <LabelledInput
                         name="contactName"
                         label="Full Name"
                         value={formData.contactName}
@@ -517,7 +517,7 @@ export default function CorporateInquiryForm() {
                         }
                       />
 
-                      <FloatingInput
+                      <LabelledInput
                         name="jobTitle"
                         label="Job Title"
                         value={formData.jobTitle}
@@ -531,7 +531,7 @@ export default function CorporateInquiryForm() {
                         }
                       />
 
-                      <FloatingInput
+                      <LabelledInput
                         name="email"
                         label="Email Address"
                         type="email"
@@ -544,7 +544,7 @@ export default function CorporateInquiryForm() {
                         }
                       />
 
-                      <FloatingInput
+                      <LabelledInput
                         name="phone"
                         label="Phone Number"
                         type="tel"
@@ -628,7 +628,7 @@ export default function CorporateInquiryForm() {
                       </div>
 
                       {/* Message */}
-                      <FloatingTextarea
+                      <LabelledTextarea
                         name="message"
                         label="Tell us about your employee benefits requirements"
                         value={formData.message}

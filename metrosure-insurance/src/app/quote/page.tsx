@@ -7,8 +7,8 @@ import { Header, Footer } from "@/components";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   FormSuccess,
-  FloatingInput,
-  FloatingSelect,
+  LabelledInput,
+  LabelledSelect,
 } from "@/components/ui";
 import { MagneticButton } from "@/components/animations";
 import { PriceBreakdown } from "@/components/quote/PriceBreakdown";
@@ -509,7 +509,7 @@ export default function QuotePage() {
             >
               <span className="material-symbols-outlined text-base">storefront</span>
               <span>Own a retail space? <span className="font-semibold">Partner with us</span></span>
-              <span className="material-symbols-outlined text-base opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1 group-hover:translate-x-0">arrow_forward</span>
+              <span className="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1 group-hover:translate-x-0">arrow_forward</span>
             </Link>
           </motion.div>
         </div>
@@ -764,7 +764,7 @@ export default function QuotePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2">
-                      <FloatingInput
+                      <LabelledInput
                         name="companyName"
                         label="Company Name"
                         value={formData.companyName}
@@ -775,7 +775,7 @@ export default function QuotePage() {
                       />
                     </div>
 
-                    <FloatingSelect
+                    <LabelledSelect
                       name="businessType"
                       label="Business Type"
                       options={businessTypeOptions.map((o) => ({ value: o.id, label: o.label }))}
@@ -784,7 +784,7 @@ export default function QuotePage() {
                       onChange={(e) => updateFormData({ businessType: e.target.value as BusinessType })}
                     />
 
-                    <FloatingSelect
+                    <LabelledSelect
                       name="numberOfEmployees"
                       label="Number of Employees"
                       options={employeeRangeOptions.map((o) => ({ value: o.id, label: o.label }))}
@@ -794,7 +794,7 @@ export default function QuotePage() {
                     />
 
                     <div className="md:col-span-2">
-                      <FloatingInput
+                      <LabelledInput
                         name="industry"
                         label="Industry (Optional)"
                         value={formData.industry}
@@ -844,7 +844,7 @@ export default function QuotePage() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FloatingInput
+                    <LabelledInput
                       name="firstName"
                       label="First Name"
                       value={formData.firstName}
@@ -854,7 +854,7 @@ export default function QuotePage() {
                       fieldState={getFieldState("firstName")}
                     />
 
-                    <FloatingInput
+                    <LabelledInput
                       name="lastName"
                       label="Last Name"
                       value={formData.lastName}
@@ -864,7 +864,7 @@ export default function QuotePage() {
                       fieldState={getFieldState("lastName")}
                     />
 
-                    <FloatingInput
+                    <LabelledInput
                       name="email"
                       label="Email Address"
                       type="email"
@@ -875,7 +875,7 @@ export default function QuotePage() {
                       fieldState={getFieldState("email")}
                     />
 
-                    <FloatingInput
+                    <LabelledInput
                       name="phone"
                       label="Phone Number"
                       type="tel"
@@ -887,7 +887,7 @@ export default function QuotePage() {
                     />
 
                     <div className="md:col-span-2 md:w-1/2">
-                      <FloatingInput
+                      <LabelledInput
                         name="zipCode"
                         label="Area Code"
                         value={formData.zipCode}
@@ -984,7 +984,7 @@ export default function QuotePage() {
                   </div>
 
                   <div className="space-y-6">
-                    <FloatingSelect
+                    <LabelledSelect
                       name="coverageAmount"
                       label="Coverage Amount"
                       options={[
@@ -1001,7 +1001,7 @@ export default function QuotePage() {
                       onChange={(e) => updateFormData({ coverageAmount: e.target.value })}
                     />
 
-                    <FloatingSelect
+                    <LabelledSelect
                       name="deductible"
                       label="Excess"
                       options={[
@@ -1015,7 +1015,7 @@ export default function QuotePage() {
                       onChange={(e) => updateFormData({ deductible: e.target.value })}
                     />
 
-                    <FloatingInput
+                    <LabelledInput
                       name="startDate"
                       label="Desired Start Date"
                       type="date"

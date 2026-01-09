@@ -4,9 +4,9 @@ import { useState, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
 import { FormSuccess } from "@/components/ui/FormSuccess";
-import { FloatingInput } from "@/components/ui/FloatingInput";
-import { FloatingSelect } from "@/components/ui/FloatingSelect";
-import { FloatingTextarea } from "@/components/ui/FloatingTextarea";
+import { LabelledInput } from "@/components/ui/LabelledInput";
+import { LabelledSelect } from "@/components/ui/LabelledSelect";
+import { LabelledTextarea } from "@/components/ui/LabelledTextarea";
 import {
   validateEmail,
   validatePhone,
@@ -377,7 +377,7 @@ export default function ContactForm() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1 }}
                         >
-                          <FloatingInput
+                          <LabelledInput
                             name="name"
                             label="Full Name"
                             value={messageName}
@@ -392,7 +392,7 @@ export default function ContactForm() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.15 }}
                         >
-                          <FloatingInput
+                          <LabelledInput
                             name="email"
                             label="Email Address"
                             type="email"
@@ -410,7 +410,7 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                       >
-                        <FloatingSelect
+                        <LabelledSelect
                           name="subject"
                           label="Topic"
                           options={messageTopics}
@@ -427,7 +427,7 @@ export default function ContactForm() {
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <FloatingInput
+                            <LabelledInput
                               name="companyName"
                               label="Company Name"
                               value={companyName}
@@ -445,7 +445,7 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25 }}
                       >
-                        <FloatingTextarea
+                        <LabelledTextarea
                           name="message"
                           label="Your Message"
                           value={messageContent}
@@ -518,7 +518,7 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
                       >
-                        <FloatingInput
+                        <LabelledInput
                           name="cb_name"
                           label="Full Name"
                           value={callbackName}
@@ -534,7 +534,7 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
                       >
-                        <FloatingInput
+                        <LabelledInput
                           name="cb_phone"
                           label="Phone Number"
                           type="tel"
@@ -551,7 +551,7 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.18 }}
                       >
-                        <FloatingSelect
+                        <LabelledSelect
                           name="cb_reason"
                           label="Reason for Call"
                           options={callbackReasons}
@@ -576,7 +576,7 @@ export default function ContactForm() {
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <FloatingTextarea
+                            <LabelledTextarea
                               name="cb_other"
                               label="Please Specify"
                               value={otherReason}
@@ -598,7 +598,7 @@ export default function ContactForm() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
                         >
-                          <FloatingInput
+                          <LabelledInput
                             name="cb_date"
                             label="Preferred Date"
                             type="date"
@@ -613,7 +613,7 @@ export default function ContactForm() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.25 }}
                         >
-                          <FloatingSelect
+                          <LabelledSelect
                             name="cb_time"
                             label="Preferred Time"
                             options={[

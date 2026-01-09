@@ -173,6 +173,44 @@ export type MyFormData = z.infer<typeof myFormSchema>;
 | Hero containers | `rounded-3xl` (24px) |
 | Footer top corners | `rounded-t-[48px] md:rounded-t-[64px]` |
 
+### Shadow System
+
+| Tier | Class | Usage |
+|------|-------|-------|
+| Subtle | `shadow-sm` | Inputs, badges, navigation |
+| Standard | `shadow-lg` | Cards, modals, dropdowns |
+| Emphasis | `shadow-xl` | Hover states, featured CTAs |
+
+**Coloured shadows (CTAs):**
+- Default: `shadow-primary/25` (25% opacity primary)
+- Hover: `shadow-primary/40` (40% opacity, more pronounced)
+
+Example:
+```html
+<button className="shadow-lg shadow-primary/25 hover:shadow-primary/40">
+  Primary CTA
+</button>
+```
+
+### Icon Sizes (Navigation Arrows)
+
+| Icon | Class | Usage |
+|------|-------|-------|
+| Arrow (forward/back) | `text-lg` | All navigation arrows in CTAs and links |
+| Info/status icons | `text-base` | Informational icons, badges |
+| Large feature icons | `text-2xl` | Section headers, stats |
+
+### Form Components
+
+**Standard pattern (preferred):** `LabelledInput`, `LabelledSelect`, `LabelledTextarea`, `LabelledDateInput`
+- Label above input
+- No animation on focus
+- Cleaner visual hierarchy
+
+**Deprecated:** `FloatingInput`, `FloatingSelect`, `FloatingTextarea`, `FloatingDateInput`
+- Floating labels animate into position
+- More complex implementation
+
 ### Brand Colours
 
 ```css
@@ -477,4 +515,4 @@ All customer-facing content must align with TCF principles.
 
 ---
 
-*Last updated: 4 January 2026 (Session 83)*
+*Last updated: 6 January 2026 (Session 90)*

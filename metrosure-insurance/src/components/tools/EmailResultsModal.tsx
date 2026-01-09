@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Modal, FloatingInput } from "@/components/ui";
+import { Modal, LabelledInput } from "@/components/ui";
 import { CalculatorResultData } from "@/lib/whatsapp";
 import { FieldState } from "@/lib/formValidation";
 
@@ -173,7 +173,7 @@ export function EmailResultsModal({
               className="space-y-4"
             >
               {/* Email Input */}
-              <FloatingInput
+              <LabelledInput
                 name="email-results"
                 label="Email Address"
                 type="email"

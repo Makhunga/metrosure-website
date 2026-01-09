@@ -33,25 +33,6 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-[rgb(var(--color-surface-card))]/70 via-transparent to-[rgb(var(--color-surface-card))]/90 dark:from-[rgb(var(--color-surface))]/80 dark:via-[rgb(var(--color-surface))]/40 dark:to-[rgb(var(--color-surface))]/95" />
       </div>
 
-      {/* Layered Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large geometric accent - top right */}
-        <motion.div
-          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 blur-3xl"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-
-        {/* Accent blob - bottom left */}
-        <motion.div
-          className="absolute -bottom-48 -left-48 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#F2CC8E]/10 to-[#F2CC8E]/5 dark:from-[#F2CC8E]/15 dark:to-[#F2CC8E]/10 blur-3xl"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-        />
-      </div>
-
       {/* Gradient Mesh Overlay */}
       <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
 
@@ -161,7 +142,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
             >
               <span>Apply Now</span>
               <motion.span
-                className="material-symbols-outlined text-xl"
+                className="material-symbols-outlined text-lg"
                 initial={{ x: 0 }}
                 whileHover={{ x: 5 }}
               >
@@ -188,7 +169,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
                 </span>
               </span>
               <motion.span
-                className="material-symbols-outlined text-base"
+                className="material-symbols-outlined text-lg"
                 initial={{ x: 0 }}
                 whileHover={{ x: 3 }}
               >
