@@ -266,7 +266,7 @@ export default function PartnersCTA() {
               >
                 <span>Become a Partner</span>
                 <motion.span
-                  className="material-symbols-outlined text-xl"
+                  className="material-symbols-outlined text-lg"
                   initial={{ x: 0 }}
                   whileHover={{ x: 5 }}
                 >

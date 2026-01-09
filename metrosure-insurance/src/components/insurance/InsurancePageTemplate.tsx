@@ -75,7 +75,7 @@ export default function InsurancePageTemplate({
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-[rgb(var(--color-primary-hover))] transition-all h-12 px-8 text-white text-base font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1"
                 >
                   Get a Free Quote
-                  <span className="material-symbols-outlined">arrow_forward</span>
+                  <span className="material-symbols-outlined text-lg">arrow_forward</span>
                 </Link>
                 <a
                   href="tel:+27313011192"
@@ -269,7 +269,7 @@ export default function InsurancePageTemplate({
                   pie_chart
                 </span>
                 Try Calculator
-                <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">
+                <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
                   arrow_forward
                 </span>
               </Link>

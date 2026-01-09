@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 9 January 2026 (Session 90)
+**Updated:** 9 January 2026 (Session 91)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,44 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 9 January 2026
+
+---
+
+## SESSION 91 (9 Jan 2026) - Quick Wins & Data Cleanup
+
+### Focus
+Enabled gallery components, fixed expired job listings and policy dates, and completed icon standardisation across additional components.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Enable AboutGallery (remove isDev gate) | Complete |
+| Enable CultureGallery (remove isDev gate) | Complete |
+| Update 5 expired job listing dates | Complete |
+| Update 2 expired policy renewal dates | Complete |
+| Icon standardisation (7 components) | Complete |
+| Run build and verify | Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/app/about/page.tsx` | Removed isDev gate for AboutGallery |
+| `src/app/careers/page.tsx` | Removed isDev gate for CultureGallery |
+| `src/data/jobs.ts` | Updated datePosted (2026-01-09) and validThrough (2026-07-09) for all 5 jobs |
+| `src/data/policies.ts` | Updated Home Insurance (Jun 2026) and Life Cover (Jan 2027) renewal dates |
+| `src/components/WhyChooseUs.tsx` | Arrow icon standardised to text-lg |
+| `src/components/Testimonials.tsx` | Arrow icons standardised to text-lg |
+| `src/components/OurImpact.tsx` | Arrow icons changed from text-xl/text-2xl to text-lg |
+| `src/components/PartnersCTA.tsx` | Arrow icon changed from text-xl to text-lg |
+| `src/app/quote/page.tsx` | Back/Continue arrow icons standardised to text-lg |
+| `src/components/insurance/InsurancePageTemplate.tsx` | Arrow icons standardised to text-lg |
+| `src/components/HeroCentered.tsx` | Arrow icons standardised to text-lg |
+
+### Technical Changes
+- **Galleries enabled** - AboutGallery and CultureGallery now visible in production
+- **Job data updated** - All 5 job listings now have current dates (6-month validity)
+- **Policy data updated** - Demo renewal dates now show future dates
+- **Icon standardisation complete** - Navigation arrows consistently use `text-lg` across all components
 
 ---
 
@@ -142,28 +180,22 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 91)
+## NEXT SESSION PRIORITIES (Session 92)
 
-### Priority 1: Quick Wins Available
-- [ ] Enable gallery components (images already exist in `/public/images/`)
-  - Remove `isDev` gate from `AboutGallery.tsx`
-  - Remove `isDev` gate from `CultureGallery.tsx`
-- [ ] Audit remaining icon sizes for consistency (beyond arrow icons)
-
-### Priority 2: Content & Copy Review
+### Priority 1: Content & Copy Review
 - [ ] Review all page copy for consistency and accuracy
 - [ ] Verify all statistics and claims are current (2025/2026 data)
 - [ ] Check for any remaining placeholder content
+- [ ] Replace placeholder policy numbers (XXXXX suffixes)
 
-### Priority 3: Stakeholder Review (Premium Calculations)
+### Priority 2: Stakeholder Review (Premium Calculations)
 - [ ] Review premium calculation formulas with product team
 - [ ] Validate R1.00/R1,000 base rate
 - [ ] Confirm smoker loading (1.5x vs industry 1.5-2.5x)
 - [ ] Decide on funeral age-banding and tier pricing
 
-### Priority 4: Pre-Production
+### Priority 3: Pre-Production
 - [ ] Remove Development Banner (when ready)
-- [ ] Replace placeholder policy data
 - [ ] Final accessibility audit
 - [ ] Performance testing on mobile devices
 
@@ -220,12 +252,12 @@ Keep them for now in case of rollback need, but can be removed in a future clean
 - Performance optimised (LCP 67% faster)
 - Cookie consent banner (ultra-minimal, POPIA compliant)
 - UI consistency standards (CTAs, spacing, containers)
-- **Standard form labels (Labelled* components)** - NEW
-- **Icon size standardisation** - NEW
-- **Shadow system documentation** - NEW
+- Standard form labels (Labelled* components)
+- Icon size standardisation
+- Shadow system documentation
+- **Gallery components (AboutGallery + CultureGallery)** - NEW (Session 91)
 
 ### Disabled (Ready to Enable)
-- Gallery components (dev-only - images exist, just remove `isDev` gate)
 - Development banner (remove when ready for production)
 
 ### Deprecated (Can Remove Later)
@@ -303,10 +335,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-90)
+## SESSION HISTORY (75-91)
 
 | Session | Focus |
 |---------|-------|
+| S91 | Enable galleries, fix expired job/policy dates, complete icon standardisation |
 | S90 | Revert to standard labels, icon standardisation, shadow docs, CareersHero cleanup |
 | S89 | Complete form migration to floating labels (superseded by S90) |
 | S88 | Form UI standardisation, shared FloatingInput/Select/Textarea |
@@ -326,4 +359,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 9 January 2026 (Session 90)*
+*Document updated: 9 January 2026 (Session 91)*

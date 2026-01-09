@@ -14,8 +14,6 @@ import {
   executiveTeam as team,
 } from "@/data/aboutPage";
 
-const isDev = process.env.NODE_ENV === "development";
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -638,8 +636,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Visual Gallery - Dev Only (pending more images) */}
-      {isDev && <AboutGallery />}
+      {/* Visual Gallery */}
+      <AboutGallery />
 
       {/* CTA Section - Matching Landing Page Design */}
       <section ref={ctaRef} className="relative z-10 py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">

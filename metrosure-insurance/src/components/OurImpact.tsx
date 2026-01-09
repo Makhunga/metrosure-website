@@ -292,7 +292,7 @@ export default function OurImpact() {
                 whileTap={{ scale: 0.95 }}
                 aria-label="Previous slide"
               >
-                <span className="material-symbols-outlined text-xl md:text-2xl" aria-hidden="true">
+                <span className="material-symbols-outlined text-lg" aria-hidden="true">
                   arrow_back
                 </span>
               </motion.button>
@@ -304,7 +304,7 @@ export default function OurImpact() {
                 whileTap={{ scale: 0.95 }}
                 aria-label="Next slide"
               >
-                <span className="material-symbols-outlined text-xl md:text-2xl" aria-hidden="true">
+                <span className="material-symbols-outlined text-lg" aria-hidden="true">
                   arrow_forward
                 </span>
               </motion.button>

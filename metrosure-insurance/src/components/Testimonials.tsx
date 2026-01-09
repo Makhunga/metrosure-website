@@ -259,7 +259,7 @@ export default function Testimonials() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="material-symbols-outlined">arrow_back</span>
+            <span className="material-symbols-outlined text-lg">arrow_back</span>
           </motion.button>
           <motion.button
             onClick={goToNext}
@@ -268,7 +268,7 @@ export default function Testimonials() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="material-symbols-outlined">arrow_forward</span>
+            <span className="material-symbols-outlined text-lg">arrow_forward</span>
           </motion.button>
         </motion.div>
       </motion.div>

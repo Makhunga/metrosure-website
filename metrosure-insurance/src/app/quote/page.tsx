@@ -1330,7 +1330,7 @@ export default function QuotePage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span className="material-symbols-outlined">arrow_back</span>
+                    <span className="material-symbols-outlined text-lg">arrow_back</span>
                     Back
                   </motion.button>
                 ) : (
@@ -1350,7 +1350,7 @@ export default function QuotePage() {
                     whileTap={canProceed() ? { scale: 0.98 } : {}}
                   >
                     Continue
-                    <span className="material-symbols-outlined">arrow_forward</span>
+                    <span className="material-symbols-outlined text-lg">arrow_forward</span>
                   </motion.button>
                 ) : (
                   <motion.button

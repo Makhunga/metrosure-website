@@ -168,7 +168,7 @@ export default function HeroCentered() {
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                   <span>Start Your Quote</span>
-                  <span className="material-symbols-outlined">arrow_forward</span>
+                  <span className="material-symbols-outlined text-lg">arrow_forward</span>
                 </motion.span>
               </Link>
             </MagneticButton>
@@ -181,7 +181,7 @@ export default function HeroCentered() {
               >
                 <span>Explore Plans</span>
                 <motion.span
-                  className="material-symbols-outlined text-xl"
+                  className="material-symbols-outlined text-lg"
                   initial={{ x: 0 }}
                   whileHover={{ x: 5 }}
                 >

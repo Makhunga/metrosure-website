@@ -160,7 +160,7 @@ export default function WhyChooseUs() {
               whileTap={{ scale: 0.98 }}
             >
               <span>Get a Free Quote</span>
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <span className="material-symbols-outlined text-lg">arrow_forward</span>
             </motion.span>
           </Link>
         </motion.div>

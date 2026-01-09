@@ -12,8 +12,6 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const isDev = process.env.NODE_ENV === "development";
-
 // Stats data
 const stats = [
   { value: "5000+", label: "Jobs Created", icon: "group" },
@@ -158,8 +156,8 @@ export default function CareersPage() {
       {/* Why Join Us */}
       <WhyJoinUs />
 
-      {/* Culture Gallery - Dev Only (pending more images) */}
-      {isDev && <CultureGallery />}
+      {/* Culture Gallery */}
+      <CultureGallery />
 
       {/* Open Positions */}
       <OpenPositions onApplyClick={openApplicationModal} />

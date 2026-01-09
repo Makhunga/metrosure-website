@@ -83,7 +83,7 @@ export const samplePolicies: SamplePolicy[] = [
     status: "Active",
     statusColour: "bg-green-500",
     insurer: "MiWay",
-    renewalDate: "22 Jun 2025",
+    renewalDate: "22 Jun 2026",
     premium: "R 850.00",
   },
   {
@@ -93,7 +93,7 @@ export const samplePolicies: SamplePolicy[] = [
     status: "Active",
     statusColour: "bg-green-500",
     insurer: "Liberty",
-    renewalDate: "01 Jan 2026",
+    renewalDate: "01 Jan 2027",
     premium: "R 450.00",
   },
 ];
