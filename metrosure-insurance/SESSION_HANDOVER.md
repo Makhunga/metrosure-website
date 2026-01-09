@@ -180,63 +180,143 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 92)
+## SKIPPED & DEFERRED TASKS
 
-### Priority 1: Content & Copy Review
-- [ ] Review all page copy for consistency and accuracy
-- [ ] Verify all statistics and claims are current (2025/2026 data)
-- [ ] Check for any remaining placeholder content
-- [ ] Replace placeholder policy numbers (XXXXX suffixes)
+### Deferred to Session 92
+| Task | Reason | Priority |
+|------|--------|----------|
+| Replace placeholder policy numbers (XXXXX) | Low visibility (behind login wall) | Low |
+| Remove Development Banner | Awaiting stakeholder approval for production launch | Medium |
+| Premium calculation review | Requires stakeholder input | High |
 
-### Priority 2: Stakeholder Review (Premium Calculations)
-- [ ] Review premium calculation formulas with product team
-- [ ] Validate R1.00/R1,000 base rate
-- [ ] Confirm smoker loading (1.5x vs industry 1.5-2.5x)
-- [ ] Decide on funeral age-banding and tier pricing
+### Deferred to Future Sessions
+| Task | Reason | Estimated Session |
+|------|--------|-------------------|
+| WhatsApp floating widget | Enhancement, not critical | S93+ |
+| WhatsApp Business API | Requires API setup and business verification | S95+ |
+| Remove deprecated Floating* components | Keep for rollback safety | S94+ |
+| Accessibility audit (WCAG 2.1) | Pre-production task | S93 |
+| Mobile performance testing | Pre-production task | S93 |
 
-### Priority 3: Pre-Production
-- [ ] Remove Development Banner (when ready)
-- [ ] Final accessibility audit
-- [ ] Performance testing on mobile devices
-
-### Future Enhancements
-- [ ] WhatsApp click-to-chat button (floating widget like Tawk.to)
-- [ ] WhatsApp Business API integration (automated replies, chatbots)
-- [ ] Clean up deprecated Floating* components (can remove once confirmed stable)
+### Not Started (Blocked)
+| Task | Blocker |
+|------|---------|
+| Production deployment | Awaiting stakeholder sign-off |
+| Real policy data integration | Requires backend API |
+| User authentication | Requires identity provider setup |
 
 ---
 
-## RECOMMENDATIONS (Session 90)
+## NEXT SESSION PLAN (Session 92)
 
-### Completed This Session
-1. **Form label pattern finalised** - Standard labels above inputs
-   - Simpler implementation, no animation bugs
-   - Better accessibility (labels always visible)
-   - Easier to maintain
+### Recommended Focus: Content & Copy Review
+Session 92 should focus on content accuracy and remaining placeholder cleanup before stakeholder review.
 
-2. **Icon consistency established** - All navigation arrows use `text-lg`
-   - Documented in CLAUDE.md for future reference
+### Priority 1: Quick Wins (30 mins)
+- [ ] Replace placeholder policy numbers (`XXXXX` → realistic format like `00123`)
+  - File: `src/data/policies.ts`
+  - Impact: Improves demo quality
 
-3. **Shadow system documented** - Three-tier system with coloured CTA shadows
-   - Subtle, Standard, Emphasis tiers
-   - Primary colour shadows for CTAs
+### Priority 2: Content Audit (1-2 hours)
+- [ ] Review statistics on homepage (are they current?)
+- [ ] Check all "years in business" claims match 2026
+- [ ] Verify contact information is correct
+- [ ] Review insurance product descriptions for accuracy
+- [ ] Check FAQ content is up-to-date
 
-### Technical Debt Addressed
-| Issue | Status |
-|-------|--------|
-| Form label inconsistency | Resolved - all use Labelled* components |
-| Icon size inconsistency | Resolved - arrows standardised to text-lg |
-| Shadow usage undocumented | Resolved - added to CLAUDE.md |
-| CareersHero visual clutter | Resolved - radial backgrounds removed |
+### Priority 3: Copy Consistency (1 hour)
+- [ ] Audit British English spelling across all pages
+- [ ] Check for consistent terminology (e.g., "cover" vs "coverage")
+- [ ] Verify all CTAs use consistent language
+- [ ] Review meta descriptions for SEO
 
-### Deprecated Components (Safe to Remove Later)
+### Priority 4: Stakeholder Preparation
+- [ ] Document premium calculation formulas for review
+- [ ] List all assumptions made in calculator
+- [ ] Prepare questions for product team:
+  - Base rate validation (R1.00/R1,000)
+  - Smoker loading confirmation (1.5x)
+  - Funeral cover age-banding approach
+
+### Files to Review
+```
+src/data/policies.ts          # Placeholder policy numbers
+src/data/calculatorData.ts    # Premium calculation assumptions
+src/app/page.tsx              # Homepage statistics
+src/data/aboutPage.ts         # Company stats and timeline
+src/data/faq.ts               # FAQ content accuracy
+```
+
+---
+
+## RECOMMENDATIONS (Session 91)
+
+### Session 91 Achievements
+1. **Galleries enabled** - AboutGallery and CultureGallery now live
+   - No issues found, images render correctly
+   - Recommend visual review in next session
+
+2. **Data freshness restored** - All job and policy dates updated
+   - Jobs valid until July 2026
+   - Policy renewals show future dates
+   - Set calendar reminder to update in 6 months
+
+3. **Icon standardisation complete** - All navigation arrows use `text-lg`
+   - 7 additional components standardised
+   - Full consistency achieved across codebase
+
+### Technical Debt Status
+| Issue | Status | Notes |
+|-------|--------|-------|
+| Form label inconsistency | ✅ Resolved | S90 - Labelled* components |
+| Icon size inconsistency | ✅ Resolved | S90-91 - All arrows text-lg |
+| Shadow usage undocumented | ✅ Resolved | S90 - CLAUDE.md updated |
+| Expired job dates | ✅ Resolved | S91 - Valid until Jul 2026 |
+| Expired policy dates | ✅ Resolved | S91 - Future dates set |
+| Gallery components hidden | ✅ Resolved | S91 - isDev gates removed |
+| Placeholder policy numbers | ⏳ Pending | Low priority |
+| Deprecated Floating* components | ⏳ Pending | Keep for now |
+
+### Suggestions for Future Sessions
+
+**Session 93: Pre-Production Checklist**
+- Remove Development Banner (if approved)
+- Accessibility audit (WCAG 2.1 AA compliance)
+- Mobile performance testing (Lighthouse scores)
+- Cross-browser testing (Chrome, Firefox, Safari, Edge)
+
+**Session 94: Code Cleanup**
+- Remove deprecated Floating* components
+- Audit and remove unused dependencies
+- Review and optimise bundle size
+
+**Session 95+: Enhancements**
+- WhatsApp click-to-chat floating widget
+- WhatsApp Business API integration
+- User portal backend integration
+
+### Production Readiness Checklist
+| Item | Status | Owner |
+|------|--------|-------|
+| Build passing | ✅ | Dev |
+| All features working | ✅ | Dev |
+| Content reviewed | ⏳ | Content team |
+| Premium calculations validated | ⏳ | Product team |
+| Legal review (T&Cs, Privacy) | ⏳ | Legal |
+| Accessibility audit | ⏳ | Dev |
+| Performance testing | ⏳ | Dev |
+| Stakeholder sign-off | ⏳ | Management |
+| DNS/Domain setup | ⏳ | DevOps |
+| SSL certificate | ✅ | Vercel (auto) |
+
+### Deprecated Components (Safe to Remove in S94+)
 The following components in `src/components/ui/` are no longer used:
 - `FloatingInput.tsx`
 - `FloatingSelect.tsx`
 - `FloatingTextarea.tsx`
 - `FloatingDateInput.tsx`
 
-Keep them for now in case of rollback need, but can be removed in a future cleanup session.
+Keep them for now in case of rollback need, but can be removed in Session 94.
 
 ---
 
