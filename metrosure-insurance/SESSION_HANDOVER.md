@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 10 January 2026 (Session 93)
+**Updated:** 10 January 2026 (Session 94)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,120 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 10 January 2026
+
+---
+
+## SESSION 94 (10 Jan 2026) - Gallery Enhancement, Consolidation & Pre-Production Testing
+
+### Focus
+Enhanced AboutGallery and CultureGallery with 7 new high-quality team photos and visual overflow effect. Conducted Lighthouse performance audits on 5 major pages. Later in session, explored 6 alternative gallery styles due to awkward bento grid spacing, ultimately consolidating to 2 final gallery components (Instagram + Floating).
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Lighthouse audits on 5 major pages | Complete |
+| Copy 7 new high-quality images to public/images | Complete |
+| Update AboutGallery with overflow effect + new images | Complete |
+| Update CultureGallery with overflow effect + new images | Complete |
+| Mobile responsive testing | Complete |
+| Dark mode testing | Complete |
+| Build verification | Complete |
+| **Gallery Exploration (6 styles created)** | Complete |
+| **Gallery Consolidation (2 final galleries)** | Complete |
+| **GalleryInstagram with bento-style sizing** | Complete |
+| **GalleryFloating with central CTA** | Complete |
+
+### Gallery Exploration & Consolidation
+Created 6 alternative gallery styles to address bento grid spacing issues, then consolidated to 2 final galleries:
+
+**Galleries Created (then removed):**
+| Gallery | Style | Reason Removed |
+|---------|-------|----------------|
+| GalleryFilmstrip | Horizontal scroll editorial | Consolidated |
+| GalleryCinematic | Full-screen Ken Burns carousel | Consolidated |
+| GalleryPolaroids | Scattered polaroid photos | Consolidated |
+| GalleryScrollReveal | Vertical scroll reveal | Consolidated |
+
+**Final Galleries Kept:**
+| Gallery | Style | Features |
+|---------|-------|----------|
+| GalleryInstagram | Bento-style variable grid | colSpan/rowSpan sizing, no gaps, `gridAutoFlow: "dense"` |
+| GalleryFloating | Images around central text | Floating positioned images, "Join Our Team" CTA |
+
+### GalleryInstagram Implementation
+Final implementation with bento-style variable sizing but without gaps:
+
+```typescript
+interface GalleryImage {
+  src: string;
+  alt: string;
+  colSpan: 1 | 2;  // Wide images span 2 columns
+  rowSpan: 1 | 2;  // Tall images span 2 rows
+}
+
+// CSS Grid with dense auto-flow prevents gaps
+<motion.div
+  className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[220px]"
+  style={{ gridAutoFlow: "dense" }}
+>
+```
+
+**Key CSS technique:** `gridAutoFlow: "dense"` fills gaps when variable-sized items leave spaces.
+
+### Files Modified (Gallery Consolidation)
+| File | Change |
+|------|--------|
+| `src/components/about/GalleryInstagram.tsx` | Created: Bento-style grid with variable sizing |
+| `src/components/about/GalleryFloating.tsx` | Created: Floating images around central text |
+| `src/app/about/page.tsx` | Removed 5 galleries, kept GalleryInstagram + GalleryFloating |
+
+### Lighthouse Performance Findings
+| Page | LCP | CLS | INP | Notes |
+|------|-----|-----|-----|-------|
+| Home | 3,367ms | 0 | N/A | 90% render delay (React hydration) |
+| About | 727ms | 0 | N/A | Good performance |
+| Careers | 2,856ms | 0 | N/A | 90% render delay |
+| Quote | 705ms | 0 | N/A | Good performance |
+| Contact | 2,703ms | 0 | N/A | 90% render delay |
+
+**Third-Party Impact:**
+- Tawk.to: 1.2MB transfer size (live chat widget)
+- Google Fonts: 437kB
+- Recommendation: Consider lazy-loading Tawk.to on user interaction
+
+### New Images Added
+| Image | Source | Description |
+|-------|--------|-------------|
+| `gallery-team-uniform-full.jpg` | FB 487920340 | Full team in company uniforms |
+| `gallery-team-women-professional.jpg` | FB 487885344 | Professional women's team |
+| `gallery-heritage-celebration.jpg` | FB 552560912 | Heritage Day celebration |
+| `gallery-heritage-joy.jpg` | FB 553817745 | Heritage Day joy |
+| `gallery-leadership-suits.jpg` | FB 481186840 | Leadership team at event |
+| `gallery-training-conference.jpg` | FB 488366681 | Training conference |
+| `gallery-heritage-portrait.jpg` | FB 552868754 | Team member in traditional attire |
+
+### Gallery Overflow Enhancement
+Both galleries now extend outside their container for visual impact:
+
+**CSS Changes:**
+- Section: `overflow-x-clip` (clips overflow but allows visual extension)
+- Header: Contained in `max-w-7xl mx-auto px-6 lg:px-12`
+- Grid: `px-2 md:px-0 md:-mx-4 lg:-mx-8 xl:-mx-16` (negative margins for overflow)
+- Columns: `grid-cols-2 md:grid-cols-4 lg:grid-cols-5`
+
+**Files Modified:**
+| File | Changes |
+|------|---------|
+| `src/components/about/AboutGallery.tsx` | New images, overflow effect, 5-column grid |
+| `src/components/careers/CultureGallery.tsx` | New images, overflow effect, 5-column grid |
+| `public/images/gallery-*.jpg` | 7 new high-quality team photos |
+
+### Testing Results
+- **Mobile (375px):** Gallery displays 2 columns, contained with padding
+- **Tablet (768px):** Gallery displays 4 columns, starts to overflow
+- **Desktop (1024px+):** Gallery displays 5 columns, full overflow effect
+- **Dark mode:** Galleries have slate-900 background, works in both modes
+- **Hover effects:** Grayscale-to-colour transition working correctly
 
 ---
 
@@ -323,49 +437,54 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ---
 
-## NEXT SESSION PLAN (Session 94)
+## NEXT SESSION PLAN (Session 95)
 
-### Recommended Focus: Pre-Production Testing & Performance
-Session 94 should focus on comprehensive testing, performance audits, and cross-browser verification.
+### Recommended Focus: Code Cleanup & Performance Optimisation
+Session 95 should clean up deprecated gallery components, address LCP performance issues, and remove unused code.
 
-### Priority 1: Performance Audits
-- [ ] Run Lighthouse audits on all major pages
-- [ ] Check Core Web Vitals (LCP, CLS, INP)
-- [ ] Identify and fix any performance regressions
-- [ ] Verify image optimisation across new gallery images
+### Priority 1: Gallery Cleanup
+- [ ] Delete deprecated gallery components (5 files):
+  - `src/components/about/AboutGallery.tsx`
+  - `src/components/about/GalleryFilmstrip.tsx`
+  - `src/components/about/GalleryCinematic.tsx`
+  - `src/components/about/GalleryPolaroids.tsx`
+  - `src/components/about/GalleryScrollReveal.tsx`
+- [ ] Update any barrel exports (index.ts) if needed
+- [ ] Verify build still passes
 
-### Priority 2: Mobile Responsive Testing
-- [ ] Test at 375px (mobile phones)
-- [ ] Test at 768px (tablets)
-- [ ] Test at 1024px (laptops)
-- [ ] Test at 1440px (desktops)
-- [ ] Verify dark mode across all breakpoints
+### Priority 2: Performance Optimisation
+- [ ] Investigate LCP render delay (90% on Home, Careers, Contact)
+- [ ] Consider lazy-loading Tawk.to on user interaction (saves 1.2MB)
+- [ ] Optimise Google Fonts loading strategy
+- [ ] Review React hydration impact on LCP
 
-### Priority 3: Cross-Browser Testing
-- [ ] Chrome (primary)
-- [ ] Firefox
+### Priority 3: Code Cleanup
+- [ ] Remove deprecated Floating* components (after confirming no usage)
+- [ ] Audit and remove unused dependencies
+- [ ] Review and optimise bundle size
+
+### Priority 4: Cross-Browser Testing
+- [ ] Firefox gallery hover effects
+- [ ] Edge gallery hover effects
 - [ ] Safari (if available)
-- [ ] Edge
-- [ ] Test gallery hover effects in all browsers
 
-### Priority 4: Accessibility Audit (WCAG 2.1 AA)
+### Priority 5: Accessibility Audit (WCAG 2.1 AA)
 - [ ] Colour contrast verification
 - [ ] Keyboard navigation testing
 - [ ] Screen reader compatibility check
 - [ ] Focus states visible and clear
 
-### Priority 5: Cleanup & Polish
+### Priority 6: Final Polish
 - [ ] Remove Development Banner (if approved)
 - [ ] Final review of any remaining placeholder content
 - [ ] Verify all links and navigation work correctly
 
-### Files to Check
-```
-src/components/about/AboutGallery.tsx    # New images
-src/components/careers/CultureGallery.tsx # New images
-src/components/DevelopmentBanner.tsx     # Remove when approved
-public/images/                           # Verify image sizes/formats
-```
+### Performance Issues to Address (from S94)
+| Page | LCP | Issue | Potential Fix |
+|------|-----|-------|---------------|
+| Home | 3,367ms | 90% render delay | Optimise hero loading, lazy-load Tawk.to |
+| Careers | 2,856ms | 90% render delay | Lazy-load non-critical components |
+| Contact | 2,703ms | 90% render delay | Review form component rendering |
 
 ### Reference: Claude Web Development Playbook
 Comprehensive workflow documentation created in S93:
@@ -377,58 +496,66 @@ Comprehensive workflow documentation created in S93:
 
 ---
 
-## RECOMMENDATIONS (Session 93)
+## RECOMMENDATIONS (Session 94)
 
-### Session 93 Achievements
-1. **British English audit complete** - 6 instances fixed across 4 files
-   - "customizable" → "customisable" (quote page)
-   - "driver's license" → "driver's licence" (jobs data)
-   - "training program" → "training programme" (3 instances in jobs)
-   - "advancement programs" → "advancement programmes" (WhyJoinUs)
-   - "Device Leasing program" → "Device Leasing Programme" (help page)
+### Session 94 Achievements
+1. **Gallery exploration & consolidation** - Tested 6 styles, kept 2
+   - Created: Filmstrip, Cinematic, Polaroids, ScrollReveal, Instagram, Floating
+   - Removed: Original bento + Filmstrip, Cinematic, Polaroids, ScrollReveal
+   - Final: GalleryInstagram (bento-style variable sizing) + GalleryFloating (central CTA)
 
-2. **Gallery enhancement** - Real team photos integrated
-   - 5 new images added from company Facebook/resources
-   - AboutGallery and CultureGallery both updated
-   - Professional photos replace placeholder content
+2. **GalleryInstagram with bento-style sizing** - Variable colSpan/rowSpan
+   - Team uniform: `colSpan: 2` (wide)
+   - Leadership suits: `rowSpan: 2` (tall)
+   - `gridAutoFlow: "dense"` prevents gaps in grid
+   - `auto-rows-[200px]` maintains consistent row heights
 
-3. **Claude Web Development Playbook** - Comprehensive workflow documented
-   - MCP server setup (Chrome DevTools, Context7, Playwright, Firecrawl)
-   - Claude for Chrome extension integration
-   - Custom slash commands for design review and performance audits
-   - 6-phase workflow documented
-   - Saved to `docs/CLAUDE_WEB_DEV_PLAYBOOK.md`
+3. **GalleryFloating implementation** - Images around central text
+   - Floating positioned images with rotation
+   - Central CTA: "Join Our Team" button
+   - Links to `/careers` page
 
-4. **Visual verification** - Both About and Careers pages reviewed
-   - Galleries displaying correctly with grayscale-to-colour hover effect
-   - Masonry layout working as intended
+4. **Lighthouse performance audits** - 5 major pages tested
+   - About and Quote pages: Good LCP (~700ms)
+   - Home, Careers, Contact: High LCP (2.7-3.4s) due to render delay
+   - Third-party impact identified: Tawk.to (1.2MB), Google Fonts (437kB)
+
+5. **Mobile and dark mode testing** - Verified across breakpoints
+   - Responsive grid working correctly at all sizes
+   - Dark mode galleries display properly
+   - Hover effects functional
 
 ### Technical Debt Status
 | Issue | Status | Notes |
 |-------|--------|-------|
 | British English compliance | ✅ Resolved | S93 - 6 fixes |
-| Gallery placeholder images | ✅ Resolved | S93 - Real photos added |
+| Gallery placeholder images | ✅ Resolved | S94 - 7 new photos + bento sizing |
+| Gallery spacing issues | ✅ Resolved | S94 - 6 styles tested, 2 final (Instagram + Floating) |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
+| Mobile responsive | ✅ Verified | S94 |
+| Dark mode | ✅ Verified | S94 |
+| LCP performance (3 pages) | ⚠️ Needs work | S94 - Identified 90% render delay |
 | Calculator assumptions | ⏳ Pending | Documented for stakeholder review |
 | Development Banner | ⏳ Pending | Awaiting approval |
 | Deprecated Floating* components | ⏳ Pending | Keep for now |
+| Unused gallery components | ⏳ Cleanup | S94 - 4 files can be deleted |
 
 ### Suggestions for Future Sessions
 
-**Session 94: Pre-Production Testing**
-- Lighthouse performance audits (Core Web Vitals)
-- Mobile responsive testing across breakpoints
-- Cross-browser testing
-- Accessibility audit (WCAG 2.1 AA)
-
-**Session 95: Code Cleanup**
+**Session 95: Performance Optimisation**
+- Address LCP render delay (90% on Home, Careers, Contact)
+- Lazy-load Tawk.to on user interaction
+- Optimise Google Fonts loading
 - Remove deprecated Floating* components
-- Audit and remove unused dependencies
-- Review and optimise bundle size
 
-**Session 96+: Enhancements**
+**Session 96: Accessibility & Polish**
+- WCAG 2.1 AA audit
+- Cross-browser testing (Firefox, Edge, Safari)
+- Final content review
+
+**Session 97+: Enhancements**
 - WhatsApp click-to-chat floating widget
 - WhatsApp Business API integration
 - User portal backend integration
@@ -439,22 +566,32 @@ Comprehensive workflow documentation created in S93:
 | Build passing | ✅ | Dev |
 | All features working | ✅ | Dev |
 | British English compliance | ✅ | Dev (S93) |
-| Gallery images | ✅ | Dev (S93) |
+| Gallery images | ✅ | Dev (S94) - 7 photos + overflow |
+| Mobile responsive | ✅ | Dev (S94) |
+| Dark mode | ✅ | Dev (S94) |
 | Content reviewed | ⏳ | Content team |
 | Premium calculations validated | ⏳ | Product team |
 | Legal review (T&Cs, Privacy) | ⏳ | Legal |
-| Accessibility audit | ⏳ | Dev (S94) |
-| Performance testing | ⏳ | Dev (S94) |
+| Accessibility audit | ⏳ | Dev (S95-96) |
+| Performance optimisation | ⏳ | Dev (S95) - LCP issues identified |
 | Stakeholder sign-off | ⏳ | Management |
 | DNS/Domain setup | ⏳ | DevOps |
 | SSL certificate | ✅ | Vercel (auto) |
 
 ### Deprecated Components (Safe to Remove in S95+)
-The following components in `src/components/ui/` are no longer used:
-- `FloatingInput.tsx`
-- `FloatingSelect.tsx`
-- `FloatingTextarea.tsx`
-- `FloatingDateInput.tsx`
+
+**UI Components (no longer used):**
+- `src/components/ui/FloatingInput.tsx`
+- `src/components/ui/FloatingSelect.tsx`
+- `src/components/ui/FloatingTextarea.tsx`
+- `src/components/ui/FloatingDateInput.tsx`
+
+**Gallery Components (superseded by GalleryInstagram + GalleryFloating):**
+- `src/components/about/AboutGallery.tsx` - Original bento gallery
+- `src/components/about/GalleryFilmstrip.tsx` - Horizontal scroll
+- `src/components/about/GalleryCinematic.tsx` - Ken Burns carousel
+- `src/components/about/GalleryPolaroids.tsx` - Scattered polaroids
+- `src/components/about/GalleryScrollReveal.tsx` - Vertical scroll reveal
 
 Keep them for now in case of rollback need, but can be removed in Session 95.
 
@@ -475,7 +612,7 @@ Keep them for now in case of rollback need, but can be removed in Session 95.
 - Standard form labels (Labelled* components)
 - Icon size standardisation
 - Shadow system documentation
-- **Gallery components (AboutGallery + CultureGallery)** - Enhanced with real photos (Session 93)
+- **Gallery components (GalleryInstagram + GalleryFloating)** - Consolidated from 6 styles (Session 94)
 - **British English compliance** - Full audit complete (Session 93)
 
 ### Disabled (Ready to Enable)
@@ -556,10 +693,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-93)
+## SESSION HISTORY (75-94)
 
 | Session | Focus |
 |---------|-------|
+| S94 | Gallery consolidation (6 styles → 2 final), bento sizing, Lighthouse audits, mobile/dark mode testing |
 | S93 | British English audit (6 fixes), real team photos for galleries, Claude Web Dev Playbook |
 | S92 | Content accuracy, placeholder cleanup, British English fixes (coverage → cover) |
 | S91 | Enable galleries, fix expired job/policy dates, complete icon standardisation |
@@ -582,4 +720,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 10 January 2026 (Session 93)*
+*Document updated: 10 January 2026 (Session 94 - Gallery Consolidation)*

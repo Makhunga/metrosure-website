@@ -6,7 +6,8 @@ import { Header, Footer } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MagneticButton } from "@/components/animations";
-import AboutGallery from "@/components/about/AboutGallery";
+import GalleryInstagram from "@/components/about/GalleryInstagram";
+import GalleryFloating from "@/components/about/GalleryFloating";
 import {
   companyStats as stats,
   coreValues as values,
@@ -636,8 +637,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Visual Gallery */}
-      <AboutGallery />
+      {/* Visual Gallery - Instagram Grid Style */}
+      <GalleryInstagram />
+
+      {/* Floating Images Gallery */}
+      <GalleryFloating />
 
       {/* CTA Section - Matching Landing Page Design */}
       <section ref={ctaRef} className="relative z-10 py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
