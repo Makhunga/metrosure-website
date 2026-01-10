@@ -92,7 +92,7 @@ export function FuneralCostBreakdown({ selectedCoverAmount }: FuneralCostBreakdo
                     : coveragePercentMin >= 80
                     ? `Covers ${coveragePercentMin}–${coveragePercentMax}% of typical costs`
                     : coveragePercentMin >= 50
-                    ? "Consider upgrading for fuller coverage"
+                    ? "Consider upgrading for fuller cover"
                     : "May not cover all expenses - consider a higher tier"}
                 </p>
               </div>

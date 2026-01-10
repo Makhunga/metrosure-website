@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 9 January 2026 (Session 91)
+**Updated:** 10 January 2026 (Session 92)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,7 +10,62 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 9 January 2026
+- **Last Build:** 10 January 2026
+
+---
+
+## SESSION 92 (10 Jan 2026) - Content Accuracy & Copy Consistency
+
+### Focus
+Replaced placeholder policy numbers, updated years experience from 12+ to 13+, and fixed British English terminology ("coverage" → "cover") in calculator components. Reviewed Service Letter document - AVBOB and 1Life already listed as partners; workplace wellness content deemed redundant with existing B2B pages.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Replace placeholder policy numbers (XXXXX → realistic) | Complete |
+| Update years experience (12+ → 13+) | Complete |
+| British English fixes (coverage → cover) | Complete |
+| Review Service Letter document | Complete |
+| Run build and verify | Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/policies.ts` | Replaced XXXXX with realistic policy numbers (AUTO-2024-00147, HOME-2024-00089, LIFE-2023-00256) |
+| `src/data/corporateServices.ts` | Updated "12+" to "13+" Years Experience |
+| `src/components/tools/FuneralCoverCalculator.tsx` | "Your Coverage Includes" → "Your Cover Includes" |
+| `src/components/tools/CalculatorProgress.tsx` | Step label "Coverage" → "Cover" |
+| `src/components/tools/CalculatorResult.tsx` | "Coverage Breakdown" → "Cover Breakdown" |
+| `src/components/tools/FuneralCostBreakdown.tsx` | "fuller coverage" → "fuller cover" |
+
+### Service Letter Review
+Reviewed `/resources/info/Service Letter- Metrosure Insurance Brokers (Field Representatives).docx`:
+- **Purpose:** B2B proposal for on-site marketing representatives offering funeral insurance (AVBOB & 1LIFE)
+- **Finding:** AVBOB and 1Life already listed in `src/data/partners.ts`
+- **Decision:** Workplace wellness content skipped - existing `/corporate` and `/partners` pages are sufficient
+
+### Content Audit Findings
+| Item | Status | Notes |
+|------|--------|-------|
+| Phone numbers | ✓ Verified | +27 31 301 1192 correct across 25+ locations |
+| Homepage statistics | ✓ Verified | 5,000+ jobs, 100+ partners, 2013 established |
+| "Since 2013" claims | ✓ Verified | 16 occurrences, all accurate |
+| Regional offices | ✓ Verified | "5+" acceptable (6 actual offices) |
+
+### Stakeholder Questions for Product Team
+The following calculator assumptions require validation before production:
+
+| Assumption | Current Value | Question |
+|------------|---------------|----------|
+| Base premium rate | R1.00 per R1,000 cover | Is this market-accurate for SA? |
+| Smoker loading | 1.5x (50% increase) | Aligned with actual underwriting? |
+| Age factors | 0.5x (age 20) to 5x (age 70) | Correct age-banding approach? |
+| Premium variance | ±25% range | Appropriate estimate range? |
+| Funeral Basic tier | R99/month for R15,000 cover | Competitive pricing? |
+| Funeral Standard tier | R199/month for R30,000 cover | Competitive pricing? |
+| Funeral Premium tier | R349/month for R50,000 cover | Competitive pricing? |
+
+Data sources documented in `src/data/calculatorData.ts`: ASISA 2025, Stats SA 2025, 1Life, MiWayLife, Metropolitan.
 
 ---
 
@@ -207,74 +262,88 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ---
 
-## NEXT SESSION PLAN (Session 92)
+## NEXT SESSION PLAN (Session 93)
 
-### Recommended Focus: Content & Copy Review
-Session 92 should focus on content accuracy and remaining placeholder cleanup before stakeholder review.
+### Recommended Focus: British English Audit & Page Review
+Session 93 should focus on comprehensive British English compliance, About Us and Careers page review, and pre-production polish.
 
-### Priority 1: Quick Wins (30 mins)
-- [ ] Replace placeholder policy numbers (`XXXXX` → realistic format like `00123`)
-  - File: `src/data/policies.ts`
-  - Impact: Improves demo quality
+### Priority 1: British English Thorough Check
+- [ ] Full codebase audit for American English spellings
+  - "organization" → "organisation"
+  - "color" → "colour"
+  - "center" → "centre"
+  - "analyze" → "analyse"
+  - "customize" → "customise"
+- [ ] Remaining "coverage" → "cover" instances (beyond S92 fixes)
+- [ ] Check terminology consistency across all pages
+- [ ] Review all user-facing copy for UK spelling
 
-### Priority 2: Content Audit (1-2 hours)
-- [ ] Review statistics on homepage (are they current?)
-- [ ] Check all "years in business" claims match 2026
-- [ ] Verify contact information is correct
-- [ ] Review insurance product descriptions for accuracy
-- [ ] Check FAQ content is up-to-date
+### Priority 2: About Us Page Focus
+- [ ] Visual review of AboutGallery (enabled in S91)
+- [ ] Verify company timeline accuracy (2013-2026)
+- [ ] Check executive team information is current
+- [ ] Review company statistics and impact numbers
+- [ ] Audit copy for British English compliance
+- **Files:** `src/app/about/page.tsx`, `src/data/aboutPage.ts`
 
-### Priority 3: Copy Consistency (1 hour)
-- [ ] Audit British English spelling across all pages
-- [ ] Check for consistent terminology (e.g., "cover" vs "coverage")
-- [ ] Verify all CTAs use consistent language
-- [ ] Review meta descriptions for SEO
+### Priority 3: Careers Page Focus
+- [ ] Visual review of CultureGallery (enabled in S91)
+- [ ] Verify job listings are accurate and appealing
+- [ ] Check application form functionality
+- [ ] Review careers copy and job descriptions
+- [ ] Audit for British English (CV not resume, etc.)
+- **Files:** `src/app/careers/page.tsx`, `src/data/jobs.ts`, `src/components/careers/*`
 
-### Priority 4: Stakeholder Preparation
-- [ ] Document premium calculation formulas for review
-- [ ] List all assumptions made in calculator
-- [ ] Prepare questions for product team:
-  - Base rate validation (R1.00/R1,000)
-  - Smoker loading confirmation (1.5x)
-  - Funeral cover age-banding approach
+### Priority 4: Accessibility & Performance
+- [ ] WCAG 2.1 AA compliance check (colour contrast, keyboard nav)
+- [ ] Run Lighthouse audits on About and Careers pages
+- [ ] Mobile responsive testing (375px, 768px)
+
+### Priority 5: Stakeholder Review
+- [ ] Present calculator assumptions for validation (see S92 stakeholder questions)
+- [ ] Get sign-off on premium calculation formulas
+- [ ] Remove Development Banner (if approved)
 
 ### Files to Review
 ```
-src/data/policies.ts          # Placeholder policy numbers
-src/data/calculatorData.ts    # Premium calculation assumptions
-src/app/page.tsx              # Homepage statistics
-src/data/aboutPage.ts         # Company stats and timeline
-src/data/faq.ts               # FAQ content accuracy
+src/app/about/page.tsx                # About Us page
+src/data/aboutPage.ts                 # About page data
+src/app/careers/page.tsx              # Careers page
+src/data/jobs.ts                      # Job listings
+src/components/careers/*              # Careers components
+src/components/about/*                # About components
+src/components/DevelopmentBanner.tsx  # Remove when approved
 ```
 
 ---
 
-## RECOMMENDATIONS (Session 91)
+## RECOMMENDATIONS (Session 92)
 
-### Session 91 Achievements
-1. **Galleries enabled** - AboutGallery and CultureGallery now live
-   - No issues found, images render correctly
-   - Recommend visual review in next session
+### Session 92 Achievements
+1. **Placeholder cleanup complete** - Policy numbers now realistic
+   - AUTO-2024-00147, HOME-2024-00089, LIFE-2023-00256
+   - Improves demo quality for stakeholders
 
-2. **Data freshness restored** - All job and policy dates updated
-   - Jobs valid until July 2026
-   - Policy renewals show future dates
-   - Set calendar reminder to update in 6 months
+2. **Years experience updated** - Now shows "13+ Years Experience"
+   - Accurate for 2026 (since 2013)
+   - Corporate page displays correct timeline
 
-3. **Icon standardisation complete** - All navigation arrows use `text-lg`
-   - 7 additional components standardised
-   - Full consistency achieved across codebase
+3. **British English fixes** - "Coverage" → "Cover" in calculators
+   - FuneralCoverCalculator, CalculatorProgress, CalculatorResult, FuneralCostBreakdown
+   - Consistent with UK English project standard
+
+4. **Service Letter reviewed** - No new content needed
+   - AVBOB and 1Life already partners
+   - Workplace wellness content covered by existing B2B pages
 
 ### Technical Debt Status
 | Issue | Status | Notes |
 |-------|--------|-------|
-| Form label inconsistency | ✅ Resolved | S90 - Labelled* components |
-| Icon size inconsistency | ✅ Resolved | S90-91 - All arrows text-lg |
-| Shadow usage undocumented | ✅ Resolved | S90 - CLAUDE.md updated |
-| Expired job dates | ✅ Resolved | S91 - Valid until Jul 2026 |
-| Expired policy dates | ✅ Resolved | S91 - Future dates set |
-| Gallery components hidden | ✅ Resolved | S91 - isDev gates removed |
-| Placeholder policy numbers | ⏳ Pending | Low priority |
+| Placeholder policy numbers | ✅ Resolved | S92 |
+| Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
+| "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
+| Calculator assumptions | ⏳ Pending | Documented for stakeholder review |
+| Development Banner | ⏳ Pending | Awaiting approval |
 | Deprecated Floating* components | ⏳ Pending | Keep for now |
 
 ### Suggestions for Future Sessions
@@ -415,10 +484,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-91)
+## SESSION HISTORY (75-92)
 
 | Session | Focus |
 |---------|-------|
+| S92 | Content accuracy, placeholder cleanup, British English fixes (coverage → cover) |
 | S91 | Enable galleries, fix expired job/policy dates, complete icon standardisation |
 | S90 | Revert to standard labels, icon standardisation, shadow docs, CareersHero cleanup |
 | S89 | Complete form migration to floating labels (superseded by S90) |
@@ -439,4 +509,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 9 January 2026 (Session 91)*
+*Document updated: 10 January 2026 (Session 92)*

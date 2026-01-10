@@ -69,7 +69,7 @@ export const samplePolicies: SamplePolicy[] = [
   {
     type: "Car Insurance",
     icon: "directions_car",
-    policyNumber: "AUTO-2024-XXXXX",
+    policyNumber: "AUTO-2024-00147",
     status: "Active",
     statusColour: "bg-green-500",
     insurer: "King Price Insurance",
@@ -79,7 +79,7 @@ export const samplePolicies: SamplePolicy[] = [
   {
     type: "Home Insurance",
     icon: "home",
-    policyNumber: "HOME-2024-XXXXX",
+    policyNumber: "HOME-2024-00089",
     status: "Active",
     statusColour: "bg-green-500",
     insurer: "MiWay",
@@ -89,7 +89,7 @@ export const samplePolicies: SamplePolicy[] = [
   {
     type: "Life Cover",
     icon: "favorite",
-    policyNumber: "LIFE-2023-XXXXX",
+    policyNumber: "LIFE-2023-00256",
     status: "Active",
     statusColour: "bg-green-500",
     insurer: "Liberty",

@@ -321,7 +321,7 @@ export function CalculatorResult({
           {/* Breakdown */}
           <div className="mb-8">
             <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
-              Coverage Breakdown
+              Cover Breakdown
             </h3>
             {showPieChart ? (
               <PieChart breakdown={breakdown} total={total} />

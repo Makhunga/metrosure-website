@@ -389,7 +389,7 @@ export function FuneralCoverCalculator() {
                 {/* Coverage Summary */}
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
-                    Your Coverage Includes
+                    Your Cover Includes
                   </h4>
                   <div className="space-y-3">
                     {selectedMembers.map((memberId) => {

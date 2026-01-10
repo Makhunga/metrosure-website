@@ -40,7 +40,7 @@ export const lifeCalculatorSteps: CalculatorStep[] = [
  */
 export const funeralCalculatorSteps: CalculatorStep[] = [
   { id: "members", label: "Family", icon: "family_restroom" },
-  { id: "tier", label: "Coverage", icon: "workspace_premium" },
+  { id: "tier", label: "Cover", icon: "workspace_premium" },
 ];
 
 // =============================================================================

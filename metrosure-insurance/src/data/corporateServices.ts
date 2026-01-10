@@ -279,7 +279,7 @@ export const corporateStats: CorporateStat[] = [
     description: 'Fast funeral and disability claims',
   },
   {
-    value: '12+',
+    value: '13+',
     label: 'Years Experience',
     description: 'Since Metrosure Group founding in 2013',
   },
