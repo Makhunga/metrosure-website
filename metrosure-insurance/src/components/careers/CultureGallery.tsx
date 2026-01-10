@@ -13,40 +13,46 @@ interface GalleryImage {
 
 const galleryImages: GalleryImage[] = [
   {
-    src: "/images/team-formal-uniforms.jpg",
-    alt: "The Metrosure team together",
+    src: "/images/gallery-team-uniform-full.jpg",
+    alt: "The Metrosure team in company uniform",
     caption: "Teamwork",
     span: "wide",
   },
   {
-    src: "/images/team-professional-event.jpg",
-    alt: "Professional team event",
+    src: "/images/gallery-team-women-professional.jpg",
+    alt: "Professional women's team",
     caption: "Excellence",
     span: "tall",
   },
   {
-    src: "/images/team-heritage-day.jpg",
-    alt: "Heritage Day celebration",
+    src: "/images/gallery-heritage-celebration.jpg",
+    alt: "Heritage Day celebration in traditional attire",
     caption: "Culture",
     span: "normal",
   },
   {
-    src: "/images/team-training-session.jpg",
-    alt: "Team training and learning",
-    caption: "Learning",
+    src: "/images/gallery-heritage-joy.jpg",
+    alt: "Celebrating Heritage Day with joy",
+    caption: "Joy",
     span: "normal",
   },
   {
-    src: "/images/team-executive-portrait.jpg",
-    alt: "Leadership at Metrosure",
+    src: "/images/gallery-leadership-suits.jpg",
+    alt: "Leadership team at corporate event",
     caption: "Leadership",
     span: "tall",
   },
   {
-    src: "/images/family-hero-2.webp",
-    alt: "Protecting families",
-    caption: "Purpose",
+    src: "/images/gallery-training-conference.jpg",
+    alt: "Professional development training",
+    caption: "Growth",
     span: "normal",
+  },
+  {
+    src: "/images/gallery-heritage-portrait.jpg",
+    alt: "Team member in traditional attire",
+    caption: "Tradition",
+    span: "tall",
   },
 ];
 
@@ -87,7 +93,7 @@ export default function CultureGallery() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-slate-900 overflow-hidden"
+      className="relative py-24 md:py-32 bg-slate-900 overflow-x-clip"
     >
       {/* Atmospheric gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 opacity-60" />
@@ -112,8 +118,8 @@ export default function CultureGallery() {
         Culture
       </motion.div>
 
-      <div className="relative max-w-[1600px] mx-auto px-6 lg:px-12">
-        {/* Section Header */}
+      {/* Section Header - contained */}
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
         <motion.div
           className="mb-16 md:mb-20 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -144,10 +150,12 @@ export default function CultureGallery() {
             </motion.p>
           </div>
         </motion.div>
+      </div>
 
-        {/* Masonry Gallery Grid */}
+      {/* Masonry Gallery Grid - overflows container for visual impact */}
+      <div className="relative px-2 md:px-0 md:-mx-4 lg:-mx-8 xl:-mx-16">
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[240px]"
+          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 auto-rows-[160px] md:auto-rows-[200px] lg:auto-rows-[220px]"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
