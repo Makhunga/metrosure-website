@@ -69,7 +69,7 @@ Comprehensive British English spelling audit fixing 6 instances across 4 files. 
 - Purpose → `family-hero-2.webp`
 
 ### Claude Web Development Playbook Created
-Comprehensive workflow documentation saved to `~/.claude/plans/enchanted-munching-mccarthy.md` including:
+Comprehensive workflow documentation saved to `docs/CLAUDE_WEB_DEV_PLAYBOOK.md` including:
 - MCP server setup (Chrome DevTools, Context7, Playwright, Firecrawl)
 - Claude for Chrome extension integration
 - Custom slash commands for design review and performance audits
@@ -369,7 +369,7 @@ public/images/                           # Verify image sizes/formats
 
 ### Reference: Claude Web Development Playbook
 Comprehensive workflow documentation created in S93:
-`~/.claude/plans/enchanted-munching-mccarthy.md`
+`docs/CLAUDE_WEB_DEV_PLAYBOOK.md`
 - MCP setup (Chrome DevTools, Context7, Playwright)
 - Custom slash commands
 - Design inspiration workflow
@@ -397,7 +397,7 @@ Comprehensive workflow documentation created in S93:
    - Claude for Chrome extension integration
    - Custom slash commands for design review and performance audits
    - 6-phase workflow documented
-   - Saved to `~/.claude/plans/enchanted-munching-mccarthy.md`
+   - Saved to `docs/CLAUDE_WEB_DEV_PLAYBOOK.md`
 
 4. **Visual verification** - Both About and Careers pages reviewed
    - Galleries displaying correctly with grayscale-to-colour hover effect
