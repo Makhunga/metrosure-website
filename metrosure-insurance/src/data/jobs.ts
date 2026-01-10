@@ -48,7 +48,7 @@ export const jobs: Job[] = [
       "Matric certificate (Grade 12)",
       "Strong communication and interpersonal skills",
       "Sales experience preferred but not required",
-      "Valid driver's license is an advantage",
+      "Valid driver's licence is an advantage",
     ],
     offers: [
       "Competitive base salary + uncapped commission",
@@ -85,7 +85,7 @@ export const jobs: Job[] = [
     ],
     offers: [
       "Competitive salary with performance bonuses",
-      "Comprehensive training program",
+      "Comprehensive training programme",
       "Medical aid contributions",
       "Opportunities for advancement",
     ],
@@ -171,7 +171,7 @@ export const jobs: Job[] = [
     metaDescription:
       "Trainee Sales Agent at Metrosure - no experience required! Paid training, mentorship from top performers. Start your insurance career today across South Africa.",
     responsibilities: [
-      "Complete our comprehensive training program",
+      "Complete our comprehensive training programme",
       "Shadow experienced sales consultants",
       "Learn insurance products and sales techniques",
       "Gradually take on sales responsibilities",
@@ -183,7 +183,7 @@ export const jobs: Job[] = [
       "Good communication skills",
     ],
     offers: [
-      "Paid training program",
+      "Paid training programme",
       "Mentorship from top performers",
       "Fast-track to full sales consultant role",
       "No experience necessary",

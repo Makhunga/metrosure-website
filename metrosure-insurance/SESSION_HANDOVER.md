@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 10 January 2026 (Session 92)
+**Updated:** 10 January 2026 (Session 93)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,71 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 10 January 2026
+
+---
+
+## SESSION 93 (10 Jan 2026) - British English Audit & Gallery Enhancement
+
+### Focus
+Comprehensive British English spelling audit fixing 6 instances across 4 files. Updated both AboutGallery and CultureGallery components with real team photos from company resources. Created Claude Web Development Playbook documenting optimal workflow with MCPs, skills, and tools.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| British English audit (6 instances fixed) | Complete |
+| Visual review of About page + AboutGallery | Complete |
+| Visual review of Careers page + CultureGallery | Complete |
+| Copy 5 real team photos to public/images | Complete |
+| Update AboutGallery with real photos | Complete |
+| Update CultureGallery with real photos | Complete |
+| Create Claude Web Development Playbook | Complete |
+| Run build and verify | Complete |
+
+### British English Fixes
+| File | Line | Change |
+|------|------|--------|
+| `src/app/quote/page.tsx` | 171 | "customizable" → "customisable" |
+| `src/data/jobs.ts` | 51 | "driver's license" → "driver's licence" |
+| `src/data/jobs.ts` | 88 | "training program" → "training programme" |
+| `src/data/jobs.ts` | 174 | "training program" → "training programme" |
+| `src/data/jobs.ts` | 186 | "training program" → "training programme" |
+| `src/components/careers/WhyJoinUs.tsx` | 35 | "advancement programs" → "advancement programmes" |
+| `src/app/help/page.tsx` | 97 | "Device Leasing program" → "Device Leasing Programme" |
+
+### New Images Added
+| Image | Source | Description |
+|-------|--------|-------------|
+| `team-formal-uniforms.jpg` | Facebook | Team photo in Metrosure uniforms |
+| `team-heritage-day.jpg` | Facebook | Heritage Day celebration in traditional attire |
+| `team-professional-event.jpg` | Facebook | Team at professional business event |
+| `team-training-session.jpg` | Facebook | Team members in training session |
+| `team-executive-portrait.jpg` | `bheka_1.jpg` | Executive professional headshot |
+
+### Gallery Updates
+**AboutGallery** (`src/components/about/AboutGallery.tsx`):
+- Our Team → `team-formal-uniforms.jpg` (wide)
+- Leadership → `team-executive-portrait.jpg` (tall)
+- Culture → `team-heritage-day.jpg`
+- Growth → `team-training-session.jpg`
+- Excellence → `team-professional-event.jpg` (tall)
+- Community → `family-hero-2.webp`
+
+**CultureGallery** (`src/components/careers/CultureGallery.tsx`):
+- Teamwork → `team-formal-uniforms.jpg` (wide)
+- Excellence → `team-professional-event.jpg` (tall)
+- Culture → `team-heritage-day.jpg`
+- Learning → `team-training-session.jpg`
+- Leadership → `team-executive-portrait.jpg` (tall)
+- Purpose → `family-hero-2.webp`
+
+### Claude Web Development Playbook Created
+Comprehensive workflow documentation saved to `~/.claude/plans/enchanted-munching-mccarthy.md` including:
+- MCP server setup (Chrome DevTools, Context7, Playwright, Firecrawl)
+- Claude for Chrome extension integration
+- Custom slash commands for design review and performance audits
+- 6-phase workflow: Inspiration → Research → Build → Iterate → Test → Ship
+- Design inspiration gathering techniques
+- Skills usage (frontend-design, content-research-writer)
 
 ---
 
@@ -237,21 +302,16 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ## SKIPPED & DEFERRED TASKS
 
-### Deferred to Session 92
-| Task | Reason | Priority |
-|------|--------|----------|
-| Replace placeholder policy numbers (XXXXX) | Low visibility (behind login wall) | Low |
-| Remove Development Banner | Awaiting stakeholder approval for production launch | Medium |
-| Premium calculation review | Requires stakeholder input | High |
-
 ### Deferred to Future Sessions
 | Task | Reason | Estimated Session |
 |------|--------|-------------------|
-| WhatsApp floating widget | Enhancement, not critical | S93+ |
-| WhatsApp Business API | Requires API setup and business verification | S95+ |
-| Remove deprecated Floating* components | Keep for rollback safety | S94+ |
-| Accessibility audit (WCAG 2.1) | Pre-production task | S93 |
-| Mobile performance testing | Pre-production task | S93 |
+| WhatsApp floating widget | Enhancement, not critical | S94+ |
+| WhatsApp Business API | Requires API setup and business verification | S96+ |
+| Remove deprecated Floating* components | Keep for rollback safety | S95+ |
+| Remove Development Banner | Awaiting stakeholder approval | S94 |
+| Lighthouse audit | Pre-production task (S93 focused on content) | S94 |
+| Mobile performance testing | Pre-production task | S94 |
+| Cross-browser testing | Pre-production task | S94 |
 
 ### Not Started (Blocked)
 | Task | Blocker |
@@ -259,86 +319,95 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 | Production deployment | Awaiting stakeholder sign-off |
 | Real policy data integration | Requires backend API |
 | User authentication | Requires identity provider setup |
+| Calculator validation | Awaiting product team confirmation (see S92 questions) |
 
 ---
 
-## NEXT SESSION PLAN (Session 93)
+## NEXT SESSION PLAN (Session 94)
 
-### Recommended Focus: British English Audit & Page Review
-Session 93 should focus on comprehensive British English compliance, About Us and Careers page review, and pre-production polish.
+### Recommended Focus: Pre-Production Testing & Performance
+Session 94 should focus on comprehensive testing, performance audits, and cross-browser verification.
 
-### Priority 1: British English Thorough Check
-- [ ] Full codebase audit for American English spellings
-  - "organization" → "organisation"
-  - "color" → "colour"
-  - "center" → "centre"
-  - "analyze" → "analyse"
-  - "customize" → "customise"
-- [ ] Remaining "coverage" → "cover" instances (beyond S92 fixes)
-- [ ] Check terminology consistency across all pages
-- [ ] Review all user-facing copy for UK spelling
+### Priority 1: Performance Audits
+- [ ] Run Lighthouse audits on all major pages
+- [ ] Check Core Web Vitals (LCP, CLS, INP)
+- [ ] Identify and fix any performance regressions
+- [ ] Verify image optimisation across new gallery images
 
-### Priority 2: About Us Page Focus
-- [ ] Visual review of AboutGallery (enabled in S91)
-- [ ] Verify company timeline accuracy (2013-2026)
-- [ ] Check executive team information is current
-- [ ] Review company statistics and impact numbers
-- [ ] Audit copy for British English compliance
-- **Files:** `src/app/about/page.tsx`, `src/data/aboutPage.ts`
+### Priority 2: Mobile Responsive Testing
+- [ ] Test at 375px (mobile phones)
+- [ ] Test at 768px (tablets)
+- [ ] Test at 1024px (laptops)
+- [ ] Test at 1440px (desktops)
+- [ ] Verify dark mode across all breakpoints
 
-### Priority 3: Careers Page Focus
-- [ ] Visual review of CultureGallery (enabled in S91)
-- [ ] Verify job listings are accurate and appealing
-- [ ] Check application form functionality
-- [ ] Review careers copy and job descriptions
-- [ ] Audit for British English (CV not resume, etc.)
-- **Files:** `src/app/careers/page.tsx`, `src/data/jobs.ts`, `src/components/careers/*`
+### Priority 3: Cross-Browser Testing
+- [ ] Chrome (primary)
+- [ ] Firefox
+- [ ] Safari (if available)
+- [ ] Edge
+- [ ] Test gallery hover effects in all browsers
 
-### Priority 4: Accessibility & Performance
-- [ ] WCAG 2.1 AA compliance check (colour contrast, keyboard nav)
-- [ ] Run Lighthouse audits on About and Careers pages
-- [ ] Mobile responsive testing (375px, 768px)
+### Priority 4: Accessibility Audit (WCAG 2.1 AA)
+- [ ] Colour contrast verification
+- [ ] Keyboard navigation testing
+- [ ] Screen reader compatibility check
+- [ ] Focus states visible and clear
 
-### Priority 5: Stakeholder Review
-- [ ] Present calculator assumptions for validation (see S92 stakeholder questions)
-- [ ] Get sign-off on premium calculation formulas
+### Priority 5: Cleanup & Polish
 - [ ] Remove Development Banner (if approved)
+- [ ] Final review of any remaining placeholder content
+- [ ] Verify all links and navigation work correctly
 
-### Files to Review
+### Files to Check
 ```
-src/app/about/page.tsx                # About Us page
-src/data/aboutPage.ts                 # About page data
-src/app/careers/page.tsx              # Careers page
-src/data/jobs.ts                      # Job listings
-src/components/careers/*              # Careers components
-src/components/about/*                # About components
-src/components/DevelopmentBanner.tsx  # Remove when approved
+src/components/about/AboutGallery.tsx    # New images
+src/components/careers/CultureGallery.tsx # New images
+src/components/DevelopmentBanner.tsx     # Remove when approved
+public/images/                           # Verify image sizes/formats
 ```
+
+### Reference: Claude Web Development Playbook
+Comprehensive workflow documentation created in S93:
+`~/.claude/plans/enchanted-munching-mccarthy.md`
+- MCP setup (Chrome DevTools, Context7, Playwright)
+- Custom slash commands
+- Design inspiration workflow
+- Testing procedures
 
 ---
 
-## RECOMMENDATIONS (Session 92)
+## RECOMMENDATIONS (Session 93)
 
-### Session 92 Achievements
-1. **Placeholder cleanup complete** - Policy numbers now realistic
-   - AUTO-2024-00147, HOME-2024-00089, LIFE-2023-00256
-   - Improves demo quality for stakeholders
+### Session 93 Achievements
+1. **British English audit complete** - 6 instances fixed across 4 files
+   - "customizable" → "customisable" (quote page)
+   - "driver's license" → "driver's licence" (jobs data)
+   - "training program" → "training programme" (3 instances in jobs)
+   - "advancement programs" → "advancement programmes" (WhyJoinUs)
+   - "Device Leasing program" → "Device Leasing Programme" (help page)
 
-2. **Years experience updated** - Now shows "13+ Years Experience"
-   - Accurate for 2026 (since 2013)
-   - Corporate page displays correct timeline
+2. **Gallery enhancement** - Real team photos integrated
+   - 5 new images added from company Facebook/resources
+   - AboutGallery and CultureGallery both updated
+   - Professional photos replace placeholder content
 
-3. **British English fixes** - "Coverage" → "Cover" in calculators
-   - FuneralCoverCalculator, CalculatorProgress, CalculatorResult, FuneralCostBreakdown
-   - Consistent with UK English project standard
+3. **Claude Web Development Playbook** - Comprehensive workflow documented
+   - MCP server setup (Chrome DevTools, Context7, Playwright, Firecrawl)
+   - Claude for Chrome extension integration
+   - Custom slash commands for design review and performance audits
+   - 6-phase workflow documented
+   - Saved to `~/.claude/plans/enchanted-munching-mccarthy.md`
 
-4. **Service Letter reviewed** - No new content needed
-   - AVBOB and 1Life already partners
-   - Workplace wellness content covered by existing B2B pages
+4. **Visual verification** - Both About and Careers pages reviewed
+   - Galleries displaying correctly with grayscale-to-colour hover effect
+   - Masonry layout working as intended
 
 ### Technical Debt Status
 | Issue | Status | Notes |
 |-------|--------|-------|
+| British English compliance | ✅ Resolved | S93 - 6 fixes |
+| Gallery placeholder images | ✅ Resolved | S93 - Real photos added |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
@@ -348,18 +417,18 @@ src/components/DevelopmentBanner.tsx  # Remove when approved
 
 ### Suggestions for Future Sessions
 
-**Session 93: Pre-Production Checklist**
-- Remove Development Banner (if approved)
-- Accessibility audit (WCAG 2.1 AA compliance)
-- Mobile performance testing (Lighthouse scores)
-- Cross-browser testing (Chrome, Firefox, Safari, Edge)
+**Session 94: Pre-Production Testing**
+- Lighthouse performance audits (Core Web Vitals)
+- Mobile responsive testing across breakpoints
+- Cross-browser testing
+- Accessibility audit (WCAG 2.1 AA)
 
-**Session 94: Code Cleanup**
+**Session 95: Code Cleanup**
 - Remove deprecated Floating* components
 - Audit and remove unused dependencies
 - Review and optimise bundle size
 
-**Session 95+: Enhancements**
+**Session 96+: Enhancements**
 - WhatsApp click-to-chat floating widget
 - WhatsApp Business API integration
 - User portal backend integration
@@ -369,23 +438,25 @@ src/components/DevelopmentBanner.tsx  # Remove when approved
 |------|--------|-------|
 | Build passing | ✅ | Dev |
 | All features working | ✅ | Dev |
+| British English compliance | ✅ | Dev (S93) |
+| Gallery images | ✅ | Dev (S93) |
 | Content reviewed | ⏳ | Content team |
 | Premium calculations validated | ⏳ | Product team |
 | Legal review (T&Cs, Privacy) | ⏳ | Legal |
-| Accessibility audit | ⏳ | Dev |
-| Performance testing | ⏳ | Dev |
+| Accessibility audit | ⏳ | Dev (S94) |
+| Performance testing | ⏳ | Dev (S94) |
 | Stakeholder sign-off | ⏳ | Management |
 | DNS/Domain setup | ⏳ | DevOps |
 | SSL certificate | ✅ | Vercel (auto) |
 
-### Deprecated Components (Safe to Remove in S94+)
+### Deprecated Components (Safe to Remove in S95+)
 The following components in `src/components/ui/` are no longer used:
 - `FloatingInput.tsx`
 - `FloatingSelect.tsx`
 - `FloatingTextarea.tsx`
 - `FloatingDateInput.tsx`
 
-Keep them for now in case of rollback need, but can be removed in Session 94.
+Keep them for now in case of rollback need, but can be removed in Session 95.
 
 ---
 
@@ -404,7 +475,8 @@ Keep them for now in case of rollback need, but can be removed in Session 94.
 - Standard form labels (Labelled* components)
 - Icon size standardisation
 - Shadow system documentation
-- **Gallery components (AboutGallery + CultureGallery)** - NEW (Session 91)
+- **Gallery components (AboutGallery + CultureGallery)** - Enhanced with real photos (Session 93)
+- **British English compliance** - Full audit complete (Session 93)
 
 ### Disabled (Ready to Enable)
 - Development banner (remove when ready for production)
@@ -484,10 +556,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-92)
+## SESSION HISTORY (75-93)
 
 | Session | Focus |
 |---------|-------|
+| S93 | British English audit (6 fixes), real team photos for galleries, Claude Web Dev Playbook |
 | S92 | Content accuracy, placeholder cleanup, British English fixes (coverage → cover) |
 | S91 | Enable galleries, fix expired job/policy dates, complete icon standardisation |
 | S90 | Revert to standard labels, icon standardisation, shadow docs, CareersHero cleanup |
@@ -509,4 +582,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 10 January 2026 (Session 92)*
+*Document updated: 10 January 2026 (Session 93)*

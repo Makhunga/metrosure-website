@@ -168,7 +168,7 @@ const faqs = [
   {
     question: "Can I customise my coverage?",
     answer:
-      "Yes! Our quotes are fully customizable. You can adjust coverage amounts, deductibles, and add optional protections to fit your specific needs and budget.",
+      "Yes! Our quotes are fully customisable. You can adjust coverage amounts, deductibles, and add optional protections to fit your specific needs and budget.",
     category: "Coverage",
   },
 ];

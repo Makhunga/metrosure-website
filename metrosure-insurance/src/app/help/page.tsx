@@ -94,7 +94,7 @@ const categories = [
     articles: [
       { title: "In-Store Campaign partnerships", href: "/partners" },
       { title: "Sales & Marketing support", href: "/partners" },
-      { title: "Device Leasing program", href: "/partners" },
+      { title: "Device Leasing Programme", href: "/partners" },
       { title: "Call Centre Services", href: "/partners" },
     ],
   },

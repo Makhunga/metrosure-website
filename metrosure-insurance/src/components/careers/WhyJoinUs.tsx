@@ -32,7 +32,7 @@ const benefits = [
     icon: "school",
     title: "Training & Development",
     description:
-      "Continuous learning, product training, and career advancement programs. We'll help you become the best in the industry.",
+      "Continuous learning, product training, and career advancement programmes. We'll help you become the best in the industry.",
   },
   {
     icon: "balance",

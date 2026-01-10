@@ -13,31 +13,31 @@ interface GalleryImage {
 
 const galleryImages: GalleryImage[] = [
   {
-    src: "/images/mission-image.jpg",
-    alt: "The Metrosure team at work",
+    src: "/images/team-formal-uniforms.jpg",
+    alt: "The Metrosure team in uniform",
     caption: "Our Team",
     span: "wide",
   },
   {
-    src: "/images/team-fp-tshabalala.jpg",
-    alt: "Leadership driving vision",
-    caption: "Vision",
+    src: "/images/team-executive-portrait.jpg",
+    alt: "Executive leadership",
+    caption: "Leadership",
     span: "tall",
   },
   {
-    src: "/images/work_1.jpg",
-    alt: "Modern office environment",
-    caption: "Innovation",
+    src: "/images/team-heritage-day.jpg",
+    alt: "Heritage Day celebration",
+    caption: "Culture",
     span: "normal",
   },
   {
-    src: "/images/team-bg-chiliza.jpg",
-    alt: "Executive leadership",
-    caption: "Leadership",
+    src: "/images/team-training-session.jpg",
+    alt: "Team training and development",
+    caption: "Growth",
     span: "normal",
   },
   {
-    src: "/images/about-hero.jpg",
+    src: "/images/team-professional-event.jpg",
     alt: "Professional excellence",
     caption: "Excellence",
     span: "tall",
