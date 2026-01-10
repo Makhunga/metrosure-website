@@ -442,15 +442,15 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 ### Recommended Focus: Code Cleanup & Performance Optimisation
 Session 95 should clean up deprecated gallery components, address LCP performance issues, and remove unused code.
 
-### Priority 1: Gallery Cleanup
-- [ ] Delete deprecated gallery components (5 files):
-  - `src/components/about/AboutGallery.tsx`
-  - `src/components/about/GalleryFilmstrip.tsx`
-  - `src/components/about/GalleryCinematic.tsx`
-  - `src/components/about/GalleryPolaroids.tsx`
-  - `src/components/about/GalleryScrollReveal.tsx`
-- [ ] Update any barrel exports (index.ts) if needed
-- [ ] Verify build still passes
+### Priority 1: Gallery Cleanup ✅ COMPLETE
+- [x] Delete deprecated gallery components (5 files):
+  - `src/components/about/AboutGallery.tsx` ✓
+  - `src/components/about/GalleryFilmstrip.tsx` ✓
+  - `src/components/about/GalleryCinematic.tsx` ✓
+  - `src/components/about/GalleryPolaroids.tsx` ✓
+  - `src/components/about/GalleryScrollReveal.tsx` ✓
+- [x] Update CultureGallery with new gallery-*.jpg images
+- [x] Verify build still passes
 
 ### Priority 2: Performance Optimisation
 - [ ] Investigate LCP render delay (90% on Home, Careers, Contact)
@@ -540,7 +540,7 @@ Comprehensive workflow documentation created in S93:
 | Calculator assumptions | ⏳ Pending | Documented for stakeholder review |
 | Development Banner | ⏳ Pending | Awaiting approval |
 | Deprecated Floating* components | ⏳ Pending | Keep for now |
-| Unused gallery components | ⏳ Cleanup | S94 - 4 files can be deleted |
+| Unused gallery components | ✅ Resolved | S94 - 5 files deleted |
 
 ### Suggestions for Future Sessions
 
@@ -586,14 +586,8 @@ Comprehensive workflow documentation created in S93:
 - `src/components/ui/FloatingTextarea.tsx`
 - `src/components/ui/FloatingDateInput.tsx`
 
-**Gallery Components (superseded by GalleryInstagram + GalleryFloating):**
-- `src/components/about/AboutGallery.tsx` - Original bento gallery
-- `src/components/about/GalleryFilmstrip.tsx` - Horizontal scroll
-- `src/components/about/GalleryCinematic.tsx` - Ken Burns carousel
-- `src/components/about/GalleryPolaroids.tsx` - Scattered polaroids
-- `src/components/about/GalleryScrollReveal.tsx` - Vertical scroll reveal
-
-Keep them for now in case of rollback need, but can be removed in Session 95.
+**Gallery Components - DELETED (S94):**
+~~All deprecated gallery components have been deleted. Final galleries: GalleryInstagram + GalleryFloating~~
 
 ---
 
