@@ -1,19 +1,22 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { Header, Footer } from "@/components";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MagneticButton } from "@/components/animations";
-import GalleryInstagram from "@/components/about/GalleryInstagram";
-import GalleryFloating from "@/components/about/GalleryFloating";
 import {
   companyStats as stats,
   coreValues as values,
   companyTimeline as timeline,
   executiveTeam as team,
 } from "@/data/aboutPage";
+
+// Code-split heavy gallery components for better LCP
+const GalleryInstagram = dynamic(() => import("@/components/about/GalleryInstagram"));
+const GalleryFloating = dynamic(() => import("@/components/about/GalleryFloating"));
 
 const containerVariants = {
   hidden: { opacity: 0 },

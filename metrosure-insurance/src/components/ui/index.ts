@@ -15,19 +15,6 @@ export type { LabelledTextareaProps } from "./LabelledTextarea";
 export { LabelledDateInput } from "./LabelledDateInput";
 export type { LabelledDateInputProps } from "./LabelledDateInput";
 
-// Form components - Floating label pattern (deprecated)
-export { FloatingInput } from "./FloatingInput";
-export type { FloatingInputProps } from "./FloatingInput";
-
-export { FloatingSelect } from "./FloatingSelect";
-export type { FloatingSelectProps } from "./FloatingSelect";
-
-export { FloatingTextarea } from "./FloatingTextarea";
-export type { FloatingTextareaProps } from "./FloatingTextarea";
-
-export { FloatingDateInput } from "./FloatingDateInput";
-export type { FloatingDateInputProps } from "./FloatingDateInput";
-
 // Form components - Icon pattern (legacy)
 export { InputIcon } from "./InputIcon";
 

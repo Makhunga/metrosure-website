@@ -1,14 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Header, Footer } from "@/components";
 import CareersHero from "@/components/careers/CareersHero";
-import WhyJoinUs from "@/components/careers/WhyJoinUs";
-import CultureGallery from "@/components/careers/CultureGallery";
-import OpenPositions from "@/components/careers/OpenPositions";
-
 import ApplicationModal from "@/components/careers/ApplicationModal";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+
+// Code-split below-fold components for better LCP
+const WhyJoinUs = dynamic(() => import("@/components/careers/WhyJoinUs"));
+const CultureGallery = dynamic(() => import("@/components/careers/CultureGallery"));
+const OpenPositions = dynamic(() => import("@/components/careers/OpenPositions"));
 import Link from "next/link";
 import Image from "next/image";
 

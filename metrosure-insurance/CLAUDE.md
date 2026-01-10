@@ -202,14 +202,12 @@ Example:
 
 ### Form Components
 
-**Standard pattern (preferred):** `LabelledInput`, `LabelledSelect`, `LabelledTextarea`, `LabelledDateInput`
+**Standard pattern:** `LabelledInput`, `LabelledSelect`, `LabelledTextarea`, `LabelledDateInput`
 - Label above input
 - No animation on focus
 - Cleaner visual hierarchy
 
-**Deprecated:** `FloatingInput`, `FloatingSelect`, `FloatingTextarea`, `FloatingDateInput`
-- Floating labels animate into position
-- More complex implementation
+*Note: Floating* components were removed in Session 95.*
 
 ### Brand Colours
 

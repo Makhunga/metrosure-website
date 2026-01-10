@@ -1,12 +1,13 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Header, Footer } from "@/components";
-import {
-  ContactHero,
-  ContactOptions,
-  FAQ,
-  ContactForm,
-  OfficeLocations,
-} from "@/components/contact";
+import { ContactHero } from "@/components/contact";
+
+// Code-split below-fold components for better LCP
+const ContactOptions = dynamic(() => import("@/components/contact/ContactOptions"));
+const FAQ = dynamic(() => import("@/components/contact/FAQ"));
+const ContactForm = dynamic(() => import("@/components/contact/ContactForm"));
+const OfficeLocations = dynamic(() => import("@/components/contact/OfficeLocations"));
 
 export const metadata: Metadata = {
   title: "Contact Us | Metrosure Insurance Brokers",

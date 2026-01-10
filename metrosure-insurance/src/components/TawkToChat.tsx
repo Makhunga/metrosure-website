@@ -78,30 +78,34 @@ export default function TawkToChat({
     setIsHydrated(true);
   }, []);
 
-  // Load Tawk.to script after hydration
+  // Load Tawk.to script after hydration with 3-second delay for better LCP
   useEffect(() => {
     if (!isHydrated) return;
 
     // Prevent duplicate script injection
     if (window.Tawk_API) return;
 
-    // Initialise Tawk.to globals
-    window.Tawk_API = window.Tawk_API || {};
-    window.Tawk_LoadStart = new Date();
+    // Delay loading by 3 seconds to improve initial page load performance
+    const loadTimer = setTimeout(() => {
+      // Initialise Tawk.to globals
+      window.Tawk_API = window.Tawk_API || {};
+      window.Tawk_LoadStart = new Date();
 
-    // Create and inject script
-    const script = document.createElement("script");
-    script.id = "tawkto-script";
-    script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
-    script.async = true;
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
+      // Create and inject script
+      const script = document.createElement("script");
+      script.id = "tawkto-script";
+      script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
+      script.async = true;
+      script.charset = "UTF-8";
+      script.setAttribute("crossorigin", "*");
 
-    // Append to body (Tawk.to recommends body over head)
-    document.body.appendChild(script);
+      // Append to body (Tawk.to recommends body over head)
+      document.body.appendChild(script);
+    }, 3000);
 
-    // Cleanup on unmount (rare in production but good practice)
+    // Cleanup on unmount
     return () => {
+      clearTimeout(loadTimer);
       const existingScript = document.getElementById("tawkto-script");
       if (existingScript?.parentNode) {
         existingScript.parentNode.removeChild(existingScript);

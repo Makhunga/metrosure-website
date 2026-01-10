@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ClientLayout from "@/components/ClientLayout";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import TawkToChat from "@/components/TawkToChat";
+
+// Lazy-load Tawk.to chat widget (1.2MB) - deferred for better LCP
+// Note: TawkToChat internally handles hydration safety via isHydrated state
+const TawkToChat = dynamic(() => import("@/components/TawkToChat"));
 
 const manrope = Manrope({
   variable: "--font-manrope",
