@@ -63,6 +63,31 @@ const relocationLabels: Record<string, string> = {
   "depends": "Depends on location",
 };
 
+/**
+ * Sanitise filename to prevent path traversal and special character issues
+ * - Removes path separators (/, \)
+ * - Removes special characters except dots, dashes, underscores
+ * - Adds timestamp prefix to avoid collisions
+ * - Preserves file extension
+ */
+function sanitiseFilename(originalName: string): string {
+  // Extract extension
+  const lastDot = originalName.lastIndexOf('.');
+  const extension = lastDot > 0 ? originalName.slice(lastDot) : '';
+  const baseName = lastDot > 0 ? originalName.slice(0, lastDot) : originalName;
+
+  // Remove path separators and dangerous characters
+  const sanitised = baseName
+    .replace(/[/\\]/g, '') // Remove path separators
+    .replace(/[^a-zA-Z0-9\-_\s]/g, '') // Keep only alphanumeric, dash, underscore, space
+    .replace(/\s+/g, '-') // Replace spaces with dashes
+    .slice(0, 100); // Limit length
+
+  // Add timestamp prefix for uniqueness
+  const timestamp = Date.now();
+  return `${timestamp}-${sanitised || 'cv'}${extension}`;
+}
+
 export async function POST(request: NextRequest) {
   // Rate limiting: 3 requests per hour per IP (file uploads are resource-intensive)
   const rateLimitResponse = checkRateLimit(request, rateLimits.careersApplication, 'careers-application');
@@ -127,8 +152,9 @@ export async function POST(request: NextRequest) {
 
       // Convert file to buffer for attachment
       const cvBuffer = Buffer.from(await cvFile.arrayBuffer());
+      const sanitisedFilename = sanitiseFilename(cvFile.name);
       cvAttachment = {
-        filename: cvFile.name,
+        filename: sanitisedFilename,
         content: cvBuffer,
       };
 
@@ -158,7 +184,7 @@ export async function POST(request: NextRequest) {
     // Send email with CV attachment
     const internalEmailResult = await sendEmail({
       to: emailTo.careers,
-      subject: `New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
+      subject: `[Website Form] New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
       html: emailHtml,
       replyTo: validatedData.email,
       attachments: cvAttachment ? [cvAttachment] : undefined,
@@ -187,18 +213,24 @@ export async function POST(request: NextRequest) {
       console.log("CV File Info:", JSON.stringify(cvInfo, null, 2));
     }
 
-    // Send confirmation email to applicant (non-blocking)
+    // Send confirmation email to applicant
     const confirmationResult = await sendEmail({
       to: validatedData.email,
       subject: `Application Received - ${applicationData.position} at Metrosure`,
       html: generateConfirmationEmail(applicationData),
     });
 
-    if (!confirmationResult.success) {
-      console.warn("Applicant confirmation email failed:", confirmationResult.error);
-    }
-
-    return NextResponse.json({
+    // Build response with optional warning about confirmation email
+    const response: {
+      success: boolean;
+      message: string;
+      data: {
+        applicantName: string;
+        position: string;
+        referenceId: string;
+      };
+      warning?: string;
+    } = {
       success: true,
       message: "Application submitted successfully",
       data: {
@@ -206,7 +238,14 @@ export async function POST(request: NextRequest) {
         position: positionLabels[validatedData.position] || validatedData.position,
         referenceId: `APP-${Date.now()}`,
       },
-    });
+    };
+
+    if (!confirmationResult.success) {
+      console.warn("Applicant confirmation email failed:", confirmationResult.error);
+      response.warning = "Your application was received, but we couldn't send a confirmation email. Please check your spam folder or contact careers@metrosuregroup.co.za if you don't hear back within 5-7 business days.";
+    }
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Error processing career application:", error);
     const err = serverError(error instanceof Error ? error.message : 'Unknown error');

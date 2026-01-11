@@ -15,11 +15,31 @@ export type FieldStates = Record<string, FieldState>;
 /**
  * Email validation
  * Returns error message if invalid, null if valid
+ * Uses stricter regex that prevents:
+ * - Consecutive dots
+ * - Starting/ending with dots
+ * - Double @ symbols
+ * - Missing/invalid domain structure
  */
 export const validateEmail = (email: string): string | null => {
   if (!email) return "Email is required";
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Stricter email regex:
+  // - Local part: alphanumeric, dots, underscores, hyphens (no consecutive dots)
+  // - @ symbol
+  // - Domain: alphanumeric with hyphens, at least one dot, valid TLD
+  const emailRegex = /^[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})+$/;
+
+  // Check for consecutive dots or @ symbols
+  if (/\.\./.test(email) || /@@/.test(email)) {
+    return "Please enter a valid email address";
+  }
+
   if (!emailRegex.test(email)) return "Please enter a valid email address";
+
+  // Maximum length check (RFC 5321)
+  if (email.length > 254) return "Email address is too long";
+
   return null;
 };
 

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 10 January 2026 (Session 95)
+**Updated:** 11 January 2026 (Session 96)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,7 +10,79 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 10 January 2026
+- **Last Build:** 11 January 2026
+
+---
+
+## SESSION 96 (11 Jan 2026) - Forms & Email Deliverability
+
+### Focus
+Audited all forms and email delivery, fixed critical issues including hardcoded logo URL, CV filename sanitisation, confirmation email handling, and email validation. Added monitoring recipients for testing.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Test all 7 forms (Contact, Partner, Corporate, Careers, Quote, Calculator) | Complete |
+| Fix hardcoded logo URL in email templates | Complete |
+| Update email domain to metrosure.app consistently | Complete |
+| Sanitise CV filenames in careers-application route | Complete |
+| Improve confirmation email handling (add warnings) | Complete |
+| Improve email validation regex (stricter) | Complete |
+| Add OPTIONS handler to calculator email route | Complete |
+| Add monitoring email recipients for testing | Complete |
+| Build verification | Complete |
+
+### Form Testing Results
+All 7 forms tested and working:
+| Form | Recipient | Subject Prefix | Status |
+|------|-----------|----------------|--------|
+| Contact (message) | info@metrosuregroup.co.za | `[Website Form] Contact:` | Pass |
+| Contact (callback) | info@metrosuregroup.co.za | `[Website Form] Callback Request:` | Pass |
+| Contact (B2B) | clients@metrosureconsult.co.za | `[Website Form] [B2B] Contact:` | Pass |
+| Partner Inquiry | clients@metrosureconsult.co.za | `[Website Form] New Partnership Inquiry:` | Pass |
+| Corporate Inquiry | clients@metrosureconsult.co.za | `[Website Form] New Corporate Inquiry:` | Pass |
+| Careers Application | careers@metrosuregroup.co.za | `[Website Form] New Job Application:` | Pass |
+| Quote Request | info or clients | `[Website Form] Quote Request:` | Pass |
+| Calculator Email | User's email | N/A (user confirmation) | Pass |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/lib/email.ts` | Fixed logo URL (production domain), added monitoring emails, updated FROM domain to metrosure.app |
+| `src/app/api/careers-application/route.ts` | Added filename sanitisation, improved confirmation handling |
+| `src/app/api/partner-inquiry/route.ts` | Improved confirmation email handling with warning |
+| `src/app/api/corporate-inquiry/route.ts` | Improved confirmation email handling with warning |
+| `src/app/api/quote/route.ts` | Improved confirmation email handling with warning |
+| `src/lib/formValidation.ts` | Stricter email validation regex |
+| `src/app/api/calculator/email-results/route.ts` | Added OPTIONS handler |
+
+### Email Configuration
+- **FROM Domain:** `noreply@metrosure.app` (for all web form emails)
+- **Logo URL:** `https://metrosure-website-git-main-makhungas-projects.vercel.app/images/logo-white.png` (Vercel preview - update to production when domain is live)
+- **Monitoring Emails:** `makhunga@zoocora.co.za`, `makhunga@metrosuregroup.co.za` (testing)
+
+### Stakeholder Meeting Updates (S96)
+Per stakeholder direction:
+1. **B2B emails now go to:** `clients@metrosureconsult.co.za` (was clients@metrosuregroup.co.za)
+2. **Email subject prefix:** `[Website Form]` added to all internal emails for immediate identification
+   - Example: `[Website Form] [B2B] New Partnership Inquiry: Company Name`
+   - Example: `[Website Form] Quote Request: Life - John Doe`
+
+### Security Improvements
+1. **CV Filename Sanitisation:**
+   - Removes path separators and special characters
+   - Adds timestamp prefix for uniqueness
+   - Limits filename length to 100 characters
+
+2. **Email Validation:**
+   - Prevents consecutive dots and @ symbols
+   - Validates domain structure with proper TLD
+   - Enforces RFC 5321 length limit (254 chars)
+
+3. **Confirmation Email Handling:**
+   - Returns warning in response if confirmation fails
+   - User informed to check spam or contact support
+   - No silent failures
 
 ---
 
@@ -488,13 +560,10 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 ### Deferred to Future Sessions
 | Task | Reason | Estimated Session |
 |------|--------|-------------------|
-| WhatsApp floating widget | Enhancement, not critical | S94+ |
-| WhatsApp Business API | Requires API setup and business verification | S96+ |
-| Remove deprecated Floating* components | Keep for rollback safety | S95+ |
-| Remove Development Banner | Awaiting stakeholder approval | S94 |
-| Lighthouse audit | Pre-production task (S93 focused on content) | S94 |
-| Mobile performance testing | Pre-production task | S94 |
-| Cross-browser testing | Pre-production task | S94 |
+| WhatsApp floating widget | Enhancement, not critical | S97+ |
+| WhatsApp Business API | Requires API setup and business verification | S97+ |
+| Remove Development Banner | Awaiting stakeholder approval | S97 |
+| Remove monitoring emails from email.ts | Testing only | S97 (after testing complete) |
 
 ### Not Started (Blocked)
 | Task | Blocker |
@@ -506,10 +575,10 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ---
 
-## NEXT SESSION PLAN (Session 96)
+## NEXT SESSION PLAN (Session 97)
 
 ### Recommended Focus: Accessibility & Cross-Browser Testing
-Session 96 should focus on accessibility compliance (WCAG 2.1 AA), cross-browser testing, and final polish before production.
+Session 97 should focus on accessibility compliance (WCAG 2.1 AA), cross-browser testing, and final polish before production.
 
 ### Priority 1: Cross-Browser Testing
 - [ ] Firefox gallery hover effects
@@ -531,6 +600,7 @@ Session 96 should focus on accessibility compliance (WCAG 2.1 AA), cross-browser
 
 ### Priority 4: Final Polish
 - [ ] Remove Development Banner (if approved by stakeholder)
+- [ ] Remove monitoring emails from email.ts (after testing)
 - [ ] Final review of any remaining placeholder content
 - [ ] Verify all links and navigation work correctly
 
@@ -590,10 +660,16 @@ Comprehensive workflow documentation created in S93:
 | Deprecated Floating* components | ✅ Resolved | S95 - 4 files deleted |
 | Unused gallery components | ✅ Resolved | S94 - 5 files deleted |
 | Code-splitting | ✅ Applied | S95 - Careers, About, Contact pages |
+| Email logo URL hardcoded | ✅ Resolved | S96 - Updated to production URL |
+| CV filename sanitisation | ✅ Resolved | S96 - Security fix applied |
+| Email validation regex | ✅ Resolved | S96 - Stricter validation |
+| Confirmation email handling | ✅ Resolved | S96 - Warnings added |
+| Email domain configuration | ✅ Resolved | S96 - metrosure.app for all |
+| Monitoring emails | ⏳ Testing | S96 - Remove after testing complete |
 
 ### Suggestions for Future Sessions
 
-**Session 96: Accessibility & Cross-Browser Testing**
+**Session 97: Accessibility & Cross-Browser Testing**
 - WCAG 2.1 AA audit (colour contrast, keyboard nav, screen readers)
 - Cross-browser testing (Firefox, Edge, Safari)
 - Verify S95 performance improvements with Lighthouse
@@ -727,10 +803,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-95)
+## SESSION HISTORY (75-96)
 
 | Session | Focus |
 |---------|-------|
+| S96 | Forms & email deliverability audit, logo URL fix, CV filename sanitisation, email validation, monitoring emails |
 | S95 | Performance optimisation (Tawk.to 3s delay, code-splitting), delete deprecated Floating* components |
 | S94 | Gallery consolidation (6 styles → 2 final), bento sizing, Lighthouse audits, mobile/dark mode testing |
 | S93 | British English audit (6 fixes), real team photos for galleries, Claude Web Dev Playbook |

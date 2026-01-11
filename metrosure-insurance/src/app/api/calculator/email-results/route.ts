@@ -91,3 +91,8 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+// Handle OPTIONS request for CORS
+export async function OPTIONS() {
+  return NextResponse.json({}, { status: 200 });
+}

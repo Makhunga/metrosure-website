@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     // Send notification email to clients team
     const internalEmailResult = await sendEmail({
       to: emailTo.clients,
-      subject: `New Corporate Inquiry: ${data.companyName}`,
+      subject: `[Website Form] New Corporate Inquiry: ${data.companyName}`,
       html: emailHtml,
       replyTo: data.email,
     });
@@ -88,24 +88,29 @@ export async function POST(request: NextRequest) {
     console.log(JSON.stringify(data, null, 2));
     console.log("=============================");
 
-    // Send confirmation email to the inquirer (non-blocking)
+    // Send confirmation email to the inquirer
     const confirmationResult = await sendEmail({
       to: data.email,
       subject: `Thank you for your corporate inquiry - Metrosure`,
       html: generateConfirmationEmail(data),
     });
 
+    // Build response with optional warning about confirmation email
+    const response: {
+      success: boolean;
+      message: string;
+      warning?: string;
+    } = {
+      success: true,
+      message: "Corporate inquiry submitted successfully"
+    };
+
     if (!confirmationResult.success) {
       console.warn("Corporate confirmation email failed:", confirmationResult.error);
+      response.warning = "Your inquiry was received, but we couldn't send a confirmation email. Please check your spam folder or contact us if you don't hear back within 24-48 hours.";
     }
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Corporate inquiry submitted successfully"
-      },
-      { status: 200 }
-    );
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Corporate inquiry error:", error);
     const err = serverError(error instanceof Error ? error.message : 'Unknown error');

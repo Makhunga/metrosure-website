@@ -113,13 +113,13 @@ export async function POST(request: NextRequest) {
 
     // Route B2B quotes to clients email, individual quotes to info
     const emailRecipient = isB2B ? emailTo.clients : emailTo.info;
-    const subjectPrefix = isB2B ? "[B2B] " : "";
+    const b2bPrefix = isB2B ? "[B2B] " : "";
     const companyNote = isB2B && data.companyName ? ` (${data.companyName})` : "";
 
     // Send internal notification
     const internalEmailResult = await sendEmail({
       to: emailRecipient,
-      subject: `${subjectPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
+      subject: `[Website Form] ${b2bPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
       html: internalEmailHtml,
       replyTo: data.email,
     });
@@ -140,28 +140,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send confirmation to customer (non-blocking - don't fail if this doesn't send)
+    // Send confirmation to customer
     const confirmationResult = await sendEmail({
       to: data.email,
       subject: "Your Quote Request - Metrosure Insurance Brokers",
       html: confirmationEmailHtml,
     });
 
-    if (!confirmationResult.success) {
-      console.warn("Customer confirmation email failed:", confirmationResult.error);
-    }
-
     // Log for development
     console.log("=== Quote Request Received ===");
     console.log(JSON.stringify(data, null, 2));
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Your quote request has been submitted successfully. We'll be in touch within 24 hours.",
-      },
-      { status: 200 }
-    );
+    // Build response with optional warning about confirmation email
+    const response: {
+      success: boolean;
+      message: string;
+      warning?: string;
+    } = {
+      success: true,
+      message: "Your quote request has been submitted successfully. We'll be in touch within 24 hours.",
+    };
+
+    if (!confirmationResult.success) {
+      console.warn("Customer confirmation email failed:", confirmationResult.error);
+      response.warning = "Your request was received, but we couldn't send a confirmation email. Please check your spam folder or contact us if you don't hear back within 24 hours.";
+    }
+
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Quote form error:", error);
     const err = serverError(error instanceof Error ? error.message : 'Unknown error');

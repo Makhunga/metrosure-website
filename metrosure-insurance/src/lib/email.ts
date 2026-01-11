@@ -26,16 +26,18 @@ function getResend(): Resend | null {
 }
 
 // Email addresses
+// Updated per stakeholder meeting (S96): B2B inquiries go to metrosureconsult.co.za
 const EMAIL_INFO = 'info@metrosuregroup.co.za';
-const EMAIL_CLIENTS = 'clients@metrosuregroup.co.za';
+const EMAIL_CLIENTS = 'clients@metrosureconsult.co.za';
 const EMAIL_CAREERS = 'careers@metrosuregroup.co.za';
 
-// From email - uses verified metrosure.app domain for testing, metrosuregroup.co.za for production
-// Set RESEND_FROM_EMAIL in .env.local to override (e.g., noreply@metrosure.app)
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL
-  || (process.env.NODE_ENV === 'production'
-    ? 'Metrosure <noreply@metrosuregroup.co.za>'
-    : 'Metrosure <noreply@metrosure.app>');
+// Additional recipients for testing/monitoring
+const EMAIL_MONITORING = ['makhunga@zoocora.co.za', 'makhunga@metrosuregroup.co.za'];
+
+// From email - uses verified metrosure.app domain for all web form emails
+// metrosure.app is the designated domain for Metrosure web applications
+// Set RESEND_FROM_EMAIL in .env.local to override
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Metrosure <noreply@metrosure.app>';
 
 interface EmailAttachment {
   filename: string;
@@ -88,10 +90,11 @@ export async function sendEmail({ to, subject, html, replyTo, attachments }: Sen
 }
 
 // Pre-configured email senders for different purposes
+// Each destination includes monitoring addresses for testing
 export const emailTo = {
-  info: EMAIL_INFO,
-  clients: EMAIL_CLIENTS,
-  careers: EMAIL_CAREERS,
+  info: [EMAIL_INFO, ...EMAIL_MONITORING],
+  clients: [EMAIL_CLIENTS, ...EMAIL_MONITORING],
+  careers: [EMAIL_CAREERS, ...EMAIL_MONITORING],
 };
 
 // ============================================================================
