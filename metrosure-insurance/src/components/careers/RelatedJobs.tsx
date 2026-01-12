@@ -11,21 +11,11 @@ interface RelatedJobsProps {
 
 interface JobCardMiniProps {
   job: Job;
-  index: number;
 }
 
-function JobCardMini({ job, index }: JobCardMiniProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
+function JobCardMini({ job }: JobCardMiniProps) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="flex-shrink-0 w-[300px] sm:w-auto"
-    >
+    <div className="flex-shrink-0 w-[300px] sm:w-auto">
       <Link href={`/careers/${job.slug}`} className="block group h-full">
         <div className="h-full bg-[rgb(var(--color-surface))] rounded-2xl p-6 border border-[rgb(var(--color-border-light))] hover:border-primary/30 hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
           {/* Badges */}
@@ -64,7 +54,7 @@ function JobCardMini({ job, index }: JobCardMiniProps) {
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 }
 
@@ -97,25 +87,20 @@ export default function RelatedJobs({ currentJob }: RelatedJobsProps) {
       className="py-16 sm:py-20 bg-[rgb(var(--color-surface))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+        {/* Section header - single animation */}
         <motion.div
           className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
           <div>
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">
                 More Opportunities
               </span>
-            </motion.div>
+            </div>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-[rgb(var(--color-text-main))]">
               Explore Other <span className="text-primary">Positions</span>
@@ -134,18 +119,23 @@ export default function RelatedJobs({ currentJob }: RelatedJobsProps) {
         {/* Mobile: Horizontal scroll */}
         <div className="sm:hidden -mx-4 px-4 overflow-x-auto scrollbar-hide">
           <div className="flex gap-4 pb-4">
-            {relatedJobs.map((job, index) => (
-              <JobCardMini key={job.id} job={job} index={index} />
+            {relatedJobs.map((job) => (
+              <JobCardMini key={job.id} job={job} />
             ))}
           </div>
         </div>
 
         {/* Desktop: Grid */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {relatedJobs.map((job, index) => (
-            <JobCardMini key={job.id} job={job} index={index} />
+        <motion.div
+          className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          {relatedJobs.map((job) => (
+            <JobCardMini key={job.id} job={job} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

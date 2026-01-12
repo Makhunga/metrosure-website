@@ -34,47 +34,17 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
 
   return (
     <section className="relative pt-32 pb-16 overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
-      {/* Decorative background elements */}
+      {/* Subtle decorative accent */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large circle accent */}
         <div
           className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-[0.03]"
           style={{ background: "rgb(191, 6, 3)" }}
         />
-        {/* Grid pattern */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.02]"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id="hero-grid"
-              x="0"
-              y="0"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 40 0 L 0 0 0 40"
-                fill="none"
-                stroke="rgb(var(--color-text-main))"
-                strokeWidth="1"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#hero-grid)" />
-        </svg>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb */}
-        <motion.nav
-          className="mb-8"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
+        <nav className="mb-8">
           <ol className="flex items-center gap-2 text-sm">
             <li>
               <Link
@@ -102,14 +72,10 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
               {job.title}
             </li>
           </ol>
-        </motion.nav>
+        </nav>
 
         {/* Back link */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-        >
+        <div>
           <Link
             href="/careers#open-positions"
             className="inline-flex items-center gap-2 text-[rgb(var(--color-text-body))] hover:text-primary transition-colors group mb-6"
@@ -119,19 +85,19 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
             </span>
             <span className="font-medium">Back to all positions</span>
           </Link>
-        </motion.div>
+        </div>
 
-        {/* Main hero content */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+        {/* Main hero content - single fade-in animation */}
+        <motion.div
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           {/* Left: Title and badges */}
           <div className="flex-1">
             {/* Badges */}
-            <motion.div
-              className="flex flex-wrap gap-2 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            <div className="flex flex-wrap gap-2 mb-6">
               <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold">
                 <span className="material-symbols-outlined text-base">work</span>
                 {job.department}
@@ -148,36 +114,21 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
                 </span>
                 {job.type}
               </span>
-            </motion.div>
+            </div>
 
-            {/* Title */}
-            <motion.h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[rgb(var(--color-text-main))] leading-[1.1] mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+            {/* Title - reduced from text-6xl to text-5xl */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[rgb(var(--color-text-main))] leading-[1.1] mb-6">
               {job.title}
-            </motion.h1>
+            </h1>
 
-            {/* Description */}
-            <motion.p
-              className="text-lg sm:text-xl text-[rgb(var(--color-text-body))] leading-relaxed max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            {/* Description - reduced from text-xl to text-lg */}
+            <p className="text-base sm:text-lg text-[rgb(var(--color-text-body))] leading-relaxed max-w-2xl">
               {job.description}
-            </motion.p>
+            </p>
           </div>
 
           {/* Right: Actions */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 lg:flex-col lg:items-end"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
+          <div className="flex flex-col sm:flex-row gap-4 lg:flex-col lg:items-end">
             {/* Apply button */}
             <Link href="#apply">
               <motion.span
@@ -202,16 +153,11 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
               </span>
               <span>{copied ? "Link Copied!" : "Share Position"}</span>
             </motion.button>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {/* Posted date */}
-        <motion.div
-          className="mt-8 pt-6 border-t border-[rgb(var(--color-border-light))]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
+        <div className="mt-8 pt-6 border-t border-[rgb(var(--color-border-light))]">
           <p className="text-sm text-[rgb(var(--color-text-muted))]">
             <span className="material-symbols-outlined text-sm align-middle mr-1">
               calendar_today
@@ -223,7 +169,7 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
               day: "numeric",
             })}
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
