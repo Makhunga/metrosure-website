@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { Header, Footer } from "@/components";
 import { getAllSlugs, getJobBySlug } from "@/data/jobs";
 import JobDetailHero from "@/components/careers/JobDetailHero";
 import JobDetailContent from "@/components/careers/JobDetailContent";
@@ -47,29 +48,18 @@ export default async function JobDetailPage({ params }: PageProps) {
   }
 
   return (
-    <main>
-      <JobDetailHero job={job} />
-      <JobDetailContent job={job} />
+    <>
+      <Header />
+      <main>
+        <JobDetailHero job={job} />
+        <JobDetailContent job={job} />
 
-      {/* Application Form Section */}
-      <section
-        id="apply"
-        className="py-16 sm:py-20 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[rgb(var(--color-text-main))] mb-4">
-              Apply for <span className="text-primary">{job.title}</span>
-            </h2>
-            <p className="text-[rgb(var(--color-text-body))]">
-              Fill out the form below and we&apos;ll be in touch soon.
-            </p>
-          </div>
-          <ApplicationForm selectedPosition={job.title} />
-        </div>
-      </section>
+        {/* Application Form Section */}
+        <ApplicationForm id="apply" selectedPosition={job.title} />
 
-      <RelatedJobs currentJob={job} />
-    </main>
+        <RelatedJobs currentJob={job} />
+      </main>
+      <Footer />
+    </>
   );
 }

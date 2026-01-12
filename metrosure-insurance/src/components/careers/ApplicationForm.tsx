@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { track } from "@vercel/analytics";
 import {
   FormSuccess,
@@ -56,8 +56,6 @@ export default function ApplicationForm({
   selectedPosition,
   onPositionChange,
 }: ApplicationFormProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -209,33 +207,17 @@ export default function ApplicationForm({
 
   return (
     <section
-      ref={ref}
       id={id}
       className="relative py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="lg:sticky lg:top-24"
-          >
-            <motion.span
-              className="inline-block px-4 py-1.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-sm font-semibold mb-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.2 }}
-            >
-              <span className="inline-flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                </span>
-                Actively Hiring
-              </span>
-            </motion.span>
+          <div className="lg:sticky lg:top-24">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-sm font-semibold mb-4">
+              <span className="w-2 h-2 rounded-full bg-green-500" />
+              Actively Hiring
+            </span>
 
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
               We&apos;re Always <span className="text-primary">Hiring</span>
@@ -322,33 +304,21 @@ export default function ApplicationForm({
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column - Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div>
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700">
-              <AnimatePresence mode="wait">
-                {isSubmitted ? (
-                  <FormSuccess
-                    title="Application Received!"
-                    description="Thank you for applying to join Metrosure. We'll review your application and get back to you within 48 hours."
-                    buttonText="Apply for Another Position"
-                    onReset={resetForm}
-                    accentColor="green"
-                  />
-                ) : (
-                  <motion.form
-                    key="form"
-                    onSubmit={handleSubmit}
-                    className="space-y-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
+              {isSubmitted ? (
+                <FormSuccess
+                  title="Application Received!"
+                  description="Thank you for applying to join Metrosure. We'll review your application and get back to you within 48 hours."
+                  buttonText="Apply for Another Position"
+                  onReset={resetForm}
+                  accentColor="green"
+                />
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="text-center mb-6">
                       <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                         Quick Apply
@@ -583,11 +553,10 @@ export default function ApplicationForm({
                         </>
                       )}
                     </motion.button>
-                  </motion.form>
-                )}
-              </AnimatePresence>
+                </form>
+              )}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

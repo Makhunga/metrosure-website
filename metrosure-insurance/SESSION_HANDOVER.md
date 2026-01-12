@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 12 January 2026 (Session 98)
+**Updated:** 12 January 2026 (Session 99)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -16,72 +16,93 @@
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Clean Up Careers Individual Pages
-- Review individual job position pages
-- Reduce visual activity/animations
-- Cleaner, more professional layout
-- Simpler typography hierarchy
+### Priority 1: Visual Testing & Polish
+- Test careers individual pages in browser
+- Verify minimal motion approach feels professional
+- Check mobile responsive behaviour
+- Dark mode verification
 
-### Priority 2: Choose Final Gallery Style
-- Gallery switcher currently has 3 options: Current (Grid), Clean Slider, Magazine
-- Test all 3 variants and make final decision
-- Remove switcher bar after decision
-- Delete unused gallery variant components
+### Priority 2: Accessibility Audit
+- WCAG 2.1 AA colour contrast verification
+- Keyboard navigation testing
+- Screen reader compatibility check
+- Focus states visible and clear
+
+### Priority 3: Cross-Browser Testing
+- Firefox gallery and form behaviour
+- Edge compatibility
+- Safari (if available)
 
 ---
 
-## SESSION 98 (12 Jan 2026) - Gallery Variants & Stakeholder Docs
+## SESSION 99 (12 Jan 2026) - Careers Page Animation Simplification
 
 ### Focus
-Created 5 gallery/slider variants for careers page culture section. After review, narrowed down to 3 options for final selection. Updated STAKEHOLDER_EMAIL.md with Sessions 87-97 progress. Fixed British English spelling on Partners page.
+Committed outstanding Session 98 gallery work. Simplified ApplicationForm.tsx animations to use minimal motion approach - removed decorative animations while keeping essential user feedback (submit spinner, error states, button interactions).
 
 ### Completed Tasks
 | Task | Status |
 |------|--------|
-| Create 5 gallery variant components | Complete |
-| Test all variants in browser | Complete |
-| Keep 3 variants (Current, Clean Slider, Magazine) | Complete |
-| Delete 3 variants (FilmStrip, FullScreen, Polaroids) | Complete |
-| Update STAKEHOLDER_EMAIL.md | Complete |
-| Fix "Program" → "Programme" on Partners page | Complete |
+| Commit Session 98 gallery consolidation | Complete |
+| Remove animated ping dots from "Actively Hiring" badge | Complete |
+| Remove left/right column slide-in animations | Complete |
+| Remove AnimatePresence wrapper | Complete |
+| Replace motion.div wrappers with regular divs | Complete |
+| Keep submit button spinner and hover effects | Complete |
+| Keep error message visibility | Complete |
 | Build verification | Complete |
-
-### Files Created
-| File | Description |
-|------|-------------|
-| `src/components/careers/gallery-variants/GalleryMarquee.tsx` | Editorial magazine style with dual scrolling rows |
-| `src/components/careers/gallery-variants/GalleryOverflowSlider.tsx` | Clean minimal slider (ThoughtFarmer-inspired) |
-| `src/components/careers/gallery-variants/index.ts` | Barrel exports and variant configuration |
 
 ### Files Modified
 | File | Change |
 |------|--------|
-| `src/app/careers/page.tsx` | Added gallery variant switcher with 3 options |
-| `src/components/partners/PartnersHero.tsx` | "Program" → "Programme" (British English) |
-| `STAKEHOLDER_EMAIL.md` | Updated with Sessions 87-97 progress |
+| `src/components/careers/ApplicationForm.tsx` | Removed decorative animations, simplified to minimal motion |
+
+### Animation Changes (ApplicationForm.tsx)
+| Element | Before | After |
+|---------|--------|-------|
+| Left column | `motion.div` with x: -40 slide-in | Regular `<div>` |
+| Right column | `motion.div` with x: 40 slide-in | Regular `<div>` |
+| "Actively Hiring" badge | Animated ping + scale animation | Static green dot |
+| Form wrapper | AnimatePresence + motion.form | Simple conditional render |
+| Submit button | ✓ Kept hover/tap effects | ✓ Kept (essential UX) |
+| Submit spinner | ✓ Kept | ✓ Kept (essential UX) |
+| Error message | ✓ Kept appearance animation | ✓ Kept (essential UX) |
+
+### Design Principle Applied
+**Minimal Motion**: Remove decorative/entrance animations, keep only essential interactive feedback. Forms should feel calm and professional, not visually busy.
+
+---
+
+## SESSION 98 (12 Jan 2026) - Gallery Consolidation
+
+### Focus
+Finalised gallery variant selection. Chose Clean Slider (GalleryOverflowSlider.tsx) as the final gallery component. Removed other variants and gallery switcher.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Test all 3 gallery variants | Complete |
+| Select Clean Slider as final choice | Complete |
+| Delete CultureGallery.tsx (old grid) | Complete |
+| Delete GalleryMarquee.tsx | Complete |
+| Delete gallery-variants/index.ts | Complete |
+| Update careers page to use single gallery | Complete |
+| Build verification | Complete |
 
 ### Files Deleted
 | File | Reason |
 |------|--------|
-| `gallery-variants/GalleryFilmStrip.tsx` | User narrowed selection |
-| `gallery-variants/GalleryFullScreen.tsx` | User narrowed selection |
-| `gallery-variants/GalleryPolaroids.tsx` | User narrowed selection |
+| `src/components/careers/CultureGallery.tsx` | Replaced by Clean Slider |
+| `src/components/careers/gallery-variants/GalleryMarquee.tsx` | Not selected |
+| `src/components/careers/gallery-variants/index.ts` | No longer needed |
 
-### Gallery Variants Summary
-| Variant | Style | Status |
-|---------|-------|--------|
-| Current (Grid) | Masonry grid layout | KEPT |
-| Clean Slider | ThoughtFarmer-inspired overflow slider | KEPT |
-| Magazine | Editorial dual-row marquee | KEPT |
-| Film Strip | Retro cinema aesthetic | Deleted |
-| Full Screen | Apple-style immersive slider | Deleted |
-| Polaroids | Scattered nostalgic photos | Deleted |
-
-### Testing Notes
-- Gallery switcher at `/careers` shows 3 options
-- Clean Slider has arrow navigation and drag-to-scroll
-- Magazine has dual rows scrolling in opposite directions
-- All variants use the same 7 team images
+### Final Gallery Choice
+**GalleryOverflowSlider.tsx** (Clean Slider)
+- Arrow navigation with prev/next buttons
+- Drag-to-scroll support
+- 7 team photos with captions on hover
+- Gradient edge fades
+- Responsive sizing (288px → 320px → 384px)
 
 ---
 

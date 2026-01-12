@@ -13,7 +13,8 @@ import { useRef, useState } from "react";
 
 // Code-split below-fold components for better LCP
 const WhyJoinUs = dynamic(() => import("@/components/careers/WhyJoinUs"));
-const GalleryOverflowSlider = dynamic(() => import("@/components/careers/gallery-variants/GalleryOverflowSlider"));
+// Gallery temporarily removed - will be reimplemented
+// const GalleryOverflowSlider = dynamic(() => import("@/components/careers/gallery-variants/GalleryOverflowSlider"));
 const OpenPositions = dynamic(() => import("@/components/careers/OpenPositions"));
 
 import Link from "next/link";
@@ -167,8 +168,7 @@ export default function CareersPage() {
       {/* Why Join Us */}
       <WhyJoinUs />
 
-      {/* Culture Gallery - Clean Slider */}
-      <GalleryOverflowSlider />
+      {/* Gallery temporarily removed - will be reimplemented */}
 
       {/* Open Positions */}
       <OpenPositions onApplyClick={openApplicationModal} />
