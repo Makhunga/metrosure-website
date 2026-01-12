@@ -15,6 +15,12 @@ import { useRef, useState } from "react";
 const WhyJoinUs = dynamic(() => import("@/components/careers/WhyJoinUs"));
 const CultureGallery = dynamic(() => import("@/components/careers/CultureGallery"));
 const OpenPositions = dynamic(() => import("@/components/careers/OpenPositions"));
+
+// Gallery variants for testing
+const GalleryMarquee = dynamic(() => import("@/components/careers/gallery-variants/GalleryMarquee"));
+const GalleryOverflowSlider = dynamic(() => import("@/components/careers/gallery-variants/GalleryOverflowSlider"));
+import { galleryVariants, type GalleryVariant } from "@/components/careers/gallery-variants";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -29,6 +35,7 @@ const stats = [
 export default function CareersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
+  const [galleryVariant, setGalleryVariant] = useState<GalleryVariant>("current");
   const statsRef = useRef(null);
   const ctaRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-50px" });
@@ -166,8 +173,33 @@ export default function CareersPage() {
       {/* Why Join Us */}
       <WhyJoinUs />
 
-      {/* Culture Gallery */}
-      <CultureGallery />
+      {/* Gallery Variant Switcher - For Testing */}
+      <div className="bg-slate-100 dark:bg-slate-800 py-4 px-6 border-y border-slate-200 dark:border-slate-700">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
+          <span className="text-sm font-medium text-slate-600 dark:text-slate-300 mr-2">
+            Gallery Style:
+          </span>
+          {galleryVariants.map((variant) => (
+            <button
+              key={variant.id}
+              onClick={() => setGalleryVariant(variant.id)}
+              className={`px-3 py-1.5 text-sm rounded-lg transition-all ${
+                galleryVariant === variant.id
+                  ? "bg-primary text-white shadow-md"
+                  : "bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600"
+              }`}
+              title={variant.description}
+            >
+              {variant.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Culture Gallery - Switchable Variants */}
+      {galleryVariant === "current" && <CultureGallery />}
+      {galleryVariant === "marquee" && <GalleryMarquee />}
+      {galleryVariant === "overflow" && <GalleryOverflowSlider />}
 
       {/* Open Positions */}
       <OpenPositions onApplyClick={openApplicationModal} />
