@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 11 January 2026 (Session 96)
+**Updated:** 11 January 2026 (Session 97)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -11,6 +11,60 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 11 January 2026
+
+---
+
+## SESSION 97 (11 Jan 2026) - Floating Images Gallery Test
+
+### Focus
+Updated GalleryFloating component on About page with square images matching reference design. Created new CareersHeroFloating component for testing floating images hero concept on Careers page while maintaining existing hero text content.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Update GalleryFloating with square images (~250px) | Complete |
+| Reposition images for asymmetric scatter pattern | Complete |
+| Remove image rotations for clean modern look | Complete |
+| Create CareersHeroFloating.tsx test component | Complete |
+| Integrate hero toggle in careers page | Complete |
+| Build verification | Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/about/GalleryFloating.tsx` | Square images, new positions, removed rotations, updated hover effect |
+| `src/app/careers/page.tsx` | Added CareersHeroFloating import and USE_FLOATING_HERO toggle |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/components/careers/CareersHeroFloating.tsx` | Test variant combining floating square images with careers hero text |
+
+### GalleryFloating Changes
+- **Image sizes:** Changed from rectangular to square (`w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56`)
+- **Positions:** Asymmetric scatter matching reference design
+- **Rotations:** All set to 0 for clean modern aesthetic
+- **Hover effect:** Changed from scale+rotate-reset to scale+lift (`scale: 1.05, y: -8`)
+
+### CareersHeroFloating Features
+- 6 floating square images positioned around central text
+- Middle images hidden on mobile (`hidden md:block`) to prevent text overlap
+- Same prop interface as CareersHero for easy swapping
+- Preserves all original hero animations and functionality
+- Clean slate-50/slate-950 background with subtle dot pattern
+
+### Testing Toggle
+In `src/app/careers/page.tsx`:
+```typescript
+const USE_FLOATING_HERO = true;  // Set to false to revert
+```
+
+### Visual Testing Required
+- [ ] About page: Verify square images display correctly
+- [ ] Careers page: Test floating hero layout
+- [ ] Mobile responsive: Check image hiding on small screens
+- [ ] Dark mode: Verify both components
+- [ ] Cross-browser: Chrome, Firefox, Edge
 
 ---
 
@@ -560,15 +614,17 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 ### Deferred to Future Sessions
 | Task | Reason | Estimated Session |
 |------|--------|-------------------|
-| WhatsApp floating widget | Enhancement, not critical | S97+ |
-| WhatsApp Business API | Requires API setup and business verification | S97+ |
-| Remove Development Banner | Awaiting stakeholder approval | S97 |
-| Remove monitoring emails from email.ts | Testing only | S97 (after testing complete) |
+| Update email logo URL to production domain | Production domain not yet configured | When domain is live |
+| Remove monitoring emails from email.ts | Testing only | After email testing complete |
+| Remove Development Banner | Awaiting stakeholder approval | S97+ |
+| WhatsApp floating widget | Enhancement, not critical | S98+ |
+| WhatsApp Business API | Requires API setup and business verification | S98+ |
 
 ### Not Started (Blocked)
 | Task | Blocker |
 |------|---------|
 | Production deployment | Awaiting stakeholder sign-off |
+| Production domain setup | DNS/domain configuration needed |
 | Real policy data integration | Requires backend API |
 | User authentication | Requires identity provider setup |
 | Calculator validation | Awaiting product team confirmation (see S92 questions) |
@@ -577,30 +633,39 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ## NEXT SESSION PLAN (Session 97)
 
-### Recommended Focus: Accessibility & Cross-Browser Testing
-Session 97 should focus on accessibility compliance (WCAG 2.1 AA), cross-browser testing, and final polish before production.
+### Recommended Focus: Production Readiness & Email Verification
+Session 97 should verify email deliverability in production environment, complete accessibility audit, and prepare for production deployment.
 
-### Priority 1: Cross-Browser Testing
+### Priority 1: Email Deliverability Verification
+- [ ] Verify all form emails arrive at correct mailboxes
+- [ ] Check emails don't land in spam folders
+- [ ] Verify logo displays correctly in all email clients (Gmail, Outlook, Apple Mail)
+- [ ] Confirm [Website Form] prefix appears in subjects
+- [ ] Test B2B routing to clients@metrosureconsult.co.za
+- [ ] Remove monitoring emails after verification complete
+
+### Priority 2: Cross-Browser Testing
 - [ ] Firefox gallery hover effects
 - [ ] Edge gallery hover effects
 - [ ] Safari (if available)
 - [ ] Verify code-split components load correctly in all browsers
+- [ ] Test forms in all browsers
 
-### Priority 2: Accessibility Audit (WCAG 2.1 AA)
+### Priority 3: Accessibility Audit (WCAG 2.1 AA)
 - [ ] Colour contrast verification
 - [ ] Keyboard navigation testing
 - [ ] Screen reader compatibility check
 - [ ] Focus states visible and clear
 - [ ] ARIA labels where needed
 
-### Priority 3: Performance Verification
+### Priority 4: Performance Verification
 - [ ] Run Lighthouse audits on Home, Careers, Contact to verify LCP improvements
 - [ ] Verify Tawk.to loads after 3s delay in production build
 - [ ] Check bundle size reduction from code-splitting
 
-### Priority 4: Final Polish
+### Priority 5: Final Polish
 - [ ] Remove Development Banner (if approved by stakeholder)
-- [ ] Remove monitoring emails from email.ts (after testing)
+- [ ] Update email logo URL when production domain is live
 - [ ] Final review of any remaining placeholder content
 - [ ] Verify all links and navigation work correctly
 
@@ -611,6 +676,44 @@ Comprehensive workflow documentation created in S93:
 - Custom slash commands
 - Design inspiration workflow
 - Testing procedures
+
+---
+
+## RECOMMENDATIONS (Session 96)
+
+### Session 96 Achievements
+1. **Forms & Email Audit Complete** - All 7 forms tested and working
+   - Contact (message + callback), Partner Inquiry, Corporate Inquiry
+   - Careers Application (with CV upload), Quote Request, Calculator Email
+
+2. **Email Routing Configured** - Per stakeholder meeting
+   - B2B emails → clients@metrosureconsult.co.za
+   - General emails → info@metrosuregroup.co.za
+   - Careers emails → careers@metrosuregroup.co.za
+   - All emails prefixed with [Website Form]
+
+3. **Security Improvements Applied**
+   - CV filename sanitisation prevents path traversal
+   - Email validation regex prevents invalid addresses
+   - Confirmation email failures now visible to users
+
+4. **Monitoring Setup** - Testing emails added
+   - makhunga@zoocora.co.za
+   - makhunga@metrosuregroup.co.za
+   - Remove after production verification complete
+
+### Immediate Actions Required
+| Action | Owner | Notes |
+|--------|-------|-------|
+| Verify email delivery | Stakeholder | Check all mailboxes receive test emails |
+| Configure production domain | DevOps | www.metrosuregroup.co.za returns 404 |
+| Update logo URL | Dev | When production domain is live |
+| Remove monitoring emails | Dev | After email testing complete |
+
+### Technical Notes for Next Session
+- Email logo using Vercel preview URL (temporary)
+- Production URL in `src/lib/email.ts:381` needs updating
+- Monitoring emails in `src/lib/email.ts:34` need removal after testing
 
 ---
 

@@ -3,7 +3,11 @@
 import dynamic from "next/dynamic";
 import { Header, Footer } from "@/components";
 import CareersHero from "@/components/careers/CareersHero";
+import CareersHeroFloating from "@/components/careers/CareersHeroFloating";
 import ApplicationModal from "@/components/careers/ApplicationModal";
+
+// Toggle for testing floating hero variant (set to true to use floating images hero)
+const USE_FLOATING_HERO = false;
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 
@@ -50,7 +54,11 @@ export default function CareersPage() {
       <Header />
       <main className="relative z-10">
         {/* Hero Section */}
-        <CareersHero onApplyClick={() => openApplicationModal()} />
+        {USE_FLOATING_HERO ? (
+          <CareersHeroFloating onApplyClick={() => openApplicationModal()} />
+        ) : (
+          <CareersHero onApplyClick={() => openApplicationModal()} />
+        )}
 
       {/* Stats Bar */}
       <section

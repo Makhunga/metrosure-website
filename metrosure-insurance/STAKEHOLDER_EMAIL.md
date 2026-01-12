@@ -1,7 +1,7 @@
 # Metrosure Website Revamp - Stakeholder Communication
 
 **Purpose:** Email templates for introducing the new website to stakeholders
-**Date:** January 5, 2026 (Session 86)
+**Date:** January 12, 2026 (Session 97)
 **Versions:** 3 (Full, Executive Summary, Meeting Request)
 
 ---
@@ -38,32 +38,39 @@ Your new website has evolved significantly since we last spoke. This is no longe
 
 ### Platform Statistics
 
-- **45 Routes** (38 pages + 7 functional API endpoints)
+- **38 Routes** (31 pages + 7 functional API endpoints)
 - **7 Working Forms** (Quote, Contact, Careers, Partner Inquiry, Corporate Inquiry, Calculator Email, Test Email)
-- **Live Chat (Tawk.to)** with business hours and offline form capture
+- **Live Chat (Tawk.to)** with business hours, offline form capture, and 3-second lazy-load for faster page loads
 - **Coverage Calculator** with WhatsApp sharing (clients share results instantly) and email capture
 - **Analytics Active** with 5 custom conversion events tracked
 - **3 B2B Case Studies** with real metrics
-- **Premium Email Templates** tested across Outlook, Gmail, and mobile
-- **67% Faster Page Loads** after performance optimisation
+- **Premium Email Templates** tested across Outlook, Gmail, and mobile - all using noreply@metrosure.app
+- **Performance Optimised** - Tawk.to lazy-loaded (3s delay), code-split pages (Careers, About, Contact)
 - **POPIA-Compliant** with proper data handling disclosures
 - **FSP 47089** displayed throughout with legal compliance
 - **SEO-Ready** with sitemap, meta tags, and structured data
-- **British English** throughout all copy (SA context)
+- **British English** audit complete - all copy verified (Session 93)
+- **Security Hardened** - CV filename sanitisation, stricter email validation
+- **Email Routing** - [Website Form] prefix on all internal emails for immediate identification
 
 ---
 
 ### Email Delivery: Fully Operational
 
-**All forms now send real emails.** The email service (Resend) is configured and working. When someone submits a form:
+**All 7 forms tested and working.** The email service (Resend) is configured with noreply@metrosure.app. When someone submits a form:
 
 - **Users receive** instant confirmation with professional formatting
-- **Your team receives** full submission details with clear call-to-action
-- **B2B inquiries route** to clients@metrosuregroup.co.za
-- **General inquiries route** to info@metrosuregroup.co.za
-- **Career applications route** to careers@metrosuregroup.co.za
+- **Your team receives** full submission details with **[Website Form]** prefix for immediate identification
+- **B2B inquiries route** to clients@metrosureconsult.co.za (Partner Inquiry, Corporate Inquiry)
+- **General inquiries route** to info@metrosuregroup.co.za (Contact, Quote)
+- **Career applications route** to careers@metrosuregroup.co.za (with CV filename sanitisation for security)
 
 Email templates have been redesigned with premium financial services aesthetic - tested and verified across Outlook desktop, Outlook.com, Gmail, and mobile clients.
+
+**Security improvements:**
+- CV filenames are sanitised to prevent path traversal attacks
+- Stricter email validation prevents invalid addresses
+- Confirmation email failures now show user-friendly warnings
 
 ---
 
@@ -107,12 +114,17 @@ The calculator at `/tools/coverage-calculator` helps clients understand their in
 
 **Significant progress has been made on content accuracy:**
 
-**Verified/Updated:**
+**Verified/Completed:**
 - Founding year corrected to 2013 throughout
+- Years experience updated to 13+ (S92)
 - B2B metrics aligned with 2025 Business Proposal (75% sales increase, 95% QA, 7 provinces)
 - FSP 47089 and legal compliance information accurate
 - Office locations and contact details current
-- Email routing configured correctly
+- Email routing configured correctly (B2B → clients@metrosureconsult.co.za)
+- British English audit complete - 6 instances fixed (S93)
+- Placeholder policy numbers replaced with realistic values (S92)
+- Gallery images updated with 7 real team photos (S94)
+- Gallery system consolidated to 2 final styles (Instagram + Floating)
 
 **Still Requiring Your Input:**
 - Testimonials remain illustrative (need real client feedback with consent)
@@ -120,7 +132,7 @@ The calculator at `/tools/coverage-calculator` helps clients understand their in
 - Some product descriptions are industry-standard (may need your specific terms)
 - Case study partner names are representative (confirm or replace)
 
-**The platform is functionally complete. Content refinement is the remaining work.**
+**The platform is functionally complete and production-ready. Content refinement is the remaining work.**
 
 ---
 
@@ -286,28 +298,33 @@ Your new website has evolved into a full lead-generation platform. Here's the up
 
 | Feature | Status |
 |---------|--------|
-| **Live Chat** | Tawk.to (Mon-Fri 08:00-17:00) with offline message capture |
+| **Live Chat** | Tawk.to (Mon-Fri 08:00-17:00) with offline message capture + 3s lazy-load for performance |
 | **Coverage Calculator** | Life & Funeral calculators with **WhatsApp sharing** - clients share results instantly with family or your sales team |
 | **Analytics Dashboard** | Vercel Analytics with 5 custom conversion events |
 | **Insurance Comparison** | Life vs Funeral cover comparison page with scenarios |
 | **FAQ System** | 55+ questions across 11 categories with search |
 | **Corporate Solutions** | Dedicated B2B page for employee benefits |
 | **B2B Case Studies** | 3 partner success stories with real metrics |
-| **Premium Emails** | Outlook-compatible templates, fully operational |
+| **Premium Emails** | Outlook-compatible templates from noreply@metrosure.app with [Website Form] prefix |
+| **British English** | Complete audit - 6 spelling fixes applied (S93) |
+| **Gallery System** | Consolidated to 2 final styles (Instagram + Floating) with 7 real team photos |
+| **Security** | CV filename sanitisation, stricter email validation |
+| **Performance** | Code-split pages (Careers, About, Contact), Tawk.to lazy-loaded |
 
 ### Platform Stats
 
-**45 pages built. 7 forms functional. Live chat active. Analytics tracking. SEO-ready.**
+**38 routes built. 7 forms functional. Live chat active. Analytics tracking. SEO-ready. Build passing.**
 
 - Analytics active with 5 custom conversion events
-- 67% faster page loads after optimisation
+- Performance optimised - Tawk.to 3s delay, code-split pages
 - Premium email templates tested across all clients
-- B2B routing to clients@metrosuregroup.co.za
-- British English copy throughout
+- B2B routing to clients@metrosureconsult.co.za
+- British English audit complete (S93)
+- Security hardened (CV sanitisation, email validation)
 
 ### Content Status
 
-**Verified:** Founding year (2013), B2B metrics, FSP compliance, contact details
+**Verified:** Founding year (2013), B2B metrics, FSP compliance, contact details, British English, gallery images
 **Needs Your Input:** Testimonials, premium rates, case study confirmation
 
 ### Coming Next: Website Separation
@@ -411,8 +428,15 @@ Before launch, ensure stakeholders have verified:
 - [x] FSP 47089 and legal information accurate
 - [x] Office addresses and contact details current
 - [x] B2B metrics aligned with 2025 proposal
-- [x] Email routing configured correctly
+- [x] Email routing configured correctly (B2B → clients@metrosureconsult.co.za)
 - [x] Founding year (2013) consistent throughout
+- [x] British English audit complete (6 fixes - S93)
+- [x] Placeholder policy numbers replaced (S92)
+- [x] Years experience updated to 13+ (S92)
+- [x] Gallery images updated with real team photos (S94)
+- [x] Performance optimised (Tawk.to lazy-load, code-splitting - S95)
+- [x] Email deliverability tested (all 7 forms working - S96)
+- [x] Security improvements (CV sanitisation, email validation - S96)
 - [ ] Testimonials are real (with consent) or replaced
 - [ ] Premium calculation rates validated against insurer data
 - [ ] Case study partner details confirmed or updated
@@ -422,4 +446,4 @@ Before launch, ensure stakeholders have verified:
 ---
 
 *Created: December 26, 2025*
-*Updated: January 5, 2026 (Session 86) - Added website separation strategy, enhanced WhatsApp mentions, analytics dashboard, insurance comparison tool, centralised FAQ system, British English compliance. 45 routes total.*
+*Updated: January 12, 2026 (Session 97) - Added Sessions 87-97 progress: British English audit complete, gallery consolidation (2 final styles), performance optimisation (Tawk.to 3s delay, code-splitting), forms & email deliverability audit, security hardening (CV sanitisation, email validation), email domain updated to noreply@metrosure.app with [Website Form] prefix. 38 routes total.*
