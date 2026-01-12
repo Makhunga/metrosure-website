@@ -14,48 +14,106 @@
 
 ---
 
-## NEXT SESSION PRIORITIES
+## NEXT SESSION PRIORITIES (Session 100)
 
-### Priority 1: Visual Testing & Polish
-- Test careers individual pages in browser
+### Priority 1: Timeline Variant Decision
+- View timeline variants in browser at `/about`
+- Choose between Original and Alternating layouts
+- Remove variant switcher after decision
+- Consider enhancing chosen variant if needed
+
+### Priority 2: Gallery Reimplementation
+- Design fresh gallery approach for About page
+- Design fresh gallery approach for Careers page
+- Consider: masonry, filmstrip, lightbox, or modern grid
+- Ensure galleries have purpose, not just decoration
+
+### Priority 3: Tagline Workshop
+- Current: "Building a nation where everyone is protected"
+- Goal: Wording that serves both B2C and B2B audiences
+- Should not seem overly ambitious or world-changing
+- Focus on trust, reliability, local service
+
+### Priority 4: Visual Testing & Polish
+- Test individual career pages in browser
 - Verify minimal motion approach feels professional
-- Check mobile responsive behaviour
-- Dark mode verification
+- Check mobile responsive behaviour at 375px
+- Dark mode verification on all updated pages
 
-### Priority 2: Accessibility Audit
+### Priority 5: Accessibility & Cross-Browser
 - WCAG 2.1 AA colour contrast verification
 - Keyboard navigation testing
-- Screen reader compatibility check
-- Focus states visible and clear
-
-### Priority 3: Cross-Browser Testing
-- Firefox gallery and form behaviour
-- Edge compatibility
-- Safari (if available)
+- Firefox/Edge/Safari compatibility
 
 ---
 
-## SESSION 99 (12 Jan 2026) - Careers Page Animation Simplification
+## SESSION 99 (12 Jan 2026) - Careers Cleanup & Timeline Variants
 
 ### Focus
-Committed outstanding Session 98 gallery work. Simplified ApplicationForm.tsx animations to use minimal motion approach - removed decorative animations while keeping essential user feedback (submit spinner, error states, button interactions).
+Major session covering: Session 98 commit, careers page animation simplification, container width fixes, Header/Footer oversight fix, gallery removal for reimplementation, and timeline variant creation.
 
 ### Completed Tasks
 | Task | Status |
 |------|--------|
 | Commit Session 98 gallery consolidation | Complete |
-| Remove animated ping dots from "Actively Hiring" badge | Complete |
-| Remove left/right column slide-in animations | Complete |
-| Remove AnimatePresence wrapper | Complete |
-| Replace motion.div wrappers with regular divs | Complete |
-| Keep submit button spinner and hover effects | Complete |
-| Keep error message visibility | Complete |
+| Simplify ApplicationForm.tsx animations (minimal motion) | Complete |
+| Fix container width on individual career pages | Complete |
+| Add missing Header/Footer to careers/[slug]/page.tsx | Complete |
+| Remove galleries from About page (preserve files) | Complete |
+| Remove gallery from Careers page (preserve files) | Complete |
+| Create 3 timeline variants (Horizontal, Alternating, Minimal) | Complete |
+| Narrow down to Original + Alternating only | Complete |
+| Create TimelineVariantSwitcher for comparison | Complete |
 | Build verification | Complete |
 
 ### Files Modified
 | File | Change |
 |------|--------|
 | `src/components/careers/ApplicationForm.tsx` | Removed decorative animations, simplified to minimal motion |
+| `src/app/careers/[slug]/page.tsx` | Added Header/Footer, removed redundant max-w-4xl wrapper |
+| `src/app/about/page.tsx` | Galleries commented out, timeline variants with switcher added |
+| `src/app/careers/page.tsx` | Gallery commented out (preserved for reimplementation) |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/components/about/timeline-variants/TimelineOriginal.tsx` | Vertical layout with icon boxes, connector lines, hover effects |
+| `src/components/about/timeline-variants/TimelineAlternating.tsx` | Classic zigzag layout with center spine |
+| `src/components/about/timeline-variants/TimelineVariantSwitcher.tsx` | Sticky switcher bar to toggle between variants |
+| `src/components/about/timeline-variants/index.ts` | Barrel exports for timeline variants |
+
+### Files Deleted
+| File | Reason |
+|------|--------|
+| `src/components/about/timeline-variants/TimelineHorizontal.tsx` | User narrowed selection to 2 variants |
+| `src/components/about/timeline-variants/TimelineMinimal.tsx` | User narrowed selection to 2 variants |
+
+### Key Fixes Applied
+
+**1. Container Width Issue**
+- Individual career pages had form looking "squashed"
+- Removed redundant `max-w-4xl` wrapper in careers/[slug]/page.tsx
+- ApplicationForm now uses full `max-w-[1400px]` container
+
+**2. Missing Header/Footer (Oversight)**
+- User noticed career detail pages had no navigation
+- Each page imports Header/Footer individually (not in global layout)
+- Added proper Header and Footer components
+
+**3. Galleries Temporarily Removed**
+- GalleryInstagram and GalleryFloating commented out from About page
+- GalleryOverflowSlider commented out from Careers page
+- Component files preserved for future reimplementation
+- User wants to rethink gallery purpose and design
+
+### Timeline Variants Created
+| Variant | Style | Features |
+|---------|-------|----------|
+| Original | Vertical with connectors | Icon boxes, connector lines, large number watermarks, hover lift |
+| Alternating | Zigzag with center spine | Cards alternate left-right, vertical timeline spine, responsive |
+
+### Design Principle Applied
+**Minimal Motion**: Remove decorative/entrance animations, keep only essential interactive feedback. Forms should feel calm and professional, not visually busy.
 
 ### Animation Changes (ApplicationForm.tsx)
 | Element | Before | After |
@@ -67,9 +125,6 @@ Committed outstanding Session 98 gallery work. Simplified ApplicationForm.tsx an
 | Submit button | ✓ Kept hover/tap effects | ✓ Kept (essential UX) |
 | Submit spinner | ✓ Kept | ✓ Kept (essential UX) |
 | Error message | ✓ Kept appearance animation | ✓ Kept (essential UX) |
-
-### Design Principle Applied
-**Minimal Motion**: Remove decorative/entrance animations, keep only essential interactive feedback. Forms should feel calm and professional, not visually busy.
 
 ---
 
@@ -703,14 +758,23 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ## SKIPPED & DEFERRED TASKS
 
+### Deferred from Session 99
+| Task | Reason | Priority |
+|------|--------|----------|
+| Timeline variant decision (Original vs Alternating) | User will decide after visual review | Session 100 |
+| Gallery reimplementation (About page) | Temporarily removed for fresh design approach | Session 100 |
+| Gallery reimplementation (Careers page) | Temporarily removed for fresh design approach | Session 100 |
+| About page tagline workshop | User wants to workshop "Building a nation..." wording | Session 100 |
+| JobDetailContent scroll animation consolidation | Optional refinement, not essential | When convenient |
+
 ### Deferred to Future Sessions
 | Task | Reason | Estimated Session |
 |------|--------|-------------------|
 | Update email logo URL to production domain | Production domain not yet configured | When domain is live |
 | Remove monitoring emails from email.ts | Testing only | After email testing complete |
-| Remove Development Banner | Awaiting stakeholder approval | S97+ |
-| WhatsApp floating widget | Enhancement, not critical | S98+ |
-| WhatsApp Business API | Requires API setup and business verification | S98+ |
+| Remove Development Banner | Awaiting stakeholder approval | S100+ |
+| WhatsApp floating widget | Enhancement, not critical | S100+ |
+| WhatsApp Business API | Requires API setup and business verification | S100+ |
 
 ### Not Started (Blocked)
 | Task | Blocker |
@@ -723,43 +787,48 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ---
 
-## NEXT SESSION PLAN (Session 97)
+## NEXT SESSION PLAN (Session 100)
 
-### Recommended Focus: Production Readiness & Email Verification
-Session 97 should verify email deliverability in production environment, complete accessibility audit, and prepare for production deployment.
+### Recommended Focus: Design Decisions & Visual Polish
+Session 100 should focus on finalising design decisions (timeline, galleries, tagline) and visual testing of all Session 99 changes.
 
-### Priority 1: Email Deliverability Verification
-- [ ] Verify all form emails arrive at correct mailboxes
-- [ ] Check emails don't land in spam folders
-- [ ] Verify logo displays correctly in all email clients (Gmail, Outlook, Apple Mail)
-- [ ] Confirm [Website Form] prefix appears in subjects
-- [ ] Test B2B routing to clients@metrosureconsult.co.za
-- [ ] Remove monitoring emails after verification complete
+### Priority 1: Timeline Variant Decision
+- [ ] View both variants in browser at `/about`
+- [ ] Toggle between Original and Alternating using switcher
+- [ ] Choose preferred variant
+- [ ] Remove TimelineVariantSwitcher after decision
+- [ ] Optional: Enhance chosen variant if desired
 
-### Priority 2: Cross-Browser Testing
-- [ ] Firefox gallery hover effects
-- [ ] Edge gallery hover effects
-- [ ] Safari (if available)
-- [ ] Verify code-split components load correctly in all browsers
-- [ ] Test forms in all browsers
+### Priority 2: Gallery Reimplementation Strategy
+- [ ] Review purpose of galleries on each page
+- [ ] Decide on About page gallery approach (or remove entirely)
+- [ ] Decide on Careers page gallery approach (or remove entirely)
+- [ ] If keeping galleries, design fresh approach:
+  - Consider: lightbox, filmstrip, masonry, or simple grid
+  - Ensure images serve a purpose (team culture, office environment)
+  - Mobile-first responsive design
 
-### Priority 3: Accessibility Audit (WCAG 2.1 AA)
-- [ ] Colour contrast verification
+### Priority 3: Tagline Workshop
+- [ ] Current: "Building a nation where everyone is protected"
+- [ ] Goal: Wording that works for B2C and B2B without seeming grandiose
+- [ ] Consider alternatives:
+  - "Your trusted insurance partner since 2013"
+  - "Protection that grows with you"
+  - "Insurance made personal"
+
+### Priority 4: Visual Testing
+- [ ] Test individual career pages (`/careers/[slug]`) in browser
+- [ ] Verify Header/Footer displays correctly
+- [ ] Check ApplicationForm container width is correct
+- [ ] Test minimal motion animations feel professional
+- [ ] Mobile responsive testing at 375px, 768px, 1024px
+- [ ] Dark mode verification
+
+### Priority 5: Accessibility & Cross-Browser
+- [ ] WCAG 2.1 AA colour contrast verification
 - [ ] Keyboard navigation testing
-- [ ] Screen reader compatibility check
+- [ ] Firefox/Edge/Safari compatibility
 - [ ] Focus states visible and clear
-- [ ] ARIA labels where needed
-
-### Priority 4: Performance Verification
-- [ ] Run Lighthouse audits on Home, Careers, Contact to verify LCP improvements
-- [ ] Verify Tawk.to loads after 3s delay in production build
-- [ ] Check bundle size reduction from code-splitting
-
-### Priority 5: Final Polish
-- [ ] Remove Development Banner (if approved by stakeholder)
-- [ ] Update email logo URL when production domain is live
-- [ ] Final review of any remaining placeholder content
-- [ ] Verify all links and navigation work correctly
 
 ### Reference: Claude Web Development Playbook
 Comprehensive workflow documentation created in S93:
@@ -768,6 +837,77 @@ Comprehensive workflow documentation created in S93:
 - Custom slash commands
 - Design inspiration workflow
 - Testing procedures
+
+---
+
+## RECOMMENDATIONS (Session 99)
+
+### Session 99 Achievements
+1. **Session 98 Committed** - Gallery consolidation changes finalised
+   - Clean Slider (GalleryOverflowSlider) chosen as final gallery
+   - Removed CultureGallery.tsx, GalleryMarquee.tsx, gallery-variants/index.ts
+
+2. **Careers Page Animations Simplified** - Minimal motion approach
+   - Removed decorative entrance animations from ApplicationForm
+   - Kept essential UX feedback (spinner, errors, button states)
+   - Professional, calm user experience
+
+3. **Container Width Fixed** - Individual career pages
+   - Removed redundant max-w-4xl wrapper
+   - ApplicationForm now displays at full max-w-[1400px] width
+
+4. **Header/Footer Oversight Fixed** - Individual career pages
+   - Added missing Header and Footer components
+   - Navigation now consistent across all pages
+
+5. **Galleries Temporarily Removed** - For reimplementation
+   - About page: GalleryInstagram and GalleryFloating commented out
+   - Careers page: GalleryOverflowSlider commented out
+   - Component files preserved for future use
+
+6. **Timeline Variants Created** - For About page
+   - Created 3 variants (Horizontal, Alternating, Minimal)
+   - Narrowed to 2 (Original + Alternating) per user request
+   - TimelineVariantSwitcher allows easy comparison
+
+### Technical Notes for Session 100
+
+**Timeline Variants Location:**
+```
+src/components/about/timeline-variants/
+├── TimelineOriginal.tsx      # Vertical with icon boxes
+├── TimelineAlternating.tsx   # Zigzag with center spine
+├── TimelineVariantSwitcher.tsx
+└── index.ts
+```
+
+**Galleries (Commented Out, Not Deleted):**
+- About page: Lines ~18-20 in `src/app/about/page.tsx`
+- Careers page: Line ~12 in `src/app/careers/page.tsx`
+- Component files still exist in their directories
+
+**About Page Timeline Toggle:**
+```typescript
+// In src/app/about/page.tsx
+const TIMELINE_VARIANT = "switcher"; // Change to "original" or "alternating" after decision
+```
+
+### Design Recommendations
+
+1. **Timeline Decision:**
+   - Original: More visual interest, icon boxes add personality
+   - Alternating: Cleaner, classic corporate feel
+   - Consider the About page's overall visual weight
+
+2. **Gallery Reimplementation:**
+   - If galleries return, ensure they have clear purpose
+   - Team culture photos should feel authentic, not stock
+   - Consider: Do galleries add value, or just visual noise?
+
+3. **Tagline Alternatives:**
+   - Current is aspirational but may seem overreaching
+   - Consider more grounded options that emphasise trust and local service
+   - Must work for both B2C individuals and B2B corporate clients
 
 ---
 
@@ -844,6 +984,12 @@ Comprehensive workflow documentation created in S93:
 | British English compliance | ✅ Resolved | S93 - 6 fixes |
 | Gallery placeholder images | ✅ Resolved | S94 - 7 new photos + bento sizing |
 | Gallery spacing issues | ✅ Resolved | S94 - 6 styles tested, 2 final (Instagram + Floating) |
+| Careers page animations | ✅ Resolved | S99 - Minimal motion approach applied |
+| Individual career page Header/Footer | ✅ Resolved | S99 - Oversight fixed |
+| Individual career page container width | ✅ Resolved | S99 - Removed redundant max-w-4xl |
+| Gallery reimplementation | ⏳ Pending | S99 - Temporarily removed for fresh design |
+| Timeline variant decision | ⏳ Pending | S99 - Switcher created, awaiting decision |
+| About page tagline | ⏳ Pending | S99 - Workshop for B2C/B2B wording |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
@@ -998,10 +1144,13 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-96)
+## SESSION HISTORY (75-99)
 
 | Session | Focus |
 |---------|-------|
+| S99 | Careers animation simplification (minimal motion), Header/Footer fix, galleries removed for reimplementation, timeline variants (Original + Alternating) |
+| S98 | Gallery consolidation - Clean Slider variant selected, removed CultureGallery and GalleryMarquee |
+| S97 | Floating images gallery test, CareersHeroFloating component, GalleryFloating with square images |
 | S96 | Forms & email deliverability audit, logo URL fix, CV filename sanitisation, email validation, monitoring emails |
 | S95 | Performance optimisation (Tawk.to 3s delay, code-splitting), delete deprecated Floating* components |
 | S94 | Gallery consolidation (6 styles → 2 final), bento sizing, Lighthouse audits, mobile/dark mode testing |
@@ -1027,4 +1176,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 10 January 2026 (Session 95 - Performance Optimisation)*
+*Document updated: 12 January 2026 (Session 99 - Careers Cleanup & Timeline Variants)*
