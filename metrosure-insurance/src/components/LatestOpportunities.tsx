@@ -192,9 +192,9 @@ export default function LatestOpportunities() {
         {/* Gradient overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/15 dark:from-primary/10 dark:via-transparent dark:to-black/20" />
 
-        {/* Large text watermark */}
+        {/* Large text watermark - positioned higher */}
         <div
-          className="absolute right-0 top-1/3 text-[6rem] md:text-[10rem] lg:text-[14rem] font-black text-white/[0.03] dark:text-white/[0.02] select-none pointer-events-none whitespace-nowrap leading-none tracking-tight -mr-8"
+          className="absolute right-0 top-[15%] text-[6rem] md:text-[10rem] lg:text-[14rem] font-black text-white/[0.03] dark:text-white/[0.025] select-none pointer-events-none whitespace-nowrap leading-none tracking-tight -mr-8"
           aria-hidden="true"
         >
           OPPORTUNITIES

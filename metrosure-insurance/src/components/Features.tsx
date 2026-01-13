@@ -106,19 +106,24 @@ export default function Features() {
       ref={sectionRef}
       className="py-24 md:py-32 bg-[rgb(var(--color-surface-card))] relative transition-colors duration-300 overflow-hidden"
     >
-      {/* Background image - blended for light/dark modes */}
+      {/* Subtle dot pattern background - clean and professional */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-100 dark:opacity-20 dark:invert"
+        className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.02]"
         style={{
-          backgroundImage: 'url(/images/bg-services.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center bottom',
-          backgroundRepeat: 'no-repeat',
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(var(--color-primary)) 1px, transparent 0)`,
+          backgroundSize: "24px 24px",
         }}
+        aria-hidden="true"
       />
 
-      {/* Gradient overlay to blend edges - lighter touch */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--color-surface-card))]/60 via-transparent to-[rgb(var(--color-surface-card))]/40 pointer-events-none" />
+      {/* Soft gradient accent at top - warm brand touch */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[400px] pointer-events-none opacity-[0.04] dark:opacity-[0.03]"
+        style={{
+          background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgb(var(--color-primary)), transparent)",
+        }}
+        aria-hidden="true"
+      />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section layout: Asymmetric split */}

@@ -1,11 +1,8 @@
 /**
- * Timeline Variants
+ * Timeline Component (Session 103 Selection)
  *
- * Two timeline designs for the About page.
- * Original: Vertical with icon boxes and connector lines
- * Alternating: Classic zigzag layout with center spine
+ * Selected: Original (vertical with icon boxes and connector lines)
+ * Removed: Alternating, VariantSwitcher
  */
 
 export { default as TimelineOriginal } from "./TimelineOriginal";
-export { default as TimelineAlternating } from "./TimelineAlternating";
-export { default as TimelineVariantSwitcher } from "./TimelineVariantSwitcher";

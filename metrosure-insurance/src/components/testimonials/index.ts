@@ -1,18 +1,15 @@
 /**
- * Testimonial Variants
+ * Testimonial Variants (Session 103 Selection)
  *
- * 4 design variants for stakeholder review:
+ * Selected variants:
  * - BoldStatement: Wise-inspired with large stacked typography
- * - SplitScreen: Dramatic 50/50 split layout
- * - CardStack: Layered cards with parallax depth
  * - Minimal: Typography-focused elegance
  *
- * Use TestimonialsVariantSwitcher for A/B comparison.
- * REMOVE switcher after final selection.
+ * Removed variants: SplitScreen, CardStack
+ *
+ * TestimonialsVariantSwitcher allows A/B comparison on home page.
  */
 
 export { default as TestimonialsBoldStatement } from "./TestimonialsBoldStatement";
-export { default as TestimonialsSplitScreen } from "./TestimonialsSplitScreen";
-export { default as TestimonialsCardStack } from "./TestimonialsCardStack";
 export { default as TestimonialsMinimal } from "./TestimonialsMinimal";
 export { default as TestimonialsVariantSwitcher } from "./TestimonialsVariantSwitcher";

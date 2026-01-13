@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 13 January 2026 (Session 103)
+**Updated:** 13 January 2026 (Session 104)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -14,27 +14,19 @@
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 104)
+## NEXT SESSION PRIORITIES (Session 105)
 
-### Priority 1: Unused Variant Cleanup
-**Status:** Variant selections made in Session 103, unused files can be deleted
-**Files to Delete:**
-
-| File | Reason |
-|------|--------|
-| `src/components/testimonials/TestimonialsSplitScreen.tsx` | Not selected (Bold + Minimal kept) |
-| `src/components/testimonials/TestimonialsCardStack.tsx` | Not selected (Bold + Minimal kept) |
-| `src/components/careers/testimonial-variants/TestimonialsFeatured.tsx` | Not selected (Carousel kept) |
-| `src/components/careers/testimonial-variants/TestimonialsVariantSwitcher.tsx` | Switcher no longer needed |
-| `src/components/about/timeline-variants/TimelineAlternating.tsx` | Not selected (Original kept) |
-| `src/components/about/timeline-variants/TimelineVariantSwitcher.tsx` | Switcher no longer needed |
-
-### Priority 2: Production Readiness Review
+### Priority 1: Production Readiness Review
 - [ ] Verify all watermarks visible in both light and dark mode
 - [ ] Cross-browser testing (Chrome, Firefox, Edge)
 - [ ] Mobile responsive testing (375px, 768px, 1024px)
 - [ ] Accessibility check (keyboard navigation, focus states)
 - [ ] Final content review
+
+### Priority 2: Home Testimonials Final Selection
+- [ ] Decide between Bold Statement or Minimal (or keep both with switcher)
+- [ ] Remove TestimonialsVariantSwitcher when final decision made
+- [ ] Delete unselected variant
 
 ### Priority 3: CaseStudies Reinstatement Decision
 - [ ] Awaiting stakeholder meeting decision
@@ -48,6 +40,57 @@
 ### Priority 5: Development Banner Removal
 - [ ] Remove `src/components/DevelopmentBanner.tsx` before production
 - [ ] Update `src/components/ClientLayout.tsx` to remove import
+
+---
+
+## SESSION 104 (13 Jan 2026) - Variant Cleanup & Login Redirect
+
+### Focus
+Deleted 6 unused variant component files from Session 103 selections. Kept home testimonials switcher (Bold + Minimal) for continued A/B comparison. Added login page redirect to under-development.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Delete TestimonialsSplitScreen.tsx | Complete |
+| Delete TestimonialsCardStack.tsx | Complete |
+| Delete TestimonialsFeatured.tsx (careers) | Complete |
+| Delete TestimonialsVariantSwitcher.tsx (careers) | Complete |
+| Delete TimelineAlternating.tsx | Complete |
+| Delete TimelineVariantSwitcher.tsx | Complete |
+| Update testimonials/index.ts exports | Complete |
+| Update careers/testimonial-variants/index.ts exports | Complete |
+| Update about/timeline-variants/index.ts exports | Complete |
+| Redirect login page to under-development | Complete |
+| Build verification | Complete |
+
+### Files Deleted
+| File | Reason |
+|------|--------|
+| `src/components/testimonials/TestimonialsSplitScreen.tsx` | Not selected in Session 103 |
+| `src/components/testimonials/TestimonialsCardStack.tsx` | Not selected in Session 103 |
+| `src/components/careers/testimonial-variants/TestimonialsFeatured.tsx` | Carousel selected, Featured not used |
+| `src/components/careers/testimonial-variants/TestimonialsVariantSwitcher.tsx` | Careers page uses Carousel directly |
+| `src/components/about/timeline-variants/TimelineAlternating.tsx` | Original selected, Alternating not used |
+| `src/components/about/timeline-variants/TimelineVariantSwitcher.tsx` | About page uses Original directly |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/testimonials/index.ts` | Removed SplitScreen, CardStack exports |
+| `src/components/careers/testimonial-variants/index.ts` | Removed Featured, VariantSwitcher exports |
+| `src/components/about/timeline-variants/index.ts` | Removed Alternating, VariantSwitcher exports |
+| `src/app/login/page.tsx` | Replaced with redirect to `/under-development?from=/login` |
+| `src/app/under-development/page.tsx` | Added `/login` → "Client Portal" route mapping |
+
+### Login Page Status
+- **Current:** Redirects to under-development page showing "Client Portal is Under Development"
+- **Original UI:** Preserved in git history for future implementation
+- **Reason:** Client portal requires backend authentication system
+
+### Kept for Continued A/B Testing
+- `src/components/testimonials/TestimonialsVariantSwitcher.tsx` - Home page switcher (Bold + Minimal)
+- `src/components/testimonials/TestimonialsBoldStatement.tsx` - Bold variant
+- `src/components/testimonials/TestimonialsMinimal.tsx` - Minimal variant
 
 ---
 
@@ -1450,7 +1493,7 @@ const TIMELINE_VARIANT = "switcher"; // Change to "original" or "alternating" af
 | Partner showcase images | ✅ Resolved | S103 - 4 images integrated from resources |
 | Style guide documentation | ✅ Resolved | S103 - Card hover, watermarks, z-index in CLAUDE.md |
 | AVBOB logo dark mode appearance | ⏳ Pending | S101 - PNG inverts to solid white, need SVG |
-| Unused variant components | ⏳ Pending | S103 - Can delete Split Screen, Card Stack, Featured, Alternating |
+| Unused variant components | ✅ Resolved | S104 - Deleted 6 files (SplitScreen, CardStack, Featured, Alternating, 2 switchers) |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
@@ -1605,10 +1648,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-103)
+## SESSION HISTORY (75-104)
 
 | Session | Focus |
 |---------|-------|
+| S104 | Variant cleanup (6 files deleted), login page redirect to under-development, kept home testimonials switcher for A/B |
 | S103 | Style guide finalisation, partner images integrated, variant selections (Bold+Minimal, Carousel, Original), CLAUDE.md style patterns |
 | S102 | Partner logo fixes (Metropolitan SVG, AVBOB quality), AI image prompts for partner slides |
 | S101 | Home page testimonial variants (4 styles: BoldStatement, SplitScreen, CardStack, Minimal), partner logo dark mode fixes, bolttech replaces 1Life, watermarks added |
@@ -1641,4 +1685,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 13 January 2026 (Session 103 - Style Guide Finalisation & Variant Selection)*
+*Document updated: 13 January 2026 (Session 104 - Variant Cleanup)*
