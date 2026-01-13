@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 13 January 2026 (Session 100)
+**Updated:** 13 January 2026 (Session 101)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -14,35 +14,148 @@
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 101)
+## NEXT SESSION PRIORITIES (Session 102)
 
-### Priority 1: Testimonial Variant Decision
-- View testimonial variants in browser at `/careers`
-- Toggle between Cinematic Carousel and Featured Spotlight
-- Choose preferred variant
-- Remove TestimonialsVariantSwitcher after decision
+### Priority 1: SVG Logo Visibility in Dark Mode (URGENT)
+**Current Issue:** Partner logos need further refinement in dark mode
+- [ ] AVBOB PNG logo appears as solid white rectangle when inverted - consider obtaining SVG version
+- [ ] Verify bolttech SVG displays correctly (inverts to white)
+- [ ] TFG SVG has purple background - no inversion needed, working correctly
+- [ ] Consider obtaining official SVG logos from brand sources for all partners
 
-### Priority 2: Timeline Variant Decision
-- View timeline variants in browser at `/about`
-- Choose between Original and Alternating layouts
-- Remove variant switcher after decision
+**Logo Sources to Try:**
+- 1Life: [Brandfetch](https://brandfetch.com/1life.co.za)
+- AVBOB: [SeekLogo](https://seeklogo.com/vector-logo/14290/avbob) or [IconApe](https://iconape.com/avbob-logo-logo-icon-svg-png.html)
 
-### Priority 3: CaseStudies Reinstatement
-- Discuss with stakeholders at upcoming meeting
-- If approved, uncomment CaseStudies on Partners page
-- Consider updating case study content if needed
+### Priority 2: LatestOpportunities Watermark Dark Mode
+**File:** `src/components/LatestOpportunities.tsx` (lines 195-201)
+- [ ] Current opacity: `text-white/[0.03]` light, `text-white/[0.02]` dark
+- [ ] Watermark "OPPORTUNITIES" may be too faint in dark mode
+- [ ] Consider increasing dark mode opacity to `text-white/[0.04]` or `text-white/[0.05]`
+- [ ] Test visually in browser after adjustment
 
-### Priority 4: Gallery Reimplementation
-- Design fresh gallery approach for About page
-- Design fresh gallery approach for Careers page
-- Consider: masonry, filmstrip, lightbox, or modern grid
+### Priority 3: PartnerShowcase Watermark Review
+**File:** `src/components/PartnerShowcase.tsx` (lines 142-148)
+- [ ] Current watermark: "PARTNERS" with `text-white/[0.025]` light, `text-white/[0.015]` dark
+- [ ] Review visibility in both modes
+- [ ] Ensure consistency with LatestOpportunities watermark opacity
 
-### Priority 5: Visual Testing & Polish
-- Test Home page Partner Showcase carousel
-- Test Home page Latest Opportunities section
-- Verify micro-interactions on opportunity cards
-- Mobile responsive testing at 375px, 768px, 1024px
-- Dark mode verification
+### Priority 4: Home Page Testimonial Variants Selection
+- [ ] View 4 testimonial variants using switcher on home page
+- [ ] Variants: BoldStatement, SplitScreen, CardStack, Minimal
+- [ ] Choose preferred variant for production
+- [ ] Remove TestimonialsVariantSwitcher after decision
+
+### Priority 5: Careers Page Testimonial Variant Decision
+- [ ] View testimonial variants in browser at `/careers`
+- [ ] Toggle between Cinematic Carousel and Featured Spotlight
+- [ ] Choose preferred variant
+- [ ] Remove TestimonialsVariantSwitcher after decision
+
+### Priority 6: Timeline Variant Decision
+- [ ] View timeline variants in browser at `/about`
+- [ ] Choose between Original and Alternating layouts
+- [ ] Remove variant switcher after decision
+
+### Priority 7: CaseStudies Reinstatement
+- [ ] Discuss with stakeholders at upcoming meeting
+- [ ] If approved, uncomment CaseStudies on Partners page
+- [ ] Consider updating case study content if needed
+
+---
+
+## SESSION 101 (13 Jan 2026) - Testimonial Variants & Logo Fixes
+
+### Focus
+Created 4 home page testimonial variants, fixed partner logo dark mode issues, and replaced 1Life with bolttech partner.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Create TestimonialsBoldStatement (Wise-inspired) | Complete |
+| Create TestimonialsSplitScreen (50/50 dramatic split) | Complete |
+| Create TestimonialsCardStack (Parallax layered cards) | Complete |
+| Create TestimonialsMinimal (Typography-focused) | Complete |
+| Create TestimonialsVariantSwitcher for home page | Complete |
+| Add testimonials/index.ts barrel exports | Complete |
+| Add `darkModeInvert` property to ShowcasePartner interface | Complete |
+| Fix TFG logo overflow and alignment | Complete |
+| Configure conditional dark mode inversion for logos | Complete |
+| Replace 1Life with bolttech partner | Complete |
+| Copy bolttech SVG to public/images/partners/ | Complete |
+| Add PartnerShowcase watermark "PARTNERS" | Complete |
+| Add LatestOpportunities watermark "OPPORTUNITIES" | Complete |
+| Visual testing in browser (light + dark mode) | Complete |
+| Build verification | Complete |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/components/testimonials/TestimonialsBoldStatement.tsx` | Wise-inspired with large stacked typography and floating card |
+| `src/components/testimonials/TestimonialsSplitScreen.tsx` | Dramatic 50/50 split with large photo and quote |
+| `src/components/testimonials/TestimonialsCardStack.tsx` | Layered cards with parallax depth effect |
+| `src/components/testimonials/TestimonialsMinimal.tsx` | Typography-focused with giant quotation marks |
+| `src/components/testimonials/TestimonialsVariantSwitcher.tsx` | Toggle bar for A/B comparison |
+| `src/components/testimonials/index.ts` | Barrel exports for all variants |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/partnerShowcase.ts` | Added `darkModeInvert` property; replaced 1Life with bolttech |
+| `src/components/PartnerShowcase.tsx` | Conditional dark mode inversion; added "PARTNERS" watermark; fixed logo sizing |
+| `src/components/LatestOpportunities.tsx` | Added "OPPORTUNITIES" watermark |
+| `src/app/page.tsx` | Added TestimonialsVariantSwitcher dynamic import |
+
+### Partner Logo Configuration
+| Partner | Logo Type | darkModeInvert | Notes |
+|---------|-----------|----------------|-------|
+| AVBOB | PNG | `true` | Inverts to white in dark mode (shows as white rectangle) |
+| bolttech | SVG | `true` | Dark purple text inverts cleanly to white |
+| TFG | SVG | `false` | Has purple background, no inversion needed |
+
+### Logo Dark Mode Implementation
+```tsx
+// In PartnerShowcase.tsx
+<Image
+  src={currentPartner.logo}
+  className={`... ${
+    currentPartner.darkModeInvert
+      ? "dark:brightness-0 dark:invert"
+      : ""
+  }`}
+/>
+```
+
+### Watermark Implementation
+Both sections now have large text watermarks:
+- **PartnerShowcase:** "PARTNERS" - `text-white/[0.025]` light, `text-white/[0.015]` dark
+- **LatestOpportunities:** "OPPORTUNITIES" - `text-white/[0.03]` light, `text-white/[0.02]` dark
+
+### Outstanding Issues (Session 102)
+1. **AVBOB logo in dark mode** - PNG format shows as solid white rectangle when inverted
+   - Consider obtaining official SVG from AVBOB
+   - Alternative: Create custom dark mode version of logo
+
+2. **Watermark visibility in dark mode** - May need opacity adjustment
+   - LatestOpportunities watermark could be too faint
+   - Test and potentially increase to `text-white/[0.04]` or higher
+
+3. **Additional SVG logos needed** - For better dark mode manipulation
+   - AVBOB: Try [SeekLogo](https://seeklogo.com/vector-logo/14290/avbob)
+   - 1Life (if reinstating): Try [Brandfetch](https://brandfetch.com/1life.co.za)
+
+### Testimonial Variants Summary
+| Variant | Style | Key Features |
+|---------|-------|--------------|
+| BoldStatement | Wise-inspired | Large stacked headline, floating card with photo, maroon background |
+| SplitScreen | Dramatic 50/50 | Full-height photo left, large quote right, elegant serif typography |
+| CardStack | Parallax depth | Layered cards with rotation, gradient background, arrow navigation |
+| Minimal | Typography-focused | Giant quotation marks, centred layout, maximum whitespace, fraction counter |
+
+### Design Decisions Pending
+1. **Home page testimonials** - 4 variants created, awaiting selection
+2. **Careers page testimonials** - 2 variants (Carousel + Featured), awaiting selection
+3. **About page timeline** - 2 variants (Original + Alternating), awaiting selection
 
 ---
 
@@ -850,13 +963,22 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ## SKIPPED & DEFERRED TASKS
 
-### Deferred from Session 99
+### Deferred from Session 101
 | Task | Reason | Priority |
 |------|--------|----------|
-| Timeline variant decision (Original vs Alternating) | User will decide after visual review | Session 100 |
-| Gallery reimplementation (About page) | Temporarily removed for fresh design approach | Session 100 |
-| Gallery reimplementation (Careers page) | Temporarily removed for fresh design approach | Session 100 |
-| About page tagline workshop | User wants to workshop "Building a nation..." wording | Session 100 |
+| AVBOB SVG logo acquisition | PNG format doesn't invert cleanly; need official SVG | Session 102 |
+| LatestOpportunities watermark dark mode adjustment | May be too faint; needs visual testing | Session 102 |
+| Home page testimonial variant selection | 4 variants created, awaiting stakeholder review | Session 102 |
+| Careers page testimonial variant selection | 2 variants created, awaiting stakeholder review | Session 102 |
+| Timeline variant decision (Original vs Alternating) | User will decide after visual review | Session 102 |
+
+### Deferred from Session 99/100
+| Task | Reason | Priority |
+|------|--------|----------|
+| Gallery reimplementation (About page) | Temporarily removed for fresh design approach | Session 102+ |
+| Gallery reimplementation (Careers page) | Temporarily removed for fresh design approach | Session 102+ |
+| About page tagline workshop | User wants to workshop "Building a nation..." wording | Session 102+ |
+| CaseStudies reinstatement | Awaiting stakeholder meeting decision | Session 102+ |
 | JobDetailContent scroll animation consolidation | Optional refinement, not essential | When convenient |
 
 ### Deferred to Future Sessions
@@ -864,9 +986,9 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 |------|--------|-------------------|
 | Update email logo URL to production domain | Production domain not yet configured | When domain is live |
 | Remove monitoring emails from email.ts | Testing only | After email testing complete |
-| Remove Development Banner | Awaiting stakeholder approval | S100+ |
-| WhatsApp floating widget | Enhancement, not critical | S100+ |
-| WhatsApp Business API | Requires API setup and business verification | S100+ |
+| Remove Development Banner | Awaiting stakeholder approval | S102+ |
+| WhatsApp floating widget | Enhancement, not critical | S102+ |
+| WhatsApp Business API | Requires API setup and business verification | S102+ |
 
 ### Not Started (Blocked)
 | Task | Blocker |
@@ -929,6 +1051,106 @@ Comprehensive workflow documentation created in S93:
 - Custom slash commands
 - Design inspiration workflow
 - Testing procedures
+
+---
+
+## RECOMMENDATIONS (Session 101)
+
+### Session 101 Achievements
+1. **4 Home Page Testimonial Variants Created** - Ready for stakeholder review
+   - BoldStatement: Wise-inspired with large stacked typography
+   - SplitScreen: Dramatic 50/50 layout with serif typography
+   - CardStack: Parallax depth with layered rotating cards
+   - Minimal: Typography-focused elegance with maximum whitespace
+
+2. **Partner Logo Dark Mode Fixed** - Conditional inversion system
+   - Added `darkModeInvert` boolean to `ShowcasePartner` interface
+   - TFG SVG (purple background) doesn't need inversion
+   - bolttech SVG inverts cleanly to white
+   - AVBOB PNG inverts to solid white (needs SVG replacement)
+
+3. **bolttech Replaces 1Life** - Better SVG support
+   - Dark purple text with teal accent
+   - Inverts cleanly in dark mode
+   - Professional insurtech partnership
+
+4. **Section Watermarks Added** - Decorative background text
+   - PartnerShowcase: "PARTNERS" watermark
+   - LatestOpportunities: "OPPORTUNITIES" watermark
+
+### Recommendations for Session 102
+
+**1. Priority: Fix AVBOB Logo in Dark Mode**
+The AVBOB PNG logo appears as a solid white rectangle when inverted. Options:
+- **Best:** Obtain official SVG from AVBOB brand assets or [SeekLogo](https://seeklogo.com/vector-logo/14290/avbob)
+- **Alternative:** Create a white version of the logo specifically for dark mode
+- **Fallback:** Use a placeholder or text-based logo in dark mode
+
+**2. Watermark Visibility Tuning**
+Current watermark opacity may be too subtle in dark mode:
+```tsx
+// Current (may be too faint)
+text-white/[0.02]  // dark mode
+
+// Suggested increase
+text-white/[0.04]  // more visible
+```
+Test both PartnerShowcase and LatestOpportunities sections visually.
+
+**3. Testimonial Variant Selection**
+With 4 home page variants and 2 careers page variants now complete:
+- Schedule stakeholder review session
+- View variants side-by-side using switcher
+- Consider A/B testing if decision is difficult
+- Remove switcher components after final selection
+
+**4. Consider Additional SVG Logos**
+For future-proofing dark mode support:
+- Check if partner brand guidelines allow SVG usage
+- SVG logos can be styled with CSS for any background
+- Consider creating a `logoLight` and `logoDark` property if needed
+
+### Technical Notes for Session 102
+
+**Testimonial Variants Location:**
+```
+src/components/testimonials/
+├── TestimonialsBoldStatement.tsx   # Wise-inspired overlay
+├── TestimonialsSplitScreen.tsx     # 50/50 dramatic split
+├── TestimonialsCardStack.tsx       # Parallax depth cards
+├── TestimonialsMinimal.tsx         # Typography elegance
+├── TestimonialsVariantSwitcher.tsx # Toggle for comparison
+└── index.ts                        # Barrel exports
+```
+
+**Partner Logo Configuration:**
+```typescript
+// src/data/partnerShowcase.ts
+{
+  id: "avbob",
+  logo: "/images/partners/avbob.png",
+  darkModeInvert: true,  // PNG inverts to white
+},
+{
+  id: "bolttech",
+  logo: "/images/partners/bolttech.svg",
+  darkModeInvert: true,  // SVG inverts cleanly
+},
+{
+  id: "tfg",
+  logo: "/images/partners/tfg.svg",
+  darkModeInvert: false, // Has purple background
+}
+```
+
+**Watermark Configuration:**
+```typescript
+// PartnerShowcase.tsx (line 144)
+className="... text-white/[0.025] dark:text-white/[0.015] ..."
+
+// LatestOpportunities.tsx (line 197)
+className="... text-white/[0.03] dark:text-white/[0.02] ..."
+```
 
 ---
 
@@ -1086,6 +1308,12 @@ const TIMELINE_VARIANT = "switcher"; // Change to "original" or "alternating" af
 | About page tagline | ⏳ Pending | S99 - Workshop for B2C/B2B wording |
 | Home page OurImpact → PartnerShowcase | ✅ Resolved | S100 - Partner carousel with logos and stats |
 | Home page LatestNews → LatestOpportunities | ✅ Resolved | S100 - Opportunity cards with micro-interactions |
+| Home page testimonial variants | ⏳ Pending | S101 - 4 variants created, awaiting selection |
+| Partner logo dark mode handling | ✅ Resolved | S101 - darkModeInvert property, conditional CSS |
+| bolttech replaces 1Life partner | ✅ Resolved | S101 - SVG logo with proper inversion |
+| Section watermarks (Partners, Opportunities) | ✅ Resolved | S101 - Added decorative text watermarks |
+| AVBOB logo dark mode appearance | ⏳ Pending | S101 - PNG inverts to solid white, need SVG |
+| Watermark dark mode visibility | ⏳ Pending | S101 - May need opacity adjustment |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
@@ -1240,10 +1468,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-100)
+## SESSION HISTORY (75-101)
 
 | Session | Focus |
 |---------|-------|
+| S101 | Home page testimonial variants (4 styles: BoldStatement, SplitScreen, CardStack, Minimal), partner logo dark mode fixes, bolttech replaces 1Life, watermarks added |
 | S100 | Home page refactoring (OurImpact → PartnerShowcase, LatestNews → LatestOpportunities), CaseStudies removal, testimonial variants (Carousel + Featured) |
 | S99 | Careers animation simplification (minimal motion), Header/Footer fix, galleries removed for reimplementation, timeline variants (Original + Alternating) |
 | S98 | Gallery consolidation - Clean Slider variant selected, removed CultureGallery and GalleryMarquee |
@@ -1273,4 +1502,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 12 January 2026 (Session 99 - Careers Cleanup & Timeline Variants)*
+*Document updated: 13 January 2026 (Session 101 - Testimonial Variants & Logo Fixes)*

@@ -191,6 +191,14 @@ export default function LatestOpportunities() {
         />
         {/* Gradient overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/15 dark:from-primary/10 dark:via-transparent dark:to-black/20" />
+
+        {/* Large text watermark */}
+        <div
+          className="absolute right-0 top-1/3 text-[6rem] md:text-[10rem] lg:text-[14rem] font-black text-white/[0.03] dark:text-white/[0.02] select-none pointer-events-none whitespace-nowrap leading-none tracking-tight -mr-8"
+          aria-hidden="true"
+        >
+          OPPORTUNITIES
+        </div>
       </div>
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -207,15 +215,6 @@ export default function LatestOpportunities() {
           >
             Latest Opportunities
           </h2>
-
-          {/* Decorative accent line - white on red */}
-          <motion.div
-            className="mt-6 h-1 w-20 bg-white rounded-full"
-            initial={{ scaleX: 0, originX: 0 }}
-            animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            aria-hidden="true"
-          />
         </motion.div>
 
         {/* Opportunities Grid - Cards overflow the red background */}

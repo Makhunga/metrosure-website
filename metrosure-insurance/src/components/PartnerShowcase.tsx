@@ -139,6 +139,14 @@ export default function PartnerShowcase() {
         aria-hidden="true"
       />
 
+      {/* Large text watermark */}
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-white/[0.025] dark:text-white/[0.015] select-none pointer-events-none whitespace-nowrap leading-none tracking-tight -ml-8"
+        aria-hidden="true"
+      >
+        PARTNERS
+      </div>
+
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Row: Heading + Supporting Text */}
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-12 mb-12 md:mb-16 lg:mb-20">
@@ -219,13 +227,17 @@ export default function PartnerShowcase() {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
                     {/* Partner Logo */}
-                    <div className="mb-5 h-10 relative">
+                    <div className="mb-5 h-10 flex items-center">
                       <Image
                         src={currentPartner.logo}
                         alt={currentPartner.logoAlt}
                         height={40}
                         width={120}
-                        className="object-contain object-left dark:brightness-0 dark:invert"
+                        className={`object-contain object-left h-10 w-auto max-w-[120px] ${
+                          currentPartner.darkModeInvert
+                            ? "dark:brightness-0 dark:invert"
+                            : ""
+                        }`}
                       />
                     </div>
 

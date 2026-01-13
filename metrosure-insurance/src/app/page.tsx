@@ -10,7 +10,10 @@ const Products = dynamic(() => import("@/components/Products"));
 const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
 const LatestOpportunities = dynamic(() => import("@/components/LatestOpportunities"));
 const PartnersCTA = dynamic(() => import("@/components/PartnersCTA"));
-const Testimonials = dynamic(() => import("@/components/Testimonials"));
+// Testimonial variant switcher for A/B comparison - REMOVE after selection
+const TestimonialsVariantSwitcher = dynamic(
+  () => import("@/components/testimonials/TestimonialsVariantSwitcher")
+);
 const CallToAction = dynamic(() => import("@/components/CallToAction"));
 export default function Home() {
   return (
@@ -26,7 +29,7 @@ export default function Home() {
         <WhyChooseUs />
         <LatestOpportunities />
         <PartnersCTA />
-        <Testimonials />
+        <TestimonialsVariantSwitcher />
         <CallToAction />
       </main>
       <Footer />

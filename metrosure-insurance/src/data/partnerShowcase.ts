@@ -8,6 +8,8 @@ export interface ShowcasePartner {
   name: string;
   logo: string;
   logoAlt: string;
+  /** Set to true for logos that need inversion in dark mode (transparent PNGs with dark content) */
+  darkModeInvert: boolean;
   image: string;
   imageAlt: string;
   title: string;
@@ -30,6 +32,7 @@ export const showcasePartners: ShowcasePartner[] = [
     name: "AVBOB",
     logo: "/images/partners/avbob.png",
     logoAlt: "AVBOB Mutual Assurance logo",
+    darkModeInvert: true,
     image: "/images/team-fp-tshabalala.jpg",
     imageAlt: "Metrosure and AVBOB partnership team",
     title: "Trusted funeral cover provider since 2013",
@@ -41,16 +44,17 @@ export const showcasePartners: ShowcasePartner[] = [
     category: "insurer",
   },
   {
-    id: "1life",
-    name: "1Life",
-    logo: "/images/partners/1life.png",
-    logoAlt: "1Life Insurance logo",
+    id: "bolttech",
+    name: "bolttech",
+    logo: "/images/partners/bolttech.svg",
+    logoAlt: "bolttech insurtech logo",
+    darkModeInvert: true,
     image: "/images/mission-image.jpg",
-    imageAlt: "1Life partnership in action",
-    title: "Accessible life cover for every South African",
+    imageAlt: "bolttech digital insurance partnership",
+    title: "Digital insurance solutions for modern South Africa",
     stat: {
-      value: "48hrs",
-      description: "Average claims turnaround",
+      value: "24/7",
+      description: "Digital claims processing",
     },
     link: "/partners",
     category: "insurer",
@@ -60,6 +64,7 @@ export const showcasePartners: ShowcasePartner[] = [
     name: "TFG/Jet",
     logo: "/images/partners/tfg.svg",
     logoAlt: "The Foschini Group logo",
+    darkModeInvert: false, // SVG has its own purple background
     image: "/images/about-hero.jpg",
     imageAlt: "TFG retail partnership location",
     title: "Bringing insurance to retail point of sale",
