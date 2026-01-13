@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 13 January 2026 (Session 102)
+**Updated:** 13 January 2026 (Session 103)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -9,49 +9,114 @@
 
 ## BUILD STATUS: Passing
 
-- **Routes:** 38 (31 pages + 7 API routes)
+- **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 13 January 2026
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 103)
+## NEXT SESSION PRIORITIES (Session 104)
 
-### Priority 1: Partner Showcase Images (READY TO INTEGRATE)
-**Status:** Image prompts created, awaiting generated images from Gemini/Imagen
-**File:** `src/data/partnerShowcase.ts`
+### Priority 1: Unused Variant Cleanup
+**Status:** Variant selections made in Session 103, unused files can be deleted
+**Files to Delete:**
 
-| Partner | Current Image | Needed Theme |
-|---------|--------------|--------------|
-| AVBOB | `team-fp-tshabalala.jpg` | Family protection, multi-generational |
-| bolttech | `mission-image.jpg` | Digital/tech, young professional |
-| TFG/Jet | `about-hero.jpg` | Retail environment, in-store |
-| Metropolitan | `team-professional-event.jpg` | Family life, outdoor moments |
+| File | Reason |
+|------|--------|
+| `src/components/testimonials/TestimonialsSplitScreen.tsx` | Not selected (Bold + Minimal kept) |
+| `src/components/testimonials/TestimonialsCardStack.tsx` | Not selected (Bold + Minimal kept) |
+| `src/components/careers/testimonial-variants/TestimonialsFeatured.tsx` | Not selected (Carousel kept) |
+| `src/components/careers/testimonial-variants/TestimonialsVariantSwitcher.tsx` | Switcher no longer needed |
+| `src/components/about/timeline-variants/TimelineAlternating.tsx` | Not selected (Original kept) |
+| `src/components/about/timeline-variants/TimelineVariantSwitcher.tsx` | Switcher no longer needed |
 
-**Image Prompts:** See `/home/makhunga/.claude/plans/golden-discovering-whistle.md`
+### Priority 2: Production Readiness Review
+- [ ] Verify all watermarks visible in both light and dark mode
+- [ ] Cross-browser testing (Chrome, Firefox, Edge)
+- [ ] Mobile responsive testing (375px, 768px, 1024px)
+- [ ] Accessibility check (keyboard navigation, focus states)
+- [ ] Final content review
 
-**Integration Steps:**
-1. Generate images using provided Gemini prompts
-2. Save to `public/images/partners/` with descriptive names
-3. Update `partnerShowcase.ts` with new image paths and alt text
-4. Test in browser (both light and dark mode)
-
-### Priority 2: Watermark Visibility Review
-- [ ] LatestOpportunities watermark dark mode opacity
-- [ ] PartnerShowcase watermark consistency
-- [ ] Visual testing after any adjustments
-
-### Priority 3: Testimonial Variants Selection
-- [ ] Home page: Choose from 4 variants (BoldStatement, SplitScreen, CardStack, Minimal)
-- [ ] Careers page: Choose between Cinematic Carousel and Featured Spotlight
-- [ ] Remove switcher components after decisions
-
-### Priority 4: Timeline Variant Decision
-- [ ] About page: Choose between Original and Alternating layouts
-- [ ] Remove variant switcher after decision
-
-### Priority 5: CaseStudies Reinstatement
+### Priority 3: CaseStudies Reinstatement Decision
 - [ ] Awaiting stakeholder meeting decision
 - [ ] If approved, uncomment on Partners page
+
+### Priority 4: Gallery Reimplementation (If Desired)
+- [ ] About page gallery currently removed
+- [ ] Careers page gallery currently removed
+- [ ] Decide if galleries add value or should remain removed
+
+### Priority 5: Development Banner Removal
+- [ ] Remove `src/components/DevelopmentBanner.tsx` before production
+- [ ] Update `src/components/ClientLayout.tsx` to remove import
+
+---
+
+## SESSION 103 (13 Jan 2026) - Style Guide Finalisation & Variant Selection
+
+### Focus
+Integrated partner showcase images, finalised variant selections for testimonials and timeline, and documented style guide patterns in CLAUDE.md.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Copy 4 partner images to public/images/partners/ | Complete |
+| Update partnerShowcase.ts with new image paths | Complete |
+| Review home page testimonial variants in browser | Complete |
+| Select home testimonial variants (Bold + Minimal) | Complete |
+| Review careers page testimonial variants | Complete |
+| Select careers testimonial (Cinematic Carousel) | Complete |
+| Review about page timeline variants | Complete |
+| Select about timeline (Original) | Complete |
+| Update CLAUDE.md with style guide patterns | Complete |
+| Build verification | Complete |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `public/images/partners/Avbob-slide.jpg` | AVBOB family protection image |
+| `public/images/partners/bolttech-slide.jpg` | bolttech digital insurance image |
+| `public/images/partners/metropolitan-slide.jpg` | Metropolitan family life image |
+| `public/images/partners/tfg-slide.jpg` | TFG retail environment image |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/partnerShowcase.ts` | Updated image paths and alt text for all 4 partners |
+| `src/components/testimonials/TestimonialsVariantSwitcher.tsx` | Reduced from 4 to 2 variants (Bold + Minimal) |
+| `src/app/careers/page.tsx` | Changed to use TestimonialsCarousel directly (removed switcher logic) |
+| `src/app/about/page.tsx` | Changed to use TimelineOriginal directly (removed switcher logic) |
+| `CLAUDE.md` | Added card hover, watermark, and z-index patterns |
+
+### Variant Selections Made
+| Page | Selected Variant | Removed Variants |
+|------|-----------------|------------------|
+| Home (testimonials) | Bold Statement + Minimal | Split Screen, Card Stack |
+| Careers (testimonials) | Cinematic Carousel | Featured Spotlight |
+| About (timeline) | Original | Alternating |
+
+### Style Guide Patterns Added to CLAUDE.md
+| Pattern | Value |
+|---------|-------|
+| Card hover animation | `y: -8, scale: 1.02` with spring physics |
+| Shadow escalation | `shadow-lg shadow-primary/25` → `shadow-xl shadow-primary/40` |
+| Watermark opacity (light) | `text-white/[0.03]` |
+| Watermark opacity (dark) | `text-white/[0.025]` |
+| Watermark responsive sizing | `text-[6rem] md:text-[10rem] lg:text-[14rem]` |
+| Z-index scale | Base `z-10`, Sticky `z-40`, Modals `z-50` |
+
+### Partner Showcase Images Updated
+| Partner | New Image | Alt Text |
+|---------|-----------|----------|
+| AVBOB | `Avbob-slide.jpg` | Family protection with AVBOB funeral cover - multi-generational support |
+| bolttech | `bolttech-slide.jpg` | Digital insurance innovation - young professional using bolttech mobile app |
+| TFG/Jet | `tfg-slide.jpg` | TFG Jet retail in-store insurance sales - customer service at point of sale |
+| Metropolitan | `metropolitan-slide.jpg` | Metropolitan life insurance - young family enjoying outdoor moments together |
+
+### Deferred to Session 104
+| Task | Reason |
+|------|--------|
+| Delete unused variant components | Can be done in cleanup session |
+| Home testimonials switcher removal | User wants to keep Bold + Minimal for now |
 
 ---
 
@@ -1025,23 +1090,29 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ## SKIPPED & DEFERRED TASKS
 
-### Deferred from Session 101
+### Deferred from Session 103
 | Task | Reason | Priority |
 |------|--------|----------|
-| AVBOB SVG logo acquisition | PNG format doesn't invert cleanly; need official SVG | Session 102 |
-| LatestOpportunities watermark dark mode adjustment | May be too faint; needs visual testing | Session 102 |
-| Home page testimonial variant selection | 4 variants created, awaiting stakeholder review | Session 102 |
-| Careers page testimonial variant selection | 2 variants created, awaiting stakeholder review | Session 102 |
-| Timeline variant decision (Original vs Alternating) | User will decide after visual review | Session 102 |
+| Delete unused variant components | Cleanup task, can be done anytime | Session 104 |
+| Remove home testimonials switcher | User wants Bold + Minimal toggle for now | When final decision made |
 
 ### Deferred from Session 99/100
 | Task | Reason | Priority |
 |------|--------|----------|
-| Gallery reimplementation (About page) | Temporarily removed for fresh design approach | Session 102+ |
-| Gallery reimplementation (Careers page) | Temporarily removed for fresh design approach | Session 102+ |
-| About page tagline workshop | User wants to workshop "Building a nation..." wording | Session 102+ |
-| CaseStudies reinstatement | Awaiting stakeholder meeting decision | Session 102+ |
+| Gallery reimplementation (About page) | Temporarily removed for fresh design approach | Session 104+ |
+| Gallery reimplementation (Careers page) | Temporarily removed for fresh design approach | Session 104+ |
+| About page tagline workshop | User wants to workshop "Building a nation..." wording | Session 104+ |
+| CaseStudies reinstatement | Awaiting stakeholder meeting decision | Session 104+ |
 | JobDetailContent scroll animation consolidation | Optional refinement, not essential | When convenient |
+
+### Completed in Session 103 (Previously Deferred)
+| Task | Resolution |
+|------|------------|
+| Partner showcase images | ✅ Integrated 4 images from resources folder |
+| Home page testimonial variant selection | ✅ Narrowed to Bold + Minimal |
+| Careers page testimonial variant selection | ✅ Selected Cinematic Carousel |
+| Timeline variant decision | ✅ Selected Original |
+| Watermark visibility review | ✅ Kept subtle (documented in CLAUDE.md) |
 
 ### Deferred to Future Sessions
 | Task | Reason | Estimated Session |
@@ -1370,12 +1441,16 @@ const TIMELINE_VARIANT = "switcher"; // Change to "original" or "alternating" af
 | About page tagline | ⏳ Pending | S99 - Workshop for B2C/B2B wording |
 | Home page OurImpact → PartnerShowcase | ✅ Resolved | S100 - Partner carousel with logos and stats |
 | Home page LatestNews → LatestOpportunities | ✅ Resolved | S100 - Opportunity cards with micro-interactions |
-| Home page testimonial variants | ⏳ Pending | S101 - 4 variants created, awaiting selection |
+| Home page testimonial variants | ✅ Resolved | S103 - Narrowed to Bold + Minimal (2 variants) |
+| Careers page testimonial variant | ✅ Resolved | S103 - Selected Cinematic Carousel |
+| Timeline variant decision | ✅ Resolved | S103 - Selected Original |
 | Partner logo dark mode handling | ✅ Resolved | S101 - darkModeInvert property, conditional CSS |
 | bolttech replaces 1Life partner | ✅ Resolved | S101 - SVG logo with proper inversion |
 | Section watermarks (Partners, Opportunities) | ✅ Resolved | S101 - Added decorative text watermarks |
+| Partner showcase images | ✅ Resolved | S103 - 4 images integrated from resources |
+| Style guide documentation | ✅ Resolved | S103 - Card hover, watermarks, z-index in CLAUDE.md |
 | AVBOB logo dark mode appearance | ⏳ Pending | S101 - PNG inverts to solid white, need SVG |
-| Watermark dark mode visibility | ⏳ Pending | S101 - May need opacity adjustment |
+| Unused variant components | ⏳ Pending | S103 - Can delete Split Screen, Card Stack, Featured, Alternating |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
@@ -1530,10 +1605,12 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-101)
+## SESSION HISTORY (75-103)
 
 | Session | Focus |
 |---------|-------|
+| S103 | Style guide finalisation, partner images integrated, variant selections (Bold+Minimal, Carousel, Original), CLAUDE.md style patterns |
+| S102 | Partner logo fixes (Metropolitan SVG, AVBOB quality), AI image prompts for partner slides |
 | S101 | Home page testimonial variants (4 styles: BoldStatement, SplitScreen, CardStack, Minimal), partner logo dark mode fixes, bolttech replaces 1Life, watermarks added |
 | S100 | Home page refactoring (OurImpact → PartnerShowcase, LatestNews → LatestOpportunities), CaseStudies removal, testimonial variants (Carousel + Featured) |
 | S99 | Careers animation simplification (minimal motion), Header/Footer fix, galleries removed for reimplementation, timeline variants (Original + Alternating) |
@@ -1564,4 +1641,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 13 January 2026 (Session 101 - Testimonial Variants & Logo Fixes)*
+*Document updated: 13 January 2026 (Session 103 - Style Guide Finalisation & Variant Selection)*

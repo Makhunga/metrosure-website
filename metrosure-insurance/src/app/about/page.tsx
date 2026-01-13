@@ -18,16 +18,8 @@ import {
 // const GalleryInstagram = dynamic(() => import("@/components/about/GalleryInstagram"));
 // const GalleryFloating = dynamic(() => import("@/components/about/GalleryFloating"));
 
-// Timeline variants for selection
-import {
-  TimelineOriginal,
-  TimelineAlternating,
-  TimelineVariantSwitcher,
-} from "@/components/about/timeline-variants";
-
-// Timeline variant selector - change this to switch variants
-// Options: "original" | "alternating" | "switcher"
-const TIMELINE_VARIANT = "switcher";
+// Session 103: Using TimelineOriginal directly (user selected over Alternating)
+import { TimelineOriginal } from "@/components/about/timeline-variants";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -351,14 +343,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline Section - Variant Switcher for Testing */}
-      {TIMELINE_VARIANT === "switcher" ? (
-        <TimelineVariantSwitcher items={timeline} />
-      ) : TIMELINE_VARIANT === "alternating" ? (
-        <TimelineAlternating items={timeline} />
-      ) : (
-        <TimelineOriginal items={timeline} />
-      )}
+      {/* Timeline Section - Original variant (Session 103 selection) */}
+      <TimelineOriginal items={timeline} />
 
       {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
       <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden">

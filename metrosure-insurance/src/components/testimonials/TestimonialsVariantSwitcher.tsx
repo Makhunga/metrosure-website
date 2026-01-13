@@ -6,21 +6,17 @@ import dynamic from "next/dynamic";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TESTIMONIALS VARIANT SWITCHER
-// Sticky bar for toggling between 4 testimonial design variants
-// For stakeholder review - REMOVE AFTER DECISION
+// Sticky bar for toggling between Bold and Minimal testimonial variants
+// Session 103: Narrowed from 4 to 2 variants per user decision
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Dynamic imports for code splitting
 const TestimonialsBoldStatement = dynamic(
   () => import("./TestimonialsBoldStatement")
 );
-const TestimonialsSplitScreen = dynamic(
-  () => import("./TestimonialsSplitScreen")
-);
-const TestimonialsCardStack = dynamic(() => import("./TestimonialsCardStack"));
 const TestimonialsMinimal = dynamic(() => import("./TestimonialsMinimal"));
 
-type VariantKey = "bold" | "split" | "stack" | "minimal";
+type VariantKey = "bold" | "minimal";
 
 interface Variant {
   key: VariantKey;
@@ -37,20 +33,6 @@ const variants: Variant[] = [
     icon: "format_quote",
     description: "Large stacked typography with floating card overlay",
     component: TestimonialsBoldStatement,
-  },
-  {
-    key: "split",
-    label: "Split Screen",
-    icon: "view_sidebar",
-    description: "Dramatic 50/50 split with large photo and elegant quote",
-    component: TestimonialsSplitScreen,
-  },
-  {
-    key: "stack",
-    label: "Card Stack",
-    icon: "layers",
-    description: "Layered cards with depth and parallax motion",
-    component: TestimonialsCardStack,
   },
   {
     key: "minimal",

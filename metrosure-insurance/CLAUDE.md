@@ -229,6 +229,44 @@ Example:
 - Warm neutrals preferred over cold blue-slate
 - Test both modes before committing
 
+### Card Hover Animation (Session 103)
+
+Standard card hover with pronounced lift effect:
+```typescript
+whileHover={{
+  y: -8,
+  scale: 1.02,
+  transition: { type: "spring", stiffness: 400, damping: 17 }
+}}
+```
+
+Shadow escalation on hover:
+- Default: `shadow-lg shadow-primary/25`
+- Hover: `shadow-xl shadow-primary/40`
+
+### Watermark Pattern (Session 103)
+
+Subtle watermark text for section decoration:
+
+**Opacity values:**
+- Light mode: `text-white/[0.03]`
+- Dark mode: `text-white/[0.025]`
+
+**Responsive sizing:**
+```html
+<div className="text-[6rem] md:text-[10rem] lg:text-[14rem] font-black">
+  WATERMARK
+</div>
+```
+
+### Z-Index Scale
+
+| Layer | Z-Index | Usage |
+|-------|---------|-------|
+| Base content | `z-10` | Sections, cards |
+| Sticky bars | `z-40` | Variant switchers, toolbars |
+| Modals/overlays | `z-50` | Application modals, dialogs |
+
 ### Class Utility
 
 Always use `cn()` for conditional classes:
@@ -513,4 +551,4 @@ All customer-facing content must align with TCF principles.
 
 ---
 
-*Last updated: 6 January 2026 (Session 90)*
+*Last updated: 13 January 2026 (Session 103)*

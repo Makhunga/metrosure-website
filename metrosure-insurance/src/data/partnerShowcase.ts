@@ -35,8 +35,8 @@ export const showcasePartners: ShowcasePartner[] = [
     logo: "/images/partners/avbob-new-logo.png",
     logoAlt: "AVBOB Mutual Assurance logo",
     darkModeInvert: false, // Green background works on both light and dark
-    image: "/images/team-fp-tshabalala.jpg",
-    imageAlt: "Metrosure and AVBOB partnership team",
+    image: "/images/partners/Avbob-slide.jpg",
+    imageAlt: "Family protection with AVBOB funeral cover - multi-generational support",
     title: "Trusted funeral cover provider since 2013",
     stat: {
       value: "10K+",
@@ -51,8 +51,8 @@ export const showcasePartners: ShowcasePartner[] = [
     logo: "/images/partners/bolttech.svg",
     logoAlt: "bolttech insurtech logo",
     darkModeInvert: true,
-    image: "/images/mission-image.jpg",
-    imageAlt: "bolttech digital insurance partnership",
+    image: "/images/partners/bolttech-slide.jpg",
+    imageAlt: "Digital insurance innovation - young professional using bolttech mobile app",
     title: "Digital insurance solutions for modern South Africa",
     stat: {
       value: "24/7",
@@ -67,8 +67,8 @@ export const showcasePartners: ShowcasePartner[] = [
     logo: "/images/partners/tfg.svg",
     logoAlt: "The Foschini Group logo",
     darkModeInvert: false, // SVG has its own purple background
-    image: "/images/about-hero.jpg",
-    imageAlt: "TFG retail partnership location",
+    image: "/images/partners/tfg-slide.jpg",
+    imageAlt: "TFG Jet retail in-store insurance sales - customer service at point of sale",
     title: "Bringing insurance to retail point of sale",
     stat: {
       value: "100+",
@@ -84,8 +84,8 @@ export const showcasePartners: ShowcasePartner[] = [
     logoDark: "/images/partners/metropolitan-logo-dark.svg",
     logoAlt: "Metropolitan insurance logo",
     darkModeInvert: false, // Using dedicated dark mode logo instead
-    image: "/images/team-professional-event.jpg",
-    imageAlt: "Metropolitan partnership team",
+    image: "/images/partners/metropolitan-slide.jpg",
+    imageAlt: "Metropolitan life insurance - young family enjoying outdoor moments together",
     title: "Life and funeral insurance for every South African",
     stat: {
       value: "48hrs",
