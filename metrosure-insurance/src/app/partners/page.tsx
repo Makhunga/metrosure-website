@@ -6,7 +6,7 @@ import {
   ValueProposition,
   HowItWorks,
   PartnerBenefits,
-  CaseStudies,
+  // CaseStudies, // Temporarily removed - pending stakeholder meeting
   PartnerTestimonials,
   PartnerFAQ,
   PartnerInquiryForm,
@@ -57,7 +57,7 @@ export default function PartnersPage() {
         <ValueProposition />
         <HowItWorks />
         <PartnerBenefits />
-        <CaseStudies />
+        {/* CaseStudies temporarily removed - pending stakeholder meeting */}
         <PartnerTestimonials />
         <PartnerFAQ />
         <PartnerInquiryForm />

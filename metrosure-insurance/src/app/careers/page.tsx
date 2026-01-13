@@ -15,6 +15,7 @@ import { useRef, useState } from "react";
 const WhyJoinUs = dynamic(() => import("@/components/careers/WhyJoinUs"));
 // Gallery temporarily removed - will be reimplemented
 // const GalleryOverflowSlider = dynamic(() => import("@/components/careers/gallery-variants/GalleryOverflowSlider"));
+const TestimonialsVariantSwitcher = dynamic(() => import("@/components/careers/testimonial-variants/TestimonialsVariantSwitcher"));
 const OpenPositions = dynamic(() => import("@/components/careers/OpenPositions"));
 
 import Link from "next/link";
@@ -167,6 +168,9 @@ export default function CareersPage() {
 
       {/* Why Join Us */}
       <WhyJoinUs />
+
+      {/* Employee Testimonials - 4 variants for selection */}
+      <TestimonialsVariantSwitcher />
 
       {/* Gallery temporarily removed - will be reimplemented */}
 

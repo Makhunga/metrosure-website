@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 12 January 2026 (Session 99)
+**Updated:** 13 January 2026 (Session 100)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,40 +10,132 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 38 (31 pages + 7 API routes)
-- **Last Build:** 12 January 2026
+- **Last Build:** 13 January 2026
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 100)
+## NEXT SESSION PRIORITIES (Session 101)
 
-### Priority 1: Timeline Variant Decision
+### Priority 1: Testimonial Variant Decision
+- View testimonial variants in browser at `/careers`
+- Toggle between Cinematic Carousel and Featured Spotlight
+- Choose preferred variant
+- Remove TestimonialsVariantSwitcher after decision
+
+### Priority 2: Timeline Variant Decision
 - View timeline variants in browser at `/about`
 - Choose between Original and Alternating layouts
 - Remove variant switcher after decision
-- Consider enhancing chosen variant if needed
 
-### Priority 2: Gallery Reimplementation
+### Priority 3: CaseStudies Reinstatement
+- Discuss with stakeholders at upcoming meeting
+- If approved, uncomment CaseStudies on Partners page
+- Consider updating case study content if needed
+
+### Priority 4: Gallery Reimplementation
 - Design fresh gallery approach for About page
 - Design fresh gallery approach for Careers page
 - Consider: masonry, filmstrip, lightbox, or modern grid
-- Ensure galleries have purpose, not just decoration
 
-### Priority 3: Tagline Workshop
-- Current: "Building a nation where everyone is protected"
-- Goal: Wording that serves both B2C and B2B audiences
-- Should not seem overly ambitious or world-changing
-- Focus on trust, reliability, local service
+### Priority 5: Visual Testing & Polish
+- Test Home page Partner Showcase carousel
+- Test Home page Latest Opportunities section
+- Verify micro-interactions on opportunity cards
+- Mobile responsive testing at 375px, 768px, 1024px
+- Dark mode verification
 
-### Priority 4: Visual Testing & Polish
-- Test individual career pages in browser
-- Verify minimal motion approach feels professional
-- Check mobile responsive behaviour at 375px
-- Dark mode verification on all updated pages
+---
 
-### Priority 5: Accessibility & Cross-Browser
-- WCAG 2.1 AA colour contrast verification
-- Keyboard navigation testing
-- Firefox/Edge/Safari compatibility
+## SESSION 100 (13 Jan 2026) - Home Page Refactoring & Testimonials
+
+### Focus
+Major session covering: Home page section refactoring (OurImpact → PartnerShowcase, LatestNews → LatestOpportunities), Partners page CaseStudies removal, and Careers page testimonial variants creation.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Convert OurImpact to PartnerShowcase | Complete |
+| Create partnerShowcase.ts data file | Complete |
+| Convert LatestNews to LatestOpportunities | Complete |
+| Create opportunities.ts data file | Complete |
+| Add micro-interactions to opportunity cards | Complete |
+| Remove "View All Opportunities" link | Complete |
+| Comment out CaseStudies from Partners page | Complete |
+| Copy 6 staff photos to public/images/staff/ | Complete |
+| Create employeeTestimonials.ts data file | Complete |
+| Create 4 testimonial variants | Complete |
+| Narrow to 2 variants (Carousel + Featured) | Complete |
+| Create TestimonialsVariantSwitcher | Complete |
+| Delete old components (OurImpact, LatestNews) | Complete |
+| Delete old data files (impact.ts, news.ts) | Complete |
+| Build verification | Complete |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/data/partnerShowcase.ts` | Partner showcase data (AVBOB, 1Life, TFG) with logos, stats, links |
+| `src/data/opportunities.ts` | Opportunities data (Careers, Partners, Corporate) with icons, CTAs |
+| `src/data/employeeTestimonials.ts` | 6 employee testimonials with quotes, roles, tenure, locations |
+| `src/components/PartnerShowcase.tsx` | Carousel featuring actual partners with logos and stats |
+| `src/components/LatestOpportunities.tsx` | Grid of opportunity cards with micro-interactions |
+| `src/components/careers/testimonial-variants/TestimonialsCarousel.tsx` | Cinematic slider with dramatic quotes |
+| `src/components/careers/testimonial-variants/TestimonialsFeatured.tsx` | Interactive spotlight with clickable thumbnails |
+| `src/components/careers/testimonial-variants/TestimonialsVariantSwitcher.tsx` | Sticky switcher bar for A/B comparison |
+| `src/components/careers/testimonial-variants/index.ts` | Barrel exports for testimonial variants |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/app/page.tsx` | Updated imports: OurImpact → PartnerShowcase, LatestNews → LatestOpportunities |
+| `src/components/index.ts` | Updated exports for new components |
+| `src/app/partners/page.tsx` | Commented out CaseStudies import and component |
+| `src/app/careers/page.tsx` | Added TestimonialsVariantSwitcher after WhyJoinUs |
+
+### Files Deleted
+| File | Reason |
+|------|--------|
+| `src/components/OurImpact.tsx` | Replaced by PartnerShowcase |
+| `src/components/LatestNews.tsx` | Replaced by LatestOpportunities |
+| `src/data/impact.ts` | Replaced by partnerShowcase.ts |
+| `src/data/news.ts` | Replaced by opportunities.ts |
+| `src/components/careers/testimonial-variants/TestimonialsCards.tsx` | User narrowed to 2 variants |
+| `src/components/careers/testimonial-variants/TestimonialsMarquee.tsx` | User narrowed to 2 variants |
+
+### Staff Photos Added
+| Image | Employee |
+|-------|----------|
+| `public/images/staff/khayakazi.jpg` | Khayakazi Matomela |
+| `public/images/staff/khwezi_2n.jpg` | Khwezi Ndaba |
+| `public/images/staff/mercutio_2.jpg` | Mercutio van der Berg |
+| `public/images/staff/mvelo.jpg` | Mvelo Dlamini |
+| `public/images/staff/selona.jpg` | Selona Mathebula |
+| `public/images/staff/thami.jpg` | Thami Zulu |
+
+### New Components Details
+
+**PartnerShowcase (replacing OurImpact)**
+- Carousel featuring AVBOB, 1Life, TFG with actual partner logos
+- Stats display: "10K+ Policies facilitated", "48hrs Average claims", "100+ Retail locations"
+- Auto-advance with keyboard navigation (ArrowLeft/ArrowRight)
+- Maroon background with geometric patterns
+- All existing carousel mechanics preserved
+
+**LatestOpportunities (replacing LatestNews)**
+- 3-card grid: Careers, Partner With Us, Corporate Solutions
+- Micro-interactions: hover lift (y: -8), scale (1.02), enhanced shadow
+- Category icons and highlight badges ("Hiring Now")
+- Red angled background with clip-path preserved
+- Removed "View All Opportunities" link per user request
+
+**Testimonial Variants (2 remaining)**
+| Variant | Style | Features |
+|---------|-------|----------|
+| Cinematic Carousel | Large-scale slider | Dramatic quotes, full-bleed photography, auto-advance, keyboard nav |
+| Featured Spotlight | Interactive grid | Clickable employee thumbnails, large featured card, grayscale-to-colour effect |
+
+### Stakeholder Notes
+- **CaseStudies removed from Partners page** - Add to stakeholder meeting agenda for discussion
+- If approved, uncomment in `src/app/partners/page.tsx` (lines ~23-24)
 
 ---
 
@@ -989,7 +1081,11 @@ const TIMELINE_VARIANT = "switcher"; // Change to "original" or "alternating" af
 | Individual career page container width | ✅ Resolved | S99 - Removed redundant max-w-4xl |
 | Gallery reimplementation | ⏳ Pending | S99 - Temporarily removed for fresh design |
 | Timeline variant decision | ⏳ Pending | S99 - Switcher created, awaiting decision |
+| Testimonial variant decision | ⏳ Pending | S100 - Switcher created, awaiting decision |
+| CaseStudies reinstatement | ⏳ Pending | S100 - Commented out, awaiting stakeholder meeting |
 | About page tagline | ⏳ Pending | S99 - Workshop for B2C/B2B wording |
+| Home page OurImpact → PartnerShowcase | ✅ Resolved | S100 - Partner carousel with logos and stats |
+| Home page LatestNews → LatestOpportunities | ✅ Resolved | S100 - Opportunity cards with micro-interactions |
 | Placeholder policy numbers | ✅ Resolved | S92 |
 | Years experience outdated | ✅ Resolved | S92 - Updated to 13+ |
 | "Coverage" terminology | ✅ Resolved | S92 - High-visibility fixes |
@@ -1144,10 +1240,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-99)
+## SESSION HISTORY (75-100)
 
 | Session | Focus |
 |---------|-------|
+| S100 | Home page refactoring (OurImpact → PartnerShowcase, LatestNews → LatestOpportunities), CaseStudies removal, testimonial variants (Carousel + Featured) |
 | S99 | Careers animation simplification (minimal motion), Header/Footer fix, galleries removed for reimplementation, timeline variants (Original + Alternating) |
 | S98 | Gallery consolidation - Clean Slider variant selected, removed CultureGallery and GalleryMarquee |
 | S97 | Floating images gallery test, CareersHeroFloating component, GalleryFloating with square images |

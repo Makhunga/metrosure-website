@@ -3,12 +3,12 @@ import { Header, Hero, StatsBar, Footer } from "@/components";
 
 // Below-fold components - dynamically imported for code splitting
 // SSR is enabled to maintain SEO, but JS bundle is split for faster hydration
-const OurImpact = dynamic(() => import("@/components/OurImpact"));
+const PartnerShowcase = dynamic(() => import("@/components/PartnerShowcase"));
 const Features = dynamic(() => import("@/components/Features"));
 const Approach = dynamic(() => import("@/components/Approach"));
 const Products = dynamic(() => import("@/components/Products"));
 const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
-const LatestNews = dynamic(() => import("@/components/LatestNews"));
+const LatestOpportunities = dynamic(() => import("@/components/LatestOpportunities"));
 const PartnersCTA = dynamic(() => import("@/components/PartnersCTA"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
 const CallToAction = dynamic(() => import("@/components/CallToAction"));
@@ -19,12 +19,12 @@ export default function Home() {
       <main>
         <Hero />
         <StatsBar />
-        <OurImpact />
+        <PartnerShowcase />
         <Features />
         <Approach />
         <Products />
         <WhyChooseUs />
-        <LatestNews />
+        <LatestOpportunities />
         <PartnersCTA />
         <Testimonials />
         <CallToAction />

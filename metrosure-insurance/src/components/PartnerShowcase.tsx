@@ -9,12 +9,12 @@ import {
   useInView,
   useReducedMotion,
 } from "framer-motion";
-import { impactCards, impactContent } from "@/data/impact";
+import { showcasePartners, showcaseContent } from "@/data/partnerShowcase";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// OUR IMPACT CAROUSEL
-// Bold stats showcase inspired by Starbucks impact section
-// Deep maroon background with animated stat cards
+// PARTNER SHOWCASE CAROUSEL
+// Features actual partners (AVBOB, 1Life, TFG) with logos and stats
+// Deep maroon background with animated partner cards
 // ═══════════════════════════════════════════════════════════════════════════
 
 // Animation variants for slide transitions
@@ -54,7 +54,7 @@ const statVariants = {
   },
 };
 
-export default function OurImpact() {
+export default function PartnerShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -63,21 +63,24 @@ export default function OurImpact() {
   const prefersReducedMotion = useReducedMotion();
 
   // Navigation functions
-  const goToSlide = useCallback((index: number) => {
-    setDirection(index > activeIndex ? 1 : -1);
-    setActiveIndex(index);
-  }, [activeIndex]);
+  const goToSlide = useCallback(
+    (index: number) => {
+      setDirection(index > activeIndex ? 1 : -1);
+      setActiveIndex(index);
+    },
+    [activeIndex]
+  );
 
   const goToPrevious = useCallback(() => {
     setDirection(-1);
     setActiveIndex((prev) =>
-      prev === 0 ? impactCards.length - 1 : prev - 1
+      prev === 0 ? showcasePartners.length - 1 : prev - 1
     );
   }, []);
 
   const goToNext = useCallback(() => {
     setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % impactCards.length);
+    setActiveIndex((prev) => (prev + 1) % showcasePartners.length);
   }, []);
 
   // Auto-play functionality
@@ -107,7 +110,7 @@ export default function OurImpact() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isInView, goToPrevious, goToNext]);
 
-  const currentCard = impactCards[activeIndex];
+  const currentPartner = showcasePartners[activeIndex];
 
   return (
     <section
@@ -117,7 +120,7 @@ export default function OurImpact() {
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
-      aria-label="Our Impact carousel"
+      aria-label="Partner Showcase carousel"
       role="region"
     >
       {/* Background Pattern - Subtle geometric overlay */}
@@ -145,16 +148,20 @@ export default function OurImpact() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            {impactContent.heading}
+            {showcaseContent.heading}
           </motion.h2>
 
           <motion.p
             className="text-base md:text-lg lg:text-xl text-white/70 max-w-md lg:max-w-lg lg:text-right leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.7,
+              delay: 0.15,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
-            {impactContent.subheading}
+            {showcaseContent.subheading}
           </motion.p>
         </div>
 
@@ -169,14 +176,14 @@ export default function OurImpact() {
             className="bg-white dark:bg-slate-800 rounded-tr-[48px] lg:rounded-tr-[64px] overflow-hidden shadow-2xl shadow-black/30"
             role="group"
             aria-roledescription="slide"
-            aria-label={`Slide ${activeIndex + 1} of ${impactCards.length}`}
+            aria-label={`Slide ${activeIndex + 1} of ${showcasePartners.length}`}
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[420px] lg:min-h-[380px]">
               {/* Left: Image */}
               <div className="lg:col-span-4 relative aspect-[4/3] lg:aspect-auto overflow-hidden">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                   <motion.div
-                    key={currentCard.id + "-image"}
+                    key={currentPartner.id + "-image"}
                     custom={direction}
                     variants={prefersReducedMotion ? {} : slideVariants}
                     initial="enter"
@@ -186,8 +193,8 @@ export default function OurImpact() {
                     className="absolute inset-0"
                   >
                     <Image
-                      src={currentCard.image}
-                      alt={currentCard.imageAlt}
+                      src={currentPartner.image}
+                      alt={currentPartner.imageAlt}
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 33vw"
@@ -199,11 +206,11 @@ export default function OurImpact() {
                 </AnimatePresence>
               </div>
 
-              {/* Middle: Title + Read Time */}
+              {/* Middle: Partner Logo + Title */}
               <div className="lg:col-span-5 p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-700/50">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                   <motion.div
-                    key={currentCard.id + "-content"}
+                    key={currentPartner.id + "-content"}
                     custom={direction}
                     variants={prefersReducedMotion ? {} : slideVariants}
                     initial="enter"
@@ -211,12 +218,23 @@ export default function OurImpact() {
                     exit="exit"
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
+                    {/* Partner Logo */}
+                    <div className="mb-5 h-10 relative">
+                      <Image
+                        src={currentPartner.logo}
+                        alt={currentPartner.logoAlt}
+                        height={40}
+                        width={120}
+                        className="object-contain object-left dark:brightness-0 dark:invert"
+                      />
+                    </div>
+
                     <Link
-                      href={currentCard.link}
+                      href={currentPartner.link}
                       className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 rounded-lg"
                     >
                       <h3 className="text-xl md:text-2xl lg:text-[1.75rem] xl:text-3xl font-bold text-[rgb(var(--color-text-main))] leading-snug mb-4 group-hover:text-primary transition-colors duration-300">
-                        {currentCard.title}
+                        {currentPartner.title}
                         <motion.span
                           className="inline-flex items-center ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                           aria-hidden="true"
@@ -229,7 +247,7 @@ export default function OurImpact() {
                     </Link>
 
                     <p className="text-xs md:text-sm font-medium uppercase tracking-[0.12em] text-[rgb(var(--color-text-muted))]">
-                      {currentCard.readTime} MIN READ
+                      {currentPartner.name} Partnership
                     </p>
                   </motion.div>
                 </AnimatePresence>
@@ -239,7 +257,7 @@ export default function OurImpact() {
               <div className="lg:col-span-3 p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-center items-center lg:items-start bg-slate-50 dark:bg-slate-700/30">
                 <AnimatePresence initial={false} mode="wait">
                   <motion.div
-                    key={currentCard.id + "-stat"}
+                    key={currentPartner.id + "-stat"}
                     variants={prefersReducedMotion ? {} : statVariants}
                     initial="enter"
                     animate="center"
@@ -249,12 +267,12 @@ export default function OurImpact() {
                   >
                     <span
                       className="block text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold text-primary leading-none"
-                      aria-label={`Statistic: ${currentCard.stat.value}`}
+                      aria-label={`Statistic: ${currentPartner.stat.value}`}
                     >
-                      {currentCard.stat.value}
+                      {currentPartner.stat.value}
                     </span>
                     <p className="mt-3 md:mt-4 text-sm md:text-base text-[rgb(var(--color-text-body))] leading-relaxed max-w-[200px]">
-                      {currentCard.stat.description}
+                      {currentPartner.stat.description}
                     </p>
                   </motion.div>
                 </AnimatePresence>
@@ -265,8 +283,12 @@ export default function OurImpact() {
           {/* Navigation Controls */}
           <div className="flex items-center justify-between mt-8 md:mt-10">
             {/* Dot Indicators (Left) */}
-            <div className="flex gap-2" role="tablist" aria-label="Slide indicators">
-              {impactCards.map((_, index) => (
+            <div
+              className="flex gap-2"
+              role="tablist"
+              aria-label="Slide indicators"
+            >
+              {showcasePartners.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
@@ -292,7 +314,10 @@ export default function OurImpact() {
                 whileTap={{ scale: 0.95 }}
                 aria-label="Previous slide"
               >
-                <span className="material-symbols-outlined text-lg" aria-hidden="true">
+                <span
+                  className="material-symbols-outlined text-lg"
+                  aria-hidden="true"
+                >
                   arrow_back
                 </span>
               </motion.button>
@@ -304,7 +329,10 @@ export default function OurImpact() {
                 whileTap={{ scale: 0.95 }}
                 aria-label="Next slide"
               >
-                <span className="material-symbols-outlined text-lg" aria-hidden="true">
+                <span
+                  className="material-symbols-outlined text-lg"
+                  aria-hidden="true"
+                >
                   arrow_forward
                 </span>
               </motion.button>
@@ -313,12 +341,9 @@ export default function OurImpact() {
         </motion.div>
 
         {/* Screen reader announcement for slide changes */}
-        <div
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-        >
-          Showing slide {activeIndex + 1} of {impactCards.length}: {currentCard.title}
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          Showing slide {activeIndex + 1} of {showcasePartners.length}:{" "}
+          {currentPartner.name} - {currentPartner.title}
         </div>
       </div>
     </section>
