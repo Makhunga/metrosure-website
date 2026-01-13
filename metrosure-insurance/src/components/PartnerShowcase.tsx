@@ -139,9 +139,9 @@ export default function PartnerShowcase() {
         aria-hidden="true"
       />
 
-      {/* Large text watermark */}
+      {/* Large text watermark - positioned higher */}
       <div
-        className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-white/[0.025] dark:text-white/[0.015] select-none pointer-events-none whitespace-nowrap leading-none tracking-tight -ml-8"
+        className="absolute left-0 top-[15%] text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-white/[0.03] dark:text-white/[0.025] select-none pointer-events-none whitespace-nowrap leading-none tracking-tight -ml-8"
         aria-hidden="true"
       >
         PARTNERS
@@ -226,19 +226,40 @@ export default function PartnerShowcase() {
                     exit="exit"
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {/* Partner Logo */}
-                    <div className="mb-5 h-10 flex items-center">
-                      <Image
-                        src={currentPartner.logo}
-                        alt={currentPartner.logoAlt}
-                        height={40}
-                        width={120}
-                        className={`object-contain object-left h-10 w-auto max-w-[120px] ${
-                          currentPartner.darkModeInvert
-                            ? "dark:brightness-0 dark:invert"
-                            : ""
-                        }`}
-                      />
+                    {/* Partner Logo - Theme-aware rendering */}
+                    <div className="mb-5 h-14 flex items-center">
+                      {currentPartner.logoDark ? (
+                        <>
+                          {/* Light mode logo */}
+                          <Image
+                            src={currentPartner.logo}
+                            alt={currentPartner.logoAlt}
+                            height={56}
+                            width={180}
+                            className="object-contain object-left h-14 w-auto max-w-[180px] dark:hidden"
+                          />
+                          {/* Dark mode logo */}
+                          <Image
+                            src={currentPartner.logoDark}
+                            alt={currentPartner.logoAlt}
+                            height={56}
+                            width={180}
+                            className="object-contain object-left h-14 w-auto max-w-[180px] hidden dark:block"
+                          />
+                        </>
+                      ) : (
+                        <Image
+                          src={currentPartner.logo}
+                          alt={currentPartner.logoAlt}
+                          height={56}
+                          width={180}
+                          className={`object-contain object-left h-14 w-auto max-w-[180px] ${
+                            currentPartner.darkModeInvert
+                              ? "dark:brightness-0 dark:invert"
+                              : ""
+                          }`}
+                        />
+                      )}
                     </div>
 
                     <Link

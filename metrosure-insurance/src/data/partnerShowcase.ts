@@ -7,8 +7,10 @@ export interface ShowcasePartner {
   id: string;
   name: string;
   logo: string;
+  /** Optional dark mode logo - if provided, used instead of CSS inversion */
+  logoDark?: string;
   logoAlt: string;
-  /** Set to true for logos that need inversion in dark mode (transparent PNGs with dark content) */
+  /** Set to true for logos that need CSS inversion in dark mode (only used if logoDark is not provided) */
   darkModeInvert: boolean;
   image: string;
   imageAlt: string;
@@ -30,9 +32,9 @@ export const showcasePartners: ShowcasePartner[] = [
   {
     id: "avbob",
     name: "AVBOB",
-    logo: "/images/partners/avbob.png",
+    logo: "/images/partners/avbob-new-logo.png",
     logoAlt: "AVBOB Mutual Assurance logo",
-    darkModeInvert: true,
+    darkModeInvert: false, // Green background works on both light and dark
     image: "/images/team-fp-tshabalala.jpg",
     imageAlt: "Metrosure and AVBOB partnership team",
     title: "Trusted funeral cover provider since 2013",
@@ -74,6 +76,23 @@ export const showcasePartners: ShowcasePartner[] = [
     },
     link: "/partners#retail",
     category: "retail",
+  },
+  {
+    id: "metropolitan",
+    name: "Metropolitan",
+    logo: "/images/partners/metropolitan-logo-light.svg",
+    logoDark: "/images/partners/metropolitan-logo-dark.svg",
+    logoAlt: "Metropolitan insurance logo",
+    darkModeInvert: false, // Using dedicated dark mode logo instead
+    image: "/images/team-professional-event.jpg",
+    imageAlt: "Metropolitan partnership team",
+    title: "Life and funeral insurance for every South African",
+    stat: {
+      value: "48hrs",
+      description: "Average claim turnaround",
+    },
+    link: "/partners",
+    category: "insurer",
   },
 ];
 

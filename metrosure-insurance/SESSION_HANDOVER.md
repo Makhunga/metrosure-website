@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 13 January 2026 (Session 101)
+**Updated:** 13 January 2026 (Session 102)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -14,53 +14,115 @@
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 102)
+## NEXT SESSION PRIORITIES (Session 103)
 
-### Priority 1: SVG Logo Visibility in Dark Mode (URGENT)
-**Current Issue:** Partner logos need further refinement in dark mode
-- [ ] AVBOB PNG logo appears as solid white rectangle when inverted - consider obtaining SVG version
-- [ ] Verify bolttech SVG displays correctly (inverts to white)
-- [ ] TFG SVG has purple background - no inversion needed, working correctly
-- [ ] Consider obtaining official SVG logos from brand sources for all partners
+### Priority 1: Partner Showcase Images (READY TO INTEGRATE)
+**Status:** Image prompts created, awaiting generated images from Gemini/Imagen
+**File:** `src/data/partnerShowcase.ts`
 
-**Logo Sources to Try:**
-- 1Life: [Brandfetch](https://brandfetch.com/1life.co.za)
-- AVBOB: [SeekLogo](https://seeklogo.com/vector-logo/14290/avbob) or [IconApe](https://iconape.com/avbob-logo-logo-icon-svg-png.html)
+| Partner | Current Image | Needed Theme |
+|---------|--------------|--------------|
+| AVBOB | `team-fp-tshabalala.jpg` | Family protection, multi-generational |
+| bolttech | `mission-image.jpg` | Digital/tech, young professional |
+| TFG/Jet | `about-hero.jpg` | Retail environment, in-store |
+| Metropolitan | `team-professional-event.jpg` | Family life, outdoor moments |
 
-### Priority 2: LatestOpportunities Watermark Dark Mode
-**File:** `src/components/LatestOpportunities.tsx` (lines 195-201)
-- [ ] Current opacity: `text-white/[0.03]` light, `text-white/[0.02]` dark
-- [ ] Watermark "OPPORTUNITIES" may be too faint in dark mode
-- [ ] Consider increasing dark mode opacity to `text-white/[0.04]` or `text-white/[0.05]`
-- [ ] Test visually in browser after adjustment
+**Image Prompts:** See `/home/makhunga/.claude/plans/golden-discovering-whistle.md`
 
-### Priority 3: PartnerShowcase Watermark Review
-**File:** `src/components/PartnerShowcase.tsx` (lines 142-148)
-- [ ] Current watermark: "PARTNERS" with `text-white/[0.025]` light, `text-white/[0.015]` dark
-- [ ] Review visibility in both modes
-- [ ] Ensure consistency with LatestOpportunities watermark opacity
+**Integration Steps:**
+1. Generate images using provided Gemini prompts
+2. Save to `public/images/partners/` with descriptive names
+3. Update `partnerShowcase.ts` with new image paths and alt text
+4. Test in browser (both light and dark mode)
 
-### Priority 4: Home Page Testimonial Variants Selection
-- [ ] View 4 testimonial variants using switcher on home page
-- [ ] Variants: BoldStatement, SplitScreen, CardStack, Minimal
-- [ ] Choose preferred variant for production
-- [ ] Remove TestimonialsVariantSwitcher after decision
+### Priority 2: Watermark Visibility Review
+- [ ] LatestOpportunities watermark dark mode opacity
+- [ ] PartnerShowcase watermark consistency
+- [ ] Visual testing after any adjustments
 
-### Priority 5: Careers Page Testimonial Variant Decision
-- [ ] View testimonial variants in browser at `/careers`
-- [ ] Toggle between Cinematic Carousel and Featured Spotlight
-- [ ] Choose preferred variant
-- [ ] Remove TestimonialsVariantSwitcher after decision
+### Priority 3: Testimonial Variants Selection
+- [ ] Home page: Choose from 4 variants (BoldStatement, SplitScreen, CardStack, Minimal)
+- [ ] Careers page: Choose between Cinematic Carousel and Featured Spotlight
+- [ ] Remove switcher components after decisions
 
-### Priority 6: Timeline Variant Decision
-- [ ] View timeline variants in browser at `/about`
-- [ ] Choose between Original and Alternating layouts
+### Priority 4: Timeline Variant Decision
+- [ ] About page: Choose between Original and Alternating layouts
 - [ ] Remove variant switcher after decision
 
-### Priority 7: CaseStudies Reinstatement
-- [ ] Discuss with stakeholders at upcoming meeting
-- [ ] If approved, uncomment CaseStudies on Partners page
-- [ ] Consider updating case study content if needed
+### Priority 5: CaseStudies Reinstatement
+- [ ] Awaiting stakeholder meeting decision
+- [ ] If approved, uncomment on Partners page
+
+---
+
+## SESSION 102 (13 Jan 2026) - Partner Logo Fixes & Image Prompts
+
+### Focus
+Fixed partner logos (Metropolitan SVG, AVBOB higher quality), created AI image generation prompts for partner showcase slides.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Create Metropolitan SVG logos (light + dark mode) | Complete |
+| Update Metropolitan partner config with `logoDark` | Complete |
+| Delete old Metropolitan Adobe Illustrator SVG | Complete |
+| Download higher quality AVBOB logo from avbob.co.za | Complete |
+| Update AVBOB partner config with new logo | Complete |
+| Create image prompts for all 4 partners | Complete |
+| Visual testing in browser | Complete |
+| Build verification | Complete |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `public/images/partners/metropolitan-logo-light.svg` | Navy (#002856) SVG for light mode |
+| `public/images/partners/metropolitan-logo-dark.svg` | White (#fff) SVG for dark mode |
+| `public/images/partners/avbob-new-logo.png` | Higher quality logo (180x107) from official site |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/partnerShowcase.ts` | Metropolitan: added `logoDark`, set `darkModeInvert: false`; AVBOB: updated to `avbob-new-logo.png` |
+
+### Files Deleted
+| File | Reason |
+|------|--------|
+| `public/images/partners/metropolitan-co-za-vector-logo.svg` | Replaced with clean SVG from official site |
+
+### Partner Logo Configuration (Updated)
+| Partner | Logo Type | logoDark | darkModeInvert | Notes |
+|---------|-----------|----------|----------------|-------|
+| AVBOB | PNG (180x107) | - | `false` | Green background works on both modes |
+| bolttech | SVG | - | `true` | CSS inversion to white |
+| TFG | SVG | - | `false` | Has purple background |
+| Metropolitan | SVG | Yes | `false` | Dedicated light/dark SVGs |
+
+### Image Prompts Created
+Prompts for generating authentic, documentary-style images for each partner:
+
+**AVBOB (Funeral Cover):**
+```
+South African extended family gathered in a modest living room, grandmother sitting centrally with adult children around her, warm afternoon light through curtains, comfortable home interior with personal touches, candid moment of togetherness, documentary photography style, natural expressions, 35mm film aesthetic
+```
+
+**bolttech (Digital Insurance):**
+```
+Young South African professional using smartphone app on a modern couch, soft apartment lighting, focused expression, clean contemporary interior, tablet and laptop visible nearby, natural candid moment, editorial lifestyle photography, tech-savvy millennial aesthetic
+```
+
+**TFG/Jet (Retail):**
+```
+Inside a South African clothing retail store, friendly sales assistant helping a customer at the counter, bright store lighting, clothing racks visible in background, point-of-sale terminal, authentic retail moment, candid customer interaction, documentary retail photography
+```
+
+**Metropolitan (Life Insurance):**
+```
+Young South African couple with toddler in a park, casual weekend outing, natural outdoor lighting, genuine family moment, modest urban park setting, documentary family photography, represents life protection and future planning, authentic joy
+```
+
+### Prompt Design Principles
+- **DO:** South African context, specific lighting, authentic details, documentary style
+- **AVOID:** "Perfect", "smiling at camera", "studio lighting", stock photo triggers
 
 ---
 
