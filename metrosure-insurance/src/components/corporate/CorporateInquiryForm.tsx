@@ -16,6 +16,7 @@ import {
   validatePhone,
   validateRequired,
 } from "@/lib/formValidation";
+import { HONEYPOT_FIELD_NAME, honeypotClassName } from "@/lib/honeypot";
 import {
   employeeCountOptions,
   serviceInterestOptions,
@@ -95,6 +96,8 @@ export default function CorporateInquiryForm() {
   const [error, setError] = useState<string | null>(null);
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const [currentStep, setCurrentStep] = useState(0);
+  // Honeypot field for spam prevention (hidden from users, filled by bots)
+  const [honeypot, setHoneypot] = useState("");
 
   // Validate a field and update state
   const validateField = useCallback(
@@ -218,7 +221,7 @@ export default function CorporateInquiryForm() {
       const response = await fetch("/api/corporate-inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, [HONEYPOT_FIELD_NAME]: honeypot }),
       });
 
       if (!response.ok) {
@@ -406,6 +409,18 @@ export default function CorporateInquiryForm() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
+                {/* Honeypot field - hidden from users, filled by bots */}
+                <input
+                  type="text"
+                  name={HONEYPOT_FIELD_NAME}
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className={honeypotClassName}
+                />
+
                 {/* Error Message */}
                 {error && (
                   <motion.div

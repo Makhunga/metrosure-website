@@ -14,6 +14,7 @@ import {
   type FieldState,
   type FieldStates,
 } from "@/lib/formValidation";
+import { HONEYPOT_FIELD_NAME, honeypotClassName } from "@/lib/honeypot";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CONTACT FORM COMPONENT
@@ -77,6 +78,9 @@ export default function ContactForm() {
   const [otherReason, setOtherReason] = useState("");
   const [callbackDate, setCallbackDate] = useState("");
   const [callbackTime, setCallbackTime] = useState("Morning (8AM - 12PM)");
+
+  // Honeypot field for spam prevention (hidden from users, filled by bots)
+  const [honeypot, setHoneypot] = useState("");
 
   const [formState, setFormState] = useState<FormState>({ isSubmitting: false, error: null });
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
@@ -171,6 +175,7 @@ export default function ContactForm() {
           subject: selectedTopic || "general",
           message: messageContent,
           companyName: companyName || undefined,
+          [HONEYPOT_FIELD_NAME]: honeypot,
         }),
       });
 
@@ -224,6 +229,7 @@ export default function ContactForm() {
           otherReason: callbackReason === "other" ? otherReason : undefined,
           preferredDate: callbackDate,
           preferredTime: callbackTime,
+          [HONEYPOT_FIELD_NAME]: honeypot,
         }),
       });
 
@@ -371,6 +377,17 @@ export default function ContactForm() {
                       </p>
                     </div>
                     <form className="space-y-6" onSubmit={handleMessageSubmit}>
+                      {/* Honeypot field - hidden from users, filled by bots */}
+                      <input
+                        type="text"
+                        name={HONEYPOT_FIELD_NAME}
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                        autoComplete="off"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className={honeypotClassName}
+                      />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
@@ -513,6 +530,17 @@ export default function ContactForm() {
                       </p>
                     </div>
                     <form className="space-y-6 max-w-2xl mx-auto" onSubmit={handleCallbackSubmit}>
+                      {/* Honeypot field - hidden from users, filled by bots */}
+                      <input
+                        type="text"
+                        name={HONEYPOT_FIELD_NAME}
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                        autoComplete="off"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className={honeypotClassName}
+                      />
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}

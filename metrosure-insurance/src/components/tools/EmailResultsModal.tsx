@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Modal, LabelledInput } from "@/components/ui";
 import { CalculatorResultData } from "@/lib/whatsapp";
 import { FieldState } from "@/lib/formValidation";
+import { HONEYPOT_FIELD_NAME, honeypotClassName } from "@/lib/honeypot";
 
 interface EmailResultsModalProps {
   isOpen: boolean;
@@ -22,6 +23,8 @@ export function EmailResultsModal({
   const [email, setEmail] = useState("");
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  // Honeypot field for spam prevention (hidden from users, filled by bots)
+  const [honeypot, setHoneypot] = useState("");
 
   // Reset state when modal closes
   useEffect(() => {
@@ -31,6 +34,7 @@ export function EmailResultsModal({
         setEmail("");
         setSubmitState("idle");
         setErrorMessage("");
+        setHoneypot("");
       }, 300);
       return () => clearTimeout(timer);
     }
@@ -68,6 +72,7 @@ export function EmailResultsModal({
         body: JSON.stringify({
           email,
           ...calculatorData,
+          [HONEYPOT_FIELD_NAME]: honeypot,
         }),
       });
 
@@ -172,6 +177,17 @@ export function EmailResultsModal({
               onSubmit={handleSubmit}
               className="space-y-4"
             >
+              {/* Honeypot field - hidden from users, filled by bots */}
+              <input
+                type="text"
+                name={HONEYPOT_FIELD_NAME}
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                autoComplete="off"
+                tabIndex={-1}
+                aria-hidden="true"
+                className={honeypotClassName}
+              />
               {/* Email Input */}
               <LabelledInput
                 name="email-results"

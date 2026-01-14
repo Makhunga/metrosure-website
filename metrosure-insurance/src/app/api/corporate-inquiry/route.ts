@@ -14,6 +14,7 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
+import { isHoneypotFilledJSON } from "@/lib/honeypot";
 import { corporateInquirySchema, formatZodErrorsDetailed, type CorporateInquiryData } from "@/lib/validationSchemas";
 import {
   validationError,
@@ -43,6 +44,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const rawData = await request.json();
+
+    // Check honeypot - silently reject bot submissions
+    if (isHoneypotFilledJSON(rawData)) {
+      return NextResponse.json({ success: true });
+    }
 
     // Validate with Zod schema (includes message character limit)
     const parseResult = corporateInquirySchema.safeParse(rawData);

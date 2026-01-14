@@ -15,6 +15,7 @@ import {
   validatePhone,
   validateRequired,
 } from "@/lib/formValidation";
+import { HONEYPOT_FIELD_NAME, honeypotClassName } from "@/lib/honeypot";
 import {
   provincesWithAny as provinces,
   experienceLevels,
@@ -63,6 +64,8 @@ export default function ApplicationForm({
   const [fileName, setFileName] = useState<string>("");
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Honeypot field for spam prevention (hidden from users, filled by bots)
+  const [honeypot, setHoneypot] = useState("");
 
   // Validation callback
   const validateField = useCallback(
@@ -164,6 +167,7 @@ export default function ApplicationForm({
       formDataToSend.append("experience", formData.experience);
       formDataToSend.append("willingToRelocate", formData.willingToRelocate);
       formDataToSend.append("privacyConsent", String(formData.privacyConsent));
+      formDataToSend.append(HONEYPOT_FIELD_NAME, honeypot);
       if (formData.cv) {
         formDataToSend.append("cv", formData.cv);
       }
@@ -319,6 +323,17 @@ export default function ApplicationForm({
                 />
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Honeypot field - hidden from users, filled by bots */}
+                    <input
+                      type="text"
+                      name={HONEYPOT_FIELD_NAME}
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      autoComplete="off"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      className={honeypotClassName}
+                    />
                     <div className="text-center mb-6">
                       <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                         Quick Apply

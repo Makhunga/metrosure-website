@@ -13,6 +13,7 @@ import {
   createLink
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
+import { isHoneypotFilled } from "@/lib/honeypot";
 import { careersApplicationSchema, formatZodErrorsDetailed } from "@/lib/validationSchemas";
 import {
   validationError,
@@ -97,6 +98,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const formData = await request.formData();
+
+    // Check honeypot - silently reject bot submissions
+    if (isHoneypotFilled(formData)) {
+      return NextResponse.json({ success: true });
+    }
 
     // Extract form fields into object for Zod validation
     const rawData = {

@@ -32,7 +32,9 @@ const EMAIL_CLIENTS = 'clients@metrosureconsult.co.za';
 const EMAIL_CAREERS = 'careers@metrosuregroup.co.za';
 
 // Additional recipients for testing/monitoring
-const EMAIL_MONITORING = ['makhunga@zoocora.co.za', 'makhunga@metrosuregroup.co.za'];
+// IMPORTANT: Clear this array before production deployment
+// Add emails here temporarily for testing email delivery
+const EMAIL_MONITORING: string[] = [];
 
 // From email - uses verified metrosure.app domain for all web form emails
 // metrosure.app is the designated domain for Metrosure web applications

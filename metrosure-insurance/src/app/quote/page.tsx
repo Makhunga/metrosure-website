@@ -20,6 +20,7 @@ import {
   validateRequired,
   validateFutureDate,
 } from "@/lib/formValidation";
+import { HONEYPOT_FIELD_NAME, honeypotClassName } from "@/lib/honeypot";
 import {
   calculatePremium,
   CoverageType as PricingCoverageType,
@@ -224,6 +225,8 @@ export default function QuotePage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const [quoteReference, setQuoteReference] = useState<string>("");
+  // Honeypot field for spam prevention (hidden from users, filled by bots)
+  const [honeypot, setHoneypot] = useState("");
 
   // Calculate price breakdown based on form data
   const priceBreakdown = useMemo<PriceBreakdownType | null>(() => {
@@ -362,6 +365,7 @@ export default function QuotePage() {
           ...formData,
           quoteReference: ref,
           estimatedPremium: priceBreakdown?.total,
+          [HONEYPOT_FIELD_NAME]: honeypot,
         }),
       });
 
@@ -657,6 +661,17 @@ export default function QuotePage() {
                 </FormSuccess>
               ) : (
               <>
+              {/* Honeypot field - hidden from users, filled by bots */}
+              <input
+                type="text"
+                name={HONEYPOT_FIELD_NAME}
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                autoComplete="off"
+                tabIndex={-1}
+                aria-hidden="true"
+                className={honeypotClassName}
+              />
               <AnimatePresence mode="wait">
               {/* Step: Customer Type */}
               {stepContent === "customerType" && (
