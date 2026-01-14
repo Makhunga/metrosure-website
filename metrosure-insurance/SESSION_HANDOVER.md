@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 14 January 2026 (Session 108)
+**Updated:** 15 January 2026 (Session 109)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,7 +10,7 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 14 January 2026
+- **Last Build:** 15 January 2026
 
 ---
 
@@ -18,25 +18,30 @@
 
 | Branch | Status | Contains |
 |--------|--------|----------|
-| `main` | Production-ready | S106 form security + S108 TrustedBy finalized |
+| `main` | Production-ready | S109 TrustedBy redesign + Testimonials final selection |
 | `feature/session-105-redesign` | Ready to merge | S105 UI redesign + S106 (rebased onto main) |
 
 ---
 
-## SESSION 108 COMPLETED
+## SESSION 109 COMPLETED
 
-### ✅ Completed: TrustedBy Variant Selection
-- **Decision:** Metrosure Maroon selected as final variant
-- **Changes:**
-  - Removed Deep Teal variant (TealVariant function)
-  - Removed Dark Charcoal variant (CharcoalVariant function)
-  - Removed variant switcher UI
-  - Simplified `src/components/TrustedBy.tsx` from 526 → ~140 lines
-- **Result:** Clean, production-ready component with brand-consistent maroon styling
+### ✅ Completed: TrustedBy Redesign
+- **Design:** Implemented Zendesk-inspired split layout with quarter-circle image mask
+- **Features:** Dark mode support (`dark:bg-neutral-900`), verified active links
+- **Content:** Updated copy to "Growth & Scale" variation
+- **Result:** High-impact, unique visual section that aligns with premium brand
+
+### ✅ Completed: Home Testimonials Selection
+- **Decision:** "Minimal" variant selected as final
+- **Cleanup:**
+  - Removed `TestimonialsVariantSwitcher`
+  - Deleted `TestimonialsBoldStatement` variant
+  - Updated `src/app/page.tsx` to direct import
+- **Result:** consistent, clean verification-focused testimonial display
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 109)
+## NEXT SESSION PRIORITIES (Session 110)
 
 ### Priority 1: Merge Session 105 Feature Branch
 - [ ] Review UI changes on `feature/session-105-redesign`
@@ -44,33 +49,29 @@
 - [ ] Deploy to Vercel preview
 - **Note:** S105 branch rebased onto main (clean merge expected)
 
-### Priority 2: Home Testimonials Final Selection
-- [ ] Decide between Bold Statement or Minimal variant
-- [ ] Remove `TestimonialsVariantSwitcher` when final decision made
-- [ ] Delete unselected variant file
-- **Files:**
-  - `src/components/testimonials/TestimonialsBoldStatement.tsx`
-  - `src/components/testimonials/TestimonialsMinimal.tsx`
-  - `src/components/testimonials/TestimonialsVariantSwitcher.tsx`
-
-### Priority 3: Production Readiness Review
+### Priority 2: Production Readiness Review
 - [ ] Cross-browser testing (Chrome, Firefox, Edge)
 - [ ] Mobile responsive testing (375px, 768px, 1024px)
 - [ ] Accessibility check (keyboard navigation, focus states)
 - [ ] Final content review
 
-### Priority 4: Development Banner Removal
+### Priority 3: Development Banner Removal
 - [ ] Remove `src/components/DevelopmentBanner.tsx` before production
 - [ ] Update `src/components/ClientLayout.tsx` to remove import
-
-### Priority 5 (Optional): Button Link Audit
-- [ ] TrustedBy "Partner With Us" → link to `/partners` or `/contact`
-- [ ] TrustedBy "Explore Solutions" → link to `/services` or `/products`
-- [ ] Verify all CTA buttons across site have proper href links
 
 ---
 
 ## RECENT SESSIONS
+
+### Session 109 (15 Jan 2026) - TrustedBy & Testimonials
+**Focus:** Redesigning TrustedBy section and finalizing testimonials
+
+**Key Changes:**
+- **TrustedBy:** Refined to split layout with quarter-circle image (Zendesk inspired)
+- **Testimonials:** Selected "Minimal" variant, removed switcher and unused code
+- **Cleanup:** Deleted unused `TestimonialsBoldStatement.tsx`
+
+---
 
 ### Session 108 (14 Jan 2026) - TrustedBy Finalization
 
@@ -145,7 +146,7 @@
 | Item | Status | Notes |
 |------|--------|-------|
 | ~~TrustedBy variant~~ | ✅ Completed | Metrosure Maroon selected (S108) |
-| Home testimonials | Awaiting final selection | Bold Statement vs Minimal switcher active |
+| ~~Home testimonials~~ | ✅ Completed | Minimal variant selected (S109) |
 | CaseStudies on Partners page | Awaiting stakeholder | Commented out, ready to enable |
 | About page tagline | Deferred | "Building a nation..." may need workshop |
 | Calculator assumptions | Awaiting product team | See S92 for validation questions |
@@ -195,7 +196,6 @@
 
 ### Pending Cleanup
 - Development banner: `src/components/DevelopmentBanner.tsx`
-- Home testimonials switcher: `src/components/testimonials/TestimonialsVariantSwitcher.tsx`
 
 ---
 
@@ -225,13 +225,8 @@
 
 ---
 
-## RECOMMENDATIONS FOR SESSION 109
+## RECOMMENDATIONS FOR SESSION 110
 
-1. **Quick Win:** Merge `feature/session-105-redesign` branch first - it's ready and will bring significant UI improvements
-2. **Testimonials Decision:** Similar process to TrustedBy - view both variants and select final
-3. **Before Production:** Ensure development banner and all variant switchers are removed
-4. **Button Links:** TrustedBy buttons currently have no href - needs linking to appropriate pages
-
----
-
-*For code conventions and style guide, see `CLAUDE.md`*
+1.  **Merge S105:** The `feature/session-105-redesign` branch is the last significant pending feature before full production prep.
+2.  **Production Polish:** With all major design decisions made (TrustedBy, Testimonials), focus should shift to mobile refinement and accessibility.
+3.  **Final Cleanup:** Remove the development banner once the production build is verified.

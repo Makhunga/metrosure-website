@@ -11,11 +11,12 @@ const Products = dynamic(() => import("@/components/Products"));
 const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
 const LatestOpportunities = dynamic(() => import("@/components/LatestOpportunities"));
 const PartnersCTA = dynamic(() => import("@/components/PartnersCTA"));
-// Testimonial variant switcher for A/B comparison - REMOVE after selection
-const TestimonialsVariantSwitcher = dynamic(
-  () => import("@/components/testimonials/TestimonialsVariantSwitcher")
+// Testimonial Section - Minimal Variant selected (Session 109)
+const TestimonialsMinimal = dynamic(
+  () => import("@/components/testimonials/TestimonialsMinimal")
 );
 const CallToAction = dynamic(() => import("@/components/CallToAction"));
+
 export default function Home() {
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
@@ -31,7 +32,7 @@ export default function Home() {
         <WhyChooseUs />
         <LatestOpportunities />
         <PartnersCTA />
-        <TestimonialsVariantSwitcher />
+        <TestimonialsMinimal />
         <CallToAction />
       </main>
       <Footer />
