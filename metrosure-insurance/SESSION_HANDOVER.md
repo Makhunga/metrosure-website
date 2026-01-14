@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 13 January 2026 (Session 104)
+**Updated:** 14 January 2026 (Session 105)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,36 +10,117 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 13 January 2026
+- **Last Build:** 14 January 2026
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 105)
+## NEXT SESSION PRIORITIES (Session 106)
 
-### Priority 1: Production Readiness Review
-- [ ] Verify all watermarks visible in both light and dark mode
+### Priority 1: Merge Session 105 Feature Branch
+- [ ] Review changes on `feature/session-105-redesign`
+- [ ] Merge to main when approved
+- [ ] Deploy to Vercel preview
+
+### Priority 2: Production Readiness Review
 - [ ] Cross-browser testing (Chrome, Firefox, Edge)
 - [ ] Mobile responsive testing (375px, 768px, 1024px)
 - [ ] Accessibility check (keyboard navigation, focus states)
 - [ ] Final content review
 
-### Priority 2: Home Testimonials Final Selection
+### Priority 3: Home Testimonials Final Selection
 - [ ] Decide between Bold Statement or Minimal (or keep both with switcher)
 - [ ] Remove TestimonialsVariantSwitcher when final decision made
 - [ ] Delete unselected variant
 
-### Priority 3: CaseStudies Reinstatement Decision
+### Priority 4: CaseStudies Reinstatement Decision
 - [ ] Awaiting stakeholder meeting decision
 - [ ] If approved, uncomment on Partners page
-
-### Priority 4: Gallery Reimplementation (If Desired)
-- [ ] About page gallery currently removed
-- [ ] Careers page gallery currently removed
-- [ ] Decide if galleries add value or should remain removed
 
 ### Priority 5: Development Banner Removal
 - [ ] Remove `src/components/DevelopmentBanner.tsx` before production
 - [ ] Update `src/components/ClientLayout.tsx` to remove import
+
+---
+
+## SESSION 105 (14 Jan 2026) - Bold Redesign of Careers + About Pages
+
+### Focus
+Bold redesign inspired by Homerun.co (massive typography), ThoughtFarmer (clean narrative), and Refero.design (bold fintech aesthetics). Created new narrative flow for Careers page, simplified About page sections.
+
+### Design Inspiration Applied
+| Source | Patterns Applied |
+|--------|------------------|
+| Homerun.co | Massive hero typography (10rem), generous spacing (py-32) |
+| ThoughtFarmer | Clean narrative flow, simple hierarchy |
+| Refero.design | Bold typography, vibrant accents |
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Create feature branch `feature/session-105-redesign` | Complete |
+| Create CultureStorytelling component | Complete |
+| Enhance CareersHero typography (10rem headlines) | Complete |
+| Reorder careers sections (new narrative flow) | Complete |
+| Simplify Stats section (embed in CultureStorytelling) | Complete |
+| Simplify WhyJoinUs (spacing, reduced animation) | Complete |
+| Simplify Careers CTA (remove decorations) | Complete |
+| Simplify About page Values grid (5-col to 3-col) | Complete |
+| Simplify About page Team section (remove flip-cards) | Complete |
+| Simplify About page Timeline (remove watermarks) | Complete |
+| Simplify About page CTA | Complete |
+| Build verification | Complete |
+| Visual testing (Careers page) | Complete |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/components/careers/CultureStorytelling.tsx` | Narrative bridge with embedded stats (5,000+ Jobs, 13+ Years, 7 Provinces) |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/app/careers/page.tsx` | New narrative flow, removed Stats Bar, simplified CTA |
+| `src/components/careers/CareersHero.tsx` | Massive typography (10rem), removed long story paragraph |
+| `src/components/careers/WhyJoinUs.tsx` | Increased spacing (py-32, gap-8), simplified cards |
+| `src/app/about/page.tsx` | Values grid 3-col, Team simplified (no flip-cards), CTA simplified |
+| `src/components/about/timeline-variants/TimelineOriginal.tsx` | Removed watermarks, cleaner hover, increased padding |
+
+### Careers Page New Narrative Flow
+```
+Before: Hero → Stats → Benefits → Testimonials → Jobs → CTA
+                ↑        ↑
+                |        |
+            Disconnected  Promises before proof
+
+After:  Hero → CultureStorytelling → Testimonials → Benefits → Jobs → CTA
+               |                      |
+               Who we are             Proof first, then promises
+```
+
+### Key Design Changes
+| Component | Before | After |
+|-----------|--------|-------|
+| CareersHero headline | text-8xl | text-[10rem] (massive) |
+| CareersHero content | Long story paragraph | Short tagline only |
+| Stats | Separate section with geometric patterns | Embedded in CultureStorytelling |
+| WhyJoinUs spacing | py-24, gap-6 | py-32, gap-8 |
+| Careers CTA | SVG decorations, rotating diamonds, blobs | Clean with subtle gradient |
+| About Values | 5-column grid | 3-column grid |
+| About Team | Flip-card animation | Static cards, always visible |
+| About Timeline | Large watermarks | Clean cards, y-lift hover only |
+| About CTA | Heavy decorations | Simplified |
+
+### Technical Notes
+- **Net code reduction:** 372 insertions, 644 deletions (-272 lines)
+- **Branch:** `feature/session-105-redesign` (not merged to main)
+- **Build:** Passing (45 routes)
+
+### Visual Verification Completed
+- ✅ CareersHero massive typography
+- ✅ CultureStorytelling component with embedded stats
+- ✅ Testimonials carousel (proof before promises)
+- ✅ WhyJoinUs simplified cards
+- ✅ Final CTA (no decorations)
 
 ---
 
@@ -1648,10 +1729,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-104)
+## SESSION HISTORY (75-105)
 
 | Session | Focus |
 |---------|-------|
+| S105 | Bold redesign (Careers + About), CultureStorytelling component, massive typography (10rem), narrative flow restructure, simplified sections |
 | S104 | Variant cleanup (6 files deleted), login page redirect to under-development, kept home testimonials switcher for A/B |
 | S103 | Style guide finalisation, partner images integrated, variant selections (Bold+Minimal, Carousel, Original), CLAUDE.md style patterns |
 | S102 | Partner logo fixes (Metropolitan SVG, AVBOB quality), AI image prompts for partner slides |
@@ -1685,4 +1767,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 13 January 2026 (Session 104 - Variant Cleanup)*
+*Document updated: 14 January 2026 (Session 105 - Bold Redesign)*
