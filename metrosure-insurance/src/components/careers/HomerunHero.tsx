@@ -12,10 +12,10 @@ export default function HomerunHero() {
     };
 
     return (
-        <section className="bg-[rgb(var(--color-secondary))] py-32 px-4 flex flex-col items-center justify-center text-center relative overflow-hidden">
+        <section className="bg-[rgb(var(--color-secondary))] dark:bg-[#3D0012] py-32 px-4 flex flex-col items-center justify-center text-center relative overflow-hidden transition-colors duration-300">
             {/* Texture and Gradients */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* Heavy Noise Layer - Increased opacity + larger grain */}
+                {/* Heavy Noise Layer */}
                 <div
                     className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
                     style={{
@@ -23,8 +23,11 @@ export default function HomerunHero() {
                     }}
                 />
 
-                {/* Left Side Gradient Lighting */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+                {/* Left Side Gradient Lighting - deeper in dark mode */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent dark:from-black/60" />
+
+                {/* Dark mode: Additional depth overlay */}
+                <div className="absolute inset-0 bg-black/0 dark:bg-black/20 transition-colors duration-300" />
             </div>
 
             <div className="max-w-[1200px] mx-auto w-full flex flex-col items-center z-10">

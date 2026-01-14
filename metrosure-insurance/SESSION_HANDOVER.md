@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 13 January 2026 (Session 104)
+**Updated:** 14 January 2026 (Session 109)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,11 +10,53 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 13 January 2026
+- **Last Build:** 14 January 2026
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 105)
+## SESSION 109 (14 Jan 2026) - Git Learning & Component Enhancements
+
+### Focus
+Git workflow learning session: selectively moved CultureGallery and HomerunHero components from feature branch to main using `git checkout <branch> -- <file>`. Enhanced both components with watermark and dark mode improvements.
+
+### Git Techniques Learned
+- **Cherry-pick**: Copies entire commit (not used - commit had mixed changes)
+- **Checkout specific files**: `git checkout <branch> -- <file>` - copies individual files
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Move CultureGallery.tsx from feature branch | ✅ Complete |
+| Move HomerunHero.tsx from feature branch | ✅ Complete |
+| Update careers/page.tsx with imports | ✅ Complete |
+| Add "CULTURE" watermark to CultureGallery | ✅ Complete |
+| Increase CultureGallery heading size | ✅ Complete |
+| HomerunHero dark mode enhancement | ✅ Complete |
+| Build verification | ✅ Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/careers/CultureGallery.tsx` | Added watermark (3%/4% opacity), increased heading font |
+| `src/components/careers/HomerunHero.tsx` | Darker background in dark mode (`#3D0012`), deeper gradients |
+| `src/app/careers/page.tsx` | Added dynamic imports for CultureGallery and HomerunHero |
+
+### Component Details
+
+**CultureGallery Watermark:**
+- Text: "CULTURE"
+- Position: Top of section, behind heading
+- Opacity: 3% light mode, 4% dark mode
+- Size: 8rem → 12rem → 16rem (responsive)
+
+**HomerunHero Dark Mode:**
+- Light: `--color-secondary` (maroon)
+- Dark: `#3D0012` (very dark maroon) + 20% black overlay
+- Deeper left gradient in dark mode
+
+---
+
+## NEXT SESSION PRIORITIES (Session 110)
 
 ### Priority 1: Production Readiness Review
 - [ ] Verify all watermarks visible in both light and dark mode

@@ -48,13 +48,22 @@ export default function CultureGallery() {
     // We'll use a simpler approach for the drag slider to ensure performance
 
     return (
-        <section className="py-24 bg-[rgb(var(--color-surface))] overflow-hidden">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <section className="py-24 bg-[rgb(var(--color-surface))] overflow-hidden relative">
+            {/* Watermark Text */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
+                <div className="absolute top-8 md:top-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <span className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black tracking-tight text-black/[0.03] dark:text-white/[0.04]">
+                        CULTURE
+                    </span>
+                </div>
+            </div>
+
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-12 relative z-10">
                 <div className="max-w-3xl">
-                    <h2 className="text-3xl md:text-4xl font-bold text-[rgb(var(--color-text-main))] mb-4">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[rgb(var(--color-text-main))] mb-4">
                         Life at <span className="text-primary">Metrosure</span>
                     </h2>
-                    <p className="text-lg text-[rgb(var(--color-text-muted))]">
+                    <p className="text-lg md:text-xl text-[rgb(var(--color-text-muted))]">
                         Where passion meets purpose. See what it's like to be part of our movement.
                     </p>
                 </div>
