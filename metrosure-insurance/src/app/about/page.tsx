@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { Header, Footer } from "@/components";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MagneticButton } from "@/components/animations";
 import {
@@ -46,7 +46,6 @@ const itemVariants = {
 };
 
 export default function AboutPage() {
-  const [hoveredTeamMember, setHoveredTeamMember] = useState<number | null>(null);
   const heroRef = useRef(null);
   const statsRef = useRef(null);
   const missionRef = useRef(null);
@@ -310,7 +309,7 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-5 gap-8"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={containerVariants}
             initial="hidden"
             animate={valuesInView ? "visible" : "hidden"}
@@ -318,19 +317,16 @@ export default function AboutPage() {
             {values.map((value, index) => (
               <motion.div
                 key={index}
-                className="p-8 rounded-2xl bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))] hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                className="p-8 rounded-2xl bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-colors duration-300 group"
                 variants={itemVariants}
-                whileHover={{ y: -8, transition: { type: "spring", stiffness: 400, damping: 17 } }}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <motion.div
-                  className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring" as const, stiffness: 400, damping: 17 }}
-                >
-                  <span className="material-symbols-outlined text-primary text-3xl group-hover:text-white transition-colors duration-300">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                  <span className="material-symbols-outlined text-primary text-3xl">
                     {value.icon}
                   </span>
-                </motion.div>
+                </div>
                 <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] mb-3 group-hover:text-primary transition-colors">
                   {value.title}
                 </h3>
@@ -346,211 +342,107 @@ export default function AboutPage() {
       {/* Timeline Section - Original variant (Session 103 selection) */}
       <TimelineOriginal items={timeline} />
 
-      {/* Team Section - Flip Card Hover (Static Style with Current Names) */}
-      <section ref={teamRef} className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface-card))] overflow-hidden">
-        {/* Decorative watermark - mirrors timeline card treatment */}
-        <motion.div
-          className="absolute left-2 md:left-6 lg:left-12 top-6 md:top-8 text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase"
-          initial={{ opacity: 0, x: -20 }}
-          animate={teamInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Executive Team
-        </motion.div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative">
-
-        <motion.div
-          className="flex flex-col gap-6 mb-20 items-center text-center relative z-10"
-          initial={{ opacity: 0, y: 30 }}
-          animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.h2
-            className="text-4xl md:text-5xl font-black tracking-tight text-[rgb(var(--color-text-main))]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+      {/* Team Section - Simplified (ThoughtFarmer-inspired) */}
+      <section ref={teamRef} className="relative z-10 py-32 bg-[rgb(var(--color-surface-card))]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <motion.div
+            className="flex flex-col gap-6 mb-16 items-center text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
           >
-            Our Leadership
-          </motion.h2>
-          <motion.p
-            className="text-lg text-[rgb(var(--color-text-body))] max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            The strategic minds and empathetic hearts guiding Metrosure forward.
-          </motion.p>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start relative z-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate={teamInView ? "visible" : "hidden"}
-        >
-          {team.map((member, index) => (
-            <motion.div
-              key={index}
-              className={`group h-[500px] relative w-full rounded-2xl hover:z-20 ${
-                index === 1 ? "lg:mt-12" : ""
-              }`}
-              variants={itemVariants}
-              whileHover={{
-                y: -8,
-                transition: { type: "spring", stiffness: 300, damping: 20 }
-              }}
-              onMouseEnter={() => setHoveredTeamMember(index)}
-              onMouseLeave={() => setHoveredTeamMember(null)}
+            <motion.h2
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[rgb(var(--color-text-main))]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
+              Our Leadership
+            </motion.h2>
+            <motion.p
+              className="text-xl text-[rgb(var(--color-text-muted))] max-w-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              The strategic minds guiding Metrosure forward.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate={teamInView ? "visible" : "hidden"}
+          >
+            {team.map((member, index) => (
               <motion.div
-                className="relative w-full h-full shadow-xl rounded-2xl overflow-hidden bg-[rgb(var(--color-surface-card))] border border-[rgb(var(--color-border-light))]"
-                whileHover={{
-                  boxShadow: "0 25px 50px -12px rgba(191, 6, 3, 0.25)",
-                  transition: { duration: 0.3 }
-                }}
+                key={index}
+                className="group"
+                variants={itemVariants}
               >
-                {/* Image Section - takes most of the card */}
-                <div className="absolute inset-0 flex flex-col h-full">
-                  <div className="relative flex-1 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
+                <motion.div
+                  className="bg-[rgb(var(--color-surface))] rounded-2xl overflow-hidden border border-[rgb(var(--color-border-light))] hover:border-primary/30 transition-colors"
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[4/5] overflow-hidden">
                     <div
-                      className="w-full h-full bg-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                      className="w-full h-full bg-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                       style={{
                         backgroundImage: member.image ? `url("${member.image}")` : 'none',
                         backgroundPosition: 'center 15%',
                         backgroundColor: !member.image ? '#475569' : undefined
                       }}
                     >
-                      {/* Placeholder initials when no image */}
                       {!member.image && (
                         <div className="w-full h-full flex items-center justify-center">
-                          <div className="w-32 h-32 rounded-full bg-slate-600 group-hover:bg-primary/90 flex items-center justify-center shadow-xl transition-colors duration-700">
-                            <span className="text-5xl font-bold text-white/90 group-hover:text-white tracking-wide transition-colors duration-700">
-                              {(member as { initials?: string }).initials || member.name.split(' ').map(n => n[0]).join('')}
+                          <div className="w-24 h-24 rounded-full bg-slate-600 flex items-center justify-center">
+                            <span className="text-4xl font-bold text-white">
+                              {member.name.split(' ').map(n => n[0]).join('')}
                             </span>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
-                  {/* Name and Title - auto-height section at bottom */}
-                  <div className="p-6 bg-[rgb(var(--color-surface-card))] relative z-20">
-                    <h3 className="text-2xl font-bold text-[rgb(var(--color-text-main))]">
+
+                  {/* Content - Always visible */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-[rgb(var(--color-text-main))] group-hover:text-primary transition-colors">
                       {member.name}
                     </h3>
-                    <p className="text-sm font-bold uppercase tracking-wider text-[rgb(var(--color-text-muted))] mt-1">
+                    <p className="text-sm font-medium uppercase tracking-wider text-[rgb(var(--color-text-muted))] mt-1 mb-4">
                       {member.role}
                     </p>
+                    <p className="text-[rgb(var(--color-text-body))] italic leading-relaxed">
+                      &quot;{member.quote}&quot;
+                    </p>
                   </div>
-                </div>
-
-                {/* Hover State - Slide up panel covering full card with transparency */}
-                <motion.div
-                  className="absolute inset-0 bg-primary/90 backdrop-blur-sm text-white p-6 pt-16 flex flex-col justify-start"
-                  initial={{ y: "100%" }}
-                  animate={{
-                    y: hoveredTeamMember === index ? 0 : "100%"
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 400,
-                    damping: 30
-                  }}
-                >
-                  <div className="absolute top-4 right-4 opacity-30">
-                    <span className="material-symbols-outlined text-3xl">
-                      {member.icon}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                  <p className="text-white/80 text-sm font-bold uppercase tracking-wider mb-4">
-                    {member.role}
-                  </p>
-                  <div className="w-10 h-0.5 bg-white/30 mb-4 rounded-full" />
-                  <p className="text-base leading-relaxed font-medium mb-4">
-                    &quot;{member.quote}&quot;
-                  </p>
-                  <ul className="space-y-2 text-sm text-white/90">
-                    {member.badges.map((badge, badgeIndex) => (
-                      <li key={badgeIndex} className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">
-                          check_circle
-                        </span>
-                        {badge}
-                      </li>
-                    ))}
-                  </ul>
                 </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* Gallery components temporarily removed - will be reimplemented */}
 
-      {/* CTA Section - Matching Landing Page Design */}
-      <section ref={ctaRef} className="relative z-10 py-24 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
+      {/* CTA Section - Simplified */}
+      <section ref={ctaRef} className="relative z-10 py-32 px-4 bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
         <motion.div
-          className="max-w-6xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+          className="max-w-4xl mx-auto bg-primary rounded-3xl p-12 md:p-16 text-center relative overflow-hidden shadow-2xl"
           initial={{ opacity: 0, y: 40 }}
           animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          whileHover={{ scale: 1.01 }}
         >
-          {/* Geometric Shape Decorations */}
-          <svg
-            className="absolute -top-10 -left-10 w-40 h-40 opacity-10"
-            viewBox="0 0 100 100"
-          >
-            <path d="M100 0 A100 100 0 0 1 0 100 L0 0 Z" fill="white" />
-          </svg>
-          <svg
-            className="absolute -bottom-8 -right-8 w-32 h-32 opacity-10 rotate-180"
-            viewBox="0 0 100 100"
-          >
-            <path d="M100 0 A100 100 0 0 1 0 100 L0 0 Z" fill="white" />
-          </svg>
-          <motion.svg
-            className="absolute top-1/4 right-10 w-6 h-6 opacity-30"
-            viewBox="0 0 100 100"
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            <polygon points="50,0 100,50 50,100 0,50" fill="white" />
-          </motion.svg>
-          <motion.svg
-            className="absolute bottom-1/3 left-12 w-4 h-4 opacity-25"
-            viewBox="0 0 100 100"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <polygon points="50,0 100,50 50,100 0,50" fill="white" />
-          </motion.svg>
+          {/* Subtle gradient overlay only */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
 
-          {/* Animated Decorative Blurs */}
-          <motion.div
-            className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.05, 0.1, 0.05],
-            }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-80 h-80 bg-black opacity-10 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.1, 0.15, 0.1],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-
-          <div className="relative z-10 flex flex-col items-center gap-8">
+          <div className="relative z-10 flex flex-col items-center gap-6">
             <motion.h2
-              className="text-4xl md:text-6xl font-bold tracking-tight text-white"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white"
               initial={{ opacity: 0, y: 20 }}
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -558,13 +450,12 @@ export default function AboutPage() {
               Ready to grow with us?
             </motion.h2>
             <motion.p
-              className="text-xl text-white/90 max-w-2xl font-medium"
+              className="text-xl text-white/90 max-w-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Whether you&apos;re protecting your family or transforming your retail space into a
-              revenue stream, we&apos;re here to help you move forward.
+              Whether you&apos;re protecting your family or partnering with us, we&apos;re here to help.
             </motion.p>
 
             <motion.div
@@ -573,36 +464,32 @@ export default function AboutPage() {
               animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <MagneticButton strength={0.3}>
-                <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
-                  <Link
-                    href="/quote"
-                    className="block bg-white text-primary text-lg font-bold py-4 px-10 rounded-lg hover:bg-gray-50 transition-colors shadow-xl hover:shadow-2xl"
-                  >
-                    Get Your Free Quote
-                  </Link>
-                </motion.div>
-              </MagneticButton>
-              <MagneticButton strength={0.3}>
-                <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
-                  <Link
-                    href="/partners"
-                    className="block bg-[rgb(var(--color-primary-hover))] border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-lg hover:bg-black/20 transition-colors"
-                  >
-                    Become a Partner
-                  </Link>
-                </motion.div>
-              </MagneticButton>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/quote"
+                  className="block bg-white text-primary text-lg font-bold py-4 px-10 rounded-xl shadow-lg"
+                >
+                  Get Your Free Quote
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/partners"
+                  className="block bg-white/10 border border-white/20 text-white text-lg font-bold py-4 px-10 rounded-xl backdrop-blur-sm"
+                >
+                  Become a Partner
+                </Link>
+              </motion.div>
             </motion.div>
 
             <motion.p
-              className="text-sm text-white/70 mt-2 flex items-center gap-2"
+              className="text-sm text-white/60 mt-4 flex items-center gap-2"
               initial={{ opacity: 0 }}
               animate={ctaInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <span className="material-symbols-outlined text-sm">lock</span>
-              Secure & Confidential. No spam.
+              <span className="material-symbols-outlined text-sm">verified</span>
+              FSP 47089 | Authorised Financial Service Provider
             </motion.p>
           </div>
         </motion.div>

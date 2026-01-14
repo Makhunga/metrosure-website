@@ -16,47 +16,45 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
   };
 
   return (
-    <section
-      className="relative min-h-[85vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-36"
-    >
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300 pt-32 pb-16">
       {/* 3D Blocks Background Image */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
           src="/resources/blocks3D.jpg"
           alt=""
           fill
-          className="object-cover opacity-[0.08] dark:opacity-20 dark:invert dark:brightness-50"
+          className="object-cover opacity-[0.06] dark:opacity-15 dark:invert dark:brightness-50"
           priority
           aria-hidden="true"
         />
         {/* Light mode overlay - subtle gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[rgb(var(--color-surface-card))]/70 via-transparent to-[rgb(var(--color-surface-card))]/90 dark:from-[rgb(var(--color-surface))]/80 dark:via-[rgb(var(--color-surface))]/40 dark:to-[rgb(var(--color-surface))]/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[rgb(var(--color-surface-card))]/60 via-transparent to-[rgb(var(--color-surface-card))]/80 dark:from-[rgb(var(--color-surface))]/70 dark:via-[rgb(var(--color-surface))]/30 dark:to-[rgb(var(--color-surface))]/90" />
       </div>
 
       {/* Gradient Mesh Overlay */}
-      <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-mesh pointer-events-none opacity-50" />
 
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-        <div className="w-full flex flex-col gap-8 text-center items-center">
-          {/* Badge */}
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full flex flex-col gap-10 text-center items-center">
+          {/* Badge - Bolder with accent styling */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-3 py-2 px-5 rounded-full bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))] w-fit shadow-sm"
+            className="inline-flex items-center gap-3 py-3 px-6 rounded-full bg-accent/10 border border-accent/30 w-fit shadow-sm"
           >
-            <span className="relative flex h-2.5 w-2.5">
+            <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
             </span>
-            <span className="text-sm font-bold tracking-wider uppercase text-[rgb(var(--color-text-body))]">
+            <span className="text-sm font-bold tracking-wider uppercase text-[rgb(var(--color-text-main))]">
               We&apos;re Hiring
             </span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Massive Headline - Homerun-inspired */}
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight text-[rgb(var(--color-text-main))]"
+            className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.9] tracking-tight text-[rgb(var(--color-text-main))]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
@@ -67,7 +65,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               Build Your
-            </motion.span>{" "}
+            </motion.span>
             <br />
             <motion.span
               className="text-primary inline-block relative"
@@ -75,10 +73,10 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              Future With Us
-              {/* Hand-drawn underline accent */}
+              Future
+              {/* Hand-drawn underline accent - bolder */}
               <motion.svg
-                className="absolute -bottom-2 left-0 w-[45%] h-4"
+                className="absolute -bottom-2 md:-bottom-4 left-0 w-full h-4 md:h-6"
                 viewBox="0 0 200 12"
                 fill="none"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -99,22 +97,19 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
             </motion.span>
           </motion.h1>
 
-          {/* Story Paragraph */}
+          {/* Short tagline - replaces long paragraph */}
           <motion.p
-            className="text-lg sm:text-xl lg:text-2xl text-[rgb(var(--color-text-body))] max-w-4xl leading-relaxed"
+            className="text-xl sm:text-2xl text-[rgb(var(--color-text-muted))] max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            In 2013, we started with a simple mission: to take South Africa to the future.
-            Since then, we&apos;ve created over 5,000 jobs, built a team known for consistency,
-            reliability, and integrity, and helped thousands of families feel secure.
-            Now, we&apos;re looking for passionate people to join us on this journey.
+            Join 5,000+ people transforming the insurance industry across South Africa
           </motion.p>
 
           {/* CTAs */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-5 pt-4 justify-center"
+            className="flex flex-col sm:flex-row gap-5 pt-6 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -149,33 +144,6 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
                 arrow_forward
               </motion.span>
             </motion.button>
-          </motion.div>
-
-          {/* Secondary Link */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.9 }}
-          >
-            <a
-              href="/about"
-              className="inline-flex items-center gap-2 text-sm text-[rgb(var(--color-text-muted))] hover:text-primary transition-colors group"
-            >
-              <span className="material-symbols-outlined text-base">info</span>
-              <span>
-                Want to learn more about us?{" "}
-                <span className="font-semibold group-hover:underline">
-                  Read our story
-                </span>
-              </span>
-              <motion.span
-                className="material-symbols-outlined text-lg"
-                initial={{ x: 0 }}
-                whileHover={{ x: 3 }}
-              >
-                arrow_forward
-              </motion.span>
-            </a>
           </motion.div>
         </div>
       </div>
