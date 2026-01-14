@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 14 January 2026 (Session 105)
+**Updated:** 14 January 2026 (Session 106)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -14,12 +14,13 @@
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 106)
+## NEXT SESSION PRIORITIES (Session 107)
 
 ### Priority 1: Merge Session 105 Feature Branch
-- [ ] Review changes on `feature/session-105-redesign`
+- [ ] Review UI changes on `feature/session-105-redesign`
 - [ ] Merge to main when approved
 - [ ] Deploy to Vercel preview
+- **Note:** Form security (S106) already merged to main; S105 branch rebased onto main
 
 ### Priority 2: Production Readiness Review
 - [ ] Cross-browser testing (Chrome, Firefox, Edge)
@@ -39,6 +40,142 @@
 ### Priority 5: Development Banner Removal
 - [ ] Remove `src/components/DevelopmentBanner.tsx` before production
 - [ ] Update `src/components/ClientLayout.tsx` to remove import
+
+---
+
+## SESSION 106 (14 Jan 2026) - Form Security Audit with Honeypot Spam Prevention
+
+### Focus
+Comprehensive forms audit covering validation, sanitisation, security, rate limits, and file upload handling. Implemented honeypot spam prevention across all 7 form components and 6 API routes. Merged to main via separate branch to isolate from Session 105 UI changes.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Audit all active forms (validation, security, flow) | Complete |
+| Remove monitoring emails from email.ts | Complete |
+| Create honeypot utility (src/lib/honeypot.ts) | Complete |
+| Add honeypot to ContactForm | Complete |
+| Add honeypot to PartnerInquiryForm | Complete |
+| Add honeypot to CorporateInquiryForm | Complete |
+| Add honeypot to ApplicationForm (Careers) | Complete |
+| Add honeypot to ApplicationModal (Careers quick apply) | Complete |
+| Add honeypot to Quote page | Complete |
+| Add honeypot to EmailResultsModal (Calculator) | Complete |
+| Add honeypot validation to all 6 API routes | Complete |
+| Review file upload handling (careers) | Complete |
+| Build verification | Complete |
+| Create separate branch for form security | Complete |
+| Merge form security to main | Complete |
+| Rebase Session 105 branch onto updated main | Complete |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/lib/honeypot.ts` | Honeypot spam prevention utility with server-side validation helpers |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/lib/email.ts` | Removed monitoring emails (production-ready) |
+| `src/components/contact/ContactForm.tsx` | Added honeypot field |
+| `src/components/partners/PartnerInquiryForm.tsx` | Added honeypot field |
+| `src/components/corporate/CorporateInquiryForm.tsx` | Added honeypot field |
+| `src/components/careers/ApplicationForm.tsx` | Added honeypot field |
+| `src/components/careers/ApplicationModal.tsx` | Added honeypot field |
+| `src/components/tools/EmailResultsModal.tsx` | Added honeypot field |
+| `src/app/quote/page.tsx` | Added honeypot field |
+| `src/app/api/contact/route.ts` | Added honeypot validation |
+| `src/app/api/partner-inquiry/route.ts` | Added honeypot validation |
+| `src/app/api/corporate-inquiry/route.ts` | Added honeypot validation |
+| `src/app/api/careers-application/route.ts` | Added honeypot validation |
+| `src/app/api/quote/route.ts` | Added honeypot validation |
+| `src/app/api/calculator/email-results/route.ts` | Added honeypot validation |
+
+### Honeypot Implementation Pattern
+**Client-side (hidden field):**
+```tsx
+import { HONEYPOT_FIELD_NAME, honeypotClassName } from '@/lib/honeypot';
+
+const [honeypot, setHoneypot] = useState('');
+
+<input
+  type="text"
+  name={HONEYPOT_FIELD_NAME}
+  value={honeypot}
+  onChange={(e) => setHoneypot(e.target.value)}
+  className={honeypotClassName}
+  autoComplete="off"
+  tabIndex={-1}
+  aria-hidden="true"
+/>
+```
+
+**Server-side (validation):**
+```typescript
+import { isHoneypotFilled, isHoneypotFilledJSON } from '@/lib/honeypot';
+
+// For FormData submissions (e.g., file uploads)
+if (isHoneypotFilled(formData)) {
+  return NextResponse.json({ success: true }); // Fake success fools bots
+}
+
+// For JSON body submissions
+if (isHoneypotFilledJSON(body)) {
+  return NextResponse.json({ success: true });
+}
+```
+
+### Git Workflow Executed
+Session 106 form security was merged to main independently of Session 105 UI changes:
+
+```
+Before:
+main:     ...104
+                 \
+feature/s105:     └── 105 (UI redesign)
+                      └── 106 changes (uncommitted)
+
+After:
+main:     ...104 ─── 106 (form security) ← Merged to main
+                      \
+feature/s105:          └── 105 (UI redesign) ← Rebased onto main
+```
+
+**Branches:**
+- `main`: Contains Session 106 form security (commit `857c913`)
+- `feature/session-105-redesign`: Contains Session 105 UI + Session 106 (rebased)
+- `feature/session-106-forms-security`: Deleted after merge (can be recreated if needed)
+
+### Security Audit Findings
+
+**Forms Inventory:**
+| Form | Location | File Upload | Rate Limit | Honeypot |
+|------|----------|-------------|------------|----------|
+| Contact | `/contact` | No | 15/hr | ✅ |
+| Partner Inquiry | `/partners` | No | 5/hr | ✅ |
+| Corporate Inquiry | `/corporate` | No | 5/hr | ✅ |
+| Careers Application | `/careers` | CV (5MB) | 3/hr | ✅ |
+| Quote Request | `/quote` | No | 10/hr | ✅ |
+| Calculator Email | Tools | No | 10/hr | ✅ |
+
+**File Upload Security (Careers):**
+- ✅ File type whitelist (PDF, DOC, DOCX)
+- ✅ File size limit (5MB)
+- ✅ Filename sanitisation (prevents path traversal)
+- ✅ Files not stored on disk (buffer only)
+
+**Existing Security Measures Verified:**
+- ✅ Rate limiting per IP address
+- ✅ Zod validation schemas
+- ✅ Phone sanitisation (strips whitespace, dashes, brackets)
+- ✅ Message length limits (2000 chars)
+- ✅ HTML escaping in email templates
+
+### Technical Notes
+- **Honeypot field name:** `website` (commonly auto-filled by bots)
+- **Bot response:** Returns fake success to prevent bot adaptation
+- **Net code:** +268 lines (15 files changed)
+- **Build:** Passing (45 routes)
 
 ---
 
@@ -1238,14 +1375,23 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 | Timeline variant decision | ✅ Selected Original |
 | Watermark visibility review | ✅ Kept subtle (documented in CLAUDE.md) |
 
+### Completed in Session 106 (Previously Deferred)
+| Task | Resolution |
+|------|------------|
+| Remove monitoring emails from email.ts | ✅ Removed - production ready |
+| Form spam prevention | ✅ Honeypot fields added to all forms |
+
 ### Deferred to Future Sessions
 | Task | Reason | Estimated Session |
 |------|--------|-------------------|
 | Update email logo URL to production domain | Production domain not yet configured | When domain is live |
-| Remove monitoring emails from email.ts | Testing only | After email testing complete |
-| Remove Development Banner | Awaiting stakeholder approval | S102+ |
-| WhatsApp floating widget | Enhancement, not critical | S102+ |
-| WhatsApp Business API | Requires API setup and business verification | S102+ |
+| Remove Development Banner | Awaiting stakeholder approval | S107+ |
+| WhatsApp floating widget | Enhancement, not critical | S107+ |
+| WhatsApp Business API | Requires API setup and business verification | S107+ |
+| Magic byte validation for file uploads | Enhancement - MIME validation sufficient | Future |
+| Virus scanning integration | Requires external service | Future |
+| CAPTCHA if spam persists | Monitor honeypot effectiveness first | If needed |
+| Session-based rate limiting | Per-IP sufficient for now | If needed |
 
 ### Not Started (Blocked)
 | Task | Blocker |
@@ -1408,6 +1554,63 @@ className="... text-white/[0.025] dark:text-white/[0.015] ..."
 // LatestOpportunities.tsx (line 197)
 className="... text-white/[0.03] dark:text-white/[0.02] ..."
 ```
+
+---
+
+## RECOMMENDATIONS (Session 107)
+
+### Session 106 Achievements
+1. **Comprehensive Form Security Audit** - All 7 forms audited for validation, sanitisation, and security
+2. **Honeypot Spam Prevention** - Implemented across all forms and API routes
+3. **Production-Ready Email** - Monitoring emails removed from email.ts
+4. **Clean Git Workflow** - Form security merged to main independently of UI changes
+
+### Recommendations for Session 107
+
+**1. Priority: Merge Session 105 UI Changes**
+The `feature/session-105-redesign` branch contains:
+- CultureStorytelling component with embedded stats
+- Massive typography (10rem headlines) on Careers page
+- Simplified About page sections (3-col values, no flip-cards)
+- New narrative flow (proof before promises)
+
+Already rebased onto main, so merge should be clean.
+
+**2. Test Honeypot Effectiveness**
+Monitor form submissions over the coming days:
+- Check server logs for `[Honeypot] Bot submission detected and blocked` messages
+- If spam persists, consider adding time-based validation or CAPTCHA
+- Honeypot should catch most automated bots
+
+**3. Production Deployment Checklist**
+Before going live:
+- [ ] Update email logo URL to production domain (`src/lib/email.ts:381`)
+- [ ] Remove Development Banner
+- [ ] Cross-browser testing
+- [ ] Mobile responsive verification
+- [ ] Final content review with stakeholders
+
+**4. Future Security Enhancements (Optional)**
+If spam becomes a problem:
+- Time-based honeypot (reject submissions < 3 seconds)
+- Rate limiting per session (in addition to per-IP)
+- Invisible reCAPTCHA as last resort
+
+### Technical Notes for Session 107
+
+**Honeypot Utility Location:**
+```
+src/lib/honeypot.ts
+├── HONEYPOT_FIELD_NAME = 'website'
+├── isHoneypotFilled(formData)      // For FormData submissions
+├── isHoneypotFilledJSON(body)      // For JSON submissions
+├── honeypotInputProps              // React props for hidden input
+└── honeypotClassName               // Tailwind classes for hiding
+```
+
+**Branch Status:**
+- `main`: Production-ready with S106 form security
+- `feature/session-105-redesign`: UI changes + S106 (rebased)
 
 ---
 
@@ -1591,7 +1794,8 @@ const TIMELINE_VARIANT = "switcher"; // Change to "original" or "alternating" af
 | Email validation regex | ✅ Resolved | S96 - Stricter validation |
 | Confirmation email handling | ✅ Resolved | S96 - Warnings added |
 | Email domain configuration | ✅ Resolved | S96 - metrosure.app for all |
-| Monitoring emails | ⏳ Testing | S96 - Remove after testing complete |
+| Monitoring emails | ✅ Resolved | S106 - Removed from email.ts |
+| Honeypot spam prevention | ✅ Resolved | S106 - Added to all 7 forms and 6 API routes |
 
 ### Suggestions for Future Sessions
 
@@ -1729,10 +1933,11 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-105)
+## SESSION HISTORY (75-106)
 
 | Session | Focus |
 |---------|-------|
+| S106 | Form security audit, honeypot spam prevention (7 forms, 6 API routes), monitoring emails removed, git workflow (separate branch merge to main, rebase S105) |
 | S105 | Bold redesign (Careers + About), CultureStorytelling component, massive typography (10rem), narrative flow restructure, simplified sections |
 | S104 | Variant cleanup (6 files deleted), login page redirect to under-development, kept home testimonials switcher for A/B |
 | S103 | Style guide finalisation, partner images integrated, variant selections (Bold+Minimal, Carousel, Original), CLAUDE.md style patterns |
@@ -1767,4 +1972,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 14 January 2026 (Session 105 - Bold Redesign)*
+*Document updated: 14 January 2026 (Session 106 - Form Security Audit)*
