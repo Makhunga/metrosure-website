@@ -18,6 +18,8 @@ const WhyJoinUs = dynamic(() => import("@/components/careers/WhyJoinUs"));
 // Session 103: Using Cinematic Carousel directly (user selected over Featured Spotlight)
 const TestimonialsCarousel = dynamic(() => import("@/components/careers/testimonial-variants/TestimonialsCarousel"));
 const OpenPositions = dynamic(() => import("@/components/careers/OpenPositions"));
+const CultureGallery = dynamic(() => import("@/components/careers/CultureGallery"));
+const HomerunHero = dynamic(() => import("@/components/careers/HomerunHero"));
 
 import Link from "next/link";
 import Image from "next/image";
@@ -170,10 +172,16 @@ export default function CareersPage() {
       {/* Why Join Us */}
       <WhyJoinUs />
 
+      {/* Life at Metrosure - Culture Gallery */}
+      <CultureGallery />
+
       {/* Employee Testimonials - Cinematic Carousel (Session 103 selection) */}
       <TestimonialsCarousel />
 
       {/* Gallery temporarily removed - will be reimplemented */}
+
+      {/* Join the Team CTA */}
+      <HomerunHero />
 
       {/* Open Positions */}
       <OpenPositions onApplyClick={openApplicationModal} />
