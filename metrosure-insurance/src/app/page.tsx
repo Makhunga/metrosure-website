@@ -5,6 +5,7 @@ import { Header, Hero, StatsBar, Footer } from "@/components";
 // SSR is enabled to maintain SEO, but JS bundle is split for faster hydration
 const PartnerShowcase = dynamic(() => import("@/components/PartnerShowcase"));
 const Features = dynamic(() => import("@/components/Features"));
+const TrustedBy = dynamic(() => import("@/components/TrustedBy"));
 const Approach = dynamic(() => import("@/components/Approach"));
 const Products = dynamic(() => import("@/components/Products"));
 const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
@@ -24,6 +25,7 @@ export default function Home() {
         <StatsBar />
         <PartnerShowcase />
         <Features />
+        <TrustedBy />
         <Approach />
         <Products />
         <WhyChooseUs />

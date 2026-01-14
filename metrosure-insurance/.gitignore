@@ -52,3 +52,5 @@ SESSION_HANDOVER.md
 # Claude Code configuration
 .claude/
 screenshots/
+# Log/temp files
+2026-*.txt
