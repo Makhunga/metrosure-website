@@ -43,7 +43,7 @@ const imageVariants = {
     x: 0,
     transition: {
       duration: 0.8,
-      ease: [0.16, 1, 0.3, 1], // Custom easing
+      ease: [0.16, 1, 0.3, 1] as const, // Custom easing
       delay: 0.3,
     },
   },
