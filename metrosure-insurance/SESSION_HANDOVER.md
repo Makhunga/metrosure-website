@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 14 January 2026 (Session 109)
+**Updated:** 17 January 2026 (Session 110)
 **Stack:** Next.js 16, TypeScript, Tailwind CSS v4, React 19, Framer Motion
 **Dev:** `http://localhost:3000` | **Prod:** Vercel
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
@@ -10,7 +10,93 @@
 ## BUILD STATUS: Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 14 January 2026
+- **Last Build:** 17 January 2026
+
+---
+
+## SESSION 110 (17 Jan 2026) - Job Service Integration & Email Routing
+
+### Focus
+Implemented integration infrastructure for Workable ATS and Indeed job board APIs (prepared for future activation). Updated careers email routing to hr@metrosureconsult.co.za with CC to lazola@metrosureconsult.co.za.
+
+### Completed Tasks
+| Task | Status |
+|------|--------|
+| Create Workable API client (`src/lib/workable.ts`) | ✅ Complete |
+| Create Indeed API client (`src/lib/indeed.ts`) | ✅ Complete |
+| Update jobs.ts with async fetching and fallback system | ✅ Complete |
+| Add ISR (5-minute revalidation) to careers/[slug]/page.tsx | ✅ Complete |
+| Create ExternalApplicationRedirect component | ✅ Complete |
+| Update email routing (hr@metrosureconsult.co.za) | ✅ Complete |
+| Add CC support (lazola@metrosureconsult.co.za) | ✅ Complete |
+| Update HTML email template references | ✅ Complete |
+| Update ApplicationForm contact email | ✅ Complete |
+| Build verification | ✅ Complete |
+| Commit and push | ✅ Complete (56df687) |
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `src/lib/workable.ts` | Workable ATS API client with job fetching, transformation, and application URL generation |
+| `src/lib/indeed.ts` | Indeed Publisher API client with job search, transformation, and application URLs |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/jobs.ts` | Added async `fetchAllJobs()`, `fetchJobBySlug()`, priority fallback (Workable → Indeed → hardcoded), 5-min cache |
+| `src/app/careers/[slug]/page.tsx` | Added ISR (`revalidate = 300`), ExternalApplicationRedirect component for external jobs |
+| `src/lib/email.ts` | Changed EMAIL_CAREERS to `hr@metrosureconsult.co.za`, added EMAIL_CAREERS_CC, CC support in sendEmail |
+| `src/app/api/careers-application/route.ts` | Added CC to email sending, updated HTML template email references |
+| `src/components/careers/ApplicationForm.tsx` | Updated contact email to `hr@metrosureconsult.co.za` |
+
+### Job Service Integration Architecture
+```
+Priority order when fetching jobs:
+1. Workable API (if WORKABLE_API_TOKEN and WORKABLE_SUBDOMAIN set)
+2. Indeed API (if INDEED_PUBLISHER_ID set)
+3. Hardcoded fallback (src/data/jobs.ts static data)
+
+Cache: 5 minutes (300,000ms)
+ISR: 5 minutes (300 seconds)
+```
+
+### Environment Variables (Future Activation)
+```bash
+# Workable (ATS - Applicant Tracking System)
+WORKABLE_API_TOKEN=your_api_token_here
+WORKABLE_SUBDOMAIN=metrosure
+
+# Indeed (Job Board)
+INDEED_PUBLISHER_ID=your_publisher_id
+INDEED_EMPLOYER_ID=your_employer_id
+```
+
+### Email Routing Update
+| Type | Previous | New |
+|------|----------|-----|
+| Careers emails | careers@metrosuregroup.co.za | hr@metrosureconsult.co.za |
+| CC recipient | None | lazola@metrosureconsult.co.za |
+
+### Key Functions Added to jobs.ts
+| Function | Purpose |
+|----------|---------|
+| `hasWorkableIntegration()` | Check if Workable env vars configured |
+| `hasIndeedIntegration()` | Check if Indeed env vars configured |
+| `hasExternalJobService()` | Check if any external service configured |
+| `fetchAllJobs()` | Async job fetching with priority fallback |
+| `fetchJobBySlug(slug)` | Fetch single job by URL slug |
+| `fetchJobsByCategory(category)` | Fetch jobs filtered by category |
+| `fetchRelatedJobs(currentSlug, category)` | Fetch related jobs for job detail page |
+| `getApplicationUrl(job)` | Get appropriate application URL (external or internal) |
+| `shouldRedirectToExternal(job)` | Check if job should redirect to external portal |
+| `getExternalServiceName()` | Get display name ("Indeed" or "our application portal") |
+
+### Deferred Tasks
+| Task | Reason |
+|------|--------|
+| Workable account setup | Client needs to create Workable account and generate API token |
+| Indeed API registration | Client needs to register for Indeed Publisher API |
+| .env.example documentation | File is gitignored, env vars documented in this handover |
 
 ---
 
@@ -56,32 +142,124 @@ Git workflow learning session: selectively moved CultureGallery and HomerunHero 
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 110)
+## NEXT SESSION PRIORITIES (Session 111)
 
-### Priority 1: Production Readiness Review
+### Priority 1: Job Service Activation (When Ready)
+- [ ] Client creates Workable account at https://www.workable.com/
+- [ ] Generate Workable API token with "Read" permissions
+- [ ] Set `WORKABLE_API_TOKEN` and `WORKABLE_SUBDOMAIN` in Vercel environment
+- [ ] OR: Register for Indeed Publisher API at https://ads.indeed.com/jobroll/
+- [ ] Set `INDEED_PUBLISHER_ID` and optionally `INDEED_EMPLOYER_ID`
+- [ ] Test job fetching in development before production deploy
+
+### Priority 2: Production Readiness Review
 - [ ] Verify all watermarks visible in both light and dark mode
 - [ ] Cross-browser testing (Chrome, Firefox, Edge)
 - [ ] Mobile responsive testing (375px, 768px, 1024px)
 - [ ] Accessibility check (keyboard navigation, focus states)
 - [ ] Final content review
 
-### Priority 2: Home Testimonials Final Selection
+### Priority 3: Home Testimonials Final Selection
 - [ ] Decide between Bold Statement or Minimal (or keep both with switcher)
 - [ ] Remove TestimonialsVariantSwitcher when final decision made
 - [ ] Delete unselected variant
 
-### Priority 3: CaseStudies Reinstatement Decision
+### Priority 4: CaseStudies Reinstatement Decision
 - [ ] Awaiting stakeholder meeting decision
 - [ ] If approved, uncomment on Partners page
 
-### Priority 4: Gallery Reimplementation (If Desired)
+### Priority 5: Gallery Reimplementation (If Desired)
 - [ ] About page gallery currently removed
 - [ ] Careers page gallery currently removed
 - [ ] Decide if galleries add value or should remain removed
 
-### Priority 5: Development Banner Removal
+### Priority 6: Development Banner Removal
 - [ ] Remove `src/components/DevelopmentBanner.tsx` before production
 - [ ] Update `src/components/ClientLayout.tsx` to remove import
+
+---
+
+## RECOMMENDATIONS (Session 111)
+
+### Session 110 Achievements
+1. **Workable + Indeed Integration Prepared** - Infrastructure ready for future activation
+   - `src/lib/workable.ts` - Full ATS API client
+   - `src/lib/indeed.ts` - Job board search API client
+   - Priority fallback system (Workable → Indeed → hardcoded data)
+   - 5-minute caching for performance
+   - ISR enabled for job pages
+
+2. **Email Routing Updated** - Per stakeholder request
+   - Careers applications → `hr@metrosureconsult.co.za`
+   - CC to `lazola@metrosureconsult.co.za` on all applications
+   - HTML email templates updated
+
+3. **External Application Support** - Seamless redirect
+   - Jobs from Workable/Indeed redirect to their hosted application pages
+   - `ExternalApplicationRedirect` component with countdown and manual link
+   - Falls back to internal form when no external service configured
+
+### Recommendations for Session 111
+
+**1. Priority: Workable Account Setup (If Proceeding with ATS)**
+Workable is recommended for high-volume hiring (100+ applications/month):
+- Sign up at https://www.workable.com/ (Standard plan ~$149/month)
+- Navigate to Settings → Integrations → API Access Token
+- Generate token with "Read" permissions
+- Copy subdomain from URL (e.g., "metrosure" from metrosure.workable.com)
+
+**2. Alternative: Indeed Setup (Free Option)**
+For simpler job syndication without full ATS:
+- Register at https://ads.indeed.com/jobroll/
+- Obtain Publisher ID
+- Jobs must be posted on Indeed separately
+- API searches for Metrosure jobs on Indeed's index
+
+**3. Testing Approach**
+When credentials are obtained:
+```bash
+# Add to .env.local
+WORKABLE_API_TOKEN=your_token
+WORKABLE_SUBDOMAIN=metrosure
+
+# Run dev server
+npm run dev
+
+# Visit /careers - should fetch from Workable
+# If no jobs in Workable, falls back to hardcoded data
+```
+
+**4. Rate Limit Considerations**
+Current careers form rate limit (3/hour) becomes less critical when using external services, as applications are handled by Workable/Indeed infrastructure.
+
+### Technical Notes for Session 111
+
+**Integration Status:**
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Workable API client | ✅ Ready | Needs credentials to activate |
+| Indeed API client | ✅ Ready | Needs credentials to activate |
+| Fallback data | ✅ Working | 5 hardcoded jobs in jobs.ts |
+| ISR | ✅ Configured | 5-minute revalidation |
+| External redirect | ✅ Ready | Countdown + manual link |
+| Email routing | ✅ Updated | hr@ + CC to lazola@ |
+
+**Environment Variables Reference:**
+```bash
+# Workable (recommended for ATS)
+WORKABLE_API_TOKEN=string
+WORKABLE_SUBDOMAIN=string
+
+# Indeed (alternative for job board)
+INDEED_PUBLISHER_ID=string
+INDEED_EMPLOYER_ID=string (optional)
+```
+
+**Code Locations:**
+- API clients: `src/lib/workable.ts`, `src/lib/indeed.ts`
+- Job data with fallback: `src/data/jobs.ts`
+- External redirect component: `src/app/careers/[slug]/page.tsx`
+- Email routing: `src/lib/email.ts`
 
 ---
 
@@ -1175,10 +1353,18 @@ Comprehensive UI audit identifying 45+ inconsistencies. Standardised CTAs, secti
 
 ## SKIPPED & DEFERRED TASKS
 
+### Deferred from Session 110
+| Task | Reason | Priority |
+|------|--------|----------|
+| Workable account creation | Client needs to sign up and generate API token | When ready to activate |
+| Indeed Publisher API registration | Client needs to register for API access | When ready to activate |
+| .env.example update | File is gitignored; env vars documented in handover | Low priority |
+| Job service testing | Needs API credentials to test properly | After credentials obtained |
+
 ### Deferred from Session 103
 | Task | Reason | Priority |
 |------|--------|----------|
-| Delete unused variant components | Cleanup task, can be done anytime | Session 104 |
+| Delete unused variant components | Cleanup task, can be done anytime | Session 104 ✅ Completed |
 | Remove home testimonials switcher | User wants Bold + Minimal toggle for now | When final decision made |
 
 ### Deferred from Session 99/100
@@ -1690,10 +1876,12 @@ public/images/  # Static assets
 
 ---
 
-## SESSION HISTORY (75-104)
+## SESSION HISTORY (75-110)
 
 | Session | Focus |
 |---------|-------|
+| S110 | Job service integration (Workable + Indeed APIs prepared), email routing update (hr@metrosureconsult.co.za + CC), ISR for job pages |
+| S109 | Git learning (checkout specific files), CultureGallery watermark, HomerunHero dark mode enhancement |
 | S104 | Variant cleanup (6 files deleted), login page redirect to under-development, kept home testimonials switcher for A/B |
 | S103 | Style guide finalisation, partner images integrated, variant selections (Bold+Minimal, Carousel, Original), CLAUDE.md style patterns |
 | S102 | Partner logo fixes (Metropolitan SVG, AVBOB quality), AI image prompts for partner slides |
@@ -1727,4 +1915,4 @@ public/images/  # Static assets
 
 ---
 
-*Document updated: 13 January 2026 (Session 104 - Variant Cleanup)*
+*Document updated: 17 January 2026 (Session 110 - Job Service Integration & Email Routing)*
