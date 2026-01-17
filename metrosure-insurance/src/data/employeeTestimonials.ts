@@ -72,7 +72,7 @@ export const employeeTestimonials: EmployeeTestimonial[] = [
   },
   {
     id: "mvelo",
-    name: "Mvelo Mkhanazi",
+    name: "Mvelo Mkhwanazi",
     role: "Sales Manager",
     department: "Sales",
     tenure: "2 years",
