@@ -176,11 +176,6 @@ export default function TestimonialsCarousel() {
                       <p className="text-white/60">
                         {currentEmployee.role} · {currentEmployee.tenure}
                       </p>
-                      {currentEmployee.location && (
-                        <p className="text-white/40 text-sm mt-1">
-                          {currentEmployee.location}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>

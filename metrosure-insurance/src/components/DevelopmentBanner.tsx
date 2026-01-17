@@ -45,7 +45,8 @@ export default function DevelopmentBanner() {
           <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 px-4 py-2 h-full">
             <div className="max-w-7xl mx-auto flex items-center justify-center text-sm relative">
               {/* Message */}
-              <p className="text-black font-medium text-center pr-8 sm:pr-0">
+              <p className="text-black font-medium text-center pr-8 sm:pr-0 flex items-center justify-center flex-wrap">
+                <span className="material-symbols-outlined text-base mr-1 align-middle">warning</span>
                 <span className="font-bold">Website Under Development</span>
                 <span className="hidden sm:inline">
                   {" "}- Some features may be unavailable.{" "}

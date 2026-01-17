@@ -90,10 +90,12 @@ export default function CorporateFAQ() {
           </motion.p>
         </motion.div>
 
-        {/* FAQ Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-6xl mx-auto items-start">
+        {/* FAQ Grid - using CSS columns for independent item heights */}
+        <div className="max-w-6xl mx-auto columns-1 lg:columns-2 gap-4 space-y-4">
           {corporateFAQs.map((item, index) => (
-            <FAQItem key={index} {...item} index={index} isInView={isInView} />
+            <div key={index} className="break-inside-avoid">
+              <FAQItem {...item} index={index} isInView={isInView} />
+            </div>
           ))}
         </div>
 
