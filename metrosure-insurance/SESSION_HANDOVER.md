@@ -158,6 +158,11 @@ Git workflow learning session: selectively moved CultureGallery and HomerunHero 
 - [ ] Mobile responsive testing (375px, 768px, 1024px)
 - [ ] Accessibility check (keyboard navigation, focus states)
 - [ ] Final content review
+- [ ] **Social media metadata testing** (OG tags, Twitter cards)
+  - Test with Facebook Sharing Debugger: https://developers.facebook.com/tools/debug/
+  - Test with Twitter Card Validator: https://cards-dev.twitter.com/validator
+  - Test with LinkedIn Post Inspector: https://www.linkedin.com/post-inspector/
+  - Verify OG image displays correctly across platforms
 
 ### Priority 3: Home Testimonials Final Selection
 - [ ] Decide between Bold Statement or Minimal (or keep both with switcher)
