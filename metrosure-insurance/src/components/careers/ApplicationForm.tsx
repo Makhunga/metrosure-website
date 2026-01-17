@@ -290,10 +290,10 @@ export default function ApplicationForm({
                   mail
                 </span>
                 <a
-                  href="mailto:hr@metrosuregroup.co.za"
+                  href="mailto:hr@metrosureconsult.co.za"
                   className="text-slate-900 dark:text-white hover:text-primary transition-colors"
                 >
-                  hr@metrosuregroup.co.za
+                  hr@metrosureconsult.co.za
                 </a>
               </div>
               <div className="flex items-center gap-3">

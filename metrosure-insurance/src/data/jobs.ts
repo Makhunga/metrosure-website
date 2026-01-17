@@ -1,7 +1,30 @@
 /**
  * Centralized job data for the careers section
- * This file contains all job listings and utility functions for accessing them
+ *
+ * This file contains all job listings and utility functions for accessing them.
+ * When Workable is configured (via environment variables), jobs are fetched from
+ * the Workable API. Otherwise, fallback data below is used.
+ *
+ * To enable Workable integration:
+ * 1. Set WORKABLE_API_TOKEN and WORKABLE_SUBDOMAIN in .env.local
+ * 2. See .env.example for setup instructions
  */
+
+import {
+  isWorkableConfigured,
+  getWorkableJobs,
+  getWorkableJob,
+  getWorkableCategories,
+  getWorkableApplicationUrl,
+} from "@/lib/workable";
+
+import {
+  isIndeedConfigured,
+  getIndeedJobs,
+  getIndeedCategories,
+  getIndeedApplicationUrl,
+  shouldRedirectToIndeed as checkIndeedRedirect,
+} from "@/lib/indeed";
 
 export interface Job {
   id: string;
@@ -243,4 +266,219 @@ export function getAllSlugs(): string[] {
  */
 export function getAllCategories(): JobCategory[] {
   return categories;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ASYNC API FUNCTIONS (with Workable support)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Cache for Workable jobs to avoid repeated API calls
+ */
+let jobsCache: { jobs: Job[]; timestamp: number } | null = null;
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+/**
+ * Check if Workable integration is available
+ */
+export function hasWorkableIntegration(): boolean {
+  return isWorkableConfigured();
+}
+
+/**
+ * Check if Indeed integration is available
+ */
+export function hasIndeedIntegration(): boolean {
+  return isIndeedConfigured();
+}
+
+/**
+ * Check if any external job service is configured
+ */
+export function hasExternalJobService(): boolean {
+  return isWorkableConfigured() || isIndeedConfigured();
+}
+
+/**
+ * Fetch all jobs - tries Workable first, then Indeed, falls back to hardcoded data
+ * Results are cached for 5 minutes to reduce API calls
+ *
+ * Priority:
+ * 1. Workable (if configured) - Full ATS integration
+ * 2. Indeed (if configured) - Job board search
+ * 3. Fallback hardcoded data
+ */
+export async function fetchAllJobs(): Promise<Job[]> {
+  // Check cache first
+  if (jobsCache && Date.now() - jobsCache.timestamp < CACHE_TTL_MS) {
+    return jobsCache.jobs;
+  }
+
+  // Try Workable first if configured (preferred - full ATS)
+  if (isWorkableConfigured()) {
+    try {
+      const workableJobs = await getWorkableJobs();
+      if (workableJobs && workableJobs.length > 0) {
+        jobsCache = { jobs: workableJobs, timestamp: Date.now() };
+        return workableJobs;
+      }
+    } catch (error) {
+      console.warn("Failed to fetch from Workable:", error);
+    }
+  }
+
+  // Try Indeed if configured
+  if (isIndeedConfigured()) {
+    try {
+      const indeedJobs = await getIndeedJobs();
+      if (indeedJobs && indeedJobs.length > 0) {
+        jobsCache = { jobs: indeedJobs, timestamp: Date.now() };
+        return indeedJobs;
+      }
+    } catch (error) {
+      console.warn("Failed to fetch from Indeed:", error);
+    }
+  }
+
+  // Fallback to hardcoded data
+  return jobs;
+}
+
+/**
+ * Fetch a job by slug - tries Workable first, falls back to hardcoded data
+ */
+export async function fetchJobBySlug(slug: string): Promise<Job | undefined> {
+  // Try cached jobs first
+  const allJobs = await fetchAllJobs();
+  const cachedJob = allJobs.find((job) => job.slug === slug);
+  if (cachedJob) {
+    return cachedJob;
+  }
+
+  // For Workable jobs, the slug format is "title-shortcode"
+  // Extract shortcode and try to fetch full details
+  if (isWorkableConfigured()) {
+    const shortcodeMatch = slug.match(/-([a-zA-Z0-9]+)$/);
+    if (shortcodeMatch) {
+      const shortcode = shortcodeMatch[1];
+      try {
+        const workableJob = await getWorkableJob(shortcode);
+        if (workableJob) {
+          return workableJob;
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch job ${shortcode} from Workable:`, error);
+      }
+    }
+  }
+
+  // Fallback to hardcoded data
+  return getJobBySlug(slug);
+}
+
+/**
+ * Fetch jobs by category
+ */
+export async function fetchJobsByCategory(category: string): Promise<Job[]> {
+  const allJobs = await fetchAllJobs();
+  if (category === "all") return allJobs;
+  return allJobs.filter((job) => job.category === category);
+}
+
+/**
+ * Fetch related jobs (same category, excluding current job)
+ */
+export async function fetchRelatedJobs(job: Job, limit: number = 3): Promise<Job[]> {
+  const allJobs = await fetchAllJobs();
+  return allJobs
+    .filter((j) => j.category === job.category && j.id !== job.id)
+    .slice(0, limit);
+}
+
+/**
+ * Fetch all job slugs for static generation
+ */
+export async function fetchAllSlugs(): Promise<string[]> {
+  const allJobs = await fetchAllJobs();
+  return allJobs.map((job) => job.slug);
+}
+
+/**
+ * Fetch all categories (dynamic if Workable or Indeed is used)
+ */
+export async function fetchAllCategories(): Promise<JobCategory[]> {
+  if (isWorkableConfigured()) {
+    const allJobs = await fetchAllJobs();
+    if (allJobs.length > 0) {
+      return getWorkableCategories(allJobs);
+    }
+  }
+
+  if (isIndeedConfigured()) {
+    const allJobs = await fetchAllJobs();
+    if (allJobs.length > 0) {
+      return getIndeedCategories(allJobs);
+    }
+  }
+
+  return categories;
+}
+
+/**
+ * Get the application URL for a job
+ * Returns external URL (Workable/Indeed) if available, otherwise internal form anchor
+ */
+export function getApplicationUrl(job: Job): string {
+  // Check if job has Workable data
+  const workableData = (job as Job & { _workable?: { shortcode: string } })._workable;
+  if (workableData?.shortcode) {
+    return getWorkableApplicationUrl(workableData.shortcode);
+  }
+
+  // Check if job has Indeed data
+  const indeedData = (job as Job & { _indeed?: { jobKey: string; url: string } })._indeed;
+  if (indeedData?.jobKey) {
+    return indeedData.url || getIndeedApplicationUrl(indeedData.jobKey);
+  }
+
+  // Default to internal application form
+  return `/careers/${job.slug}#apply`;
+}
+
+/**
+ * Check if applications should redirect to Workable
+ */
+export function shouldRedirectToWorkable(job: Job): boolean {
+  const workableData = (job as Job & { _workable?: { shortcode: string } })._workable;
+  return Boolean(workableData?.shortcode && isWorkableConfigured());
+}
+
+/**
+ * Check if applications should redirect to Indeed
+ */
+export function shouldRedirectToIndeed(job: Job): boolean {
+  return checkIndeedRedirect(job);
+}
+
+/**
+ * Check if applications should redirect to any external service
+ */
+export function shouldRedirectToExternal(job: Job): boolean {
+  return shouldRedirectToWorkable(job) || shouldRedirectToIndeed(job);
+}
+
+/**
+ * Get the name of the external service for a job (for UI display)
+ */
+export function getExternalServiceName(job: Job): string | null {
+  if (shouldRedirectToWorkable(job)) return "Workable";
+  if (shouldRedirectToIndeed(job)) return "Indeed";
+  return null;
+}
+
+/**
+ * Clear the jobs cache (useful for testing or manual refresh)
+ */
+export function clearJobsCache(): void {
+  jobsCache = null;
 }

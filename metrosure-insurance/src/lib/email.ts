@@ -27,9 +27,11 @@ function getResend(): Resend | null {
 
 // Email addresses
 // Updated per stakeholder meeting (S96): B2B inquiries go to metrosureconsult.co.za
+// Updated: Careers applications now route to hr@metrosureconsult.co.za
 const EMAIL_INFO = 'info@metrosuregroup.co.za';
 const EMAIL_CLIENTS = 'clients@metrosureconsult.co.za';
-const EMAIL_CAREERS = 'careers@metrosuregroup.co.za';
+const EMAIL_CAREERS = 'hr@metrosureconsult.co.za';
+const EMAIL_CAREERS_CC = 'lazola@metrosureconsult.co.za';
 
 // Additional recipients for testing/monitoring
 // IMPORTANT: Clear this array before production deployment
@@ -51,6 +53,7 @@ interface SendEmailOptions {
   subject: string;
   html: string;
   replyTo?: string;
+  cc?: string | string[];
   attachments?: EmailAttachment[];
 }
 
@@ -61,7 +64,7 @@ export interface SendEmailResult {
   error?: string;
 }
 
-export async function sendEmail({ to, subject, html, replyTo, attachments }: SendEmailOptions): Promise<SendEmailResult> {
+export async function sendEmail({ to, subject, html, replyTo, cc, attachments }: SendEmailOptions): Promise<SendEmailResult> {
   const resendClient = getResend();
 
   if (!resendClient) {
@@ -76,6 +79,7 @@ export async function sendEmail({ to, subject, html, replyTo, attachments }: Sen
       subject,
       html,
       replyTo,
+      cc: cc ? (Array.isArray(cc) ? cc : [cc]) : undefined,
       attachments,
     });
 
@@ -97,6 +101,11 @@ export const emailTo = {
   info: [EMAIL_INFO, ...EMAIL_MONITORING],
   clients: [EMAIL_CLIENTS, ...EMAIL_MONITORING],
   careers: [EMAIL_CAREERS, ...EMAIL_MONITORING],
+};
+
+// CC recipients for specific email types
+export const emailCc = {
+  careers: EMAIL_CAREERS_CC,
 };
 
 // ============================================================================
