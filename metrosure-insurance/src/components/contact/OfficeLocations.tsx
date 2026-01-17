@@ -66,24 +66,9 @@ const offices: Office[] = [
   },
 ];
 
-// Build Google Static Maps URL with grayscale styling and red marker
-function getStaticMapUrl(office: Office): string {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  if (!apiKey) return "";
-
-  // Grayscale map styling
-  const styles = [
-    "feature:all|saturation:-100",
-    "feature:water|color:0xe0e0e0",
-    "feature:road|color:0xffffff",
-    "feature:landscape|color:0xf5f5f5",
-    "feature:poi|visibility:off",
-  ].map(s => `style=${encodeURIComponent(s)}`).join("&");
-
-  // Metrosure red marker with label
-  const marker = `markers=color:red%7Clabel:M%7C${office.lat},${office.lng}`;
-
-  return `https://maps.googleapis.com/maps/api/staticmap?center=${office.lat},${office.lng}&zoom=15&size=800x600&scale=2&maptype=roadmap&${styles}&${marker}&key=${apiKey}`;
+// Get local static map image path (OSM-based, generated offline)
+function getStaticMapPath(officeId: OfficeLocation): string {
+  return `/images/maps/${officeId}.png`;
 }
 
 const socialLinks = [
@@ -118,8 +103,15 @@ const socialLinks = [
 
 export default function OfficeLocations() {
   const [selectedOffice, setSelectedOffice] = useState<OfficeLocation>("dbn");
+  const [mapError, setMapError] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  // Reset error state when office changes
+  const handleOfficeSelect = (officeId: OfficeLocation) => {
+    setMapError(false);
+    setSelectedOffice(officeId);
+  };
 
   return (
     <motion.div
@@ -156,7 +148,7 @@ export default function OfficeLocations() {
               >
                 <motion.button
                   className="group cursor-pointer block relative pl-6 pr-4 py-4 rounded-xl border border-transparent hover:border-slate-200 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-300 w-full text-left"
-                  onClick={() => setSelectedOffice(office.id)}
+                  onClick={() => handleOfficeSelect(office.id)}
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -261,11 +253,10 @@ export default function OfficeLocations() {
             </span>
           </div>
 
-          {/* Static Map Images */}
+          {/* Static Map Images (local OSM-based images) */}
           <AnimatePresence mode="wait">
             {offices.map((office) => {
-              const mapUrl = getStaticMapUrl(office);
-              if (selectedOffice !== office.id || !mapUrl) return null;
+              if (selectedOffice !== office.id) return null;
 
               return (
                 <motion.div
@@ -277,12 +268,13 @@ export default function OfficeLocations() {
                   transition={{ duration: 0.3 }}
                 >
                   <Image
-                    src={mapUrl}
+                    src={getStaticMapPath(office.id)}
                     alt={`${office.name} office location map`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 58vw"
                     priority={office.id === "dbn"}
+                    onError={() => setMapError(true)}
                   />
                   {/* Subtle red tint overlay for brand cohesion */}
                   <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
@@ -291,8 +283,8 @@ export default function OfficeLocations() {
             })}
           </AnimatePresence>
 
-          {/* Fallback when no API key */}
-          {!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && (
+          {/* Fallback when map image fails to load */}
+          {mapError && (
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800">
               <span className="material-symbols-outlined text-5xl text-slate-400 dark:text-slate-500 mb-4">
                 location_on
