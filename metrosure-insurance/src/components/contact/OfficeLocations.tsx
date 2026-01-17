@@ -276,8 +276,6 @@ export default function OfficeLocations() {
                     priority={office.id === "dbn"}
                     onError={() => setMapError(true)}
                   />
-                  {/* Subtle red tint overlay for brand cohesion */}
-                  <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
                 </motion.div>
               );
             })}
