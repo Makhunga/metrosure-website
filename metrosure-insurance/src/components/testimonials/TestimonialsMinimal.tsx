@@ -65,6 +65,15 @@ const quoteVariants = {
   exit: { opacity: 0, y: -20 },
 };
 
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
 export default function TestimonialsMinimal() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -105,129 +114,111 @@ export default function TestimonialsMinimal() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 md:py-40 lg:py-48 bg-white dark:bg-[#0a0a0a] overflow-hidden transition-colors duration-300"
+      className="relative py-32 md:py-48 bg-gray-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors duration-500"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Customer testimonials"
     >
-      <div className="relative max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Giant Opening Quote Mark */}
-        <motion.div
-          className="absolute -top-8 left-1/2 -translate-x-1/2 text-[200px] md:text-[280px] font-serif text-slate-100 dark:text-white/[0.03] leading-none select-none pointer-events-none"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8 }}
-          aria-hidden="true"
-        >
-          &ldquo;
-        </motion.div>
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
 
-        {/* Testimonial Content */}
-        <div className="relative z-10 text-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              variants={prefersReducedMotion ? {} : quoteVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {/* Quote Text */}
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-slate-800 dark:text-white/90 mb-12">
-                {current.text}
-              </blockquote>
+          {/* Left: Static Header & Navigation (Swiss Style) */}
+          <div className="lg:col-span-4 flex flex-col justify-between h-full min-h-[300px]">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8 }}
+                className="flex items-center gap-4 mb-8"
+              >
+                <div className="w-12 h-[2px] bg-primary" />
+                <span className="text-sm font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400">
+                  Client Stories
+                </span>
+              </motion.div>
 
-              {/* Author Section */}
-              <div className="flex flex-col items-center gap-4">
-                {/* Avatar */}
-                <div
-                  className={`w-16 h-16 rounded-full bg-gradient-to-br ${
-                    avatarGradients[activeIndex % avatarGradients.length]
-                  } flex items-center justify-center text-white font-bold text-xl shadow-lg`}
-                >
-                  {current.name.charAt(0)}
-                </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                Real feedback from real people.
+              </h2>
 
-                {/* Name & Role */}
-                <div className="text-center">
-                  <p className="font-semibold text-slate-900 dark:text-white text-lg">
-                    {current.name}
-                  </p>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center justify-center gap-2">
-                    {current.isPartner && (
-                      <span className="material-symbols-outlined text-primary text-sm">
-                        storefront
-                      </span>
-                    )}
-                    {current.role}
-                  </p>
-                </div>
-
-                {/* 5 Stars */}
-                <div className="flex gap-1 mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className="material-symbols-outlined text-amber-400 text-lg"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                  ))}
-                </div>
+              <div className="flex gap-2 text-primary">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                    star
+                  </span>
+                ))}
               </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+            </div>
 
-        {/* Giant Closing Quote Mark */}
-        <motion.div
-          className="absolute -bottom-24 left-1/2 -translate-x-1/2 text-[200px] md:text-[280px] font-serif text-slate-100 dark:text-white/[0.03] leading-none select-none pointer-events-none rotate-180"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          aria-hidden="true"
-        >
-          &ldquo;
-        </motion.div>
-
-        {/* Navigation: Fraction Counter with Arrows */}
-        <div className="flex justify-center items-center gap-8 mt-16">
-          {/* Previous Arrow */}
-          <motion.button
-            onClick={goToPrevious}
-            className="text-slate-400 hover:text-primary transition-colors"
-            whileHover={{ x: -4 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Previous testimonial"
-          >
-            <span className="material-symbols-outlined text-2xl">
-              chevron_left
-            </span>
-          </motion.button>
-
-          {/* Fraction Counter */}
-          <div className="text-slate-500 dark:text-slate-400 font-mono text-sm tracking-widest">
-            <span className="text-primary font-bold text-lg">
-              {String(activeIndex + 1).padStart(2, "0")}
-            </span>
-            <span className="mx-2">/</span>
-            <span>{String(testimonialsData.length).padStart(2, "0")}</span>
+            {/* Navigation Buttons (Bottom Left) */}
+            <div className="hidden lg:flex gap-4 mt-auto">
+              <button
+                onClick={goToPrevious}
+                className="w-16 h-16 border border-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all duration-300"
+              >
+                <span className="material-symbols-outlined text-2xl">arrow_back</span>
+              </button>
+              <button
+                onClick={goToNext}
+                className="w-16 h-16 border border-slate-300 dark:border-slate-700 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all duration-300"
+              >
+                <span className="material-symbols-outlined text-2xl">arrow_forward</span>
+              </button>
+            </div>
           </div>
 
-          {/* Next Arrow */}
-          <motion.button
-            onClick={goToNext}
-            className="text-slate-400 hover:text-primary transition-colors"
-            whileHover={{ x: 4 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Next testimonial"
-          >
-            <span className="material-symbols-outlined text-2xl">
-              chevron_right
-            </span>
-          </motion.button>
+          {/* Right: Active Testimonial Card */}
+          <div className="lg:col-span-8 relative">
+            <div className="bg-white dark:bg-slate-800 p-8 md:p-12 lg:p-16 rounded-[2.5rem] shadow-xl shadow-slate-200/50 dark:shadow-black/20 relative overflow-hidden">
+              {/* Background Pattern */}
+              <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none">
+                <span className="material-symbols-outlined text-[300px] leading-none text-black dark:text-white">format_quote</span>
+              </div>
+
+              <div className="relative z-10 min-h-[300px] flex flex-col justify-between">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <div className="flex items-center gap-4 mb-8">
+                      <span className="text-primary font-mono text-sm tracking-wider">
+                        0{activeIndex + 1} / 0{testimonialsData.length}
+                      </span>
+                      <div className="h-[1px] flex-1 bg-slate-200 dark:bg-slate-700" />
+                      <span className="text-slate-400 dark:text-slate-500 font-mono text-xs uppercase">
+                        Verified Client
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl md:text-3xl font-medium leading-relaxed text-slate-800 dark:text-slate-100 mb-10">
+                      &ldquo;{current.text}&rdquo;
+                    </h3>
+
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${avatarGradients[activeIndex % avatarGradients.length]} flex items-center justify-center text-white font-bold shadow-md`}>
+                        {getInitials(current.name)}
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-900 dark:text-white">{current.name}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">{current.role}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Mobile Nav */}
+            <div className="flex lg:hidden justify-center gap-4 mt-8">
+              <button onClick={goToPrevious} className="p-4 rounded-full bg-white dark:bg-slate-800 shadow-md"><span className="material-symbols-outlined">arrow_back</span></button>
+              <button onClick={goToNext} className="p-4 rounded-full bg-white dark:bg-slate-800 shadow-md"><span className="material-symbols-outlined">arrow_forward</span></button>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
