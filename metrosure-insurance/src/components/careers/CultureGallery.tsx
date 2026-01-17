@@ -49,9 +49,9 @@ export default function CultureGallery() {
 
     return (
         <section className="py-24 bg-[rgb(var(--color-surface))] overflow-hidden relative">
-            {/* Watermark Text */}
+            {/* Watermark Text - positioned just above heading on desktop */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
-                <div className="absolute top-8 md:top-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                <div className="absolute top-8 md:top-4 lg:-top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
                     <span className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black tracking-tight text-black/[0.03] dark:text-white/[0.04]">
                         CULTURE
                     </span>

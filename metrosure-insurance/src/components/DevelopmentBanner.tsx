@@ -49,14 +49,14 @@ export default function DevelopmentBanner() {
                 <span className="font-bold">Website Under Development</span>
                 <span className="hidden sm:inline">
                   {" "}- Some features may be unavailable.{" "}
-                  <Link href="/contact" className="underline hover:text-black/70 transition-colors">
-                    Your feedback helps us improve!
+                  <Link href="/contact" className="font-bold bg-black/10 px-2 py-0.5 rounded hover:bg-black/20 transition-colors">
+                    Your feedback helps us improve
                   </Link>
                 </span>
                 <span className="sm:hidden">
                   {" "}-{" "}
-                  <Link href="/contact" className="underline hover:text-black/70 transition-colors">
-                    Feedback?
+                  <Link href="/contact" className="font-bold bg-black/10 px-2 py-0.5 rounded hover:bg-black/20 transition-colors">
+                    Feedback
                   </Link>
                 </span>
               </p>
