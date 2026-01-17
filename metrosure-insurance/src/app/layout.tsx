@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Metrosure Insurance Brokers | Taking You to the Future",
     description: "Your trusted South African insurance broker. Personal and business insurance, financial planning, and retail insurance solutions. FSP 47089.",
+    url: "/",
     type: "website",
     locale: "en_ZA",
     siteName: "Metrosure Insurance Brokers",

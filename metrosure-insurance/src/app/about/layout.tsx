@@ -6,10 +6,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Us | Metrosure Insurance Brokers",
     description: "A proudly South African company protecting families and partnering with retail businesses since 2013. Over 5,000 jobs created nationwide.",
+    url: "/about",
+    images: ["/og-image.png"],
   },
   twitter: {
+    card: "summary_large_image",
     title: "About Us | Metrosure Insurance Brokers",
     description: "A proudly South African company protecting families and partnering with retail businesses since 2013. Over 5,000 jobs created nationwide.",
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/about",

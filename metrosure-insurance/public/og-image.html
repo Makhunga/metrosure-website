@@ -6,7 +6,7 @@
   <title>Metrosure Insurance Brokers - OG Image</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -81,26 +81,6 @@
       transform: translateY(-50%) rotate(45deg);
     }
 
-    /* Accent lines */
-    .accent-line {
-      position: absolute;
-      background: var(--primary);
-    }
-
-    .accent-line-1 {
-      top: 80px;
-      left: 60px;
-      width: 4px;
-      height: 120px;
-    }
-
-    .accent-line-2 {
-      bottom: 80px;
-      left: 60px;
-      width: 80px;
-      height: 2px;
-    }
-
     /* Content area */
     .content {
       position: relative;
@@ -114,48 +94,16 @@
       max-width: 750px;
     }
 
-    /* Badge */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(191, 6, 3, 0.15);
-      border: 1px solid rgba(191, 6, 3, 0.4);
-      padding: 8px 16px;
-      border-radius: 4px;
-      margin-bottom: 24px;
-      width: fit-content;
+    /* Logo */
+    .logo {
+      width: 280px;
+      height: auto;
+      margin-bottom: 12px;
     }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--primary);
-      border-radius: 50%;
-    }
-
-    .badge-text {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--primary);
-    }
-
-    /* Typography */
-    .company-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 72px;
-      font-weight: 400;
-      color: var(--cream);
-      line-height: 1;
-      margin-bottom: 8px;
-      letter-spacing: -1px;
-    }
-
-    .company-suffix {
+    .company-subtitle {
       font-family: 'Manrope', sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
       color: rgba(250, 248, 245, 0.6);
       text-transform: uppercase;
@@ -163,27 +111,18 @@
       margin-bottom: 32px;
     }
 
+    /* Typography - All Sans Serif */
     .tagline {
-      font-family: 'DM Serif Display', serif;
-      font-size: 36px;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--primary);
-      margin-bottom: 40px;
-      position: relative;
-      padding-left: 24px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 48px;
+      line-height: 1.2;
     }
 
-    .tagline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 70%;
-      background: var(--primary);
-      border-radius: 2px;
+    .tagline-highlight {
+      color: var(--primary);
     }
 
     /* Footer info */
@@ -289,25 +228,17 @@
     <div class="shape-2"></div>
     <div class="shape-3"></div>
 
-    <!-- Accent lines -->
-    <div class="accent-line accent-line-1"></div>
-    <div class="accent-line accent-line-2"></div>
-
     <!-- Corner decorations -->
     <div class="corner corner-tl"></div>
     <div class="corner corner-br"></div>
 
     <!-- Main content -->
     <div class="content">
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span class="badge-text">Insurance Brokers</span>
-      </div>
+      <!-- Logo image -->
+      <img src="images/logo-white.png" alt="Metrosure" class="logo">
+      <p class="company-subtitle">Insurance Brokers</p>
 
-      <h1 class="company-name">Metrosure</h1>
-      <p class="company-suffix">Insurance Brokers</p>
-
-      <p class="tagline">Taking You to the Future</p>
+      <p class="tagline">Taking You <span class="tagline-highlight">to the Future</span></p>
 
       <div class="footer-info">
         <div class="fsp-badge">

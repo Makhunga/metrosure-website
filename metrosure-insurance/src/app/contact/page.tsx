@@ -17,7 +17,19 @@ export const metadata: Metadata = {
     title: "Contact Us | Metrosure Insurance Brokers",
     description:
       "Get in touch with Metrosure Insurance Brokers. Contact our sales team, customer support, or file a claim.",
+    url: "/contact",
     type: "website",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | Metrosure Insurance Brokers",
+    description:
+      "Get in touch with Metrosure Insurance Brokers. Contact our sales team, customer support, or file a claim.",
+    images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: "/contact",
   },
 };
 

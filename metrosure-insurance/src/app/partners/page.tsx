@@ -33,15 +33,21 @@ export const metadata: Metadata = {
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
       "Transform your retail space into a revenue engine. Partner with Metrosure for in-store insurance campaigns that create jobs and boost your business.",
+    url: "/partners",
     type: "website",
     locale: "en_ZA",
     siteName: "Metrosure Insurance Brokers",
+    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
       "Transform your retail space into a revenue engine. Partner with Metrosure for in-store insurance campaigns.",
+    images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: "/partners",
   },
 };
 

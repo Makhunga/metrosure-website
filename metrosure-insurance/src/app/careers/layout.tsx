@@ -6,10 +6,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Careers | Metrosure Insurance Brokers",
     description: "Join the Metrosure team. We've created over 5,000 jobs across South Africa. Explore career opportunities in insurance and financial services.",
+    url: "/careers",
+    images: ["/og-image.png"],
   },
   twitter: {
+    card: "summary_large_image",
     title: "Careers | Metrosure Insurance Brokers",
     description: "Join the Metrosure team. We've created over 5,000 jobs across South Africa. Explore career opportunities in insurance and financial services.",
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/careers",
