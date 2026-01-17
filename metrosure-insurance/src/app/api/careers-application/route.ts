@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
     const internalEmailResult = await sendEmail({
       to: emailTo.careers,
       cc: emailCc.careers,
-      subject: `[Website Form] New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
+      subject: `[Metrosure Online] New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
       html: emailHtml,
       replyTo: validatedData.email,
       attachments: cvAttachment ? [cvAttachment] : undefined,
@@ -285,7 +285,8 @@ interface CVInfo {
 function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null): string {
   const submittedDate = new Date(data.submittedAt).toLocaleString('en-ZA', {
     dateStyle: 'full',
-    timeStyle: 'short'
+    timeStyle: 'short',
+    timeZone: 'Africa/Johannesburg',
   });
 
   const content = `

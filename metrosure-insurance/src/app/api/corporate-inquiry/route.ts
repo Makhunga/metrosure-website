@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     // Send notification email to clients team
     const internalEmailResult = await sendEmail({
       to: emailTo.clients,
-      subject: `[Website Form] New Corporate Inquiry: ${data.companyName}`,
+      subject: `[Metrosure Online] New Corporate Inquiry: ${data.companyName}`,
       html: emailHtml,
       replyTo: data.email,
     });

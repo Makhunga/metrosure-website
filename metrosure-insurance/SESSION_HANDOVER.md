@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 17 January 2026 (Session 111)
+**Updated:** 18 January 2026 (Session 112)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,7 +9,37 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 45 (38 pages + 7 API routes)
-- **Last Build:** 17 January 2026
+- **Last Build:** 18 January 2026
+
+---
+
+## SESSION 112 (18 Jan 2026) - Maps, Email Updates & Roadmap
+
+### Completed
+| Task | Status |
+|------|--------|
+| Save strategic roadmap to docs/ROADMAP.md | ✅ Complete |
+| Upgrade map images from 800×600 to 1600×1200 | ✅ Complete |
+| Add location markers to static maps | ✅ Complete |
+| Create map generation script | ✅ Complete |
+| Update email subjects to [Metrosure Online] | ✅ Complete |
+| Fix email timezone (now uses SAST/GMT+2) | ✅ Complete |
+
+### Files Modified
+- `docs/ROADMAP.md` - New strategic roadmap for future development phases
+- `scripts/generate-maps.mjs` - Node.js script to regenerate high-res OSM maps
+- `public/images/maps/*.png` - All 5 office maps upgraded to 1600×1200
+- `src/app/api/contact/route.ts` - Email subject prefix updated
+- `src/app/api/quote/route.ts` - Email subject + timezone fix
+- `src/app/api/careers-application/route.ts` - Email subject + timezone fix
+- `src/app/api/partner-inquiry/route.ts` - Email subject updated
+- `src/app/api/corporate-inquiry/route.ts` - Email subject updated
+- `package.json` - Added `canvas` dev dependency for map generation
+
+### Technical Notes
+- **Map generation:** Run `node scripts/generate-maps.mjs` to regenerate maps from OpenStreetMap tiles
+- **Email subjects:** Changed from `[Website Form]` to `[Metrosure Online]` prefix
+- **Timezone:** All email timestamps now use `timeZone: 'Africa/Johannesburg'` (SAST/GMT+2)
 
 ---
 
@@ -155,10 +185,10 @@ Detailed style guides, coding conventions, and historical lessons are in `CLAUDE
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 112 | Maps, Email & Roadmap | High-res maps (2x), [Metrosure Online] email prefix, SAST timezone |
 | 111 | Employee Testimonials & UI | Updated 6 staff profiles, FAQ accordion fix, banner icon |
 | 110 | Job Service Integration | Workable + Indeed API clients ready, email routing updated |
 | 109 | Git Learning | Cherry-pick vs checkout, HomerunHero dark mode |
-| 104 | Variant Cleanup | Deleted 6 unused components, login redirects to under-development |
 
 ---
 

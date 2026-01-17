@@ -80,6 +80,7 @@ function formatDate(dateStr: string): string {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "Africa/Johannesburg",
   });
 }
 
@@ -125,7 +126,7 @@ export async function POST(request: NextRequest) {
     // Send internal notification
     const internalEmailResult = await sendEmail({
       to: emailRecipient,
-      subject: `[Website Form] ${b2bPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
+      subject: `[Metrosure Online] ${b2bPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
       html: internalEmailHtml,
       replyTo: data.email,
     });
