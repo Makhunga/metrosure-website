@@ -20,6 +20,8 @@
 |------|--------|
 | Update employee testimonials (names, roles, stories) | ✅ Complete |
 | Add warning icon to Development Banner | ✅ Complete |
+| Fix Development Banner icon alignment | ✅ Complete |
+| Fix FAQ accordion height issue (Corporate & Partners) | ✅ Complete |
 | Minimise SESSION_HANDOVER.md | ✅ Complete |
 
 ### Employee Updates
@@ -30,12 +32,18 @@
 | Thami Mbambo | Project Manager | Operations |
 | Mercutio Buthelezi | Sales Manager | Sales |
 | Khwezi Dube | Facilitator | Learning & Development |
-| Mvelo Mkhanazi | Sales Manager | Sales |
+| Mvelo Mkhwanazi | Sales Manager | Sales |
 
 ### Files Modified
 - `src/data/employeeTestimonials.ts` - Updated 6 employees with new names, roles, professional growth stories
-- `src/components/DevelopmentBanner.tsx` - Added warning icon before text
-- `SESSION_HANDOVER.md` - Reduced from ~1400 to ~250 lines
+- `src/components/DevelopmentBanner.tsx` - Added warning icon with flex alignment fix
+- `src/components/corporate/CorporateFAQ.tsx` - CSS columns for independent accordion heights
+- `src/components/partners/PartnerFAQ.tsx` - CSS columns for independent accordion heights
+- `src/components/careers/testimonial-variants/TestimonialsCarousel.tsx` - Removed location field reference
+- `SESSION_HANDOVER.md` - Reduced from ~1400 to ~160 lines
+
+### Technical Notes
+**FAQ Accordion Fix:** Changed from CSS Grid to CSS `columns` for cross-browser compatibility (Firefox). Columns now expand independently without affecting adjacent items.
 
 ---
 
@@ -147,10 +155,10 @@ Detailed style guides, coding conventions, and historical lessons are in `CLAUDE
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 111 | Employee Testimonials & UI | Updated 6 staff profiles, FAQ accordion fix, banner icon |
 | 110 | Job Service Integration | Workable + Indeed API clients ready, email routing updated |
 | 109 | Git Learning | Cherry-pick vs checkout, HomerunHero dark mode |
 | 104 | Variant Cleanup | Deleted 6 unused components, login redirects to under-development |
-| 103 | Style Guide | Variant selections finalised, CLAUDE.md patterns documented |
 
 ---
 
