@@ -45,18 +45,18 @@ export default function DevelopmentBanner() {
           <div className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 px-4 py-2 h-full">
             <div className="max-w-7xl mx-auto flex items-center justify-center text-sm relative">
               {/* Message */}
-              <p className="text-black font-medium text-center pr-8 sm:pr-0 flex items-center justify-center flex-wrap">
+              <p className="text-amber-900 font-medium text-center pr-8 sm:pr-0 flex items-center justify-center flex-wrap">
                 <span className="material-symbols-outlined text-base mr-1 align-middle">warning</span>
                 <span className="font-bold">Website Under Development</span>
                 <span className="hidden sm:inline">
                   {" "}- Some features may be unavailable.{" "}
-                  <Link href="/contact" className="font-bold bg-black/10 px-2 py-0.5 rounded hover:bg-black/20 transition-colors">
+                  <Link href="/contact" className="font-bold bg-amber-600/20 px-2 py-0.5 rounded hover:bg-amber-600/30 transition-colors">
                     Your feedback helps us improve
                   </Link>
                 </span>
                 <span className="sm:hidden">
                   {" "}-{" "}
-                  <Link href="/contact" className="font-bold bg-black/10 px-2 py-0.5 rounded hover:bg-black/20 transition-colors">
+                  <Link href="/contact" className="font-bold bg-amber-600/20 px-2 py-0.5 rounded hover:bg-amber-600/30 transition-colors">
                     Feedback
                   </Link>
                 </span>
@@ -65,7 +65,7 @@ export default function DevelopmentBanner() {
               {/* Dismiss button - mobile only */}
               <button
                 onClick={handleDismiss}
-                className="sm:hidden absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 text-black hover:text-black/70 transition-colors"
+                className="sm:hidden absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-amber-600/20 hover:bg-amber-600/30 text-amber-800 hover:text-amber-950 transition-colors"
                 aria-label="Dismiss banner"
               >
                 <span className="material-symbols-outlined text-base">close</span>
