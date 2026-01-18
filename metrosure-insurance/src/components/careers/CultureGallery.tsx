@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const cultureImages = [
     {
-        src: "/images/careers/team-uniforms.jpg",
+        src: "/images/careers/team-uniforms.webp",
         alt: "Metrosure team members in branded uniforms",
         caption: "Team Spirit",
     },
@@ -16,7 +16,7 @@ const cultureImages = [
         caption: "Learning Together",
     },
     {
-        src: "/images/careers/consultant-helping-customer.jpg",
+        src: "/images/careers/consultant-helping-customer.webp",
         alt: "Metrosure consultant helping a customer",
         caption: "Building Connections",
     },
@@ -26,12 +26,12 @@ const cultureImages = [
         caption: "Sharing Knowledge",
     },
     {
-        src: "/images/careers/winners.jpg",
+        src: "/images/careers/winners.webp",
         alt: "Metrosure employee receiving 10 year service award",
         caption: "Celebrating Milestones",
     },
     {
-        src: "/images/careers/team-2024-frame.jpg",
+        src: "/images/careers/team-2024-frame.webp",
         alt: "Metrosure team member with company photo frame",
         caption: "Taking You To The Future",
     },
