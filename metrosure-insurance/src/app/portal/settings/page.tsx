@@ -1,0 +1,539 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import Link from 'next/link';
+import { mockUser } from '@/data/portalMockData';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+// Toggle Switch Component
+function ToggleSwitch({
+  enabled,
+  onChange,
+  label,
+}: {
+  enabled: boolean;
+  onChange: (value: boolean) => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={enabled}
+      aria-label={label}
+      onClick={() => onChange(!enabled)}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colours ${
+        enabled ? 'bg-[var(--primary)]' : 'bg-stone-300 dark:bg-stone-600'
+      }`}
+    >
+      <span
+        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+          enabled ? 'translate-x-6' : 'translate-x-1'
+        }`}
+      />
+    </button>
+  );
+}
+
+// Settings Section Card Component
+function SettingsCard({
+  icon,
+  title,
+  description,
+  children,
+}: {
+  icon: string;
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-[var(--border-light)]">
+      <div className="flex items-start gap-4 mb-5">
+        <div className="w-10 h-10 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
+          <span className="material-symbols-outlined text-xl text-[var(--primary)]">
+            {icon}
+          </span>
+        </div>
+        <div>
+          <h2 className="font-semibold text-[var(--text-main)]">{title}</h2>
+          {description && (
+            <p className="text-sm text-[var(--text-muted)]">{description}</p>
+          )}
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export default function SettingsPage() {
+  // Notification preferences state (mockup - visual only)
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [smsNotifications, setSmsNotifications] = useState(true);
+  const [paymentReminders, setPaymentReminders] = useState(true);
+  const [claimUpdates, setClaimUpdates] = useState(true);
+  const [policyReminders, setPolicyReminders] = useState(true);
+  const [marketingEmails, setMarketingEmails] = useState(false);
+
+  // Communication preferences state (mockup - visual only)
+  const [language, setLanguage] = useState('en');
+  const [documentDelivery, setDocumentDelivery] = useState('email');
+
+  return (
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="space-y-8"
+    >
+      {/* Page Header */}
+      <motion.div variants={itemVariants}>
+        <h1 className="text-2xl font-bold text-[var(--text-main)] mb-2">
+          Settings
+        </h1>
+        <p className="text-[var(--text-muted)]">
+          Manage your account preferences and security settings
+        </p>
+      </motion.div>
+
+      {/* Settings Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Personal Information */}
+        <motion.div variants={itemVariants}>
+          <SettingsCard
+            icon="person"
+            title="Personal Information"
+            description="Your profile details"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-0.5">
+                    Full Name
+                  </p>
+                  <p className="font-medium text-[var(--text-main)]">
+                    {mockUser.firstName} {mockUser.lastName}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-0.5">
+                    Email Address
+                  </p>
+                  <p className="font-medium text-[var(--text-main)]">
+                    {mockUser.email}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-0.5">
+                    Phone Number
+                  </p>
+                  <p className="font-medium text-[var(--text-main)]">
+                    {mockUser.phone}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between py-3">
+                <div>
+                  <p className="text-xs text-[var(--text-muted)] mb-0.5">
+                    Member Since
+                  </p>
+                  <p className="font-medium text-[var(--text-main)]">
+                    {new Date(mockUser.memberSince).toLocaleDateString('en-GB', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </p>
+                </div>
+              </div>
+              <button className="w-full mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--border-light)] text-[var(--text-body)] font-medium text-sm hover:bg-[var(--surface-inset)] transition-colours">
+                <span className="material-symbols-outlined text-lg">edit</span>
+                Request Profile Update
+              </button>
+            </div>
+          </SettingsCard>
+        </motion.div>
+
+        {/* Security */}
+        <motion.div variants={itemVariants}>
+          <SettingsCard
+            icon="security"
+            title="Security"
+            description="Protect your account"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div className="flex-1">
+                  <p className="font-medium text-[var(--text-main)]">Password</p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Last changed 3 months ago
+                  </p>
+                </div>
+                <button className="px-4 py-2 rounded-xl border border-[var(--border-light)] text-[var(--text-body)] text-sm font-medium hover:bg-[var(--surface-inset)] transition-colours">
+                  Change
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div className="flex-1">
+                  <p className="font-medium text-[var(--text-main)]">
+                    Two-Factor Authentication
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Add an extra layer of security
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400">
+                  <span className="material-symbols-outlined text-sm">
+                    warning
+                  </span>
+                  Not enabled
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between py-3">
+                <div className="flex-1">
+                  <p className="font-medium text-[var(--text-main)]">
+                    Active Sessions
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Manage devices logged into your account
+                  </p>
+                </div>
+                <button className="px-4 py-2 rounded-xl border border-[var(--border-light)] text-[var(--text-body)] text-sm font-medium hover:bg-[var(--surface-inset)] transition-colours">
+                  View
+                </button>
+              </div>
+
+              <button className="w-full mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--primary)] text-white font-medium text-sm hover:bg-[var(--primary-hover)] transition-colours shadow-lg shadow-primary/25">
+                <span className="material-symbols-outlined text-lg">
+                  verified_user
+                </span>
+                Enable Two-Factor Authentication
+              </button>
+            </div>
+          </SettingsCard>
+        </motion.div>
+
+        {/* Notification Preferences */}
+        <motion.div variants={itemVariants}>
+          <SettingsCard
+            icon="notifications"
+            title="Notification Preferences"
+            description="Choose how you want to be notified"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="font-medium text-[var(--text-main)]">
+                    Email Notifications
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Receive updates via email
+                  </p>
+                </div>
+                <ToggleSwitch
+                  enabled={emailNotifications}
+                  onChange={setEmailNotifications}
+                  label="Email notifications"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="font-medium text-[var(--text-main)]">
+                    SMS Notifications
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Receive updates via SMS
+                  </p>
+                </div>
+                <ToggleSwitch
+                  enabled={smsNotifications}
+                  onChange={setSmsNotifications}
+                  label="SMS notifications"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="font-medium text-[var(--text-main)]">
+                    Payment Reminders
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Get notified before payments are due
+                  </p>
+                </div>
+                <ToggleSwitch
+                  enabled={paymentReminders}
+                  onChange={setPaymentReminders}
+                  label="Payment reminders"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="font-medium text-[var(--text-main)]">
+                    Claim Updates
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Get notified about claim status changes
+                  </p>
+                </div>
+                <ToggleSwitch
+                  enabled={claimUpdates}
+                  onChange={setClaimUpdates}
+                  label="Claim updates"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
+                <div>
+                  <p className="font-medium text-[var(--text-main)]">
+                    Policy Reminders
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Renewal and expiry notifications
+                  </p>
+                </div>
+                <ToggleSwitch
+                  enabled={policyReminders}
+                  onChange={setPolicyReminders}
+                  label="Policy reminders"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-3">
+                <div>
+                  <p className="font-medium text-[var(--text-main)]">
+                    Marketing Communications
+                  </p>
+                  <p className="text-sm text-[var(--text-muted)]">
+                    Offers, news, and product updates
+                  </p>
+                </div>
+                <ToggleSwitch
+                  enabled={marketingEmails}
+                  onChange={setMarketingEmails}
+                  label="Marketing communications"
+                />
+              </div>
+            </div>
+          </SettingsCard>
+        </motion.div>
+
+        {/* Communication Preferences */}
+        <motion.div variants={itemVariants}>
+          <SettingsCard
+            icon="language"
+            title="Communication Preferences"
+            description="Set your language and document delivery"
+          >
+            <div className="space-y-4">
+              <div className="py-3 border-b border-[var(--border-light)]">
+                <label className="block font-medium text-[var(--text-main)] mb-2">
+                  Preferred Language
+                </label>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--border-light)] bg-white dark:bg-stone-900 text-[var(--text-main)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)]"
+                >
+                  <option value="en">English</option>
+                  <option value="af">Afrikaans</option>
+                  <option value="zu">isiZulu</option>
+                  <option value="xh">isiXhosa</option>
+                  <option value="st">Sesotho</option>
+                </select>
+              </div>
+
+              <div className="py-3">
+                <label className="block font-medium text-[var(--text-main)] mb-2">
+                  Document Delivery
+                </label>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours">
+                    <input
+                      type="radio"
+                      name="documentDelivery"
+                      value="email"
+                      checked={documentDelivery === 'email'}
+                      onChange={(e) => setDocumentDelivery(e.target.value)}
+                      className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)]"
+                    />
+                    <div>
+                      <p className="font-medium text-[var(--text-main)]">Email</p>
+                      <p className="text-sm text-[var(--text-muted)]">
+                        Receive documents as email attachments
+                      </p>
+                    </div>
+                  </label>
+                  <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours">
+                    <input
+                      type="radio"
+                      name="documentDelivery"
+                      value="portal"
+                      checked={documentDelivery === 'portal'}
+                      onChange={(e) => setDocumentDelivery(e.target.value)}
+                      className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)]"
+                    />
+                    <div>
+                      <p className="font-medium text-[var(--text-main)]">
+                        Portal Only
+                      </p>
+                      <p className="text-sm text-[var(--text-muted)]">
+                        Access documents exclusively via the portal
+                      </p>
+                    </div>
+                  </label>
+                  <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours">
+                    <input
+                      type="radio"
+                      name="documentDelivery"
+                      value="post"
+                      checked={documentDelivery === 'post'}
+                      onChange={(e) => setDocumentDelivery(e.target.value)}
+                      className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)]"
+                    />
+                    <div>
+                      <p className="font-medium text-[var(--text-main)]">
+                        Post
+                      </p>
+                      <p className="text-sm text-[var(--text-muted)]">
+                        Receive physical copies by mail
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </SettingsCard>
+        </motion.div>
+      </div>
+
+      {/* Help & Support */}
+      <motion.section variants={itemVariants}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link
+            href="/help"
+            className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)] hover:border-[var(--primary)]/30 transition-all group"
+          >
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+              help
+            </span>
+            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+              Help Centre
+            </h3>
+            <p className="text-sm text-[var(--text-muted)] mb-3">
+              Find answers to frequently asked questions.
+            </p>
+            <span className="text-sm text-[var(--primary)] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              Browse FAQs
+              <span className="material-symbols-outlined text-lg">
+                arrow_forward
+              </span>
+            </span>
+          </Link>
+
+          <Link
+            href="/contact"
+            className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)] hover:border-[var(--primary)]/30 transition-all group"
+          >
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+              support_agent
+            </span>
+            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+              Contact Support
+            </h3>
+            <p className="text-sm text-[var(--text-muted)] mb-3">
+              Speak to our team for assistance.
+            </p>
+            <span className="text-sm text-[var(--primary)] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              Get in Touch
+              <span className="material-symbols-outlined text-lg">
+                arrow_forward
+              </span>
+            </span>
+          </Link>
+
+          <Link
+            href="/privacy"
+            className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)] hover:border-[var(--primary)]/30 transition-all group"
+          >
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+              privacy_tip
+            </span>
+            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+              Privacy & Legal
+            </h3>
+            <p className="text-sm text-[var(--text-muted)] mb-3">
+              Review our privacy policy and terms.
+            </p>
+            <span className="text-sm text-[var(--primary)] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+              View Policies
+              <span className="material-symbols-outlined text-lg">
+                arrow_forward
+              </span>
+            </span>
+          </Link>
+        </div>
+      </motion.section>
+
+      {/* Danger Zone */}
+      <motion.section variants={itemVariants}>
+        <div className="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900">
+          <div className="flex items-start gap-4">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400">
+              warning
+            </span>
+            <div className="flex-1">
+              <h3 className="font-semibold text-red-800 dark:text-red-300 mb-1">
+                Danger Zone
+              </h3>
+              <p className="text-sm text-red-700 dark:text-red-400 mb-4">
+                These actions are irreversible. Please proceed with caution.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <button className="px-4 py-2 rounded-xl border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-950 transition-colours">
+                  Download My Data
+                </button>
+                <button className="px-4 py-2 rounded-xl border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-950 transition-colours">
+                  Close Account
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+    </motion.div>
+  );
+}

@@ -90,6 +90,37 @@ export interface QuickAction {
   colour: 'primary' | 'secondary' | 'accent' | 'neutral';
 }
 
+export interface Payment {
+  id: string;
+  policyId: string;
+  policyName: string;
+  amount: number;
+  dueDate: string;
+  status: 'due' | 'scheduled' | 'paid' | 'overdue';
+  frequency: 'monthly' | 'annually' | 'once-off';
+  paymentMethod?: string;
+}
+
+export interface PaymentHistory {
+  id: string;
+  amount: number;
+  date: string;
+  method: 'debit_order' | 'card' | 'eft' | 'cash';
+  status: 'successful' | 'failed' | 'pending' | 'reversed';
+  transactionId: string;
+  policyName?: string;
+}
+
+export interface Document {
+  id: string;
+  type: 'policy' | 'certificate' | 'invoice' | 'claim' | 'statement' | 'schedule';
+  name: string;
+  policyId?: string;
+  uploadedDate: string;
+  fileSize: string;
+  category: 'policies' | 'claims' | 'invoices' | 'certificates';
+}
+
 // Mock User
 export const mockUser: User = {
   id: 'usr_001',
@@ -488,6 +519,197 @@ export const mockQuickActions: QuickAction[] = [
   },
 ];
 
+// Mock Payments
+export const mockPayments: Payment[] = [
+  {
+    id: 'pay_001',
+    policyId: 'pol_001',
+    policyName: 'Comprehensive Motor Insurance',
+    amount: 1850,
+    dueDate: '2026-02-01',
+    status: 'due',
+    frequency: 'monthly',
+    paymentMethod: 'Debit Order - Nedbank ****4521',
+  },
+  {
+    id: 'pay_002',
+    policyId: 'pol_002',
+    policyName: 'Home Contents Insurance',
+    amount: 980,
+    dueDate: '2026-02-01',
+    status: 'due',
+    frequency: 'monthly',
+    paymentMethod: 'Debit Order - Nedbank ****4521',
+  },
+  {
+    id: 'pay_003',
+    policyId: 'pol_003',
+    policyName: 'Life Cover Essential',
+    amount: 650,
+    dueDate: '2026-02-01',
+    status: 'scheduled',
+    frequency: 'monthly',
+    paymentMethod: 'Debit Order - Nedbank ****4521',
+  },
+  {
+    id: 'pay_004',
+    policyId: 'pol_004',
+    policyName: 'Annual Travel Insurance',
+    amount: 2400,
+    dueDate: '2026-06-15',
+    status: 'scheduled',
+    frequency: 'annually',
+    paymentMethod: 'Card - Visa ****8832',
+  },
+];
+
+// Mock Payment History
+export const mockPaymentHistory: PaymentHistory[] = [
+  {
+    id: 'hist_001',
+    amount: 3480,
+    date: '2026-01-01',
+    method: 'debit_order',
+    status: 'successful',
+    transactionId: 'TXN-2026-00001',
+    policyName: 'Multiple Policies',
+  },
+  {
+    id: 'hist_002',
+    amount: 3480,
+    date: '2025-12-01',
+    method: 'debit_order',
+    status: 'successful',
+    transactionId: 'TXN-2025-00012',
+    policyName: 'Multiple Policies',
+  },
+  {
+    id: 'hist_003',
+    amount: 3480,
+    date: '2025-11-01',
+    method: 'debit_order',
+    status: 'successful',
+    transactionId: 'TXN-2025-00011',
+    policyName: 'Multiple Policies',
+  },
+  {
+    id: 'hist_004',
+    amount: 3480,
+    date: '2025-10-01',
+    method: 'debit_order',
+    status: 'failed',
+    transactionId: 'TXN-2025-00010',
+    policyName: 'Multiple Policies',
+  },
+  {
+    id: 'hist_005',
+    amount: 3480,
+    date: '2025-10-05',
+    method: 'eft',
+    status: 'successful',
+    transactionId: 'TXN-2025-00010R',
+    policyName: 'Multiple Policies (Retry)',
+  },
+  {
+    id: 'hist_006',
+    amount: 3480,
+    date: '2025-09-01',
+    method: 'debit_order',
+    status: 'successful',
+    transactionId: 'TXN-2025-00009',
+    policyName: 'Multiple Policies',
+  },
+];
+
+// Mock Documents
+export const mockDocuments: Document[] = [
+  {
+    id: 'doc_001',
+    type: 'policy',
+    name: 'Motor Insurance Policy Schedule 2024.pdf',
+    policyId: 'pol_001',
+    uploadedDate: '2024-01-15',
+    fileSize: '245 KB',
+    category: 'policies',
+  },
+  {
+    id: 'doc_002',
+    type: 'certificate',
+    name: 'Certificate of Insurance - Motor.pdf',
+    policyId: 'pol_001',
+    uploadedDate: '2024-01-15',
+    fileSize: '120 KB',
+    category: 'certificates',
+  },
+  {
+    id: 'doc_003',
+    type: 'policy',
+    name: 'Home Contents Policy Schedule 2024.pdf',
+    policyId: 'pol_002',
+    uploadedDate: '2024-02-01',
+    fileSize: '198 KB',
+    category: 'policies',
+  },
+  {
+    id: 'doc_004',
+    type: 'invoice',
+    name: 'Invoice January 2026.pdf',
+    uploadedDate: '2026-01-01',
+    fileSize: '85 KB',
+    category: 'invoices',
+  },
+  {
+    id: 'doc_005',
+    type: 'invoice',
+    name: 'Invoice December 2025.pdf',
+    uploadedDate: '2025-12-01',
+    fileSize: '85 KB',
+    category: 'invoices',
+  },
+  {
+    id: 'doc_006',
+    type: 'claim',
+    name: 'Claim Report CLM-2025-08847.pdf',
+    uploadedDate: '2025-12-28',
+    fileSize: '1.2 MB',
+    category: 'claims',
+  },
+  {
+    id: 'doc_007',
+    type: 'claim',
+    name: 'Claim Settlement CLM-2025-07234.pdf',
+    uploadedDate: '2025-12-08',
+    fileSize: '156 KB',
+    category: 'claims',
+  },
+  {
+    id: 'doc_008',
+    type: 'policy',
+    name: 'Life Cover Policy Schedule 2023.pdf',
+    policyId: 'pol_003',
+    uploadedDate: '2023-06-01',
+    fileSize: '312 KB',
+    category: 'policies',
+  },
+  {
+    id: 'doc_009',
+    type: 'statement',
+    name: 'Annual Statement 2025.pdf',
+    uploadedDate: '2025-12-15',
+    fileSize: '425 KB',
+    category: 'invoices',
+  },
+  {
+    id: 'doc_010',
+    type: 'certificate',
+    name: 'Certificate of Insurance - Home.pdf',
+    policyId: 'pol_002',
+    uploadedDate: '2024-02-01',
+    fileSize: '118 KB',
+    category: 'certificates',
+  },
+];
+
 // Helper functions
 export function getPolicyIcon(type: Policy['type']): string {
   const icons: Record<Policy['type'], string> = {
@@ -567,4 +789,46 @@ export function getTierBadgeColour(tier: User['tier']): string {
     platinum: 'text-violet-700 bg-violet-100 dark:text-violet-300 dark:bg-violet-900/50',
   };
   return colours[tier];
+}
+
+export function getPaymentStatusColour(status: Payment['status']): string {
+  const colours: Record<Payment['status'], string> = {
+    due: 'text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950',
+    scheduled: 'text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950',
+    paid: 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950',
+    overdue: 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-950',
+  };
+  return colours[status];
+}
+
+export function getPaymentHistoryStatusColour(status: PaymentHistory['status']): string {
+  const colours: Record<PaymentHistory['status'], string> = {
+    successful: 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950',
+    failed: 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-950',
+    pending: 'text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950',
+    reversed: 'text-stone-600 bg-stone-100 dark:text-stone-400 dark:bg-stone-800',
+  };
+  return colours[status];
+}
+
+export function getDocumentIcon(type: Document['type']): string {
+  const icons: Record<Document['type'], string> = {
+    policy: 'description',
+    certificate: 'verified',
+    invoice: 'receipt',
+    claim: 'assignment',
+    statement: 'summarize',
+    schedule: 'calendar_today',
+  };
+  return icons[type];
+}
+
+export function getPaymentMethodIcon(method: PaymentHistory['method']): string {
+  const icons: Record<PaymentHistory['method'], string> = {
+    debit_order: 'account_balance',
+    card: 'credit_card',
+    eft: 'send',
+    cash: 'payments',
+  };
+  return icons[method];
 }

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 18 January 2026 (Session 114)
+**Updated:** 18 January 2026 (Session 115)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -8,8 +8,47 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 49 (42 pages + 7 API routes)
+- **Routes:** 52 (45 pages + 7 API routes)
 - **Last Build:** 18 January 2026
+
+---
+
+## SESSION 115 (18 Jan 2026) - Portal Pages & Quick Fixes
+
+### Completed
+| Task | Status |
+|------|--------|
+| Update Trusted Partners image to local asset | ✅ Complete |
+| Add Payment, PaymentHistory, Document types to mock data | ✅ Complete |
+| Create Portal Payments page with stats and history | ✅ Complete |
+| Create Portal Documents page with filters and search | ✅ Complete |
+| Create Portal Settings page with preferences | ✅ Complete |
+
+### Files Created
+| File | Purpose |
+|------|---------|
+| `src/app/portal/payments/page.tsx` | Payment management, upcoming payments, history table |
+| `src/app/portal/documents/page.tsx` | Document library with category filters, grid/list view |
+| `src/app/portal/settings/page.tsx` | User settings, notifications, security, communication prefs |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/TrustedBy.tsx` | Changed image from Unsplash to `/images/work_1.jpg` |
+| `src/data/portalMockData.ts` | Added Payment, PaymentHistory, Document interfaces + mock data + helper functions |
+
+### New Portal Routes
+| Route | Description |
+|-------|-------------|
+| `/portal/payments` | Payment stats, upcoming payments, payment history |
+| `/portal/documents` | Filterable document library with search |
+| `/portal/settings` | Profile, security, notification preferences |
+
+### Technical Notes
+- **Documents page:** Grid/list view toggle, category filters, search functionality
+- **Payments page:** Stats row, upcoming payment cards, responsive history table
+- **Settings page:** Toggle switches for notifications, radio buttons for document delivery
+- **New helper functions:** `getPaymentStatusColour()`, `getPaymentHistoryStatusColour()`, `getDocumentIcon()`, `getPaymentMethodIcon()`
 
 ---
 
@@ -69,15 +108,18 @@
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: shadcn UI Integration (Suggested)
-- Consider integrating shadcn/ui for UI/UX consistency across portal
-- Would provide: Button, Input, Select, Dialog, Toast, etc.
+### Priority 1: shadcn UI Integration
+- Integrate shadcn/ui for UI/UX consistency across portal
+- Components needed: Button, Input, Select, Dialog, Toast, Card, Table
 - Installation: `npx shadcn@latest init`
+- Refactor existing portal components to use shadcn primitives
+- Benefits: Accessibility, consistent theming, reduced custom CSS
 
-### Priority 2: Portal Enhancements
-- Remaining portal pages: Payments, Documents, Settings
-- Mobile responsive testing for portal
-- Claim detail page with full timeline
+### Priority 2: Portal Refinements
+- Mobile responsive testing for all portal pages
+- Claim detail page with full timeline (`/portal/claims/[id]`)
+- Notifications page (`/portal/notifications`)
+- Add interactivity to Settings toggles (currently visual mockup)
 
 ### Priority 3: Job Service Activation (When Ready)
 - Client creates Workable account at https://www.workable.com/
@@ -93,12 +135,12 @@
 
 ## KEY FILE LOCATIONS
 
-### Portal (Session 114)
+### Portal (Sessions 114-115)
 | File | Purpose |
 |------|---------|
 | `src/components/portal/` | All portal UI components |
-| `src/data/portalMockData.ts` | Mock data + helper functions |
-| `src/app/portal/` | Portal pages |
+| `src/data/portalMockData.ts` | Mock data (users, policies, claims, payments, documents) + helpers |
+| `src/app/portal/` | Portal pages (dashboard, policies, claims, payments, documents, settings) |
 | `src/app/login/` | Login page with social auth |
 
 ### Core Configuration
@@ -152,10 +194,10 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 115 | Portal Pages & Quick Fixes | Payments, Documents, Settings pages; TrustedBy image update |
 | 114 | Client Portal Mockup | Dashboard, Policies, Claims pages; Login with social auth |
 | 113 | WhatsApp Integration | Floating click-to-chat button, mobile-safe positioning |
 | 112 | Maps, Email & Roadmap | High-res maps (2x), [Metrosure Online] email prefix, SAST timezone |
-| 111 | Employee Testimonials & UI | Updated 6 staff profiles, FAQ accordion fix, banner icon |
 
 ---
 

@@ -159,14 +159,13 @@ export default function TrustedBy() {
              */}
             <div className="w-full aspect-square relative overflow-hidden rounded-tl-[100%] bg-white/10 shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+                src="/images/work_1.jpg"
                 alt="Business meeting collaboration"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-left"
               />
 
-              {/* Overlay for better integration */}
-              <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-60" />
+              {/* Subtle gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
 
 
