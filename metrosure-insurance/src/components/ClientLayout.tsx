@@ -31,6 +31,8 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
     e.stopPropagation();
     setIsHiringBannerDismissed(true);
     sessionStorage.setItem("hiringBannerDismissed", "true");
+    // Dispatch custom event for WhatsApp button to adjust position
+    window.dispatchEvent(new CustomEvent("hiringBannerDismissed"));
   };
 
   return (

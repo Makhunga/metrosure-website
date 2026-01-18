@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 // WhatsApp configuration
@@ -22,13 +23,31 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export default function WhatsAppButton() {
+  const [hiringBannerDismissed, setHiringBannerDismissed] = useState(false);
+
+  useEffect(() => {
+    // Check initial state
+    const dismissed = sessionStorage.getItem("hiringBannerDismissed") === "true";
+    setHiringBannerDismissed(dismissed);
+
+    // Listen for dismiss event
+    const handleDismiss = () => {
+      setHiringBannerDismissed(true);
+    };
+
+    window.addEventListener("hiringBannerDismissed", handleDismiss);
+    return () => window.removeEventListener("hiringBannerDismissed", handleDismiss);
+  }, []);
+
   return (
     <motion.a
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-20 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 transition-shadow hover:shadow-xl hover:shadow-[#25D366]/40 md:bottom-8 md:right-8 md:h-16 md:w-16"
+      className={`fixed right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 transition-all hover:shadow-xl hover:shadow-[#25D366]/40 md:bottom-8 md:right-8 md:h-16 md:w-16 ${
+        hiringBannerDismissed ? "bottom-6" : "bottom-20"
+      }`}
       initial={{ opacity: 0, scale: 0.5, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{

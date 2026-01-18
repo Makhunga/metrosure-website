@@ -47,15 +47,15 @@ export default function DevelopmentBanner() {
               {/* Message */}
               <p className="text-amber-900 font-medium text-center pr-8 sm:pr-0 flex items-center justify-center flex-wrap">
                 <span className="material-symbols-outlined text-base mr-1 align-middle">warning</span>
-                <span className="font-bold">Website Under Development</span>
+                <span className="font-bold">Website Under Development.{"\u00A0"}</span>
                 <span className="hidden sm:inline">
-                  {" "}- Some features may be unavailable.{" "}
+                  {"Some features may be unavailable. "}
                   <Link href="/contact" className="font-bold bg-amber-600/20 px-2 py-0.5 rounded hover:bg-amber-600/30 transition-colors">
                     Your feedback helps us improve
                   </Link>
                 </span>
                 <span className="sm:hidden">
-                  {" "}-{" "}
+                  {" "}
                   <Link href="/contact" className="font-bold bg-amber-600/20 px-2 py-0.5 rounded hover:bg-amber-600/30 transition-colors">
                     Feedback
                   </Link>

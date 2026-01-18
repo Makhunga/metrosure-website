@@ -331,7 +331,7 @@ export default function Footer() {
           transition={{ delay: 0.8, duration: 0.5 }}
         >
           <p>© {new Date().getFullYear()} Metrosure Insurance Brokers (Pty) Ltd | FSP 47089</p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               <motion.span whileHover={{ y: -2 }}>Privacy Policy</motion.span>
             </Link>
@@ -343,6 +343,26 @@ export default function Footer() {
                 <motion.span whileHover={{ y: -2 }}>🧪</motion.span>
               </Link>
             )}
+            <span className="hidden md:inline text-slate-400 dark:text-gray-600">|</span>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                const user = "makhunga";
+                const domain = "zoocora.co.za";
+                window.location.href = `mailto:${user}@${domain}`;
+              }}
+              className="hidden md:flex items-center cursor-pointer"
+              title="Developed by Zoocora"
+            >
+              <Image
+                src="/images/zoocora-logo.svg"
+                alt="Zoocora"
+                width={80}
+                height={42}
+                className="opacity-50 hover:opacity-100 transition-opacity"
+              />
+            </a>
           </div>
         </motion.div>
       </div>

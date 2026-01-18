@@ -174,7 +174,7 @@ export default function TestimonialsCarousel() {
                         {currentEmployee.name}
                       </p>
                       <p className="text-white/60">
-                        {currentEmployee.role} · {currentEmployee.tenure}
+                        {currentEmployee.role}
                       </p>
                     </div>
                   </div>
