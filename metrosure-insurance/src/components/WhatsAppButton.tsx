@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // WhatsApp configuration
 const WHATSAPP_NUMBER = "27711985248";
@@ -24,6 +24,8 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export default function WhatsAppButton() {
   const [hiringBannerDismissed, setHiringBannerDismissed] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [hasAppearedOnce, setHasAppearedOnce] = useState(false);
 
   useEffect(() => {
     // Check initial state
@@ -39,31 +41,56 @@ export default function WhatsAppButton() {
     return () => window.removeEventListener("hiringBannerDismissed", handleDismiss);
   }, []);
 
+  // Observe footer visibility to hide button when footer is in view
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Hide when footer is 20% visible to give some buffer
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.a
-      href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      className={`fixed right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 transition-all hover:shadow-xl hover:shadow-[#25D366]/40 md:bottom-8 md:right-8 md:h-16 md:w-16 ${
-        hiringBannerDismissed ? "bottom-6" : "bottom-20"
-      }`}
-      initial={{ opacity: 0, scale: 0.5, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 15,
-        delay: 1.5,
-      }}
-      whileHover={{
-        scale: 1.1,
-        y: -4,
-        transition: { type: "spring", stiffness: 400, damping: 17 },
-      }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <WhatsAppIcon className="h-7 w-7 md:h-8 md:w-8" />
-    </motion.a>
+    <AnimatePresence>
+      {!isFooterVisible && (
+        <motion.a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with us on WhatsApp"
+          className={`fixed right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 transition-all hover:shadow-xl hover:shadow-[#25D366]/40 md:bottom-8 md:right-8 md:h-16 md:w-16 ${
+            hiringBannerDismissed ? "bottom-6" : "bottom-20"
+          }`}
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
+          onAnimationComplete={() => setHasAppearedOnce(true)}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 15,
+            // Delay initial appearance to sync with hiring banner (1.5s delay)
+            // No delay when reappearing after scrolling away from footer
+            delay: hasAppearedOnce ? 0 : 1.5,
+          }}
+          whileHover={{
+            scale: 1.1,
+            y: -4,
+            transition: { type: "spring", stiffness: 400, damping: 17 },
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <WhatsAppIcon className="h-7 w-7 md:h-8 md:w-8" />
+        </motion.a>
+      )}
+    </AnimatePresence>
   );
 }

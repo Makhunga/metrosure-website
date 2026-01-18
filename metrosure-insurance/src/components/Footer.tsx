@@ -343,7 +343,7 @@ export default function Footer() {
                 <motion.span whileHover={{ y: -2 }}>🧪</motion.span>
               </Link>
             )}
-            <span className="hidden md:inline text-slate-400 dark:text-gray-600">|</span>
+            <span className="text-slate-400 dark:text-gray-600">|</span>
             <a
               href="#"
               onClick={(e) => {
@@ -352,7 +352,7 @@ export default function Footer() {
                 const domain = "zoocora.co.za";
                 window.location.href = `mailto:${user}@${domain}`;
               }}
-              className="hidden md:flex items-center cursor-pointer"
+              className="flex items-center cursor-pointer"
               title="Developed by Zoocora"
             >
               <Image
@@ -360,7 +360,7 @@ export default function Footer() {
                 alt="Zoocora"
                 width={110}
                 height={25}
-                className="opacity-50 hover:opacity-100 transition-opacity"
+                className="opacity-50 hover:opacity-100 transition-opacity md:w-[110px] w-[90px]"
               />
             </a>
           </div>
