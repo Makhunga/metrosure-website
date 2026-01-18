@@ -149,7 +149,7 @@ const ALERT_COLORS = {
 };
 
 /**
- * Creates a premium labeled field row with subtle zebra striping
+ * Creates a premium labelled field row with subtle zebra striping
  * Table-based for Outlook compatibility
  */
 export function createFieldRow(label: string, value: string, isLink: boolean = false, isHighlighted: boolean = false): string {

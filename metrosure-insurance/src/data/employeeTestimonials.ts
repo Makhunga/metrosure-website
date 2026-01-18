@@ -56,7 +56,7 @@ export const employeeTestimonials: EmployeeTestimonial[] = [
     tenure: "6 years",
     image: "/images/staff/mercutio_2.jpg",
     quote:
-      "Managing a sales team is about so much more than hitting targets — it's about developing people. I take pride in coaching my team members, celebrating their wins, and watching them grow into top performers. When one of my consultants achieves something they thought was impossible, that's what makes this role truly rewarding.",
+      "Managing a sales team is about so much more than hitting targets. It's about developing people. I take pride in coaching my team members, celebrating their wins, and watching them grow into top performers. When one of my consultants achieves something they thought was impossible, that's what makes this role truly rewarding.",
     shortQuote: "When my team achieves the impossible, that's truly rewarding.",
   },
   {
