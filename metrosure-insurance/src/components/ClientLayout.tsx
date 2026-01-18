@@ -8,6 +8,7 @@ import PageTransition from "./PageTransition";
 import CookieConsent from "./CookieConsent";
 import DevelopmentBanner from "./DevelopmentBanner";
 import WhatsAppButton from "./WhatsAppButton";
+import { Toaster } from "@/components/ui/sonner";
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -92,6 +93,9 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
 
       {/* POPIA Cookie Consent Banner */}
       <CookieConsent />
+
+      {/* Sonner Toaster for notifications */}
+      <Toaster />
     </>
   );
 }
