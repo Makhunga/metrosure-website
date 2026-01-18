@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 18 January 2026 (Session 115)
+**Updated:** 18 January 2026 (Session 116)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -10,6 +10,30 @@
 
 - **Routes:** 52 (45 pages + 7 API routes)
 - **Last Build:** 18 January 2026
+
+---
+
+## SESSION 116 (18 Jan 2026) - WhatsApp & Footer Improvements
+
+### Completed
+| Task | Status |
+|------|--------|
+| WhatsApp button auto-hide at footer | ✅ Complete |
+| Zoocora logo visible on mobile | ✅ Complete |
+| Zoocora logo hover glow effect | ✅ Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/WhatsAppButton.tsx` | Added IntersectionObserver to hide button when footer visible; initial delay synced with hiring banner |
+| `src/components/Footer.tsx` | Zoocora logo now visible on mobile (90px); added Framer Motion glow on hover |
+
+### Technical Notes
+- **WhatsApp auto-hide:** Uses IntersectionObserver with 20% threshold to detect footer visibility
+- **Initial delay:** WhatsApp button has 1.5s delay on first appearance to sync with mobile hiring banner
+- **Re-appearance:** Button reappears instantly (no delay) when scrolling away from footer
+- **Zoocora glow:** Uses Framer Motion `whileHover` with `drop-shadow` filter for smooth 300ms animation
+- **Mobile sizing:** Zoocora logo is 90px on mobile, 110px on desktop
 
 ---
 
@@ -194,10 +218,10 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 116 | WhatsApp & Footer Improvements | WhatsApp auto-hide at footer; Zoocora logo on mobile with glow |
 | 115 | Portal Pages & Quick Fixes | Payments, Documents, Settings pages; TrustedBy image update |
 | 114 | Client Portal Mockup | Dashboard, Policies, Claims pages; Login with social auth |
 | 113 | WhatsApp Integration | Floating click-to-chat button, mobile-safe positioning |
-| 112 | Maps, Email & Roadmap | High-res maps (2x), [Metrosure Online] email prefix, SAST timezone |
 
 ---
 
