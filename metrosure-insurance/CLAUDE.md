@@ -341,6 +341,21 @@ Located in API routes, use HTML tables for Outlook compatibility.
 | `/api/quote` | 10/hour |
 | `/api/contact` | 15/hour |
 
+### Email Routing
+
+Configuration: `src/lib/email.ts` (lines 28-34, 100-109)
+
+| Form | Recipient | CC |
+|------|-----------|-----|
+| Contact (B2C) | `info@metrosuregroup.co.za` | — |
+| Contact (B2B) | `clients@metrosureconsult.co.za` | — |
+| Quote (B2C) | `info@metrosuregroup.co.za` | — |
+| Quote (B2B) | `clients@metrosureconsult.co.za` | — |
+| Partner Inquiry | `clients@metrosureconsult.co.za` | — |
+| Corporate Inquiry | `clients@metrosureconsult.co.za` | — |
+| Careers Application | `hr@metrosureconsult.co.za` | `lazola@metrosureconsult.co.za` |
+| Calculator Results | *(user's email only)* | — |
+
 ---
 
 ## Testing Checklist
