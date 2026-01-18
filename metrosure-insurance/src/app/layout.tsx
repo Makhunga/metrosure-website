@@ -186,10 +186,12 @@ export default function RootLayout({
             {children}
           </ClientLayout>
         </ThemeProvider>
+{/* Tawk.to disabled - using WhatsApp for customer contact
         <TawkToChat
           propertyId="6957e95179755a19831386b8"
           widgetId="1jdvmepqi"
         />
+*/}
         <Analytics />
         <SpeedInsights />
       </body>
