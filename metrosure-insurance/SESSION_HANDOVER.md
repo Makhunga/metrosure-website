@@ -1,15 +1,106 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 18 January 2026 (Session 116)
-**Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12
+**Updated:** 18 January 2026 (Session 117)
+**Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
 ---
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 52 (45 pages + 7 API routes)
+- **Routes:** 53 (46 pages + 7 API routes)
 - **Last Build:** 18 January 2026
+
+---
+
+## SESSION 117 (18 Jan 2026) - shadcn/ui Integration
+
+### Completed
+| Task | Status |
+|------|--------|
+| Add CSS variable aliases for shadcn (light mode) | ✅ Complete |
+| Add CSS variable aliases for shadcn (dark mode) | ✅ Complete |
+| Add theme mappings to @theme inline block | ✅ Complete |
+| Install tw-animate-css for animations | ✅ Complete |
+| Initialise shadcn with new-york style | ✅ Complete |
+| Install shadcn components | ✅ Complete |
+| Add Sonner Toaster to ClientLayout | ✅ Complete |
+| Create shadcn playground page | ✅ Complete |
+
+### Files Created
+| File | Purpose |
+|------|---------|
+| `components.json` | shadcn/ui configuration |
+| `src/components/ui/button.tsx` | Button component with variants |
+| `src/components/ui/input.tsx` | Input component |
+| `src/components/ui/select.tsx` | Select dropdown component |
+| `src/components/ui/textarea.tsx` | Textarea component |
+| `src/components/ui/dialog.tsx` | Modal dialog component |
+| `src/components/ui/card.tsx` | Card component with header/footer |
+| `src/components/ui/table.tsx` | Table component |
+| `src/components/ui/sonner.tsx` | Toast notifications (replaces deprecated toast) |
+| `src/app/playground/shadcn/page.tsx` | Component showcase page |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/app/globals.css` | Added shadcn CSS variables (light/dark), theme mappings, tw-animate-css import |
+| `src/components/ClientLayout.tsx` | Added Sonner Toaster for notifications |
+| `src/lib/utils.ts` | Updated with cn() utility and clsx/tailwind-merge |
+| `package.json` | New dependencies: tw-animate-css, sonner, @radix-ui/*, class-variance-authority, clsx, tailwind-merge |
+
+### shadcn Configuration
+| Option | Value |
+|--------|-------|
+| Style | `new-york` |
+| Base colour | `stone` |
+| CSS variables | `yes` |
+| Components path | `src/components/ui` |
+| Utils path | `src/lib/utils` |
+
+### Colour Mapping (Metrosure Theme)
+| shadcn Variable | Metrosure Colour | Light Value | Dark Value |
+|-----------------|------------------|-------------|------------|
+| `--primary` | Red (#BF0603) | `191 6 3` | `191 6 3` |
+| `--secondary` | Maroon (#690025) | `105 0 37` | `105 0 37` |
+| `--accent` | Yellow (#EFF2A0) | `239 242 160` | `239 242 160` |
+| `--ring` | Primary (focus) | `191 6 3` | `191 6 3` |
+| `--destructive` | Red | `220 38 38` | `248 113 113` |
+
+### Technical Notes
+- **Toast replacement:** `toast` component deprecated in shadcn v3.7+; using `sonner` instead
+- **Import pattern:** `import { toast } from "sonner"` for toast notifications
+- **CSS format:** Using space-separated RGB values (e.g., `191 6 3`) with `rgb(var(...))` wrappers in @theme inline
+- **Sidebar variables:** Added for future sidebar component use
+
+### Playground Access
+Visit `/playground/shadcn` to see all components with Metrosure theming:
+- Buttons (all variants and sizes)
+- Toast notifications (success, error, info)
+- Form inputs (input, select, textarea)
+- Cards (with different button variants)
+- Dialog (modal with form)
+- Table (claims summary example)
+- Colour swatches reference
+
+### Stakeholder Email Revision
+| Task | Status |
+|------|--------|
+| Add critical notice box ("NOT a finished product") | ✅ Complete |
+| Add "Information Gap" section (research vs missing data) | ✅ Complete |
+| Add "Why These Items Matter" with business rationale | ✅ Complete |
+| Strengthen "What I Need" as blockers with consequences | ✅ Complete |
+| Revise Version 2 with plain language, remove jargon | ✅ Complete |
+
+**Key Messages Added:**
+- 92% of consumers read reviews before purchasing (BrightLocal 2024)
+- Real testimonials convert 3-4x better than generic statements
+- Placeholder quotes damage credibility
+- Inaccurate calculator estimates create disappointment and lost conversions
+- Competitors with genuine content win comparison shoppers
+
+**Files Modified:**
+- `STAKEHOLDER_EMAIL.md` - Complete revision of both Version 1 (Full) and Version 2 (Executive Summary)
 
 ---
 
@@ -132,11 +223,12 @@
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: shadcn UI Integration
-- Integrate shadcn/ui for UI/UX consistency across portal
-- Components needed: Button, Input, Select, Dialog, Toast, Card, Table
-- Installation: `npx shadcn@latest init`
+### Priority 1: Portal Component Refactoring ⭐
 - Refactor existing portal components to use shadcn primitives
+- Replace custom buttons with `<Button>` variants
+- Replace custom inputs with `<Input>`, `<Select>`, `<Textarea>`
+- Replace custom modals with `<Dialog>`
+- Add toast notifications for user feedback
 - Benefits: Accessibility, consistent theming, reduced custom CSS
 
 ### Priority 2: Portal Refinements
@@ -144,13 +236,19 @@
 - Claim detail page with full timeline (`/portal/claims/[id]`)
 - Notifications page (`/portal/notifications`)
 - Add interactivity to Settings toggles (currently visual mockup)
+- Add real toast feedback to form submissions
 
-### Priority 3: Job Service Activation (When Ready)
+### Priority 3: Additional shadcn Components (As Needed)
+- Install additional components: `npx shadcn@latest add [component]`
+- Consider: Tabs, Accordion, Alert, Badge, Avatar, Dropdown Menu
+- Form components: Checkbox, Radio Group, Switch, Slider
+
+### Priority 4: Job Service Activation (When Ready)
 - Client creates Workable account at https://www.workable.com/
 - Generate API token, set `WORKABLE_API_TOKEN` and `WORKABLE_SUBDOMAIN` in Vercel
 - Alternative: Indeed Publisher API at https://ads.indeed.com/jobroll/
 
-### Priority 4: Production Readiness
+### Priority 5: Production Readiness
 - Cross-browser testing (Chrome, Firefox, Edge)
 - Remove Development Banner before go-live
 - Final testimonial variant decision
@@ -158,6 +256,14 @@
 ---
 
 ## KEY FILE LOCATIONS
+
+### shadcn/ui (Session 117)
+| File | Purpose |
+|------|---------|
+| `components.json` | shadcn/ui configuration |
+| `src/components/ui/` | All shadcn components (button, input, select, etc.) |
+| `src/lib/utils.ts` | cn() utility for class merging |
+| `src/app/playground/shadcn/` | Component showcase page |
 
 ### Portal (Sessions 114-115)
 | File | Purpose |
@@ -218,10 +324,10 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 117 | shadcn/ui Integration | 8 components installed; Metrosure theming; Sonner toasts; playground page |
 | 116 | WhatsApp & Footer Improvements | WhatsApp auto-hide at footer; Zoocora logo on mobile with glow |
 | 115 | Portal Pages & Quick Fixes | Payments, Documents, Settings pages; TrustedBy image update |
 | 114 | Client Portal Mockup | Dashboard, Policies, Claims pages; Login with social auth |
-| 113 | WhatsApp Integration | Floating click-to-chat button, mobile-safe positioning |
 
 ---
 
