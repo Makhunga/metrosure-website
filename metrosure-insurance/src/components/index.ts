@@ -16,4 +16,5 @@ export { default as PartnerLogos } from "./PartnerLogos";
 export { default as Footer } from "./Footer";
 export { default as SectionDivider } from "./SectionDivider";
 export { default as TawkToChat } from "./TawkToChat";
+export { default as WhatsAppButton } from "./WhatsAppButton";
 export { ThemeProvider, useTheme } from "./theme-provider";

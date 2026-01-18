@@ -7,6 +7,7 @@ import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
 import CookieConsent from "./CookieConsent";
 import DevelopmentBanner from "./DevelopmentBanner";
+import WhatsAppButton from "./WhatsAppButton";
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -83,6 +84,9 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* WhatsApp Click-to-Chat Button */}
+      <WhatsAppButton />
 
       {/* POPIA Cookie Consent Banner */}
       <CookieConsent />
