@@ -1,15 +1,17 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 import { Header, Footer } from "@/components";
 import CareersHero from "@/components/careers/CareersHero";
 import CareersHeroFloating from "@/components/careers/CareersHeroFloating";
 import ApplicationModal from "@/components/careers/ApplicationModal";
+import { getJobBySlug } from "@/data/jobs";
 
 // Toggle for testing floating hero variant (set to true to use floating images hero)
 const USE_FLOATING_HERO = false;
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 
 // Code-split below-fold components for better LCP
 const WhyJoinUs = dynamic(() => import("@/components/careers/WhyJoinUs"));
@@ -32,7 +34,8 @@ const stats = [
   { value: "Always", label: "Hiring", icon: "trending_up" },
 ];
 
-export default function CareersPage() {
+function CareersPageContent() {
+  const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
   const statsRef = useRef(null);
@@ -52,6 +55,19 @@ export default function CareersPage() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // Handle URL query parameter for auto-opening modal with position
+  useEffect(() => {
+    const positionParam = searchParams.get("position");
+    if (positionParam) {
+      // Find job by slug and use its title for the modal
+      const job = getJobBySlug(positionParam);
+      if (job) {
+        setSelectedPosition(job.title);
+        setIsModalOpen(true);
+      }
+    }
+  }, [searchParams]);
 
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen transition-colors duration-300 relative">
@@ -316,5 +332,41 @@ export default function CareersPage() {
 
       <Footer />
     </div>
+  );
+}
+
+// Loading skeleton for Suspense fallback
+function CareersLoadingSkeleton() {
+  return (
+    <div className="bg-[rgb(var(--color-surface))] min-h-screen">
+      <Header />
+      <div className="animate-pulse">
+        {/* Hero skeleton */}
+        <div className="h-[60vh] bg-gray-200 dark:bg-gray-800" />
+        {/* Stats bar skeleton */}
+        <div className="py-12 bg-primary">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/10" />
+                  <div className="h-8 bg-white/20 rounded mb-2 mx-auto w-20" />
+                  <div className="h-4 bg-white/10 rounded mx-auto w-16" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default function CareersPage() {
+  return (
+    <Suspense fallback={<CareersLoadingSkeleton />}>
+      <CareersPageContent />
+    </Suspense>
   );
 }
