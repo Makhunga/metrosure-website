@@ -358,8 +358,8 @@ export default function Footer() {
               <Image
                 src="/images/zoocora-logo.svg"
                 alt="Zoocora"
-                width={80}
-                height={42}
+                width={110}
+                height={25}
                 className="opacity-50 hover:opacity-100 transition-opacity"
               />
             </a>
