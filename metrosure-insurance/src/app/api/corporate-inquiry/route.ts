@@ -203,7 +203,7 @@ function generateConfirmationEmail(data: CorporateInquiryData): string {
     ${createParagraph("If you have any urgent questions, please don't hesitate to contact us:")}
 
     ${createFieldRow("Phone:", createLink("tel:+27313011192", "+27 31 301 1192"))}
-    ${createFieldRow("Email:", createLink("mailto:clients@metrosuregroup.co.za", "clients@metrosuregroup.co.za"))}
+    ${createFieldRow("Email:", createLink("mailto:clients@metrosureconsult.co.za", "clients@metrosureconsult.co.za"))}
 
     ${createParagraph("We look forward to helping you build a benefits package that your employees will value!")}
 

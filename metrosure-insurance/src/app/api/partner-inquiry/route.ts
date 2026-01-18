@@ -205,7 +205,7 @@ function generateConfirmationEmail(data: PartnerInquiryData): string {
     ${createParagraph("If you have any urgent questions, feel free to contact us:")}
 
     ${createFieldRow("Phone:", createLink("tel:+27313011192", "+27 31 301 1192"))}
-    ${createFieldRow("Email:", createLink("mailto:clients@metrosuregroup.co.za", "clients@metrosuregroup.co.za"))}
+    ${createFieldRow("Email:", createLink("mailto:clients@metrosureconsult.co.za", "clients@metrosureconsult.co.za"))}
 
     ${createParagraph("We look forward to helping you transform your retail space into a revenue engine!")}
 
