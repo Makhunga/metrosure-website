@@ -1,7 +1,7 @@
 # Metrosure Website Revamp - Stakeholder Communication
 
 **Purpose:** Email templates for introducing the new website to stakeholders
-**Date:** January 12, 2026 (Session 97)
+**Date:** January 18, 2026 (Session 117)
 **Versions:** 3 (Full, Executive Summary, Meeting Request)
 
 ---
@@ -16,7 +16,27 @@
 
 Dear [Stakeholder Name],
 
-Your new website has evolved significantly since we last spoke. This is no longer just a digital brochure - it's a fully functional lead-generation and operations platform. Here's what's been built and what it means for your business.
+---
+
+> ⚠️ **IMPORTANT: PLEASE READ BEFORE REVIEWING**
+>
+> **This is NOT a finished product.** What you're seeing is:
+> - A functional framework built on **research and industry knowledge**
+> - Mock data where **your actual business information** should be
+> - Estimated figures where **your real rates** should appear
+> - Placeholder testimonials where **your client feedback** should go
+>
+> I cannot complete this website without your direct input. Every week of delay is a week your competitors gain ground online.
+
+---
+
+**A Note Before You Review:** Please read this email completely before providing critique. Understanding what has been built (and why) will make your feedback more actionable and save us both time.
+
+---
+
+Your new website has evolved significantly since we last spoke. This is no longer just a digital brochure - it's a fully functional lead-generation and operations platform. The framework is in place; **what's missing is your business data to make it real.**
+
+Here's what's been built and what it means for your business.
 
 ### What This Platform Does For You
 
@@ -33,13 +53,17 @@ Your new website has evolved significantly since we last spoke. This is no longe
 | **Claims Guide** | Complete claims process documentation: claim types, required documents, step-by-step process, emergency contacts. Reduces support calls by answering common questions upfront. |
 | **Policy Dashboard Preview** | Shows clients what policy management will look like once logged in. Builds anticipation for future portal features while capturing login interest. |
 | **Analytics Dashboard** | Vercel Analytics tracks visitor behaviour, form submissions, and conversion events. 5 custom events track quote, contact, partner, corporate, and career form completions. Speed Insights monitors real-user performance metrics. |
+| **Client Portal Mockup** | Complete portal preview with Dashboard, Policies, Claims, Payments, Documents, and Settings pages. Shows clients what policy management will look like. South African context with realistic mock data. |
+| **shadcn/ui Component Library** | Enterprise-grade UI components (Button, Input, Select, Dialog, Card, Table, Toast) themed with Metrosure brand colours. Accessibility-first, consistent styling, reduced development time for future features. |
 | **Insurance Comparison Tool** | Side-by-side Life vs Funeral cover comparison with 4 customer scenarios (breadwinner, single, retired, young professional). Includes ASISA 2025 statistics and common misconceptions section. `/insurance/compare` |
 | **Centralised FAQ System** | 55+ researched questions across 11 categories including B2B. Category filtering, search functionality, and helper functions for future integrations. Based on ASISA, MiWayLife, and 1Life research. |
 
 ### Platform Statistics
 
-- **38 Routes** (31 pages + 7 functional API endpoints)
+- **53 Routes** (46 pages + 7 functional API endpoints)
 - **7 Working Forms** (Quote, Contact, Careers, Partner Inquiry, Corporate Inquiry, Calculator Email, Test Email)
+- **Client Portal** - Dashboard, Policies, Claims, Payments, Documents, Settings pages (mockup with realistic SA data)
+- **shadcn/ui Components** - 8 enterprise-grade UI components themed with Metrosure brand colours
 - **Live Chat (Tawk.to)** with business hours, offline form capture, and 3-second lazy-load for faster page loads
 - **Coverage Calculator** with WhatsApp sharing (clients share results instantly) and email capture
 - **Analytics Active** with 5 custom conversion events tracked
@@ -52,6 +76,7 @@ Your new website has evolved significantly since we last spoke. This is no longe
 - **British English** audit complete - all copy verified (Session 93)
 - **Security Hardened** - CV filename sanitisation, stricter email validation
 - **Email Routing** - [Website Form] prefix on all internal emails for immediate identification
+- **WhatsApp Integration** - Floating click-to-chat button, auto-hides at footer
 
 ---
 
@@ -110,29 +135,95 @@ The calculator at `/tools/coverage-calculator` helps clients understand their in
 
 ---
 
-### Important: Content Status
+### Client Portal Preview
 
-**Significant progress has been made on content accuracy:**
+A complete client portal mockup is now live at `/portal`. This shows clients what policy management will look like:
 
-**Verified/Completed:**
-- Founding year corrected to 2013 throughout
-- Years experience updated to 13+ (S92)
+**Portal Pages:**
+| Page | Features |
+|------|----------|
+| **Dashboard** | Policy overview, quick actions, recent claims, notifications |
+| **Policies** | Filterable policy list with status, premium, and renewal dates |
+| **Claims** | Claims tracking with visual timeline and progress indicators |
+| **Payments** | Payment history, upcoming payments, payment methods |
+| **Documents** | Document library with category filters and search |
+| **Settings** | Profile, security, notification preferences |
+
+**Technical Details:**
+- South African context throughout (Rand currency, realistic SA addresses)
+- Mock data for demonstration (real data integration when backend ready)
+- Responsive design tested on mobile, tablet, and desktop
+- Consistent with Metrosure brand colours and styling
+
+**Note:** This is a visual mockup demonstrating the user experience. Backend integration (authentication, real policy data) is a separate phase when you're ready to proceed.
+
+---
+
+### The Information Gap
+
+**This is the core issue:** I've built a complete platform, but I'm working from research - not your actual business data.
+
+| What's Built | Source | What's Missing |
+|-------------|--------|----------------|
+| Premium calculators | Industry research (ASISA 2025 data) | **Your actual rate cards** |
+| Product descriptions | Standard industry terminology | **Your specific service offerings** |
+| Client testimonials | Illustrative examples | **Real client feedback (with consent)** |
+| B2B case studies | Representative scenarios | **Confirmed partner names and metrics** |
+| Claims process guide | Generic best practice | **Your actual workflow and contacts** |
+| Policy coverage details | Industry standards | **Your underwriter specifications** |
+
+**This gap can only be closed by you.** I've built the structure; you need to fill it with your business reality.
+
+---
+
+### Content Status: What's Verified vs What's Waiting
+
+**✅ Verified and Complete:**
+- Founding year (2013) consistent throughout
+- Years experience updated to 13+
 - B2B metrics aligned with 2025 Business Proposal (75% sales increase, 95% QA, 7 provinces)
-- FSP 47089 and legal compliance information accurate
+- FSP 47089 and legal compliance accurate
 - Office locations and contact details current
 - Email routing configured correctly (B2B → clients@metrosureconsult.co.za)
-- British English audit complete - 6 instances fixed (S93)
-- Placeholder policy numbers replaced with realistic values (S92)
-- Gallery images updated with 7 real team photos (S94)
-- Gallery system consolidated to 2 final styles (Instagram + Floating)
+- British English audit complete (6 instances fixed)
+- Gallery images updated with 7 real team photos
+- All 7 forms tested and working
 
-**Still Requiring Your Input:**
-- Testimonials remain illustrative (need real client feedback with consent)
-- Premium calculation rates are estimates (need actual insurer rate cards)
-- Some product descriptions are industry-standard (may need your specific terms)
-- Case study partner names are representative (confirm or replace)
+**⏳ Waiting on You:**
+- **Testimonials** - Currently illustrative placeholders. Need real client feedback with consent.
+- **Premium rates** - Calculator shows industry estimates. Need your actual insurer rate cards.
+- **Case studies** - Partner names (TFG/Jet, TechZone, HomeStyle) are representative. Confirm or replace.
+- **Product terms** - Some descriptions use industry-standard language. Review for your specific terms.
 
-**The platform is functionally complete and production-ready. Content refinement is the remaining work.**
+**The platform is functionally complete. Your business data is what transforms it from a framework into your website.**
+
+---
+
+### Why These Items Matter
+
+**Real Testimonials:**
+- 92% of consumers read reviews before making a purchase decision (BrightLocal 2024)
+- Insurance is a trust-based purchase — people want proof others have had good experiences
+- Placeholder quotes are obvious to visitors and damage credibility
+- Real testimonials with names, photos, and specific outcomes convert 3-4x better than generic statements
+- Your competitors who have genuine reviews will win the client who's comparing options
+
+**Accurate Premium Rates:**
+- The calculator is a lead-generation tool — clients who see accurate pricing are more likely to proceed
+- Inaccurate estimates create disappointment when real quotes differ significantly
+- Clients who feel misled don't become clients — they become negative word-of-mouth
+- Accurate calculators position you as transparent and trustworthy
+
+**Confirmed Case Studies:**
+- B2B buyers conduct extensive research before contacting vendors
+- Named partners with verifiable results build immediate credibility
+- Unconfirmed details risk reputational damage if partners dispute claims
+- Case studies are often the deciding factor for enterprise clients choosing between vendors
+
+**Your Specific Service Terms:**
+- Generic descriptions make you indistinguishable from competitors
+- Clients searching for specific coverage types need to see you offer exactly what they need
+- Industry jargon without your unique value proposition fails to differentiate
 
 ---
 
@@ -230,18 +321,36 @@ Most insurance brokers still rely on outdated websites or have no digital presen
 
 ---
 
-### What I Need From You
+### What I Need From You — Blockers to Progress
 
-**Immediate (This Week):**
-1. Explore the preview - test chat, calculator, and forms
-2. Note any content inaccuracies
-3. Confirm B2B case study details or provide alternatives
+**These items are blocking completion.** I've done what I can with research and industry knowledge. The following require your direct input:
 
-**Soon (Within 2 Weeks):**
-4. Schedule funeral policy walkthrough (1-2 hours)
-5. Provide real testimonials (with consent)
-6. Validate premium calculation assumptions
-7. Discuss website separation strategy (review prepared document)
+| Blocker | Impact if Unresolved | Your Action Needed |
+|---------|---------------------|-------------------|
+| **No rate cards provided** | Calculator shows estimates that may mislead clients. Disappointed visitors don't convert — they leave. | Share your premium tables from underwriters |
+| **No real testimonials** | 92% of consumers read reviews before buying. Placeholder quotes are obvious and damage credibility. Competitors with real reviews win the comparison. | Provide 3-5 genuine client reviews (with consent) |
+| **Case studies unconfirmed** | B2B buyers research extensively. Unverified claims risk reputational damage if partners dispute. | Confirm TFG/Jet, TechZone, HomeStyle details or provide alternatives |
+| **Service details unclear** | Generic descriptions make you indistinguishable from competitors. Clients can't see why to choose you. | Review product pages and correct terminology |
+
+**The longer these remain unresolved:**
+- Your competitors continue capturing leads online
+- The platform sits incomplete, generating no return on investment
+- Launch timeline extends, delaying business benefits
+
+---
+
+**Immediate Actions (This Week):**
+1. **Explore the preview** - Test chat, calculator, and forms (30 min)
+2. **Note content issues** - Flag anything inaccurate or missing
+3. **Confirm case studies** - Are TFG/Jet, TechZone, HomeStyle accurate?
+
+**Required Within 2 Weeks:**
+4. **Provide rate cards** - Even draft pricing lets me build accurate calculators
+5. **Submit testimonials** - 3-5 real client quotes with permission
+6. **Schedule funeral policy session** - 1-2 hours to map your process
+
+**Strategic Discussion:**
+7. **Website separation strategy** - Review the prepared document (30 min call)
 
 ---
 
@@ -292,40 +401,67 @@ Warm regards,
 
 Dear [Stakeholder Name],
 
-Your new website has evolved into a full lead-generation platform. Here's the update:
+---
 
-### What's New Since Last Review
+> ⚠️ **IMPORTANT: This is NOT the finished website.**
+>
+> What you're seeing is built from my research — not your actual business data.
+> I need your input to make it real. Please read this entire email (3 minutes) before responding.
 
-| Feature | Status |
-|---------|--------|
-| **Live Chat** | Tawk.to (Mon-Fri 08:00-17:00) with offline message capture + 3s lazy-load for performance |
-| **Coverage Calculator** | Life & Funeral calculators with **WhatsApp sharing** - clients share results instantly with family or your sales team |
-| **Analytics Dashboard** | Vercel Analytics with 5 custom conversion events |
-| **Insurance Comparison** | Life vs Funeral cover comparison page with scenarios |
-| **FAQ System** | 55+ questions across 11 categories with search |
-| **Corporate Solutions** | Dedicated B2B page for employee benefits |
-| **B2B Case Studies** | 3 partner success stories with real metrics |
-| **Premium Emails** | Outlook-compatible templates from noreply@metrosure.app with [Website Form] prefix |
-| **British English** | Complete audit - 6 spelling fixes applied (S93) |
-| **Gallery System** | Consolidated to 2 final styles (Instagram + Floating) with 7 real team photos |
-| **Security** | CV filename sanitisation, stricter email validation |
-| **Performance** | Code-split pages (Careers, About, Contact), Tawk.to lazy-loaded |
+---
 
-### Platform Stats
+Your new website has evolved into a full lead-generation platform. The framework is complete; **your business data is what's missing.**
 
-**38 routes built. 7 forms functional. Live chat active. Analytics tracking. SEO-ready. Build passing.**
+### What This Platform Does For You
 
-- Analytics active with 5 custom conversion events
-- Performance optimised - Tawk.to 3s delay, code-split pages
-- Premium email templates tested across all clients
-- B2B routing to clients@metrosureconsult.co.za
-- British English audit complete (S93)
-- Security hardened (CV sanitisation, email validation)
+| Capability | Business Benefit |
+|------------|-----------------|
+| **Live Chat** | Visitors can chat with your team Mon-Fri 08:00-17:00. After-hours messages captured automatically. |
+| **Coverage Calculator** | Clients calculate their insurance needs. One tap shares results via WhatsApp to family or your sales team. |
+| **Quote Forms** | Separate flows for individuals and businesses. Submissions routed to your team instantly. |
+| **Client Portal Preview** | Shows clients what policy management will look like. 6 pages: Dashboard, Policies, Claims, Payments, Documents, Settings. |
+| **Corporate Solutions Page** | Dedicated B2B page for employee benefits enquiries. |
+| **B2B Case Studies** | 3 partner success stories demonstrating your retail track record. |
+| **Career Applications** | Professional job application portal with CV uploads. |
+| **FAQ System** | 55+ questions across 11 categories to reduce support calls. |
+| **Analytics** | Track which pages attract visitors and where they convert. |
+
+### Platform Summary
+
+**Complete website with 46 pages. 7 working forms. Live chat. Coverage calculator. Client portal preview. Analytics tracking. All emails working.**
+
+- Every form tested and delivering to your team
+- Business enquiries route to clients@metrosureconsult.co.za
+- Professional email notifications with your branding
+- Mobile-friendly across all devices
+- FSP 47089 compliance throughout
+- WhatsApp click-to-chat for instant contact
+
+---
+
+### What's Blocking Progress
+
+| Blocker | Impact | Your Action Needed |
+|---------|--------|-------------------|
+| **No rate cards provided** | Calculator shows estimates, not real prices | Share your premium tables |
+| **No testimonials** | Using placeholder quotes that reduce trust | Provide 3-5 real client reviews |
+| **Case studies unconfirmed** | Named partners may be inaccurate | Confirm or replace TFG/Jet, TechZone, HomeStyle |
+| **Service details unclear** | Generic descriptions don't differentiate you | Review and correct product pages |
+
+**Why this matters:**
+- **92% of consumers read reviews** before purchasing — placeholder testimonials are obvious and damage trust
+- **B2B buyers research extensively** — unverified case studies risk your reputation if partners dispute claims
+- **Inaccurate calculator estimates** create disappointment and lost conversions when real quotes differ
+- Your competitors with genuine reviews and accurate pricing will win clients comparing options
+
+**These items require your direct input. I've built everything I can from research.**
+
+---
 
 ### Content Status
 
-**Verified:** Founding year (2013), B2B metrics, FSP compliance, contact details, British English, gallery images
-**Needs Your Input:** Testimonials, premium rates, case study confirmation
+**✅ Verified:** Company founding (2013), B2B metrics, FSP compliance, contact details, British English, team photos
+**⏳ Waiting on you:** Testimonials, premium rates, case study confirmation, service-specific terms
 
 ### Coming Next: Website Separation
 
@@ -338,14 +474,24 @@ As we scale, I recommend separating into three focused sites:
 
 **A full strategy document is prepared** for discussion.
 
-### What I Need
+### Urgent: Your Actions Needed
 
-1. **Explore the preview** (20 min) - [Insert URL]
-2. **Test the chat and calculator** (try WhatsApp sharing)
-3. **Schedule funeral policy walkthrough** (1-2 hours)
-4. **Review website separation strategy** (30 min discussion)
+**This Week:**
+1. **Explore the preview** (30 min) — Test chat, calculator, forms. [Insert URL]
+2. **Flag any inaccuracies** — Reply with corrections
 
-This is functionally complete. Content refinement and your approval are the remaining steps.
+**Within 2 Weeks:**
+3. **Provide rate cards** — So the calculator shows real prices
+4. **Submit testimonials** — 3-5 genuine client quotes (with consent)
+5. **Confirm case studies** — Are TFG/Jet, TechZone, HomeStyle accurate?
+
+**Schedule:**
+6. **Funeral policy session** (1-2 hours) — Map your process for digitisation
+7. **Website separation discussion** (30 min) — Review strategy document
+
+---
+
+**The platform is ready. Your data is what's missing.** Every week of delay is a week your competitors gain ground online.
 
 [Your Name]
 
@@ -437,13 +583,17 @@ Before launch, ensure stakeholders have verified:
 - [x] Performance optimised (Tawk.to lazy-load, code-splitting - S95)
 - [x] Email deliverability tested (all 7 forms working - S96)
 - [x] Security improvements (CV sanitisation, email validation - S96)
+- [x] Client Portal mockup with 6 pages (S114-115)
+- [x] WhatsApp click-to-chat integration (S113, S116)
+- [x] shadcn/ui component library installed (S117)
 - [ ] Testimonials are real (with consent) or replaced
 - [ ] Premium calculation rates validated against insurer data
 - [ ] Case study partner details confirmed or updated
 - [ ] Any product-specific terms reviewed
 - [ ] Website separation strategy reviewed and approved
+- [ ] Client portal backend requirements defined (when ready)
 
 ---
 
 *Created: December 26, 2025*
-*Updated: January 12, 2026 (Session 97) - Added Sessions 87-97 progress: British English audit complete, gallery consolidation (2 final styles), performance optimisation (Tawk.to 3s delay, code-splitting), forms & email deliverability audit, security hardening (CV sanitisation, email validation), email domain updated to noreply@metrosure.app with [Website Form] prefix. 38 routes total.*
+*Updated: January 18, 2026 (Session 117) - Added Sessions 114-117 progress: Client Portal mockup (Dashboard, Policies, Claims, Payments, Documents, Settings), shadcn/ui component library (8 components themed with Metrosure colours), WhatsApp click-to-chat integration with auto-hide at footer, Zoocora logo improvements. 53 routes total.*
