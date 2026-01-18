@@ -360,7 +360,7 @@ export default function Footer() {
                 alt="Zoocora"
                 width={110}
                 height={25}
-                className="opacity-50 hover:opacity-100 transition-opacity md:w-[110px] w-[90px]"
+                className="opacity-50 hover:opacity-100 md:w-[110px] w-[90px] drop-shadow-[0_0_0px_rgba(130,178,154,0)] hover:drop-shadow-[0_0_8px_rgba(130,178,154,0.6)] transition-[opacity,filter] duration-300 ease-out"
               />
             </a>
           </div>
