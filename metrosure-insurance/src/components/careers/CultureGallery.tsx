@@ -6,34 +6,34 @@ import Image from "next/image";
 
 const cultureImages = [
     {
-        src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-        alt: "Team collaboration in open office",
-        caption: "Collaborative Spirits",
+        src: "/images/careers/team-uniforms.jpg",
+        alt: "Metrosure team members in branded uniforms",
+        caption: "Team Spirit",
     },
     {
-        src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80",
-        alt: "Company meeting presentation",
-        caption: "Sharing Ideas",
+        src: "/images/careers/DSC05294.webp",
+        alt: "Metrosure team at a training conference",
+        caption: "Learning Together",
     },
     {
-        src: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80",
-        alt: "Group of friends laughing",
+        src: "/images/careers/consultant-helping-customer.jpg",
+        alt: "Metrosure consultant helping a customer",
         caption: "Building Connections",
     },
     {
-        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80",
-        alt: "Handshake close up",
-        caption: "Trusted Partnerships",
+        src: "/images/careers/DSC05524.webp",
+        alt: "Metrosure facilitator presenting to team",
+        caption: "Sharing Knowledge",
     },
     {
-        src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80",
-        alt: "Office team working together",
-        caption: "Focus on Growth",
+        src: "/images/careers/winners.jpg",
+        alt: "Metrosure employee receiving 10 year service award",
+        caption: "Celebrating Milestones",
     },
     {
-        src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-        alt: "Diverse team high fiving",
-        caption: "Celebrating Wins",
+        src: "/images/careers/team-2024-frame.jpg",
+        alt: "Metrosure team member with company photo frame",
+        caption: "Taking You To The Future",
     },
 ];
 
