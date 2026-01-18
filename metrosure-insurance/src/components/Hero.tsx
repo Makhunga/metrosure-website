@@ -110,7 +110,7 @@ export default function Hero() {
           <div className="flex flex-col gap-8 text-center xl:text-left items-center xl:items-start xl:flex-1 max-w-2xl xl:max-w-none">
             {/* Headline */}
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold leading-[0.95] tracking-tight text-[rgb(var(--color-text-main))]"
+              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold leading-tight tracking-tight text-[rgb(var(--color-text-main))]"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
