@@ -336,29 +336,32 @@ function CareersPageContent() {
 }
 
 // Loading skeleton for Suspense fallback
+// Note: We intentionally don't render Header/Footer here to avoid the WhatsAppButton's
+// IntersectionObserver attaching to a footer that will be replaced when Suspense resolves.
+// The skeleton only shows briefly during client hydration with useSearchParams.
 function CareersLoadingSkeleton() {
   return (
-    <div className="bg-[rgb(var(--color-surface))] min-h-screen">
-      <Header />
-      <div className="animate-pulse">
-        {/* Hero skeleton */}
-        <div className="h-[60vh] bg-gray-200 dark:bg-gray-800" />
-        {/* Stats bar skeleton */}
-        <div className="py-12 bg-primary">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/10" />
-                  <div className="h-8 bg-white/20 rounded mb-2 mx-auto w-20" />
-                  <div className="h-4 bg-white/10 rounded mx-auto w-16" />
-                </div>
-              ))}
-            </div>
+    <div className="bg-[rgb(var(--color-surface))] min-h-screen animate-pulse">
+      {/* Header skeleton */}
+      <div className="h-16 bg-gray-200 dark:bg-gray-800" />
+      {/* Hero skeleton */}
+      <div className="h-[60vh] bg-gray-100 dark:bg-gray-900" />
+      {/* Stats bar skeleton */}
+      <div className="py-12 bg-primary">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="text-center">
+                <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/10" />
+                <div className="h-8 bg-white/20 rounded mb-2 mx-auto w-20" />
+                <div className="h-4 bg-white/10 rounded mx-auto w-16" />
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <Footer />
+      {/* Content skeleton */}
+      <div className="h-96 bg-gray-50 dark:bg-gray-900" />
     </div>
   );
 }
