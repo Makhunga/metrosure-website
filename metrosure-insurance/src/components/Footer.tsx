@@ -189,7 +189,7 @@ export default function Footer() {
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Brand Column - Logo only */}
-          <motion.div className="col-span-1 sm:col-span-2 lg:col-span-2" variants={itemVariants}>
+          <motion.div className="col-span-1 sm:col-span-2 md:col-span-1 lg:col-span-2" variants={itemVariants}>
             <ParallaxWrapper speed={0.15} prefersReducedMotion={prefersReducedMotion}>
               <Link href="/" className="flex items-center group">
                 <motion.div
