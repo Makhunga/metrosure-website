@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 18 January 2026 (Session 112)
+**Updated:** 18 January 2026 (Session 113)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -10,6 +10,30 @@
 
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 18 January 2026
+
+---
+
+## SESSION 113 (18 Jan 2026) - WhatsApp Integration
+
+### Completed
+| Task | Status |
+|------|--------|
+| Create WhatsAppButton component | ✅ Complete |
+| Add to ClientLayout for site-wide visibility | ✅ Complete |
+| Position above mobile hiring banner | ✅ Complete |
+| Export from components index | ✅ Complete |
+
+### Files Created/Modified
+- `src/components/WhatsAppButton.tsx` - New floating click-to-chat button
+- `src/components/ClientLayout.tsx` - Added WhatsAppButton import and usage
+- `src/components/index.ts` - Added WhatsAppButton export
+
+### Technical Notes
+- **WhatsApp Number:** +27 71 198 5248
+- **Pre-filled message:** "Hi Metrosure, I'd like to enquire about your insurance products."
+- **Positioning:** Mobile `bottom-20` (clears hiring banner), Desktop `bottom-8`
+- **Animation:** Spring entrance (1.5s delay), hover scale 1.1 + lift
+- **Z-index:** 40 (below modals, above content)
 
 ---
 
@@ -185,10 +209,10 @@ Detailed style guides, coding conventions, and historical lessons are in `CLAUDE
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 113 | WhatsApp Integration | Floating click-to-chat button, mobile-safe positioning |
 | 112 | Maps, Email & Roadmap | High-res maps (2x), [Metrosure Online] email prefix, SAST timezone |
 | 111 | Employee Testimonials & UI | Updated 6 staff profiles, FAQ accordion fix, banner icon |
 | 110 | Job Service Integration | Workable + Indeed API clients ready, email routing updated |
-| 109 | Git Learning | Cherry-pick vs checkout, HomerunHero dark mode |
 
 ---
 
