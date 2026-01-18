@@ -344,7 +344,7 @@ export default function Footer() {
               </Link>
             )}
             <span className="text-slate-400 dark:text-gray-600">|</span>
-            <a
+            <motion.a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
@@ -354,15 +354,21 @@ export default function Footer() {
               }}
               className="flex items-center cursor-pointer"
               title="Developed by Zoocora"
+              initial={{ filter: "drop-shadow(0 0 0px rgba(130,178,154,0))" }}
+              whileHover={{
+                filter: "drop-shadow(0 0 8px rgba(130,178,154,0.6))",
+                opacity: 1
+              }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <Image
                 src="/images/zoocora-logo.svg"
                 alt="Zoocora"
                 width={110}
                 height={25}
-                className="opacity-50 hover:opacity-100 md:w-[110px] w-[90px] drop-shadow-[0_0_0px_rgba(130,178,154,0)] hover:drop-shadow-[0_0_8px_rgba(130,178,154,0.6)] transition-[opacity,filter] duration-300 ease-out"
+                className="opacity-50 hover:opacity-100 md:w-[110px] w-[90px] transition-opacity duration-300"
               />
-            </a>
+            </motion.a>
           </div>
         </motion.div>
       </div>
