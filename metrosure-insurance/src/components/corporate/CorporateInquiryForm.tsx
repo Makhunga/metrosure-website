@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback, Fragment } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { track } from "@vercel/analytics";
 import {
   FormSuccess,
@@ -88,8 +88,6 @@ const steps = [
 ];
 
 export default function CorporateInquiryForm() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -269,544 +267,460 @@ export default function CorporateInquiryForm() {
 
   return (
     <section
-      ref={ref}
       id="corporate-inquiry"
       className="relative py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 transition-colors duration-300 overflow-hidden"
     >
-      {/* Decorative watermark */}
-      <motion.div
-        className="absolute left-1/2 -translate-x-1/2 top-4 md:top-8 text-[7rem] md:text-[10rem] lg:text-[12rem] font-black text-slate-200/50 dark:text-white/[0.03] select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
-        initial={{ opacity: 0, y: -20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.8, delay: 0.1 }}
-      >
-        Corporate
-      </motion.div>
+
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-            Request a Consultation
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Get Your Benefits Package
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-300">
-            Complete the form below and we&apos;ll contact you within{" "}
-            <strong className="text-slate-900 dark:text-white">
-              24 hours
-            </strong>
-          </p>
-        </motion.div>
-
-        {/* Step Progress Indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex items-center justify-center gap-4 mb-12"
-        >
-          {steps.map((step, i) => (
-            <Fragment key={step.id}>
-              <div className="flex flex-col items-center gap-2">
-                <motion.div
-                  className="relative"
-                  animate={i === currentStep ? { scale: [1, 1.05, 1] } : {}}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Pulse ring on active step */}
-                  {i === currentStep && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full border-2 border-primary"
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={{ scale: 1.4, opacity: 0 }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeOut",
-                      }}
-                    />
-                  )}
-                  <motion.div
-                    className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${i < currentStep
-                        ? "bg-emerald-500 text-white shadow-xl shadow-emerald-500/30"
-                        : i === currentStep
-                          ? "bg-primary text-white shadow-xl shadow-primary/40"
-                          : "bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-slate-200 dark:border-slate-600"
-                      }`}
-                  >
-                    <AnimatePresence mode="wait">
-                      {i < currentStep ? (
-                        <motion.span
-                          key="check"
-                          initial={{ scale: 0, rotate: -180 }}
-                          animate={{ scale: 1, rotate: 0 }}
-                          exit={{ scale: 0 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 30,
-                          }}
-                          className="material-symbols-outlined text-2xl"
-                        >
-                          check
-                        </motion.span>
-                      ) : (
-                        <motion.span
-                          key="icon"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="material-symbols-outlined text-2xl"
-                        >
-                          {step.icon}
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                </motion.div>
-                <span
-                  className={`text-xs font-medium transition-colors ${i <= currentStep
-                      ? "text-slate-900 dark:text-white"
-                      : "text-slate-400"
-                    }`}
-                >
-                  {step.title}
-                </span>
-              </div>
-
-              {/* Connecting line */}
-              {i < steps.length - 1 && (
-                <div className="w-16 sm:w-24 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden -mt-8">
-                  <motion.div
-                    className="h-full bg-emerald-500"
-                    initial={{ width: 0 }}
-                    animate={{ width: i < currentStep ? "100%" : "0%" }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                  />
-                </div>
-              )}
-            </Fragment>
-          ))}
-        </motion.div>
-
         {/* Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700"
+          className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700 overflow-hidden"
         >
-          <AnimatePresence mode="wait">
-            {isSubmitted ? (
-              <FormSuccess
-                title="Inquiry Submitted!"
-                description="Thank you for your interest in corporate employee benefits. Our team will review your requirements and contact you within 24 hours with a tailored proposal."
-                buttonText="Submit Another Inquiry"
-                onReset={resetForm}
-                accentColor="green"
-              />
-            ) : (
-              <motion.form
-                key="form"
-                onSubmit={handleSubmit}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                {/* Honeypot field - hidden from users, filled by bots */}
-                <input
-                  type="text"
-                  name={HONEYPOT_FIELD_NAME}
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                  autoComplete="off"
-                  tabIndex={-1}
-                  aria-hidden="true"
-                  className={honeypotClassName}
+          {/* Progress Bar & Header (Only show if not submitted) */}
+          {!isSubmitted && (
+            <>
+              {/* Progress Bar */}
+              <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-700">
+                <motion.div
+                  className="h-full bg-primary"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 />
+              </div>
 
-                {/* Error Message */}
-                {error && (
-                  <motion.div
-                    className="p-4 rounded-xl bg-red-50 dark:bg-red-900/15 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 mb-8"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-lg">
-                        error
-                      </span>
-                      <span>{error}</span>
-                    </div>
-                  </motion.div>
-                )}
+              {/* Internal Header */}
+              <div className="px-6 md:px-10 pt-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                    Get Your Benefits Package
+                  </h2>
+                  <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
+                    Step {currentStep + 1} of {steps.length}
+                  </span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
+                  {steps[currentStep].title === "Company" && "We'll get back to you in 24 hours."}
+                  {steps[currentStep].title === "Contact" && "How can we reach you?"}
+                  {steps[currentStep].title === "Services" && "What benefits interest you?"}
+                </p>
+              </div>
+            </>
+          )}
 
-                <AnimatePresence mode="wait">
-                  {/* Step 1: Company Information */}
-                  {currentStep === 0 && (
+          <div className="p-6 md:p-10 pt-6">
+            <AnimatePresence mode="wait">
+              {isSubmitted ? (
+                <FormSuccess
+                  title="Inquiry Submitted!"
+                  description="Thank you for your interest in corporate employee benefits. Our team will review your requirements and contact you within 24 hours with a tailored proposal."
+                  buttonText="Submit Another Inquiry"
+                  onReset={resetForm}
+                  accentColor="green"
+                />
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {/* Honeypot field - hidden from users, filled by bots */}
+                  <input
+                    type="text"
+                    name={HONEYPOT_FIELD_NAME}
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    autoComplete="off"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className={honeypotClassName}
+                  />
+
+                  {/* Error Message */}
+                  {error && (
                     <motion.div
-                      key="step-0"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                      className="space-y-6"
+                      className="p-4 rounded-xl bg-red-50 dark:bg-red-900/15 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 mb-8"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
                     >
-                      <div className="mb-8">
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                          Tell us about your company
-                        </h3>
-                        <p className="text-slate-500 dark:text-slate-400">
-                          Help us understand your business so we can design the
-                          right benefits package.
-                        </p>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-lg">
+                          error
+                        </span>
+                        <span>{error}</span>
                       </div>
-
-                      <LabelledInput
-                        name="companyName"
-                        label="Company Name"
-                        value={formData.companyName}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("companyName")}
-                        onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
-                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
-                      />
-
-                      <LabelledSelect
-                        name="industry"
-                        label="Industry"
-                        options={industries}
-                        value={formData.industry}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("industry")}
-                        onBlur={() => validateField("industry", formData.industry, (v) => validateRequired(v, "Industry"))}
-                        inputClassName={!formData.industry ? "text-slate-400 dark:text-slate-500" : ""}
-                      />
-
-                      <LabelledSelect
-                        name="employeeCount"
-                        label="Number of Employees"
-                        options={employeeCountOptions.map((opt) => ({
-                          value: opt.value,
-                          label: opt.label,
-                        }))}
-                        value={formData.employeeCount}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("employeeCount")}
-                        onBlur={() => validateField("employeeCount", formData.employeeCount, (v) => validateRequired(v, "Employee count"))}
-                        inputClassName={!formData.employeeCount ? "text-slate-400 dark:text-slate-500" : ""}
-                      />
-
-                      <LabelledSelect
-                        name="currentBenefits"
-                        label="Current Benefits Situation (Optional)"
-                        options={currentBenefitsOptions}
-                        value={formData.currentBenefits}
-                        onChange={handleInputChange}
-                        inputClassName={!formData.currentBenefits ? "text-slate-400 dark:text-slate-500" : ""}
-                      />
                     </motion.div>
                   )}
 
-                  {/* Step 2: Contact Information */}
-                  {currentStep === 1 && (
-                    <motion.div
-                      key="step-1"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                      className="space-y-6"
-                    >
-                      <div className="mb-8">
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                          Your contact details
-                        </h3>
-                        <p className="text-slate-500 dark:text-slate-400">
-                          We&apos;ll use this information to send your
-                          personalised proposal.
-                        </p>
-                      </div>
+                  <AnimatePresence mode="wait">
+                    {/* Step 1: Company Information */}
+                    {currentStep === 0 && (
+                      <motion.div
+                        key="step-0"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                      >
+                        <div className="mb-8">
+                          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                            Tell us about your company
+                          </h3>
+                          <p className="text-slate-500 dark:text-slate-400">
+                            Help us understand your business so we can design the
+                            right benefits package.
+                          </p>
+                        </div>
 
-                      <LabelledInput
-                        name="contactName"
-                        label="Full Name"
-                        value={formData.contactName}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("contactName")}
-                        onBlur={(e) =>
-                          validateField("contactName", e.target.value, (v) =>
-                            validateRequired(v, "Name")
-                          )
-                        }
-                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
-                      />
+                        <LabelledInput
+                          name="companyName"
+                          label="Company Name"
+                          value={formData.companyName}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("companyName")}
+                          onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                        />
 
-                      <LabelledInput
-                        name="jobTitle"
-                        label="Job Title"
-                        value={formData.jobTitle}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("jobTitle")}
-                        onBlur={(e) =>
-                          validateField("jobTitle", e.target.value, (v) =>
-                            validateRequired(v, "Job title")
-                          )
-                        }
-                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
-                      />
+                        <LabelledSelect
+                          name="industry"
+                          label="Industry"
+                          options={industries}
+                          value={formData.industry}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("industry")}
+                          onBlur={() => validateField("industry", formData.industry, (v) => validateRequired(v, "Industry"))}
+                          inputClassName={!formData.industry ? "text-slate-400 dark:text-slate-500" : ""}
+                        />
 
-                      <LabelledInput
-                        name="email"
-                        label="Email Address"
-                        type="email"
-                        value={formData.email}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("email")}
-                        onBlur={(e) =>
-                          validateField("email", e.target.value, validateEmail)
-                        }
-                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
-                      />
+                        <LabelledSelect
+                          name="employeeCount"
+                          label="Number of Employees"
+                          options={employeeCountOptions.map((opt) => ({
+                            value: opt.value,
+                            label: opt.label,
+                          }))}
+                          value={formData.employeeCount}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("employeeCount")}
+                          onBlur={() => validateField("employeeCount", formData.employeeCount, (v) => validateRequired(v, "Employee count"))}
+                          inputClassName={!formData.employeeCount ? "text-slate-400 dark:text-slate-500" : ""}
+                        />
 
-                      <LabelledInput
-                        name="phone"
-                        label="Phone Number"
-                        type="tel"
-                        value={formData.phone}
-                        required
-                        onChange={handleInputChange}
-                        fieldState={getFieldState("phone")}
-                        onBlur={(e) =>
-                          validateField("phone", e.target.value, validatePhone)
-                        }
-                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
-                      />
-                    </motion.div>
-                  )}
+                        <LabelledSelect
+                          name="currentBenefits"
+                          label="Current Benefits Situation (Optional)"
+                          options={currentBenefitsOptions}
+                          value={formData.currentBenefits}
+                          onChange={handleInputChange}
+                          inputClassName={!formData.currentBenefits ? "text-slate-400 dark:text-slate-500" : ""}
+                        />
+                      </motion.div>
+                    )}
 
-                  {/* Step 3: Services & Submit */}
-                  {currentStep === 2 && (
-                    <motion.div
-                      key="step-2"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                      className="space-y-8"
-                    >
-                      <div className="mb-8">
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                          Benefits you&apos;re interested in
-                        </h3>
-                        <p className="text-slate-500 dark:text-slate-400">
-                          Select the employee benefits you&apos;d like to
-                          explore.
-                        </p>
-                      </div>
+                    {/* Step 2: Contact Information */}
+                    {currentStep === 1 && (
+                      <motion.div
+                        key="step-1"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-6"
+                      >
+                        <div className="mb-8">
+                          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                            Your contact details
+                          </h3>
+                          <p className="text-slate-500 dark:text-slate-400">
+                            We&apos;ll use this information to send your
+                            personalised proposal.
+                          </p>
+                        </div>
 
-                      {/* Service Pills */}
-                      <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                          Services you&apos;re interested in
-                        </label>
-                        <div
-                          className="flex flex-wrap gap-3"
-                          role="group"
-                          aria-label="Select services"
-                        >
-                          {serviceInterestOptions.map((service) => (
-                            <button
-                              key={service.id}
-                              type="button"
-                              onClick={() => handleServiceChange(service.id)}
-                              className={`
+                        <LabelledInput
+                          name="contactName"
+                          label="Full Name"
+                          value={formData.contactName}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("contactName")}
+                          onBlur={(e) =>
+                            validateField("contactName", e.target.value, (v) =>
+                              validateRequired(v, "Name")
+                            )
+                          }
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                        />
+
+                        <LabelledInput
+                          name="jobTitle"
+                          label="Job Title"
+                          value={formData.jobTitle}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("jobTitle")}
+                          onBlur={(e) =>
+                            validateField("jobTitle", e.target.value, (v) =>
+                              validateRequired(v, "Job title")
+                            )
+                          }
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                        />
+
+                        <LabelledInput
+                          name="email"
+                          label="Email Address"
+                          type="email"
+                          value={formData.email}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("email")}
+                          onBlur={(e) =>
+                            validateField("email", e.target.value, validateEmail)
+                          }
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                        />
+
+                        <LabelledInput
+                          name="phone"
+                          label="Phone Number"
+                          type="tel"
+                          value={formData.phone}
+                          required
+                          onChange={handleInputChange}
+                          fieldState={getFieldState("phone")}
+                          onBlur={(e) =>
+                            validateField("phone", e.target.value, validatePhone)
+                          }
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                        />
+                      </motion.div>
+                    )}
+
+                    {/* Step 3: Services & Submit */}
+                    {currentStep === 2 && (
+                      <motion.div
+                        key="step-2"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-8"
+                      >
+                        <div className="mb-8">
+                          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                            Benefits you&apos;re interested in
+                          </h3>
+                          <p className="text-slate-500 dark:text-slate-400">
+                            Select the employee benefits you&apos;d like to
+                            explore.
+                          </p>
+                        </div>
+
+                        {/* Service Pills */}
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                            Services you&apos;re interested in
+                          </label>
+                          <div
+                            className="flex flex-wrap gap-3"
+                            role="group"
+                            aria-label="Select services"
+                          >
+                            {serviceInterestOptions.map((service) => (
+                              <button
+                                key={service.id}
+                                type="button"
+                                onClick={() => handleServiceChange(service.id)}
+                                className={`
                                 group relative px-5 py-3 rounded-full text-sm font-medium transition-all duration-300
                                 ${formData.servicesInterested.includes(
-                                service.id
-                              )
-                                  ? "bg-primary text-white shadow-lg shadow-primary/25"
-                                  : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
-                                }
-                              `}
-                              aria-pressed={formData.servicesInterested.includes(
-                                service.id
-                              )}
-                            >
-                              <span className="flex items-center gap-2">
-                                {formData.servicesInterested.includes(
                                   service.id
-                                ) && (
-                                    <motion.span
-                                      initial={{ scale: 0 }}
-                                      animate={{ scale: 1 }}
-                                      className="material-symbols-outlined text-sm"
-                                    >
-                                      check
-                                    </motion.span>
-                                  )}
-                                {service.label}
-                              </span>
-                            </button>
-                          ))}
+                                )
+                                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                                    : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+                                  }
+                              `}
+                                aria-pressed={formData.servicesInterested.includes(
+                                  service.id
+                                )}
+                              >
+                                <span className="flex items-center gap-2">
+                                  {formData.servicesInterested.includes(
+                                    service.id
+                                  ) && (
+                                      <motion.span
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        className="material-symbols-outlined text-sm"
+                                      >
+                                        check
+                                      </motion.span>
+                                    )}
+                                  {service.label}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Message */}
-                      <LabelledTextarea
-                        name="message"
-                        label="Tell us about your employee benefits requirements"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        rows={4}
-                        maxLength={MAX_MESSAGE_CHARS}
-                        showCharCount
-                        helperText="Optional"
-                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
-                      />
+                        {/* Message */}
+                        <LabelledTextarea
+                          name="message"
+                          label="Tell us about your employee benefits requirements"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          rows={4}
+                          maxLength={MAX_MESSAGE_CHARS}
+                          showCharCount
+                          helperText="Optional"
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                        />
 
-                      {/* Consent Checkboxes */}
-                      <div className="space-y-4 pt-4">
-                        <label className="flex items-start gap-3 cursor-pointer group">
-                          <input
-                            type="checkbox"
-                            name="privacyConsent"
-                            checked={formData.privacyConsent}
-                            onChange={handleInputChange}
-                            required
-                            className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0"
-                          />
-                          <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                            I agree to the{" "}
-                            <a
-                              href="/privacy"
-                              className="text-primary hover:underline"
-                            >
-                              Privacy Policy
-                            </a>{" "}
-                            and consent to Metrosure processing my data.{" "}
-                            <span className="text-primary">*</span>
-                          </span>
-                        </label>
-                        <label className="flex items-start gap-3 cursor-pointer group">
-                          <input
-                            type="checkbox"
-                            name="marketingConsent"
-                            checked={formData.marketingConsent}
-                            onChange={handleInputChange}
-                            className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0"
-                          />
-                          <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                            Send me updates about corporate benefits and
-                            industry news.
-                          </span>
-                        </label>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                        {/* Consent Checkboxes */}
+                        <div className="space-y-4 pt-4">
+                          <label className="flex items-start gap-3 cursor-pointer group">
+                            <input
+                              type="checkbox"
+                              name="privacyConsent"
+                              checked={formData.privacyConsent}
+                              onChange={handleInputChange}
+                              required
+                              className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0"
+                            />
+                            <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                              I agree to the{" "}
+                              <a
+                                href="/privacy"
+                                className="text-primary hover:underline"
+                              >
+                                Privacy Policy
+                              </a>{" "}
+                              and consent to Metrosure processing my data.{" "}
+                              <span className="text-primary">*</span>
+                            </span>
+                          </label>
+                          <label className="flex items-start gap-3 cursor-pointer group">
+                            <input
+                              type="checkbox"
+                              name="marketingConsent"
+                              checked={formData.marketingConsent}
+                              onChange={handleInputChange}
+                              className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0"
+                            />
+                            <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                              Send me updates about corporate benefits and
+                              industry news.
+                            </span>
+                          </label>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
-                {/* Navigation Buttons */}
-                <div className="flex items-center justify-between mt-10 pt-8 border-t border-slate-100 dark:border-slate-700">
-                  <button
-                    type="button"
-                    onClick={handleBack}
-                    disabled={currentStep === 0}
-                    className={`
+                  {/* Navigation Buttons */}
+                  <div className="flex items-center justify-between mt-10 pt-8 border-t border-slate-100 dark:border-slate-700">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      disabled={currentStep === 0}
+                      className={`
                       flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all
                       ${currentStep === 0
-                        ? "text-slate-300 dark:text-slate-600 cursor-not-allowed"
-                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
-                      }
+                          ? "text-slate-300 dark:text-slate-600 cursor-not-allowed"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                        }
                     `}
-                  >
-                    <span className="material-symbols-outlined text-xl">
-                      arrow_back
-                    </span>
-                    Back
-                  </button>
-
-                  {currentStep < steps.length - 1 ? (
-                    <motion.button
-                      type="button"
-                      onClick={handleNext}
-                      disabled={!canProceed}
-                      className="flex items-center gap-2 h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={canProceed ? { scale: 1.03, y: -2 } : {}}
-                      whileTap={canProceed ? { scale: 0.98 } : {}}
                     >
-                      Continue
                       <span className="material-symbols-outlined text-xl">
-                        arrow_forward
+                        arrow_back
                       </span>
-                    </motion.button>
-                  ) : (
-                    <motion.button
-                      type="submit"
-                      disabled={isSubmitting || !canProceed}
-                      className="flex items-center gap-2 h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                      whileHover={
-                        !isSubmitting && canProceed ? { scale: 1.03, y: -2 } : {}
-                      }
-                      whileTap={
-                        !isSubmitting && canProceed ? { scale: 0.98 } : {}
-                      }
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <svg
-                            className="animate-spin h-5 w-5"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                              fill="none"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
-                          <span>Submitting...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Submit Inquiry</span>
-                          <span className="material-symbols-outlined text-xl">
-                            send
-                          </span>
-                        </>
-                      )}
-                    </motion.button>
-                  )}
-                </div>
-              </motion.form>
-            )}
-          </AnimatePresence>
+                      Back
+                    </button>
+
+                    {currentStep < steps.length - 1 ? (
+                      <motion.button
+                        type="button"
+                        onClick={handleNext}
+                        disabled={!canProceed}
+                        className="flex items-center gap-2 h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        whileHover={canProceed ? { scale: 1.03, y: -2 } : {}}
+                        whileTap={canProceed ? { scale: 0.98 } : {}}
+                      >
+                        Continue
+                        <span className="material-symbols-outlined text-xl">
+                          arrow_forward
+                        </span>
+                      </motion.button>
+                    ) : (
+                      <motion.button
+                        type="submit"
+                        disabled={isSubmitting || !canProceed}
+                        className="flex items-center gap-2 h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        whileHover={
+                          !isSubmitting && canProceed ? { scale: 1.03, y: -2 } : {}
+                        }
+                        whileTap={
+                          !isSubmitting && canProceed ? { scale: 0.98 } : {}
+                        }
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <svg
+                              className="animate-spin h-5 w-5"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                                fill="none"
+                              />
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              />
+                            </svg>
+                            <span>Submitting...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Submit Inquiry</span>
+                            <span className="material-symbols-outlined text-xl">
+                              send
+                            </span>
+                          </>
+                        )}
+                      </motion.button>
+                    )}
+                  </div>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
 
         {/* Trust Badges */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex items-center justify-center gap-8 mt-8 pt-8"
         >

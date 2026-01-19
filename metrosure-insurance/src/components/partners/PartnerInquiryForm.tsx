@@ -258,7 +258,7 @@ export default function PartnerInquiryForm() {
                   </span>
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-sm">
-                  {steps[currentStep].title === "Business" && "Tell us about your company"}
+                  {steps[currentStep].title === "Business" && "We'll get back to you in 24 hours."}
                   {steps[currentStep].title === "Contact" && "How can we reach you?"}
                   {steps[currentStep].title === "Services" && "What services interest you?"}
                 </p>
@@ -627,29 +627,29 @@ export default function PartnerInquiryForm() {
               )}
             </AnimatePresence>
           </div>
-    </motion.div>
+        </motion.div>
 
-        {/* Trust Badges - Inline below form */ }
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.5, delay: 0.3 }}
-    className="flex items-center justify-center gap-8 mt-8 pt-8"
-  >
-    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-      <span className="material-symbols-outlined text-emerald-500 text-lg">verified</span>
-      <span>FSP Licensed</span>
-    </div>
-    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-      <span className="material-symbols-outlined text-emerald-500 text-lg">security</span>
-      <span>POPIA Compliant</span>
-    </div>
-    <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-      <span className="material-symbols-outlined text-emerald-500 text-lg">schedule</span>
-      <span>24hr Response</span>
-    </div>
-  </motion.div>
+        {/* Trust Badges - Inline below form */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex items-center justify-center gap-8 mt-8 pt-8"
+        >
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            <span className="material-symbols-outlined text-emerald-500 text-lg">verified</span>
+            <span>FSP Licensed</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            <span className="material-symbols-outlined text-emerald-500 text-lg">security</span>
+            <span>POPIA Compliant</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+            <span className="material-symbols-outlined text-emerald-500 text-lg">schedule</span>
+            <span>24hr Response</span>
+          </div>
+        </motion.div>
       </div >
     </section >
   );

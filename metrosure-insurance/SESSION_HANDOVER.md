@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 18 January 2026 (Session 117)
+**Updated:** 19 January 2026 (Session 118)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -10,6 +10,34 @@
 
 - **Routes:** 53 (46 pages + 7 API routes)
 - **Last Build:** 18 January 2026
+
+
+---
+
+## SESSION 118 (19 Jan 2026) - Testimonial Refinements
+
+### Completed
+| Task | Status |
+|------|--------|
+| Redesign Home Testimonials (Carousel) | ✅ Complete |
+| Refine Corporate/Partner Form Headers | ✅ Complete |
+| Add AI Avatars to Partner Testimonials | ✅ Complete |
+| Stash Partner Testimonials Section | ✅ Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/testimonials/TestimonialsCarousel.tsx` | New carousel design, brand red accents, sans-serif font |
+| `src/app/page.tsx` | Swapped old KeyTestimonials for new Carousel |
+| `src/components/corporate/CorporateInquiryForm.tsx` | Updated header text "We'll get back to you..." |
+| `src/components/partners/PartnerInquiryForm.tsx` | Updated header text "We'll get back to you..." |
+| `src/components/partners/PartnerTestimonials.tsx` | Added AI avatars, simplified design (currently stashed) |
+| `src/app/partners/page.tsx` | Stashed (commented out) PartnerTestimonials |
+
+### Technical Notes
+- **Home Testimonials:** Now uses `TestimonialsCarousel` with framer-motion and brand primary colors.
+- **Partner Testimonials:** Images generated with AI (Nano Banana/Gemini) and saved to `public/images/testimonials`. Component is currently commented out in `partners/page.tsx` pending activation.
+- **Forms:** Redundant sub-headers removed, "24 hours" promise moved to step subtitles.
 
 ---
 
@@ -293,6 +321,7 @@ Visit `/playground/shadcn` to see all components with Metrosure theming:
 | Cookie consent | Disabled | `src/components/ClientLayout.tsx` |
 | Development Banner | Active | `src/components/DevelopmentBanner.tsx` |
 | Portal login | Dev only | `src/app/login/page.tsx` |
+| Partner Testimonials | Stashed | `src/app/partners/page.tsx` |
 
 ---
 

@@ -7,7 +7,7 @@ import {
   HowItWorks,
   PartnerBenefits,
   // CaseStudies, // Temporarily removed - pending stakeholder meeting
-  PartnerTestimonials,
+  // PartnerTestimonials,
   PartnerFAQ,
   PartnerInquiryForm,
 } from "@/components/partners";
@@ -64,7 +64,7 @@ export default function PartnersPage() {
         <HowItWorks />
         <PartnerBenefits />
         {/* CaseStudies temporarily removed - pending stakeholder meeting */}
-        <PartnerTestimonials />
+        {/* <PartnerTestimonials /> */}
         <PartnerFAQ />
         <PartnerInquiryForm />
       </main>
