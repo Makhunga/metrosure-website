@@ -8,9 +8,12 @@ import { useState } from 'react';
 import {
   mockUser,
   mockNotifications,
-  getTierBadgeColour,
 } from '@/data/portalMockData';
 import { useTheme } from '../theme-provider';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Input } from '@/components/ui/input';
+import { Badge, getTierBadgeVariant, type TierStatus } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface NavItem {
   label: string;
@@ -207,13 +210,13 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
           <div className="flex items-center gap-4">
             {/* Search */}
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] text-xl">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xl z-10">
                 search
               </span>
-              <input
+              <Input
                 type="text"
                 placeholder="Search policies, claims..."
-                className="w-64 pl-10 pr-4 py-2 bg-[var(--surface-inset)] border border-[var(--border-light)] rounded-xl text-sm text-[var(--text-body)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all"
+                className="w-64 pl-10 pr-4 h-10 rounded-xl bg-muted/50"
               />
             </div>
 
@@ -238,30 +241,29 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             </motion.button>
 
             {/* Notifications */}
-            <div className="relative">
-              <button
-                onClick={() => setNotificationsOpen(!notificationsOpen)}
-                className="p-2 text-[var(--text-body)] hover:text-[var(--text-main)] hover:bg-[var(--surface-inset)] rounded-xl transition-all relative"
-                aria-label="Notifications"
-              >
-                <span className="material-symbols-outlined text-2xl">
-                  notifications
-                </span>
-                {unreadNotifications > 0 && (
-                  <span className="absolute top-1 right-1 w-4 h-4 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                    {unreadNotifications}
+            <Popover open={notificationsOpen} onOpenChange={setNotificationsOpen}>
+              <PopoverTrigger asChild>
+                <button
+                  className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-all relative"
+                  aria-label="Notifications"
+                >
+                  <span className="material-symbols-outlined text-2xl">
+                    notifications
                   </span>
-                )}
-              </button>
-
-              <AnimatePresence>
-                {notificationsOpen && (
-                  <NotificationsDropdown
-                    onClose={() => setNotificationsOpen(false)}
-                  />
-                )}
-              </AnimatePresence>
-            </div>
+                  {unreadNotifications > 0 && (
+                    <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                      {unreadNotifications}
+                    </span>
+                  )}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                className="w-80 p-0 rounded-2xl shadow-2xl"
+              >
+                <NotificationsContent onClose={() => setNotificationsOpen(false)} />
+              </PopoverContent>
+            </Popover>
 
             {/* User Menu */}
             <div className="flex items-center gap-3 pl-4 border-l border-[var(--border-light)]">
@@ -355,15 +357,16 @@ function SidebarContent({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span
-              className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium capitalize ${getTierBadgeColour(mockUser.tier)}`}
+            <Badge
+              variant={getTierBadgeVariant(mockUser.tier as TierStatus)}
+              className="px-2.5 py-1 capitalize"
             >
               <span className="material-symbols-outlined text-sm mr-1">
                 workspace_premium
               </span>
               {mockUser.tier}
-            </span>
-            <span className="text-xs text-[var(--text-subtle)]">
+            </Badge>
+            <span className="text-xs text-muted-foreground">
               Since{' '}
               {new Date(mockUser.memberSince).toLocaleDateString('en-GB', {
                 month: 'short',
@@ -495,70 +498,54 @@ function SidebarContent({
   );
 }
 
-// Notifications Dropdown
-function NotificationsDropdown({ onClose }: { onClose: () => void }) {
+// ═══════════════════════════════════════════════════════════════════════════
+// NOTIFICATIONS CONTENT
+// Used inside shadcn Popover for better accessibility and keyboard navigation
+// ═══════════════════════════════════════════════════════════════════════════
+
+function NotificationsContent({ onClose }: { onClose: () => void }) {
+  const notificationTypeStyles = {
+    urgent: { icon: 'error', colour: 'text-red-500 dark:text-red-400' },
+    success: { icon: 'check_circle', colour: 'text-emerald-500 dark:text-emerald-400' },
+    warning: { icon: 'warning', colour: 'text-amber-500 dark:text-amber-400' },
+    info: { icon: 'info', colour: 'text-blue-500 dark:text-blue-400' },
+  };
+
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-40"
-        onClick={onClose}
-      />
-      <motion.div
-        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-        className="absolute right-0 top-full mt-2 w-80 bg-[var(--surface-card)] rounded-2xl shadow-2xl border border-[var(--border-light)] overflow-hidden z-50"
-      >
-        <div className="p-4 border-b border-[var(--border-light)] flex items-center justify-between">
-          <h3 className="font-semibold text-[var(--text-main)]">
-            Notifications
-          </h3>
-          <button className="text-xs text-[var(--primary)] hover:underline">
-            Mark all read
-          </button>
-        </div>
-        <div className="max-h-80 overflow-y-auto">
-          {mockNotifications.map((notification) => (
+      <div className="p-4 border-b border-border flex items-center justify-between">
+        <h3 className="font-semibold text-foreground">Notifications</h3>
+        <button className="text-xs text-primary hover:underline">
+          Mark all read
+        </button>
+      </div>
+      <div className="max-h-80 overflow-y-auto">
+        {mockNotifications.map((notification) => {
+          const typeStyle = notificationTypeStyles[notification.type as keyof typeof notificationTypeStyles]
+            || notificationTypeStyles.info;
+
+          return (
             <Link
               key={notification.id}
               href={notification.actionUrl || '#'}
-              className={`block p-4 border-b border-[var(--border-light)] last:border-b-0 hover:bg-[var(--surface-inset)] transition-colours ${
-                !notification.read ? 'bg-[var(--primary)]/5' : ''
-              }`}
+              className={cn(
+                'block p-4 border-b border-border last:border-b-0 hover:bg-muted transition-colors',
+                !notification.read && 'bg-primary/5'
+              )}
               onClick={onClose}
             >
               <div className="flex items-start gap-3">
-                <span
-                  className={`material-symbols-outlined text-lg mt-0.5 ${
-                    notification.type === 'urgent'
-                      ? 'text-red-500'
-                      : notification.type === 'success'
-                        ? 'text-emerald-500'
-                        : notification.type === 'warning'
-                          ? 'text-amber-500'
-                          : 'text-blue-500'
-                  }`}
-                >
-                  {notification.type === 'urgent'
-                    ? 'error'
-                    : notification.type === 'success'
-                      ? 'check_circle'
-                      : notification.type === 'warning'
-                        ? 'warning'
-                        : 'info'}
+                <span className={cn('material-symbols-outlined text-lg mt-0.5', typeStyle.colour)}>
+                  {typeStyle.icon}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[var(--text-main)] truncate">
+                  <p className="text-sm font-medium text-foreground truncate">
                     {notification.title}
                   </p>
-                  <p className="text-xs text-[var(--text-muted)] line-clamp-2 mt-0.5">
+                  <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
                     {notification.message}
                   </p>
-                  <p className="text-[10px] text-[var(--text-subtle)] mt-1">
+                  <p className="text-[10px] text-muted-foreground/70 mt-1">
                     {new Date(notification.date).toLocaleDateString('en-GB', {
                       day: 'numeric',
                       month: 'short',
@@ -566,22 +553,22 @@ function NotificationsDropdown({ onClose }: { onClose: () => void }) {
                   </p>
                 </div>
                 {!notification.read && (
-                  <span className="w-2 h-2 rounded-full bg-[var(--primary)] flex-shrink-0 mt-2" />
+                  <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-2" />
                 )}
               </div>
             </Link>
-          ))}
-        </div>
-        <div className="p-3 bg-[var(--surface-inset)] border-t border-[var(--border-light)]">
-          <Link
-            href="/portal/notifications"
-            className="block text-center text-sm text-[var(--primary)] font-medium hover:underline"
-            onClick={onClose}
-          >
-            View all notifications
-          </Link>
-        </div>
-      </motion.div>
+          );
+        })}
+      </div>
+      <div className="p-3 bg-muted border-t border-border">
+        <Link
+          href="/portal/notifications"
+          className="block text-center text-sm text-primary font-medium hover:underline"
+          onClick={onClose}
+        >
+          View all notifications
+        </Link>
+      </div>
     </>
   );
 }

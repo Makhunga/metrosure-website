@@ -5,12 +5,13 @@ import Link from 'next/link';
 import {
   Claim,
   ClaimTimelineEvent,
-  getStatusColour,
   formatCurrency,
   formatShortDate,
   formatDate,
   getPolicyIcon,
 } from '@/data/portalMockData';
+import { Badge, getStatusBadgeVariant, type ClaimStatus, type DocumentStatus } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -78,11 +79,12 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
               </p>
             </div>
           </div>
-          <span
-            className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${getStatusColour(claim.status)}`}
+          <Badge
+            variant={getStatusBadgeVariant(claim.status as ClaimStatus)}
+            className="px-3 py-1.5 text-sm"
           >
             {formatClaimStatus(claim.status)}
-          </span>
+          </Badge>
         </div>
 
         {/* Amount display */}
@@ -154,17 +156,12 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
                     </p>
                   </div>
                 </div>
-                <span
-                  className={`text-xs font-medium px-2 py-1 rounded-full ${
-                    doc.status === 'approved'
-                      ? 'text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950'
-                      : doc.status === 'rejected'
-                        ? 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-950'
-                        : 'text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-950'
-                  }`}
+                <Badge
+                  variant={getStatusBadgeVariant(doc.status as DocumentStatus)}
+                  className="text-xs px-2 py-1"
                 >
                   {doc.status.charAt(0).toUpperCase() + doc.status.slice(1)}
-                </span>
+                </Badge>
               </li>
             ))}
           </ul>
@@ -294,11 +291,12 @@ function CompactTimeline({ claim }: { claim: Claim }) {
             </p>
           </div>
         </div>
-        <span
-          className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${getStatusColour(claim.status)}`}
+        <Badge
+          variant={getStatusBadgeVariant(claim.status as ClaimStatus)}
+          className="px-2 py-0.5 text-[10px]"
         >
           {formatClaimStatus(claim.status)}
-        </span>
+        </Badge>
       </div>
 
       {/* Progress bar */}
@@ -397,12 +395,13 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
               </p>
             </div>
           </div>
-          <span
-            className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${getStatusColour(claim.status)}`}
+          <Badge
+            variant={getStatusBadgeVariant(claim.status as ClaimStatus)}
+            className="px-3 py-1.5 text-sm"
           >
             <span className="w-2 h-2 rounded-full bg-current mr-2" />
             {formatClaimStatus(claim.status)}
-          </span>
+          </Badge>
         </div>
 
         {/* Description */}

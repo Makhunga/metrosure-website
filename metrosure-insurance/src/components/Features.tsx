@@ -8,20 +8,20 @@ import { HoverCard, TextReveal } from "./animations";
 const features = [
   // B2C Services
   {
-    icon: "directions_car",
-    title: "Car & Home Cover",
-    description:
-      "Protect your vehicle and property with comprehensive short-term insurance. We find the right cover from our network of trusted insurers, so you can drive and live worry-free.",
-    accent: "primary",
-    href: "/insurance/auto",
-  },
-  {
     icon: "family_restroom",
     title: "Life & Funeral Cover",
     description:
       "Give your loved ones peace of mind. Our life insurance and funeral plans ensure your family is looked after when they need it most, because some things are too important to leave to chance.",
-    accent: "secondary",
+    accent: "primary",
     href: "/insurance/life",
+  },
+  {
+    icon: "directions_car",
+    title: "Car & Home Cover",
+    description:
+      "Protect your vehicle and property with comprehensive short-term insurance. We find the right cover from our network of trusted insurers, so you can drive and live worry-free.",
+    accent: "secondary",
+    href: "/insurance/auto",
   },
   {
     icon: "savings",

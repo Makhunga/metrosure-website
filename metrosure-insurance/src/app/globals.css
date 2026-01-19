@@ -9,6 +9,38 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    METROSURE DESIGN SYSTEM
    "Taking You to the Future" - Geometric Precision meets South African Warmth
+   ═══════════════════════════════════════════════════════════════════════════
+
+   THEME ARCHITECTURE
+   ──────────────────
+   This design system uses a three-layer architecture:
+
+   Layer 1: BRAND COLOURS (--color-*)
+   Raw brand colour values defined as RGB triplets (e.g., 191 6 3).
+   These are the source of truth for brand identity.
+
+   Layer 2: SHADCN SEMANTIC VARIABLES (--primary, --secondary, etc.)
+   Maps brand colours to semantic meanings for shadcn/ui components.
+   These variables are used by Tailwind classes like `bg-primary`.
+
+   Layer 3: TAILWIND CLASSES
+   Components use semantic classes (bg-primary, text-muted-foreground)
+   that automatically respond to theme changes.
+
+   HOW TO CUSTOMISE
+   ────────────────
+   1. Brand Colours: Edit --color-primary, --color-secondary in :root
+   2. Component Colours: Edit corresponding --primary, --secondary variables
+   3. Dark Mode: Edit the .dark {} section (starts around line 142)
+
+   COLOUR FORMAT
+   ─────────────
+   All colours use RGB triplets WITHOUT rgb() wrapper:
+   ✅ --color-primary: 191 6 3;
+   ❌ --color-primary: rgb(191, 6, 3);
+
+   This allows opacity modifiers: rgb(var(--color-primary) / 0.5)
+
    ═══════════════════════════════════════════════════════════════════════════ */
 
 :root {
@@ -74,7 +106,18 @@
   --foreground: 28 25 23;
 
   /* ─────────────────────────────────────────────────────────────────────────
-     SHADCN/UI THEME VARIABLES (Aliases to Metrosure colours)
+     SHADCN/UI THEME VARIABLES (Light Mode)
+     These map to Tailwind classes: bg-card, text-card-foreground, etc.
+
+     USAGE GUIDE:
+     - bg-primary          → Uses --primary
+     - text-primary        → Uses --primary (text colour)
+     - text-foreground     → Uses --foreground (main text)
+     - text-muted-foreground → Uses --muted-foreground (secondary text)
+     - bg-card             → Uses --card (card backgrounds)
+     - bg-muted            → Uses --muted (subtle backgrounds)
+     - border-border       → Uses --border (default borders)
+     - ring-ring           → Uses --ring (focus rings)
      ───────────────────────────────────────────────────────────────────────── */
   --card: 255 255 255;
   --card-foreground: 28 25 23;

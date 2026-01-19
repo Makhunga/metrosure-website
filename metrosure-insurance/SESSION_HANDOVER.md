@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 19 January 2026 (Session 120)
+**Updated:** 19 January 2026 (Session 121)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -11,6 +11,92 @@
 - **Routes:** 53 (46 pages + 7 API routes)
 - **Last Build:** 19 January 2026
 
+
+---
+
+## SESSION 121 (19 Jan 2026) - Portal shadcn/ui Refactor & Theme Tutorial
+
+### Tutorial Delivered
+This session taught shadcn/ui theming concepts:
+- **Three-layer architecture:** Brand colours → shadcn semantic variables → Tailwind classes
+- **How to customise colours:** Edit CSS variables in `globals.css`
+- **How to add component variants:** Use `cva()` (class-variance-authority)
+- **The `cn()` utility:** Merges Tailwind classes safely
+
+### Completed
+| Task | Status |
+|------|--------|
+| Install shadcn components (popover, avatar, dropdown-menu, progress, tooltip) | ✅ Complete |
+| Create portal badge variants (success, warning, error, info, neutral, tier badges) | ✅ Complete |
+| Refactor StatCard to use shadcn Card base | ✅ Complete |
+| Refactor notifications dropdown with shadcn Popover | ✅ Complete |
+| Refactor search input with shadcn Input | ✅ Complete |
+| Update PolicyCard to use Badge for status indicators | ✅ Complete |
+| Update ClaimsTimeline to use Badge for status indicators | ✅ Complete |
+| Add CSS variable documentation to globals.css | ✅ Complete |
+
+### Files Created
+| File | Purpose |
+|------|---------|
+| `src/components/ui/popover.tsx` | shadcn Popover component (Radix UI) |
+| `src/components/ui/avatar.tsx` | shadcn Avatar component |
+| `src/components/ui/dropdown-menu.tsx` | shadcn DropdownMenu component |
+| `src/components/ui/progress.tsx` | shadcn Progress component |
+| `src/components/ui/tooltip.tsx` | shadcn Tooltip component |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/components/ui/badge.tsx` | Added 9 new variants (success, warning, error, info, neutral, bronze, silver, gold, platinum) + helper functions `getStatusBadgeVariant()`, `getTierBadgeVariant()` |
+| `src/components/portal/QuickActions.tsx` | Refactored StatCard to use shadcn Card base with `cn()` utility |
+| `src/components/portal/PortalLayout.tsx` | Replaced notifications with shadcn Popover, search with shadcn Input, tier badge with Badge component |
+| `src/components/portal/PolicyCard.tsx` | Replaced inline status badges with Badge component |
+| `src/components/portal/ClaimsTimeline.tsx` | Replaced inline status badges with Badge component (claims + documents) |
+| `src/app/globals.css` | Added comprehensive CSS variable documentation at top of file |
+
+### New Badge Variants
+```typescript
+// Status variants (policies, claims, documents)
+success  → green (active, approved, paid)
+warning  → amber (pending, pending_documents)
+error    → red (rejected, cancelled)
+info     → blue (submitted, under_review)
+neutral  → stone (expired, lapsed)
+
+// Tier variants (membership)
+bronze   → amber metallic
+silver   → slate metallic
+gold     → yellow metallic
+platinum → violet metallic
+```
+
+### Usage Examples
+```tsx
+// Using Badge with status mapping
+import { Badge, getStatusBadgeVariant } from '@/components/ui/badge';
+
+<Badge variant={getStatusBadgeVariant(policy.status)}>
+  {policy.status}
+</Badge>
+
+// Using Badge with tier mapping
+import { Badge, getTierBadgeVariant } from '@/components/ui/badge';
+
+<Badge variant={getTierBadgeVariant(user.tier)}>
+  {user.tier}
+</Badge>
+```
+
+### Key Theme Concepts Documented
+1. **Colour format:** RGB triplets without `rgb()` wrapper (e.g., `191 6 3`)
+2. **Layer 1 (Brand):** `--color-primary`, `--color-secondary` in `:root`
+3. **Layer 2 (Semantic):** `--primary`, `--secondary` for shadcn components
+4. **Layer 3 (Classes):** `bg-primary`, `text-muted-foreground` in Tailwind
+
+### Technical Notes
+- Removed dependency on `getStatusColour()` and `getTierBadgeColour()` from portalMockData
+- Badge variants use Tailwind dark mode classes (`dark:bg-*`, `dark:text-*`)
+- Popover from Radix UI provides proper keyboard navigation + focus trapping
 
 ---
 

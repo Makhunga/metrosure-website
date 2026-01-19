@@ -137,7 +137,7 @@ export function isWhatsAppSupported(): boolean {
  */
 export function generateGeneralEnquiryUrl(
   phoneNumber: string = "27872651891",
-  message: string = "Hi Metrosure! I'd like to enquire about your insurance products."
+  message: string = "Hi Metrosure! I'd like to enquire about your services."
 ): string {
   const encodedMessage = encodeURIComponent(message);
   return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;

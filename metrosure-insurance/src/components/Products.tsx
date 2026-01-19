@@ -7,20 +7,20 @@ import { TextReveal } from "./animations";
 
 const products = [
   {
-    icon: "directions_car",
-    title: "Car & Home Insurance",
-    description:
-      "Protect your vehicle and property with comprehensive short-term cover. We work with top SA insurers to find you the right fit.",
-    features: ["Vehicle Cover", "Home Contents", "Buildings"],
-    href: "/insurance/auto",
-  },
-  {
     icon: "favorite",
     title: "Life & Funeral Cover",
     description:
       "Ensure your loved ones are looked after. From individual life policies to group funeral cover and credit life, we've got your family covered.",
     features: ["Life Insurance", "Funeral Plans", "Credit Life"],
     href: "/insurance/life",
+  },
+  {
+    icon: "directions_car",
+    title: "Car & Home Insurance",
+    description:
+      "Protect your vehicle and property with comprehensive short-term cover. We work with top SA insurers to find you the right fit.",
+    features: ["Vehicle Cover", "Home Contents", "Buildings"],
+    href: "/insurance/auto",
   },
   {
     icon: "health_and_safety",

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // WhatsApp configuration
 const WHATSAPP_NUMBER = "27711985248";
-const WHATSAPP_MESSAGE = "Hi Metrosure, I'd like to enquire about your insurance products.";
+const WHATSAPP_MESSAGE = "Hi Metrosure, I'd like to enquire about your services.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 // Synchronous visibility check for instant scroll restoration (back/forward navigation)

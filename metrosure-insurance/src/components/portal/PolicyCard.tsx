@@ -5,10 +5,11 @@ import Link from 'next/link';
 import {
   Policy,
   getPolicyIcon,
-  getStatusColour,
   formatCurrency,
   formatShortDate,
 } from '@/data/portalMockData';
+import { Badge, getStatusBadgeVariant, type PolicyStatus } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface PolicyCardProps {
   policy: Policy;
@@ -127,11 +128,9 @@ export default function PolicyCard({
                     </p>
                   </div>
                 </div>
-                <span
-                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColour(policy.status)}`}
-                >
+                <Badge variant={getStatusBadgeVariant(policy.status as PolicyStatus)} className="px-2.5 py-1">
                   {formatStatus(policy.status)}
-                </span>
+                </Badge>
               </div>
 
               {/* Cover Amount */}
@@ -238,11 +237,12 @@ function CompactPolicyCard({
             {formatCurrency(policy.premium)}/{policy.frequency === 'monthly' ? 'mo' : 'yr'}
           </p>
         </div>
-        <span
-          className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium flex-shrink-0 ${getStatusColour(policy.status)}`}
+        <Badge
+          variant={getStatusBadgeVariant(policy.status as PolicyStatus)}
+          className="px-2 py-0.5 text-[10px] flex-shrink-0"
         >
           {formatStatus(policy.status)}
-        </span>
+        </Badge>
         <span className="material-symbols-outlined text-[var(--text-subtle)] group-hover:text-[var(--primary)] transition-colors">
           chevron_right
         </span>
@@ -291,12 +291,13 @@ function ExpandedPolicyCard({
               </p>
             </div>
           </div>
-          <span
-            className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${getStatusColour(policy.status)}`}
+          <Badge
+            variant={getStatusBadgeVariant(policy.status as PolicyStatus)}
+            className="px-3 py-1.5 text-sm"
           >
             <span className="w-2 h-2 rounded-full bg-current mr-2" />
             {formatStatus(policy.status)}
-          </span>
+          </Badge>
         </div>
       </div>
 

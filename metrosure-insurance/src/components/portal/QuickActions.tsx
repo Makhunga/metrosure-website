@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { QuickAction, mockQuickActions } from '@/data/portalMockData';
+import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -154,7 +156,11 @@ function QuickActionButton({
   );
 }
 
-// Summary stats component often used alongside quick actions
+// ═══════════════════════════════════════════════════════════════════════════
+// STAT CARD COMPONENT
+// Uses shadcn Card as base with gradient overlay styling
+// ═══════════════════════════════════════════════════════════════════════════
+
 interface StatCardProps {
   label: string;
   value: string | number;
@@ -163,15 +169,15 @@ interface StatCardProps {
   colour?: 'primary' | 'success' | 'warning' | 'info';
 }
 
-const statColours = {
-  primary: 'from-[var(--primary)]/10 to-[var(--primary)]/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10',
+const statGradients = {
+  primary: 'from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10',
   success: 'from-emerald-500/10 to-emerald-500/5 dark:from-emerald-500/20 dark:to-emerald-500/10',
   warning: 'from-amber-500/10 to-amber-500/5 dark:from-amber-500/20 dark:to-amber-500/10',
   info: 'from-blue-500/10 to-blue-500/5 dark:from-blue-500/20 dark:to-blue-500/10',
 };
 
-const statIconColours = {
-  primary: 'text-[#BF0603] bg-[#BF0603]/10 dark:text-[#e65350]',
+const statIconStyles = {
+  primary: 'text-primary bg-primary/10 dark:text-red-400',
   success: 'text-emerald-600 bg-emerald-500/10 dark:text-emerald-400',
   warning: 'text-amber-600 bg-amber-500/10 dark:text-amber-400',
   info: 'text-blue-600 bg-blue-500/10 dark:text-blue-400',
@@ -189,35 +195,47 @@ export function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-      className={`relative p-5 rounded-2xl bg-gradient-to-br ${statColours[colour]} border border-[var(--border-light)] overflow-hidden`}
     >
-      {/* Decorative circle */}
-      <div className="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-current opacity-[0.03]" />
+      <Card
+        className={cn(
+          'relative p-5 overflow-hidden',
+          'bg-gradient-to-br',
+          statGradients[colour],
+          'border-border-light'
+        )}
+      >
+        {/* Decorative circle */}
+        <div className="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-current opacity-[0.03]" />
 
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-sm text-[var(--text-muted)] mb-1">{label}</p>
-          <p className="text-2xl font-bold text-[var(--text-main)]">{value}</p>
-          {trend && (
-            <p
-              className={`text-xs mt-1 flex items-center gap-1 ${
-                trend.positive ? 'text-emerald-600' : 'text-red-600'
-              }`}
-            >
-              <span className="material-symbols-outlined text-sm">
-                {trend.positive ? 'trending_up' : 'trending_down'}
-              </span>
-              {trend.positive ? '+' : ''}
-              {trend.value}% from last month
-            </p>
-          )}
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-sm text-muted-foreground mb-1">{label}</p>
+            <p className="text-2xl font-bold text-foreground">{value}</p>
+            {trend && (
+              <p
+                className={cn(
+                  'text-xs mt-1 flex items-center gap-1',
+                  trend.positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
+                )}
+              >
+                <span className="material-symbols-outlined text-sm">
+                  {trend.positive ? 'trending_up' : 'trending_down'}
+                </span>
+                {trend.positive ? '+' : ''}
+                {trend.value}% from last month
+              </p>
+            )}
+          </div>
+          <div
+            className={cn(
+              'w-10 h-10 rounded-xl flex items-center justify-center',
+              statIconStyles[colour]
+            )}
+          >
+            <span className="material-symbols-outlined text-xl">{icon}</span>
+          </div>
         </div>
-        <div
-          className={`w-10 h-10 rounded-xl ${statIconColours[colour]} flex items-center justify-center`}
-        >
-          <span className="material-symbols-outlined text-xl">{icon}</span>
-        </div>
-      </div>
+      </Card>
     </motion.div>
   );
 }
