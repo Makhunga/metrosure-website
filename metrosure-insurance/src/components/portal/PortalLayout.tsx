@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import {
@@ -9,8 +10,7 @@ import {
   mockNotifications,
   getTierBadgeColour,
 } from '@/data/portalMockData';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { useTheme } from '../theme-provider';
 
 interface NavItem {
   label: string;
@@ -72,10 +72,15 @@ interface PortalLayoutProps {
 
 export default function PortalLayout({ children }: PortalLayoutProps) {
   const pathname = usePathname();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const unreadNotifications = mockNotifications.filter((n) => !n.read).length;
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+  };
 
   const isActiveLink = (href: string) => {
     if (href === '/portal/dashboard') {
@@ -97,29 +102,47 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             <span className="material-symbols-outlined text-2xl">menu</span>
           </button>
 
-          <Link href="/portal/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[var(--primary)] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">M</span>
+          <Link href="/portal/dashboard" className="flex items-center">
+            <div className="relative h-8 w-[100px]">
+              <Image
+                src={resolvedTheme === 'dark' ? '/images/logo-white.png' : '/images/logo.png'}
+                alt="Metrosure Insurance Brokers"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
-            <span className="font-semibold text-[var(--text-main)]">
-              MetroSure
-            </span>
           </Link>
 
-          <button
-            onClick={() => setNotificationsOpen(!notificationsOpen)}
-            className="p-2 -mr-2 text-[var(--text-body)] hover:text-[var(--text-main)] transition-colours relative"
-            aria-label="Notifications"
-          >
-            <span className="material-symbols-outlined text-2xl">
-              notifications
-            </span>
-            {unreadNotifications > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                {unreadNotifications}
+          <div className="flex items-center gap-1">
+            {/* Theme Toggle */}
+            <motion.button
+              onClick={toggleTheme}
+              className="p-2 text-[var(--text-body)] hover:text-primary transition-colors"
+              aria-label="Toggle dark mode"
+              whileTap={{ scale: 0.9 }}
+            >
+              <span className="material-symbols-outlined text-xl">
+                {resolvedTheme === 'dark' ? 'light_mode' : 'dark_mode'}
               </span>
-            )}
-          </button>
+            </motion.button>
+
+            {/* Notifications */}
+            <button
+              onClick={() => setNotificationsOpen(!notificationsOpen)}
+              className="p-2 -mr-2 text-[var(--text-body)] hover:text-[var(--text-main)] transition-colours relative"
+              aria-label="Notifications"
+            >
+              <span className="material-symbols-outlined text-2xl">
+                notifications
+              </span>
+              {unreadNotifications > 0 && (
+                <span className="absolute top-1 right-1 w-4 h-4 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {unreadNotifications}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -146,6 +169,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                 secondaryNavItems={secondaryNavItems}
                 isActiveLink={isActiveLink}
                 onClose={() => setMobileMenuOpen(false)}
+                resolvedTheme={resolvedTheme}
               />
             </motion.aside>
           </>
@@ -163,6 +187,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
           navItems={navItems}
           secondaryNavItems={secondaryNavItems}
           isActiveLink={isActiveLink}
+          resolvedTheme={resolvedTheme}
         />
       </motion.aside>
 
@@ -182,15 +207,35 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
           <div className="flex items-center gap-4">
             {/* Search */}
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] text-xl z-10">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] text-xl">
                 search
               </span>
-              <Input
+              <input
                 type="text"
                 placeholder="Search policies, claims..."
-                className="w-64 pl-10 rounded-xl"
+                className="w-64 pl-10 pr-4 py-2 bg-[var(--surface-inset)] border border-[var(--border-light)] rounded-xl text-sm text-[var(--text-body)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all"
               />
             </div>
+
+            {/* Theme Toggle */}
+            <motion.button
+              onClick={toggleTheme}
+              className="p-2 text-[var(--text-body)] hover:text-primary hover:bg-[var(--surface-inset)] rounded-xl transition-all"
+              aria-label="Toggle dark mode"
+              whileHover={{ scale: 1.1, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            >
+              <motion.span
+                className="material-symbols-outlined text-2xl block"
+                key={resolvedTheme}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                {resolvedTheme === 'dark' ? 'light_mode' : 'dark_mode'}
+              </motion.span>
+            </motion.button>
 
             {/* Notifications */}
             <div className="relative">
@@ -256,6 +301,7 @@ interface SidebarContentProps {
   secondaryNavItems: NavItem[];
   isActiveLink: (href: string) => boolean;
   onClose?: () => void;
+  resolvedTheme?: string;
 }
 
 function SidebarContent({
@@ -263,6 +309,7 @@ function SidebarContent({
   secondaryNavItems,
   isActiveLink,
   onClose,
+  resolvedTheme,
 }: SidebarContentProps) {
   return (
     <div className="flex flex-col h-full">
@@ -270,20 +317,23 @@ function SidebarContent({
       <div className="p-6 border-b border-[var(--border-light)]">
         <Link
           href="/portal/dashboard"
-          className="flex items-center gap-3"
+          className="flex items-center cursor-pointer group"
           onClick={onClose}
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-xl flex items-center justify-center shadow-lg shadow-primary/25">
-            <span className="text-white font-bold text-lg">M</span>
-          </div>
-          <div>
-            <span className="font-bold text-lg text-[var(--text-main)]">
-              MetroSure
-            </span>
-            <span className="block text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
-              Client Portal
-            </span>
-          </div>
+          <motion.div
+            className="relative h-10 w-[140px]"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          >
+            <Image
+              src={resolvedTheme === 'dark' ? '/images/logo-white.png' : '/images/logo.png'}
+              alt="Metrosure Insurance Brokers"
+              fill
+              className="object-contain"
+              priority
+            />
+          </motion.div>
         </Link>
       </div>
 
@@ -412,6 +462,35 @@ function SidebarContent({
           <span className="font-medium text-sm">Sign Out</span>
         </Link>
       </div>
+
+      {/* Zoocora Attribution */}
+      <div className="p-4 border-t border-[var(--border-light)]">
+        <motion.a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            const user = 'makhunga';
+            const domain = 'zoocora.co.za';
+            window.location.href = `mailto:${user}@${domain}`;
+          }}
+          className="flex items-center justify-center cursor-pointer"
+          title="Developed by Zoocora"
+          initial={{ filter: 'drop-shadow(0 0 0px rgba(130,178,154,0))' }}
+          whileHover={{
+            filter: 'drop-shadow(0 0 8px rgba(130,178,154,0.6))',
+            scale: 1.05,
+          }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
+          <Image
+            src="/images/zoocora-logo.svg"
+            alt="Zoocora"
+            width={90}
+            height={20}
+            className="opacity-40 hover:opacity-100 transition-opacity duration-300"
+          />
+        </motion.a>
+      </div>
     </div>
   );
 }
@@ -438,9 +517,9 @@ function NotificationsDropdown({ onClose }: { onClose: () => void }) {
           <h3 className="font-semibold text-[var(--text-main)]">
             Notifications
           </h3>
-          <Button variant="link" size="sm" className="h-auto p-0 text-xs">
+          <button className="text-xs text-[var(--primary)] hover:underline">
             Mark all read
-          </Button>
+          </button>
         </div>
         <div className="max-h-80 overflow-y-auto">
           {mockNotifications.map((notification) => (

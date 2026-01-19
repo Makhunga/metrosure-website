@@ -191,24 +191,24 @@ export default function DocumentsPage() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.05 }}
-                  className="group p-5 rounded-2xl bg-white dark:bg-stone-900 border border-[var(--border-light)] hover:border-[var(--primary)]/30 hover:shadow-lg transition-all cursor-pointer"
+                  className="group p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 hover:border-red-300 dark:hover:border-red-700 hover:shadow-lg transition-all cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-2xl text-[var(--primary)]">
+                    <div className="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400">
                         {getDocumentIcon(doc.type)}
                       </span>
                     </div>
-                    <button className="p-2 rounded-lg text-[var(--text-subtle)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/10 opacity-0 group-hover:opacity-100 transition-all">
+                    <button className="p-2 rounded-lg text-stone-400 dark:text-stone-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 opacity-0 group-hover:opacity-100 transition-all">
                       <span className="material-symbols-outlined text-lg">
                         download
                       </span>
                     </button>
                   </div>
-                  <h3 className="font-medium text-[var(--text-main)] text-sm mb-2 line-clamp-2">
+                  <h3 className="font-medium text-stone-900 dark:text-stone-100 text-sm mb-2 line-clamp-2">
                     {doc.name}
                   </h3>
-                  <div className="flex items-center justify-between text-xs text-[var(--text-muted)]">
+                  <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
                     <span>{formatShortDate(doc.uploadedDate)}</span>
                     <span>{doc.fileSize}</span>
                   </div>
@@ -217,33 +217,33 @@ export default function DocumentsPage() {
             </div>
           ) : (
             /* List View */
-            <div className="bg-white dark:bg-stone-900 rounded-2xl border border-[var(--border-light)] overflow-hidden">
-              <div className="divide-y divide-[var(--border-light)]">
+            <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
+              <div className="divide-y divide-stone-200 dark:divide-stone-700">
                 {filteredDocuments.map((doc, index) => (
                   <motion.div
                     key={doc.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.03 }}
-                    className="flex items-center gap-4 p-4 hover:bg-[var(--surface-inset)]/50 transition-colours cursor-pointer group"
+                    className="flex items-center gap-4 p-4 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors cursor-pointer group"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
-                      <span className="material-symbols-outlined text-xl text-[var(--primary)]">
+                    <div className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+                      <span className="material-symbols-outlined text-xl text-red-600 dark:text-red-400">
                         {getDocumentIcon(doc.type)}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-[var(--text-main)] text-sm truncate">
+                      <h3 className="font-medium text-stone-900 dark:text-stone-100 text-sm truncate">
                         {doc.name}
                       </h3>
-                      <p className="text-xs text-[var(--text-muted)]">
+                      <p className="text-xs text-stone-500 dark:text-stone-400">
                         {formatShortDate(doc.uploadedDate)} · {doc.fileSize}
                       </p>
                     </div>
-                    <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--surface-inset)] text-[var(--text-muted)] capitalize">
+                    <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 capitalize">
                       {doc.category}
                     </span>
-                    <button className="p-2 rounded-lg text-[var(--text-subtle)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/10 transition-all">
+                    <button className="p-2 rounded-lg text-stone-400 dark:text-stone-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 transition-all">
                       <span className="material-symbols-outlined text-lg">
                         download
                       </span>
@@ -296,17 +296,17 @@ export default function DocumentsPage() {
       {/* Help Section */}
       <motion.section variants={itemVariants}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
-            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+          <div className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
               upload_file
             </span>
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
               Upload Documents
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-3">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
               Securely upload supporting documents for your policies or claims.
             </p>
-            <button className="text-sm text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1">
+            <button className="text-sm text-red-600 dark:text-red-400 font-medium hover:underline inline-flex items-center gap-1">
               Upload Now
               <span className="material-symbols-outlined text-lg">
                 arrow_forward
@@ -314,20 +314,20 @@ export default function DocumentsPage() {
             </button>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
-            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+          <div className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
               security
             </span>
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
               Secure Storage
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-3">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
               All documents are encrypted and stored securely in compliance with
               POPIA.
             </p>
             <a
               href="/privacy"
-              className="text-sm text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+              className="text-sm text-red-600 dark:text-red-400 font-medium hover:underline inline-flex items-center gap-1"
             >
               Privacy Policy
               <span className="material-symbols-outlined text-lg">
@@ -336,19 +336,19 @@ export default function DocumentsPage() {
             </a>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
-            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+          <div className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
               support_agent
             </span>
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
               Need a Document?
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-3">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
               Contact us if you need a specific document or certificate.
             </p>
             <a
               href="/contact"
-              className="text-sm text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+              className="text-sm text-red-600 dark:text-red-400 font-medium hover:underline inline-flex items-center gap-1"
             >
               Contact Support
               <span className="material-symbols-outlined text-lg">

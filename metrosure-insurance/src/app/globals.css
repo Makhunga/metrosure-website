@@ -107,6 +107,36 @@
   --sidebar-accent-foreground: 105 0 37;
   --sidebar-border: 231 229 228;
   --sidebar-ring: 191 6 3;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     PORTAL COMPATIBILITY ALIASES (Light Mode)
+     Short names for portal components using var(--name) syntax
+     ───────────────────────────────────────────────────────────────────────── */
+  --text-main: rgb(var(--color-text-main));
+  --text-body: rgb(var(--color-text-body));
+  --text-muted: rgb(var(--color-text-muted));
+  --text-subtle: rgb(var(--color-text-subtle));
+  --surface: rgb(var(--color-surface));
+  --surface-card: rgb(var(--color-surface-card));
+  --surface-elevated: rgb(var(--color-surface-elevated));
+  --surface-inset: rgb(var(--color-surface-inset));
+  --border-light: rgb(var(--color-border-light));
+  --border-medium: rgb(var(--color-border-medium));
+  --border-strong: rgb(var(--color-border-strong));
+  --primary-hover: rgb(var(--color-primary-hover));
+
+  /* Tailwind/shadcn compatibility - explicit color values */
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
 }
 
 .dark {
@@ -116,11 +146,11 @@
   --color-surface-elevated: 45 45 55; /* warm slate-700 */
   --color-surface-inset: 10 10 18;    /* darker warm base */
 
-  /* Text Colors - Dark Mode */
+  /* Text Colors - Dark Mode - WCAG AA compliant contrast */
   --color-text-main: 250 248 248;     /* warm white */
-  --color-text-body: 210 205 200;     /* warm slate-300 */
-  --color-text-muted: 160 155 150;    /* warm slate-400 */
-  --color-text-subtle: 110 105 100;   /* warm slate-500 */
+  --color-text-body: 230 225 220;     /* warm gray - high contrast */
+  --color-text-muted: 200 195 190;    /* warm gray - good contrast */
+  --color-text-subtle: 170 165 160;   /* warm gray - readable on dark */
 
   /* Border Colors - Dark Mode */
   --color-border-light: 50 48 55;     /* warm slate-700 */
@@ -164,6 +194,36 @@
   --sidebar-accent-foreground: 105 0 37;
   --sidebar-border: 50 48 55;
   --sidebar-ring: 191 6 3;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     PORTAL COMPATIBILITY ALIASES (Dark Mode)
+     Same aliases, using overridden dark mode values
+     ───────────────────────────────────────────────────────────────────────── */
+  --text-main: rgb(var(--color-text-main));
+  --text-body: rgb(var(--color-text-body));
+  --text-muted: rgb(var(--color-text-muted));
+  --text-subtle: rgb(var(--color-text-subtle));
+  --surface: rgb(var(--color-surface));
+  --surface-card: rgb(var(--color-surface-card));
+  --surface-elevated: rgb(var(--color-surface-elevated));
+  --surface-inset: rgb(var(--color-surface-inset));
+  --border-light: rgb(var(--color-border-light));
+  --border-medium: rgb(var(--color-border-medium));
+  --border-strong: rgb(var(--color-border-strong));
+  --primary-hover: rgb(var(--color-primary-hover));
+
+  /* Tailwind/shadcn compatibility - explicit color values for dark mode */
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
 }
 
 @theme inline {

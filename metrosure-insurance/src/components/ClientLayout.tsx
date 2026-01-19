@@ -2,6 +2,7 @@
 
 import { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
@@ -15,6 +16,8 @@ interface ClientLayoutProps {
 }
 
 export default function ClientLayout({ children }: ClientLayoutProps) {
+  const pathname = usePathname();
+  const isPortalPage = pathname?.startsWith("/portal");
   const [isHiringBannerDismissed, setIsHiringBannerDismissed] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -38,19 +41,19 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
 
   return (
     <>
-      {/* Development Banner - Remove when site goes live */}
-      <DevelopmentBanner />
+      {/* Development Banner - Remove when site goes live (hidden on portal) */}
+      {!isPortalPage && <DevelopmentBanner />}
 
-      <ScrollProgressLine color="rgb(191, 6, 3)" />
+      {!isPortalPage && <ScrollProgressLine color="rgb(191, 6, 3)" />}
 
       {/* Simple fade transition between pages */}
       <PageTransition>
         {children}
       </PageTransition>
 
-      {/* Sticky Bottom Hiring Banner - Mobile Only */}
+      {/* Sticky Bottom Hiring Banner - Mobile Only (hidden on portal) */}
       <AnimatePresence>
-        {isHydrated && !isHiringBannerDismissed && (
+        {isHydrated && !isHiringBannerDismissed && !isPortalPage && (
           <motion.div
             className="md:hidden fixed bottom-0 left-0 right-0 z-[100] p-3 bg-gradient-to-r from-green-600 to-green-500 shadow-lg shadow-green-500/30"
             initial={{ y: 100, opacity: 0 }}
@@ -88,8 +91,8 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
         )}
       </AnimatePresence>
 
-      {/* WhatsApp Click-to-Chat Button */}
-      <WhatsAppButton />
+      {/* WhatsApp Click-to-Chat Button (hidden on portal) */}
+      {!isPortalPage && <WhatsAppButton />}
 
       {/* POPIA Cookie Consent Banner */}
       <CookieConsent />

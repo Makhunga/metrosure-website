@@ -277,57 +277,57 @@ export default function ClaimsPage() {
       {/* Help Section */}
       <motion.div variants={itemVariants}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
-            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+          <div className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
               help
             </span>
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
               How to Submit a Claim
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-3">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
               Learn about the claims process and what documents you need.
             </p>
             <a
               href="/help/claims"
-              className="text-sm text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+              className="text-sm text-red-600 dark:text-red-400 font-medium hover:underline inline-flex items-center gap-1"
             >
               Read Guide
               <span className="material-symbols-outlined text-lg">arrow_forward</span>
             </a>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
-            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+          <div className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
               timer
             </span>
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
               Claims Processing Time
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-3">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
               Most claims are processed within 5-10 business days.
             </p>
             <a
               href="/help/claims-timeline"
-              className="text-sm text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+              className="text-sm text-red-600 dark:text-red-400 font-medium hover:underline inline-flex items-center gap-1"
             >
               Learn More
               <span className="material-symbols-outlined text-lg">arrow_forward</span>
             </a>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
-            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3">
+          <div className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700">
+            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
               support_agent
             </span>
-            <h3 className="font-semibold text-[var(--text-main)] mb-1">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
               Need Help?
             </h3>
-            <p className="text-sm text-[var(--text-muted)] mb-3">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
               Our claims team is available 24/7 to assist you.
             </p>
             <a
               href="tel:0860111911"
-              className="text-sm text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+              className="text-sm text-red-600 dark:text-red-400 font-medium hover:underline inline-flex items-center gap-1"
             >
               Call 0860 111 911
               <span className="material-symbols-outlined text-lg">call</span>

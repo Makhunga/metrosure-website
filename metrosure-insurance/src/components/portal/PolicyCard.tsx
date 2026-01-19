@@ -9,7 +9,6 @@ import {
   formatCurrency,
   formatShortDate,
 } from '@/data/portalMockData';
-import { Button } from '@/components/ui/button';
 
 interface PolicyCardProps {
   policy: Policy;
@@ -123,7 +122,7 @@ export default function PolicyCard({
                     <h3 className="font-semibold text-[var(--text-main)] group-hover:text-[var(--primary)] transition-colours">
                       {policy.name}
                     </h3>
-                    <p className="text-xs text-[var(--text-muted)]">
+                    <p className="text-xs text-[var(--text-body)]">
                       {policy.policyNumber}
                     </p>
                   </div>
@@ -150,7 +149,7 @@ export default function PolicyCard({
               {/* Details Grid */}
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <p className="text-[var(--text-subtle)] text-xs mb-0.5">
+                  <p className="text-[var(--text-muted)] text-xs mb-0.5">
                     Premium
                   </p>
                   <p className="font-medium text-[var(--text-main)]">
@@ -158,7 +157,7 @@ export default function PolicyCard({
                   </p>
                 </div>
                 <div>
-                  <p className="text-[var(--text-subtle)] text-xs mb-0.5">
+                  <p className="text-[var(--text-muted)] text-xs mb-0.5">
                     Excess
                   </p>
                   <p className="font-medium text-[var(--text-main)]">
@@ -166,7 +165,7 @@ export default function PolicyCard({
                   </p>
                 </div>
                 <div>
-                  <p className="text-[var(--text-subtle)] text-xs mb-0.5">
+                  <p className="text-[var(--text-muted)] text-xs mb-0.5">
                     Next Payment
                   </p>
                   <p className="font-medium text-[var(--text-main)]">
@@ -174,7 +173,7 @@ export default function PolicyCard({
                   </p>
                 </div>
                 <div>
-                  <p className="text-[var(--text-subtle)] text-xs mb-0.5">
+                  <p className="text-[var(--text-muted)] text-xs mb-0.5">
                     Valid Until
                   </p>
                   <p className="font-medium text-[var(--text-main)]">
@@ -184,11 +183,11 @@ export default function PolicyCard({
               </div>
 
               {/* Hover Action */}
-              <div className="mt-4 pt-4 border-t border-[var(--border-light)] flex items-center justify-between">
-                <span className="text-xs text-[var(--text-muted)]">
+              <div className="mt-4 pt-4 border-t border-stone-200 dark:border-stone-700 flex items-center justify-between">
+                <span className="text-xs text-stone-500 dark:text-stone-400">
                   {policy.features.length} benefits included
                 </span>
-                <span className="text-[var(--primary)] text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                <span className="text-red-600 dark:text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                   View Details
                   <span className="material-symbols-outlined text-lg">
                     arrow_forward
@@ -244,7 +243,7 @@ function CompactPolicyCard({
         >
           {formatStatus(policy.status)}
         </span>
-        <span className="material-symbols-outlined text-[var(--text-subtle)] group-hover:text-[var(--primary)] transition-colours">
+        <span className="material-symbols-outlined text-stone-400 dark:text-stone-500 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
           chevron_right
         </span>
       </Link>
@@ -284,10 +283,10 @@ function ExpandedPolicyCard({
               </span>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-[var(--text-main)]">
+              <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100">
                 {policy.name}
               </h2>
-              <p className="text-sm text-[var(--text-muted)]">
+              <p className="text-sm text-stone-500 dark:text-stone-400">
                 Policy #{policy.policyNumber}
               </p>
             </div>
@@ -303,34 +302,34 @@ function ExpandedPolicyCard({
 
       {/* Content */}
       <div className="p-6">
-        <p className="text-[var(--text-body)] mb-6">{policy.description}</p>
+        <p className="text-stone-600 dark:text-stone-300 mb-6">{policy.description}</p>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="p-4 rounded-xl bg-[var(--surface-inset)]">
-            <p className="text-xs text-[var(--text-muted)] mb-1">Cover Amount</p>
-            <p className="text-xl font-bold text-[var(--text-main)]">
+          <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-800">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mb-1">Cover Amount</p>
+            <p className="text-xl font-bold text-stone-900 dark:text-stone-100">
               {formatCurrency(policy.coverAmount)}
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-[var(--surface-inset)]">
-            <p className="text-xs text-[var(--text-muted)] mb-1">Premium</p>
-            <p className="text-xl font-bold text-[var(--text-main)]">
+          <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-800">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mb-1">Premium</p>
+            <p className="text-xl font-bold text-stone-900 dark:text-stone-100">
               {formatCurrency(policy.premium)}
-              <span className="text-sm font-normal text-[var(--text-muted)]">
+              <span className="text-sm font-normal text-stone-500 dark:text-stone-400">
                 /{policy.frequency === 'monthly' ? 'mo' : 'yr'}
               </span>
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-[var(--surface-inset)]">
-            <p className="text-xs text-[var(--text-muted)] mb-1">Excess</p>
-            <p className="text-xl font-bold text-[var(--text-main)]">
+          <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-800">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mb-1">Excess</p>
+            <p className="text-xl font-bold text-stone-900 dark:text-stone-100">
               {formatCurrency(policy.excess)}
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-[var(--surface-inset)]">
-            <p className="text-xs text-[var(--text-muted)] mb-1">Valid Until</p>
-            <p className="text-xl font-bold text-[var(--text-main)]">
+          <div className="p-4 rounded-xl bg-stone-100 dark:bg-stone-800">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mb-1">Valid Until</p>
+            <p className="text-xl font-bold text-stone-900 dark:text-stone-100">
               {formatShortDate(policy.endDate)}
             </p>
           </div>
@@ -338,8 +337,8 @@ function ExpandedPolicyCard({
 
         {/* Features */}
         <div>
-          <h3 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-            <span className="material-symbols-outlined text-[var(--primary)]">
+          <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-3 flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 dark:text-red-400">
               check_circle
             </span>
             What&apos;s Covered
@@ -348,9 +347,9 @@ function ExpandedPolicyCard({
             {policy.features.map((feature, i) => (
               <li
                 key={i}
-                className="flex items-center gap-2 text-sm text-[var(--text-body)]"
+                className="flex items-center gap-2 text-sm text-stone-600 dark:text-stone-300"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 dark:bg-red-400" />
                 {feature}
               </li>
             ))}
@@ -359,9 +358,9 @@ function ExpandedPolicyCard({
 
         {/* Insured Items */}
         {policy.insuredItems && policy.insuredItems.length > 0 && (
-          <div className="mt-6 pt-6 border-t border-[var(--border-light)]">
-            <h3 className="font-semibold text-[var(--text-main)] mb-3 flex items-center gap-2">
-              <span className="material-symbols-outlined text-[var(--primary)]">
+          <div className="mt-6 pt-6 border-t border-stone-200 dark:border-stone-700">
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-3 flex items-center gap-2">
+              <span className="material-symbols-outlined text-red-600 dark:text-red-400">
                 inventory_2
               </span>
               Insured Items
@@ -370,19 +369,19 @@ function ExpandedPolicyCard({
               {policy.insuredItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 rounded-xl bg-[var(--surface-inset)]"
+                  className="flex items-center justify-between p-3 rounded-xl bg-stone-100 dark:bg-stone-800"
                 >
                   <div>
-                    <p className="font-medium text-[var(--text-main)]">
+                    <p className="font-medium text-stone-900 dark:text-stone-100">
                       {item.name}
                     </p>
                     {item.description && (
-                      <p className="text-xs text-[var(--text-muted)]">
+                      <p className="text-xs text-stone-500 dark:text-stone-400">
                         {item.description}
                       </p>
                     )}
                   </div>
-                  <p className="font-semibold text-[var(--text-main)]">
+                  <p className="font-semibold text-stone-900 dark:text-stone-100">
                     {formatCurrency(item.value)}
                   </p>
                 </div>
@@ -392,19 +391,19 @@ function ExpandedPolicyCard({
         )}
 
         {/* Actions */}
-        <div className="mt-6 pt-6 border-t border-[var(--border-light)] flex flex-wrap gap-3">
-          <Button className="rounded-xl shadow-lg shadow-primary/25">
+        <div className="mt-6 pt-6 border-t border-stone-200 dark:border-stone-700 flex flex-wrap gap-3">
+          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium text-sm transition-colors shadow-lg shadow-red-600/25">
             <span className="material-symbols-outlined text-lg">add_circle</span>
             Submit Claim
-          </Button>
-          <Button variant="outline" className="rounded-xl">
+          </button>
+          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 font-medium text-sm hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
             <span className="material-symbols-outlined text-lg">edit</span>
             Update Cover
-          </Button>
-          <Button variant="outline" className="rounded-xl">
+          </button>
+          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 font-medium text-sm hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
             <span className="material-symbols-outlined text-lg">download</span>
             Download Schedule
-          </Button>
+          </button>
         </div>
       </div>
     </motion.div>

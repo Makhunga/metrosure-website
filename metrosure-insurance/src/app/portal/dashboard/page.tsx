@@ -10,7 +10,6 @@ import {
   mockNotifications,
   formatCurrency,
 } from '@/data/portalMockData';
-import { Button } from '@/components/ui/button';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -226,18 +225,20 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Button asChild className="rounded-xl bg-white text-[var(--primary)] hover:bg-white/90 shadow-lg">
-                <a href="tel:0860111911">
-                  <span className="material-symbols-outlined text-lg">call</span>
-                  0860 111 911
-                </a>
-              </Button>
-              <Button asChild variant="outline" className="rounded-xl bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-white/30 hover:text-white">
-                <a href="/contact">
-                  <span className="material-symbols-outlined text-lg">chat</span>
-                  Start Chat
-                </a>
-              </Button>
+              <a
+                href="tel:0860111911"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[var(--primary)] font-medium text-sm hover:bg-white/90 transition-colours shadow-lg"
+              >
+                <span className="material-symbols-outlined text-lg">call</span>
+                0860 111 911
+              </a>
+              <a
+                href="/contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/20 backdrop-blur-sm text-white font-medium text-sm hover:bg-white/30 transition-colours border border-white/30"
+              >
+                <span className="material-symbols-outlined text-lg">chat</span>
+                Start Chat
+              </a>
             </div>
           </div>
         </div>

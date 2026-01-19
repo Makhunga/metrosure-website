@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 19 January 2026 (Session 118)
+**Updated:** 19 January 2026 (Session 119)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,8 +9,42 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 53 (46 pages + 7 API routes)
-- **Last Build:** 18 January 2026
+- **Last Build:** 19 January 2026
 
+
+---
+
+## SESSION 119 (19 Jan 2026) - Favicon, Logos & Portal Enhancements
+
+### Completed
+| Task | Status |
+|------|--------|
+| Update favicon to new Metrosure logo mark (multi-resolution .ico) | ✅ Complete |
+| Create Apple touch icon (180x180) | ✅ Complete |
+| CSS variable aliases for dark mode (portal compatibility) | ✅ Complete |
+| Settings page shadcn refactoring (Switch, Select, RadioGroup, Button) | ✅ Complete |
+| Update logo files (Fixed versions from resources) | ✅ Complete |
+| Portal logo with dark/light mode switching | ✅ Complete |
+| Add Zoocora logo with glow effect to portal sidebar | ✅ Complete |
+| Add dark/light mode toggle to portal (desktop + mobile) | ✅ Complete |
+
+### Files Created/Modified
+| File | Change |
+|------|--------|
+| `src/app/favicon.ico` | Replaced with new Metrosure logo mark (multi-resolution) |
+| `src/app/apple-icon.png` | New Apple touch icon |
+| `public/images/logo.png` | Updated from `resources/Metrosure-logo-Big-Fixed.png` |
+| `public/images/logo-white.png` | Updated from `resources/Metrosure-logo-Big-Fixed-white.png` |
+| `src/app/globals.css` | Portal compatibility CSS variable aliases (lines 111-127, 198-213) |
+| `src/app/portal/settings/page.tsx` | Refactored with shadcn Switch, Select, RadioGroup, Button |
+| `src/components/portal/PortalLayout.tsx` | Logo images (dark/light), Zoocora logo, theme toggle |
+
+### Technical Notes
+- **Favicon:** Multi-resolution .ico file (48x48, 32x32) created from `Inkscape-19-01-2026-Metrosure-LogoMark.png`
+- **Portal logos:** Now use actual logo images instead of stylised "M" icon, switching for dark/light mode
+- **Theme toggle:** Added to both desktop header (with rotation animation) and mobile header
+- **Zoocora logo:** Located at bottom of portal sidebar with hover glow effect (`drop-shadow(0 0 8px rgba(130,178,154,0.6))`)
+- **CSS aliases:** Variables like `--text-main`, `--surface-card` now map to `--color-text-main`, `--color-surface-card`
 
 ---
 
@@ -251,20 +285,26 @@ Visit `/playground/shadcn` to see all components with Metrosure theming:
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Portal Component Refactoring ⭐
-- Refactor existing portal components to use shadcn primitives
-- Replace custom buttons with `<Button>` variants
-- Replace custom inputs with `<Input>`, `<Select>`, `<Textarea>`
-- Replace custom modals with `<Dialog>`
-- Add toast notifications for user feedback
-- Benefits: Accessibility, consistent theming, reduced custom CSS
+### Priority 1: Portal Analytics & Charts ⭐ (NEW)
+- Add graphical analytics mockups to Portal Dashboard
+- **Charts to implement:**
+  - Premium payments over time (line/area chart)
+  - Policy distribution by type (pie/donut chart)
+  - Claims status breakdown (bar chart)
+  - Monthly spending trends (line chart)
+- **Libraries to consider:**
+  - Recharts (lightweight, React-native)
+  - Tremor (Tailwind-native, shadcn-compatible)
+  - Chart.js with react-chartjs-2
+- **Mock data:** Add realistic historical data to `portalMockData.ts`
+- **Dark mode:** Ensure charts theme correctly for light/dark modes
 
 ### Priority 2: Portal Refinements
 - Mobile responsive testing for all portal pages
 - Claim detail page with full timeline (`/portal/claims/[id]`)
 - Notifications page (`/portal/notifications`)
-- Add interactivity to Settings toggles (currently visual mockup)
 - Add real toast feedback to form submissions
+- Remaining button migrations (PolicyCard, QuickActions)
 
 ### Priority 3: Additional shadcn Components (As Needed)
 - Install additional components: `npx shadcn@latest add [component]`
@@ -353,10 +393,11 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 119 | Favicon, Logos & Portal | New favicon/apple-icon; Portal logos with dark/light switching; Zoocora logo; Theme toggle |
+| 118 | Testimonial Refinements | New TestimonialsCarousel; AI avatars for partners; Form header updates |
 | 117 | shadcn/ui Integration | 8 components installed; Metrosure theming; Sonner toasts; playground page |
 | 116 | WhatsApp & Footer Improvements | WhatsApp auto-hide at footer; Zoocora logo on mobile with glow |
 | 115 | Portal Pages & Quick Fixes | Payments, Documents, Settings pages; TrustedBy image update |
-| 114 | Client Portal Mockup | Dashboard, Policies, Claims pages; Login with social auth |
 
 ---
 
