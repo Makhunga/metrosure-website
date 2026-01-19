@@ -11,7 +11,6 @@ import {
   getPolicyIcon,
 } from '@/data/portalMockData';
 import { Badge, getStatusBadgeVariant, type ClaimStatus, type DocumentStatus } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -65,16 +64,16 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
       <div className="mb-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl text-[var(--primary)]">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <span className="material-symbols-outlined text-2xl text-primary">
                 {getPolicyIcon(claim.policyType)}
               </span>
             </div>
             <div>
-              <h3 className="font-semibold text-[var(--text-main)]">
+              <h3 className="font-semibold text-foreground">
                 {claim.type}
               </h3>
-              <p className="text-sm text-[var(--text-muted)]">
+              <p className="text-sm text-muted-foreground">
                 {claim.claimNumber}
               </p>
             </div>
@@ -88,16 +87,16 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
         </div>
 
         {/* Amount display */}
-        <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-[var(--surface-inset)]">
+        <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-muted">
           <div>
-            <p className="text-xs text-[var(--text-muted)] mb-1">Claimed Amount</p>
-            <p className="text-xl font-bold text-[var(--text-main)]">
+            <p className="text-xs text-muted-foreground mb-1">Claimed Amount</p>
+            <p className="text-xl font-bold text-foreground">
               {formatCurrency(claim.amount)}
             </p>
           </div>
           {claim.approvedAmount !== undefined && (
             <div>
-              <p className="text-xs text-[var(--text-muted)] mb-1">Approved Amount</p>
+              <p className="text-xs text-muted-foreground mb-1">Approved Amount</p>
               <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
                 {formatCurrency(claim.approvedAmount)}
               </p>
@@ -114,7 +113,7 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
         className="relative"
       >
         {/* Timeline line */}
-        <div className="absolute left-[23px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--primary)] via-[var(--border-medium)] to-[var(--border-light)]" />
+        <div className="absolute left-[23px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-border to-border" />
 
         <ul className="space-y-0">
           {claim.timeline.map((event, index) => (
@@ -130,9 +129,9 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
 
       {/* Documents section */}
       {claim.documents && claim.documents.length > 0 && (
-        <div className="mt-6 pt-6 border-t border-[var(--border-light)]">
-          <h4 className="font-medium text-[var(--text-main)] mb-3 flex items-center gap-2">
-            <span className="material-symbols-outlined text-lg text-[var(--text-muted)]">
+        <div className="mt-6 pt-6 border-t border-border">
+          <h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
+            <span className="material-symbols-outlined text-lg text-muted-foreground">
               folder
             </span>
             Attached Documents
@@ -141,17 +140,17 @@ export default function ClaimsTimeline({ claim, compact = false }: ClaimsTimelin
             {claim.documents.map((doc) => (
               <li
                 key={doc.id}
-                className="flex items-center justify-between p-3 rounded-xl bg-[var(--surface-inset)] hover:bg-[var(--surface)] transition-colours"
+                className="flex items-center justify-between p-3 rounded-xl bg-muted hover:bg-background transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[var(--text-muted)]">
+                  <span className="material-symbols-outlined text-muted-foreground">
                     {doc.type === 'pdf' ? 'picture_as_pdf' : 'folder_zip'}
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-[var(--text-main)]">
+                    <p className="text-sm font-medium text-foreground">
                       {doc.name}
                     </p>
-                    <p className="text-xs text-[var(--text-muted)]">
+                    <p className="text-xs text-muted-foreground">
                       Uploaded {formatShortDate(doc.uploadedAt)}
                     </p>
                   </div>
@@ -198,15 +197,15 @@ function TimelineEvent({
             isCompleted
               ? 'bg-emerald-100 dark:bg-emerald-900/50'
               : isCurrent
-                ? 'bg-[var(--primary)]/10'
-                : 'bg-[var(--surface-inset)]'
+                ? 'bg-primary/10'
+                : 'bg-muted'
           }`}
         >
           {isCurrent && (
             <motion.div
               variants={pulseVariants}
               animate="animate"
-              className="absolute inset-0 rounded-full bg-[var(--primary)]/30"
+              className="absolute inset-0 rounded-full bg-primary/30"
             />
           )}
           <span
@@ -214,8 +213,8 @@ function TimelineEvent({
               isCompleted
                 ? 'text-emerald-600 dark:text-emerald-400'
                 : isCurrent
-                  ? 'text-[var(--primary)]'
-                  : 'text-[var(--text-subtle)]'
+                  ? 'text-primary'
+                  : 'text-muted-foreground'
             }`}
           >
             {isCompleted
@@ -231,29 +230,29 @@ function TimelineEvent({
       <div
         className={`p-4 rounded-xl ${
           isCurrent
-            ? 'bg-[var(--primary)]/5 border border-[var(--primary)]/20'
+            ? 'bg-primary/5 border border-primary/20'
             : isPending
-              ? 'bg-[var(--surface-inset)]/50 opacity-60'
-              : 'bg-[var(--surface-inset)]'
+              ? 'bg-muted/50 opacity-60'
+              : 'bg-muted'
         }`}
       >
         <div className="flex items-start justify-between mb-1">
           <h4
             className={`font-medium ${
-              isPending ? 'text-[var(--text-muted)]' : 'text-[var(--text-main)]'
+              isPending ? 'text-muted-foreground' : 'text-foreground'
             }`}
           >
             {event.title}
           </h4>
           {event.date && (
-            <span className="text-xs text-[var(--text-subtle)]">
+            <span className="text-xs text-muted-foreground">
               {formatShortDate(event.date)}
             </span>
           )}
         </div>
         <p
           className={`text-sm ${
-            isPending ? 'text-[var(--text-subtle)]' : 'text-[var(--text-muted)]'
+            isPending ? 'text-muted-foreground' : 'text-muted-foreground'
           }`}
         >
           {event.description}
@@ -272,21 +271,21 @@ function CompactTimeline({ claim }: { claim: Claim }) {
   return (
     <Link
       href={`/portal/claims/${claim.id}`}
-      className="block p-4 rounded-xl bg-[var(--surface-card)] border border-[var(--border-light)] hover:border-[var(--border-medium)] hover:shadow-md transition-all group"
+      className="block p-4 rounded-xl bg-card border border-border hover:border-border hover:shadow-md transition-all group"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[var(--primary)]/10 flex items-center justify-center">
-            <span className="material-symbols-outlined text-xl text-[var(--primary)]">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <span className="material-symbols-outlined text-xl text-primary">
               {getPolicyIcon(claim.policyType)}
             </span>
           </div>
           <div>
-            <h4 className="font-medium text-sm text-[var(--text-main)] group-hover:text-[var(--primary)] transition-colours">
+            <h4 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
               {claim.type}
             </h4>
-            <p className="text-xs text-[var(--text-muted)]">
+            <p className="text-xs text-muted-foreground">
               {claim.claimNumber}
             </p>
           </div>
@@ -301,18 +300,18 @@ function CompactTimeline({ claim }: { claim: Claim }) {
 
       {/* Progress bar */}
       <div className="mb-3">
-        <div className="flex items-center justify-between text-xs text-[var(--text-muted)] mb-1">
+        <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
           <span>Progress</span>
           <span>
             {completedSteps}/{totalSteps} steps
           </span>
         </div>
-        <div className="h-2 rounded-full bg-[var(--surface-inset)] overflow-hidden">
+        <div className="h-2 rounded-full bg-muted overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="h-full rounded-full bg-gradient-to-r from-[var(--primary)] to-emerald-500"
+            className="h-full rounded-full bg-gradient-to-r from-primary to-emerald-500"
           />
         </div>
       </div>
@@ -326,8 +325,8 @@ function CompactTimeline({ claim }: { claim: Claim }) {
               event.status === 'completed'
                 ? 'bg-emerald-500'
                 : event.status === 'current'
-                  ? 'bg-[var(--primary)] animate-pulse'
-                  : 'bg-[var(--border-medium)]'
+                  ? 'bg-primary animate-pulse'
+                  : 'bg-border'
             }`}
             title={event.title}
           />
@@ -335,10 +334,10 @@ function CompactTimeline({ claim }: { claim: Claim }) {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-3 border-t border-[var(--border-light)]">
+      <div className="flex items-center justify-between pt-3 border-t border-border">
         <div className="flex items-center gap-4 text-xs">
-          <span className="text-[var(--text-muted)]">
-            Claimed: <strong className="text-[var(--text-main)]">{formatCurrency(claim.amount)}</strong>
+          <span className="text-muted-foreground">
+            Claimed: <strong className="text-foreground">{formatCurrency(claim.amount)}</strong>
           </span>
           {claim.approvedAmount !== undefined && (
             <span className="text-emerald-600 dark:text-emerald-400">
@@ -346,7 +345,7 @@ function CompactTimeline({ claim }: { claim: Claim }) {
             </span>
           )}
         </div>
-        <span className="material-symbols-outlined text-[var(--text-subtle)] group-hover:text-[var(--primary)] transition-colours">
+        <span className="material-symbols-outlined text-muted-foreground group-hover:text-primary transition-colors">
           chevron_right
         </span>
       </div>
@@ -373,24 +372,24 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
     >
       <Link
         href={`/portal/claims/${claim.id}`}
-        className="block p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)] hover:border-[var(--border-medium)] hover:shadow-lg transition-all group"
+        className="block p-5 rounded-2xl bg-card border border-border hover:border-border hover:shadow-lg transition-all group"
       >
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl text-[var(--primary)]">
+            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+              <span className="material-symbols-outlined text-2xl text-primary">
                 {getPolicyIcon(claim.policyType)}
               </span>
             </div>
             <div>
-              <h3 className="font-semibold text-[var(--text-main)] group-hover:text-[var(--primary)] transition-colors">
+              <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
                 {claim.type}
               </h3>
-              <p className="text-sm text-[var(--text-muted)]">
+              <p className="text-sm text-muted-foreground">
                 {claim.claimNumber}
               </p>
-              <p className="text-xs text-[var(--text-subtle)] mt-0.5">
+              <p className="text-xs text-muted-foreground mt-0.5">
                 Submitted {formatDate(claim.dateSubmitted)}
               </p>
             </div>
@@ -405,19 +404,19 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
         </div>
 
         {/* Description */}
-        <p className="text-sm text-[var(--text-body)] mb-4 line-clamp-2">
+        <p className="text-sm text-foreground mb-4 line-clamp-2">
           {claim.description}
         </p>
 
         {/* Progress */}
         <div className="mb-4">
-          <div className="flex items-center justify-between text-xs text-[var(--text-muted)] mb-2">
+          <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
             <span className="font-medium">Claim Progress</span>
             <span>
               {completedSteps} of {totalSteps} steps complete
             </span>
           </div>
-          <div className="h-2 rounded-full bg-[var(--surface-inset)] overflow-hidden">
+          <div className="h-2 rounded-full bg-muted overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
@@ -427,31 +426,31 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
                   ? 'bg-gradient-to-r from-emerald-500 to-emerald-400'
                   : claim.status === 'rejected'
                     ? 'bg-gradient-to-r from-red-500 to-red-400'
-                    : 'bg-gradient-to-r from-[#BF0603] to-indigo-500'
+                    : 'bg-gradient-to-r from-primary to-indigo-500'
               }`}
             />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-[var(--border-light)]">
+        <div className="flex items-center justify-between pt-4 border-t border-border">
           <div className="flex items-center gap-6">
             <div>
-              <p className="text-xs text-[var(--text-subtle)]">Claimed</p>
-              <p className="font-semibold text-[var(--text-main)]">
+              <p className="text-xs text-muted-foreground">Claimed</p>
+              <p className="font-semibold text-foreground">
                 {formatCurrency(claim.amount)}
               </p>
             </div>
             {claim.approvedAmount !== undefined && (
               <div>
-                <p className="text-xs text-[var(--text-subtle)]">Approved</p>
+                <p className="text-xs text-muted-foreground">Approved</p>
                 <p className="font-semibold text-emerald-600 dark:text-emerald-400">
                   {formatCurrency(claim.approvedAmount)}
                 </p>
               </div>
             )}
           </div>
-          <span className="text-[var(--primary)] text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+          <span className="text-primary text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
             View Details
             <span className="material-symbols-outlined text-lg">arrow_forward</span>
           </span>

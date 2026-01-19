@@ -14,7 +14,6 @@ import {
   getPolicyDistribution,
   getPolicyTypeLabel,
   formatCurrency,
-  chartColours,
 } from '@/data/portalMockData';
 
 interface PolicyDistributionChartProps {
@@ -25,7 +24,6 @@ export default function PolicyDistributionChart({ className }: PolicyDistributio
   const data = getPolicyDistribution();
 
   // Calculate total premium
-  const totalPremium = data.reduce((sum, item) => sum + item.premium, 0);
   const totalPolicies = data.reduce((sum, item) => sum + item.count, 0);
 
   // Build chart config dynamically
@@ -42,11 +40,11 @@ export default function PolicyDistributionChart({ className }: PolicyDistributio
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.1 }}
-      className={`p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)] ${className}`}
+      className={`p-5 rounded-2xl bg-card border border-border ${className}`}
     >
       <div className="mb-4">
-        <h3 className="font-semibold text-[var(--text-main)]">Policy Distribution</h3>
-        <p className="text-sm text-[var(--text-muted)]">Coverage by type</p>
+        <h3 className="font-semibold text-foreground">Policy Distribution</h3>
+        <p className="text-sm text-muted-foreground">Coverage by type</p>
       </div>
 
       <ChartContainer config={chartConfig} className="mx-auto h-[200px] w-full">
@@ -58,11 +56,11 @@ export default function PolicyDistributionChart({ className }: PolicyDistributio
                   const data = item.payload;
                   return (
                     <div className="flex flex-col gap-1">
-                      <span className="font-medium text-[var(--text-main)]">{getPolicyTypeLabel(data.type)}</span>
-                      <span className="text-[var(--text-muted)]">
+                      <span className="font-medium text-foreground">{getPolicyTypeLabel(data.type)}</span>
+                      <span className="text-muted-foreground">
                         {data.count} {data.count === 1 ? 'policy' : 'policies'}
                       </span>
-                      <span className="font-medium text-[var(--text-main)]">{formatCurrency(data.premium)}/mo</span>
+                      <span className="font-medium text-foreground">{formatCurrency(data.premium)}/mo</span>
                     </div>
                   );
                 }}
@@ -76,7 +74,7 @@ export default function PolicyDistributionChart({ className }: PolicyDistributio
             innerRadius={55}
             outerRadius={80}
             strokeWidth={2}
-            stroke="var(--surface-card)"
+            stroke="hsl(var(--card))"
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -94,14 +92,14 @@ export default function PolicyDistributionChart({ className }: PolicyDistributio
                       <tspan
                         x={viewBox.cx}
                         y={viewBox.cy}
-                        className="fill-[var(--text-main)] text-xl font-bold"
+                        className="fill-foreground text-xl font-bold"
                       >
                         {totalPolicies}
                       </tspan>
                       <tspan
                         x={viewBox.cx}
                         y={(viewBox.cy || 0) + 18}
-                        className="fill-[var(--text-muted)] text-xs"
+                        className="fill-muted-foreground text-xs"
                       >
                         Policies
                       </tspan>

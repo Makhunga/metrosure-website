@@ -31,11 +31,11 @@ export default function ClaimsStatusChart({ className }: ClaimsStatusChartProps)
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.2 }}
-      className={`p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)] ${className}`}
+      className={`p-5 rounded-2xl bg-card border border-border ${className}`}
     >
       <div className="mb-4">
-        <h3 className="font-semibold text-[var(--text-main)]">Claims Status</h3>
-        <p className="text-sm text-[var(--text-muted)]">Breakdown by status</p>
+        <h3 className="font-semibold text-foreground">Claims Status</h3>
+        <p className="text-sm text-muted-foreground">Breakdown by status</p>
       </div>
 
       <ChartContainer config={chartConfig} className="h-[200px] w-full">
@@ -49,14 +49,14 @@ export default function ClaimsStatusChart({ className }: ClaimsStatusChartProps)
             tickLine={false}
             axisLine={false}
             tickFormatter={(value) => `R${(value / 1000).toFixed(0)}k`}
-            tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+            tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
           />
           <YAxis
             dataKey="status"
             type="category"
             tickLine={false}
             axisLine={false}
-            tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+            tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
             width={85}
           />
           <ChartTooltip
@@ -66,11 +66,11 @@ export default function ClaimsStatusChart({ className }: ClaimsStatusChartProps)
                   const data = item.payload;
                   return (
                     <div className="flex flex-col gap-1">
-                      <span className="font-medium text-[var(--text-main)]">{data.status}</span>
-                      <span className="text-[var(--text-muted)]">
+                      <span className="font-medium text-foreground">{data.status}</span>
+                      <span className="text-muted-foreground">
                         {data.count} {data.count === 1 ? 'claim' : 'claims'}
                       </span>
-                      <span className="font-medium text-[var(--text-main)]">{formatCurrency(data.amount)}</span>
+                      <span className="font-medium text-foreground">{formatCurrency(data.amount)}</span>
                     </div>
                   );
                 }}

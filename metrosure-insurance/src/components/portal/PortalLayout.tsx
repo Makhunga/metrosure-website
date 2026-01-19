@@ -93,13 +93,13 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--surface)]">
+    <div data-portal className="min-h-screen bg-background">
       {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[var(--surface-card)]/80 backdrop-blur-xl border-b border-[var(--border-light)]">
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border">
         <div className="flex items-center justify-between px-4 h-16">
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="p-2 -ml-2 text-[var(--text-body)] hover:text-[var(--text-main)] transition-colours"
+            className="p-2 -ml-2 text-foreground hover:text-foreground transition-colors"
             aria-label="Open menu"
           >
             <span className="material-symbols-outlined text-2xl">menu</span>
@@ -121,7 +121,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             {/* Theme Toggle */}
             <motion.button
               onClick={toggleTheme}
-              className="p-2 text-[var(--text-body)] hover:text-primary transition-colors"
+              className="p-2 text-foreground hover:text-primary transition-colors"
               aria-label="Toggle dark mode"
               whileTap={{ scale: 0.9 }}
             >
@@ -133,14 +133,14 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             {/* Notifications */}
             <button
               onClick={() => setNotificationsOpen(!notificationsOpen)}
-              className="p-2 -mr-2 text-[var(--text-body)] hover:text-[var(--text-main)] transition-colours relative"
+              className="p-2 -mr-2 text-foreground hover:text-foreground transition-colors relative"
               aria-label="Notifications"
             >
               <span className="material-symbols-outlined text-2xl">
                 notifications
               </span>
               {unreadNotifications > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
                   {unreadNotifications}
                 </span>
               )}
@@ -165,7 +165,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
               animate="visible"
               exit="hidden"
               variants={sidebarVariants}
-              className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] bg-[var(--surface-card)] z-50 overflow-y-auto"
+              className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] bg-card z-50 overflow-y-auto"
             >
               <SidebarContent
                 navItems={navItems}
@@ -184,7 +184,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
         initial="hidden"
         animate="visible"
         variants={sidebarVariants}
-        className="hidden lg:block fixed left-0 top-0 bottom-0 w-[280px] bg-[var(--surface-card)] border-r border-[var(--border-light)] z-40 overflow-y-auto"
+        className="hidden lg:block fixed left-0 top-0 bottom-0 w-[280px] bg-card border-r border-border z-40 overflow-y-auto"
       >
         <SidebarContent
           navItems={navItems}
@@ -197,12 +197,12 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       {/* Main Content */}
       <div className="lg:ml-[280px]">
         {/* Desktop Header */}
-        <header className="hidden lg:flex items-center justify-between px-8 h-20 bg-[var(--surface-card)]/60 backdrop-blur-xl border-b border-[var(--border-light)] sticky top-0 z-30">
+        <header className="hidden lg:flex items-center justify-between px-8 h-20 bg-card/60 backdrop-blur-xl border-b border-border sticky top-0 z-30">
           <div>
-            <h1 className="text-lg font-semibold text-[var(--text-main)]">
+            <h1 className="text-lg font-semibold text-foreground">
               Welcome back, {mockUser.firstName}
             </h1>
-            <p className="text-sm text-[var(--text-muted)]">
+            <p className="text-sm text-muted-foreground">
               Here&apos;s what&apos;s happening with your insurance today.
             </p>
           </div>
@@ -223,7 +223,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             {/* Theme Toggle */}
             <motion.button
               onClick={toggleTheme}
-              className="p-2 text-[var(--text-body)] hover:text-primary hover:bg-[var(--surface-inset)] rounded-xl transition-all"
+              className="p-2 text-foreground hover:text-primary hover:bg-muted rounded-xl transition-all"
               aria-label="Toggle dark mode"
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
@@ -251,7 +251,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                     notifications
                   </span>
                   {unreadNotifications > 0 && (
-                    <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
                       {unreadNotifications}
                     </span>
                   )}
@@ -266,16 +266,16 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             </Popover>
 
             {/* User Menu */}
-            <div className="flex items-center gap-3 pl-4 border-l border-[var(--border-light)]">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#BF0603] to-[#690025] flex items-center justify-center text-white font-semibold">
+            <div className="flex items-center gap-3 pl-4 border-l border-border">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-semibold">
                 {mockUser.firstName[0]}
                 {mockUser.lastName[0]}
               </div>
               <div className="hidden xl:block">
-                <p className="text-sm font-medium text-[var(--text-main)]">
+                <p className="text-sm font-medium text-foreground">
                   {mockUser.firstName} {mockUser.lastName}
                 </p>
-                <p className="text-xs text-[var(--text-muted)] capitalize">
+                <p className="text-xs text-muted-foreground capitalize">
                   {mockUser.tier} Member
                 </p>
               </div>
@@ -316,7 +316,7 @@ function SidebarContent({
   return (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="p-6 border-b border-[var(--border-light)]">
+      <div className="p-6 border-b border-border">
         <Link
           href="/portal/dashboard"
           className="flex items-center cursor-pointer group"
@@ -341,17 +341,17 @@ function SidebarContent({
 
       {/* User Card */}
       <motion.div variants={navItemVariants} className="p-4">
-        <div className="p-4 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
+        <div className="p-4 rounded-2xl bg-muted border border-border">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#BF0603] to-[#690025] flex items-center justify-center text-white font-semibold text-lg shadow-lg shadow-primary/20">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-primary-foreground font-semibold text-lg shadow-lg shadow-primary/20">
               {mockUser.firstName[0]}
               {mockUser.lastName[0]}
             </div>
             <div>
-              <p className="font-semibold text-[var(--text-main)]">
+              <p className="font-semibold text-foreground">
                 {mockUser.firstName} {mockUser.lastName}
               </p>
-              <p className="text-xs text-[var(--text-muted)]">
+              <p className="text-xs text-muted-foreground">
                 {mockUser.email}
               </p>
             </div>
@@ -379,7 +379,7 @@ function SidebarContent({
 
       {/* Main Navigation */}
       <nav className="flex-1 px-4 py-2">
-        <p className="px-3 mb-2 text-[10px] uppercase tracking-widest text-[var(--text-subtle)] font-medium">
+        <p className="px-3 mb-2 text-[10px] uppercase tracking-widest text-muted-foreground font-medium">
           Main Menu
         </p>
         <ul className="space-y-1">
@@ -390,15 +390,15 @@ function SidebarContent({
                 onClick={onClose}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
                   isActiveLink(item.href)
-                    ? 'bg-[var(--primary)] text-white shadow-lg shadow-primary/25'
-                    : 'text-[var(--text-body)] hover:bg-[var(--surface-inset)] hover:text-[var(--text-main)]'
+                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
+                    : 'text-foreground hover:bg-muted hover:text-foreground'
                 }`}
               >
                 <span
                   className={`material-symbols-outlined text-xl transition-transform group-hover:scale-110 ${
                     isActiveLink(item.href)
-                      ? 'text-white'
-                      : 'text-[var(--text-muted)]'
+                      ? 'text-primary-foreground'
+                      : 'text-muted-foreground'
                   }`}
                 >
                   {item.icon}
@@ -408,8 +408,8 @@ function SidebarContent({
                   <span
                     className={`ml-auto px-2 py-0.5 text-xs font-bold rounded-full ${
                       isActiveLink(item.href)
-                        ? 'bg-white/20 text-white'
-                        : 'bg-[var(--primary)] text-white'
+                        ? 'bg-primary-foreground/20 text-primary-foreground'
+                        : 'bg-primary text-primary-foreground'
                     }`}
                   >
                     {item.badge}
@@ -420,9 +420,9 @@ function SidebarContent({
           ))}
         </ul>
 
-        <div className="my-6 h-px bg-[var(--border-light)]" />
+        <div className="my-6 h-px bg-border" />
 
-        <p className="px-3 mb-2 text-[10px] uppercase tracking-widest text-[var(--text-subtle)] font-medium">
+        <p className="px-3 mb-2 text-[10px] uppercase tracking-widest text-muted-foreground font-medium">
           Support
         </p>
         <ul className="space-y-1">
@@ -433,15 +433,15 @@ function SidebarContent({
                 onClick={onClose}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
                   isActiveLink(item.href)
-                    ? 'bg-[var(--primary)] text-white shadow-lg shadow-primary/25'
-                    : 'text-[var(--text-body)] hover:bg-[var(--surface-inset)] hover:text-[var(--text-main)]'
+                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
+                    : 'text-foreground hover:bg-muted hover:text-foreground'
                 }`}
               >
                 <span
                   className={`material-symbols-outlined text-xl transition-transform group-hover:scale-110 ${
                     isActiveLink(item.href)
-                      ? 'text-white'
-                      : 'text-[var(--text-muted)]'
+                      ? 'text-primary-foreground'
+                      : 'text-muted-foreground'
                   }`}
                 >
                   {item.icon}
@@ -454,12 +454,12 @@ function SidebarContent({
       </nav>
 
       {/* Logout */}
-      <div className="p-4 border-t border-[var(--border-light)]">
+      <div className="p-4 border-t border-border">
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[var(--text-body)] hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/50 dark:hover:text-red-400 transition-all group"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-foreground hover:bg-destructive/10 hover:text-destructive transition-all group"
         >
-          <span className="material-symbols-outlined text-xl text-[var(--text-muted)] group-hover:text-red-500 transition-colours">
+          <span className="material-symbols-outlined text-xl text-muted-foreground group-hover:text-destructive transition-colors">
             logout
           </span>
           <span className="font-medium text-sm">Sign Out</span>
@@ -467,7 +467,7 @@ function SidebarContent({
       </div>
 
       {/* Zoocora Attribution */}
-      <div className="p-4 border-t border-[var(--border-light)]">
+      <div className="p-4 border-t border-border">
         <motion.a
           href="#"
           onClick={(e) => {
@@ -505,7 +505,7 @@ function SidebarContent({
 
 function NotificationsContent({ onClose }: { onClose: () => void }) {
   const notificationTypeStyles = {
-    urgent: { icon: 'error', colour: 'text-red-500 dark:text-red-400' },
+    urgent: { icon: 'error', colour: 'text-destructive' },
     success: { icon: 'check_circle', colour: 'text-emerald-500 dark:text-emerald-400' },
     warning: { icon: 'warning', colour: 'text-amber-500 dark:text-amber-400' },
     info: { icon: 'info', colour: 'text-blue-500 dark:text-blue-400' },

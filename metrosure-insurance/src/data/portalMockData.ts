@@ -879,23 +879,23 @@ export const paymentTrends: MonthlyPayment[] = [
   { month: 'Jan 2026', amount: 3480, claims: 45000 },
 ];
 
-// Chart colour palette (brand colours)
+// Chart colour palette (using tweakcn CSS variables)
 export const chartColours = {
-  primary: '#BF0603',      // Red - premiums, main series
-  secondary: '#690025',    // Maroon - secondary series
-  accent: '#F2CC8E',       // Yellow - highlights
+  primary: 'var(--chart-1)',      // Primary chart colour
+  secondary: 'var(--chart-2)',    // Secondary chart colour
+  accent: 'var(--chart-4)',       // Accent chart colour
   // Policy type colours
-  motor: '#3b82f6',        // Blue
-  home: '#10b981',         // Emerald
-  life: '#f43f5e',         // Rose
-  travel: '#f59e0b',       // Amber
-  business: '#6366f1',     // Indigo
+  motor: 'var(--chart-1)',        // Primary
+  home: 'var(--chart-3)',         // Tertiary
+  life: 'var(--chart-2)',         // Secondary
+  travel: 'var(--chart-4)',       // Accent
+  business: 'var(--chart-5)',     // Fifth
   // Status colours
-  approved: '#10b981',     // Emerald
-  pending: '#f59e0b',      // Amber
-  underReview: '#6366f1',  // Indigo
-  rejected: '#ef4444',     // Red
-  paid: '#22c55e',         // Green
+  approved: 'var(--chart-3)',     // Tertiary (success)
+  pending: 'var(--chart-4)',      // Accent (warning)
+  underReview: 'var(--chart-5)',  // Fifth (info)
+  rejected: 'var(--chart-2)',     // Secondary (error)
+  paid: 'var(--chart-3)',         // Tertiary (success)
 };
 
 // Get policy distribution by type

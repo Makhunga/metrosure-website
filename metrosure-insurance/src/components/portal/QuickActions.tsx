@@ -33,7 +33,7 @@ const itemVariants = {
 
 const actionColours: Record<QuickAction['colour'], { bg: string; icon: string; hover: string }> = {
   primary: {
-    bg: 'bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)]',
+    bg: 'bg-gradient-to-br from-primary to-secondary',
     icon: 'text-white',
     hover: 'hover:shadow-xl hover:shadow-primary/30',
   },
@@ -201,7 +201,7 @@ export function StatCard({
           'relative p-5 overflow-hidden',
           'bg-gradient-to-br',
           statGradients[colour],
-          'border-border-light'
+          'border-border'
         )}
       >
         {/* Decorative circle */}
@@ -254,15 +254,15 @@ export function SectionHeader({ title, subtitle, action }: SectionHeaderProps) {
   return (
     <div className="flex items-end justify-between mb-4">
       <div>
-        <h2 className="text-lg font-semibold text-[var(--text-main)]">{title}</h2>
+        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
         {subtitle && (
-          <p className="text-sm text-[var(--text-muted)]">{subtitle}</p>
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
         )}
       </div>
       {action && (
         <Link
           href={action.href}
-          className="text-sm text-[var(--primary)] font-medium hover:underline flex items-center gap-1"
+          className="text-sm text-primary font-medium hover:underline flex items-center gap-1"
         >
           {action.label}
           <span className="material-symbols-outlined text-lg">

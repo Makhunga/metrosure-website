@@ -39,11 +39,11 @@ export default function SpendingTrendsChart({ className }: SpendingTrendsChartPr
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.3 }}
-      className={`p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)] ${className}`}
+      className={`p-5 rounded-2xl bg-card border border-border ${className}`}
     >
       <div className="mb-4">
-        <h3 className="font-semibold text-[var(--text-main)]">Spending Trends</h3>
-        <p className="text-sm text-[var(--text-muted)]">Premiums vs Claims</p>
+        <h3 className="font-semibold text-foreground">Spending Trends</h3>
+        <p className="text-sm text-muted-foreground">Premiums vs Claims</p>
       </div>
 
       <ChartContainer config={chartConfig} className="h-[200px] w-full">
@@ -54,7 +54,7 @@ export default function SpendingTrendsChart({ className }: SpendingTrendsChartPr
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
-            stroke="var(--border-light)"
+            stroke="hsl(var(--border))"
           />
           <XAxis
             dataKey="month"
@@ -62,7 +62,7 @@ export default function SpendingTrendsChart({ className }: SpendingTrendsChartPr
             axisLine={false}
             tickMargin={8}
             tickFormatter={(value) => value.split(' ')[0]}
-            tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+            tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
           />
           <YAxis
             tickLine={false}
@@ -73,7 +73,7 @@ export default function SpendingTrendsChart({ className }: SpendingTrendsChartPr
               if (value >= 1000) return `R${(value / 1000).toFixed(0)}k`;
               return `R${value}`;
             }}
-            tick={{ fill: 'var(--text-muted)', fontSize: 12 }}
+            tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
             width={45}
           />
           <ChartTooltip
@@ -82,7 +82,7 @@ export default function SpendingTrendsChart({ className }: SpendingTrendsChartPr
                 formatter={(value, name) => {
                   const label = name === 'premiums' ? 'Premiums' : 'Claims';
                   return (
-                    <span className="text-[var(--text-main)]">
+                    <span className="text-foreground">
                       {label}: {formatCurrency(Number(value))}
                     </span>
                   );

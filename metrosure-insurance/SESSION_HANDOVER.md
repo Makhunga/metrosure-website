@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 19 January 2026 (Session 121)
+**Updated:** 19 January 2026 (Session 122)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -11,6 +11,83 @@
 - **Routes:** 53 (46 pages + 7 API routes)
 - **Last Build:** 19 January 2026
 
+
+---
+
+## SESSION 122 (19 Jan 2026) - Portal tweakcn Theme Integration
+
+### Problem Solved
+Portal dark mode was not displaying correctly despite tweakcn CSS export being added. Root cause: **CSS variable format mismatch**.
+
+| Issue | Base Theme | Portal Theme (was) |
+|-------|------------|-------------------|
+| Format | `255 255 255` (RGB) | `oklch(0.9779...)` |
+| Tailwind | ✅ Works | ❌ Broken |
+
+Tailwind's utility classes (`bg-background`, `text-foreground`, etc.) expect space-separated RGB values. The oklch format from tweakcn wasn't compatible.
+
+### Solution
+Converted all tweakcn oklch values to RGB space-separated format using browser canvas API for accurate colour conversion.
+
+### Completed
+| Task | Status |
+|------|--------|
+| Remove custom colour variables from portal components | ✅ Complete |
+| Update components to use standard shadcn classes | ✅ Complete |
+| Add portal-specific theme to globals.css with `[data-portal]` scope | ✅ Complete |
+| Convert tweakcn oklch values to RGB format | ✅ Complete |
+| Update chartColours to use CSS variables | ✅ Complete |
+| Verify light/dark mode switching | ✅ Complete |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/app/globals.css` | Portal theme converted from oklch to RGB format (lines 277-408) |
+| `src/components/portal/PortalLayout.tsx` | Replaced custom vars with shadcn classes (`bg-background`, `text-foreground`, etc.) |
+| `src/components/portal/PolicyCard.tsx` | Replaced custom vars with shadcn classes |
+| `src/components/portal/ClaimsTimeline.tsx` | Replaced custom vars with shadcn classes |
+| `src/components/portal/QuickActions.tsx` | Updated to use `from-primary to-secondary` gradients |
+| `src/components/portal/charts/*.tsx` | Updated all 4 chart components to use shadcn classes |
+| `src/data/portalMockData.ts` | Updated chartColours to use CSS variables (`var(--chart-1)` etc.) |
+
+### Portal Theme Colours (RGB Format)
+
+**Light Mode (`[data-portal]`):**
+| Variable | RGB Value | Colour |
+|----------|-----------|--------|
+| `--background` | `250 247 245` | Warm cream |
+| `--foreground` | `26 26 26` | Near black |
+| `--card` | `250 247 245` | Warm cream |
+| `--primary` | `193 0 7` | Brand red |
+| `--muted` | `240 235 232` | Light grey |
+| `--border` | `245 232 210` | Warm beige |
+
+**Dark Mode (`.dark [data-portal]`):**
+| Variable | RGB Value | Colour |
+|----------|-----------|--------|
+| `--background` | `28 25 23` | Warm charcoal |
+| `--foreground` | `245 245 244` | Off-white |
+| `--card` | `41 37 36` | Dark brown |
+| `--primary` | `185 28 28` | Red |
+| `--muted` | `31 28 26` | Dark grey |
+| `--border` | `68 64 60` | Medium grey |
+
+### Class Replacements Made
+| Old (Custom Variable) | New (shadcn Class) |
+|----------------------|-------------------|
+| `bg-[var(--surface)]` | `bg-background` |
+| `bg-[var(--surface-card)]` | `bg-card` |
+| `bg-[var(--surface-inset)]` | `bg-muted` |
+| `text-[var(--text-main)]` | `text-foreground` |
+| `text-[var(--text-muted)]` | `text-muted-foreground` |
+| `border-[var(--border-light)]` | `border-border` |
+| `from-[#BF0603] to-[#690025]` | `from-primary to-secondary` |
+
+### Technical Notes
+- **tweakcn.com** exports oklch format which isn't compatible with Tailwind's RGB-based CSS variable system
+- Used browser canvas API to accurately convert oklch → RGB
+- Portal theme uses `[data-portal]` CSS scope (applied via `data-portal` attribute on PortalLayout root)
+- Chart colours now use `var(--chart-1)` through `var(--chart-5)` from tweakcn export
 
 ---
 
@@ -553,11 +630,11 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 122 | Portal tweakcn Theme | Fixed oklch→RGB format mismatch; Portal theme now works in light/dark mode |
+| 121 | Portal shadcn/ui Refactor | Badge variants; Popover notifications; Theme tutorial documentation |
 | 120 | Portal Analytics & Dark Mode | 4 dashboard charts (Recharts); Extensive dark mode fixes across portal |
 | 119 | Favicon, Logos & Portal | New favicon/apple-icon; Portal logos with dark/light switching; Zoocora logo; Theme toggle |
 | 118 | Testimonial Refinements | New TestimonialsCarousel; AI avatars for partners; Form header updates |
-| 117 | shadcn/ui Integration | 8 components installed; Metrosure theming; Sonner toasts; playground page |
-| 116 | WhatsApp & Footer Improvements | WhatsApp auto-hide at footer; Zoocora logo on mobile with glow |
 
 ---
 
