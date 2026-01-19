@@ -504,56 +504,42 @@ Visit `/playground/shadcn` to see all components with Metrosure theming:
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Portal UI Refactor to shadcn/ui ⭐ (MAJOR)
-**Goal:** Replace custom portal styling with customised shadcn/ui components for consistency and maintainability.
+### Priority 1: Remove Client Portal (Clean Slate) ⭐ (MAJOR)
+**Goal:** Remove the entire client portal and start fresh with proper planning.
 
-**Why this refactor:**
-- Current portal uses mix of custom CSS variables and hardcoded Tailwind colours
-- Frequent dark mode visibility issues due to inconsistent theming
-- shadcn components are already installed but not fully utilised in portal
-- Unified component library = fewer bugs, faster development
+**Why:**
+- Current portal was built as a rapid prototype/mockup
+- Multiple iterations of theming fixes indicate architectural issues
+- Need proper planning before rebuilding
 
-**Scope:**
-- Replace custom StatCard, QuickActions with shadcn Card variants
-- Replace custom form controls with shadcn Input, Select, Switch
-- Replace notification dropdowns with shadcn Popover/DropdownMenu
-- Replace table styling with shadcn Table
-- Create portal-specific shadcn theme overrides
-
-**Components to install:**
-```bash
-npx shadcn@latest add avatar badge dropdown-menu popover tabs accordion alert
+**Scope - Files to Remove:**
+```
+src/app/portal/                    # All portal pages (dashboard, policies, claims, payments, documents, settings)
+src/components/portal/             # All portal components (PortalLayout, PolicyCard, ClaimsTimeline, QuickActions, charts/)
+src/data/portalMockData.ts         # Portal mock data
 ```
 
-**Alternative Dashboard Libraries (if shadcn insufficient):**
+**Scope - CSS to Clean:**
+- Remove `[data-portal]` theme section from `globals.css`
+- Remove `.dark [data-portal]` theme section from `globals.css`
+- Remove portal surface aliases from `globals.css`
 
-| Library | Pros | Cons | Bundle |
-|---------|------|------|--------|
-| **Tremor** | Tailwind-native, beautiful defaults, dark mode built-in | Opinionated, less customisable | ~150KB |
-| **Mantine** | Comprehensive, excellent a11y, great docs | Large bundle, different styling approach | ~200KB |
-| **NextUI** | Modern design, Tailwind-based, good animations | Newer, smaller community | ~100KB |
-| **Radix Themes** | From Radix team, excellent a11y, works with existing Radix | Limited components, newer | ~80KB |
-| **Chakra UI** | Mature, excellent DX, good theming | Large bundle, not Tailwind-native | ~180KB |
+**Keep:**
+- `/login` page (will remain non-functional placeholder)
+- shadcn/ui components in `src/components/ui/`
+- Badge variants (useful for other parts of site)
 
-**Recommendation:** Start with full shadcn/ui adoption. If dashboard-specific components needed (KPIs, data tables, charts), consider **Tremor** as it's Tailwind-native and complements shadcn well.
+**Next Steps After Removal:**
+1. Plan portal architecture properly (user flows, data structure, API design)
+2. Design component hierarchy before implementation
+3. Consider dashboard library options (Tremor, etc.)
 
-### Priority 2: Portal Refinements
-- Mobile responsive testing for all portal pages
-- Claim detail page with full timeline (`/portal/claims/[id]`)
-- Notifications page (`/portal/notifications`)
-- Add real toast feedback to form submissions
-
-### Priority 3: Additional shadcn Components (As Needed)
-- Install additional components: `npx shadcn@latest add [component]`
-- Consider: Tabs, Accordion, Alert, Badge, Avatar, Dropdown Menu
-- Form components: Checkbox, Radio Group, Switch, Slider
-
-### Priority 4: Job Service Activation (When Ready)
+### Priority 2: Job Service Activation (When Ready)
 - Client creates Workable account at https://www.workable.com/
 - Generate API token, set `WORKABLE_API_TOKEN` and `WORKABLE_SUBDOMAIN` in Vercel
 - Alternative: Indeed Publisher API at https://ads.indeed.com/jobroll/
 
-### Priority 5: Production Readiness
+### Priority 3: Production Readiness
 - Cross-browser testing (Chrome, Firefox, Edge)
 - Remove Development Banner before go-live
 - Final testimonial variant decision
@@ -570,7 +556,7 @@ npx shadcn@latest add avatar badge dropdown-menu popover tabs accordion alert
 | `src/lib/utils.ts` | cn() utility for class merging |
 | `src/app/playground/shadcn/` | Component showcase page |
 
-### Portal (Sessions 114-115)
+### Portal (Sessions 114-122) ⚠️ MARKED FOR REMOVAL
 | File | Purpose |
 |------|---------|
 | `src/components/portal/` | All portal UI components |
@@ -597,8 +583,9 @@ npx shadcn@latest add avatar badge dropdown-menu popover tabs accordion alert
 |---------|--------|----------|
 | Cookie consent | Disabled | `src/components/ClientLayout.tsx` |
 | Development Banner | Active | `src/components/DevelopmentBanner.tsx` |
-| Portal login | Dev only | `src/app/login/page.tsx` |
+| Portal login | Non-functional | `src/app/login/page.tsx` |
 | Partner Testimonials | Stashed | `src/app/partners/page.tsx` |
+| **Client Portal** | **⚠️ Marked for removal** | `src/app/portal/`, `src/components/portal/` |
 
 ---
 
@@ -610,10 +597,8 @@ npm run dev      # Start dev server (localhost:3000)
 npm run build    # Production build (must pass before commit)
 ```
 
-### Portal Access (Development Only)
-1. Navigate to `/login`
-2. Click "Continue with Google" or enter any credentials
-3. Access portal dashboard at `/portal/dashboard`
+### Portal Access
+⚠️ **Portal marked for removal in next session.** Login page will remain as non-functional placeholder.
 
 ### Rate Limits
 | Route | Limit |
