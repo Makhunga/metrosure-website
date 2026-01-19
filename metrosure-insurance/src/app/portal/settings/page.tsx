@@ -4,6 +4,16 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
 import { mockUser } from '@/data/portalMockData';
+import { Switch } from '@/components/ui/switch';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,36 +38,6 @@ const itemVariants = {
     },
   },
 };
-
-// Toggle Switch Component
-function ToggleSwitch({
-  enabled,
-  onChange,
-  label,
-}: {
-  enabled: boolean;
-  onChange: (value: boolean) => void;
-  label: string;
-}) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={enabled}
-      aria-label={label}
-      onClick={() => onChange(!enabled)}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colours ${
-        enabled ? 'bg-[var(--primary)]' : 'bg-stone-300 dark:bg-stone-600'
-      }`}
-    >
-      <span
-        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-          enabled ? 'translate-x-6' : 'translate-x-1'
-        }`}
-      />
-    </button>
-  );
-}
 
 // Settings Section Card Component
 function SettingsCard({
@@ -175,10 +155,10 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <button className="w-full mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--border-light)] text-[var(--text-body)] font-medium text-sm hover:bg-[var(--surface-inset)] transition-colours">
+              <Button variant="outline" className="w-full mt-2 rounded-xl">
                 <span className="material-symbols-outlined text-lg">edit</span>
                 Request Profile Update
-              </button>
+              </Button>
             </div>
           </SettingsCard>
         </motion.div>
@@ -198,9 +178,9 @@ export default function SettingsPage() {
                     Last changed 3 months ago
                   </p>
                 </div>
-                <button className="px-4 py-2 rounded-xl border border-[var(--border-light)] text-[var(--text-body)] text-sm font-medium hover:bg-[var(--surface-inset)] transition-colours">
+                <Button variant="outline" size="sm" className="rounded-xl">
                   Change
-                </button>
+                </Button>
               </div>
 
               <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
@@ -229,17 +209,17 @@ export default function SettingsPage() {
                     Manage devices logged into your account
                   </p>
                 </div>
-                <button className="px-4 py-2 rounded-xl border border-[var(--border-light)] text-[var(--text-body)] text-sm font-medium hover:bg-[var(--surface-inset)] transition-colours">
+                <Button variant="outline" size="sm" className="rounded-xl">
                   View
-                </button>
+                </Button>
               </div>
 
-              <button className="w-full mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--primary)] text-white font-medium text-sm hover:bg-[var(--primary-hover)] transition-colours shadow-lg shadow-primary/25">
+              <Button className="w-full mt-2 rounded-xl shadow-lg shadow-primary/25">
                 <span className="material-symbols-outlined text-lg">
                   verified_user
                 </span>
                 Enable Two-Factor Authentication
-              </button>
+              </Button>
             </div>
           </SettingsCard>
         </motion.div>
@@ -261,10 +241,10 @@ export default function SettingsPage() {
                     Receive updates via email
                   </p>
                 </div>
-                <ToggleSwitch
-                  enabled={emailNotifications}
-                  onChange={setEmailNotifications}
-                  label="Email notifications"
+                <Switch
+                  checked={emailNotifications}
+                  onCheckedChange={setEmailNotifications}
+                  aria-label="Email notifications"
                 />
               </div>
 
@@ -277,10 +257,10 @@ export default function SettingsPage() {
                     Receive updates via SMS
                   </p>
                 </div>
-                <ToggleSwitch
-                  enabled={smsNotifications}
-                  onChange={setSmsNotifications}
-                  label="SMS notifications"
+                <Switch
+                  checked={smsNotifications}
+                  onCheckedChange={setSmsNotifications}
+                  aria-label="SMS notifications"
                 />
               </div>
 
@@ -293,10 +273,10 @@ export default function SettingsPage() {
                     Get notified before payments are due
                   </p>
                 </div>
-                <ToggleSwitch
-                  enabled={paymentReminders}
-                  onChange={setPaymentReminders}
-                  label="Payment reminders"
+                <Switch
+                  checked={paymentReminders}
+                  onCheckedChange={setPaymentReminders}
+                  aria-label="Payment reminders"
                 />
               </div>
 
@@ -309,10 +289,10 @@ export default function SettingsPage() {
                     Get notified about claim status changes
                   </p>
                 </div>
-                <ToggleSwitch
-                  enabled={claimUpdates}
-                  onChange={setClaimUpdates}
-                  label="Claim updates"
+                <Switch
+                  checked={claimUpdates}
+                  onCheckedChange={setClaimUpdates}
+                  aria-label="Claim updates"
                 />
               </div>
 
@@ -325,10 +305,10 @@ export default function SettingsPage() {
                     Renewal and expiry notifications
                   </p>
                 </div>
-                <ToggleSwitch
-                  enabled={policyReminders}
-                  onChange={setPolicyReminders}
-                  label="Policy reminders"
+                <Switch
+                  checked={policyReminders}
+                  onCheckedChange={setPolicyReminders}
+                  aria-label="Policy reminders"
                 />
               </div>
 
@@ -341,10 +321,10 @@ export default function SettingsPage() {
                     Offers, news, and product updates
                   </p>
                 </div>
-                <ToggleSwitch
-                  enabled={marketingEmails}
-                  onChange={setMarketingEmails}
-                  label="Marketing communications"
+                <Switch
+                  checked={marketingEmails}
+                  onCheckedChange={setMarketingEmails}
+                  aria-label="Marketing communications"
                 />
               </div>
             </div>
@@ -363,33 +343,34 @@ export default function SettingsPage() {
                 <label className="block font-medium text-[var(--text-main)] mb-2">
                   Preferred Language
                 </label>
-                <select
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--border-light)] bg-white dark:bg-stone-900 text-[var(--text-main)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)]"
-                >
-                  <option value="en">English</option>
-                  <option value="af">Afrikaans</option>
-                  <option value="zu">isiZulu</option>
-                  <option value="xh">isiXhosa</option>
-                  <option value="st">Sesotho</option>
-                </select>
+                <Select value={language} onValueChange={setLanguage}>
+                  <SelectTrigger className="w-full rounded-xl">
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="af">Afrikaans</SelectItem>
+                    <SelectItem value="zu">isiZulu</SelectItem>
+                    <SelectItem value="xh">isiXhosa</SelectItem>
+                    <SelectItem value="st">Sesotho</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="py-3">
                 <label className="block font-medium text-[var(--text-main)] mb-2">
                   Document Delivery
                 </label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours">
-                    <input
-                      type="radio"
-                      name="documentDelivery"
-                      value="email"
-                      checked={documentDelivery === 'email'}
-                      onChange={(e) => setDocumentDelivery(e.target.value)}
-                      className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)]"
-                    />
+                <RadioGroup
+                  value={documentDelivery}
+                  onValueChange={setDocumentDelivery}
+                  className="space-y-2"
+                >
+                  <label
+                    htmlFor="delivery-email"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours"
+                  >
+                    <RadioGroupItem value="email" id="delivery-email" />
                     <div>
                       <p className="font-medium text-[var(--text-main)]">Email</p>
                       <p className="text-sm text-[var(--text-muted)]">
@@ -397,15 +378,11 @@ export default function SettingsPage() {
                       </p>
                     </div>
                   </label>
-                  <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours">
-                    <input
-                      type="radio"
-                      name="documentDelivery"
-                      value="portal"
-                      checked={documentDelivery === 'portal'}
-                      onChange={(e) => setDocumentDelivery(e.target.value)}
-                      className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)]"
-                    />
+                  <label
+                    htmlFor="delivery-portal"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours"
+                  >
+                    <RadioGroupItem value="portal" id="delivery-portal" />
                     <div>
                       <p className="font-medium text-[var(--text-main)]">
                         Portal Only
@@ -415,15 +392,11 @@ export default function SettingsPage() {
                       </p>
                     </div>
                   </label>
-                  <label className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours">
-                    <input
-                      type="radio"
-                      name="documentDelivery"
-                      value="post"
-                      checked={documentDelivery === 'post'}
-                      onChange={(e) => setDocumentDelivery(e.target.value)}
-                      className="w-4 h-4 text-[var(--primary)] focus:ring-[var(--primary)]"
-                    />
+                  <label
+                    htmlFor="delivery-post"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] cursor-pointer hover:bg-[var(--surface-inset)] transition-colours"
+                  >
+                    <RadioGroupItem value="post" id="delivery-post" />
                     <div>
                       <p className="font-medium text-[var(--text-main)]">
                         Post
@@ -433,7 +406,7 @@ export default function SettingsPage() {
                       </p>
                     </div>
                   </label>
-                </div>
+                </RadioGroup>
               </div>
             </div>
           </SettingsCard>
@@ -523,12 +496,20 @@ export default function SettingsPage() {
                 These actions are irreversible. Please proceed with caution.
               </p>
               <div className="flex flex-wrap gap-3">
-                <button className="px-4 py-2 rounded-xl border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-950 transition-colours">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-xl border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950"
+                >
                   Download My Data
-                </button>
-                <button className="px-4 py-2 rounded-xl border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 text-sm font-medium hover:bg-red-100 dark:hover:bg-red-950 transition-colours">
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-xl border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950"
+                >
                   Close Account
-                </button>
+                </Button>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import {
   formatCurrency,
   formatShortDate,
 } from '@/data/portalMockData';
+import { Button } from '@/components/ui/button';
 
 interface PolicyCardProps {
   policy: Policy;
@@ -392,18 +393,18 @@ function ExpandedPolicyCard({
 
         {/* Actions */}
         <div className="mt-6 pt-6 border-t border-[var(--border-light)] flex flex-wrap gap-3">
-          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--primary)] text-white font-medium text-sm hover:bg-[var(--primary-hover)] transition-colours shadow-lg shadow-primary/25">
+          <Button className="rounded-xl shadow-lg shadow-primary/25">
             <span className="material-symbols-outlined text-lg">add_circle</span>
             Submit Claim
-          </button>
-          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[var(--border-medium)] text-[var(--text-body)] font-medium text-sm hover:bg-[var(--surface-inset)] transition-colours">
+          </Button>
+          <Button variant="outline" className="rounded-xl">
             <span className="material-symbols-outlined text-lg">edit</span>
             Update Cover
-          </button>
-          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[var(--border-medium)] text-[var(--text-body)] font-medium text-sm hover:bg-[var(--surface-inset)] transition-colours">
+          </Button>
+          <Button variant="outline" className="rounded-xl">
             <span className="material-symbols-outlined text-lg">download</span>
             Download Schedule
-          </button>
+          </Button>
         </div>
       </div>
     </motion.div>

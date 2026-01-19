@@ -9,6 +9,8 @@ import {
   mockNotifications,
   getTierBadgeColour,
 } from '@/data/portalMockData';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface NavItem {
   label: string;
@@ -180,13 +182,13 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
           <div className="flex items-center gap-4">
             {/* Search */}
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] text-xl">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-subtle)] text-xl z-10">
                 search
               </span>
-              <input
+              <Input
                 type="text"
                 placeholder="Search policies, claims..."
-                className="w-64 pl-10 pr-4 py-2 bg-[var(--surface-inset)] border border-[var(--border-light)] rounded-xl text-sm text-[var(--text-body)] placeholder:text-[var(--text-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] transition-all"
+                className="w-64 pl-10 rounded-xl"
               />
             </div>
 
@@ -436,9 +438,9 @@ function NotificationsDropdown({ onClose }: { onClose: () => void }) {
           <h3 className="font-semibold text-[var(--text-main)]">
             Notifications
           </h3>
-          <button className="text-xs text-[var(--primary)] hover:underline">
+          <Button variant="link" size="sm" className="h-auto p-0 text-xs">
             Mark all read
-          </button>
+          </Button>
         </div>
         <div className="max-h-80 overflow-y-auto">
           {mockNotifications.map((notification) => (
