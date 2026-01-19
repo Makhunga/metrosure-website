@@ -275,7 +275,7 @@ function CompactTimeline({ claim }: { claim: Claim }) {
   return (
     <Link
       href={`/portal/claims/${claim.id}`}
-      className="block p-4 rounded-xl bg-white dark:bg-stone-900 border border-[var(--border-light)] hover:border-[var(--border-medium)] hover:shadow-md transition-all group"
+      className="block p-4 rounded-xl bg-[var(--surface-card)] border border-[var(--border-light)] hover:border-[var(--border-medium)] hover:shadow-md transition-all group"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
@@ -375,24 +375,24 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
     >
       <Link
         href={`/portal/claims/${claim.id}`}
-        className="block p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 hover:border-stone-300 dark:hover:border-stone-600 hover:shadow-lg transition-all group"
+        className="block p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)] hover:border-[var(--border-medium)] hover:shadow-lg transition-all group"
       >
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-100 to-red-50 dark:from-red-900/30 dark:to-red-800/20 flex items-center justify-center">
-              <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400">
+            <div className="w-14 h-14 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center">
+              <span className="material-symbols-outlined text-2xl text-[var(--primary)]">
                 {getPolicyIcon(claim.policyType)}
               </span>
             </div>
             <div>
-              <h3 className="font-semibold text-stone-900 dark:text-stone-100 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+              <h3 className="font-semibold text-[var(--text-main)] group-hover:text-[var(--primary)] transition-colors">
                 {claim.type}
               </h3>
-              <p className="text-sm text-stone-500 dark:text-stone-400">
+              <p className="text-sm text-[var(--text-muted)]">
                 {claim.claimNumber}
               </p>
-              <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">
+              <p className="text-xs text-[var(--text-subtle)] mt-0.5">
                 Submitted {formatDate(claim.dateSubmitted)}
               </p>
             </div>
@@ -406,19 +406,19 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
         </div>
 
         {/* Description */}
-        <p className="text-sm text-stone-600 dark:text-stone-300 mb-4 line-clamp-2">
+        <p className="text-sm text-[var(--text-body)] mb-4 line-clamp-2">
           {claim.description}
         </p>
 
         {/* Progress */}
         <div className="mb-4">
-          <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 mb-2">
+          <div className="flex items-center justify-between text-xs text-[var(--text-muted)] mb-2">
             <span className="font-medium">Claim Progress</span>
             <span>
               {completedSteps} of {totalSteps} steps complete
             </span>
           </div>
-          <div className="h-2 rounded-full bg-stone-200 dark:bg-stone-700 overflow-hidden">
+          <div className="h-2 rounded-full bg-[var(--surface-inset)] overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
@@ -428,31 +428,31 @@ export function ClaimCard({ claim, index = 0 }: ClaimCardProps) {
                   ? 'bg-gradient-to-r from-emerald-500 to-emerald-400'
                   : claim.status === 'rejected'
                     ? 'bg-gradient-to-r from-red-500 to-red-400'
-                    : 'bg-gradient-to-r from-[var(--primary)] to-indigo-500'
+                    : 'bg-gradient-to-r from-[#BF0603] to-indigo-500'
               }`}
             />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-stone-200 dark:border-stone-700">
+        <div className="flex items-center justify-between pt-4 border-t border-[var(--border-light)]">
           <div className="flex items-center gap-6">
             <div>
-              <p className="text-xs text-stone-400 dark:text-stone-500">Claimed</p>
-              <p className="font-semibold text-stone-900 dark:text-stone-100">
+              <p className="text-xs text-[var(--text-subtle)]">Claimed</p>
+              <p className="font-semibold text-[var(--text-main)]">
                 {formatCurrency(claim.amount)}
               </p>
             </div>
             {claim.approvedAmount !== undefined && (
               <div>
-                <p className="text-xs text-stone-400 dark:text-stone-500">Approved</p>
+                <p className="text-xs text-[var(--text-subtle)]">Approved</p>
                 <p className="font-semibold text-emerald-600 dark:text-emerald-400">
                   {formatCurrency(claim.approvedAmount)}
                 </p>
               </div>
             )}
           </div>
-          <span className="text-red-600 dark:text-red-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+          <span className="text-[var(--primary)] text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
             View Details
             <span className="material-symbols-outlined text-lg">arrow_forward</span>
           </span>

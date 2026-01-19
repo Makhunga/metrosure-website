@@ -832,3 +832,140 @@ export function getPaymentMethodIcon(method: PaymentHistory['method']): string {
   };
   return icons[method];
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ANALYTICS DATA & HELPER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+export interface MonthlyPayment {
+  month: string;
+  amount: number;
+  claims: number;
+}
+
+export interface PolicyDistribution {
+  type: string;
+  count: number;
+  premium: number;
+  fill: string;
+}
+
+export interface ClaimsBreakdown {
+  status: string;
+  count: number;
+  amount: number;
+  fill: string;
+}
+
+export interface MonthlySpending {
+  month: string;
+  premiums: number;
+  claims: number;
+}
+
+// Historical payment trends (12 months)
+export const paymentTrends: MonthlyPayment[] = [
+  { month: 'Feb 2025', amount: 3480, claims: 0 },
+  { month: 'Mar 2025', amount: 3480, claims: 0 },
+  { month: 'Apr 2025', amount: 3480, claims: 0 },
+  { month: 'May 2025', amount: 3480, claims: 4500 },
+  { month: 'Jun 2025', amount: 3480, claims: 0 },
+  { month: 'Jul 2025', amount: 3480, claims: 0 },
+  { month: 'Aug 2025', amount: 3480, claims: 0 },
+  { month: 'Sep 2025', amount: 3480, claims: 0 },
+  { month: 'Oct 2025', amount: 3480, claims: 0 },
+  { month: 'Nov 2025', amount: 3480, claims: 32000 },
+  { month: 'Dec 2025', amount: 3480, claims: 0 },
+  { month: 'Jan 2026', amount: 3480, claims: 45000 },
+];
+
+// Chart colour palette (brand colours)
+export const chartColours = {
+  primary: '#BF0603',      // Red - premiums, main series
+  secondary: '#690025',    // Maroon - secondary series
+  accent: '#F2CC8E',       // Yellow - highlights
+  // Policy type colours
+  motor: '#3b82f6',        // Blue
+  home: '#10b981',         // Emerald
+  life: '#f43f5e',         // Rose
+  travel: '#f59e0b',       // Amber
+  business: '#6366f1',     // Indigo
+  // Status colours
+  approved: '#10b981',     // Emerald
+  pending: '#f59e0b',      // Amber
+  underReview: '#6366f1',  // Indigo
+  rejected: '#ef4444',     // Red
+  paid: '#22c55e',         // Green
+};
+
+// Get policy distribution by type
+export function getPolicyDistribution(): PolicyDistribution[] {
+  const distribution = mockPolicies.reduce((acc, policy) => {
+    const existing = acc.find((item) => item.type === policy.type);
+    if (existing) {
+      existing.count += 1;
+      existing.premium += policy.frequency === 'monthly' ? policy.premium : policy.premium / 12;
+    } else {
+      acc.push({
+        type: policy.type,
+        count: 1,
+        premium: policy.frequency === 'monthly' ? policy.premium : policy.premium / 12,
+        fill: chartColours[policy.type as keyof typeof chartColours] || chartColours.primary,
+      });
+    }
+    return acc;
+  }, [] as PolicyDistribution[]);
+
+  return distribution;
+}
+
+// Get claims breakdown by status
+export function getClaimsBreakdown(): ClaimsBreakdown[] {
+  const statusMap: Record<Claim['status'], { label: string; fill: string }> = {
+    submitted: { label: 'Submitted', fill: chartColours.pending },
+    under_review: { label: 'Under Review', fill: chartColours.underReview },
+    approved: { label: 'Approved', fill: chartColours.approved },
+    rejected: { label: 'Rejected', fill: chartColours.rejected },
+    paid: { label: 'Paid', fill: chartColours.paid },
+    pending_documents: { label: 'Pending Docs', fill: chartColours.accent },
+  };
+
+  const breakdown = mockClaims.reduce((acc, claim) => {
+    const existing = acc.find((item) => item.status === statusMap[claim.status].label);
+    if (existing) {
+      existing.count += 1;
+      existing.amount += claim.approvedAmount || claim.amount;
+    } else {
+      acc.push({
+        status: statusMap[claim.status].label,
+        count: 1,
+        amount: claim.approvedAmount || claim.amount,
+        fill: statusMap[claim.status].fill,
+      });
+    }
+    return acc;
+  }, [] as ClaimsBreakdown[]);
+
+  return breakdown;
+}
+
+// Get monthly spending trends (premiums vs claims paid)
+export function getMonthlySpendingTrends(): MonthlySpending[] {
+  return paymentTrends.map((payment) => ({
+    month: payment.month,
+    premiums: payment.amount,
+    claims: payment.claims,
+  }));
+}
+
+// Get policy type label for display
+export function getPolicyTypeLabel(type: Policy['type']): string {
+  const labels: Record<Policy['type'], string> = {
+    motor: 'Motor',
+    home: 'Home',
+    life: 'Life',
+    business: 'Business',
+    travel: 'Travel',
+  };
+  return labels[type];
+}

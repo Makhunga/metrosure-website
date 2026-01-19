@@ -92,7 +92,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   return (
     <div className="min-h-screen bg-[var(--surface)]">
       {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl border-b border-[var(--border-light)]">
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[var(--surface-card)]/80 backdrop-blur-xl border-b border-[var(--border-light)]">
         <div className="flex items-center justify-between px-4 h-16">
           <button
             onClick={() => setMobileMenuOpen(true)}
@@ -162,7 +162,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
               animate="visible"
               exit="hidden"
               variants={sidebarVariants}
-              className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] bg-white dark:bg-stone-900 z-50 overflow-y-auto"
+              className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] bg-[var(--surface-card)] z-50 overflow-y-auto"
             >
               <SidebarContent
                 navItems={navItems}
@@ -181,7 +181,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
         initial="hidden"
         animate="visible"
         variants={sidebarVariants}
-        className="hidden lg:block fixed left-0 top-0 bottom-0 w-[280px] bg-white dark:bg-stone-900 border-r border-[var(--border-light)] z-40 overflow-y-auto"
+        className="hidden lg:block fixed left-0 top-0 bottom-0 w-[280px] bg-[var(--surface-card)] border-r border-[var(--border-light)] z-40 overflow-y-auto"
       >
         <SidebarContent
           navItems={navItems}
@@ -194,7 +194,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       {/* Main Content */}
       <div className="lg:ml-[280px]">
         {/* Desktop Header */}
-        <header className="hidden lg:flex items-center justify-between px-8 h-20 bg-white/60 dark:bg-stone-900/60 backdrop-blur-xl border-b border-[var(--border-light)] sticky top-0 z-30">
+        <header className="hidden lg:flex items-center justify-between px-8 h-20 bg-[var(--surface-card)]/60 backdrop-blur-xl border-b border-[var(--border-light)] sticky top-0 z-30">
           <div>
             <h1 className="text-lg font-semibold text-[var(--text-main)]">
               Welcome back, {mockUser.firstName}
@@ -265,7 +265,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
 
             {/* User Menu */}
             <div className="flex items-center gap-3 pl-4 border-l border-[var(--border-light)]">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#BF0603] to-[#690025] flex items-center justify-center text-white font-semibold">
                 {mockUser.firstName[0]}
                 {mockUser.lastName[0]}
               </div>
@@ -339,9 +339,9 @@ function SidebarContent({
 
       {/* User Card */}
       <motion.div variants={navItemVariants} className="p-4">
-        <div className="p-4 rounded-2xl bg-gradient-to-br from-[var(--surface-inset)] to-[var(--surface)] border border-[var(--border-light)]">
+        <div className="p-4 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)]">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center text-white font-semibold text-lg shadow-lg shadow-primary/20">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#BF0603] to-[#690025] flex items-center justify-center text-white font-semibold text-lg shadow-lg shadow-primary/20">
               {mockUser.firstName[0]}
               {mockUser.lastName[0]}
             </div>
@@ -511,7 +511,7 @@ function NotificationsDropdown({ onClose }: { onClose: () => void }) {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 10, scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-        className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-stone-900 rounded-2xl shadow-2xl border border-[var(--border-light)] overflow-hidden z-50"
+        className="absolute right-0 top-full mt-2 w-80 bg-[var(--surface-card)] rounded-2xl shadow-2xl border border-[var(--border-light)] overflow-hidden z-50"
       >
         <div className="p-4 border-b border-[var(--border-light)] flex items-center justify-between">
           <h3 className="font-semibold text-[var(--text-main)]">

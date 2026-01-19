@@ -171,7 +171,7 @@ const statColours = {
 };
 
 const statIconColours = {
-  primary: 'text-[var(--primary)] bg-[var(--primary)]/10',
+  primary: 'text-[#BF0603] bg-[#BF0603]/10 dark:text-[#e65350]',
   success: 'text-emerald-600 bg-emerald-500/10 dark:text-emerald-400',
   warning: 'text-amber-600 bg-amber-500/10 dark:text-amber-400',
   info: 'text-blue-600 bg-blue-500/10 dark:text-blue-400',

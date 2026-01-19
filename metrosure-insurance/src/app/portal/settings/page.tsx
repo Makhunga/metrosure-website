@@ -52,17 +52,17 @@ function SettingsCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700">
+    <div className="p-6 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)]">
       <div className="flex items-start gap-4 mb-5">
-        <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
-          <span className="material-symbols-outlined text-xl text-red-600 dark:text-red-400">
+        <div className="w-10 h-10 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
+          <span className="material-symbols-outlined text-xl text-[var(--primary)]">
             {icon}
           </span>
         </div>
         <div>
-          <h2 className="font-semibold text-stone-900 dark:text-stone-100">{title}</h2>
+          <h2 className="font-semibold text-[var(--text-main)]">{title}</h2>
           {description && (
-            <p className="text-sm text-stone-500 dark:text-stone-400">{description}</p>
+            <p className="text-sm text-[var(--text-muted)]">{description}</p>
           )}
         </div>
       </div>
@@ -155,7 +155,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              <Button variant="outline" className="w-full mt-2 rounded-xl border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800">
+              <Button variant="outline" className="w-full mt-2 rounded-xl border-[var(--border-medium)] text-[var(--text-body)] hover:bg-[var(--surface-inset)]">
                 <span className="material-symbols-outlined text-lg">edit</span>
                 Request Profile Update
               </Button>
@@ -171,24 +171,24 @@ export default function SettingsPage() {
             description="Protect your account"
           >
             <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div className="flex-1">
-                  <p className="font-medium text-stone-900 dark:text-stone-100">Password</p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="font-medium text-[var(--text-main)]">Password</p>
+                  <p className="text-sm text-[var(--text-muted)]">
                     Last changed 3 months ago
                   </p>
                 </div>
-                <Button variant="outline" size="sm" className="rounded-xl border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800">
+                <Button variant="outline" size="sm" className="rounded-xl border-[var(--border-medium)] text-[var(--text-body)] hover:bg-[var(--surface-inset)]">
                   Change
                 </Button>
               </div>
 
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div className="flex-1">
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Two-Factor Authentication
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Add an extra layer of security
                   </p>
                 </div>
@@ -202,14 +202,14 @@ export default function SettingsPage() {
 
               <div className="flex items-center justify-between py-3">
                 <div className="flex-1">
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Active Sessions
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Manage devices logged into your account
                   </p>
                 </div>
-                <Button variant="outline" size="sm" className="rounded-xl border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800">
+                <Button variant="outline" size="sm" className="rounded-xl border-[var(--border-medium)] text-[var(--text-body)] hover:bg-[var(--surface-inset)]">
                   View
                 </Button>
               </div>
@@ -232,12 +232,12 @@ export default function SettingsPage() {
             description="Choose how you want to be notified"
           >
             <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div>
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Email Notifications
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Receive updates via email
                   </p>
                 </div>
@@ -248,12 +248,12 @@ export default function SettingsPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div>
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     SMS Notifications
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Receive updates via SMS
                   </p>
                 </div>
@@ -264,12 +264,12 @@ export default function SettingsPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div>
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Payment Reminders
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Get notified before payments are due
                   </p>
                 </div>
@@ -280,12 +280,12 @@ export default function SettingsPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div>
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Claim Updates
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Get notified about claim status changes
                   </p>
                 </div>
@@ -296,12 +296,12 @@ export default function SettingsPage() {
                 />
               </div>
 
-              <div className="flex items-center justify-between py-3 border-b border-stone-200 dark:border-stone-700">
+              <div className="flex items-center justify-between py-3 border-b border-[var(--border-light)]">
                 <div>
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Policy Reminders
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Renewal and expiry notifications
                   </p>
                 </div>
@@ -314,10 +314,10 @@ export default function SettingsPage() {
 
               <div className="flex items-center justify-between py-3">
                 <div>
-                  <p className="font-medium text-stone-900 dark:text-stone-100">
+                  <p className="font-medium text-[var(--text-main)]">
                     Marketing Communications
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="text-sm text-[var(--text-muted)]">
                     Offers, news, and product updates
                   </p>
                 </div>
@@ -339,12 +339,12 @@ export default function SettingsPage() {
             description="Set your language and document delivery"
           >
             <div className="space-y-4">
-              <div className="py-3 border-b border-stone-200 dark:border-stone-700">
-                <label className="block font-medium text-stone-900 dark:text-stone-100 mb-2">
+              <div className="py-3 border-b border-[var(--border-light)]">
+                <label className="block font-medium text-[var(--text-main)] mb-2">
                   Preferred Language
                 </label>
                 <Select value={language} onValueChange={setLanguage}>
-                  <SelectTrigger className="w-full rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100">
+                  <SelectTrigger className="w-full rounded-xl bg-[var(--surface-inset)] text-[var(--text-main)]">
                     <SelectValue placeholder="Select language" />
                   </SelectTrigger>
                   <SelectContent>
@@ -358,7 +358,7 @@ export default function SettingsPage() {
               </div>
 
               <div className="py-3">
-                <label className="block font-medium text-stone-900 dark:text-stone-100 mb-2">
+                <label className="block font-medium text-[var(--text-main)] mb-2">
                   Document Delivery
                 </label>
                 <RadioGroup
@@ -368,40 +368,40 @@ export default function SettingsPage() {
                 >
                   <label
                     htmlFor="delivery-email"
-                    className="flex items-center gap-3 p-3 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 cursor-pointer hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] bg-[var(--surface-inset)] cursor-pointer hover:bg-[var(--surface)] transition-colors"
                   >
                     <RadioGroupItem value="email" id="delivery-email" />
                     <div>
-                      <p className="font-medium text-stone-900 dark:text-stone-100">Email</p>
-                      <p className="text-sm text-stone-500 dark:text-stone-400">
+                      <p className="font-medium text-[var(--text-main)]">Email</p>
+                      <p className="text-sm text-[var(--text-muted)]">
                         Receive documents as email attachments
                       </p>
                     </div>
                   </label>
                   <label
                     htmlFor="delivery-portal"
-                    className="flex items-center gap-3 p-3 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 cursor-pointer hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] bg-[var(--surface-inset)] cursor-pointer hover:bg-[var(--surface)] transition-colors"
                   >
                     <RadioGroupItem value="portal" id="delivery-portal" />
                     <div>
-                      <p className="font-medium text-stone-900 dark:text-stone-100">
+                      <p className="font-medium text-[var(--text-main)]">
                         Portal Only
                       </p>
-                      <p className="text-sm text-stone-500 dark:text-stone-400">
+                      <p className="text-sm text-[var(--text-muted)]">
                         Access documents exclusively via the portal
                       </p>
                     </div>
                   </label>
                   <label
                     htmlFor="delivery-post"
-                    className="flex items-center gap-3 p-3 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 cursor-pointer hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-[var(--border-light)] bg-[var(--surface-inset)] cursor-pointer hover:bg-[var(--surface)] transition-colors"
                   >
                     <RadioGroupItem value="post" id="delivery-post" />
                     <div>
-                      <p className="font-medium text-stone-900 dark:text-stone-100">
+                      <p className="font-medium text-[var(--text-main)]">
                         Post
                       </p>
-                      <p className="text-sm text-stone-500 dark:text-stone-400">
+                      <p className="text-sm text-[var(--text-muted)]">
                         Receive physical copies by mail
                       </p>
                     </div>
@@ -418,18 +418,18 @@ export default function SettingsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             href="/help"
-            className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hover:border-red-300 dark:hover:border-red-700 transition-all group"
+            className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)] hover:border-[var(--primary)]/30 transition-all group"
           >
-            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3 block">
               help
             </span>
-            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
+            <h3 className="font-semibold text-[var(--text-main)] mb-1">
               Help Centre
             </h3>
-            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
+            <p className="text-sm text-[var(--text-muted)] mb-3">
               Find answers to frequently asked questions.
             </p>
-            <span className="text-sm text-red-600 dark:text-red-400 font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-sm text-[var(--primary)] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
               Browse FAQs
               <span className="material-symbols-outlined text-lg">
                 arrow_forward
@@ -439,18 +439,18 @@ export default function SettingsPage() {
 
           <Link
             href="/contact"
-            className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hover:border-red-300 dark:hover:border-red-700 transition-all group"
+            className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)] hover:border-[var(--primary)]/30 transition-all group"
           >
-            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3 block">
               support_agent
             </span>
-            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
+            <h3 className="font-semibold text-[var(--text-main)] mb-1">
               Contact Support
             </h3>
-            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
+            <p className="text-sm text-[var(--text-muted)] mb-3">
               Speak to our team for assistance.
             </p>
-            <span className="text-sm text-red-600 dark:text-red-400 font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-sm text-[var(--primary)] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
               Get in Touch
               <span className="material-symbols-outlined text-lg">
                 arrow_forward
@@ -460,18 +460,18 @@ export default function SettingsPage() {
 
           <Link
             href="/privacy"
-            className="p-5 rounded-2xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hover:border-red-300 dark:hover:border-red-700 transition-all group"
+            className="p-5 rounded-2xl bg-[var(--surface-inset)] border border-[var(--border-light)] hover:border-[var(--primary)]/30 transition-all group"
           >
-            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400 mb-3 block">
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)] mb-3 block">
               privacy_tip
             </span>
-            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
+            <h3 className="font-semibold text-[var(--text-main)] mb-1">
               Privacy & Legal
             </h3>
-            <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">
+            <p className="text-sm text-[var(--text-muted)] mb-3">
               Review our privacy policy and terms.
             </p>
-            <span className="text-sm text-red-600 dark:text-red-400 font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-sm text-[var(--primary)] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
               View Policies
               <span className="material-symbols-outlined text-lg">
                 arrow_forward
@@ -485,7 +485,7 @@ export default function SettingsPage() {
       <motion.section variants={itemVariants}>
         <div className="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900">
           <div className="flex items-start gap-4">
-            <span className="material-symbols-outlined text-2xl text-red-600 dark:text-red-400">
+            <span className="material-symbols-outlined text-2xl text-[var(--primary)]">
               warning
             </span>
             <div className="flex-1">

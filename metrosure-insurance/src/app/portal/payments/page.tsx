@@ -123,7 +123,7 @@ export default function PaymentsPage() {
                 key={payment.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="p-5 rounded-2xl bg-white dark:bg-stone-900 border border-[var(--border-light)] shadow-sm hover:shadow-md transition-shadow"
+                className="p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--border-light)] shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
@@ -261,7 +261,7 @@ export default function PaymentsPage() {
           title="Payment History"
           subtitle="Your recent transactions"
         />
-        <div className="bg-white dark:bg-stone-900 rounded-2xl border border-[var(--border-light)] overflow-hidden">
+        <div className="bg-[var(--surface-card)] rounded-2xl border border-[var(--border-light)] overflow-hidden">
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">

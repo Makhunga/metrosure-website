@@ -5,6 +5,12 @@ import PolicyCard from '@/components/portal/PolicyCard';
 import QuickActions, { StatCard, SectionHeader } from '@/components/portal/QuickActions';
 import ClaimsTimeline from '@/components/portal/ClaimsTimeline';
 import {
+  PremiumTrendChart,
+  PolicyDistributionChart,
+  ClaimsStatusChart,
+  SpendingTrendsChart,
+} from '@/components/portal/charts';
+import {
   mockPolicies,
   mockClaims,
   mockNotifications,
@@ -94,6 +100,20 @@ export default function DashboardPage() {
             icon="assignment"
             colour="warning"
           />
+        </div>
+      </motion.section>
+
+      {/* Analytics */}
+      <motion.section variants={itemVariants}>
+        <SectionHeader
+          title="Analytics"
+          subtitle="Your insurance at a glance"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <PremiumTrendChart />
+          <PolicyDistributionChart />
+          <ClaimsStatusChart />
+          <SpendingTrendsChart />
         </div>
       </motion.section>
 

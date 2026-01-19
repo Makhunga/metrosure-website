@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 19 January 2026 (Session 119)
+**Updated:** 19 January 2026 (Session 120)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -11,6 +11,62 @@
 - **Routes:** 53 (46 pages + 7 API routes)
 - **Last Build:** 19 January 2026
 
+
+---
+
+## SESSION 120 (19 Jan 2026) - Portal Analytics & Dark Mode Fixes
+
+### Completed
+| Task | Status |
+|------|--------|
+| Install shadcn chart component (Recharts wrapper) | ✅ Complete |
+| Extend portalMockData.ts with analytics data | ✅ Complete |
+| Create PremiumTrendChart (Area chart) | ✅ Complete |
+| Create PolicyDistributionChart (Donut chart) | ✅ Complete |
+| Create ClaimsStatusChart (Horizontal bar) | ✅ Complete |
+| Create SpendingTrendsChart (Multi-line chart) | ✅ Complete |
+| Add Analytics section to Portal Dashboard | ✅ Complete |
+| Fix extensive dark mode visibility issues across portal | ✅ Complete |
+
+### Files Created
+| File | Purpose |
+|------|---------|
+| `src/components/portal/charts/index.ts` | Barrel exports for chart components |
+| `src/components/portal/charts/PremiumTrendChart.tsx` | 6-month premium payment trend |
+| `src/components/portal/charts/PolicyDistributionChart.tsx` | Policy type distribution donut |
+| `src/components/portal/charts/ClaimsStatusChart.tsx` | Claims breakdown by status |
+| `src/components/portal/charts/SpendingTrendsChart.tsx` | Premiums vs Claims comparison |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `src/data/portalMockData.ts` | Added `paymentTrends`, `chartColours`, analytics helper functions |
+| `src/app/portal/dashboard/page.tsx` | Added Analytics section with 4 charts |
+| `src/components/ui/chart.tsx` | Fixed shadcn theme variables for project CSS variables |
+| `src/components/portal/QuickActions.tsx` | Fixed StatCard primary icon dark mode colour |
+| `src/components/portal/PortalLayout.tsx` | Fixed avatar gradient colours (hex values) |
+| `src/components/portal/PolicyCard.tsx` | Replaced hardcoded stone colours with CSS variables |
+| `src/components/portal/ClaimsTimeline.tsx` | Fixed card colours for dark mode |
+| `src/app/portal/claims/page.tsx` | Fixed help section colours |
+| `src/app/portal/payments/page.tsx` | Fixed card backgrounds |
+| `src/app/portal/documents/page.tsx` | Fixed search, cards, view toggle colours |
+| `src/app/portal/settings/page.tsx` | Bulk CSS variable replacements |
+
+### Dark Mode Fixes Applied
+| Issue | Fix |
+|-------|-----|
+| shadcn `bg-background` not mapped | Changed to `bg-[var(--surface-card)]` |
+| shadcn `text-foreground` not mapped | Changed to `text-[var(--text-main)]` |
+| shadcn `text-muted-foreground` not mapped | Changed to `text-[var(--text-muted)]` |
+| Avatar gradient `from-[var(--primary)]` broken | Changed to hex `from-[#BF0603] to-[#690025]` |
+| StatCard primary icon invisible | Added `dark:text-[#e65350]` variant |
+| Chart legend labels black in dark mode | Added `text-[var(--text-body)]` wrapper |
+| Hardcoded `stone-*` colours | Replaced with CSS variable equivalents |
+
+### Technical Notes
+- **Chart library:** Using Recharts via shadcn/ui `chart` component (~50KB gzipped)
+- **CSS variable issue:** Tailwind gradient `from-[var(--primary)]` fails because `--primary` contains raw RGB values (`191 6 3`) without `rgb()` wrapper. Must use explicit hex values for gradients.
+- **shadcn theme mismatch:** Project uses custom CSS variables (`--surface-card`, `--text-main`) not shadcn defaults (`background`, `foreground`). Required manual mapping in `chart.tsx`.
 
 ---
 
@@ -285,26 +341,44 @@ Visit `/playground/shadcn` to see all components with Metrosure theming:
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Portal Analytics & Charts ⭐ (NEW)
-- Add graphical analytics mockups to Portal Dashboard
-- **Charts to implement:**
-  - Premium payments over time (line/area chart)
-  - Policy distribution by type (pie/donut chart)
-  - Claims status breakdown (bar chart)
-  - Monthly spending trends (line chart)
-- **Libraries to consider:**
-  - Recharts (lightweight, React-native)
-  - Tremor (Tailwind-native, shadcn-compatible)
-  - Chart.js with react-chartjs-2
-- **Mock data:** Add realistic historical data to `portalMockData.ts`
-- **Dark mode:** Ensure charts theme correctly for light/dark modes
+### Priority 1: Portal UI Refactor to shadcn/ui ⭐ (MAJOR)
+**Goal:** Replace custom portal styling with customised shadcn/ui components for consistency and maintainability.
+
+**Why this refactor:**
+- Current portal uses mix of custom CSS variables and hardcoded Tailwind colours
+- Frequent dark mode visibility issues due to inconsistent theming
+- shadcn components are already installed but not fully utilised in portal
+- Unified component library = fewer bugs, faster development
+
+**Scope:**
+- Replace custom StatCard, QuickActions with shadcn Card variants
+- Replace custom form controls with shadcn Input, Select, Switch
+- Replace notification dropdowns with shadcn Popover/DropdownMenu
+- Replace table styling with shadcn Table
+- Create portal-specific shadcn theme overrides
+
+**Components to install:**
+```bash
+npx shadcn@latest add avatar badge dropdown-menu popover tabs accordion alert
+```
+
+**Alternative Dashboard Libraries (if shadcn insufficient):**
+
+| Library | Pros | Cons | Bundle |
+|---------|------|------|--------|
+| **Tremor** | Tailwind-native, beautiful defaults, dark mode built-in | Opinionated, less customisable | ~150KB |
+| **Mantine** | Comprehensive, excellent a11y, great docs | Large bundle, different styling approach | ~200KB |
+| **NextUI** | Modern design, Tailwind-based, good animations | Newer, smaller community | ~100KB |
+| **Radix Themes** | From Radix team, excellent a11y, works with existing Radix | Limited components, newer | ~80KB |
+| **Chakra UI** | Mature, excellent DX, good theming | Large bundle, not Tailwind-native | ~180KB |
+
+**Recommendation:** Start with full shadcn/ui adoption. If dashboard-specific components needed (KPIs, data tables, charts), consider **Tremor** as it's Tailwind-native and complements shadcn well.
 
 ### Priority 2: Portal Refinements
 - Mobile responsive testing for all portal pages
 - Claim detail page with full timeline (`/portal/claims/[id]`)
 - Notifications page (`/portal/notifications`)
 - Add real toast feedback to form submissions
-- Remaining button migrations (PolicyCard, QuickActions)
 
 ### Priority 3: Additional shadcn Components (As Needed)
 - Install additional components: `npx shadcn@latest add [component]`
@@ -393,11 +467,11 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 120 | Portal Analytics & Dark Mode | 4 dashboard charts (Recharts); Extensive dark mode fixes across portal |
 | 119 | Favicon, Logos & Portal | New favicon/apple-icon; Portal logos with dark/light switching; Zoocora logo; Theme toggle |
 | 118 | Testimonial Refinements | New TestimonialsCarousel; AI avatars for partners; Form header updates |
 | 117 | shadcn/ui Integration | 8 components installed; Metrosure theming; Sonner toasts; playground page |
 | 116 | WhatsApp & Footer Improvements | WhatsApp auto-hide at footer; Zoocora logo on mobile with glow |
-| 115 | Portal Pages & Quick Fixes | Payments, Documents, Settings pages; TrustedBy image update |
 
 ---
 
