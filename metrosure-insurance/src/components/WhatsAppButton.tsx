@@ -8,6 +8,20 @@ const WHATSAPP_NUMBER = "27711985248";
 const WHATSAPP_MESSAGE = "Hi Metrosure, I'd like to enquire about your insurance products.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
+// Synchronous visibility check for instant scroll restoration (back/forward navigation)
+function checkFooterVisibility(footer: Element): boolean {
+  const rect = footer.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+
+  const visibleTop = Math.max(rect.top, 0);
+  const visibleBottom = Math.min(rect.bottom, viewportHeight);
+  const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+  const footerHeight = rect.height;
+
+  // Match the 20% threshold used by IntersectionObserver
+  return footerHeight > 0 && visibleHeight / footerHeight >= 0.2;
+}
+
 // WhatsApp brand icon
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -46,6 +60,10 @@ export default function WhatsAppButton() {
     const footer = document.querySelector("footer");
     if (!footer) return;
 
+    // 1. Immediate check on mount (handles back/forward scroll restoration)
+    setIsFooterVisible(checkFooterVisibility(footer));
+
+    // 2. IntersectionObserver for ongoing monitoring
     const observer = new IntersectionObserver(
       ([entry]) => {
         // Hide when footer is 20% visible to give some buffer
@@ -53,9 +71,21 @@ export default function WhatsAppButton() {
       },
       { threshold: 0.2 }
     );
-
     observer.observe(footer);
-    return () => observer.disconnect();
+
+    // 3. Handle browser back/forward navigation (popstate)
+    const handlePopState = () => {
+      // Use requestAnimationFrame to ensure scroll position has been restored
+      requestAnimationFrame(() => {
+        setIsFooterVisible(checkFooterVisibility(footer));
+      });
+    };
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, []);
 
   return (
