@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 // WhatsApp configuration
@@ -40,6 +41,7 @@ export default function WhatsAppButton() {
   const [hiringBannerDismissed, setHiringBannerDismissed] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [hasAppearedOnce, setHasAppearedOnce] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Check initial state
@@ -56,37 +58,53 @@ export default function WhatsAppButton() {
   }, []);
 
   // Observe footer visibility to hide button when footer is in view
+  // Re-run on pathname change to handle Next.js client-side navigation
   useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (!footer) return;
+    let observer: IntersectionObserver | null = null;
+    let handlePopState: (() => void) | null = null;
 
-    // 1. Immediate check on mount (handles back/forward scroll restoration)
-    setIsFooterVisible(checkFooterVisibility(footer));
+    // Small delay to ensure DOM has updated after route change
+    const timeoutId = setTimeout(() => {
+      const footer = document.querySelector("footer");
+      if (!footer) return;
 
-    // 2. IntersectionObserver for ongoing monitoring
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Hide when footer is 20% visible to give some buffer
-        setIsFooterVisible(entry.isIntersecting);
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(footer);
+      // 1. Immediate check (handles route changes and scroll restoration)
+      setIsFooterVisible(checkFooterVisibility(footer));
 
-    // 3. Handle browser back/forward navigation (popstate)
-    const handlePopState = () => {
-      // Use requestAnimationFrame to ensure scroll position has been restored
-      requestAnimationFrame(() => {
-        setIsFooterVisible(checkFooterVisibility(footer));
-      });
-    };
-    window.addEventListener("popstate", handlePopState);
+      // 2. IntersectionObserver for ongoing monitoring
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          // Hide when footer is 20% visible to give some buffer
+          setIsFooterVisible(entry.isIntersecting);
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(footer);
 
+      // 3. Handle browser back/forward navigation (popstate)
+      handlePopState = () => {
+        // Use requestAnimationFrame to ensure scroll position has been restored
+        requestAnimationFrame(() => {
+          const currentFooter = document.querySelector("footer");
+          if (currentFooter) {
+            setIsFooterVisible(checkFooterVisibility(currentFooter));
+          }
+        });
+      };
+      window.addEventListener("popstate", handlePopState);
+    }, 50);
+
+    // Cleanup everything when pathname changes or component unmounts
     return () => {
-      observer.disconnect();
-      window.removeEventListener("popstate", handlePopState);
+      clearTimeout(timeoutId);
+      if (observer) {
+        observer.disconnect();
+      }
+      if (handlePopState) {
+        window.removeEventListener("popstate", handlePopState);
+      }
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <AnimatePresence>
