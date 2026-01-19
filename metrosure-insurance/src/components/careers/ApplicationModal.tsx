@@ -290,6 +290,7 @@ export default function ApplicationModal({
                     )
                   }
                   fieldState={getFieldState("fullName")}
+                  inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                 />
 
                 <LabelledInput
@@ -301,6 +302,7 @@ export default function ApplicationModal({
                   onChange={handleInputChange}
                   onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                   fieldState={getFieldState("email")}
+                  inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                 />
               </div>
 
@@ -313,6 +315,7 @@ export default function ApplicationModal({
                 onChange={handleInputChange}
                 onBlur={(e) => validateField("phone", e.target.value, validatePhone)}
                 fieldState={getFieldState("phone")}
+                inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
               />
 
               {/* Position & Province */}
@@ -324,6 +327,7 @@ export default function ApplicationModal({
                   value={formData.position}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.position ? "text-slate-400 dark:text-slate-500" : ""}
                 />
 
                 <LabelledSelect
@@ -333,6 +337,7 @@ export default function ApplicationModal({
                   value={formData.province}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.province ? "text-slate-400 dark:text-slate-500" : ""}
                 />
               </div>
 
@@ -345,6 +350,7 @@ export default function ApplicationModal({
                   value={formData.experience}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.experience ? "text-slate-400 dark:text-slate-500" : ""}
                 />
 
                 <LabelledSelect
@@ -358,6 +364,7 @@ export default function ApplicationModal({
                   value={formData.willingToRelocate}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.willingToRelocate ? "text-slate-400 dark:text-slate-500" : ""}
                 />
               </div>
 
@@ -365,11 +372,10 @@ export default function ApplicationModal({
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Upload CV (Optional)</label>
                 <div
-                  className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${
-                    fileName
+                  className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${fileName
                       ? "border-primary bg-primary/5"
                       : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
-                  }`}
+                    }`}
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <input

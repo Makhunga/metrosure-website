@@ -159,6 +159,18 @@ export default function CorporateInquiryForm() {
 
   // Validate step and update field states
   const validateStepFields = (step: number): boolean => {
+    if (step === 0) {
+      const companyValid = validateField("companyName", formData.companyName, (v) =>
+        validateRequired(v, "Company name")
+      );
+      const industryValid = validateField("industry", formData.industry, (v) =>
+        validateRequired(v, "Industry")
+      );
+      const employeeCountValid = validateField("employeeCount", formData.employeeCount, (v) =>
+        validateRequired(v, "Employee count")
+      );
+      return companyValid && industryValid && employeeCountValid;
+    }
     if (step === 1) {
       const emailValid = validateField("email", formData.email, validateEmail);
       const phoneValid = validateField("phone", formData.phone, validatePhone);
@@ -322,13 +334,12 @@ export default function CorporateInquiryForm() {
                     />
                   )}
                   <motion.div
-                    className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      i < currentStep
+                    className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${i < currentStep
                         ? "bg-emerald-500 text-white shadow-xl shadow-emerald-500/30"
                         : i === currentStep
                           ? "bg-primary text-white shadow-xl shadow-primary/40"
                           : "bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-2 border-slate-200 dark:border-slate-600"
-                    }`}
+                      }`}
                   >
                     <AnimatePresence mode="wait">
                       {i < currentStep ? (
@@ -360,11 +371,10 @@ export default function CorporateInquiryForm() {
                   </motion.div>
                 </motion.div>
                 <span
-                  className={`text-xs font-medium transition-colors ${
-                    i <= currentStep
+                  className={`text-xs font-medium transition-colors ${i <= currentStep
                       ? "text-slate-900 dark:text-white"
                       : "text-slate-400"
-                  }`}
+                    }`}
                 >
                   {step.title}
                 </span>
@@ -465,6 +475,8 @@ export default function CorporateInquiryForm() {
                         required
                         onChange={handleInputChange}
                         fieldState={getFieldState("companyName")}
+                        onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
+                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                       />
 
                       <LabelledSelect
@@ -474,6 +486,9 @@ export default function CorporateInquiryForm() {
                         value={formData.industry}
                         required
                         onChange={handleInputChange}
+                        fieldState={getFieldState("industry")}
+                        onBlur={() => validateField("industry", formData.industry, (v) => validateRequired(v, "Industry"))}
+                        inputClassName={!formData.industry ? "text-slate-400 dark:text-slate-500" : ""}
                       />
 
                       <LabelledSelect
@@ -486,6 +501,9 @@ export default function CorporateInquiryForm() {
                         value={formData.employeeCount}
                         required
                         onChange={handleInputChange}
+                        fieldState={getFieldState("employeeCount")}
+                        onBlur={() => validateField("employeeCount", formData.employeeCount, (v) => validateRequired(v, "Employee count"))}
+                        inputClassName={!formData.employeeCount ? "text-slate-400 dark:text-slate-500" : ""}
                       />
 
                       <LabelledSelect
@@ -494,6 +512,7 @@ export default function CorporateInquiryForm() {
                         options={currentBenefitsOptions}
                         value={formData.currentBenefits}
                         onChange={handleInputChange}
+                        inputClassName={!formData.currentBenefits ? "text-slate-400 dark:text-slate-500" : ""}
                       />
                     </motion.div>
                   )}
@@ -530,6 +549,7 @@ export default function CorporateInquiryForm() {
                             validateRequired(v, "Name")
                           )
                         }
+                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                       />
 
                       <LabelledInput
@@ -544,6 +564,7 @@ export default function CorporateInquiryForm() {
                             validateRequired(v, "Job title")
                           )
                         }
+                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                       />
 
                       <LabelledInput
@@ -557,6 +578,7 @@ export default function CorporateInquiryForm() {
                         onBlur={(e) =>
                           validateField("email", e.target.value, validateEmail)
                         }
+                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                       />
 
                       <LabelledInput
@@ -570,6 +592,7 @@ export default function CorporateInquiryForm() {
                         onBlur={(e) =>
                           validateField("phone", e.target.value, validatePhone)
                         }
+                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                       />
                     </motion.div>
                   )}
@@ -611,12 +634,11 @@ export default function CorporateInquiryForm() {
                               onClick={() => handleServiceChange(service.id)}
                               className={`
                                 group relative px-5 py-3 rounded-full text-sm font-medium transition-all duration-300
-                                ${
-                                  formData.servicesInterested.includes(
-                                    service.id
-                                  )
-                                    ? "bg-primary text-white shadow-lg shadow-primary/25"
-                                    : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+                                ${formData.servicesInterested.includes(
+                                service.id
+                              )
+                                  ? "bg-primary text-white shadow-lg shadow-primary/25"
+                                  : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                                 }
                               `}
                               aria-pressed={formData.servicesInterested.includes(
@@ -627,14 +649,14 @@ export default function CorporateInquiryForm() {
                                 {formData.servicesInterested.includes(
                                   service.id
                                 ) && (
-                                  <motion.span
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className="material-symbols-outlined text-sm"
-                                  >
-                                    check
-                                  </motion.span>
-                                )}
+                                    <motion.span
+                                      initial={{ scale: 0 }}
+                                      animate={{ scale: 1 }}
+                                      className="material-symbols-outlined text-sm"
+                                    >
+                                      check
+                                    </motion.span>
+                                  )}
                                 {service.label}
                               </span>
                             </button>
@@ -652,6 +674,7 @@ export default function CorporateInquiryForm() {
                         maxLength={MAX_MESSAGE_CHARS}
                         showCharCount
                         helperText="Optional"
+                        inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                       />
 
                       {/* Consent Checkboxes */}
@@ -703,10 +726,9 @@ export default function CorporateInquiryForm() {
                     disabled={currentStep === 0}
                     className={`
                       flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all
-                      ${
-                        currentStep === 0
-                          ? "text-slate-300 dark:text-slate-600 cursor-not-allowed"
-                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
+                      ${currentStep === 0
+                        ? "text-slate-300 dark:text-slate-600 cursor-not-allowed"
+                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
                       }
                     `}
                   >

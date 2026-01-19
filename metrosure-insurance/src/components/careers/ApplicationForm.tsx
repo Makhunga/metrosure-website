@@ -323,251 +323,257 @@ export default function ApplicationForm({
                 />
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Honeypot field - hidden from users, filled by bots */}
-                    <input
-                      type="text"
-                      name={HONEYPOT_FIELD_NAME}
-                      value={honeypot}
-                      onChange={(e) => setHoneypot(e.target.value)}
-                      autoComplete="off"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                      className={honeypotClassName}
-                    />
-                    <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        Quick Apply
-                      </h3>
-                      <p className="text-slate-600 dark:text-slate-300 mt-1">
-                        Takes less than 2 minutes
-                      </p>
-                    </div>
+                  {/* Honeypot field - hidden from users, filled by bots */}
+                  <input
+                    type="text"
+                    name={HONEYPOT_FIELD_NAME}
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    autoComplete="off"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className={honeypotClassName}
+                  />
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                      Quick Apply
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-300 mt-1">
+                      Takes less than 2 minutes
+                    </p>
+                  </div>
 
-                    {/* Error Message */}
-                    {error && (
-                      <motion.div
-                        className="p-4 rounded-xl bg-red-50 dark:bg-red-900/15 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400"
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-lg">
-                            error
-                          </span>
-                          <span>{error}</span>
-                        </div>
-                      </motion.div>
-                    )}
+                  {/* Error Message */}
+                  {error && (
+                    <motion.div
+                      className="p-4 rounded-xl bg-red-50 dark:bg-red-900/15 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-lg">
+                          error
+                        </span>
+                        <span>{error}</span>
+                      </div>
+                    </motion.div>
+                  )}
 
-                    {/* Personal Info */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <LabelledInput
-                        name="fullName"
-                        label="Full Name"
-                        value={formData.fullName}
-                        required
-                        onChange={handleInputChange}
-                        onBlur={(e) =>
-                          validateField("fullName", e.target.value, (v) =>
-                            validateRequired(v, "Full name")
-                          )
-                        }
-                        fieldState={getFieldState("fullName")}
-                      />
-
-                      <LabelledInput
-                        name="email"
-                        label="Email Address"
-                        type="email"
-                        value={formData.email}
-                        required
-                        onChange={handleInputChange}
-                        onBlur={(e) =>
-                          validateField("email", e.target.value, validateEmail)
-                        }
-                        fieldState={getFieldState("email")}
-                      />
-                    </div>
-
+                  {/* Personal Info */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <LabelledInput
-                      name="phone"
-                      label="Phone Number"
-                      type="tel"
-                      value={formData.phone}
+                      name="fullName"
+                      label="Full Name"
+                      value={formData.fullName}
                       required
                       onChange={handleInputChange}
                       onBlur={(e) =>
-                        validateField("phone", e.target.value, validatePhone)
+                        validateField("fullName", e.target.value, (v) =>
+                          validateRequired(v, "Full name")
+                        )
                       }
-                      fieldState={getFieldState("phone")}
+                      fieldState={getFieldState("fullName")}
+                      inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                     />
 
-                    {/* Position & Province */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <LabelledSelect
-                        name="position"
-                        label="Position Interested In"
-                        options={positions}
-                        value={formData.position}
-                        required
-                        onChange={handleInputChange}
-                      />
+                    <LabelledInput
+                      name="email"
+                      label="Email Address"
+                      type="email"
+                      value={formData.email}
+                      required
+                      onChange={handleInputChange}
+                      onBlur={(e) =>
+                        validateField("email", e.target.value, validateEmail)
+                      }
+                      fieldState={getFieldState("email")}
+                      inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                    />
+                  </div>
 
-                      <LabelledSelect
-                        name="province"
-                        label="Province"
-                        options={provinces}
-                        value={formData.province}
-                        required
-                        onChange={handleInputChange}
-                      />
-                    </div>
+                  <LabelledInput
+                    name="phone"
+                    label="Phone Number"
+                    type="tel"
+                    value={formData.phone}
+                    required
+                    onChange={handleInputChange}
+                    onBlur={(e) =>
+                      validateField("phone", e.target.value, validatePhone)
+                    }
+                    fieldState={getFieldState("phone")}
+                    inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                  />
 
-                    {/* Experience & Relocation */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <LabelledSelect
-                        name="experience"
-                        label="Years of Experience"
-                        options={experienceLevels}
-                        value={formData.experience}
-                        required
-                        onChange={handleInputChange}
-                      />
+                  {/* Position & Province */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <LabelledSelect
+                      name="position"
+                      label="Position Interested In"
+                      options={positions}
+                      value={formData.position}
+                      required
+                      onChange={handleInputChange}
+                      inputClassName={!formData.position ? "text-slate-400 dark:text-slate-500" : ""}
+                    />
 
-                      <LabelledSelect
-                        name="willingToRelocate"
-                        label="Willing to Relocate?"
-                        options={[
-                          { value: "yes", label: "Yes" },
-                          { value: "no", label: "No" },
-                          { value: "depends", label: "Depends on location" },
-                        ]}
-                        value={formData.willingToRelocate}
-                        required
-                        onChange={handleInputChange}
-                      />
-                    </div>
+                    <LabelledSelect
+                      name="province"
+                      label="Province"
+                      options={provinces}
+                      value={formData.province}
+                      required
+                      onChange={handleInputChange}
+                      inputClassName={!formData.province ? "text-slate-400 dark:text-slate-500" : ""}
+                    />
+                  </div>
 
-                    {/* CV Upload */}
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                        Upload CV (Optional)
-                      </label>
-                      <div
-                        className={`relative border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all ${
-                          fileName
-                            ? "border-primary bg-primary/5"
-                            : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
-                        }`}
-                        onClick={() => fileInputRef.current?.click()}
-                      >
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          accept=".pdf,.doc,.docx"
-                          onChange={handleFileChange}
-                          className="hidden"
-                        />
-                        {fileName ? (
-                          <div className="flex items-center justify-center gap-3">
-                            <span className="material-symbols-outlined text-primary text-2xl">
-                              description
-                            </span>
-                            <span className="text-slate-900 dark:text-white font-medium">
-                              {fileName}
-                            </span>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                removeFile();
-                              }}
-                              className="p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-colors"
-                            >
-                              <span className="material-symbols-outlined text-lg">
-                                close
-                              </span>
-                            </button>
-                          </div>
-                        ) : (
-                          <>
-                            <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-3xl mb-2">
-                              cloud_upload
-                            </span>
-                            <p className="text-slate-600 dark:text-slate-300">
-                              <span className="text-primary font-semibold">
-                                Click to upload
-                              </span>{" "}
-                              or drag and drop
-                            </p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                              PDF, DOC, DOCX (Max 5MB)
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </div>
+                  {/* Experience & Relocation */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <LabelledSelect
+                      name="experience"
+                      label="Years of Experience"
+                      options={experienceLevels}
+                      value={formData.experience}
+                      required
+                      onChange={handleInputChange}
+                      inputClassName={!formData.experience ? "text-slate-400 dark:text-slate-500" : ""}
+                    />
 
-                    {/* Privacy Consent */}
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        name="privacyConsent"
-                        checked={formData.privacyConsent}
-                        onChange={handleInputChange}
-                        required
-                        className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
-                      />
-                      <span className="text-sm text-slate-600 dark:text-slate-300">
-                        I agree to the{" "}
-                        <a
-                          href="/privacy"
-                          className="text-primary hover:underline"
-                        >
-                          Privacy Policy
-                        </a>{" "}
-                        and consent to Metrosure processing my application. *
-                      </span>
+                    <LabelledSelect
+                      name="willingToRelocate"
+                      label="Willing to Relocate?"
+                      options={[
+                        { value: "yes", label: "Yes" },
+                        { value: "no", label: "No" },
+                        { value: "depends", label: "Depends on location" },
+                      ]}
+                      value={formData.willingToRelocate}
+                      required
+                      onChange={handleInputChange}
+                      inputClassName={!formData.willingToRelocate ? "text-slate-400 dark:text-slate-500" : ""}
+                    />
+                  </div>
+
+                  {/* CV Upload */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                      Upload CV (Optional)
                     </label>
-
-                    {/* Submit Button */}
-                    <motion.button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
-                      whileHover={!isSubmitting ? { scale: 1.03, y: -2 } : {}}
-                      whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                    <div
+                      className={`relative border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all ${fileName
+                          ? "border-primary bg-primary/5"
+                          : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
+                        }`}
+                      onClick={() => fileInputRef.current?.click()}
                     >
-                      {isSubmitting ? (
-                        <>
-                          <svg
-                            className="animate-spin h-5 w-5"
-                            viewBox="0 0 24 24"
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                      {fileName ? (
+                        <div className="flex items-center justify-center gap-3">
+                          <span className="material-symbols-outlined text-primary text-2xl">
+                            description
+                          </span>
+                          <span className="text-slate-900 dark:text-white font-medium">
+                            {fileName}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeFile();
+                            }}
+                            className="p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-colors"
                           >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                              fill="none"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
-                          <span>Submitting...</span>
-                        </>
+                            <span className="material-symbols-outlined text-lg">
+                              close
+                            </span>
+                          </button>
+                        </div>
                       ) : (
                         <>
-                          <span>Submit Application</span>
-                          <span className="material-symbols-outlined">send</span>
+                          <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-3xl mb-2">
+                            cloud_upload
+                          </span>
+                          <p className="text-slate-600 dark:text-slate-300">
+                            <span className="text-primary font-semibold">
+                              Click to upload
+                            </span>{" "}
+                            or drag and drop
+                          </p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            PDF, DOC, DOCX (Max 5MB)
+                          </p>
                         </>
                       )}
-                    </motion.button>
+                    </div>
+                  </div>
+
+                  {/* Privacy Consent */}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="privacyConsent"
+                      checked={formData.privacyConsent}
+                      onChange={handleInputChange}
+                      required
+                      className="w-5 h-5 mt-0.5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary"
+                    />
+                    <span className="text-sm text-slate-600 dark:text-slate-300">
+                      I agree to the{" "}
+                      <a
+                        href="/privacy"
+                        className="text-primary hover:underline"
+                      >
+                        Privacy Policy
+                      </a>{" "}
+                      and consent to Metrosure processing my application. *
+                    </span>
+                  </label>
+
+                  {/* Submit Button */}
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full h-12 px-8 bg-primary hover:bg-[rgb(var(--color-primary-hover))] text-white font-bold rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                    whileHover={!isSubmitting ? { scale: 1.03, y: -2 } : {}}
+                    whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        <span>Submitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit Application</span>
+                        <span className="material-symbols-outlined">send</span>
+                      </>
+                    )}
+                  </motion.button>
                 </form>
               )}
             </div>

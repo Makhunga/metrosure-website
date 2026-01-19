@@ -286,18 +286,16 @@ export default function ContactForm() {
             whileTap={{ scale: 0.98 }}
           >
             <div
-              className={`py-6 px-6 text-center transition-all duration-300 ${
-                activeTab === "message"
+              className={`py-6 px-6 text-center transition-all duration-300 ${activeTab === "message"
                   ? "bg-white dark:bg-slate-700"
                   : "bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700"
-              }`}
+                }`}
             >
               <div
-                className={`flex items-center justify-center gap-2 font-semibold text-sm md:text-base ${
-                  activeTab === "message"
+                className={`flex items-center justify-center gap-2 font-semibold text-sm md:text-base ${activeTab === "message"
                     ? "text-primary"
                     : "text-slate-500 dark:text-slate-400"
-                }`}
+                  }`}
               >
                 <span className="material-symbols-outlined text-lg">mail</span>
                 <span>Contact Us</span>
@@ -318,18 +316,16 @@ export default function ContactForm() {
             whileTap={{ scale: 0.98 }}
           >
             <div
-              className={`py-6 px-6 text-center transition-all duration-300 ${
-                activeTab === "callback"
+              className={`py-6 px-6 text-center transition-all duration-300 ${activeTab === "callback"
                   ? "bg-white dark:bg-slate-700"
                   : "bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700"
-              }`}
+                }`}
             >
               <div
-                className={`flex items-center justify-center gap-2 font-semibold text-sm md:text-base ${
-                  activeTab === "callback"
+                className={`flex items-center justify-center gap-2 font-semibold text-sm md:text-base ${activeTab === "callback"
                     ? "text-primary"
                     : "text-slate-500 dark:text-slate-400"
-                }`}
+                  }`}
               >
                 <span className="material-symbols-outlined text-lg">call</span>
                 <span>Request Call Back</span>
@@ -402,6 +398,7 @@ export default function ContactForm() {
                             onChange={(e) => setMessageName(e.target.value)}
                             onBlur={(e) => validateField("name", e.target.value, (v) => validateRequired(v, "Name"))}
                             fieldState={getFieldState("name")}
+                            inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                           />
                         </motion.div>
                         <motion.div
@@ -418,6 +415,7 @@ export default function ContactForm() {
                             onChange={(e) => setMessageEmail(e.target.value)}
                             onBlur={(e) => validateField("email", e.target.value, validateEmail)}
                             fieldState={getFieldState("email")}
+                            inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                           />
                         </motion.div>
                       </div>
@@ -433,6 +431,7 @@ export default function ContactForm() {
                           options={messageTopics}
                           value={selectedTopic}
                           onChange={(e) => setSelectedTopic(e.target.value)}
+                          inputClassName={!selectedTopic ? "text-slate-400 dark:text-slate-500" : ""}
                         />
                       </motion.div>
 
@@ -452,6 +451,7 @@ export default function ContactForm() {
                               onChange={(e) => setCompanyName(e.target.value)}
                               onBlur={(e) => validateField("companyName", e.target.value, (v) => validateRequired(v, "Company name"))}
                               fieldState={getFieldState("companyName")}
+                              inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                             />
                           </motion.div>
                         )}
@@ -473,6 +473,7 @@ export default function ContactForm() {
                           onChange={handleMessageChange}
                           onBlur={() => validateField("message", messageContent, (v) => validateRequired(v, "Message"))}
                           fieldState={getFieldState("message")}
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                         />
                       </motion.div>
 
@@ -554,6 +555,7 @@ export default function ContactForm() {
                           onChange={(e) => setCallbackName(e.target.value)}
                           onBlur={(e) => validateField("cb_name", e.target.value, (v) => validateRequired(v, "Full name"))}
                           fieldState={getFieldState("cb_name")}
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                         />
                       </motion.div>
 
@@ -571,6 +573,7 @@ export default function ContactForm() {
                           onChange={(e) => setCallbackPhone(e.target.value)}
                           onBlur={(e) => validateField("cb_phone", e.target.value, validatePhone)}
                           fieldState={getFieldState("cb_phone")}
+                          inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                         />
                       </motion.div>
 
@@ -593,6 +596,7 @@ export default function ContactForm() {
                           }}
                           onBlur={() => validateField("cb_reason", callbackReason, (v) => validateRequired(v, "Reason"))}
                           fieldState={getFieldState("cb_reason")}
+                          inputClassName={!callbackReason ? "text-slate-400 dark:text-slate-500" : ""}
                         />
                       </motion.div>
 
@@ -615,6 +619,7 @@ export default function ContactForm() {
                               onChange={handleOtherReasonChange}
                               onBlur={() => validateField("cb_other", otherReason, (v) => validateRequired(v, "Reason"))}
                               fieldState={getFieldState("cb_other")}
+                              inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                             />
                           </motion.div>
                         )}
@@ -634,6 +639,7 @@ export default function ContactForm() {
                             required
                             onChange={(e) => setCallbackDate(e.target.value)}
                             fieldState={getFieldState("cb_date")}
+                            inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                           />
                         </motion.div>
                         <motion.div
@@ -650,6 +656,7 @@ export default function ContactForm() {
                             ]}
                             value={callbackTime}
                             onChange={(e) => setCallbackTime(e.target.value)}
+                            inputClassName={!callbackTime ? "text-slate-400 dark:text-slate-500" : ""}
                           />
                         </motion.div>
                       </div>

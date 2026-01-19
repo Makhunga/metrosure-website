@@ -11,9 +11,9 @@ const Products = dynamic(() => import("@/components/Products"));
 const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
 const LatestOpportunities = dynamic(() => import("@/components/LatestOpportunities"));
 const PartnersCTA = dynamic(() => import("@/components/PartnersCTA"));
-// Testimonial Section - Minimal Variant selected (Session 109)
-const TestimonialsMinimal = dynamic(
-  () => import("@/components/testimonials/TestimonialsMinimal")
+// Testimonial Section - Trullion-inspired Carousel (Session 118)
+const TestimonialsCarousel = dynamic(
+  () => import("@/components/testimonials/TestimonialsCarousel")
 );
 const CallToAction = dynamic(() => import("@/components/CallToAction"));
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
         <WhyChooseUs />
         <LatestOpportunities />
         <PartnersCTA />
-        <TestimonialsMinimal />
+        <TestimonialsCarousel />
         <CallToAction />
       </main>
       <Footer />

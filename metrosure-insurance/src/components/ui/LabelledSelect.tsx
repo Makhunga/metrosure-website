@@ -23,6 +23,8 @@ export interface LabelledSelectProps
   fieldState?: FieldState;
   /** Additional wrapper className */
   wrapperClassName?: string;
+  /** Additional select className */
+  inputClassName?: string;
   /** Placeholder text shown when no value selected */
   placeholder?: string;
 }
@@ -84,6 +86,7 @@ export const LabelledSelect = forwardRef<HTMLSelectElement, LabelledSelectProps>
       required = false,
       fieldState = { touched: false, error: null, valid: false },
       wrapperClassName,
+      inputClassName,
       placeholder,
       ...props
     },
@@ -131,7 +134,8 @@ export const LabelledSelect = forwardRef<HTMLSelectElement, LabelledSelectProps>
                 ? "border-red-400 dark:border-red-400 focus:ring-red-200 dark:focus:ring-red-800/30"
                 : isValid
                   ? "border-green-400 dark:border-green-400 focus:ring-green-200 dark:focus:ring-green-800/30"
-                  : "border-slate-200 dark:border-slate-600 focus:border-primary focus:ring-primary/20"
+                  : "border-slate-200 dark:border-slate-600 focus:border-primary focus:ring-primary/20",
+              inputClassName
             )}
             aria-required={required}
             aria-invalid={hasError ? "true" : undefined}

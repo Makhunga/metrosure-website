@@ -12,4 +12,5 @@
 
 export { default as TestimonialsBoldStatement } from "./TestimonialsBoldStatement";
 export { default as TestimonialsMinimal } from "./TestimonialsMinimal";
+export { default as TestimonialsCarousel } from "./TestimonialsCarousel";
 export { default as TestimonialsVariantSwitcher } from "./TestimonialsVariantSwitcher";

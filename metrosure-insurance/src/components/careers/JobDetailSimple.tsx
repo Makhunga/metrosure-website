@@ -455,6 +455,7 @@ function SimpleApplicationForm({
                     )
                   }
                   fieldState={getFieldState("fullName")}
+                  inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                 />
                 <LabelledInput
                   name="email"
@@ -467,6 +468,7 @@ function SimpleApplicationForm({
                     validateField("email", e.target.value, validateEmail)
                   }
                   fieldState={getFieldState("email")}
+                  inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
                 />
               </div>
 
@@ -482,6 +484,7 @@ function SimpleApplicationForm({
                   validateField("phone", e.target.value, validatePhone)
                 }
                 fieldState={getFieldState("phone")}
+                inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
               />
 
               {/* Position & Province */}
@@ -493,6 +496,7 @@ function SimpleApplicationForm({
                   value={formData.position}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.position ? "text-slate-400 dark:text-slate-500" : ""}
                 />
                 <LabelledSelect
                   name="province"
@@ -501,6 +505,7 @@ function SimpleApplicationForm({
                   value={formData.province}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.province ? "text-slate-400 dark:text-slate-500" : ""}
                 />
               </div>
 
@@ -513,6 +518,7 @@ function SimpleApplicationForm({
                   value={formData.experience}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.experience ? "text-slate-400 dark:text-slate-500" : ""}
                 />
                 <LabelledSelect
                   name="willingToRelocate"
@@ -525,6 +531,7 @@ function SimpleApplicationForm({
                   value={formData.willingToRelocate}
                   required
                   onChange={handleInputChange}
+                  inputClassName={!formData.willingToRelocate ? "text-slate-400 dark:text-slate-500" : ""}
                 />
               </div>
 
@@ -534,11 +541,10 @@ function SimpleApplicationForm({
                   Upload CV (Optional)
                 </label>
                 <div
-                  className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${
-                    fileName
+                  className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${fileName
                       ? "border-primary bg-primary/5"
                       : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
-                  }`}
+                    }`}
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <input

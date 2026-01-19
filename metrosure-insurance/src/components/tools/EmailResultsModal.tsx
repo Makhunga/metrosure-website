@@ -205,6 +205,7 @@ export function EmailResultsModal({
                   error: errorMessage || null,
                   valid: !errorMessage && email.length > 0,
                 } as FieldState}
+                inputClassName="placeholder:text-slate-300 dark:placeholder:text-slate-600"
               />
 
               {/* Submit Button */}
