@@ -16,20 +16,20 @@ const features = [
     href: "/insurance/life",
   },
   {
-    icon: "directions_car",
-    title: "Car & Home Cover",
-    description:
-      "Protect your vehicle and property with comprehensive short-term insurance. We find the right cover from our network of trusted insurers, so you can drive and live worry-free.",
-    accent: "secondary",
-    href: "/insurance/auto",
-  },
-  {
     icon: "savings",
     title: "Retirement Planning",
     description:
       "Start building the future you deserve, today. Whether you're just starting out or nearing retirement, we'll help you create a plan that works for your life and goals.",
-    accent: "primary",
+    accent: "secondary",
     href: "/insurance/business",
+  },
+  {
+    icon: "directions_car",
+    title: "Car & Home Cover",
+    description:
+      "Protect your vehicle and property with comprehensive short-term insurance. We find the right cover from our network of trusted insurers, so you can drive and live worry-free.",
+    accent: "primary",
+    href: "/insurance/auto",
   },
   // B2B Services
   {

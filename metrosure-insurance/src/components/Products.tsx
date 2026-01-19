@@ -15,20 +15,20 @@ const products = [
     href: "/insurance/life",
   },
   {
-    icon: "directions_car",
-    title: "Car & Home Insurance",
-    description:
-      "Protect your vehicle and property with comprehensive short-term cover. We work with top SA insurers to find you the right fit.",
-    features: ["Vehicle Cover", "Home Contents", "Buildings"],
-    href: "/insurance/auto",
-  },
-  {
     icon: "health_and_safety",
     title: "Health & Income Protection",
     description:
       "Safeguard your income when life happens. From hospitalisation cover to disability benefits, stay financially secure during difficult times.",
     features: ["Hospitalisation", "Disability Cover", "Income Protection"],
     href: "/insurance/life",
+  },
+  {
+    icon: "directions_car",
+    title: "Car & Home Insurance",
+    description:
+      "Protect your vehicle and property with comprehensive short-term cover. We work with top SA insurers to find you the right fit.",
+    features: ["Vehicle Cover", "Home Contents", "Buildings"],
+    href: "/insurance/auto",
   },
   {
     icon: "storefront",

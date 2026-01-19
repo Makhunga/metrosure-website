@@ -188,23 +188,44 @@ export default function Footer() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Brand Column - Logo only */}
+          {/* Brand Column - Logo and Social Links */}
           <motion.div className="col-span-1 sm:col-span-2 md:col-span-1 lg:col-span-2" variants={itemVariants}>
             <ParallaxWrapper speed={0.15} prefersReducedMotion={prefersReducedMotion}>
-              <Link href="/" className="flex items-center group">
-                <motion.div
-                  className="relative h-10 w-[160px]"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Image
-                    src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
-                    alt="Metrosure Insurance Brokers"
-                    fill
-                    className="object-contain"
-                  />
-                </motion.div>
-              </Link>
+              <div className="space-y-6">
+                <Link href="/" className="flex items-center group">
+                  <motion.div
+                    className="relative h-10 w-[160px]"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Image
+                      src={resolvedTheme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
+                      alt="Metrosure Insurance Brokers"
+                      fill
+                      className="object-contain"
+                    />
+                  </motion.div>
+                </Link>
+                {/* Social Links */}
+                <div className="flex items-center gap-3">
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-all duration-300"
+                      aria-label={social.label}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                    >
+                      {social.icon}
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
             </ParallaxWrapper>
           </motion.div>
 
@@ -343,7 +364,6 @@ export default function Footer() {
                 <motion.span whileHover={{ y: -2 }}>🧪</motion.span>
               </Link>
             )}
-            <span className="text-slate-400 dark:text-gray-600">|</span>
             <motion.a
               href="#"
               onClick={(e) => {
