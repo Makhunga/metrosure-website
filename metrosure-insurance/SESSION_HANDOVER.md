@@ -59,6 +59,44 @@ Kept tier structure (Essential, Family, Premium) for coverage level information,
 
 ---
 
+## SESSION 127 (20 Jan 2026) - Broker-First Quote Form & Calculator
+
+### Branch
+`feature/narrative-b2b-clarity` (continued from Session 126)
+
+### Summary
+Completed the broker-first narrative by removing pricing display from the quote form and calculator, and updating terminology from "quotes" to "inquiries". This addresses the functional/interactive elements that still implied pricing authority.
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/quote/page.tsx` | Removed PriceBreakdown display; Updated labels ("Coverage Amount" → "Desired Coverage Amount", "Excess" → "Preferred Excess Level"); Updated step titles ("Quote Type" → "Request Type", "Details" → "Requirements"); Updated success message |
+| `src/app/api/quote/route.ts` | Updated email templates ("Your Quote Summary" → "Your Request Summary"); Updated "What happens next" bullets |
+| `src/lib/whatsapp.ts` | Renamed `generateQuoteReference()` → `generateInquiryReference()`; Changed format QT-XXXX → INQ-XXXX; Updated WhatsApp message text |
+| `src/components/ui/FormSuccess.tsx` | Removed premium display; Updated "Quote Reference" → "Reference Number" |
+| `src/components/tools/CalculatorResult.tsx` | Changed "Estimated premium" → "Indicative premium range"; Added broker disclaimer |
+| `src/app/tools/coverage-calculator/page.tsx` | Updated CTA to mention "partner insurers" |
+
+### Key Copy Changes
+
+| Old | New |
+|-----|-----|
+| PriceBreakdown showing R847/month | Removed entirely |
+| "Quote Reference: QT-2026-XXXXX" | "Reference Number: INQ-2026-XXXXX" |
+| "Estimated Premium" | Removed from success screen |
+| "Estimated premium" (calculator) | "Indicative premium range" |
+| Generic disclaimer | "Your actual premium will be determined by our partner insurers" |
+
+### Why This Matters
+The quote form and calculator were the last places showing specific pricing, which implied Metrosure had pricing authority. By removing calculated premiums and reframing as "inquiries" with "indicative ranges", the site now consistently positions Metrosure as a broker that connects customers with partner products rather than a direct provider.
+
+### Build Verification
+- ✅ `npm run build` passes
+- ✅ No TypeScript errors
+
+---
+
 ## SESSION 125 (20 Jan 2026) - Narrative Revamp Phase 2
 
 ### Branch

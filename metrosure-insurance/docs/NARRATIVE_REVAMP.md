@@ -307,6 +307,30 @@ Initial soft narrative updates using Option A language:
 - Removed period ("month") to avoid implying recurring product ownership
 - This maintains useful coverage information while eliminating ownership implication
 
+### Session 127 (20 Jan 2026) - Quote Form & Calculator ✅
+- ✅ Removed PriceBreakdown component display from quote form
+- ✅ Updated quote form labels ("Coverage Amount" → "Desired Coverage Amount", etc.)
+- ✅ Updated step titles ("Quote Type" → "Request Type", "Details" → "Requirements")
+- ✅ Renamed reference generation (`generateQuoteReference()` → `generateInquiryReference()`)
+- ✅ Changed reference format (QT-XXXX → INQ-XXXX)
+- ✅ Updated email templates ("Your Quote Summary" → "Your Request Summary")
+- ✅ Updated calculator disclaimer to mention "partner insurers"
+- ✅ Changed calculator language ("Estimated premium" → "Indicative premium range")
+- ✅ Build verified passing
+
+**Key Changes Made:**
+
+| Component | Change |
+|-----------|--------|
+| Quote Form | Removed PriceBreakdown display; updated labels and step titles |
+| FormSuccess | Removed premium display; "Quote Reference" → "Reference Number" |
+| WhatsApp Integration | Reference format QT-XXXX → INQ-XXXX; updated message text |
+| Email Templates | "Your Quote Summary" → "Your Request Summary" |
+| Coverage Calculator | "Estimated premium" → "Indicative premium range"; added broker disclaimer |
+
+**Impact:**
+This completes the "functional" side of the narrative revamp. The quote form and calculator were the last places showing specific pricing, which implied pricing authority. Now the entire user journey consistently positions Metrosure as a broker.
+
 ---
 
 ## Summary
