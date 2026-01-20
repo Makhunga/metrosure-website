@@ -94,6 +94,23 @@ export const showcasePartners: ShowcasePartner[] = [
     link: "/partners",
     category: "insurer",
   },
+  {
+    id: "hollard",
+    name: "Hollard",
+    logo: "/images/partners/hollard-logo-light.svg",
+    logoDark: "/images/partners/hollard-logo-dark.svg",
+    logoAlt: "Hollard insurance logo",
+    darkModeInvert: false, // Using dedicated dark mode logo instead
+    image: "/images/partners/hollard-slide.jpg",
+    imageAlt: "Hollard insurance - protecting South African families with comprehensive cover",
+    title: "South Africa's leading insurer with 4M+ customers",
+    stat: {
+      value: "4M+",
+      description: "Customers protected",
+    },
+    link: "/partners",
+    category: "insurer",
+  },
 ];
 
 export const showcaseContent: ShowcaseContent = {
