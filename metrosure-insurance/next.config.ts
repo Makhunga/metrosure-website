@@ -3,6 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Allow dev server access from local network IPs (192.168.x.x range)
   allowedDevOrigins: ["http://192.168.*"],
+  // Redirect portal to under-development until portal is built
+  async redirects() {
+    return [
+      {
+        source: "/portal",
+        destination: "/under-development",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

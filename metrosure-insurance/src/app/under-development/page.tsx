@@ -16,6 +16,7 @@ const routeNames: Record<string, string> = {
   '/insurance/business': 'Business Insurance',
   '/legal': 'Legal Disclosures',
   '/login': 'Client Portal',
+  '/portal': 'Client Portal',
 };
 
 // Helper to get page name from route
