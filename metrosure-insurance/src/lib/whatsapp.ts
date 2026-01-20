@@ -102,7 +102,7 @@ export function generateWhatsAppUrl(quote: QuoteData): string {
  */
 export function generateWhatsAppToMetrosure(
   quote: QuoteData,
-  phoneNumber: string = "27872651891"
+  phoneNumber: string = "27671209527"
 ): string {
   const message = `Hi Metrosure! I just requested a quote online.\n\nReference: ${quote.referenceNumber}\nName: ${quote.firstName}\n\nPlease send me my final quote.`;
   const encodedMessage = encodeURIComponent(message);
@@ -136,7 +136,7 @@ export function isWhatsAppSupported(): boolean {
  * Used by the floating chat widget
  */
 export function generateGeneralEnquiryUrl(
-  phoneNumber: string = "27872651891",
+  phoneNumber: string = "27671209527",
   message: string = "Hi Metrosure! I'd like to enquire about your services."
 ): string {
   const encodedMessage = encodeURIComponent(message);
