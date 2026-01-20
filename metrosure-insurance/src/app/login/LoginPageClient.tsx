@@ -28,7 +28,7 @@ export default function LoginPageClient() {
     // Demo: Navigate to portal dashboard
     // In production, this would authenticate with an API
     if (email && password) {
-      router.push("/portal/dashboard");
+      router.push("/");
     } else {
       setIsLoading(false);
     }

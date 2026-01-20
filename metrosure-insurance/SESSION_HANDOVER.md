@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 19 January 2026 (Session 122)
+**Updated:** 19 January 2026 (Session 123)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -8,9 +8,42 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 53 (46 pages + 7 API routes)
+- **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 19 January 2026
 
+
+---
+
+## SESSION 123 (19 Jan 2026) - Portal Removal (Clean Slate)
+
+### What Was Done
+Removed the entire client portal prototype to prepare for proper architectural planning.
+
+### Why
+The portal was built as a rapid prototype with multiple theming iterations (Sessions 114-122) indicating architectural issues. Starting fresh with proper planning will yield better results.
+
+### Deleted
+| Path | Contents |
+|------|----------|
+| `src/app/portal/` | All portal pages (layout, dashboard, claims, documents, payments, policies, settings) |
+| `src/components/portal/` | All portal components (PortalLayout, PolicyCard, QuickActions, ClaimsTimeline, charts/) |
+| `src/data/portalMockData.ts` | Portal mock data (users, policies, claims, payments, documents) |
+
+### Modified
+| File | Change |
+|------|--------|
+| `src/app/globals.css` | Removed `[data-portal]` theme section (lines 272-341) and `.dark [data-portal]` theme section (lines 347-408) |
+| `src/app/login/LoginPageClient.tsx` | Updated redirects from `/portal/dashboard` to `/` (homepage) |
+
+### Kept
+- `/login` page and `LoginPageClient.tsx` (as non-functional placeholder)
+- All shadcn/ui components in `src/components/ui/`
+- Badge variants in `src/components/ui/badge.tsx` (useful site-wide)
+
+### Build Verification
+- ✅ `npm run build` passes (52 static pages generated)
+- ✅ No broken imports
+- ✅ No `[data-portal]` CSS selectors remain in globals.css
 
 ---
 
@@ -504,35 +537,20 @@ Visit `/playground/shadcn` to see all components with Metrosure theming:
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Remove Client Portal (Clean Slate) ⭐ (MAJOR)
-**Goal:** Remove the entire client portal and start fresh with proper planning.
+### Priority 1: Portal Architecture Planning ⭐ (MAJOR)
+**Goal:** Plan the client portal properly before rebuilding.
 
-**Why:**
-- Current portal was built as a rapid prototype/mockup
-- Multiple iterations of theming fixes indicate architectural issues
-- Need proper planning before rebuilding
+**Tasks:**
+1. Define user flows (login, dashboard, policy view, claims submission)
+2. Design data structure (what APIs are needed, what data to fetch)
+3. Plan component hierarchy before implementation
+4. Consider dashboard library options (Tremor, shadcn/ui charts, etc.)
+5. Authentication strategy (OAuth, JWT, session-based)
 
-**Scope - Files to Remove:**
-```
-src/app/portal/                    # All portal pages (dashboard, policies, claims, payments, documents, settings)
-src/components/portal/             # All portal components (PortalLayout, PolicyCard, ClaimsTimeline, QuickActions, charts/)
-src/data/portalMockData.ts         # Portal mock data
-```
-
-**Scope - CSS to Clean:**
-- Remove `[data-portal]` theme section from `globals.css`
-- Remove `.dark [data-portal]` theme section from `globals.css`
-- Remove portal surface aliases from `globals.css`
-
-**Keep:**
-- `/login` page (will remain non-functional placeholder)
-- shadcn/ui components in `src/components/ui/`
-- Badge variants (useful for other parts of site)
-
-**Next Steps After Removal:**
-1. Plan portal architecture properly (user flows, data structure, API design)
-2. Design component hierarchy before implementation
-3. Consider dashboard library options (Tremor, etc.)
+**Context:**
+- Portal was removed in Session 123 due to architectural issues
+- `/login` page exists as non-functional placeholder
+- Badge variants in `src/components/ui/badge.tsx` preserved for reuse
 
 ### Priority 2: Job Service Activation (When Ready)
 - Client creates Workable account at https://www.workable.com/
@@ -552,17 +570,14 @@ src/data/portalMockData.ts         # Portal mock data
 | File | Purpose |
 |------|---------|
 | `components.json` | shadcn/ui configuration |
-| `src/components/ui/` | All shadcn components (button, input, select, etc.) |
+| `src/components/ui/` | All shadcn components (button, input, select, badge variants, etc.) |
 | `src/lib/utils.ts` | cn() utility for class merging |
 | `src/app/playground/shadcn/` | Component showcase page |
 
-### Portal (Sessions 114-122) ⚠️ MARKED FOR REMOVAL
+### Login (Placeholder)
 | File | Purpose |
 |------|---------|
-| `src/components/portal/` | All portal UI components |
-| `src/data/portalMockData.ts` | Mock data (users, policies, claims, payments, documents) + helpers |
-| `src/app/portal/` | Portal pages (dashboard, policies, claims, payments, documents, settings) |
-| `src/app/login/` | Login page with social auth |
+| `src/app/login/` | Login page (non-functional placeholder, redirects to homepage) |
 
 ### Core Configuration
 | File | Purpose |
@@ -583,9 +598,9 @@ src/data/portalMockData.ts         # Portal mock data
 |---------|--------|----------|
 | Cookie consent | Disabled | `src/components/ClientLayout.tsx` |
 | Development Banner | Active | `src/components/DevelopmentBanner.tsx` |
-| Portal login | Non-functional | `src/app/login/page.tsx` |
+| Login page | Non-functional (redirects to homepage) | `src/app/login/page.tsx` |
 | Partner Testimonials | Stashed | `src/app/partners/page.tsx` |
-| **Client Portal** | **⚠️ Marked for removal** | `src/app/portal/`, `src/components/portal/` |
+| Client Portal | **Removed** (Session 123) | — |
 
 ---
 
@@ -597,8 +612,8 @@ npm run dev      # Start dev server (localhost:3000)
 npm run build    # Production build (must pass before commit)
 ```
 
-### Portal Access
-⚠️ **Portal marked for removal in next session.** Login page will remain as non-functional placeholder.
+### Login Page
+Login page exists as non-functional placeholder (redirects to homepage on form submission).
 
 ### Rate Limits
 | Route | Limit |
@@ -615,11 +630,11 @@ npm run build    # Production build (must pass before commit)
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 123 | Portal Removal | Removed entire portal prototype; Clean slate for proper architecture planning |
 | 122 | Portal tweakcn Theme | Fixed oklch→RGB format mismatch; Portal theme now works in light/dark mode |
 | 121 | Portal shadcn/ui Refactor | Badge variants; Popover notifications; Theme tutorial documentation |
 | 120 | Portal Analytics & Dark Mode | 4 dashboard charts (Recharts); Extensive dark mode fixes across portal |
 | 119 | Favicon, Logos & Portal | New favicon/apple-icon; Portal logos with dark/light switching; Zoocora logo; Theme toggle |
-| 118 | Testimonial Refinements | New TestimonialsCarousel; AI avatars for partners; Form header updates |
 
 ---
 
