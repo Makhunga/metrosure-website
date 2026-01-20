@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Allow dev server access from local network IPs (192.168.x.x range)
+  allowedDevOrigins: ["http://192.168.*"],
   images: {
     remotePatterns: [
       {
