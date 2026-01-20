@@ -10,11 +10,14 @@ import {
   shouldRedirectToExternal,
   getApplicationUrl,
   getExternalServiceName,
+  type Job,
 } from "@/data/jobs";
 import JobDetailHero from "@/components/careers/JobDetailHero";
 import JobDetailContent from "@/components/careers/JobDetailContent";
 import RelatedJobs from "@/components/careers/RelatedJobs";
 import ApplicationForm from "@/components/careers/ApplicationForm";
+import { generateJobPostingSchema } from "@/lib/generateJobSchema";
+import { generateBreadcrumbSchema } from "@/lib/generateBreadcrumbSchema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -84,8 +87,26 @@ export default async function JobDetailPage({ params }: PageProps) {
   const applicationUrl = getApplicationUrl(job);
   const serviceName = getExternalServiceName(job);
 
+  // Generate structured data schemas
+  const jobSchema = generateJobPostingSchema(job);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Careers", url: "/careers" },
+    { name: job.title, url: `/careers/${job.slug}` },
+  ]);
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <Header />
       <main>
         <JobDetailHero job={job} />

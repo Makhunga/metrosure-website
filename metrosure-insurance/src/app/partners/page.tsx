@@ -11,6 +11,8 @@ import {
   PartnerFAQ,
   PartnerInquiryForm,
 } from "@/components/partners";
+import { partnerFAQs } from "@/data/partnerServices";
+import { generateFAQSchema } from "@/lib/generateFAQSchema";
 
 export const metadata: Metadata = {
   title: "Partner With Us | Metrosure Insurance Brokers",
@@ -51,9 +53,18 @@ export const metadata: Metadata = {
   },
 };
 
+// Generate FAQ schema for SEO
+const faqSchema = generateFAQSchema(partnerFAQs);
+
 export default function PartnersPage() {
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen transition-colors duration-300 relative">
+      {/* FAQ Schema JSON-LD for Google Rich Results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />
 
       <Header />

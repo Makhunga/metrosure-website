@@ -1,6 +1,6 @@
 /**
  * Claims page data
- * Centralised data for claim types, process steps, and emergency contacts
+ * Centralised data for claim types, process steps, emergency contacts, and FAQs
  */
 
 // =============================================================================
@@ -27,6 +27,11 @@ export interface EmergencyContact {
   title: string;
   number: string;
   description: string;
+}
+
+export interface ClaimsFAQ {
+  question: string;
+  answer: string;
 }
 
 // =============================================================================
@@ -141,6 +146,57 @@ export const emergencyContacts: EmergencyContact[] = [
     description: "Fire emergencies",
   },
 ];
+
+export const claimsFAQs: ClaimsFAQ[] = [
+  {
+    question: "How do I file an insurance claim?",
+    answer:
+      "To file a claim: 1) Contact us immediately on +27 31 301 1192 or email claims@metrosuregroup.co.za. 2) Have your policy number, ID, and incident details ready. 3) We'll guide you through the specific documents needed. 4) We submit your claim to the insurer and follow up on your behalf. For emergencies, most insurers have 24-hour claims lines.",
+  },
+  {
+    question: "What documents do I need for a claim?",
+    answer:
+      "Required documents vary by claim type. Generally you'll need: certified copy of your ID, proof of ownership/value, police report (for theft/accidents), death certificate (for life/funeral claims), medical reports (for disability claims), and photos of damage (for property claims). Your portfolio manager will provide a specific checklist based on your claim.",
+  },
+  {
+    question: "How long does a claim take to process?",
+    answer:
+      "Claim timelines vary by type and complexity. Funeral claims typically pay out within 24-48 hours. Motor claims for minor damage take 5-10 working days. Life insurance claims usually take 5-14 working days. Complex or disputed claims may take longer. We follow up regularly with insurers and keep you updated throughout the process.",
+  },
+  {
+    question: "What if my claim is rejected?",
+    answer:
+      "If your claim is rejected, we'll explain the reasons and explore your options. You have the right to dispute the decision through the insurer's internal complaints process. If unresolved, you can escalate to the Ombudsman for Short-term Insurance (OSTI) or Long-term Insurance Ombudsman (free service). We can guide you through the appeals process.",
+  },
+  {
+    question: "Will making a claim affect my premium?",
+    answer:
+      "Claims can affect future premiums, but not always. Insurers consider claim frequency and type. A single claim usually has minimal impact. Multiple claims in a short period may increase premiums or affect your no-claim bonus. We can advise whether a small claim is worth lodging versus paying excess and preserving your claims record.",
+  },
+  {
+    question: "What happens if I miss a premium payment during a claim?",
+    answer:
+      "If you have an active claim and miss a premium, contact us immediately. Most policies have a grace period of 30-31 days. If your policy lapses during a claim, it could affect the outcome. We can help arrange payment plans or explore options to keep your cover active while your claim is being processed.",
+  },
+];
+
+// SEO metadata for claims page
+export const claimsSEO = {
+  title: "File an Insurance Claim",
+  description:
+    "Need to file an insurance claim? Metrosure's dedicated claims team guides you through every step. Car, home, life, funeral, and business claims processed quickly and fairly.",
+  keywords: [
+    "insurance claim South Africa",
+    "file insurance claim",
+    "claims process",
+    "car insurance claim",
+    "home insurance claim",
+    "life insurance claim",
+    "funeral claim",
+    "business insurance claim",
+    "Metrosure claims",
+  ],
+};
 
 // =============================================================================
 // Helper Functions

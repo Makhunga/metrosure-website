@@ -3,13 +3,28 @@ module.exports = {
   siteUrl: process.env.SITE_URL || 'https://www.metrosuregroup.co.za',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  exclude: ['/api/*'],
+  exclude: [
+    '/api/*',
+    '/playground',
+    '/playground/*',
+    '/careers/test/*',
+    '/under-development',
+    '/home-alt',
+    '/login',
+  ],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/'],
+        disallow: [
+          '/api/',
+          '/playground/',
+          '/careers/test/',
+          '/under-development',
+          '/home-alt',
+          '/login',
+        ],
       },
     ],
     additionalSitemaps: [],

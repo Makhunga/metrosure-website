@@ -1,6 +1,18 @@
 import { Job } from "@/data/jobs";
 
 /**
+ * Estimated salary ranges for different job categories in South Africa (ZAR)
+ * These are market-competitive estimates for the insurance industry
+ * Note: Actual compensation may vary based on experience and performance
+ */
+const salaryEstimates: Record<string, { min: number; max: number }> = {
+  sales: { min: 8000, max: 25000 }, // Base + commission structure
+  "call-centre": { min: 7500, max: 15000 },
+  admin: { min: 10000, max: 18000 },
+  trainee: { min: 6000, max: 10000 },
+};
+
+/**
  * Generates JobPosting JSON-LD structured data for Google for Jobs
  * @see https://developers.google.com/search/docs/appearance/structured-data/job-posting
  */
@@ -30,6 +42,17 @@ export function generateJobPostingSchema(job: Job, baseUrl: string = "https://ww
     };
     return regionMap[location] || "ZA";
   };
+
+  // Get salary estimate based on job category or title
+  const getSalaryEstimate = (job: Job) => {
+    // Check for trainee positions first
+    if (job.title.toLowerCase().includes("trainee")) {
+      return salaryEstimates.trainee;
+    }
+    return salaryEstimates[job.category] || salaryEstimates.sales;
+  };
+
+  const salary = getSalaryEstimate(job);
 
   const schema = {
     "@context": "https://schema.org",
@@ -64,6 +87,17 @@ export function generateJobPostingSchema(job: Job, baseUrl: string = "https://ww
     applicantLocationRequirements: {
       "@type": "Country",
       name: "South Africa",
+    },
+    // Estimated salary range for Google Jobs ranking
+    baseSalary: {
+      "@type": "MonetaryAmount",
+      currency: "ZAR",
+      value: {
+        "@type": "QuantitativeValue",
+        minValue: salary.min,
+        maxValue: salary.max,
+        unitText: "MONTH",
+      },
     },
     jobBenefits: job.offers.join(", "),
     responsibilities: job.responsibilities.join(", "),
