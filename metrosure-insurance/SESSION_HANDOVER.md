@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 20 January 2026 (Session 125)
+**Updated:** 20 January 2026 (Session 126)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -11,6 +11,51 @@
 - **Routes:** 45 (38 pages + 7 API routes)
 - **Last Build:** 20 January 2026
 
+
+---
+
+## SESSION 126 (20 Jan 2026) - Narrative Revamp Phase 3 (Complete)
+
+### Branch
+`feature/narrative-b2b-clarity` (continued from Sessions 124-125)
+
+### Summary
+Completed the B2B narrative revamp by removing pricing from insurance service pages and reviewing all remaining pages. The website now consistently presents Metrosure as a broker that connects customers with products from partner insurers, rather than implying product ownership.
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/insurance/life/page.tsx` | Metadata: "Protect your family" → "Find the right cover"; Removed pricing ("From R150") → "Get a Quote"; "Essential Life" → "Essential Cover" |
+| `src/app/insurance/auto/page.tsx` | Metadata: "Protect your vehicle" → "Find the right cover"; Removed all tier pricing → "Get a Quote" |
+| `src/app/insurance/business/page.tsx` | Metadata: "Commercial insurance from" → "Find the right commercial insurance through"; Removed all tier pricing → "Get a Quote" |
+
+### Pages Reviewed (No Changes Needed)
+
+| Page | Reason |
+|------|--------|
+| `src/app/insurance/home/page.tsx` | Just a redirect to `/insurance/auto` |
+| `src/app/insurance/compare/page.tsx` | Educational content comparing life vs funeral cover; uses industry data with citations, not ownership language |
+| `src/app/contact/page.tsx` | Generic contact page, no ownership language |
+| `src/app/claims/page.tsx` | Already has broker language ("The insurer assesses your claim. We advocate on your behalf") |
+| `src/components/Footer.tsx` | Navigation links only, no messaging |
+| `src/data/faqs.ts` | Already excellent broker language throughout ("we work with over 30 leading insurance companies", "we arrange comprehensive group benefits through leading SA insurers") |
+
+### Key Copy Changes
+
+| Old | New |
+|-----|-----|
+| "From R150" / "From R350" / etc. | "Get a Quote" |
+| "Essential Life" | "Essential Cover" |
+| `period: "month"` | `period: ""` |
+| "Protect your family's future with" | "Find the right cover for your family through" |
+
+### Pricing Strategy Applied
+Kept tier structure (Essential, Family, Premium) for coverage level information, but replaced specific prices with "Get a Quote" positioning. This maintains useful coverage comparison while eliminating the implication of product ownership.
+
+### Build Verification
+- ✅ `npm run build` passes (52 static pages)
+- ✅ No TypeScript errors
 
 ---
 
@@ -611,39 +656,27 @@ Visit `/playground/shadcn` to see all components with Metrosure theming:
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: HUGE NARRATIVE REVAMP ⭐⭐⭐ (MAJOR)
-**Goal:** Complete website narrative overhaul to accurately reflect Metrosure's B2B broker/marketer business model.
+### Priority 1: ✅ NARRATIVE REVAMP COMPLETE
+**Status:** Completed (Sessions 124-126)
 
-**Branch:** Stay on `feature/narrative-b2b-clarity`
+**Branch:** `feature/narrative-b2b-clarity` - ready for merge to main
 
-**Planning Document:** `docs/NARRATIVE_REVAMP.md` (tracks all changes)
+**What was done:**
+- Session 124: Initial soft changes to partner language
+- Session 125: High-traffic pages (Homepage, Partners, Corporate, Quote)
+- Session 126: Insurance service pages (removed pricing), reviewed Contact, Claims, Footer, FAQs
 
-**Core Message:**
-- Metrosure does NOT create/underwrite insurance products
-- Metrosure provides sales agents and marketing services to partners
-- Example: TFG agreement = Metrosure agents in TFG stores selling TFG financial products
+**Outcome:** Website now consistently presents Metrosure as a broker connecting customers with partner products. No more "our products/policies" language or pricing that implies ownership.
 
-**Scope:**
-| Area | Files |
-|------|-------|
-| Data files | `partners.ts`, `services.ts`, `aboutPage.ts`, `testimonials.ts`, `faq.ts` |
-| Components | Hero, Footer, WhyChooseUs, testimonials, etc. |
-| Pages | Homepage, Partners, Corporate, Quote, Contact, all service pages |
-
-**Key Shifts:**
-- "Our products" → "Products from our partners"
-- "We provide cover" → "We connect you with the right cover"
-- "Insurance partners" → "Financial partners"
-- Generic broker → Sales & marketing excellence focus
-
-**Session 124 completed:** Initial soft changes (Option A)
-**Session 125 completed:** High-traffic pages (Homepage, Partners, Corporate, Quote)
-**Remaining:** Insurance service pages, Contact, Claims, Footer, Header, Testimonials - see `docs/NARRATIVE_REVAMP.md`
+### Priority 1: Merge & Deploy Narrative Changes
+- Merge `feature/narrative-b2b-clarity` to main
+- Deploy to production
+- Verify all changes render correctly
 
 ### Priority 2: Portal Architecture Stakeholder Review
 - Share `docs/PORTAL_ARCHITECTURE.md` with stakeholders
 - Collect feedback before beginning implementation
-- Portal work paused until narrative revamp complete
+- Portal work paused until architecture approved
 
 ### Priority 2: Job Service Activation (When Ready)
 - Client creates Workable account at https://www.workable.com/
@@ -723,11 +756,11 @@ Login page exists as non-functional placeholder (redirects to homepage on form s
 
 | Session | Focus | Key Outcomes |
 |---------|-------|--------------|
+| 126 | Narrative Revamp Phase 3 (Complete) | Insurance pages updated (pricing removed → "Get a Quote"); Contact, Claims, Footer, FAQs reviewed (all good); Narrative revamp complete |
 | 125 | Narrative Revamp Phase 2 | High-traffic pages updated (Homepage, Partners, Corporate, Quote); Current state analysis added to planning doc |
 | 124 | Narrative B2B Clarity & Portal Docs | Softened website language to clarify broker/partner model; Created comprehensive `PORTAL_ARCHITECTURE.md` |
 | 123 | Portal Removal | Removed entire portal prototype; Clean slate for proper architecture planning |
 | 122 | Portal tweakcn Theme | Fixed oklch→RGB format mismatch; Portal theme now works in light/dark mode |
-| 121 | Portal shadcn/ui Refactor | Badge variants; Popover notifications; Theme tutorial documentation |
 
 ---
 

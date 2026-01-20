@@ -1,8 +1,9 @@
 # Metrosure Website Narrative Revamp
 
-**Document Version:** 1.0
+**Document Version:** 1.1
 **Created:** 20 January 2026 (Session 124)
-**Status:** Planning - Work begins Session 125
+**Completed:** 20 January 2026 (Session 126)
+**Status:** ✅ Complete - Ready for merge
 **Branch:** `feature/narrative-b2b-clarity`
 
 ---
@@ -189,24 +190,24 @@ Initial soft narrative updates using Option A language:
 ## Files to Audit (Complete List)
 
 ### Data Files
-- [ ] `src/data/partnerShowcase.ts` ✅ (Session 124)
-- [ ] `src/data/partners.ts`
-- [ ] `src/data/services.ts`
-- [ ] `src/data/aboutPage.ts`
-- [ ] `src/data/testimonials.ts`
-- [ ] `src/data/faq.ts`
+- [x] `src/data/partnerShowcase.ts` ✅ (Session 124)
+- [x] `src/data/partners.ts` ✅ (Session 126 - reviewed, no changes needed)
+- [x] `src/data/services.ts` ✅ (Session 126 - reviewed, no changes needed)
+- [x] `src/data/aboutPage.ts` ✅ (Session 124)
+- [x] `src/data/testimonials.ts` ✅ (Session 126 - reviewed, no changes needed)
+- [x] `src/data/faqs.ts` ✅ (Session 126 - reviewed, already has excellent broker language)
 
 ### Components
 - [x] `src/components/PartnerLogos.tsx` ✅ (Session 124)
 - [x] `src/components/TrustedBy.tsx` ✅ (Session 124)
 - [x] `src/components/PartnersCTA.tsx` ✅ (Session 124)
 - [x] `src/components/Hero.tsx` ✅ (Session 125)
-- [ ] `src/components/HeroVariants.tsx`
-- [ ] `src/components/Footer.tsx`
-- [ ] `src/components/Header.tsx` (navigation labels)
+- [x] `src/components/HeroVariants.tsx` ✅ (Session 126 - reviewed, not used)
+- [x] `src/components/Footer.tsx` ✅ (Session 126 - reviewed, navigation only)
+- [x] `src/components/Header.tsx` ✅ (Session 126 - reviewed, navigation only)
 - [x] `src/components/WhyChooseUs.tsx` ✅ (Session 125)
 - [x] `src/components/Features.tsx` ✅ (Session 125)
-- [ ] `src/components/testimonials/*.tsx`
+- [x] `src/components/testimonials/*.tsx` ✅ (Session 126 - reviewed, no changes needed)
 - [x] `src/components/partners/PartnersHero.tsx` ✅ (Session 125)
 - [x] `src/components/corporate/CorporateHero.tsx` ✅ (Session 125)
 
@@ -216,9 +217,13 @@ Initial soft narrative updates using Option A language:
 - [x] `src/app/partners/page.tsx` ✅ (Session 125)
 - [x] `src/app/corporate/page.tsx` ✅ (Session 125 - via CorporateHero)
 - [x] `src/app/quote/page.tsx` ✅ (Session 125)
-- [ ] `src/app/contact/page.tsx`
-- [ ] `src/app/claims/page.tsx`
-- [ ] `src/app/insurance/*/page.tsx` (all service pages)
+- [x] `src/app/contact/page.tsx` ✅ (Session 126 - reviewed, no ownership language)
+- [x] `src/app/claims/page.tsx` ✅ (Session 126 - reviewed, already has broker language)
+- [x] `src/app/insurance/life/page.tsx` ✅ (Session 126 - pricing removed, metadata updated)
+- [x] `src/app/insurance/auto/page.tsx` ✅ (Session 126 - pricing removed, metadata updated)
+- [x] `src/app/insurance/home/page.tsx` ✅ (Session 126 - redirect only)
+- [x] `src/app/insurance/business/page.tsx` ✅ (Session 126 - pricing removed, metadata updated)
+- [x] `src/app/insurance/compare/page.tsx` ✅ (Session 126 - educational content, no changes needed)
 
 ---
 
@@ -277,13 +282,42 @@ Initial soft narrative updates using Option A language:
 | "we've got you covered" | "we connect you with the right solutions" |
 | "we design packages" | "we source the right solutions from leading providers" |
 
-### Session 126+ (Remaining)
-- [ ] Audit remaining data files (services.ts, faq.ts)
-- [ ] Insurance service pages (/insurance/*)
-- [ ] Contact and Claims pages
-- [ ] Footer and Header (if needed)
-- [ ] HeroVariants.tsx
-- [ ] Testimonials components
+### Session 126 (20 Jan 2026) - COMPLETE ✅
+- ✅ Audited remaining data files (services.ts, faqs.ts, testimonials.ts) - no changes needed
+- ✅ Updated insurance service pages (life, auto, business) - removed pricing, updated metadata
+- ✅ Reviewed Contact page - no ownership language found
+- ✅ Reviewed Claims page - already has broker language ("insurer assesses, we advocate")
+- ✅ Reviewed Footer - navigation only, no messaging
+- ✅ Reviewed FAQs - excellent broker language throughout
+- ✅ Build verified passing
+
+**Key Changes Made:**
+
+| Page | Change |
+|------|--------|
+| Life Insurance | Removed "From R150/R350" → "Get a Quote"; "Essential Life" → "Essential Cover"; Metadata updated |
+| Auto Insurance | Removed "From R250/R450" → "Get a Quote"; Metadata updated |
+| Business Insurance | Removed "From R500/R1,500" → "Get a Quote"; Metadata updated |
+| Home Insurance | Just a redirect - no changes needed |
+| Compare Insurance | Educational content with industry data - no changes needed |
+
+**Pricing Strategy:**
+- Kept tier structure (Essential, Family, Premium) for coverage level comparison
+- Replaced specific prices with "Get a Quote" positioning
+- Removed period ("month") to avoid implying recurring product ownership
+- This maintains useful coverage information while eliminating ownership implication
+
+---
+
+## Summary
+
+The narrative revamp is **complete**. The website now consistently presents Metrosure as a broker that:
+- **Connects** customers with products from partner insurers
+- **Sources** the right solutions from leading providers
+- **Advocates** for customers during the claims process
+- Does NOT own, underwrite, or create insurance products
+
+**Branch:** `feature/narrative-b2b-clarity` is ready for merge to main.
 
 ---
 
@@ -291,6 +325,8 @@ Initial soft narrative updates using Option A language:
 
 **Session 125:** Focused on high-traffic pages (Homepage, Partners, Corporate, Quote). The narrative shift emphasises "connecting" and "sourcing" rather than "providing" or "covering". The B2B messaging now consistently uses "grow your financial services reach/footprint".
 
+**Session 126:** Completed the revamp by addressing insurance service pages (major impact due to pricing display) and reviewing all remaining pages. The FAQs and claims content were already well-written with broker language.
+
 ---
 
-*This is a living document. Update after each session.*
+*Revamp complete. This document serves as historical reference.*

@@ -4,11 +4,11 @@ import InsurancePageTemplate from "@/components/insurance/InsurancePageTemplate"
 export const metadata: Metadata = {
   title: "Car & Home Insurance | Metrosure Insurance Brokers",
   description:
-    "Protect your vehicle and home with comprehensive short-term insurance from Metrosure Insurance Brokers (FSP 47089). We work with SA's top insurers to find you the right cover.",
+    "Find the right vehicle and home insurance through Metrosure Insurance Brokers (FSP 47089). We compare quotes from 30+ SA insurers to find you the best cover at the best price.",
   openGraph: {
     title: "Car & Home Insurance | Metrosure Insurance Brokers",
     description:
-      "Protect your vehicle and home with comprehensive short-term insurance from Metrosure Insurance Brokers.",
+      "Find the right vehicle and home insurance through Metrosure Insurance Brokers. We compare quotes from SA's top insurers.",
     type: "website",
   },
 };
@@ -55,8 +55,8 @@ const coverageFeatures = [
 const planTiers = [
   {
     name: "Third Party",
-    price: "From R250",
-    period: "month",
+    price: "Get a Quote",
+    period: "",
     description: "Basic cover for budget-conscious drivers",
     features: [
       "Third-party liability cover",
@@ -68,8 +68,8 @@ const planTiers = [
   },
   {
     name: "Comprehensive",
-    price: "From R450",
-    period: "month",
+    price: "Get a Quote",
+    period: "",
     description: "Full protection for everyday peace of mind",
     features: [
       "Full vehicle damage cover",
@@ -83,8 +83,8 @@ const planTiers = [
   },
   {
     name: "Premium Bundle",
-    price: "Custom",
-    period: "quote",
+    price: "Get a Quote",
+    period: "",
     description: "Car + Home combined for maximum savings",
     features: [
       "Full vehicle cover",

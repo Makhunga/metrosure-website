@@ -4,11 +4,11 @@ import InsurancePageTemplate from "@/components/insurance/InsurancePageTemplate"
 export const metadata: Metadata = {
   title: "Business & Employee Benefits | Metrosure Insurance Brokers",
   description:
-    "Commercial insurance, group retirement funds, and employee benefits from Metrosure Insurance Brokers (FSP 47089). Protect your business, your assets, and your team with comprehensive cover.",
+    "Find the right commercial insurance, group retirement funds, and employee benefits through Metrosure Insurance Brokers (FSP 47089). We connect your business with cover from SA's leading insurers.",
   openGraph: {
     title: "Business & Employee Benefits | Metrosure Insurance Brokers",
     description:
-      "Commercial insurance and employee benefits from Metrosure Insurance Brokers. Protect your business and team.",
+      "Find the right commercial insurance and employee benefits through Metrosure Insurance Brokers.",
     type: "website",
   },
 };
@@ -55,8 +55,8 @@ const coverageFeatures = [
 const planTiers = [
   {
     name: "Small Business",
-    price: "From R500",
-    period: "month",
+    price: "Get a Quote",
+    period: "",
     description: "Essential cover for small operations",
     features: [
       "Commercial property cover",
@@ -68,8 +68,8 @@ const planTiers = [
   },
   {
     name: "Growing Business",
-    price: "From R1,500",
-    period: "month",
+    price: "Get a Quote",
+    period: "",
     description: "Comprehensive cover as you scale",
     features: [
       "Enhanced property cover",
@@ -83,8 +83,8 @@ const planTiers = [
   },
   {
     name: "Corporate",
-    price: "Custom",
-    period: "quote",
+    price: "Get a Quote",
+    period: "",
     description: "Tailored solutions for larger businesses",
     features: [
       "Bespoke cover design",
