@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   QuoteData,
   generateWhatsAppUrl,
-  formatCurrency,
 } from "@/lib/whatsapp";
 
 interface FormSuccessProps {
@@ -191,7 +190,7 @@ export function FormSuccess({
       {/* Optional children (e.g., additional info) */}
       {children}
 
-      {/* Quote Summary Card (when quote data provided) */}
+      {/* Inquiry Summary Card (when quote data provided) */}
       {quoteData && (
         <motion.div
           className="w-full max-w-md bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 mb-6 border border-slate-200 dark:border-slate-700"
@@ -199,27 +198,16 @@ export function FormSuccess({
           animate={{ opacity: 1, y: 0 }}
           transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.45 }}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Quote Reference
+              Reference Number
             </span>
             <span className="font-mono text-sm font-bold text-slate-900 dark:text-white">
               {quoteData.referenceNumber}
             </span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Estimated Premium
-            </span>
-            <span className="text-2xl font-bold text-primary">
-              {formatCurrency(quoteData.estimatedPremium)}
-              <span className="text-sm font-normal text-slate-500 dark:text-slate-400">
-                /month
-              </span>
-            </span>
-          </div>
           <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 text-center">
-            This is an estimate only. Final quote may vary based on underwriting.
+            Keep this reference for your records. We&apos;ll use it when we contact you with options from our partner insurers.
           </p>
         </motion.div>
       )}

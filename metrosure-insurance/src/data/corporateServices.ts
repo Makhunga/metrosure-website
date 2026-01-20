@@ -66,7 +66,7 @@ export const corporateServices: CorporateService[] = [
     icon: 'volunteer_activism',
     title: 'Group Funeral Insurance',
     description:
-      'Dignified coverage that supports employees and their families during difficult times. Fast claims processing when it matters most.',
+      'Dignified coverage through our partner insurers that supports employees and their families during difficult times. Fast claims processing when it matters most.',
     features: [
       'Cover for employees and dependants',
       'Extended family options available',
@@ -94,7 +94,7 @@ export const corporateServices: CorporateService[] = [
     icon: 'shield',
     title: 'Employee Benefits Package',
     description:
-      'Comprehensive risk cover protecting your employees against life\'s unexpected events, from disability to dread disease.',
+      'Comprehensive risk cover from leading SA insurers, protecting your employees against life\'s unexpected events, from disability to dread disease.',
     features: [
       'Income protection cover (85% of salary)',
       'Permanent and temporary disability',
@@ -271,7 +271,7 @@ export const corporateStats: CorporateStat[] = [
   {
     value: '10,000+',
     label: 'Employees Covered',
-    description: 'Protected under our group schemes',
+    description: 'Protected through schemes we arrange',
   },
   {
     value: '48hrs',

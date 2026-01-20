@@ -11,7 +11,8 @@ import {
   LabelledSelect,
 } from "@/components/ui";
 import { MagneticButton } from "@/components/animations";
-import { PriceBreakdown } from "@/components/quote/PriceBreakdown";
+// PriceBreakdown kept for potential future use with disclaimers (Option B)
+// import { PriceBreakdown } from "@/components/quote/PriceBreakdown";
 import {
   FieldState,
   FieldStates,
@@ -26,7 +27,7 @@ import {
   CoverageType as PricingCoverageType,
   PriceBreakdown as PriceBreakdownType,
 } from "@/lib/quoteCalculator";
-import { QuoteData, generateQuoteReference } from "@/lib/whatsapp";
+import { QuoteData, generateInquiryReference } from "@/lib/whatsapp";
 
 type CoverageType = "home" | "auto" | "life" | "business" | null;
 type CustomerType = "individual" | "business" | null;
@@ -242,21 +243,20 @@ export default function QuotePage() {
     });
   }, [formData.coverageType, formData.coverageAmount, formData.deductible, formData.additionalCoverage]);
 
-  // Generate quote data for WhatsApp sharing
+  // Generate inquiry data for WhatsApp sharing
   const quoteData = useMemo<QuoteData | undefined>(() => {
-    if (!priceBreakdown || !formData.coverageType || !quoteReference) {
+    if (!formData.coverageType || !quoteReference) {
       return undefined;
     }
 
     return {
       referenceNumber: quoteReference,
       coverageType: formData.coverageType as PricingCoverageType,
-      estimatedPremium: priceBreakdown.total,
       firstName: formData.firstName,
       coverageAmount: parseInt(formData.coverageAmount) || undefined,
       additionalCoverage: formData.additionalCoverage.length > 0 ? formData.additionalCoverage : undefined,
     };
-  }, [priceBreakdown, formData.coverageType, formData.firstName, formData.coverageAmount, formData.additionalCoverage, quoteReference]);
+  }, [formData.coverageType, formData.firstName, formData.coverageAmount, formData.additionalCoverage, quoteReference]);
   const heroRef = useRef(null);
   const faqRef = useRef(null);
   const ctaRef = useRef(null);
@@ -267,7 +267,7 @@ export default function QuotePage() {
   // Dynamic steps based on customer type
   const steps = useMemo(() => {
     const baseSteps = [
-      { number: 1, title: "Quote Type", icon: "category" },
+      { number: 1, title: "Request Type", icon: "category" },
     ];
 
     if (formData.customerType === "business") {
@@ -276,7 +276,7 @@ export default function QuotePage() {
         { number: 2, title: "Business Info", icon: "business" },
         { number: 3, title: "Contact Info", icon: "person" },
         { number: 4, title: "Coverage", icon: "shield" },
-        { number: 5, title: "Details", icon: "tune" },
+        { number: 5, title: "Requirements", icon: "tune" },
         { number: 6, title: "Review", icon: "check_circle" },
       ];
     }
@@ -285,7 +285,7 @@ export default function QuotePage() {
       ...baseSteps,
       { number: 2, title: "Contact Info", icon: "person" },
       { number: 3, title: "Coverage", icon: "shield" },
-      { number: 4, title: "Details", icon: "tune" },
+      { number: 4, title: "Requirements", icon: "tune" },
       { number: 5, title: "Review", icon: "check_circle" },
     ];
   }, [formData.customerType]);
@@ -351,8 +351,8 @@ export default function QuotePage() {
     setIsSubmitting(true);
     setSubmitError(null);
 
-    // Generate quote reference before submission
-    const ref = generateQuoteReference();
+    // Generate inquiry reference before submission
+    const ref = generateInquiryReference();
     setQuoteReference(ref);
 
     try {
@@ -363,8 +363,7 @@ export default function QuotePage() {
         },
         body: JSON.stringify({
           ...formData,
-          quoteReference: ref,
-          estimatedPremium: priceBreakdown?.total,
+          inquiryReference: ref,
           [HONEYPOT_FIELD_NAME]: honeypot,
         }),
       });
@@ -372,13 +371,13 @@ export default function QuotePage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to submit quote request");
+        throw new Error(data.error || "Failed to submit request");
       }
 
       setIsSubmitted(true);
 
       // Track successful submission
-      track("quote_submitted", {
+      track("inquiry_submitted", {
         customerType: formData.customerType || "unknown",
         coverageType: formData.coverageType || "unknown",
       });
@@ -389,7 +388,7 @@ export default function QuotePage() {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, priceBreakdown]);
+  }, [formData]);
 
   const handleReset = useCallback(() => {
     setFormData({
@@ -497,7 +496,7 @@ export default function QuotePage() {
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Complete the form below to receive a personalised insurance quote.
+            Complete the form below to receive a personalised quote from our network of partner insurers.
             Our licensed advisors will review your needs and get back to you within 24 hours.
           </motion.p>
 
@@ -522,18 +521,10 @@ export default function QuotePage() {
       {/* Quote Form Section */}
       <section className="pb-24 pt-4 px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Two column layout: Form + Price Breakdown (only when price visible) */}
-          <div className={`flex flex-col gap-8 ${
-            (stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown
-              ? "lg:flex-row lg:gap-12"
-              : ""
-          }`}>
-            {/* Left: Form */}
-            <div className={`flex-1 w-full ${
-              (stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown
-                ? "max-w-3xl"
-                : "max-w-4xl mx-auto"
-            }`}>
+          {/* Form container */}
+          <div className="flex flex-col gap-8">
+            {/* Form */}
+            <div className="flex-1 w-full max-w-4xl mx-auto">
           {/* Progress Steps - Enhanced with Animations */}
           <div className="mb-16">
             <div className="flex items-center justify-between relative">
@@ -640,9 +631,9 @@ export default function QuotePage() {
             <div className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white dark:bg-slate-800">
               {isSubmitted ? (
                 <FormSuccess
-                  title="Quote Request Submitted!"
-                  description="Thank you for your interest. One of our licensed advisors will review your requirements and contact you within 24 hours with a personalised quote."
-                  buttonText="Request Another Quote"
+                  title="Request Submitted!"
+                  description="Thank you for your interest. A licensed Metrosure advisor will review your requirements and present you with options from our network of partner insurers within 24 hours."
+                  buttonText="Submit Another Request"
                   onReset={handleReset}
                   accentColor="green"
                   quoteData={quoteData}
@@ -927,10 +918,10 @@ export default function QuotePage() {
                 >
                   <div className="text-center mb-10">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                      Choose Your Coverage
+                      What Type of Cover?
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400">
-                      Select the type of insurance coverage you&apos;re looking for.
+                      Select the type of insurance you&apos;re interested in and we&apos;ll find options from our partner insurers.
                     </p>
                   </div>
 
@@ -991,17 +982,17 @@ export default function QuotePage() {
                 >
                   <div className="text-center mb-10">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                      Customize Your Coverage
+                      Your Coverage Requirements
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400">
-                      Adjust the details to match your specific needs.
+                      Tell us what you&apos;re looking for so we can find the best options from our partner insurers.
                     </p>
                   </div>
 
                   <div className="space-y-6">
                     <LabelledSelect
                       name="coverageAmount"
-                      label="Coverage Amount"
+                      label="Desired Coverage Amount"
                       options={[
                         { value: "1000000", label: "R1,000,000" },
                         { value: "2500000", label: "R2,500,000" },
@@ -1018,12 +1009,12 @@ export default function QuotePage() {
 
                     <LabelledSelect
                       name="deductible"
-                      label="Excess"
+                      label="Preferred Excess Level"
                       options={[
-                        { value: "5000", label: "R5,000 (Higher Premium)" },
-                        { value: "10000", label: "R10,000 (Recommended)" },
-                        { value: "25000", label: "R25,000 (Lower Premium)" },
-                        { value: "50000", label: "R50,000 (Lowest Premium)" },
+                        { value: "5000", label: "R5,000" },
+                        { value: "10000", label: "R10,000" },
+                        { value: "25000", label: "R25,000" },
+                        { value: "50000", label: "R50,000" },
                       ]}
                       value={formData.deductible}
                       required
@@ -1085,10 +1076,10 @@ export default function QuotePage() {
                 >
                   <div className="text-center mb-10">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                      Review Your Quote Request
+                      Review Your Request
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400">
-                      Please review your information before submitting.
+                      Please review your details before we find options from our partner insurers.
                     </p>
                   </div>
 
@@ -1399,45 +1390,9 @@ export default function QuotePage() {
           </motion.div>
             </div>
 
-            {/* Right: Price Breakdown (sticky on desktop) */}
-            <div className="hidden lg:block">
-              <AnimatePresence>
-                {(stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown && (
-                  <PriceBreakdown
-                    breakdown={priceBreakdown}
-                    coverageType={formData.coverageType}
-                    isVisible={stepContent === "coverageDetails" || stepContent === "review"}
-                  />
-                )}
-              </AnimatePresence>
-            </div>
           </div>
         </div>
       </section>
-
-      {/* Mobile Price Summary (shows on mobile when price is available) */}
-      <AnimatePresence>
-        {(stepContent === "coverageDetails" || stepContent === "review") && formData.coverageType && priceBreakdown && !isSubmitted && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="lg:hidden fixed bottom-12 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-4 shadow-2xl z-50"
-          >
-            <div className="max-w-4xl mx-auto flex items-center justify-between">
-              <div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Estimated Premium</p>
-                <p className="text-2xl font-bold text-primary">
-                  R{priceBreakdown.total.toLocaleString()}<span className="text-sm font-normal text-slate-500">/mo</span>
-                </p>
-              </div>
-              <span className="text-xs text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full">
-                Estimate only
-              </span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* FAQ Section - Card-based Accordion */}
       <section ref={faqRef} className="relative py-24 px-6 overflow-hidden">
@@ -1558,7 +1513,7 @@ export default function QuotePage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               Our licensed insurance advisors are here to help you find the perfect
-              coverage. Schedule a free consultation today.
+              coverage from our partner insurers. Schedule a free consultation today.
             </motion.p>
 
             <motion.div

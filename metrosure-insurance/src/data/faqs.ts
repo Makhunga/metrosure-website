@@ -514,7 +514,7 @@ export const allFAQs: FAQ[] = [
     id: "corporate-group-insurance",
     question: "Do you offer corporate group insurance for businesses?",
     answer:
-      "Yes, we provide comprehensive group benefits for businesses with 10+ employees. This includes: group medical aid, group funeral cover, group retirement funds (pension and provident), employee risk benefits (income protection, disability, dread disease), and group life assurance. Group schemes offer lower premiums than individual policies and simplified underwriting.",
+      "Yes, we arrange comprehensive group benefits through leading SA insurers for businesses with 10+ employees. This includes: group medical aid, group funeral cover, group retirement funds (pension and provident), employee risk benefits (income protection, disability, dread disease), and group life assurance. Group schemes offer lower premiums than individual policies and simplified underwriting.",
     category: "business",
     link: "/corporate",
     linkText: "Explore corporate solutions",
@@ -532,7 +532,7 @@ export const allFAQs: FAQ[] = [
     id: "outsourced-sales-teams",
     question: "Can Metrosure manage our entire insurance sales division?",
     answer:
-      "Yes, through our Outsourced Sales & Marketing service. We become your in-house insurance arm, handling everything from recruitment and FAIS training to performance management and compliance. We provide staff, marketing collateral, and ongoing coaching. This lets you offer insurance products without building internal capability. Many retailers have grown from 2 advisors to 18+ permanent staff through this model.",
+      "Yes, through our Outsourced Sales & Marketing service. We become your in-house insurance sales arm, handling everything from recruitment and FAIS training to performance management and compliance. We provide staff, marketing collateral, and ongoing coaching. This lets you facilitate insurance product sales without building internal capability. Many retailers have grown from 2 advisors to 18+ permanent staff through this model.",
     category: "business",
     link: "/partners",
     linkText: "Learn about outsourced sales",

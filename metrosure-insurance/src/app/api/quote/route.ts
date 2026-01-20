@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
       warning?: string;
     } = {
       success: true,
-      message: "Your quote request has been submitted successfully. We'll be in touch within 24 hours.",
+      message: "Your request has been submitted successfully. A licensed advisor will be in touch within 24 hours with options from our partner insurers.",
     };
 
     if (!confirmationResult.success) {
@@ -255,7 +255,7 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
   const isB2B = data.customerType === "business";
 
   const content = `
-    ${createEmailHeader("Quote Request Received", "Thank you for choosing Metrosure")}
+    ${createEmailHeader("Quote Request Received", "Thank you for your interest in Metrosure")}
 
     ${createSection(`
       <p style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #333333; line-height: 1.6; margin: 0 0 15px 0;">
@@ -269,12 +269,12 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
     `)}
 
     ${createSection(`
-      ${createSectionTitle("Your Quote Summary")}
+      ${createSectionTitle("Your Request Summary")}
       ${createFieldRow("Coverage Type:", coverageTypeLabels[data.coverageType])}
-      ${createFieldRow("Coverage Amount:", formatCurrency(data.coverageAmount))}
-      ${createFieldRow("Excess:", formatCurrency(data.deductible))}
+      ${createFieldRow("Desired Coverage:", formatCurrency(data.coverageAmount))}
+      ${createFieldRow("Preferred Excess:", formatCurrency(data.deductible))}
       ${createFieldRow("Desired Start Date:", formatDate(data.startDate))}
-      ${additionalCoverageItems.length > 0 ? createFieldRow("Additional Coverage:", additionalCoverageItems.join(", ")) : ""}
+      ${additionalCoverageItems.length > 0 ? createFieldRow("Additional Coverage Interests:", additionalCoverageItems.join(", ")) : ""}
     `)}
 
     ${createSection(`
@@ -282,9 +282,9 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
         <strong>What happens next?</strong>
       </p>
       ${createBulletList([
-        "One of our licensed advisors will review your requirements",
-        "We'll compare options from our network of 30+ insurers",
-        "You'll receive a personalised quote within 24 hours",
+        "A licensed Metrosure advisor will review your requirements",
+        "We'll source and compare options from our network of 30+ partner insurers",
+        "We'll present you with suitable options within 24 hours",
         "No obligation - take your time to review and decide",
       ])}
     `)}
