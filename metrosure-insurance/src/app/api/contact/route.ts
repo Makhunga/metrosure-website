@@ -9,7 +9,8 @@ import {
   createMessageBox,
   createAlertBox,
   createSection,
-  createLink
+  createLink,
+  escapeHtml
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 import { isHoneypotFilledJSON } from "@/lib/honeypot";
@@ -158,21 +159,25 @@ export async function POST(request: NextRequest) {
 
 function generateMessageEmail(data: ContactMessageData): string {
   const isB2B = b2bTopics.includes(data.subject);
+  // Escape user-provided content to prevent XSS
+  const safeName = escapeHtml(data.name);
+  const safeMessage = escapeHtml(data.message);
+  const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
 
   const content = `
-    ${createEmailHeader(isB2B ? "New B2B Inquiry" : "New Contact Message", `From ${data.name}`)}
+    ${createEmailHeader(isB2B ? "New B2B Inquiry" : "New Contact Message", `From ${safeName}`)}
 
     ${createSection(`
       ${createSectionTitle("Contact Details")}
-      ${createFieldRow("Name:", data.name)}
+      ${createFieldRow("Name:", safeName)}
       ${createFieldRow("Email:", `${createLink(`mailto:${data.email}`, data.email)}`)}
-      ${data.companyName ? createFieldRow("Company:", data.companyName) : ''}
+      ${safeCompanyName ? createFieldRow("Company:", safeCompanyName) : ''}
       ${createFieldRow("Topic:", subjectLabels[data.subject] || data.subject)}
     `)}
 
     ${createSection(`
       ${createSectionTitle("Message")}
-      ${createMessageBox(data.message.replace(/\n/g, '<br />'))}
+      ${createMessageBox(safeMessage.replace(/\n/g, '<br />'))}
     `)}
   `;
 
@@ -180,21 +185,26 @@ function generateMessageEmail(data: ContactMessageData): string {
 }
 
 function generateCallbackEmail(data: ContactCallbackData): string {
-  const reason = data.reason === "other" && data.otherReason
-    ? `Other: ${data.otherReason}`
+  // Escape user-provided content to prevent XSS
+  const safeName = escapeHtml(data.name);
+  const safeOtherReason = data.otherReason ? escapeHtml(data.otherReason) : '';
+  const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
+
+  const reason = data.reason === "other" && safeOtherReason
+    ? `Other: ${safeOtherReason}`
     : reasonLabels[data.reason] || data.reason;
 
   const isB2B = b2bTopics.includes(data.reason);
 
   const content = `
-    ${createEmailHeader(isB2B ? "B2B Callback Request" : "Callback Request", `From ${data.name}`)}
+    ${createEmailHeader(isB2B ? "B2B Callback Request" : "Callback Request", `From ${safeName}`)}
 
     ${createSection(`
       ${createSectionTitle("Contact Details")}
-      ${createFieldRow("Name:", data.name)}
+      ${createFieldRow("Name:", safeName)}
       ${createFieldRow("Phone:", `${createLink(`tel:${data.phone}`, data.phone)}`)}
       ${data.email ? createFieldRow("Email:", `${createLink(`mailto:${data.email}`, data.email)}`) : ''}
-      ${data.companyName ? createFieldRow("Company:", data.companyName) : ''}
+      ${safeCompanyName ? createFieldRow("Company:", safeCompanyName) : ''}
     `)}
 
     ${createSection(`
