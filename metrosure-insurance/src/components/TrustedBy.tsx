@@ -111,9 +111,9 @@ export default function TrustedBy() {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="mt-14 text-lg font-medium max-w-lg text-white/80 leading-relaxed"
             >
-              From local startups to national enterprises, we provide the
-              comprehensive coverage and strategic partnerships that help South
-              African businesses thrive.
+              From local startups to national enterprises, we help grow your
+              financial services reach and connect you with customers across
+              South Africa.
             </motion.p>
 
             {/* Buttons */}

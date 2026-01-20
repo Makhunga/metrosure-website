@@ -226,7 +226,7 @@ export default function AboutPage() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  We&apos;re not just an insurance broker, we&apos;re a fast-growing sales and marketing company that delivers results. For families seeking peace of mind. For retailers seeking proven growth.
+                  We&apos;re a sales and marketing company that connects South Africans with the right financial products from leading insurers and retailers. For families seeking peace of mind. For retailers seeking proven growth.
                 </motion.p>
 
                 <motion.p
@@ -235,7 +235,7 @@ export default function AboutPage() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  Our data-driven approach and quality assurance team (95% daily average) have delivered 75% average sales increases for retail partners within the first 6 months. Partners like TFG trust us to drive their financial services growth.
+                  Our data-driven approach and quality assurance team (95% daily average) have delivered 75% average sales increases for retail partners within the first 6 months. Partners like TFG trust us to grow their financial services reach through our national network.
                 </motion.p>
 
                 <motion.p

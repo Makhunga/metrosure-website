@@ -40,7 +40,35 @@
 
 ---
 
-## PREVIOUS SESSION (125) - 20 Jan 2026
+## SESSION 124 (20 Jan 2026) - Narrative B2B Clarity & Portal Documentation
+
+### Part 1: Narrative Updates (Option A Selected)
+Softened website language to clarify Metrosure's B2B business model (broker/marketer for partners' financial products).
+
+| File | Changes |
+|------|---------|
+| `src/data/partnerShowcase.ts` | Subheading: "Partnering with..." instead of "Working with..."; TFG title: "Growing TFG financial services in-store"; TFG stat: "Retail locations served" |
+| `src/components/PartnerLogos.tsx` | Heading: "Financial Partners" (was "Insurance Partners"); Subheading: "Partnering with..." |
+| `src/components/TrustedBy.tsx` | Subtext: "we help grow your financial services reach" instead of "we provide comprehensive coverage" |
+| `src/components/PartnersCTA.tsx` | Subheadline: "trust us to grow their financial services footprint" |
+| `src/app/about/page.tsx` | Mission: "connects South Africans with the right financial products"; TFG ref: "grow their financial services reach through our national network" |
+
+### Part 2: Portal Architecture Documentation
+Created comprehensive `docs/PORTAL_ARCHITECTURE.md` for stakeholder review containing:
+
+| Section | Contents |
+|---------|----------|
+| ADRs | Authentication (NextAuth.js), Data Layer (React Query), State (Context), Components (shadcn/ui), Routing (nested groups), Theming (scoped CSS vars) |
+| User Flows | Login, View Policy, File Claim, Make Payment (with diagrams) |
+| Data Models | TypeScript interfaces for User, Policy, Claim, Payment, Document, Notification |
+| Component Hierarchy | Layout, Page, and Shared component trees |
+| Implementation Roadmap | 5 phases across Sessions 125-135+ |
+| Technical Specs | Stack, performance targets, security, accessibility |
+| Risk Mitigation | Technical, business, and operational risks |
+
+---
+
+## SESSION 125 (20 Jan 2026)
 
 ### Changes Made
 | Change | Details |
@@ -53,30 +81,37 @@
 
 ---
 
-## ACTIVE BRANCH
-
-**Branch:** `feature/narrative-b2b-clarity` (on origin, not merged)
-
-Contains:
-- Narrative updates clarifying B2B broker model
-- `docs/PORTAL_ARCHITECTURE.md` - Comprehensive portal plan for stakeholder review
-- `docs/NARRATIVE_REVAMP.md` - Planning doc for complete narrative overhaul
-
----
-
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: HUGE NARRATIVE REVAMP ⭐⭐⭐
-**Goal:** Complete website narrative overhaul to clarify Metrosure's B2B broker/marketer model.
+### Priority 1: HUGE NARRATIVE REVAMP ⭐⭐⭐ (MAJOR)
+**Goal:** Complete website narrative overhaul to accurately reflect Metrosure's B2B broker/marketer business model.
 
-**Branch:** `feature/narrative-b2b-clarity`
-**Planning Doc:** `docs/NARRATIVE_REVAMP.md`
+**Planning Document:** `docs/NARRATIVE_REVAMP.md` (tracks all changes)
 
-**Key Message:** Metrosure does NOT create/underwrite products. We provide sales agents and marketing services to partners (e.g., Metrosure agents in TFG stores selling TFG financial products).
+**Core Message:**
+- Metrosure does NOT create/underwrite insurance products
+- Metrosure provides sales agents and marketing services to partners
+- Example: TFG agreement = Metrosure agents in TFG stores selling TFG financial products
 
-### Priority 2: Portal Implementation (After Narrative)
-- Review `docs/PORTAL_ARCHITECTURE.md` with stakeholders
-- Begin Phase 1 (Foundation) once approved
+**Scope:**
+| Area | Files |
+|------|-------|
+| Data files | `partners.ts`, `services.ts`, `aboutPage.ts`, `testimonials.ts`, `faq.ts` |
+| Components | Hero, Footer, WhyChooseUs, testimonials, etc. |
+| Pages | Homepage, Partners, Corporate, Quote, Contact, all service pages |
+
+**Key Shifts:**
+- "Our products" → "Products from our partners"
+- "We provide cover" → "We connect you with the right cover"
+- "Insurance partners" → "Financial partners"
+- Generic broker → Sales & marketing excellence focus
+
+**Session 124 completed:** Initial soft changes (Option A) - see `docs/NARRATIVE_REVAMP.md`
+
+### Priority 2: Portal Architecture Stakeholder Review
+- Share `docs/PORTAL_ARCHITECTURE.md` with stakeholders
+- Collect feedback before beginning implementation
+- Portal work paused until narrative revamp complete
 
 ### Priority 3: Production Readiness
 - Remove Development Banner before go-live
@@ -128,7 +163,7 @@ Contains:
 
 | Session | Date | Focus |
 |---------|------|-------|
-| 130 | 20 Jan | **Security Hardening** - Email XSS fix, CSP header |
+| 130 | 20 Jan | **Security Hardening** - Email XSS fix, CSP header, input validation limits |
 | 125 | 20 Jan | Favicon, WhatsApp, head office swap, company info centralisation |
 | 124 | 20 Jan | Narrative B2B clarity (soft changes), portal architecture docs |
 | 123 | 19 Jan | Portal removal (clean slate for proper architecture) |
@@ -147,4 +182,4 @@ npm run build    # Production build (must pass before commit)
 
 ---
 
-*For coding conventions and patterns, see `CLAUDE.md`.*
+*For detailed coding conventions, patterns, and historical lessons, see `CLAUDE.md`.*
