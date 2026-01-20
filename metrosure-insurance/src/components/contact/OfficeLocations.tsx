@@ -275,6 +275,7 @@ export default function OfficeLocations() {
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 58vw"
                     priority={office.id === "msg"}
+                    unoptimized
                     onError={() => setMapError(true)}
                   />
                 </motion.div>
