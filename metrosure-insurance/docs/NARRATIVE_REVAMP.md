@@ -18,6 +18,120 @@ This document tracks a complete narrative revamp of the Metrosure website to acc
 
 ---
 
+## Current State Analysis (Session 125)
+
+### 1. Homepage Positioning
+
+**Primary Headline:** "Trusted by Families, Powered by Partnerships"
+
+**Subheading:** "From protecting your home and loved ones to transforming your retail space into a revenue engine - we help families feel secure and businesses grow."
+
+**Key Positioning Elements:**
+- Dual target audience: Individual consumers AND retailers/B2B partners
+- Emphasis on trust, protection, and growth
+- Frame: Insurance provider + B2B sales & marketing platform
+- CTAs: "Start Your Quote" (B2C) + "Partner with us" (B2B)
+
+### 2. About Page Messaging
+
+**Hero Headline:** "Taking You to the Future"
+
+**Core Positioning:** "A proudly South African financial services company protecting families and partnering with retail businesses. Real people, real advice, real partnerships."
+
+**Mission Statement:** "We're not just an insurance broker, we're a fast-growing sales and marketing company that delivers results. For families seeking peace of mind. For retailers seeking proven growth."
+
+### 3. How Metrosure Is Currently Described
+
+**Primary Identity:** Hybrid business model with THREE distinct offerings:
+
+1. **Insurance Broker** - For individual consumers (B2C)
+   - Life & funeral cover
+   - Retirement planning
+   - Car & home insurance
+   - Credit life insurance
+
+2. **Sales & Marketing Company** - For retailers (B2B)
+   - In-store insurance campaigns
+   - Outsourced sales divisions
+   - Data-driven customer acquisition
+   - Quality assurance (95% daily average)
+
+3. **Financial Services Partner**
+   - Call centre services
+   - Device leasing/financing
+   - Credit facilities
+   - Employee benefits (corporate)
+
+**Key Phrase:** "Not just an insurance broker, but a sales and marketing company"
+
+### 4. Pages with Significant Narrative Content
+
+| Page | Key Messaging | Content Type |
+|------|---------------|--------------|
+| **Homepage** | Dual positioning (B2C + B2B), hero statement | Hero section, features grid, stats |
+| **About** | Mission, values, company history, team | Hero, mission statement, timeline, values grid |
+| **Partners** | Revenue transformation, proven results | Hero, success metrics, partnership models |
+| **Features** | What we do for individuals & businesses | 6 service cards (mixed B2C/B2B) |
+| **Why Choose Us** | Trust drivers: 75% sales growth, 95% QA, 5,000+ jobs | 6 differentiator cards + CTA |
+
+### 5. Partner Page Messaging
+
+**Hero:** "Transform Your Retail Space Into Revenue"
+
+**Success Metrics:**
+- 5,000+ jobs created
+- 75% average sales increase (first 6 months)
+- 95% daily quality standard
+- 7 provinces covered
+
+**Six Partnership Models:**
+1. In-Store Insurance Campaigns (Most Popular)
+2. Outsourced Sales & Marketing
+3. In-Store Credit Facility
+4. Device Leasing
+5. Device Insurance
+6. Call Centre Services (New)
+
+### 6. Core Values (Repeatedly Emphasised)
+
+1. **Respect** - Everyone has a unique role
+2. **Quality** - "Good enough isn't enough"
+3. **Passion** - Genuine care; this is our purpose
+4. **Integrity** - "Do the right thing even when no one's watching"
+5. **Excellence** - Go above and beyond
+
+### 7. Key Statistics & Proof Points
+
+| Stat | Value |
+|------|-------|
+| Jobs created | 5,000+ (since 2013) |
+| Partner sales increase | 75% (first 6 months) |
+| Quality assurance | 95% daily average |
+| Provinces | 7 |
+| Retail partners | 100+ |
+| Families served | 10,000+ |
+
+### 8. Positioning Tone & Voice
+
+**Language Characteristics:**
+- Professional yet personal - "Real people, real advice"
+- Data-driven - Specific metrics, proven results
+- Community-focused - Job creation emphasis, local empowerment
+- Dual messaging - Shifts between B2C protection and B2B growth
+- South African pride - "Proudly South African," community impact
+
+### 9. Problems Identified
+
+| Current Copy | Problem |
+|--------------|---------|
+| "protecting your home and loved ones" | Implies we're the insurer |
+| "we help families feel secure" | Implies direct insurance provision |
+| "Explore Plans" | Implies we have our own plans |
+| "Our life insurance and funeral plans" | Implies we create products |
+| "we've got you covered" | Implies direct insurance provision |
+
+---
+
 ## Session 124 Changes (Completed)
 
 Initial soft narrative updates using Option A language:
@@ -83,22 +197,25 @@ Initial soft narrative updates using Option A language:
 - [ ] `src/data/faq.ts`
 
 ### Components
-- [ ] `src/components/PartnerLogos.tsx` ✅ (Session 124)
-- [ ] `src/components/TrustedBy.tsx` ✅ (Session 124)
-- [ ] `src/components/PartnersCTA.tsx` ✅ (Session 124)
-- [ ] `src/components/Hero.tsx`
+- [x] `src/components/PartnerLogos.tsx` ✅ (Session 124)
+- [x] `src/components/TrustedBy.tsx` ✅ (Session 124)
+- [x] `src/components/PartnersCTA.tsx` ✅ (Session 124)
+- [x] `src/components/Hero.tsx` ✅ (Session 125)
 - [ ] `src/components/HeroVariants.tsx`
 - [ ] `src/components/Footer.tsx`
 - [ ] `src/components/Header.tsx` (navigation labels)
-- [ ] `src/components/WhyChooseUs.tsx`
+- [x] `src/components/WhyChooseUs.tsx` ✅ (Session 125)
+- [x] `src/components/Features.tsx` ✅ (Session 125)
 - [ ] `src/components/testimonials/*.tsx`
+- [x] `src/components/partners/PartnersHero.tsx` ✅ (Session 125)
+- [x] `src/components/corporate/CorporateHero.tsx` ✅ (Session 125)
 
 ### Pages
-- [ ] `src/app/page.tsx` (Homepage)
-- [ ] `src/app/about/page.tsx` ✅ (Session 124)
-- [ ] `src/app/partners/page.tsx`
-- [ ] `src/app/corporate/page.tsx`
-- [ ] `src/app/quote/page.tsx`
+- [x] `src/app/page.tsx` (Homepage) ✅ (Session 125 - via components)
+- [x] `src/app/about/page.tsx` ✅ (Session 124)
+- [x] `src/app/partners/page.tsx` ✅ (Session 125)
+- [x] `src/app/corporate/page.tsx` ✅ (Session 125 - via CorporateHero)
+- [x] `src/app/quote/page.tsx` ✅ (Session 125)
 - [ ] `src/app/contact/page.tsx`
 - [ ] `src/app/claims/page.tsx`
 - [ ] `src/app/insurance/*/page.tsx` (all service pages)
@@ -140,17 +257,39 @@ Initial soft narrative updates using Option A language:
 - ✅ Created portal architecture documentation
 - ⏭️ Next: Complete narrative revamp
 
-### Session 125 (Upcoming)
-- [ ] Full audit of all pages and components
-- [ ] Draft revised copy for homepage
-- [ ] Draft revised copy for partners page
-- [ ] Review and iterate
+### Session 125 (20 Jan 2026)
+- ✅ Added Current State Analysis section to this document
+- ✅ Updated Homepage Hero (subheadline, CTA, image alt text)
+- ✅ Updated Features component (service descriptions, sidebar text)
+- ✅ Updated WhyChooseUs component (intro paragraph)
+- ✅ Updated Partners page (metadata, hero subheadline)
+- ✅ Updated Corporate page (hero subheadline)
+- ✅ Updated Quote page (coverage options, FAQ)
+- ✅ Build verified passing
+
+**Key Changes Made:**
+| Old | New |
+|-----|-----|
+| "protecting your home and loved ones" | "connecting you with the right cover for your family" |
+| "we help families feel secure" | "we bring people and products together" |
+| "Explore Plans" | "Find Your Cover" |
+| "Our life insurance and funeral plans" | "life insurance and funeral plans from trusted partners" |
+| "we've got you covered" | "we connect you with the right solutions" |
+| "we design packages" | "we source the right solutions from leading providers" |
+
+### Session 126+ (Remaining)
+- [ ] Audit remaining data files (services.ts, faq.ts)
+- [ ] Insurance service pages (/insurance/*)
+- [ ] Contact and Claims pages
+- [ ] Footer and Header (if needed)
+- [ ] HeroVariants.tsx
+- [ ] Testimonials components
 
 ---
 
 ## Notes
 
-*Add session-by-session notes and decisions here as the revamp progresses.*
+**Session 125:** Focused on high-traffic pages (Homepage, Partners, Corporate, Quote). The narrative shift emphasises "connecting" and "sourcing" rather than "providing" or "covering". The B2B messaging now consistently uses "grow your financial services reach/footprint".
 
 ---
 

@@ -123,8 +123,8 @@ export default function CorporateHero() {
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             Attract and retain top talent with comprehensive employee benefits.
-            From group medical aid to retirement funds, we design packages that
-            protect your employees and strengthen your business.
+            From group medical aid to retirement funds, we source the right solutions from
+            leading providers to protect your employees and strengthen your business.
           </motion.p>
 
           {/* Consumer Cross-link */}

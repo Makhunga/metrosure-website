@@ -61,28 +61,28 @@ const coverageOptions = [
     id: "home" as const,
     icon: "home",
     title: "Home & Property",
-    description: "Protect your home, belongings, and liability",
+    description: "Cover for your home, belongings, and liability",
     popular: false,
   },
   {
     id: "auto" as const,
     icon: "directions_car",
     title: "Auto & Vehicle",
-    description: "Comprehensive coverage for cars, trucks, and motorcycles",
+    description: "Comprehensive cover for cars, trucks, and motorcycles",
     popular: false,
   },
   {
     id: "life" as const,
     icon: "favorite",
     title: "Life & Funeral",
-    description: "Secure your family's future with life and funeral cover",
+    description: "Secure your family's future with the right life and funeral cover",
     popular: true,
   },
   {
     id: "business" as const,
     icon: "business",
     title: "Business",
-    description: "Commercial insurance for businesses of all sizes",
+    description: "Commercial cover for businesses of all sizes",
     popular: false,
   },
 ];
@@ -169,7 +169,7 @@ const faqs = [
   {
     question: "Can I customise my coverage?",
     answer:
-      "Yes! Our quotes are fully customisable. You can adjust coverage amounts, deductibles, and add optional protections to fit your specific needs and budget.",
+      "Yes! We work with you to find the right cover from our partner insurers. You can adjust coverage amounts, deductibles, and add optional protections to fit your specific needs and budget.",
     category: "Coverage",
   },
 ];

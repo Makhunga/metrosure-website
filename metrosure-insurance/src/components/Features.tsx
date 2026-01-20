@@ -11,7 +11,7 @@ const features = [
     icon: "family_restroom",
     title: "Life & Funeral Cover",
     description:
-      "Give your loved ones peace of mind. Our life insurance and funeral plans ensure your family is looked after when they need it most, because some things are too important to leave to chance.",
+      "Give your loved ones peace of mind. We connect you with life insurance and funeral plans from trusted partners, ensuring your family is looked after when they need it most.",
     accent: "primary",
     href: "/insurance/life",
   },
@@ -19,7 +19,7 @@ const features = [
     icon: "savings",
     title: "Retirement Planning",
     description:
-      "Start building the future you deserve, today. Whether you're just starting out or nearing retirement, we'll help you create a plan that works for your life and goals.",
+      "Start building the future you deserve, today. Whether you're just starting out or nearing retirement, we'll help you find a plan from our partners that works for your life and goals.",
     accent: "secondary",
     href: "/insurance/business",
   },
@@ -167,7 +167,7 @@ export default function Features() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Whether you&apos;re protecting your family or growing your business, we&apos;ve got you covered. Insurance for individuals, partnership opportunities for retailers - all backed by real people who care.
+              Whether you&apos;re looking for cover for your family or growing your business, we connect you with the right solutions. Access to quality products for individuals, partnership opportunities for retailers - all backed by real people who care.
             </motion.p>
 
             {/* CTA link with animated arrow */}

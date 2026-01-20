@@ -106,7 +106,7 @@ export default function WhyChooseUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Since 2013, we&apos;ve built a reputation for results. From protecting families to helping retailers grow, we deliver on our promises.
+            Since 2013, we&apos;ve built a reputation for results. From connecting families with the right cover to helping retailers grow their financial services, we deliver on our promises.
           </motion.p>
         </motion.div>
 

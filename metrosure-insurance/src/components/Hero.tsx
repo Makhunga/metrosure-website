@@ -140,7 +140,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              From protecting your home and loved ones to transforming your retail space into a revenue engine - we help families feel secure and businesses grow.
+              From connecting you with the right cover for your family to growing your retail financial services - we bring people and products together.
             </motion.p>
 
             {/* CTAs */}
@@ -171,7 +171,7 @@ export default function Hero() {
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <span>Explore Plans</span>
+                  <span>Find Your Cover</span>
                   <motion.span
                     className="material-symbols-outlined text-xl"
                     initial={{ x: 0 }}
@@ -221,7 +221,7 @@ export default function Hero() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/20">
                 <Image
                   src="/images/family-hero-2.webp"
-                  alt="Happy South African family protected by Metrosure insurance"
+                  alt="Happy South African family connected with the right insurance cover"
                   width={1000}
                   height={667}
                   className="object-cover w-full h-auto"
