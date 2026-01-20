@@ -291,13 +291,13 @@ export function CalculatorResult({
                 className="mt-3"
               >
                 <p className="text-white/80">
-                  Estimated premium:{" "}
+                  Indicative premium range:{" "}
                   <span className="font-semibold text-white">
                     R{premiumLow.toLocaleString("en-ZA")}–R{premiumHigh.toLocaleString("en-ZA")}/month
                   </span>
                 </p>
                 <p className="mt-1 text-xs text-white/60">
-                  Varies by age, health, and smoking status
+                  Actual premiums from our partner insurers may vary
                 </p>
               </motion.div>
             ) : monthlyPremium && (
@@ -307,7 +307,7 @@ export function CalculatorResult({
                 transition={{ delay: 0.4 }}
                 className="mt-2 text-white/80"
               >
-                Estimated premium:{" "}
+                Indicative premium:{" "}
                 <span className="font-semibold text-white">
                   R{monthlyPremium.toLocaleString("en-ZA")}/month
                 </span>
@@ -401,7 +401,7 @@ export function CalculatorResult({
             </div>
 
             <p className="text-center text-xs text-slate-500 dark:text-slate-400">
-              No obligation. Get your personalised quote in minutes.
+              This estimate helps you understand your needs. Your actual premium will be determined by our partner insurers based on your specific circumstances.
             </p>
           </motion.div>
         </div>

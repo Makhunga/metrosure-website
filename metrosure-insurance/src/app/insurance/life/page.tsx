@@ -4,11 +4,11 @@ import InsurancePageTemplate from "@/components/insurance/InsurancePageTemplate"
 export const metadata: Metadata = {
   title: "Life, Funeral & Credit Life Insurance | Metrosure Insurance Brokers",
   description:
-    "Protect your family's future with life insurance, credit life cover, funeral cover, and estate planning from Metrosure Insurance Brokers (FSP 47089). We help South African families feel secure.",
+    "Find the right life insurance, credit life cover, funeral cover, and estate planning through Metrosure Insurance Brokers (FSP 47089). We connect South African families with cover from SA's leading insurers.",
   openGraph: {
     title: "Life, Funeral & Credit Life Insurance | Metrosure Insurance Brokers",
     description:
-      "Protect your family's future with life insurance, credit life, and funeral cover from Metrosure Insurance Brokers.",
+      "Find the right life insurance, credit life, and funeral cover through Metrosure Insurance Brokers.",
     type: "website",
   },
 };
@@ -54,9 +54,9 @@ const coverageFeatures = [
 
 const planTiers = [
   {
-    name: "Essential Life",
-    price: "From R150",
-    period: "month",
+    name: "Essential Cover",
+    price: "Get a Quote",
+    period: "",
     description: "Basic protection for peace of mind",
     features: [
       "Life cover up to R500,000",
@@ -68,8 +68,8 @@ const planTiers = [
   },
   {
     name: "Family Protect",
-    price: "From R350",
-    period: "month",
+    price: "Get a Quote",
+    period: "",
     description: "Comprehensive family protection",
     features: [
       "Life cover up to R2 million",
@@ -83,8 +83,8 @@ const planTiers = [
   },
   {
     name: "Legacy Builder",
-    price: "Custom",
-    period: "quote",
+    price: "Get a Quote",
+    period: "",
     description: "Build wealth while staying protected",
     features: [
       "Tailored life cover amount",

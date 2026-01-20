@@ -15,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "Partner With Us | Metrosure Insurance Brokers",
   description:
-    "Partner with Metrosure to bring in-store insurance campaigns to your retail locations. Create jobs, generate revenue, and serve your customers better. Join 100+ retail partners across South Africa.",
+    "Partner with Metrosure to grow your financial services reach. Our trained sales teams sell insurance and financial products in-store, creating jobs and generating revenue. Join 100+ retail partners across South Africa.",
   keywords: [
     "retail partnership",
     "in-store insurance",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
-      "Transform your retail space into a revenue engine. Partner with Metrosure for in-store insurance campaigns that create jobs and boost your business.",
+      "Transform your retail space into a revenue engine. Partner with Metrosure - our trained sales teams grow your financial services reach while creating local jobs.",
     url: "/partners",
     type: "website",
     locale: "en_ZA",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
-      "Transform your retail space into a revenue engine. Partner with Metrosure for in-store insurance campaigns.",
+      "Transform your retail space into a revenue engine. Partner with Metrosure to grow your financial services reach.",
     images: ["/og-image.png"],
   },
   alternates: {

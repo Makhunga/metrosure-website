@@ -69,10 +69,10 @@ export const showcasePartners: ShowcasePartner[] = [
     darkModeInvert: false, // SVG has its own purple background
     image: "/images/partners/tfg-slide.jpg",
     imageAlt: "TFG Jet retail in-store insurance sales - customer service at point of sale",
-    title: "Bringing insurance to retail point of sale",
+    title: "Growing TFG financial services in-store",
     stat: {
       value: "100+",
-      description: "In-store locations",
+      description: "Retail locations served",
     },
     link: "/partners#retail",
     category: "retail",
@@ -116,7 +116,7 @@ export const showcasePartners: ShowcasePartner[] = [
 export const showcaseContent: ShowcaseContent = {
   heading: "OUR PARTNERS",
   subheading:
-    "Working with South Africa's leading insurers and retailers to make quality cover accessible to every community.",
+    "Partnering with South Africa's leading insurers and retailers to bring quality financial products to every community.",
 };
 
 // Helper functions

@@ -114,9 +114,9 @@ export default function PartnersHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            Partner with Metrosure to bring in-store insurance solutions to your customers.
-            We deploy trained sales teams, handle all compliance, and share the revenue,
-            you focus on your business while creating local jobs.
+            Partner with Metrosure to grow your financial services footprint.
+            We deploy trained sales teams to sell insurance and financial products in-store,
+            handle all compliance, and share the revenue - you focus on your business while creating local jobs.
           </motion.p>
 
           {/* Consumer Cross-link */}

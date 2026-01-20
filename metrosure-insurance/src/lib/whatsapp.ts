@@ -6,10 +6,11 @@
 export interface QuoteData {
   referenceNumber: string;
   coverageType: "home" | "auto" | "life" | "business";
-  estimatedPremium: number;
   firstName: string;
   coverageAmount?: number;
   additionalCoverage?: string[];
+  // Deprecated - no longer displayed (broker model doesn't show premiums)
+  estimatedPremium?: number;
 }
 
 const COVERAGE_LABELS: Record<string, string> = {
@@ -27,14 +28,17 @@ const COVERAGE_ICONS: Record<string, string> = {
 };
 
 /**
- * Generate a unique quote reference number
+ * Generate a unique inquiry reference number
  */
-export function generateQuoteReference(): string {
+export function generateInquiryReference(): string {
   const date = new Date();
   const year = date.getFullYear();
   const random = Math.random().toString(36).substring(2, 7).toUpperCase();
-  return `QT-${year}-${random}`;
+  return `INQ-${year}-${random}`;
 }
+
+// Alias for backwards compatibility (deprecated - use generateInquiryReference)
+export const generateQuoteReference = generateInquiryReference;
 
 /**
  * Format currency in South African Rand
@@ -49,31 +53,30 @@ export function formatCurrency(amount: number): string {
 }
 
 /**
- * Generate WhatsApp message for quote
+ * Generate WhatsApp message for inquiry
  */
 export function generateQuoteMessage(quote: QuoteData): string {
   const icon = COVERAGE_ICONS[quote.coverageType] || "📋";
   const label = COVERAGE_LABELS[quote.coverageType] || "Insurance";
 
   const lines = [
-    `Hi! Here's your Metrosure insurance quote:`,
+    `Hi! Here's my Metrosure insurance inquiry:`,
     ``,
-    `📋 *Quote Reference:* ${quote.referenceNumber}`,
+    `📋 *Reference:* ${quote.referenceNumber}`,
     `${icon} *Coverage Type:* ${label}`,
-    `💰 *Estimated Premium:* ${formatCurrency(quote.estimatedPremium)}/month`,
   ];
 
   if (quote.coverageAmount) {
-    lines.push(`🛡️ *Coverage Amount:* ${formatCurrency(quote.coverageAmount)}`);
+    lines.push(`🛡️ *Desired Coverage:* ${formatCurrency(quote.coverageAmount)}`);
   }
 
   if (quote.additionalCoverage && quote.additionalCoverage.length > 0) {
-    lines.push(`✅ *Add-ons:* ${quote.additionalCoverage.length} selected`);
+    lines.push(`✅ *Additional Interests:* ${quote.additionalCoverage.length} selected`);
   }
 
   lines.push(
     ``,
-    `_This is an estimate only. Our team will contact you within 24 hours with your final quote._`,
+    `_A Metrosure advisor will contact me within 24 hours with options from partner insurers._`,
     ``,
     `📞 Call us: 087 265 1891`,
     `🌐 Visit: www.metrosuregroup.co.za`,
@@ -104,7 +107,7 @@ export function generateWhatsAppToMetrosure(
   quote: QuoteData,
   phoneNumber: string = "27671209527"
 ): string {
-  const message = `Hi Metrosure! I just requested a quote online.\n\nReference: ${quote.referenceNumber}\nName: ${quote.firstName}\n\nPlease send me my final quote.`;
+  const message = `Hi Metrosure! I just submitted an inquiry online.\n\nReference: ${quote.referenceNumber}\nName: ${quote.firstName}\n\nPlease contact me with options from your partner insurers.`;
   const encodedMessage = encodeURIComponent(message);
 
   return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;

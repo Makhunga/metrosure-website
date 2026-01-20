@@ -1,7 +1,7 @@
 # Metrosure Website Revamp - Stakeholder Communication
 
 **Purpose:** Email templates for introducing the new website to stakeholders
-**Date:** January 18, 2026 (Session 117)
+**Date:** January 20, 2026 (Session 129)
 **Versions:** 3 (Full, Executive Summary, Meeting Request)
 
 ---
@@ -120,16 +120,16 @@ The calculator at `/tools/coverage-calculator` helps clients understand their in
 
 **Life Cover Calculator:**
 - Inputs: Annual income, total debts, dependents, years of support needed, age, smoker status
-- Output: Recommended cover amount with premium estimate range
+- Output: Recommended cover amount with indicative premium range
 - Based on ASISA 2025 Insurance Gap Study data (R50.4 trillion SA insurance gap)
 
 **Funeral Cover Calculator:**
 - Inputs: Family members to cover, cover tier selection
-- Output: Total cover amount with monthly premium estimate
+- Output: Total cover amount with indicative monthly premium range
 - Educational breakdown of typical SA funeral costs (R15,800 - R68,000)
 
 **Sharing Features (Lead Generation):**
-- **WhatsApp sharing** - One tap sends a pre-formatted message with cover amount and premium estimate. Clients share with family, forward to your sales team, or save for later. This is where modern SA consumers communicate.
+- **WhatsApp sharing** - One tap sends a pre-formatted message with cover amount and indicative premium range. Clients share with family, forward to your sales team, or save for later. This is where modern SA consumers communicate.
 - **Email results** - Captures email at moment of highest intent. Professionally formatted PDF-ready summary delivered instantly.
 - **Real-time preview** - Results update as user adjusts inputs, keeping engagement high
 
@@ -165,7 +165,7 @@ A complete client portal mockup is now live at `/portal`. This shows clients wha
 
 | What's Built | Source | What's Missing |
 |-------------|--------|----------------|
-| Premium calculators | Industry research (ASISA 2025 data) | **Your actual rate cards** |
+| Premium calculators | Industry research (ASISA 2025 data) | **Indicative rate information from partner insurers** |
 | Product descriptions | Standard industry terminology | **Your specific service offerings** |
 | Client testimonials | Illustrative examples | **Real client feedback (with consent)** |
 | B2B case studies | Representative scenarios | **Confirmed partner names and metrics** |
@@ -191,7 +191,7 @@ A complete client portal mockup is now live at `/portal`. This shows clients wha
 
 **⏳ Waiting on You:**
 - **Testimonials** - Currently illustrative placeholders. Need real client feedback with consent.
-- **Premium rates** - Calculator shows industry estimates. Need your actual insurer rate cards.
+- **Premium rates** - Calculator shows generic indicative ranges. Need indicative rate information from partner insurers for more realistic ranges.
 - **Case studies** - Partner names (TFG/Jet, TechZone, HomeStyle) are representative. Confirm or replace.
 - **Product terms** - Some descriptions use industry-standard language. Review for your specific terms.
 
@@ -208,11 +208,11 @@ A complete client portal mockup is now live at `/portal`. This shows clients wha
 - Real testimonials with names, photos, and specific outcomes convert 3-4x better than generic statements
 - Your competitors who have genuine reviews will win the client who's comparing options
 
-**Accurate Premium Rates:**
-- The calculator is a lead-generation tool — clients who see accurate pricing are more likely to proceed
-- Inaccurate estimates create disappointment when real quotes differ significantly
-- Clients who feel misled don't become clients — they become negative word-of-mouth
-- Accurate calculators position you as transparent and trustworthy
+**Indicative Premium Information:**
+- The calculator is a lead-generation tool — clients who see indicative pricing ranges from partner insurers are more likely to proceed
+- Indicative ranges with clear disclaimers set appropriate expectations for final quotes
+- Transparency about the indicative nature builds trust before clients connect with underwriters
+- Partner insurer rate information enables realistic indicative ranges
 
 **Confirmed Case Studies:**
 - B2B buyers conduct extensive research before contacting vendors
@@ -327,7 +327,7 @@ Most insurance brokers still rely on outdated websites or have no digital presen
 
 | Blocker | Impact if Unresolved | Your Action Needed |
 |---------|---------------------|-------------------|
-| **No rate cards provided** | Calculator shows estimates that may mislead clients. Disappointed visitors don't convert — they leave. | Share your premium tables from underwriters |
+| **No rate cards provided** | Calculator shows generic indicative ranges. More accurate indicative pricing from partner insurers improves lead quality. | Share indicative rate information from partner insurers |
 | **No real testimonials** | 92% of consumers read reviews before buying. Placeholder quotes are obvious and damage credibility. Competitors with real reviews win the comparison. | Provide 3-5 genuine client reviews (with consent) |
 | **Case studies unconfirmed** | B2B buyers research extensively. Unverified claims risk reputational damage if partners dispute. | Confirm TFG/Jet, TechZone, HomeStyle details or provide alternatives |
 | **Service details unclear** | Generic descriptions make you indistinguishable from competitors. Clients can't see why to choose you. | Review product pages and correct terminology |
@@ -345,7 +345,7 @@ Most insurance brokers still rely on outdated websites or have no digital presen
 3. **Confirm case studies** - Are TFG/Jet, TechZone, HomeStyle accurate?
 
 **Required Within 2 Weeks:**
-4. **Provide rate cards** - Even draft pricing lets me build accurate calculators
+4. **Provide rate information** - Even draft indicative rates from partner insurers lets me build more realistic calculators
 5. **Submit testimonials** - 3-5 real client quotes with permission
 6. **Schedule funeral policy session** - 1-2 hours to map your process
 
@@ -443,7 +443,7 @@ Your new website has evolved into a full lead-generation platform. The framework
 
 | Blocker | Impact | Your Action Needed |
 |---------|--------|-------------------|
-| **No rate cards provided** | Calculator shows estimates, not real prices | Share your premium tables |
+| **No rate cards provided** | Calculator shows generic indicative ranges | Share indicative rate information from partner insurers |
 | **No testimonials** | Using placeholder quotes that reduce trust | Provide 3-5 real client reviews |
 | **Case studies unconfirmed** | Named partners may be inaccurate | Confirm or replace TFG/Jet, TechZone, HomeStyle |
 | **Service details unclear** | Generic descriptions don't differentiate you | Review and correct product pages |
@@ -451,8 +451,8 @@ Your new website has evolved into a full lead-generation platform. The framework
 **Why this matters:**
 - **92% of consumers read reviews** before purchasing — placeholder testimonials are obvious and damage trust
 - **B2B buyers research extensively** — unverified case studies risk your reputation if partners dispute claims
-- **Inaccurate calculator estimates** create disappointment and lost conversions when real quotes differ
-- Your competitors with genuine reviews and accurate pricing will win clients comparing options
+- **Generic indicative ranges** are less compelling than ranges based on partner insurer data
+- Your competitors with genuine reviews and realistic indicative pricing will win clients comparing options
 
 **These items require your direct input. I've built everything I can from research.**
 
@@ -461,7 +461,7 @@ Your new website has evolved into a full lead-generation platform. The framework
 ### Content Status
 
 **✅ Verified:** Company founding (2013), B2B metrics, FSP compliance, contact details, British English, team photos
-**⏳ Waiting on you:** Testimonials, premium rates, case study confirmation, service-specific terms
+**⏳ Waiting on you:** Testimonials, indicative rate information from partner insurers, case study confirmation, service-specific terms
 
 ### Coming Next: Website Separation
 
@@ -481,7 +481,7 @@ As we scale, I recommend separating into three focused sites:
 2. **Flag any inaccuracies** — Reply with corrections
 
 **Within 2 Weeks:**
-3. **Provide rate cards** — So the calculator shows real prices
+3. **Provide rate information** — So the calculator shows realistic indicative ranges from partner insurers
 4. **Submit testimonials** — 3-5 genuine client quotes (with consent)
 5. **Confirm case studies** — Are TFG/Jet, TechZone, HomeStyle accurate?
 
@@ -587,7 +587,7 @@ Before launch, ensure stakeholders have verified:
 - [x] WhatsApp click-to-chat integration (S113, S116)
 - [x] shadcn/ui component library installed (S117)
 - [ ] Testimonials are real (with consent) or replaced
-- [ ] Premium calculation rates validated against insurer data
+- [ ] Indicative premium ranges validated with partner insurer data
 - [ ] Case study partner details confirmed or updated
 - [ ] Any product-specific terms reviewed
 - [ ] Website separation strategy reviewed and approved
@@ -596,4 +596,4 @@ Before launch, ensure stakeholders have verified:
 ---
 
 *Created: December 26, 2025*
-*Updated: January 18, 2026 (Session 117) - Added Sessions 114-117 progress: Client Portal mockup (Dashboard, Policies, Claims, Payments, Documents, Settings), shadcn/ui component library (8 components themed with Metrosure colours), WhatsApp click-to-chat integration with auto-hide at footer, Zoocora logo improvements. 53 routes total.*
+*Updated: January 20, 2026 (Session 129) - Updated language to align with broker-first narrative (indicative premium ranges, partner insurer references). Previous updates: Sessions 114-117 added Client Portal mockup, shadcn/ui component library, WhatsApp click-to-chat integration. 53 routes total.*

@@ -178,7 +178,7 @@ export const partnerFAQs: PartnerFAQ[] = [
   {
     question: "What training do the in-store sales staff receive?",
     answer:
-      "All our sales representatives undergo comprehensive training before deployment. This includes product knowledge (all insurance types we offer), compliance and regulatory requirements, customer service excellence, and sales techniques. Training is ongoing, with regular refresher courses and updates on new products or regulations.",
+      "All our sales representatives undergo comprehensive training before deployment. This includes product knowledge (all insurance products facilitated through our partnerships), compliance and regulatory requirements, customer service excellence, and sales techniques. Training is ongoing, with regular refresher courses and updates on new products or regulations.",
   },
   {
     question: "How long does it take to set up an in-store campaign?",
@@ -188,7 +188,7 @@ export const partnerFAQs: PartnerFAQ[] = [
   {
     question: "What insurance products are offered through in-store campaigns?",
     answer:
-      'We offer a comprehensive range of products tailored to your customer base: <strong class="text-[rgb(var(--color-text-main))]">Credit Life Insurance</strong>, <strong class="text-[rgb(var(--color-text-main))]">Funeral Cover</strong> (individual and group), <strong class="text-[rgb(var(--color-text-main))]">Life Insurance</strong>, and <strong class="text-[rgb(var(--color-text-main))]">Short-term Insurance</strong> (car, home). Product mix is customised based on your store type and customer demographics.',
+      'We arrange a comprehensive range of products from our partner insurers, tailored to your customer base: <strong class="text-[rgb(var(--color-text-main))]">Credit Life Insurance</strong>, <strong class="text-[rgb(var(--color-text-main))]">Funeral Cover</strong> (individual and group), <strong class="text-[rgb(var(--color-text-main))]">Life Insurance</strong>, and <strong class="text-[rgb(var(--color-text-main))]">Short-term Insurance</strong> (car, home). Product mix is customised based on your store type and customer demographics.',
   },
   {
     question: "Is my business responsible for any compliance requirements?",

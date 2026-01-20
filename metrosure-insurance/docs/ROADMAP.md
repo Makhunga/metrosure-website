@@ -136,12 +136,12 @@ Step 4: Personalised recommendations with reasons
 - Individual article pages with related content
 - Newsletter signup integration
 
-### 2.4 Hospital Cashback Product
-**Business Value:** Fills product gap; popular employee benefit.
+### 2.4 Hospital Cashback Information
+**Business Value:** Fills information gap; popular employee benefit from partner insurers.
 
 | Feature | Description |
 |---------|-------------|
-| Product page | `/insurance/hospital-cash` |
+| Information page | `/insurance/hospital-cash` |
 | Calculator | Daily benefit × expected stay |
 | Comparison | Show benefit vs actual hospital costs |
 | Integration | Add to group benefits package |
@@ -225,7 +225,7 @@ Advanced features for competitive advantage.
 | Value-Added Services | High | Medium | **P2** |
 | Product Recommendation Wizard | High | Medium | **P2** |
 | Blog & Resource Centre | Medium | Medium | **P2** |
-| Hospital Cashback Product | Medium | Low | **P2** |
+| Hospital Cashback Information | Medium | Low | **P2** |
 | Client Self-Service Portal | High | High | **P3** |
 | Broker Portal | High | High | **P3** |
 | Corporate HR Dashboard | Medium | High | **P3** |

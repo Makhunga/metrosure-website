@@ -95,7 +95,7 @@ export default function PartnerLogos() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {partners.length}+ Trusted Insurance Partners
+            {partners.length}+ Financial Partners
           </motion.h2>
           <motion.p
             className="text-lg text-[rgb(var(--color-text-body))] max-w-2xl mx-auto"
@@ -103,7 +103,7 @@ export default function PartnerLogos() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            We work with South Africa&apos;s leading insurers to find you the best cover at the best price.
+            Partnering with South Africa&apos;s leading insurers to bring you the best cover at the best price.
           </motion.p>
         </motion.div>
 

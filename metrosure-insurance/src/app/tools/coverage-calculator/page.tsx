@@ -267,8 +267,8 @@ export default function CoverageCalculatorPage() {
                 Need Help Understanding Your Results?
               </h2>
               <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-                Our insurance advisors are ready to explain your options and help you find
-                the perfect coverage for your situation. No pressure, just expert guidance.
+                Our licensed advisors are ready to explain your options and help you find
+                the perfect coverage from our network of partner insurers. No pressure, just expert guidance.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
