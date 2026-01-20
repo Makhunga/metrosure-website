@@ -19,12 +19,21 @@ interface Office {
 
 const offices: Office[] = [
   {
-    id: "dbn",
-    name: "Durban (Head Office)",
+    id: "msg",
+    name: "Musgrave (Head Office)",
     region: "Head Office",
+    address1: "32 Stephen Dlamini Road",
+    address2: "Musgrave, Durban, 4001",
+    phone: "+27 31 301 1192",
+    lat: -29.8450,
+    lng: 31.0000,
+  },
+  {
+    id: "dbn",
+    name: "Durban CBD",
+    region: "Durban",
     address1: "391 Anton Lembede Street, Metropolitan Life Building",
     address2: "5th Floor, Durban, 4001",
-    phone: "+27 31 301 1192",
     lat: -29.8579,
     lng: 31.0292,
   },
@@ -54,15 +63,6 @@ const offices: Office[] = [
     address2: "Boksburg, 1459",
     lat: -26.2041,
     lng: 28.2639,
-  },
-  {
-    id: "msg",
-    name: "Musgrave",
-    region: "Durban",
-    address1: "32 Stephen Dlamini Road",
-    address2: "Musgrave, Durban, 4001",
-    lat: -29.8450,
-    lng: 31.0000,
   },
 ];
 
@@ -102,7 +102,7 @@ const socialLinks = [
 ];
 
 export default function OfficeLocations() {
-  const [selectedOffice, setSelectedOffice] = useState<OfficeLocation>("dbn");
+  const [selectedOffice, setSelectedOffice] = useState<OfficeLocation>("msg");
   const [mapError, setMapError] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -273,7 +273,7 @@ export default function OfficeLocations() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 58vw"
-                    priority={office.id === "dbn"}
+                    priority={office.id === "msg"}
                     onError={() => setMapError(true)}
                   />
                 </motion.div>
