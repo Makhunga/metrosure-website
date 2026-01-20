@@ -11,6 +11,22 @@ type ConsentStatus = "pending" | "accepted" | "declined";
 export default function CookieConsent() {
   const [status, setStatus] = useState<ConsentStatus>("pending");
   const [isVisible, setIsVisible] = useState(false);
+  const [isHiringBannerVisible, setIsHiringBannerVisible] = useState(false);
+
+  // Check hiring banner state and listen for dismiss event
+  useEffect(() => {
+    // Check initial state from sessionStorage
+    const dismissed = sessionStorage.getItem("hiringBannerDismissed") === "true";
+    setIsHiringBannerVisible(!dismissed);
+
+    // Listen for dismiss event
+    const handleDismiss = () => {
+      setIsHiringBannerVisible(false);
+    };
+
+    window.addEventListener("hiringBannerDismissed", handleDismiss);
+    return () => window.removeEventListener("hiringBannerDismissed", handleDismiss);
+  }, []);
 
   useEffect(() => {
     // Check if user has already made a choice
@@ -49,7 +65,9 @@ export default function CookieConsent() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed bottom-4 left-4 right-4 z-50 md:bottom-6 md:left-6 md:right-6"
+          className={`fixed left-4 right-4 z-50 md:bottom-6 md:left-6 md:right-6 transition-[bottom] duration-300 ease-out ${
+            isHiringBannerVisible ? "bottom-16" : "bottom-4"
+          }`}
         >
           <div className="max-w-3xl mx-auto">
             <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-4 md:p-5">

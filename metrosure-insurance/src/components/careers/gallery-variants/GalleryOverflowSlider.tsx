@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 /**
  * VARIATION 3: Clean Overflow Slider
@@ -10,6 +10,7 @@ import { motion, useInView } from "framer-motion";
  * Aesthetic: Modern minimal / ThoughtFarmer-inspired
  * - Clean horizontal slider with overflow at edges
  * - Draggable + arrow navigation
+ * - Floating navigation arrows on hover zones
  * - Simple rounded corners, consistent sizing
  * - Subtle hover effects
  * - Most similar to professional careers pages
@@ -34,9 +35,12 @@ const galleryImages: GalleryImage[] = [
 export default function GalleryOverflowSlider() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const sliderWrapperRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [hoverZone, setHoverZone] = useState<"left" | "right" | null>(null);
+  const [cursorY, setCursorY] = useState(0);
 
   const checkScrollPosition = () => {
     if (!scrollContainerRef.current) return;
@@ -54,6 +58,35 @@ export default function GalleryOverflowSlider() {
     });
     setTimeout(checkScrollPosition, 300);
   };
+
+  // Handle mouse movement over the slider to show floating arrows
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!sliderWrapperRef.current) return;
+
+    const rect = sliderWrapperRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const zoneWidth = 120; // Width of the hover zone on each side
+
+    // Determine which zone the cursor is in
+    if (x < zoneWidth && canScrollLeft) {
+      setHoverZone("left");
+    } else if (x > rect.width - zoneWidth && canScrollRight) {
+      setHoverZone("right");
+    } else {
+      setHoverZone(null);
+    }
+
+    // Track cursor Y position relative to the slider
+    setCursorY(e.clientY - rect.top);
+  }, [canScrollLeft, canScrollRight]);
+
+  const handleMouseLeave = useCallback(() => {
+    setHoverZone(null);
+  }, []);
+
+  const handleZoneClick = useCallback((direction: "left" | "right") => {
+    scroll(direction);
+  }, []);
 
   return (
     <section
@@ -118,14 +151,55 @@ export default function GalleryOverflowSlider() {
 
       {/* Slider Container - overflows viewport */}
       <motion.div
+        ref={sliderWrapperRef}
         className="relative"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.3 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Gradient fades at edges */}
         <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none" />
+
+        {/* Floating Navigation Arrows - appear on hover zones */}
+        <AnimatePresence>
+          {hoverZone === "left" && canScrollLeft && (
+            <motion.button
+              key="float-left"
+              className="absolute left-4 md:left-8 z-20 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-xl shadow-black/10 dark:shadow-black/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer"
+              style={{ top: Math.max(20, Math.min(cursorY - 28, 250)) }}
+              initial={{ opacity: 0, x: -20, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -20, scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              onClick={() => handleZoneClick("left")}
+              aria-label="Scroll left"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+              </svg>
+            </motion.button>
+          )}
+          {hoverZone === "right" && canScrollRight && (
+            <motion.button
+              key="float-right"
+              className="absolute right-4 md:right-8 z-20 w-14 h-14 rounded-full bg-white dark:bg-slate-800 shadow-xl shadow-black/10 dark:shadow-black/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer"
+              style={{ top: Math.max(20, Math.min(cursorY - 28, 250)) }}
+              initial={{ opacity: 0, x: 20, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 20, scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              onClick={() => handleZoneClick("right")}
+              aria-label="Scroll right"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </motion.button>
+          )}
+        </AnimatePresence>
 
         {/* Scrollable container */}
         <div
