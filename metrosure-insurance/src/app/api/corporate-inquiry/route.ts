@@ -11,7 +11,8 @@ import {
   createAlertBox,
   createBulletList,
   createParagraph,
-  createLink
+  createLink,
+  escapeHtml
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 import { isHoneypotFilledJSON } from "@/lib/honeypot";
@@ -132,19 +133,24 @@ function generateEmailTemplate(data: CorporateInquiryData): string {
     ? data.servicesInterested.map(s => serviceLabels[s] || s).join(", ")
     : "Not specified";
 
+  // Escape user-provided content to prevent XSS
+  const safeCompanyName = escapeHtml(data.companyName);
+  const safeContactName = escapeHtml(data.contactName);
+  const safeMessage = data.message ? escapeHtml(data.message) : '';
+
   const content = `
-    ${createEmailHeader("New Corporate Inquiry", `From ${data.companyName}`)}
+    ${createEmailHeader("New Corporate Inquiry", `From ${safeCompanyName}`)}
 
     ${createSection(`
       ${createSectionTitle("Company Information")}
-      ${createFieldRow("Company Name:", data.companyName)}
+      ${createFieldRow("Company Name:", safeCompanyName)}
       ${createFieldRow("Industry:", data.industry)}
       ${createFieldRow("Number of Employees:", data.employeeCount)}
     `)}
 
     ${createSection(`
       ${createSectionTitle("Contact Information")}
-      ${createFieldRow("Contact Name:", data.contactName)}
+      ${createFieldRow("Contact Name:", safeContactName)}
       ${createFieldRow("Job Title:", data.jobTitle)}
       ${createFieldRow("Email:", createLink(`mailto:${data.email}`, data.email))}
       ${createFieldRow("Phone:", createLink(`tel:${data.phone}`, data.phone))}
@@ -156,9 +162,9 @@ function generateEmailTemplate(data: CorporateInquiryData): string {
       ${createFieldRow("Current Benefits:", data.currentBenefits || "Not specified")}
     `)}
 
-    ${data.message ? createSection(`
+    ${safeMessage ? createSection(`
       ${createSectionTitle("Additional Message")}
-      ${createMessageBox(data.message.replace(/\n/g, '<br />'))}
+      ${createMessageBox(safeMessage.replace(/\n/g, '<br />'))}
     `) : ""}
 
     ${createSection(`
@@ -173,12 +179,16 @@ function generateEmailTemplate(data: CorporateInquiryData): string {
 }
 
 function generateConfirmationEmail(data: CorporateInquiryData): string {
+  // Escape user-provided content to prevent XSS
+  const safeContactName = escapeHtml(data.contactName);
+  const safeCompanyName = escapeHtml(data.companyName);
+
   const content = `
-    ${createEmailHeader(`Thank You, ${data.contactName}!`, "We've received your corporate benefits inquiry")}
+    ${createEmailHeader(`Thank You, ${safeContactName}!`, "We've received your corporate benefits inquiry")}
 
-    ${createParagraph(`Dear ${data.contactName},`)}
+    ${createParagraph(`Dear ${safeContactName},`)}
 
-    ${createParagraph(`Thank you for reaching out to <strong>Metrosure Insurance Brokers</strong> about employee benefits for <strong>${data.companyName}</strong>. We're committed to helping you create a comprehensive benefits package that attracts and retains top talent.`)}
+    ${createParagraph(`Thank you for reaching out to <strong>Metrosure Insurance Brokers</strong> about employee benefits for <strong>${safeCompanyName}</strong>. We're committed to helping you create a comprehensive benefits package that attracts and retains top talent.`)}
 
     ${createParagraph("Our corporate solutions team will review your inquiry and contact you within <strong>24 hours</strong>. Here's what you can expect:")}
 

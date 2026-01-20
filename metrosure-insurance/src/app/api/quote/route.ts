@@ -9,7 +9,8 @@ import {
   createAlertBox,
   createSection,
   createBulletList,
-  createLink
+  createLink,
+  escapeHtml
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 import { isHoneypotFilledJSON } from "@/lib/honeypot";
@@ -189,17 +190,22 @@ function generateInternalEmail(data: LegacyQuoteFormData): string {
     .map((id) => additionalCoverageLabels[id] || id)
     .filter(Boolean);
 
+  // Escape user-provided content to prevent XSS
+  const safeFirstName = escapeHtml(data.firstName);
+  const safeLastName = escapeHtml(data.lastName);
+  const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
+
   const isB2B = data.customerType === "business";
   const headerSubtitle = isB2B
-    ? `B2B ${coverageTypeLabels[data.coverageType]} Insurance - ${data.companyName}`
+    ? `B2B ${coverageTypeLabels[data.coverageType]} Insurance - ${safeCompanyName}`
     : `${coverageTypeLabels[data.coverageType]} Insurance`;
 
   const content = `
     ${createEmailHeader(isB2B ? "New B2B Quote Request" : "New Quote Request", headerSubtitle)}
 
-    ${isB2B && data.companyName ? createSection(`
+    ${isB2B && safeCompanyName ? createSection(`
       ${createSectionTitle("Business Details")}
-      ${createFieldRow("Company:", data.companyName)}
+      ${createFieldRow("Company:", safeCompanyName)}
       ${data.businessType ? createFieldRow("Business Type:", businessTypeLabels[data.businessType] || data.businessType) : ""}
       ${data.numberOfEmployees ? createFieldRow("Employees:", data.numberOfEmployees) : ""}
       ${data.industry ? createFieldRow("Industry:", data.industry) : ""}
@@ -207,7 +213,7 @@ function generateInternalEmail(data: LegacyQuoteFormData): string {
 
     ${createSection(`
       ${createSectionTitle(isB2B ? "Contact Person" : "Customer Details")}
-      ${createFieldRow("Name:", `${data.firstName} ${data.lastName}`)}
+      ${createFieldRow("Name:", `${safeFirstName} ${safeLastName}`)}
       ${createFieldRow("Email:", createLink(`mailto:${data.email}`, data.email))}
       ${createFieldRow("Phone:", createLink(`tel:${data.phone}`, data.phone))}
       ${createFieldRow("Area Code:", data.zipCode)}
@@ -242,6 +248,10 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
     .map((id) => additionalCoverageLabels[id] || id)
     .filter(Boolean);
 
+  // Escape user-provided content to prevent XSS
+  const safeFirstName = escapeHtml(data.firstName);
+  const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
+
   const isB2B = data.customerType === "business";
 
   const content = `
@@ -249,11 +259,11 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
 
     ${createSection(`
       <p style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #333333; line-height: 1.6; margin: 0 0 15px 0;">
-        Dear ${data.firstName},
+        Dear ${safeFirstName},
       </p>
       <p style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #333333; line-height: 1.6; margin: 0 0 15px 0;">
         ${isB2B
-          ? `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance for ${data.companyName || "your business"} with Metrosure Insurance Brokers. We've received your quote request and a dedicated B2B account manager will be in touch within 24 hours.`
+          ? `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance for ${safeCompanyName || "your business"} with Metrosure Insurance Brokers. We've received your quote request and a dedicated B2B account manager will be in touch within 24 hours.`
           : `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance with Metrosure Insurance Brokers. We've received your quote request and a licensed insurance advisor will be in touch within 24 hours.`}
       </p>
     `)}

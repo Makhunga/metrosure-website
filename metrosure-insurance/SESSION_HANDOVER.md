@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 20 January 2026 (Session 125)
+**Updated:** 20 January 2026 (Session 130)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -13,7 +13,34 @@
 
 ---
 
-## CURRENT SESSION (125) - 20 Jan 2026
+## CURRENT SESSION (130) - 20 Jan 2026
+
+### Security Hardening
+
+**Branch:** `security/email-xss-fix`
+
+| Fix | Severity | Details |
+|-----|----------|---------|
+| **Email Template XSS** | HIGH | Added `escapeHtml()` utility to prevent XSS injection in email templates |
+| **Content-Security-Policy** | MEDIUM | Added CSP header to `vercel.json` |
+
+### Files Modified
+- `src/lib/email.ts` - Added `escapeHtml()` utility function
+- `src/app/api/contact/route.ts` - Escape name, message, companyName, otherReason
+- `src/app/api/quote/route.ts` - Escape firstName, lastName, companyName
+- `src/app/api/partner-inquiry/route.ts` - Escape companyName, contactName, message
+- `src/app/api/corporate-inquiry/route.ts` - Escape companyName, contactName, message
+- `src/app/api/careers-application/route.ts` - Escape fullName, cvFilename
+- `vercel.json` - Added Content-Security-Policy header
+
+### Verification
+- Build passes
+- XSS test: Submit `<script>alert('xss')</script>` in name field → shows `&lt;script&gt;` (escaped)
+- After deploy, check https://securityheaders.com/ for CSP validation
+
+---
+
+## PREVIOUS SESSION (125) - 20 Jan 2026
 
 ### Changes Made
 | Change | Details |
@@ -23,18 +50,6 @@
 | **Head office swapped** | Musgrave (32 Stephen Dlamini Rd) is now Head Office; 391 Anton Lembede is Durban CBD |
 | **Map quality fix** | Added `unoptimized` to map images for full resolution in production |
 | **Company info centralised** | Created `src/data/companyInfo.ts` for single source of truth |
-
-### Files Modified
-- `src/app/favicon.ico`, `src/app/apple-icon.png` - New logo mark with black top
-- `src/components/WhatsAppButton.tsx`, `src/lib/whatsapp.ts` - New WhatsApp number
-- `src/components/contact/OfficeLocations.tsx` - Musgrave as head office, map quality fix
-- `src/components/contact/FAQ.tsx` - Updated office list
-- `src/lib/email.ts` - Email footer address
-- `src/app/layout.tsx` - SEO structured data
-- `src/app/terms/page.tsx`, `src/app/legal/page.tsx`, `src/app/privacy/page.tsx`, `src/app/help/page.tsx` - Legal addresses
-
-### New File
-`src/data/companyInfo.ts` - Centralised company info (addresses, contacts, legal details, offices)
 
 ---
 
@@ -113,6 +128,7 @@ Contains:
 
 | Session | Date | Focus |
 |---------|------|-------|
+| 130 | 20 Jan | **Security Hardening** - Email XSS fix, CSP header |
 | 125 | 20 Jan | Favicon, WhatsApp, head office swap, company info centralisation |
 | 124 | 20 Jan | Narrative B2B clarity (soft changes), portal architecture docs |
 | 123 | 19 Jan | Portal removal (clean slate for proper architecture) |

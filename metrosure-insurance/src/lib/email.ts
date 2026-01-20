@@ -1,5 +1,18 @@
 import { Resend } from 'resend';
 
+/**
+ * Escapes HTML special characters to prevent XSS in email templates.
+ * Used for all user-provided content before insertion into HTML emails.
+ */
+export function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 // Initialize Resend lazily to avoid build-time errors
 let resend: Resend | null = null;
 let resendAvailable: boolean | null = null;

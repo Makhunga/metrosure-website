@@ -11,7 +11,8 @@ import {
   createAlertBox,
   createBulletList,
   createParagraph,
-  createLink
+  createLink,
+  escapeHtml
 } from "@/lib/email";
 import { checkRateLimit, rateLimits } from "@/lib/rateLimit";
 import { isHoneypotFilled } from "@/lib/honeypot";
@@ -289,12 +290,16 @@ function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null):
     timeZone: 'Africa/Johannesburg',
   });
 
+  // Escape user-provided content to prevent XSS
+  const safeFullName = escapeHtml(data.fullName);
+  const safeCvFilename = cvInfo ? escapeHtml(cvInfo.name) : '';
+
   const content = `
     ${createEmailHeader("New Job Application", data.position)}
 
     ${createSection(`
       ${createSectionTitle("Applicant Details")}
-      ${createFieldRow("Full Name:", data.fullName)}
+      ${createFieldRow("Full Name:", safeFullName)}
       ${createFieldRow("Email:", createLink(`mailto:${data.email}`, data.email))}
       ${createFieldRow("Phone:", createLink(`tel:${data.phone}`, data.phone))}
     `)}
@@ -310,7 +315,7 @@ function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null):
     ${createSection(`
       ${createSectionTitle("CV / Resume")}
       ${cvInfo ? `
-        ${createFieldRow("File Name:", cvInfo.name)}
+        ${createFieldRow("File Name:", safeCvFilename)}
         ${createFieldRow("File Size:", cvInfo.size)}
         ${createParagraph("<em style=\"color: #666666;\">CV is attached to this email.</em>")}
       ` : `
@@ -325,10 +330,14 @@ function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null):
 }
 
 function generateConfirmationEmail(data: ApplicationData): string {
+  // Escape user-provided content to prevent XSS
+  const safeFullName = escapeHtml(data.fullName);
+  const safeCvAttached = escapeHtml(data.cvAttached);
+
   const content = `
     ${createEmailHeader("Thank You for Applying!", "We've received your application")}
 
-    ${createParagraph(`Dear ${data.fullName},`)}
+    ${createParagraph(`Dear ${safeFullName},`)}
 
     ${createParagraph(`Thank you for your interest in joining <strong>Metrosure Insurance Brokers</strong>. We have received your application for the <strong>${data.position}</strong> position.`)}
 
@@ -336,7 +345,7 @@ function generateConfirmationEmail(data: ApplicationData): string {
       ${createSectionTitle("Application Summary")}
       ${createFieldRow("Position:", data.position)}
       ${createFieldRow("Preferred Location:", data.province)}
-      ${createFieldRow("CV Attached:", data.cvAttached)}
+      ${createFieldRow("CV Attached:", safeCvAttached)}
     `)}
 
     ${createParagraph("<strong style=\"color: #BF0603;\">What happens next?</strong>")}
