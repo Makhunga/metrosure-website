@@ -137,8 +137,8 @@ const contactOptions = [
   {
     icon: "location_on",
     title: "Visit Us",
-    description: "Head Office, Durban",
-    value: "391 Anton Lembede Street",
+    description: "Head Office, Musgrave",
+    value: "32 Stephen Dlamini Road",
     action: "/contact",
   },
 ];

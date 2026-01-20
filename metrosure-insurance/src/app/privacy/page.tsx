@@ -186,8 +186,8 @@ You can control cookies through your browser settings. However, disabling cookie
 
 **Information Officer**
 Metrosure Insurance Brokers (Pty) Ltd
-391 Anton Lembede Street, Metropolitan Life Building
-5th Floor, Durban, 4001
+32 Stephen Dlamini Road
+Musgrave, Durban, 4001
 
 **Phone:** +27 31 301 1192
 **Email:** info@metrosuregroup.co.za

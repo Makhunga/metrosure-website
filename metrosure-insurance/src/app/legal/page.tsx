@@ -134,7 +134,7 @@ A copy of our full Conflict of Interest Management Policy is available on reques
 Please first submit your complaint to us:
 • Email: info@metrosuregroup.co.za
 • Phone: +27 31 301 1192
-• Address: 391 Anton Lembede Street, Metropolitan Life Building, 5th Floor, Durban, 4001
+• Address: 32 Stephen Dlamini Road, Musgrave, Durban, 4001
 
 We aim to acknowledge your complaint within 3 business days and resolve it within 6 weeks.
 

@@ -88,15 +88,15 @@ export default function RootLayout({
               email: "info@metrosuregroup.co.za",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "391 Anton Lembede Street, Metropolitan Life Building, 5th Floor",
-                addressLocality: "Durban",
+                streetAddress: "32 Stephen Dlamini Road",
+                addressLocality: "Musgrave, Durban",
                 postalCode: "4001",
                 addressCountry: "ZA",
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: -29.8587,
-                longitude: 31.0218,
+                latitude: -29.8450,
+                longitude: 31.0000,
               },
               areaServed: {
                 "@type": "Country",
@@ -120,11 +120,11 @@ export default function RootLayout({
               location: [
                 {
                   "@type": "Place",
-                  name: "Metrosure Head Office - Durban",
+                  name: "Metrosure Head Office - Musgrave",
                   address: {
                     "@type": "PostalAddress",
-                    streetAddress: "391 Anton Lembede Street, Metropolitan Life Building, 5th Floor",
-                    addressLocality: "Durban",
+                    streetAddress: "32 Stephen Dlamini Road",
+                    addressLocality: "Musgrave, Durban",
                     postalCode: "4001",
                     addressCountry: "ZA",
                   },

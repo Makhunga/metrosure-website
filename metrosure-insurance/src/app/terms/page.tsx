@@ -198,8 +198,8 @@ Your continued use of our Website and services after such changes constitutes yo
     content: `If you have any questions about these Terms, please contact us:
 
 **Metrosure Insurance Brokers (Pty) Ltd**
-391 Anton Lembede Street, Metropolitan Life Building
-5th Floor, Durban, 4001
+32 Stephen Dlamini Road
+Musgrave, Durban, 4001
 South Africa
 
 **Phone:** +27 31 301 1192

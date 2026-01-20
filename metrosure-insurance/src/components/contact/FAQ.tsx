@@ -54,7 +54,7 @@ const faqData = [
   {
     question: "What areas do you cover?",
     answer:
-      "We have offices across South Africa: Durban (head office and Musgrave), Pietermaritzburg, Pretoria, and Boksburg. Wherever you are in SA, we can help.",
+      "We have offices across South Africa: Musgrave (head office), Durban CBD, Pietermaritzburg, Pretoria, and Boksburg. Wherever you are in SA, we can help.",
   },
   {
     question: "Is Metrosure a registered financial services provider?",

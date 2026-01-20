@@ -466,8 +466,8 @@ export function wrapEmailTemplate(content: string, title: string): string {
                       <!-- Address -->
                       <tr>
                         <td align="center" style="font-family: ${FONT_FAMILY}; font-size: ${FONT_SIZE_XS}; color: ${COLOR_TEXT_MUTED}; line-height: 1.6;">
-                          391 Anton Lembede Street, Metropolitan Life Building<br />
-                          5th Floor, Durban 4001
+                          32 Stephen Dlamini Road<br />
+                          Musgrave, Durban 4001
                         </td>
                       </tr>
                       <tr>
