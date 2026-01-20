@@ -34,6 +34,7 @@ const offices: Office[] = [
     region: "Durban",
     address1: "391 Anton Lembede Street, Metropolitan Life Building",
     address2: "5th Floor, Durban, 4001",
+    phone: "+27 31 301 1192",
     lat: -29.8579,
     lng: 31.0292,
   },
