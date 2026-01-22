@@ -46,12 +46,12 @@ export default function JobDetailTabs({ job }: JobDetailTabsProps) {
       {/* Tabs Navigation */}
       <div className="sticky top-[72px] z-30 bg-[rgb(var(--color-surface-card))] border-b border-[rgb(var(--color-border-light))]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-8">
+          <div className="flex justify-center gap-12">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative py-4 text-sm font-semibold uppercase tracking-wider transition-colors ${
+                className={`relative py-4 text-base font-semibold uppercase tracking-wider transition-colors ${
                   activeTab === tab.id
                     ? "text-primary"
                     : "text-[rgb(var(--color-text-muted))] hover:text-[rgb(var(--color-text-body))]"

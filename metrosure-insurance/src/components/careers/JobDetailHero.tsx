@@ -128,11 +128,11 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 lg:flex-col lg:items-end">
+          <div className="flex flex-col gap-4 lg:items-end w-full sm:w-auto">
             {/* Apply button */}
-            <Link href="#apply">
+            <Link href="#apply" className="w-full sm:w-auto">
               <motion.span
-                className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40"
+                className="flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 w-full sm:w-auto"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -144,7 +144,7 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
             {/* Share button */}
             <motion.button
               onClick={handleShare}
-              className="inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] font-semibold transition-all hover:border-primary/30"
+              className="flex items-center justify-center gap-2 h-14 px-6 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-main))] font-semibold transition-all hover:border-primary/30 w-full sm:w-auto"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
