@@ -161,8 +161,8 @@ export default function Header() {
                     href={link.href || "/"}
                     className={`text-sm font-semibold transition-colors relative flex items-center gap-1.5 ${
                       isActive(link.href || "/")
-                        ? "text-primary after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-primary"
-                        : "text-[rgb(var(--color-text-body))] hover:text-primary after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
+                        ? "text-primary after:absolute after:bottom-[-28px] after:left-0 after:w-full after:h-0.5 after:bg-primary"
+                        : "text-[rgb(var(--color-text-body))] hover:text-primary after:absolute after:bottom-[-28px] after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full"
                     }`}
                   >
                     {link.label}
