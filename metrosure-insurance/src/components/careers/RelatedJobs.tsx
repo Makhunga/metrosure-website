@@ -95,8 +95,7 @@ export default function RelatedJobs({ currentJob }: RelatedJobsProps) {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-4">
               <span className="text-xs font-bold uppercase tracking-wider text-primary">
                 More Opportunities
               </span>

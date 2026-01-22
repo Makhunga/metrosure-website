@@ -248,8 +248,7 @@ export default function Footer() {
                           {link.label}
                         </motion.span>
                         {link.badge && (
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
-                            <span className="inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
                             {link.badge}
                           </span>
                         )}

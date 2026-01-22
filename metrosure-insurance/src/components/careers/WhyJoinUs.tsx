@@ -86,12 +86,11 @@ export default function WhyJoinUs() {
         >
           {/* Badge */}
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6"
+            className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-6"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             <span className="text-xs font-bold uppercase tracking-wider text-primary">
               Why Join Us
             </span>
