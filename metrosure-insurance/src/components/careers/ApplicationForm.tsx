@@ -280,7 +280,7 @@ export default function ApplicationForm({
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-3 p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Questions? Contact HR
               </h3>
