@@ -1266,3 +1266,9 @@ select:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
+/* Explicit utility from user request */
+.bg-slate-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+}
