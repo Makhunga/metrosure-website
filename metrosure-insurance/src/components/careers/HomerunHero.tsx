@@ -83,7 +83,7 @@ export default function HomerunHero() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="text-[#F5F3EF] text-xl md:text-[2rem] md:leading-[1.4] max-w-[700px] mx-auto mb-14 font-medium"
                 >
-                    We build the future of insurance for forward-thinking clients. You&apos;ll love working with us if you&apos;re positive, thoughtful and balanced.
+                    We deliver financial solutions that empower individuals and businesses alike. You&apos;ll love working with us if you&apos;re positive, thoughtful and client-focused.
                 </motion.p>
 
                 {/* CTA Button */}
