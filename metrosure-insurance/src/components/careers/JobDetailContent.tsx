@@ -54,7 +54,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-20 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
+      className="py-12 sm:py-16 bg-[rgb(var(--color-surface-card))] transition-colors duration-300"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header - single animation */}

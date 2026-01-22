@@ -143,10 +143,7 @@ export default function CareersHeroFloating({ onApplyClick }: CareersHeroFloatin
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center gap-3 py-2 px-5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-fit shadow-sm"
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
-            </span>
+            <span className="inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
             <span className="text-sm font-bold tracking-wider uppercase text-slate-600 dark:text-slate-400">
               We&apos;re Hiring
             </span>

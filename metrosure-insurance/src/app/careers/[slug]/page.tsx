@@ -13,9 +13,8 @@ import {
   type Job,
 } from "@/data/jobs";
 import JobDetailHero from "@/components/careers/JobDetailHero";
-import JobDetailContent from "@/components/careers/JobDetailContent";
+import JobDetailTabs from "@/components/careers/JobDetailTabs";
 import RelatedJobs from "@/components/careers/RelatedJobs";
-import ApplicationForm from "@/components/careers/ApplicationForm";
 import { generateJobPostingSchema } from "@/lib/generateJobSchema";
 import { generateBreadcrumbSchema } from "@/lib/generateBreadcrumbSchema";
 
@@ -110,9 +109,8 @@ export default async function JobDetailPage({ params }: PageProps) {
       <Header />
       <main>
         <JobDetailHero job={job} />
-        <JobDetailContent job={job} />
 
-        {/* Application Form Section */}
+        {/* Tabbed Content: Overview & Application */}
         {useExternalApplication ? (
           <ExternalApplicationRedirect
             jobTitle={job.title}
@@ -120,7 +118,7 @@ export default async function JobDetailPage({ params }: PageProps) {
             serviceName={serviceName}
           />
         ) : (
-          <ApplicationForm id="apply" selectedPosition={job.title} />
+          <JobDetailTabs job={job} />
         )}
 
         <RelatedJobs currentJob={job} />
