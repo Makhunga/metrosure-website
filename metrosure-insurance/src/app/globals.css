@@ -184,21 +184,32 @@
 
 .dark {
   /* Surface Colors - Dark Mode (Warm slate for brand cohesion) */
-  --color-surface: 18 18 28;          /* warm slate-900 with subtle warmth */
-  --color-surface-card: 28 28 38;     /* warm slate-800 */
-  --color-surface-elevated: 45 45 55; /* warm slate-700 */
-  --color-surface-inset: 10 10 18;    /* darker warm base */
+  --color-surface: 18 18 28;
+  /* warm slate-900 with subtle warmth */
+  --color-surface-card: 28 28 38;
+  /* warm slate-800 */
+  --color-surface-elevated: 45 45 55;
+  /* warm slate-700 */
+  --color-surface-inset: 10 10 18;
+  /* darker warm base */
 
   /* Text Colors - Dark Mode - WCAG AA compliant contrast */
-  --color-text-main: 250 248 248;     /* warm white */
-  --color-text-body: 230 225 220;     /* warm gray - high contrast */
-  --color-text-muted: 200 195 190;    /* warm gray - good contrast */
-  --color-text-subtle: 170 165 160;   /* warm gray - readable on dark */
+  --color-text-main: 250 248 248;
+  /* warm white */
+  --color-text-body: 230 225 220;
+  /* warm gray - high contrast */
+  --color-text-muted: 200 195 190;
+  /* warm gray - good contrast */
+  --color-text-subtle: 170 165 160;
+  /* warm gray - readable on dark */
 
   /* Border Colors - Dark Mode */
-  --color-border-light: 50 48 55;     /* warm slate-700 */
-  --color-border-medium: 70 68 75;    /* warm slate-600 */
-  --color-border-strong: 100 98 105;  /* warm slate-500 */
+  --color-border-light: 50 48 55;
+  /* warm slate-700 */
+  --color-border-medium: 70 68 75;
+  /* warm slate-600 */
+  --color-border-strong: 100 98 105;
+  /* warm slate-500 */
 
   /* Background/Foreground */
   --background: 18 18 28;
@@ -427,18 +438,41 @@
      KEYFRAMES
      ───────────────────────────────────────────────────────────────────────── */
   @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(1deg); }
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-10px) rotate(1deg);
+    }
   }
 
   @keyframes subtle-pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 0.8; }
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
   }
 
   @keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Signature Metrosure diagonal slide */
@@ -447,6 +481,7 @@
       opacity: 0;
       transform: translate(-20px, 20px) rotate(-2deg);
     }
+
     to {
       opacity: 1;
       transform: translate(0, 0) rotate(0deg);
@@ -459,9 +494,11 @@
       opacity: 0;
       transform: translateY(40px) scale(0.96);
     }
+
     70% {
       transform: translateY(-5px) scale(1.01);
     }
+
     100% {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -474,6 +511,7 @@
       transform: rotate(-90deg) scale(0.5);
       opacity: 0;
     }
+
     100% {
       transform: rotate(0deg) scale(1);
       opacity: 1;
@@ -482,21 +520,34 @@
 
   /* Shimmer effect for loading states (background-position based) */
   @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+      background-position: -200% 0;
+    }
+
+    100% {
+      background-position: 200% 0;
+    }
   }
 
   /* Shimmer effect for skeleton loaders (transform based) */
   @keyframes shimmer-slide {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   /* Gradient color shift */
   @keyframes gradient-shift {
-    0%, 100% {
+
+    0%,
+    100% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
@@ -508,6 +559,7 @@
       opacity: 0;
       transform: scale(0.8) rotate(-5deg);
     }
+
     to {
       opacity: 1;
       transform: scale(1) rotate(0deg);
@@ -516,10 +568,13 @@
 
   /* Gentle breathe effect */
   @keyframes breathe {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(1);
       opacity: 0.6;
     }
+
     50% {
       transform: scale(1.03);
       opacity: 0.8;
@@ -531,10 +586,12 @@
     from {
       stroke-dashoffset: 1000;
     }
+
     to {
       stroke-dashoffset: 0;
     }
   }
+
   --radius-4xl: calc(var(--radius) + 16px)
 }
 
@@ -563,12 +620,10 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    rgb(var(--color-surface-card)) 0%,
-    rgb(var(--color-surface-elevated)) 50%,
-    rgb(var(--color-surface-card)) 100%
-  );
+  background: linear-gradient(90deg,
+      rgb(var(--color-surface-card)) 0%,
+      rgb(var(--color-surface-elevated)) 50%,
+      rgb(var(--color-surface-card)) 100%);
   background-size: 200% 100%;
   animation: shimmer 2s linear infinite;
 }
@@ -579,14 +634,37 @@
 }
 
 /* Stagger animation delays */
-.stagger-1 { animation-delay: 0.05s; }
-.stagger-2 { animation-delay: 0.1s; }
-.stagger-3 { animation-delay: 0.15s; }
-.stagger-4 { animation-delay: 0.2s; }
-.stagger-5 { animation-delay: 0.25s; }
-.stagger-6 { animation-delay: 0.3s; }
-.stagger-7 { animation-delay: 0.35s; }
-.stagger-8 { animation-delay: 0.4s; }
+.stagger-1 {
+  animation-delay: 0.05s;
+}
+
+.stagger-2 {
+  animation-delay: 0.1s;
+}
+
+.stagger-3 {
+  animation-delay: 0.15s;
+}
+
+.stagger-4 {
+  animation-delay: 0.2s;
+}
+
+.stagger-5 {
+  animation-delay: 0.25s;
+}
+
+.stagger-6 {
+  animation-delay: 0.3s;
+}
+
+.stagger-7 {
+  animation-delay: 0.35s;
+}
+
+.stagger-8 {
+  animation-delay: 0.4s;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    BASE STYLES
@@ -655,21 +733,17 @@ body {
 
 /* Diagonal lines pattern */
 .bg-diagonal-lines {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 10px,
-    rgb(var(--color-border-light) / 0.3) 10px,
-    rgb(var(--color-border-light) / 0.3) 11px
-  );
+  background-image: repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 10px,
+      rgb(var(--color-border-light) / 0.3) 10px,
+      rgb(var(--color-border-light) / 0.3) 11px);
 }
 
 /* Dot pattern */
 .bg-dot-pattern {
-  background-image: radial-gradient(
-    rgb(var(--color-border-medium) / 0.4) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(rgb(var(--color-border-medium) / 0.4) 1px,
+      transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -739,13 +813,11 @@ body {
 
 /* Animated gradient */
 .bg-gradient-animated {
-  background: linear-gradient(
-    -45deg,
-    rgb(var(--color-primary)),
-    rgb(var(--color-secondary)),
-    rgb(var(--color-primary-600)),
-    rgb(var(--color-secondary-600))
-  );
+  background: linear-gradient(-45deg,
+      rgb(var(--color-primary)),
+      rgb(var(--color-secondary)),
+      rgb(var(--color-primary-600)),
+      rgb(var(--color-secondary-600)));
   background-size: 400% 400%;
   animation: gradient-shift 8s ease infinite;
 }
@@ -1021,25 +1093,30 @@ body {
 }
 
 .dark .section-warm {
-  background-color: rgb(30 41 59 / 0.5); /* slate-800/50 */
+  background-color: rgb(30 41 59 / 0.5);
+  /* slate-800/50 */
 }
 
 /* Accent section backgrounds - Yellow tint */
 .section-accent {
-  background-color: rgb(247 248 220 / 0.4); /* accent-light/40 */
+  background-color: rgb(247 248 220 / 0.4);
+  /* accent-light/40 */
 }
 
 .dark .section-accent {
-  background-color: rgb(30 41 59 / 0.3); /* slate-800/30 */
+  background-color: rgb(30 41 59 / 0.3);
+  /* slate-800/30 */
 }
 
 /* Neutral section backgrounds */
 .section-neutral {
-  background-color: #FAFAF9; /* stone-50 */
+  background-color: #FAFAF9;
+  /* stone-50 */
 }
 
 .dark .section-neutral {
-  background-color: rgb(15 23 42); /* slate-900 */
+  background-color: rgb(15 23 42);
+  /* slate-900 */
 }
 
 /* Editorial section header styling */
@@ -1092,13 +1169,11 @@ body {
 /* Gradient line divider */
 .gradient-divider {
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgb(var(--color-border-light)) 20%,
-    rgb(var(--color-border-light)) 80%,
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      rgb(var(--color-border-light)) 20%,
+      rgb(var(--color-border-light)) 80%,
+      transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1188,6 +1263,7 @@ select:focus-visible {
 
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -1203,7 +1279,9 @@ select:focus-visible {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Smooth transitions for dark mode */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-duration: 0.15s;
   transition-timing-function: ease;
@@ -1262,13 +1340,8 @@ select:focus-visible {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* Explicit utility from user request */
-.bg-slate-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
 }
