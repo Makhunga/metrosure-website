@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Job } from "@/data/jobs";
 
 interface JobDetailHeroProps {
@@ -31,6 +31,13 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  const handleApplyClick = useCallback(() => {
+    // Update the hash to trigger the tab change
+    window.location.hash = "apply";
+    // Dispatch hashchange event to ensure the listener picks it up
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+  }, []);
 
   return (
     <section className="relative pt-24 pb-6 overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
@@ -130,16 +137,15 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
           {/* Right: Actions */}
           <div className="flex flex-col gap-4 lg:items-end w-full sm:w-auto">
             {/* Apply button */}
-            <Link href="#apply" className="w-full sm:w-auto">
-              <motion.span
-                className="flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 w-full sm:w-auto"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span>Apply Now</span>
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </motion.span>
-            </Link>
+            <motion.button
+              onClick={handleApplyClick}
+              className="flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 w-full sm:w-auto cursor-pointer"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Apply Now</span>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </motion.button>
 
             {/* Share button */}
             <motion.button

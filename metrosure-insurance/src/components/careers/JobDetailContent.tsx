@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { Job } from "@/data/jobs";
 
 interface JobDetailContentProps {
@@ -50,6 +50,13 @@ function InfoColumn({ icon, iconColor, title, items }: InfoColumnProps) {
 export default function JobDetailContent({ job }: JobDetailContentProps) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const handleApplyClick = useCallback(() => {
+    // Update the hash to trigger the tab change
+    window.location.hash = "apply";
+    // Dispatch hashchange event to ensure the listener picks it up
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+  }, []);
 
   return (
     <section
@@ -121,9 +128,9 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
               rewards your success. Apply now and start your journey with
               Metrosure.
             </p>
-            <motion.a
-              href="#apply"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/25"
+            <motion.button
+              onClick={handleApplyClick}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-white font-bold text-lg shadow-lg shadow-primary/25 cursor-pointer"
               whileHover={{
                 scale: 1.02,
                 y: -2,
@@ -133,7 +140,7 @@ export default function JobDetailContent({ job }: JobDetailContentProps) {
             >
               <span>Apply for This Position</span>
               <span className="material-symbols-outlined">arrow_downward</span>
-            </motion.a>
+            </motion.button>
           </div>
         </div>
       </div>
