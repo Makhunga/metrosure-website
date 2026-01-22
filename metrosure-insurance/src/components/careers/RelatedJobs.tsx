@@ -101,7 +101,7 @@ export default function RelatedJobs({ currentJob }: RelatedJobsProps) {
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-[rgb(var(--color-text-main))]">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[rgb(var(--color-text-main))]">
               Explore Other <span className="text-primary">Positions</span>
             </h2>
           </div>
