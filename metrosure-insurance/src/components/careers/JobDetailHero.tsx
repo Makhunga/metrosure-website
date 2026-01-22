@@ -33,7 +33,7 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
   };
 
   return (
-    <section className="relative pt-32 pb-16 overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
+    <section className="relative pt-24 pb-6 overflow-hidden bg-[rgb(var(--color-surface-card))] transition-colors duration-300">
       {/* Subtle decorative accent */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
