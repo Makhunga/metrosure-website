@@ -235,8 +235,7 @@ export default function ApplicationModal({
           >
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold mb-3">
-                <span className="inline-flex rounded-full h-2 w-2 bg-green-500" />
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold mb-3">
                 Actively Hiring
               </div>
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white">

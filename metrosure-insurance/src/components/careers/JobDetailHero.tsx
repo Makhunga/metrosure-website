@@ -121,8 +121,8 @@ export default function JobDetailHero({ job }: JobDetailHeroProps) {
               {job.title}
             </h1>
 
-            {/* Description - reduced from text-xl to text-lg */}
-            <p className="text-base sm:text-lg text-[rgb(var(--color-text-body))] leading-relaxed max-w-2xl">
+            {/* Description - wider on desktop to align with breadcrumb */}
+            <p className="text-base sm:text-lg text-[rgb(var(--color-text-body))] leading-relaxed max-w-2xl lg:max-w-3xl">
               {job.description}
             </p>
           </div>

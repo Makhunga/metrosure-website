@@ -95,14 +95,13 @@ export default function RelatedJobs({ currentJob }: RelatedJobsProps) {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 mb-4">
               <span className="text-xs font-bold uppercase tracking-wider text-primary">
                 More Opportunities
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-[rgb(var(--color-text-main))]">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[rgb(var(--color-text-main))]">
               Explore Other <span className="text-primary">Positions</span>
             </h2>
           </div>
