@@ -23,7 +23,7 @@ export default function CareersHero({ onApplyClick }: CareersHeroProps) {
       <div className="absolute inset-0 pointer-events-none">
         <Image
           src="/resources/blocks3D.jpg"
-          alt=""
+          alt="3D blocks abstract background"
           fill
           className="object-cover opacity-[0.08] dark:opacity-20 dark:invert dark:brightness-50"
           priority

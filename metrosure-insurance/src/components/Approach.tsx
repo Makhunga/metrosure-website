@@ -73,7 +73,7 @@ export default function Approach() {
         <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white_0%,transparent_70%)]">
           <Image
             src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
-            alt=""
+            alt="Abstract geometric pattern decoration"
             fill
             className="object-cover opacity-[0.08] dark:opacity-[0.04] scale-150"
             aria-hidden="true"
@@ -91,7 +91,7 @@ export default function Approach() {
         <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white_0%,transparent_70%)]">
           <Image
             src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
-            alt=""
+            alt="Abstract geometric pattern decoration"
             fill
             className="object-cover opacity-[0.08] dark:opacity-[0.04] scale-150 rotate-180"
             aria-hidden="true"

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 21 January 2026 (Session 132)
+**Updated:** 22 January 2026 (Session 133)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,70 +9,58 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 52 pages + 7 API routes
-- **Last Build:** 21 January 2026
+- **Last Build:** 22 January 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (132) - 21 Jan 2026
+## CURRENT SESSION (133) - 22 Jan 2026
 
-### SEO Research & Setup (Complete)
+### SEO Phase 2: Audits & Optimization (Complete)
 
-**Goal:** Ensure Metrosure website is in peak SEO form before launch, with focus on findability for Careers and Partners pages.
+**Goal:** Execute Phase 2 SEO audits covering alt text, meta descriptions, heading hierarchy, and FAQ schema for the Help page.
 
 ### Completed Tasks
 
 | Task | Status | Details |
 |------|--------|---------|
-| **Sitemap Cleanup** | ✅ | Excluded `/playground/*`, `/careers/test/*`, `/under-development`, `/home-alt`, `/login` |
-| **FAQPage Schema Utility** | ✅ | Created `src/lib/generateFAQSchema.ts` |
-| **BreadcrumbList Schema Utility** | ✅ | Created `src/lib/generateBreadcrumbSchema.ts` |
-| **Job Schema Enhancement** | ✅ | Added estimated salary ranges for Google Jobs ranking |
-| **Partners Page SEO** | ✅ | Added FAQPage schema (8 FAQs) |
-| **Corporate Page SEO** | ✅ | Added FAQPage schema, breadcrumbs, full metadata |
-| **Claims Page SEO** | ✅ | Refactored to Server Component, added FAQ schema (6 FAQs), breadcrumbs, full metadata |
+| **Image Alt Text Audit** | ✅ | Fixed 9 empty alt tags in 6 components (Careers, Partners, Approach) |
+| **Meta Description Review** | ✅ | Shortened descriptions for Contact, About, and Partners pages to 150-160 chars |
+| **Heading Hierarchy Audit** | ✅ | Verified single `<h1>` per page (14 main pages) |
+| **Help Page Schema** | ✅ | Refactored `/help` to Server Component with FAQPage schema |
 
 ### Files Created
 
 | File | Purpose |
 |------|---------|
-| `src/lib/generateFAQSchema.ts` | Generates FAQPage JSON-LD for Google rich results |
-| `src/lib/generateBreadcrumbSchema.ts` | Generates BreadcrumbList JSON-LD for breadcrumb rich results |
-| `src/app/claims/ClaimsPageClient.tsx` | Client component for claims page interactivity |
+| `src/app/help/HelpPageClient.tsx` | Client component for help page interactions (split from page.tsx) |
 
 ### Files Modified
 
 | File | Changes |
 |------|---------|
-| `next-sitemap.config.js` | Added exclusions for dev/test pages in sitemap and robots.txt |
-| `src/lib/generateJobSchema.ts` | Added salary estimates by job category for Google Jobs |
-| `src/app/partners/page.tsx` | Added FAQPage schema import and JSON-LD script |
-| `src/app/corporate/page.tsx` | Added metadata, FAQPage schema, BreadcrumbList schema |
-| `src/app/claims/page.tsx` | Refactored to Server Component with schemas and metadata |
-| `src/data/claims.ts` | Added `claimsFAQs` and `claimsSEO` exports |
-| `src/app/careers/[slug]/page.tsx` | Added JobPosting + BreadcrumbList schemas |
-
-### Salary Estimates (Job Schema)
-
-| Category | Min (ZAR) | Max (ZAR) |
-|----------|-----------|-----------|
-| Sales | R8,000 | R25,000 |
-| Call Centre | R7,500 | R15,000 |
-| Admin | R10,000 | R18,000 |
-| Trainee | R6,000 | R10,000 |
+| `src/app/help/page.tsx` | Converted to Server Component + added FAQ schema + metadata |
+| `src/app/contact/page.tsx` | Shortened meta description (SEO optimized) |
+| `src/app/partners/page.tsx` | Shortened meta description (SEO optimized) |
+| `src/app/about/layout.tsx` | Shortened meta description (SEO optimized) |
+| `src/app/careers/page.tsx` | Added missing alt text to hero/pattern images |
+| `src/components/Approach.tsx` | Added descriptive alt text to decorative patterns |
+| `src/components/partners/SuccessMetrics.tsx` | Added descriptive alt text to geometric patterns |
+| `src/components/careers/CareersHero.tsx` | Added alt text to 3D background |
+| `src/components/PartnersCTA.tsx` | Added descriptive alt text to background patterns |
 
 ### Schema Implementation Summary
 
 | Page | FAQPage | Breadcrumbs | Metadata |
 |------|---------|-------------|----------|
-| `/partners` | ✅ 8 FAQs | - | Already had |
-| `/corporate` | ✅ 8 FAQs | ✅ | ✅ Added |
-| `/claims` | ✅ 6 FAQs | ✅ | ✅ Added |
-| `/careers/[slug]` | - | ✅ | Already had |
+| `/partners` | ✅ 8 FAQs | - | ✅ Optimized |
+| `/corporate` | ✅ 8 FAQs | ✅ | ✅ Matches |
+| `/claims` | ✅ 6 FAQs | ✅ | ✅ Matches |
+| `/help` | ✅ 100+ FAQs | - | ✅ Added |
 
 ---
 
-## DEFERRED TASKS (Session 132)
+## DEFERRED TASKS (Session 133)
 
 ### Phase 2: Medium Priority (Deferred to Future Session)
 
@@ -87,10 +75,8 @@
 
 | Task | Reason | Notes |
 |------|--------|-------|
-| Image alt text audit | Time | Scan all components for missing/generic alt text |
-| Meta description review | Time | Verify 150-160 chars, unique per page |
-| Heading hierarchy audit | Time | Ensure proper H1 → H2 → H3 structure |
-| Core Web Vitals check | Time | Run PageSpeed Insights on key pages |
+| Core Web Vitals check | Time | Run PageSpeed Insights on key pages (after deployment) |
+| Canonical URL verification | Time | Ensure no self-referencing loops |
 
 ### Phase 4: External SEO Setup (Documentation Needed)
 
@@ -104,16 +90,7 @@
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: SEO Phase 2 (Recommended)
-
-| Task | Impact | Effort |
-|------|--------|--------|
-| Image alt text audit | High | 30-60 mins |
-| Meta description review | Medium | 20-30 mins |
-| Heading hierarchy audit | Medium | 20-30 mins |
-| Add FAQ schema to Help page | Medium | 30 mins |
-
-### Priority 2: Production Readiness
+### Priority 1: Production Readiness (Critical)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -122,7 +99,7 @@
 | Mobile responsiveness audit | Pending | Test on real devices |
 | Post-deploy CSP verification | Pending | https://securityheaders.com/ |
 
-### Priority 3: Location Pages (If Time Permits)
+### Priority 2: Location Pages
 
 Create location landing pages with LocalBusiness schema:
 - `/locations/durban` (Head Office)
@@ -132,104 +109,14 @@ Create location landing pages with LocalBusiness schema:
 
 ---
 
-## RECOMMENDATIONS
-
-### SEO Quick Wins (High Impact, Low Effort)
-
-1. **Add FAQ schema to Help page** - Already has 100+ FAQs, just needs schema
-2. **Create XML sitemap priority tweaks** - Boost careers/partners priorities
-3. **Add Review schema** - When partner testimonials are added
-
-### Content Recommendations
-
-1. **Blog/Articles section** - Regular insurance content builds authority
-2. **Location-specific content** - "Insurance in Durban", "Financial Services Pretoria"
-3. **Partner success stories** - With Review schema for rich results
-
-### Technical Recommendations
-
-1. **Schema validation** - Test at https://validator.schema.org/
-2. **Rich results testing** - https://search.google.com/test/rich-results
-3. **Mobile-friendly test** - https://search.google.com/test/mobile-friendly
-
----
-
-## PREVIOUS SESSION (131) - 20 Jan 2026
-
-### CSP Fix for Google Fonts (Complete)
-
-**Issue:** Material Symbols icons not loading on deployed Vercel site.
-
-**Fix:** Updated `vercel.json` CSP header to allow Google Fonts sources.
-
----
-
-## KEY FILE LOCATIONS
-
-### SEO Utilities (Session 132)
-
-| File | Purpose |
-|------|---------|
-| `src/lib/generateFAQSchema.ts` | FAQPage JSON-LD generator |
-| `src/lib/generateBreadcrumbSchema.ts` | BreadcrumbList JSON-LD generator |
-| `src/lib/generateJobSchema.ts` | JobPosting JSON-LD with salary ranges |
-| `next-sitemap.config.js` | Sitemap configuration with exclusions |
-
-### Security (Session 130)
-
-| File | Purpose |
-|------|---------|
-| `src/lib/email.ts` | `escapeHtml()` utility for XSS prevention |
-| `src/lib/validationSchemas.ts` | Zod schemas with LIMITS constant |
-| `vercel.json` | Security headers (CSP, X-Frame-Options, etc.) |
-
-### Core Configuration
-
-| File | Purpose |
-|------|---------|
-| `CLAUDE.md` | Complete style guide, coding conventions |
-| `src/data/` | Centralised data files |
-| `src/lib/` | Utilities (email, validation, SEO, rate limiting) |
-
----
-
-## STRUCTURED DATA STATUS
-
-| Schema Type | Pages | Status |
-|-------------|-------|--------|
-| **InsuranceAgency** | `/` (layout) | ✅ Existing |
-| **JobPosting** | `/careers/[slug]` | ✅ Enhanced with salary |
-| **FAQPage** | `/partners`, `/corporate`, `/claims` | ✅ Session 132 |
-| **BreadcrumbList** | `/careers/[slug]`, `/corporate`, `/claims` | ✅ Session 132 |
-| **LocalBusiness** | (not yet) | 📋 Planned for location pages |
-| **Review** | (not yet) | 📋 Planned for testimonials |
-
----
-
-## SITEMAP STATUS
-
-**Production URLs:** 27 (clean, no dev pages)
-
-**Excluded:**
-- `/playground/*`
-- `/careers/test/*`
-- `/under-development`
-- `/home-alt`
-- `/login`
-- `/api/*`
-
----
-
 ## RECENT SESSION HISTORY
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **132** | 21 Jan | **SEO Research & Setup** | Sitemap cleanup, FAQ/Breadcrumb schema utilities, enhanced job schema with salary, schemas added to partners/corporate/claims |
+| **133** | 22 Jan | **SEO Phase 2** | Image alt text fixes, meta description optimization, Help page FAQ schema, heading audit |
+| **132** | 21 Jan | SEO Research | Sitemap cleanup, FAQ/Breadcrumb schema utilities, enhanced job schema |
 | **131** | 20 Jan | CSP Fix | Fixed Google Fonts blocking |
-| **130** | 20 Jan | Security Hardening | XSS fix, CSP header, input validation limits |
-| 127 | 20 Jan | Quote Form & Calculator | Removed pricing display, broker-first language |
-| 126 | 20 Jan | Narrative Phase 3 | Insurance pages updated |
-| 125 | 20 Jan | Narrative Phase 2 | High-traffic pages updated |
+| **130** | 20 Jan | Security | XSS fix, CSP header, input validation limits |
 
 ---
 
@@ -259,7 +146,3 @@ npm run build    # Production build (must pass before commit)
 | **Email (B2C)** | info@metrosuregroup.co.za |
 | **Email (B2B)** | clients@metrosureconsult.co.za |
 | **FSP Number** | 47089 |
-
----
-
-*For detailed coding conventions, patterns, and historical lessons, see `CLAUDE.md`.*

@@ -162,7 +162,7 @@ export default function SuccessMetrics() {
         <div className="absolute inset-0 [mask-image:linear-gradient(to_right,white_0%,white_30%,transparent_100%)]">
           <Image
             src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
-            alt=""
+            alt="Abstract geometric pattern decoration left"
             fill
             className="object-cover object-right opacity-20 mix-blend-soft-light scale-150"
             aria-hidden="true"
@@ -183,7 +183,7 @@ export default function SuccessMetrics() {
         <div className="absolute inset-0 [mask-image:linear-gradient(to_left,white_0%,white_30%,transparent_100%)]">
           <Image
             src="/resources/vecteezy_abstract-geometric-pattern-artwork-retro-colors-and-color_6253957.svg"
-            alt=""
+            alt="Abstract geometric pattern decoration right"
             fill
             className="object-cover object-left opacity-20 mix-blend-soft-light scale-150 -scale-x-100"
             aria-hidden="true"

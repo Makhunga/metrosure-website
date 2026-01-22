@@ -12,11 +12,11 @@ const OfficeLocations = dynamic(() => import("@/components/contact/OfficeLocatio
 export const metadata: Metadata = {
   title: "Contact Us | Metrosure Insurance Brokers",
   description:
-    "Get in touch with Metrosure Insurance Brokers. Contact our sales team, customer support, or file a claim. We're here to help with all your insurance and financial planning needs.",
+    "Contact Metrosure Insurance Brokers (FSP 47089) for sales, support, or claims. We're here to help with all your insurance and financial planning needs.",
   openGraph: {
     title: "Contact Us | Metrosure Insurance Brokers",
     description:
-      "Get in touch with Metrosure Insurance Brokers. Contact our sales team, customer support, or file a claim.",
+      "Contact Metrosure Insurance Brokers (FSP 47089) for sales, support, or claims.",
     url: "/contact",
     type: "website",
     images: ["/og-image.png"],
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Us | Metrosure Insurance Brokers",
     description:
-      "Get in touch with Metrosure Insurance Brokers. Contact our sales team, customer support, or file a claim.",
+      "Contact Metrosure Insurance Brokers (FSP 47089) for sales, support, or claims.",
     images: ["/og-image.png"],
   },
   alternates: {

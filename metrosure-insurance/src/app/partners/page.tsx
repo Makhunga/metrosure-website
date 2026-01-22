@@ -17,7 +17,7 @@ import { generateFAQSchema } from "@/lib/generateFAQSchema";
 export const metadata: Metadata = {
   title: "Partner With Us | Metrosure Insurance Brokers",
   description:
-    "Partner with Metrosure to grow your financial services reach. Our trained sales teams sell insurance and financial products in-store, creating jobs and generating revenue. Join 100+ retail partners across South Africa.",
+    "Partner with Metrosure to offer in-store insurance. Our trained sales teams handle everything, generating revenue while creating jobs. Join 100+ retail partners.",
   keywords: [
     "retail partnership",
     "in-store insurance",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
-      "Transform your retail space into a revenue engine. Partner with Metrosure - our trained sales teams grow your financial services reach while creating local jobs.",
+      "Partner with Metrosure to offer in-store insurance. Our trained sales teams handle everything, generating revenue while creating jobs.",
     url: "/partners",
     type: "website",
     locale: "en_ZA",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
-      "Transform your retail space into a revenue engine. Partner with Metrosure to grow your financial services reach.",
+      "Partner with Metrosure to offer in-store insurance. Our trained sales teams handle everything, generating revenue while creating jobs.",
     images: ["/og-image.png"],
   },
   alternates: {
