@@ -13,6 +13,7 @@ import {
 } from "@/components/partners";
 import { partnerFAQs } from "@/data/partnerServices";
 import { generateFAQSchema } from "@/lib/generateFAQSchema";
+import { generateBreadcrumbSchema, commonBreadcrumbs } from "@/lib/generateBreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Partner With Us | Metrosure Insurance Brokers",
@@ -56,6 +57,12 @@ export const metadata: Metadata = {
 // Generate FAQ schema for SEO
 const faqSchema = generateFAQSchema(partnerFAQs);
 
+// Breadcrumb schema for rich results
+const breadcrumbSchema = generateBreadcrumbSchema([
+  commonBreadcrumbs.home,
+  { name: "Partners", url: "/partners" },
+]);
+
 export default function PartnersPage() {
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen transition-colors duration-300 relative">
@@ -63,6 +70,11 @@ export default function PartnersPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      {/* Breadcrumb Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />

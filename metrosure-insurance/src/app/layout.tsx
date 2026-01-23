@@ -50,6 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@metrosure_insurance_",
     title: "Metrosure Insurance Brokers | Taking You to the Future",
     description: "Your trusted South African insurance broker. Personal and business insurance, financial planning, and retail insurance solutions. FSP 47089.",
     images: ["/og-image.png"],
@@ -102,7 +103,11 @@ export default function RootLayout({
                 "@type": "Country",
                 name: "South Africa",
               },
-              sameAs: [],
+              sameAs: [
+                "https://www.facebook.com/people/Metrosure-Insurance-Brokers/100083163880679/",
+                "https://za.linkedin.com/company/metrosure",
+                "https://www.instagram.com/metrosure_insurance_/",
+              ],
               hasCredential: {
                 "@type": "EducationalOccupationalCredential",
                 credentialCategory: "Financial Services Provider",

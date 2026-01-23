@@ -1,5 +1,12 @@
 import { Metadata } from "next";
 import { corporateSEO } from "@/data/corporateServices";
+import { generateBreadcrumbSchema, commonBreadcrumbs } from "@/lib/generateBreadcrumbSchema";
+
+// Breadcrumb schema for rich results
+const breadcrumbSchema = generateBreadcrumbSchema([
+  commonBreadcrumbs.home,
+  { name: "Corporate Solutions", url: "/corporate" },
+]);
 
 export const metadata: Metadata = {
   title: `${corporateSEO.title} | Metrosure Insurance Brokers`,
@@ -27,5 +34,14 @@ export default function CorporateLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      {/* Breadcrumb Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {children}
+    </>
+  );
 }

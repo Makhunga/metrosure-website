@@ -3,6 +3,7 @@ import { Header, Footer } from "@/components";
 import HelpPageClient from "./HelpPageClient";
 import { allFAQs } from "@/data/faqs";
 import { generateFAQSchema } from "@/lib/generateFAQSchema";
+import { generateBreadcrumbSchema, commonBreadcrumbs } from "@/lib/generateBreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Help Centre | Metrosure Insurance Brokers",
@@ -29,6 +30,12 @@ export const metadata: Metadata = {
 // Using all FAQs provides maximum surface area for Rich Results
 const faqSchema = generateFAQSchema(allFAQs);
 
+// Breadcrumb schema for rich results
+const breadcrumbSchema = generateBreadcrumbSchema([
+  commonBreadcrumbs.home,
+  { name: "Help Centre", url: "/help" },
+]);
+
 export default function HelpPage() {
   return (
     <div className="bg-[rgb(var(--color-surface))] min-h-screen relative text-[rgb(var(--color-text-main))] transition-colors duration-300">
@@ -36,6 +43,11 @@ export default function HelpPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      {/* Breadcrumb Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <div className="fixed inset-0 bg-gradient-mesh pointer-events-none z-0" />

@@ -1,4 +1,11 @@
 import type { Metadata } from "next";
+import { generateBreadcrumbSchema, commonBreadcrumbs } from "@/lib/generateBreadcrumbSchema";
+
+// Breadcrumb schema for rich results
+const breadcrumbSchema = generateBreadcrumbSchema([
+  commonBreadcrumbs.home,
+  { name: "About Us", url: "/about" },
+]);
 
 export const metadata: Metadata = {
   title: "About Us | Metrosure Insurance Brokers",
@@ -25,5 +32,14 @@ export default function AboutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      {/* Breadcrumb Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {children}
+    </>
+  );
 }

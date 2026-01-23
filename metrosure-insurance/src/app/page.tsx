@@ -1,5 +1,21 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Header, Hero, StatsBar, Footer } from "@/components";
+
+export const metadata: Metadata = {
+  title: "Metrosure Insurance Brokers | Trusted SA Insurance Since 2013",
+  description:
+    "South Africa's trusted insurance broker connecting families with the right cover. Car, home, life insurance & retirement planning. 5,000+ jobs created. FSP 47089.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Metrosure Insurance Brokers | Trusted SA Insurance Since 2013",
+    description:
+      "South Africa's trusted insurance broker connecting families with the right cover. Car, home, life insurance & retirement planning. 5,000+ jobs created. FSP 47089.",
+    url: "/",
+  },
+};
 
 // Below-fold components - dynamically imported for code splitting
 // SSR is enabled to maintain SEO, but JS bundle is split for faster hydration
