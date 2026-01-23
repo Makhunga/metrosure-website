@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 22 January 2026 (Session 134)
+**Updated:** 23 January 2026 (Session 135)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,74 +9,93 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 52 pages + 7 API routes
-- **Last Build:** 22 January 2026
+- **Last Build:** 23 January 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (134) - 22 Jan 2026
+## CURRENT SESSION (135) - 23 Jan 2026
 
-### UI Refinement: Careers & AI Studio Check
+### SEO Phase 3: Social Media & Schema Enhancements
 
-**Goal:** Verify Google AI Studio tab contents and refine the "Questions? Contact HR" component style on the Careers page to match the design reference.
+**Goal:** Complete comprehensive SEO/social media audit for launch readiness, implementing structured data enhancements and social sharing optimisation.
 
 ### Completed Tasks
 
 | Task | Status | Details |
 |------|--------|---------|
-| **AI Studio Verification** | ✅ | Confirmed "Metrosure Careers" project is active in Google AI Studio |
-| **Search "Questions? Contact HR"** | ✅ | Located component in `ApplicationForm.tsx` |
-| **Dark Mode Fix** | ✅ | Restored `bg-[rgb(var(--color-surface-card))]` to ensure correct rendering in both light and dark modes |
-| **Cleanup** | ✅ | Removed temporary `.bg-slate-50` utility from `globals.css` |
+| **Add Social URLs to Schema** | ✅ | Added Facebook, LinkedIn, Instagram to `sameAs` array in root InsuranceAgency schema |
+| **Add Twitter Handle** | ✅ | Added `site: "@metrosure_insurance_"` to root metadata |
+| **Home Page Metadata** | ✅ | Added page-specific metadata with targeted keywords ("Trusted SA Insurance Since 2013") |
+| **Contact Page Schemas** | ✅ | Added Breadcrumb + FAQ schema (7 FAQs) |
+| **About Page Schema** | ✅ | Added Breadcrumb schema via layout |
+| **Help Page Schema** | ✅ | Added Breadcrumb schema (FAQ already existed) |
+| **Coverage Calculator** | ✅ | Created new layout.tsx with metadata + Breadcrumb schema |
+| **Partners Page Schema** | ✅ | Added Breadcrumb schema (FAQ already existed) |
+| **Corporate Page Schema** | ✅ | Added Breadcrumb schema via layout |
+| **Build Verification** | ✅ | All 52 pages generated successfully |
 
 ### Files Modified
 
 | File | Changes |
 |------|---------|
-| `src/components/careers/ApplicationForm.tsx` | Restored semantic theme variables for background and border colors |
-| `src/app/globals.css` | Removed unused `.bg-slate-50` class |
+| `src/app/layout.tsx` | Added sameAs URLs (social profiles), Twitter handle |
+| `src/app/page.tsx` | Added metadata export with home-specific keywords |
+| `src/app/contact/page.tsx` | Added FAQ + Breadcrumb schemas |
+| `src/app/about/layout.tsx` | Added Breadcrumb schema |
+| `src/app/help/page.tsx` | Added Breadcrumb schema |
+| `src/app/tools/coverage-calculator/layout.tsx` | **NEW** - metadata + Breadcrumb schema |
+| `src/app/partners/page.tsx` | Added Breadcrumb schema |
+| `src/app/corporate/layout.tsx` | Added Breadcrumb schema |
+| `public/sitemap.xml` | Regenerated with updated timestamps |
 
----
+### Commit
 
-## PREVIOUS SESSION (133) - 22 Jan 2026
-
-### SEO Phase 2: Audits & Optimization (Complete)
-
-**Goal:** Execute Phase 2 SEO audits covering alt text, meta descriptions, heading hierarchy, and FAQ schema.
-
-### Completed Tasks (Session 133)
-
-| Task | Status | Details |
-|------|--------|---------|
-| **Image Alt Text Audit** | ✅ | Fixed 9 empty alt tags in 6 components |
-| **Meta Description Review** | ✅ | Shortened descriptions for Contact, About, and Partners pages |
-| **Heading Hierarchy Audit** | ✅ | Verified single `<h1>` per page |
-| **Help Page Schema** | ✅ | Refactored `/help` to Server Component with FAQPage schema |
+```
+72fce6a feat(seo): complete phase 3 SEO audit - social media & schema enhancements
+```
 
 ---
 
 ## DEFERRED TASKS
 
-### Phase 2: Medium Priority (Deferred to Future Session)
+### Phase D: OG Image Enhancement (User Decision Pending)
+
+| Task | Status | Notes |
+|------|--------|-------|
+| OG Image Redesign | Deferred | Current image functional (1200x630px). Awaiting design direction from stakeholder. |
+| Page-Specific OG Images | Skipped | Using generic OG image across all pages for launch |
+
+### Location Pages (Future Session)
 
 | Task | Reason | Notes |
 |------|--------|-------|
 | Location-specific pages | Time | `/locations/durban`, etc. with LocalBusiness schema |
 | Service page geo-optimisation | Time | Add location keywords to insurance pages |
-| Partners/Careers content | Time | Add testimonials and success stories |
 
-### Phase 3: Technical SEO Audit (Deferred)
+### Technical SEO (Post-Deployment)
 
 | Task | Reason | Notes |
 |------|--------|-------|
-| Core Web Vitals check | Time | Run PageSpeed Insights on key pages (after deployment) |
-| Canonical URL verification | Time | Ensure no self-referencing loops |
+| Core Web Vitals check | Post-deploy | Run PageSpeed Insights on key pages |
+| Canonical URL verification | Post-deploy | Ensure no self-referencing loops |
 
 ---
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Production Readiness (Critical)
+### Priority 1: SEO Validation Testing (Requires Deployment)
+
+Test deployed site with external validators:
+
+| Validator | URL | Pages to Test |
+|-----------|-----|---------------|
+| Google Rich Results Test | https://search.google.com/test/rich-results | `/`, `/contact`, `/help`, `/careers/*` |
+| Facebook Sharing Debugger | https://developers.facebook.com/tools/debug/ | `/` |
+| Twitter Card Validator | https://cards-dev.twitter.com/validator | `/` |
+| LinkedIn Post Inspector | https://www.linkedin.com/post-inspector/ | `/partners`, `/corporate` |
+
+### Priority 2: Production Readiness (Critical)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -85,7 +104,7 @@
 | Mobile responsiveness audit | Pending | Test on real devices |
 | Post-deploy CSP verification | Pending | https://securityheaders.com/ |
 
-### Priority 2: Location Pages
+### Priority 3: Location Pages
 
 Create location landing pages with LocalBusiness schema:
 - `/locations/durban` (Head Office)
@@ -93,10 +112,34 @@ Create location landing pages with LocalBusiness schema:
 - `/locations/pretoria`
 - `/locations/boksburg`
 
-### Recommendations
+---
 
-- **Design Consistency:** Perform a visual sweep of other card components to ensure `bg-slate-50` is consistently used for light backgrounds instead of plain white where appropriate.
-- **Workflow:** Continue using the "AI Studio Ref check -> Local Implementation" workflow for design fidelity.
+## RECOMMENDATIONS
+
+### SEO Enhancements (Future Consideration)
+
+1. **AI Search (SGE) Readiness:**
+   - Review FAQ sections for natural language questions matching user search intent
+   - Consider question-based headers ("What insurance do I need?" vs "Coverage Types")
+
+2. **E-E-A-T Signals:**
+   - Add author information to any blog/content pages if created
+   - Consider adding team credentials/qualifications to About page
+
+3. **Semantic Keywords:**
+   - Ensure coverage of semantic variations in content:
+     - "insurance broker Durban" / "Durban insurance company"
+     - "car insurance South Africa" / "motor vehicle cover SA"
+     - "employee benefits broker" / "corporate insurance solutions"
+
+### OG Image Design Brief (When Ready)
+
+For the redesigned OG image, consider:
+- Metrosure logo prominently displayed
+- Tagline visible at small sizes (social previews are often thumbnail-sized)
+- Brand colours: Primary red #BF0603, Secondary maroon #690025
+- Simple, uncluttered design for legibility
+- Text readable at 200px width preview size
 
 ---
 
@@ -104,11 +147,33 @@ Create location landing pages with LocalBusiness schema:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **134** | 22 Jan | **UI Refinement** | Fixed background color on Careers page contact card |
-| **133** | 22 Jan | **SEO Phase 2** | Image alt text fixes, meta description optimization, Help page FAQ schema |
+| **135** | 23 Jan | **SEO Phase 3** | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
+| **134** | 22 Jan | UI Refinement | Fixed background color on Careers page contact card |
+| **133** | 22 Jan | SEO Phase 2 | Image alt text fixes, meta description optimization, Help page FAQ schema |
 | **132** | 21 Jan | SEO Research | Sitemap cleanup, FAQ/Breadcrumb schema utilities |
 | **131** | 20 Jan | CSP Fix | Fixed Google Fonts blocking |
 | **130** | 20 Jan | Security | XSS fix, CSP header, input validation limits |
+
+---
+
+## SEO IMPLEMENTATION STATUS
+
+### Structured Data Coverage
+
+| Schema Type | Pages | Status |
+|-------------|-------|--------|
+| InsuranceAgency | Root layout | ✅ Complete (with sameAs URLs) |
+| BreadcrumbList | Contact, About, Help, Partners, Corporate, Calculator, Careers | ✅ Complete |
+| FAQPage | Contact, Help, Partners | ✅ Complete |
+| JobPosting | /careers/[slug] | ✅ Complete |
+
+### Social Media Metadata
+
+| Platform | Implementation | Status |
+|----------|----------------|--------|
+| OpenGraph | og:title, og:description, og:image, og:url | ✅ All pages |
+| Twitter | summary_large_image, site handle | ✅ Root + pages |
+| LinkedIn | Uses OpenGraph tags | ✅ Automatic |
 
 ---
 
@@ -131,3 +196,12 @@ npm run build    # Production build (must pass before commit)
 | **Email (B2C)** | info@metrosuregroup.co.za |
 | **Email (B2B)** | clients@metrosureconsult.co.za |
 | **FSP Number** | 47089 |
+
+### Social Media
+
+| Platform | URL |
+|----------|-----|
+| Facebook | https://www.facebook.com/people/Metrosure-Insurance-Brokers/100083163880679/ |
+| LinkedIn | https://za.linkedin.com/company/metrosure |
+| Instagram | https://www.instagram.com/metrosure_insurance_/ |
+| Twitter Handle | @metrosure_insurance_ |
