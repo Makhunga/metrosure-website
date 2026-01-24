@@ -243,16 +243,20 @@ export default function Footer() {
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                       transition={{ delay: 0.5 + index * 0.05 }}
                     >
-                      <Link href={link.href} className="hover:text-primary transition-colors inline-flex items-center gap-2">
-                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      <motion.div
+                        whileHover={{ x: 4 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="inline-block"
+                      >
+                        <Link href={link.href} className="hover:text-primary transition-colors inline-flex items-center gap-2">
                           {link.label}
-                        </motion.span>
-                        {link.badge && (
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
-                            {link.badge}
-                          </span>
-                        )}
-                      </Link>
+                          {link.badge && (
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-bold uppercase tracking-wider">
+                              {link.badge}
+                            </span>
+                          )}
+                        </Link>
+                      </motion.div>
                     </motion.li>
                   ))}
                 </ul>
@@ -273,11 +277,15 @@ export default function Footer() {
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                       transition={{ delay: 0.6 + index * 0.05 }}
                     >
-                      <Link href={link.href} className="hover:text-primary transition-colors inline-block">
-                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      <motion.div
+                        whileHover={{ x: 4 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="inline-block"
+                      >
+                        <Link href={link.href} className="hover:text-primary transition-colors">
                           {link.label}
-                        </motion.span>
-                      </Link>
+                        </Link>
+                      </motion.div>
                     </motion.li>
                   ))}
                 </ul>
@@ -303,11 +311,15 @@ export default function Footer() {
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                       transition={{ delay: 0.65 + index * 0.05 }}
                     >
-                      <Link href={link.href} className="hover:text-primary transition-colors inline-block">
-                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      <motion.div
+                        whileHover={{ x: 4 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="inline-block"
+                      >
+                        <Link href={link.href} className="hover:text-primary transition-colors">
                           {link.label}
-                        </motion.span>
-                      </Link>
+                        </Link>
+                      </motion.div>
                     </motion.li>
                   ))}
                 </ul>
@@ -328,11 +340,15 @@ export default function Footer() {
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                       transition={{ delay: 0.75 + index * 0.05 }}
                     >
-                      <Link href={link.href} className="hover:text-primary transition-colors inline-block">
-                        <motion.span whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 400 }}>
+                      <motion.div
+                        whileHover={{ x: 4 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="inline-block"
+                      >
+                        <Link href={link.href} className="hover:text-primary transition-colors">
                           {link.label}
-                        </motion.span>
-                      </Link>
+                        </Link>
+                      </motion.div>
                     </motion.li>
                   ))}
                 </ul>
