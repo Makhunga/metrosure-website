@@ -214,6 +214,41 @@ export const jobs: Job[] = [
     datePosted: "2026-01-09",
     validThrough: "2026-07-09",
   },
+  {
+    id: "sales-agent",
+    slug: "sales-agent",
+    title: "Sales Agent",
+    department: "Sales",
+    category: "sales",
+    location: "All Provinces",
+    type: "Full-time",
+    description:
+      "Join our team as a Sales Agent in our retail stores. We're seeking proactive, coachable individuals eager to build a career in insurance sales and marketing.",
+    metaDescription:
+      "Sales Agent position at Metrosure - open accounts, sell insurance policies in retail stores. Full training provided, ages 18-34. Apply now across South Africa.",
+    responsibilities: [
+      "Open accounts within retail store locations",
+      "Present and sell insurance policies to new and existing clients",
+      "Consistently achieve set sales targets",
+      "Demonstrate product features to address customer needs effectively",
+    ],
+    requirements: [
+      "Matric certificate or equivalent qualification",
+      "Age between 18 and 34 years",
+      "Excellent communication and interpersonal skills",
+      "Strong customer service, listening, and negotiation skills",
+      "Ability to work both independently and collaboratively",
+      "Prior sales experience advantageous but not required",
+    ],
+    offers: [
+      "Comprehensive training programme",
+      "Professional growth opportunities within the company",
+      "Flexible working hours",
+      "Supportive team environment",
+    ],
+    datePosted: "2026-01-24",
+    validThrough: "2026-07-24",
+  },
 ];
 
 export const categories: JobCategory[] = [

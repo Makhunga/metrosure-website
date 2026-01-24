@@ -49,7 +49,7 @@ Coverage Calculator
 Interactive tool that helps clients understand their insurance needs. Calculates life cover and funeral cover requirements based on income, debts, and dependents. WhatsApp sharing built-in - clients can instantly share their results with family or forward to your sales team. Email capture also available - capturing leads at peak intent.
 
 Corporate Solutions Page
-Dedicated B2B offering for employee benefits: Group Medical Aid, Group Funeral Cover, Retirement Fund Administration, Income Protection, Estate Planning, and Investment Planning. Full inquiry form with email routing to clients@metrosuregroup.co.za.
+Dedicated B2B offering for employee benefits: Group Medical Aid, Group Funeral Cover, Retirement Fund Administration, Income Protection, Estate Planning, and Investment Planning. Full inquiry form with email routing to clients@metrosureconsult.co.za.
 
 B2B Case Studies
 Three detailed partner success stories (TFG/Jet, TechZone Electronics, HomeStyle Furnishers) showcasing real results: 75% sales increases, 127 jobs created, 18% attachment rates. Builds credibility with prospective retail partners.
@@ -61,7 +61,7 @@ Career Application Portal
 Professional application experience with CV uploads. Open positions are SEO-optimised - candidates find you through Google. Applications delivered to careers@metrosuregroup.co.za.
 
 Partner Inquiry System
-6 partnership models available: In-Store Campaigns, Sales & Marketing, Device Leasing, Device Insurance, Call Centre Services, and Retail Partnerships. Serious B2B inquiries filtered and delivered to clients@metrosuregroup.co.za.
+6 partnership models available: In-Store Campaigns, Sales & Marketing, Device Leasing, Device Insurance, Call Centre Services, and Retail Partnerships. Serious B2B inquiries filtered and delivered to clients@metrosureconsult.co.za.
 
 Premium Email Notifications
 Every form submission triggers professionally designed emails - Outlook-compatible, mobile-responsive, with your branding. Both clients and your team receive instant notifications.

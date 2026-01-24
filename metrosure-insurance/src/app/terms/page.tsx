@@ -102,7 +102,7 @@ Sales methodologies, training materials, QA frameworks, and proprietary processe
 **Limitation of Liability:**
 Our aggregate liability under B2B agreements shall not exceed the fees paid by the partner in the twelve (12) months preceding any claim, unless otherwise specified in the commercial agreement.
 
-For B2B partnership enquiries: **clients@metrosuregroup.co.za**`,
+For B2B partnership enquiries: **clients@metrosureconsult.co.za**`,
   },
   {
     id: "user-obligations",

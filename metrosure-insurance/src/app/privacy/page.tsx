@@ -85,7 +85,7 @@ We share relevant transactional and performance data with our retail partners as
 **B2B Data Retention:**
 B2B service records are retained for a minimum of 5 years in accordance with the Financial Intelligence Centre Act and our contractual obligations with retail partners.
 
-For B2B data enquiries, contact: clients@metrosuregroup.co.za`,
+For B2B data enquiries, contact: clients@metrosureconsult.co.za`,
   },
   {
     id: "how-we-use",

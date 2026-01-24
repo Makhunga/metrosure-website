@@ -193,7 +193,7 @@ src/components/
 | Inquiry Type | Email Destination |
 |--------------|-------------------|
 | General contact, quotes | `info@metrosuregroup.co.za` |
-| Partner/corporate inquiries | `clients@metrosuregroup.co.za` |
+| Partner/corporate inquiries | `clients@metrosureconsult.co.za` |
 | Career applications | `careers@metrosuregroup.co.za` |
 
 ### 2.2 Separation Readiness Score

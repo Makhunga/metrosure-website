@@ -8,6 +8,7 @@ import {
   caseStudyHeroStats,
   type CaseStudy,
 } from "@/data/caseStudies";
+import { contactDetails } from "@/data/companyInfo";
 
 /**
  * CaseStudyCard - Expandable card showing Challenge → Solution → Results
@@ -395,13 +396,13 @@ export default function CaseStudies() {
               whileTap={{ scale: 0.98 }}
             >
               <Link
-                href="tel:0872651891"
+                href={contactDetails.phone.href}
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-[rgb(var(--color-border-light))] text-[rgb(var(--color-text-main))] font-medium hover:bg-[rgb(var(--color-surface-card))] transition-all duration-300"
               >
                 <span className="material-symbols-outlined text-primary text-lg">
                   call
                 </span>
-                Call 087 265 1891
+                Call {contactDetails.phone.display}
               </Link>
             </motion.div>
           </div>

@@ -102,10 +102,11 @@ export const experienceLevels: SelectOption[] = [
 // =============================================================================
 
 export const jobPositions: SelectOption[] = [
-  { value: "sales-consultant", label: "Sales Consultant" },
+  { value: "sales-consultant", label: "Insurance Sales Consultant" },
+  { value: "sales-agent", label: "Sales Agent" },
   { value: "call-centre-agent", label: "Call Centre Agent" },
   { value: "telesales-rep", label: "Telesales Representative" },
   { value: "client-service-admin", label: "Client Service Administrator" },
-  { value: "trainee-sales", label: "Trainee/Entry Level" },
+  { value: "trainee-sales", label: "Trainee Sales Agent" },
   { value: "other", label: "Other" },
 ];

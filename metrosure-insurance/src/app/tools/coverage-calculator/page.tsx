@@ -14,6 +14,7 @@ import {
   educationalPoints,
   heroKeyPoints,
 } from "@/data/calculatorData";
+import { contactDetails } from "@/data/companyInfo";
 
 type CalculatorTab = "life" | "funeral";
 
@@ -323,11 +324,11 @@ function CoverageCalculatorContent() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
-                  href="tel:0872651891"
+                  href={contactDetails.phone.href}
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-lg"
                 >
                   <span className="material-symbols-outlined">call</span>
-                  Call 087 265 1891
+                  Call {contactDetails.phone.display}
                 </a>
                 <a
                   href="/contact"

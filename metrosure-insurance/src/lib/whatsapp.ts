@@ -3,6 +3,8 @@
  * Generates WhatsApp share links with pre-formatted messages
  */
 
+import { contactDetails } from "@/data/companyInfo";
+
 export interface QuoteData {
   referenceNumber: string;
   coverageType: "home" | "auto" | "life" | "business";
@@ -78,7 +80,7 @@ export function generateQuoteMessage(quote: QuoteData): string {
     ``,
     `_A Metrosure advisor will contact me within 24 hours with options from partner insurers._`,
     ``,
-    `📞 Call us: 087 265 1891`,
+    `📞 WhatsApp: ${contactDetails.whatsapp.display}`,
     `🌐 Visit: www.metrosuregroup.co.za`,
     ``,
     `_Metrosure Insurance Brokers (FSP 47089)_`
@@ -236,7 +238,7 @@ export function generateCalculatorResultMessage(data: CalculatorResultData): str
     ``,
     `_Calculate yours at metrosuregroup.co.za/tools/coverage-calculator_`,
     ``,
-    `📞 087 265 1891 | FSP 47089`
+    `📞 ${contactDetails.whatsapp.display} | FSP 47089`
   );
 
   return lines.join("\n");

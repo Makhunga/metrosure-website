@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { contactDetails } from "@/data/companyInfo";
 
 /**
  * Escapes HTML special characters to prevent XSS in email templates.
@@ -789,7 +790,7 @@ export function generateCalculatorResultsEmail(data: CalculatorEmailData): strin
     ${createSection(`
       ${createParagraph("Have questions? Our team is here to help:")}
       ${createBulletList([
-        "Call us: <strong>087 265 1891</strong>",
+        `Call us: <strong>${contactDetails.phone.display}</strong>`,
         "Email: <strong>info@metrosuregroup.co.za</strong>",
         "Visit: <strong>www.metrosuregroup.co.za</strong>",
       ])}

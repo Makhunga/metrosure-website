@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 24 January 2026 (Session 137)
+**Updated:** 25 January 2026 (Session 138)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,41 +9,66 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 52 pages + 7 API routes
-- **Last Build:** 24 January 2026
+- **Last Build:** 25 January 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (137) - 24 Jan 2026
+## CURRENT SESSION (138) - 25 Jan 2026
 
-### UI: Premium Backgrounds & Polish
+### Documentation: Job Vacancy Process
 
-**Goal:** Upgrade the contact page background to a premium, interactive grid with fine-grain noise (Glama-inspired), fix FOUC issues, and tune opacity/fade settings.
+**Goal:** Document the complete job vacancy pipeline in CLAUDE.md so future sessions automatically know the full 4-file process without re-explanation.
 
 ### Completed Tasks
 
 | Task | Status | Details |
 |------|--------|---------|
-| **Analyze Reference** | ✅ | Inspected Glama.ai to understand noise/grain implementation (SVG noise) |
-| **Fine-Grain Noise** | ✅ | Implemented high-frequency SVG noise (baseFrequency 0.8) for subtle texture |
-| **Grid Tuning** | ✅ | Hardcoded "20% Tuned" settings: Grid (20%), Light Squares (5%), Dark Squares (20%) |
-| **Fix FOUC** | ✅ | Fixed "Flash of Unstyled Grid" by moving opacity from Tailwind class to SVG attribute |
-| **Map Fade Adjustment** | ✅ | Attempted halfway fade; **Reverted** to full-height `opacity-60` fade per user feedback |
-| **Cleanup** | ✅ | Removed `GridOpacityTester` component |
+| **Research Pipeline** | ✅ | Read all 4 files involved in job vacancy creation |
+| **Document Process** | ✅ | Added comprehensive "Adding a New Job Vacancy" section to CLAUDE.md |
+| **Job Data Template** | ✅ | Included full `Job` interface with field explanations |
+| **Category Reference** | ✅ | Documented `sales`, `call-centre`, `admin` categories |
+| **Verification Checklist** | ✅ | Added 6-point checklist for confirming job was added correctly |
 
 ### Files Modified
 
 | File | Changes |
 |------|---------|
-| `src/components/ui/InteractiveGridPattern.tsx` | Switched to fine-grain noise, hardcoded opacity settings, fixed FOUC, restored fade |
-| `src/app/contact/page.tsx` | Removed GridOpacityTester, simplified import |
+| `metrosure-insurance/CLAUDE.md` | Added "Adding a New Job Vacancy" section with 4-file pipeline documentation |
 
-### Commits
+### Key Documentation Added
 
-```
-feat(ui): upgrade contact page background with premium noise and tuned grid
-fix(ui): prevent FOUC on grid pattern by using svg attributes
-```
+The new CLAUDE.md section covers:
+- **4-file pipeline table** - Quick reference: `jobs.ts`, `formOptions.ts`, `validationSchemas.ts`, `route.ts`
+- **Step-by-step instructions** - Code examples for each file
+- **Job data template** - Complete interface with comments
+- **Categories** - `sales`, `call-centre`, `admin` with department examples
+- **Auto-generated features** - Pages, SEO, schemas, salary estimation
+- **Verification checklist** - Ensures complete implementation
+
+### Uncommitted Changes
+
+| File | Status | Notes |
+|------|--------|-------|
+| `CLAUDE.md` | Modified | Job vacancy documentation added |
+| `public/sitemap.xml` | Modified | From previous session |
+| `src/app/api/careers-application/route.ts` | Modified | Sales Agent position added (previous session) |
+| `src/data/formOptions.ts` | Modified | Sales Agent position added (previous session) |
+| `src/data/jobs.ts` | Modified | Sales Agent job listing added (previous session) |
+| `src/lib/validationSchemas.ts` | Modified | Sales Agent validation added (previous session) |
+
+---
+
+## PREVIOUS SESSION (137) - 24 Jan 2026
+
+### UI: Premium Backgrounds & Polish
+
+| Task | Status | Details |
+|------|--------|---------|
+| Fine-Grain Noise | ✅ | Glama-style SVG noise (baseFrequency 0.8) |
+| Grid Tuning | ✅ | Hardcoded 20% settings |
+| Fix FOUC | ✅ | Moved opacity to SVG attributes |
+| Map Fade | ✅ | Reverted to full-height fade |
 
 ---
 
@@ -74,7 +99,17 @@ fix(ui): prevent FOUC on grid pattern by using svg attributes
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: SEO Validation Testing (Requires Deployment)
+### Priority 1: Commit Pending Changes
+
+Uncommitted work from sessions 137-138:
+
+| Change | Files | Action |
+|--------|-------|--------|
+| Sales Agent job listing | `jobs.ts`, `formOptions.ts`, `validationSchemas.ts`, `route.ts` | Commit as "feat(careers): add Sales Agent job vacancy" |
+| Job vacancy documentation | `CLAUDE.md` | Commit as "docs: document job vacancy process in CLAUDE.md" |
+| Sitemap update | `sitemap.xml` | Include in relevant commit |
+
+### Priority 2: SEO Validation Testing (Requires Deployment)
 
 Test deployed site with external validators:
 
@@ -85,7 +120,7 @@ Test deployed site with external validators:
 | Twitter Card Validator | https://cards-dev.twitter.com/validator | `/` |
 | LinkedIn Post Inspector | https://www.linkedin.com/post-inspector/ | `/partners`, `/corporate` |
 
-### Priority 2: Production Readiness (Critical)
+### Priority 3: Production Readiness (Critical)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -94,7 +129,7 @@ Test deployed site with external validators:
 | Mobile responsiveness audit | Pending | Test on real devices |
 | Post-deploy CSP verification | Pending | https://securityheaders.com/ |
 
-### Priority 3: Location Pages
+### Priority 4: Location Pages
 
 Create location landing pages with LocalBusiness schema:
 - `/locations/durban` (Head Office)
@@ -104,17 +139,31 @@ Create location landing pages with LocalBusiness schema:
 
 ---
 
+## RECOMMENDATIONS FOR NEXT SESSION
+
+### Immediate Actions
+1. **Commit pending changes** - Multiple files have uncommitted modifications from sessions 137-138
+2. **Run `npm run build`** - Verify build passes before committing
+3. **Push to remote** - Keep repository in sync
+
+### Suggested Improvements
+1. **Form Validation Consistency** - Consider centralising position/label mappings to avoid duplication across 4 files when adding jobs
+2. **Automation Script** - Could create a CLI script to add new job vacancies (updates all 4 files automatically)
+3. **Job Expiry Handling** - Jobs have `validThrough` dates but no mechanism to hide expired listings
+
+---
+
 ## RECENT SESSION HISTORY
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **137** | 24 Jan | **UI: Premium Backgrounds** | Glama-style noise, tuned grid opacity, fixed FOUC, reverted map fade |
+| **138** | 25 Jan | **Documentation** | Job vacancy process documented in CLAUDE.md (4-file pipeline) |
+| **137** | 24 Jan | UI: Premium Backgrounds | Glama-style noise, tuned grid opacity, fixed FOUC, reverted map fade |
 | **136** | 24 Jan | UX: Skeletons & Footer | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
 | **135** | 23 Jan | SEO Phase 3 | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
 | **134** | 22 Jan | UI Refinement | Fixed background color on Careers page contact card |
 | **133** | 22 Jan | SEO Phase 2 | Image alt text fixes, meta description optimization, Help page FAQ schema |
 | **132** | 21 Jan | SEO Research | Sitemap cleanup, FAQ/Breadcrumb schema utilities |
-| **131** | 20 Jan | CSP Fix | Fixed Google Fonts blocking |
 
 ---
 

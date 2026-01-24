@@ -28,11 +28,12 @@ import {
 
 // Position labels mapping
 const positionLabels: Record<string, string> = {
-  "sales-consultant": "Sales Consultant",
+  "sales-consultant": "Insurance Sales Consultant",
+  "sales-agent": "Sales Agent",
   "call-centre-agent": "Call Centre Agent",
   "telesales-rep": "Telesales Representative",
   "client-service-admin": "Client Service Administrator",
-  "trainee-sales": "Trainee/Entry Level",
+  "trainee-sales": "Trainee Sales Agent",
   "other": "Other",
 };
 

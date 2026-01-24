@@ -566,4 +566,109 @@ All customer-facing content must align with TCF principles.
 
 ---
 
-*Last updated: 13 January 2026 (Session 103)*
+---
+
+## Adding a New Job Vacancy
+
+When adding a new job vacancy, **4 files must be updated** to keep the system in sync:
+
+### Files to Update
+
+| File | What to Add |
+|------|-------------|
+| `src/data/jobs.ts` | Job listing data (full details) |
+| `src/data/formOptions.ts` | Position option in `jobPositions` array |
+| `src/lib/validationSchemas.ts` | Position value in `validPositions` tuple |
+| `src/app/api/careers-application/route.ts` | Position label in `positionLabels` mapping |
+
+### Step 1: Add Job Data (`src/data/jobs.ts`)
+
+Add a new entry to the `jobs` array:
+
+```typescript
+{
+  id: "unique-id",              // Used for form values (e.g., "sales-agent")
+  slug: "url-slug",             // URL path (e.g., "sales-agent")
+  title: "Job Title",           // Display title
+  department: "Department",     // e.g., "Sales", "Customer Service", "Operations"
+  category: "category",         // "sales" | "call-centre" | "admin"
+  location: "Location",         // e.g., "Gauteng", "All Provinces"
+  type: "Full-time",            // Employment type
+  description: "Brief description for listings",
+  metaDescription: "SEO meta description (150-160 chars)",
+  responsibilities: [
+    "Responsibility 1",
+    "Responsibility 2",
+  ],
+  requirements: [
+    "Requirement 1",
+    "Requirement 2",
+  ],
+  offers: [
+    "Benefit 1",
+    "Benefit 2",
+  ],
+  datePosted: "2026-01-25",     // ISO date format
+  validThrough: "2026-07-25",   // 6 months from posting
+}
+```
+
+### Step 2: Add Form Option (`src/data/formOptions.ts`)
+
+Add to `jobPositions` array:
+
+```typescript
+{ value: "unique-id", label: "Job Title" },
+```
+
+### Step 3: Add Validation (`src/lib/validationSchemas.ts`)
+
+Add the position ID to `validPositions` tuple:
+
+```typescript
+const validPositions = [
+  "sales-consultant",
+  "unique-id",  // Add new position
+  "other",
+] as const;
+```
+
+### Step 4: Add Email Label (`src/app/api/careers-application/route.ts`)
+
+Add to `positionLabels` mapping:
+
+```typescript
+const positionLabels: Record<string, string> = {
+  "unique-id": "Job Title",
+  // ...
+};
+```
+
+### Categories
+
+| Category | Label | Department Examples |
+|----------|-------|---------------------|
+| `sales` | Sales | Sales, Marketing |
+| `call-centre` | Call Centre | Customer Service |
+| `admin` | Administration | Operations, HR |
+
+### Auto-Generated Features
+
+Once added, the job automatically gets:
+- Individual job page at `/careers/[slug]`
+- SEO metadata and JSON-LD schema
+- Salary estimation display
+- Application form pre-filled with position
+
+### Verification Checklist
+
+- [ ] Job appears on `/careers` listing page
+- [ ] Job detail page loads at `/careers/[slug]`
+- [ ] Position appears in application form dropdown
+- [ ] Form validates the new position
+- [ ] Email shows correct position label
+- [ ] `npm run build` passes
+
+---
+
+*Last updated: 25 January 2026 (Session 138)*

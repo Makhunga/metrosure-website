@@ -231,6 +231,7 @@ export type CorporateInquiryData = z.infer<typeof corporateInquirySchema>;
 
 const validPositions = [
   "sales-consultant",
+  "sales-agent",
   "call-centre-agent",
   "telesales-rep",
   "client-service-admin",
