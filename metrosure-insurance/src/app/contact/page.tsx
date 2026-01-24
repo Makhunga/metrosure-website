@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Header, Footer } from "@/components";
 import { ContactHero } from "@/components/contact";
+import { InteractiveGridPattern } from "@/components/ui/InteractiveGridPattern"; // Adjusted import
 import { generateBreadcrumbSchema, commonBreadcrumbs } from "@/lib/generateBreadcrumbSchema";
 import { generateFAQSchema } from "@/lib/generateFAQSchema";
 
@@ -135,11 +136,11 @@ function ContactPageContent() {
 
       {/* Main content with pattern background */}
       <div className="relative">
-        {/* Grid Pattern Background - matching under-development page */}
-        <div className="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,white,transparent)] pointer-events-none opacity-10" />
+        {/* Interactive Grid Background (Hardcoded Tuned Settings) */}
+        <InteractiveGridPattern />
 
-        {/* Gradient Mesh Overlay */}
-        <div className="absolute inset-0 bg-gradient-mesh pointer-events-none" />
+        {/* Existing Gradient Mesh Overlay - kept for extra ambient color */}
+        <div className="absolute inset-0 bg-gradient-mesh pointer-events-none opacity-60" />
 
         <main className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-56 pb-24">
           <ContactHero />

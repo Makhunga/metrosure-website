@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 24 January 2026 (Session 136)
+**Updated:** 24 January 2026 (Session 137)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,54 +14,35 @@
 
 ---
 
-## CURRENT SESSION (136) - 24 Jan 2026
+## CURRENT SESSION (137) - 24 Jan 2026
 
-### UX: Skeleton Loaders & Footer Fix
+### UI: Premium Backgrounds & Polish
 
-**Goal:** Add skeleton loaders to heavy pages following the careers page pattern, and fix footer link hover animations.
+**Goal:** Upgrade the contact page background to a premium, interactive grid with fine-grain noise (Glama-inspired), fix FOUC issues, and tune opacity/fade settings.
 
 ### Completed Tasks
 
 | Task | Status | Details |
 |------|--------|---------|
-| **Skeleton: Partners page** | ✅ | Hero with badge/heading/CTAs, 4-column stats (primary bg) |
-| **Skeleton: Home page** | ✅ | Hero with badge/heading/CTAs, stats bar (primary bg), partner logos hint |
-| **Skeleton: About page** | ✅ | Hero section, 4-column stats grid |
-| **Skeleton: Coverage Calculator** | ✅ | Dark hero with badge/key points, tab navigation (2 buttons), calculator card |
-| **Skeleton: Corporate page** | ✅ | Hero with badge/CTAs, 3-column services preview |
-| **Skeleton: Contact page** | ✅ | Centered hero, 4-column contact options |
-| **Skeleton: Help page** | ✅ | Search section, category tabs, 5 FAQ accordion placeholders |
-| **Footer hover fix** | ✅ | Fixed link hover animation (now moves 4px right on hover) |
-| **Build Verification** | ✅ | All 52 pages generated successfully |
-
-### Skeleton Implementation Pattern
-
-All pages follow the careers page pattern:
-- `animate-pulse` on outer container
-- Theme-aware colours (`bg-gray-200 dark:bg-gray-800`, `bg-gray-100 dark:bg-gray-900`)
-- Header skeleton (h-16)
-- No actual Header/Footer components (avoids IntersectionObserver issues)
-- Content wrapped in `PageContent` function
-- Export with `<Suspense fallback={<PageLoadingSkeleton />}>`
+| **Analyze Reference** | ✅ | Inspected Glama.ai to understand noise/grain implementation (SVG noise) |
+| **Fine-Grain Noise** | ✅ | Implemented high-frequency SVG noise (baseFrequency 0.8) for subtle texture |
+| **Grid Tuning** | ✅ | Hardcoded "20% Tuned" settings: Grid (20%), Light Squares (5%), Dark Squares (20%) |
+| **Fix FOUC** | ✅ | Fixed "Flash of Unstyled Grid" by moving opacity from Tailwind class to SVG attribute |
+| **Map Fade Adjustment** | ✅ | Attempted halfway fade; **Reverted** to full-height `opacity-60` fade per user feedback |
+| **Cleanup** | ✅ | Removed `GridOpacityTester` component |
 
 ### Files Modified
 
 | File | Changes |
 |------|---------|
-| `src/app/partners/page.tsx` | Added PartnersLoadingSkeleton + Suspense wrapper |
-| `src/app/page.tsx` | Added HomeLoadingSkeleton + Suspense wrapper |
-| `src/app/about/page.tsx` | Added AboutLoadingSkeleton + Suspense wrapper |
-| `src/app/tools/coverage-calculator/page.tsx` | Added CalculatorLoadingSkeleton + Suspense wrapper |
-| `src/app/corporate/page.tsx` | Added CorporateLoadingSkeleton + Suspense wrapper |
-| `src/app/contact/page.tsx` | Added ContactLoadingSkeleton + Suspense wrapper |
-| `src/app/help/page.tsx` | Added HelpLoadingSkeleton + Suspense wrapper |
-| `src/components/Footer.tsx` | Fixed hover animation - moved whileHover to outer motion.div wrapper |
+| `src/components/ui/InteractiveGridPattern.tsx` | Switched to fine-grain noise, hardcoded opacity settings, fixed FOUC, restored fade |
+| `src/app/contact/page.tsx` | Removed GridOpacityTester, simplified import |
 
 ### Commits
 
 ```
-db53072 feat(ux): add skeleton loaders to heavy pages
-227f09a fix(footer): fix hover animation on footer links
+feat(ui): upgrade contact page background with premium noise and tuned grid
+fix(ui): prevent FOUC on grid pattern by using svg attributes
 ```
 
 ---
@@ -127,7 +108,8 @@ Create location landing pages with LocalBusiness schema:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **136** | 24 Jan | **UX: Skeletons & Footer** | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
+| **137** | 24 Jan | **UI: Premium Backgrounds** | Glama-style noise, tuned grid opacity, fixed FOUC, reverted map fade |
+| **136** | 24 Jan | UX: Skeletons & Footer | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
 | **135** | 23 Jan | SEO Phase 3 | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
 | **134** | 22 Jan | UI Refinement | Fixed background color on Careers page contact card |
 | **133** | 22 Jan | SEO Phase 2 | Image alt text fixes, meta description optimization, Help page FAQ schema |
