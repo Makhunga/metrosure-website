@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,7 +46,49 @@ const itemVariants = {
   },
 };
 
-export default function AboutPage() {
+// Loading skeleton for Suspense fallback
+// Note: We intentionally don't render Header/Footer here to avoid IntersectionObserver issues
+function AboutLoadingSkeleton() {
+  return (
+    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen animate-pulse">
+      {/* Header skeleton */}
+      <div className="h-16 bg-gray-200 dark:bg-gray-800" />
+      {/* Hero skeleton */}
+      <div className="h-[60vh] bg-gray-100 dark:bg-gray-900 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-56">
+          {/* Heading */}
+          <div className="h-14 w-2/3 bg-gray-200 dark:bg-gray-800 rounded mb-4" />
+          <div className="h-14 w-1/2 bg-gray-200 dark:bg-gray-800 rounded mb-6" />
+          {/* Paragraph */}
+          <div className="h-6 w-3/4 bg-gray-200 dark:bg-gray-800 rounded mb-2" />
+          <div className="h-6 w-2/3 bg-gray-200 dark:bg-gray-800 rounded mb-8" />
+          {/* CTAs */}
+          <div className="flex gap-4">
+            <div className="h-12 w-36 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+            <div className="h-12 w-36 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+          </div>
+        </div>
+      </div>
+      {/* Stats section skeleton */}
+      <div className="py-16 border-y border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="text-center p-6">
+                <div className="h-10 bg-gray-200 dark:bg-gray-800 rounded mb-2 mx-auto w-20" />
+                <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded mx-auto w-24" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* Content skeleton */}
+      <div className="h-96 bg-gray-50 dark:bg-gray-900" />
+    </div>
+  );
+}
+
+function AboutPageContent() {
   const [hoveredTeamMember, setHoveredTeamMember] = useState<number | null>(null);
   const heroRef = useRef(null);
   const statsRef = useRef(null);
@@ -610,5 +653,13 @@ export default function AboutPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <Suspense fallback={<AboutLoadingSkeleton />}>
+      <AboutPageContent />
+    </Suspense>
   );
 }

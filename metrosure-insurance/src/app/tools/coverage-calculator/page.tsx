@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,7 +17,58 @@ import {
 
 type CalculatorTab = "life" | "funeral";
 
-export default function CoverageCalculatorPage() {
+// Loading skeleton for Suspense fallback
+// Note: We intentionally don't render Header/Footer here to avoid IntersectionObserver issues
+function CalculatorLoadingSkeleton() {
+  return (
+    <div className="bg-slate-50 dark:bg-slate-900 min-h-screen animate-pulse">
+      {/* Header skeleton */}
+      <div className="h-16 bg-gray-200 dark:bg-gray-800" />
+      {/* Hero section skeleton */}
+      <div className="relative pt-20 bg-slate-900 min-h-[50vh]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          {/* Badge skeleton */}
+          <div className="h-10 w-48 bg-white/10 rounded-full mb-6" />
+          {/* Heading */}
+          <div className="h-14 w-3/4 bg-white/10 rounded mb-4" />
+          <div className="h-14 w-1/2 bg-white/10 rounded mb-6" />
+          {/* Subtitle */}
+          <div className="h-6 w-2/3 bg-white/10 rounded mb-2" />
+          <div className="h-6 w-1/2 bg-white/10 rounded mb-8" />
+          {/* Key points */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10" />
+                <div className="h-4 w-24 bg-white/10 rounded" />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Wave placeholder */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-slate-50 dark:bg-slate-900" />
+      </div>
+      {/* Tab navigation skeleton */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white dark:bg-slate-800 p-2 rounded-2xl mb-10">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex-1 flex items-center gap-4 px-6 py-5 rounded-xl bg-gray-100 dark:bg-gray-700">
+              <div className="w-12 h-12 rounded-xl bg-gray-200 dark:bg-gray-600" />
+              <div>
+                <div className="h-5 w-28 bg-gray-200 dark:bg-gray-600 rounded mb-2" />
+                <div className="h-4 w-40 bg-gray-200 dark:bg-gray-600 rounded" />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Calculator card placeholder */}
+        <div className="h-[400px] bg-white dark:bg-slate-800 rounded-2xl shadow-lg" />
+      </div>
+    </div>
+  );
+}
+
+function CoverageCalculatorContent() {
   const [activeTab, setActiveTab] = useState<CalculatorTab>("life");
 
   return (
@@ -292,5 +343,13 @@ export default function CoverageCalculatorPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function CoverageCalculatorPage() {
+  return (
+    <Suspense fallback={<CalculatorLoadingSkeleton />}>
+      <CoverageCalculatorContent />
+    </Suspense>
   );
 }

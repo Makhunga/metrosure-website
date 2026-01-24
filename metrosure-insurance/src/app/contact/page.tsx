@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Header, Footer } from "@/components";
@@ -58,6 +59,41 @@ const contactFAQs = [
 
 const faqSchema = generateFAQSchema(contactFAQs);
 
+// Loading skeleton for Suspense fallback
+// Note: We intentionally don't render Header/Footer here to avoid IntersectionObserver issues
+function ContactLoadingSkeleton() {
+  return (
+    <div className="bg-stone-50 dark:bg-slate-900 min-h-screen animate-pulse">
+      {/* Header skeleton */}
+      <div className="h-16 bg-gray-200 dark:bg-gray-800" />
+      {/* Hero skeleton */}
+      <div className="h-[40vh] bg-gray-100 dark:bg-gray-900 relative pt-56">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Heading */}
+          <div className="h-12 w-1/2 bg-gray-200 dark:bg-gray-800 rounded mb-4 mx-auto" />
+          {/* Subtitle */}
+          <div className="h-6 w-2/3 bg-gray-200 dark:bg-gray-800 rounded mx-auto" />
+        </div>
+      </div>
+      {/* Contact options skeleton */}
+      <div className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="p-6 bg-white dark:bg-gray-800 rounded-2xl">
+                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-xl mb-4" />
+                <div className="h-5 w-2/3 bg-gray-200 dark:bg-gray-700 rounded mb-3" />
+                <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded mb-2" />
+                <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export const metadata: Metadata = {
   title: "Contact Us | Metrosure Insurance Brokers",
   description:
@@ -82,7 +118,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+function ContactPageContent() {
   return (
     <div className="bg-stone-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
       {/* Breadcrumb Schema JSON-LD */}
@@ -116,5 +152,13 @@ export default function ContactPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<ContactLoadingSkeleton />}>
+      <ContactPageContent />
+    </Suspense>
   );
 }
