@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 23 January 2026 (Session 135)
+**Updated:** 24 January 2026 (Session 136)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,50 +9,59 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 52 pages + 7 API routes
-- **Last Build:** 23 January 2026
+- **Last Build:** 24 January 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (135) - 23 Jan 2026
+## CURRENT SESSION (136) - 24 Jan 2026
 
-### SEO Phase 3: Social Media & Schema Enhancements
+### UX: Skeleton Loaders & Footer Fix
 
-**Goal:** Complete comprehensive SEO/social media audit for launch readiness, implementing structured data enhancements and social sharing optimisation.
+**Goal:** Add skeleton loaders to heavy pages following the careers page pattern, and fix footer link hover animations.
 
 ### Completed Tasks
 
 | Task | Status | Details |
 |------|--------|---------|
-| **Add Social URLs to Schema** | ✅ | Added Facebook, LinkedIn, Instagram to `sameAs` array in root InsuranceAgency schema |
-| **Add Twitter Handle** | ✅ | Added `site: "@metrosure_insurance_"` to root metadata |
-| **Home Page Metadata** | ✅ | Added page-specific metadata with targeted keywords ("Trusted SA Insurance Since 2013") |
-| **Contact Page Schemas** | ✅ | Added Breadcrumb + FAQ schema (7 FAQs) |
-| **About Page Schema** | ✅ | Added Breadcrumb schema via layout |
-| **Help Page Schema** | ✅ | Added Breadcrumb schema (FAQ already existed) |
-| **Coverage Calculator** | ✅ | Created new layout.tsx with metadata + Breadcrumb schema |
-| **Partners Page Schema** | ✅ | Added Breadcrumb schema (FAQ already existed) |
-| **Corporate Page Schema** | ✅ | Added Breadcrumb schema via layout |
+| **Skeleton: Partners page** | ✅ | Hero with badge/heading/CTAs, 4-column stats (primary bg) |
+| **Skeleton: Home page** | ✅ | Hero with badge/heading/CTAs, stats bar (primary bg), partner logos hint |
+| **Skeleton: About page** | ✅ | Hero section, 4-column stats grid |
+| **Skeleton: Coverage Calculator** | ✅ | Dark hero with badge/key points, tab navigation (2 buttons), calculator card |
+| **Skeleton: Corporate page** | ✅ | Hero with badge/CTAs, 3-column services preview |
+| **Skeleton: Contact page** | ✅ | Centered hero, 4-column contact options |
+| **Skeleton: Help page** | ✅ | Search section, category tabs, 5 FAQ accordion placeholders |
+| **Footer hover fix** | ✅ | Fixed link hover animation (now moves 4px right on hover) |
 | **Build Verification** | ✅ | All 52 pages generated successfully |
+
+### Skeleton Implementation Pattern
+
+All pages follow the careers page pattern:
+- `animate-pulse` on outer container
+- Theme-aware colours (`bg-gray-200 dark:bg-gray-800`, `bg-gray-100 dark:bg-gray-900`)
+- Header skeleton (h-16)
+- No actual Header/Footer components (avoids IntersectionObserver issues)
+- Content wrapped in `PageContent` function
+- Export with `<Suspense fallback={<PageLoadingSkeleton />}>`
 
 ### Files Modified
 
 | File | Changes |
 |------|---------|
-| `src/app/layout.tsx` | Added sameAs URLs (social profiles), Twitter handle |
-| `src/app/page.tsx` | Added metadata export with home-specific keywords |
-| `src/app/contact/page.tsx` | Added FAQ + Breadcrumb schemas |
-| `src/app/about/layout.tsx` | Added Breadcrumb schema |
-| `src/app/help/page.tsx` | Added Breadcrumb schema |
-| `src/app/tools/coverage-calculator/layout.tsx` | **NEW** - metadata + Breadcrumb schema |
-| `src/app/partners/page.tsx` | Added Breadcrumb schema |
-| `src/app/corporate/layout.tsx` | Added Breadcrumb schema |
-| `public/sitemap.xml` | Regenerated with updated timestamps |
+| `src/app/partners/page.tsx` | Added PartnersLoadingSkeleton + Suspense wrapper |
+| `src/app/page.tsx` | Added HomeLoadingSkeleton + Suspense wrapper |
+| `src/app/about/page.tsx` | Added AboutLoadingSkeleton + Suspense wrapper |
+| `src/app/tools/coverage-calculator/page.tsx` | Added CalculatorLoadingSkeleton + Suspense wrapper |
+| `src/app/corporate/page.tsx` | Added CorporateLoadingSkeleton + Suspense wrapper |
+| `src/app/contact/page.tsx` | Added ContactLoadingSkeleton + Suspense wrapper |
+| `src/app/help/page.tsx` | Added HelpLoadingSkeleton + Suspense wrapper |
+| `src/components/Footer.tsx` | Fixed hover animation - moved whileHover to outer motion.div wrapper |
 
-### Commit
+### Commits
 
 ```
-72fce6a feat(seo): complete phase 3 SEO audit - social media & schema enhancements
+db53072 feat(ux): add skeleton loaders to heavy pages
+227f09a fix(footer): fix hover animation on footer links
 ```
 
 ---
@@ -114,45 +123,31 @@ Create location landing pages with LocalBusiness schema:
 
 ---
 
-## RECOMMENDATIONS
-
-### SEO Enhancements (Future Consideration)
-
-1. **AI Search (SGE) Readiness:**
-   - Review FAQ sections for natural language questions matching user search intent
-   - Consider question-based headers ("What insurance do I need?" vs "Coverage Types")
-
-2. **E-E-A-T Signals:**
-   - Add author information to any blog/content pages if created
-   - Consider adding team credentials/qualifications to About page
-
-3. **Semantic Keywords:**
-   - Ensure coverage of semantic variations in content:
-     - "insurance broker Durban" / "Durban insurance company"
-     - "car insurance South Africa" / "motor vehicle cover SA"
-     - "employee benefits broker" / "corporate insurance solutions"
-
-### OG Image Design Brief (When Ready)
-
-For the redesigned OG image, consider:
-- Metrosure logo prominently displayed
-- Tagline visible at small sizes (social previews are often thumbnail-sized)
-- Brand colours: Primary red #BF0603, Secondary maroon #690025
-- Simple, uncluttered design for legibility
-- Text readable at 200px width preview size
-
----
-
 ## RECENT SESSION HISTORY
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **135** | 23 Jan | **SEO Phase 3** | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
+| **136** | 24 Jan | **UX: Skeletons & Footer** | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
+| **135** | 23 Jan | SEO Phase 3 | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
 | **134** | 22 Jan | UI Refinement | Fixed background color on Careers page contact card |
 | **133** | 22 Jan | SEO Phase 2 | Image alt text fixes, meta description optimization, Help page FAQ schema |
 | **132** | 21 Jan | SEO Research | Sitemap cleanup, FAQ/Breadcrumb schema utilities |
 | **131** | 20 Jan | CSP Fix | Fixed Google Fonts blocking |
-| **130** | 20 Jan | Security | XSS fix, CSP header, input validation limits |
+
+---
+
+## SKELETON LOADER COVERAGE
+
+| Page | Skeleton | Key Elements |
+|------|----------|--------------|
+| `/careers` | ✅ Existing | Hero, stats bar, content placeholder |
+| `/partners` | ✅ Session 136 | Hero with badge/CTAs, 4-col stats |
+| `/` (Home) | ✅ Session 136 | Hero, stats bar, partner logos hint |
+| `/about` | ✅ Session 136 | Hero, 4-col stats grid |
+| `/tools/coverage-calculator` | ✅ Session 136 | Dark hero, tab nav, calculator card |
+| `/corporate` | ✅ Session 136 | Hero, 3-col services preview |
+| `/contact` | ✅ Session 136 | Hero, 4-col contact options |
+| `/help` | ✅ Session 136 | Search, category tabs, FAQ placeholders |
 
 ---
 
