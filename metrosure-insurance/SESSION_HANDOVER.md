@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 25 January 2026 (Session 138)
+**Updated:** 25 January 2026 (Session 139)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,48 +14,55 @@
 
 ---
 
-## CURRENT SESSION (138) - 25 Jan 2026
+## CURRENT SESSION (139) - 25 Jan 2026
 
-### Documentation: Job Vacancy Process
+### UI: Development Banner Restyle
 
-**Goal:** Document the complete job vacancy pipeline in CLAUDE.md so future sessions automatically know the full 4-file process without re-explanation.
+**Goal:** Restyle the development banner to match the Glassdoor "Job expired" banner pattern.
 
 ### Completed Tasks
 
 | Task | Status | Details |
 |------|--------|---------|
-| **Research Pipeline** | ✅ | Read all 4 files involved in job vacancy creation |
-| **Document Process** | ✅ | Added comprehensive "Adding a New Job Vacancy" section to CLAUDE.md |
-| **Job Data Template** | ✅ | Included full `Job` interface with field explanations |
-| **Category Reference** | ✅ | Documented `sales`, `call-centre`, `admin` categories |
-| **Verification Checklist** | ✅ | Added 6-point checklist for confirming job was added correctly |
+| **Storybook Research** | ✅ | Researched Storybook.js and its relevance to web development |
+| **Banner Restyle** | ✅ | Changed from amber gradient to soft light amber background |
+| **Text Simplification** | ✅ | Removed redundant text, now reads "Under Development - Some features may be unavailable" |
+| **Commit & Push** | ✅ | All session 138 accumulated changes committed and pushed |
 
 ### Files Modified
 
 | File | Changes |
 |------|---------|
-| `metrosure-insurance/CLAUDE.md` | Added "Adding a New Job Vacancy" section with 4-file pipeline documentation |
+| `src/components/DevelopmentBanner.tsx` | Restyled to match Glassdoor pattern |
 
-### Key Documentation Added
+### Banner Style Changes
 
-The new CLAUDE.md section covers:
-- **4-file pipeline table** - Quick reference: `jobs.ts`, `formOptions.ts`, `validationSchemas.ts`, `route.ts`
-- **Step-by-step instructions** - Code examples for each file
-- **Job data template** - Complete interface with comments
-- **Categories** - `sales`, `call-centre`, `admin` with department examples
-- **Auto-generated features** - Pages, SEO, schemas, salary estimation
-- **Verification checklist** - Ensures complete implementation
+| Property | Before | After |
+|----------|--------|-------|
+| Background | Amber gradient (`from-amber-500 via-amber-400 to-amber-500`) | Solid light amber (`#FFF4E5`) |
+| Text colour | `text-amber-900` | `text-[#1A1A1A]` |
+| Icon colour | Inherited | `text-[#B25E00]` |
+| Message | "Website Under Development. Some features may be unavailable. Your feedback helps us improve" | "Under Development - Some features may be unavailable or incomplete." |
+| Feedback link | Present | Removed |
 
-### Uncommitted Changes
+### Commits Pushed
 
-| File | Status | Notes |
-|------|--------|-------|
-| `CLAUDE.md` | Modified | Job vacancy documentation added |
-| `public/sitemap.xml` | Modified | From previous session |
-| `src/app/api/careers-application/route.ts` | Modified | Sales Agent position added (previous session) |
-| `src/data/formOptions.ts` | Modified | Sales Agent position added (previous session) |
-| `src/data/jobs.ts` | Modified | Sales Agent job listing added (previous session) |
-| `src/lib/validationSchemas.ts` | Modified | Sales Agent validation added (previous session) |
+| Commit | Description |
+|--------|-------------|
+| `0e87e08` | feat(ui): restyle development banner to match Glassdoor pattern |
+| `8085554` | feat: session 138 - accumulated updates and new job vacancy |
+
+---
+
+## PREVIOUS SESSION (138) - 25 Jan 2026
+
+### Documentation: Job Vacancy Process
+
+| Task | Status | Details |
+|------|--------|---------|
+| **Document Process** | ✅ | Added "Adding a New Job Vacancy" section to CLAUDE.md |
+| **Job Data Template** | ✅ | Full `Job` interface with field explanations |
+| **4-File Pipeline** | ✅ | `jobs.ts`, `formOptions.ts`, `validationSchemas.ts`, `route.ts` |
 
 ---
 
@@ -99,17 +106,7 @@ The new CLAUDE.md section covers:
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: Commit Pending Changes
-
-Uncommitted work from sessions 137-138:
-
-| Change | Files | Action |
-|--------|-------|--------|
-| Sales Agent job listing | `jobs.ts`, `formOptions.ts`, `validationSchemas.ts`, `route.ts` | Commit as "feat(careers): add Sales Agent job vacancy" |
-| Job vacancy documentation | `CLAUDE.md` | Commit as "docs: document job vacancy process in CLAUDE.md" |
-| Sitemap update | `sitemap.xml` | Include in relevant commit |
-
-### Priority 2: SEO Validation Testing (Requires Deployment)
+### Priority 1: SEO Validation Testing (Requires Deployment)
 
 Test deployed site with external validators:
 
@@ -120,7 +117,7 @@ Test deployed site with external validators:
 | Twitter Card Validator | https://cards-dev.twitter.com/validator | `/` |
 | LinkedIn Post Inspector | https://www.linkedin.com/post-inspector/ | `/partners`, `/corporate` |
 
-### Priority 3: Production Readiness (Critical)
+### Priority 2: Production Readiness (Critical)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -129,7 +126,7 @@ Test deployed site with external validators:
 | Mobile responsiveness audit | Pending | Test on real devices |
 | Post-deploy CSP verification | Pending | https://securityheaders.com/ |
 
-### Priority 4: Location Pages
+### Priority 3: Location Pages
 
 Create location landing pages with LocalBusiness schema:
 - `/locations/durban` (Head Office)
@@ -142,9 +139,8 @@ Create location landing pages with LocalBusiness schema:
 ## RECOMMENDATIONS FOR NEXT SESSION
 
 ### Immediate Actions
-1. **Commit pending changes** - Multiple files have uncommitted modifications from sessions 137-138
-2. **Run `npm run build`** - Verify build passes before committing
-3. **Push to remote** - Keep repository in sync
+1. **Run `npm run build`** - Verify build passes before any new changes
+2. **Test development banner** - Verify new styling looks correct on the deployed site
 
 ### Suggested Improvements
 1. **Form Validation Consistency** - Consider centralising position/label mappings to avoid duplication across 4 files when adding jobs
@@ -157,13 +153,13 @@ Create location landing pages with LocalBusiness schema:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **138** | 25 Jan | **Documentation** | Job vacancy process documented in CLAUDE.md (4-file pipeline) |
+| **139** | 25 Jan | **UI: Banner Restyle** | Restyled development banner to Glassdoor pattern, Storybook research |
+| **138** | 25 Jan | Documentation | Job vacancy process documented in CLAUDE.md (4-file pipeline) |
 | **137** | 24 Jan | UI: Premium Backgrounds | Glama-style noise, tuned grid opacity, fixed FOUC, reverted map fade |
 | **136** | 24 Jan | UX: Skeletons & Footer | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
 | **135** | 23 Jan | SEO Phase 3 | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
 | **134** | 22 Jan | UI Refinement | Fixed background color on Careers page contact card |
 | **133** | 22 Jan | SEO Phase 2 | Image alt text fixes, meta description optimization, Help page FAQ schema |
-| **132** | 21 Jan | SEO Research | Sitemap cleanup, FAQ/Breadcrumb schema utilities |
 
 ---
 
