@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 25 January 2026 (Session 139)
+**Updated:** 25 January 2026 (Session 141)
 **Stack:** Next.js 16 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,7 +14,80 @@
 
 ---
 
-## CURRENT SESSION (139) - 25 Jan 2026
+## CURRENT SESSION (141) - 25 Jan 2026
+
+### Broker Narrative Consistency Audit & Fixes
+
+**Goal:** Audit and fix text that incorrectly positions Metrosure as an insurer rather than a broker/intermediary.
+
+### Audit Findings
+
+| Severity | Count | Issue |
+|----------|-------|-------|
+| **Critical** | 3 | Text directly claims Metrosure handles claims or approves cover |
+| **Problematic** | 3 | Ambiguous language implying direct claim handling |
+| **Low Priority** | 1 | Vague language about broker role |
+
+### Completed Fixes
+
+| File | Line | Change |
+|------|------|--------|
+| `src/app/insurance/auto/page.tsx` | 95 | "Priority claims handling" → "Priority claims support" |
+| `src/app/insurance/auto/page.tsx` | 103 | "Claims handled by real people..." → "Claims support from real people - your portfolio manager guides you and follows up with the insurer" |
+| `src/app/insurance/business/page.tsx` | 106 | "Fast claims handling..." → "Fast claims support so you can focus on your business" |
+| `src/app/insurance/life/page.tsx` | 133 | "we can often approve you the same day" → "you can often be approved the same day" |
+| `src/app/claims/ClaimsPageClient.tsx` | 98-99 | "ensure your claim is processed..." → "guide you through the process and advocate with the insurer on your behalf" |
+| `src/app/api/corporate-inquiry/route.ts` | 207 | "We handle claims, enrollments..." → "We guide claims submissions, manage enrolments..." |
+| `src/components/corporate/CorporateServices.tsx` | 51 | "we handle the complexity" → "we arrange comprehensive solutions from leading insurers..." |
+
+### Pages Confirmed Correct (No Changes Needed)
+
+- ✅ Homepage - Uses "connect," "partner," "work with" language
+- ✅ About page - Explicitly states "sales and marketing company that connects South Africans"
+- ✅ Contact page - FAQs say "guide you through the process"
+- ✅ Help page - Appropriate informational tone
+- ✅ Terms of Service - Accurately describes FSP licence and brokerage role
+- ✅ Privacy Policy - Correctly identifies as "insurance brokerage services"
+- ✅ Legal page - Excellent distinction between broker and insurer roles
+- ✅ FAQ data - Consistently states "submit claims to the insurer"
+- ✅ Claims data - "The insurer assesses your claim. We advocate on your behalf."
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/insurance/auto/page.tsx` | 2 text changes (lines 95, 103) |
+| `src/app/insurance/business/page.tsx` | 1 text change (line 106) |
+| `src/app/insurance/life/page.tsx` | 1 text change (line 133) |
+| `src/app/claims/ClaimsPageClient.tsx` | 1 text change (lines 98-99) |
+| `src/app/api/corporate-inquiry/route.ts` | 1 text change (line 207) |
+| `src/components/corporate/CorporateServices.tsx` | 1 text change (line 51) |
+
+---
+
+## PREVIOUS SESSION (140) - 25 Jan 2026
+
+### Testimonials Carousel: Infinite Loop & Content Update
+
+**Goal:** Fix carousel empty space issue and update testimonials to reflect broker narrative.
+
+### Completed Tasks
+
+| Task | Status | Details |
+|------|--------|---------|
+| **Clone-Based Infinite Loop** | ✅ | Implemented industry-standard approach (prepend/append clones) |
+| **Seamless Boundary Reset** | ✅ | Instant reposition at clone boundaries without visible transition |
+| **Content Alignment** | ✅ | All 6 testimonials updated to emphasise broker role |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/components/testimonials/TestimonialsCarousel.tsx` | Infinite loop implementation + content update |
+
+---
+
+## PREVIOUS SESSION (139) - 25 Jan 2026
 
 ### UI: Development Banner Restyle
 
@@ -35,23 +108,6 @@
 |------|---------|
 | `src/components/DevelopmentBanner.tsx` | Restyled to match Glassdoor pattern |
 
-### Banner Style Changes
-
-| Property | Before | After |
-|----------|--------|-------|
-| Background | Amber gradient (`from-amber-500 via-amber-400 to-amber-500`) | Solid light amber (`#FFF4E5`) |
-| Text colour | `text-amber-900` | `text-[#1A1A1A]` |
-| Icon colour | Inherited | `text-[#B25E00]` |
-| Message | "Website Under Development. Some features may be unavailable. Your feedback helps us improve" | "Under Development - Some features may be unavailable or incomplete." |
-| Feedback link | Present | Removed |
-
-### Commits Pushed
-
-| Commit | Description |
-|--------|-------------|
-| `0e87e08` | feat(ui): restyle development banner to match Glassdoor pattern |
-| `8085554` | feat: session 138 - accumulated updates and new job vacancy |
-
 ---
 
 ## PREVIOUS SESSION (138) - 25 Jan 2026
@@ -63,19 +119,6 @@
 | **Document Process** | ✅ | Added "Adding a New Job Vacancy" section to CLAUDE.md |
 | **Job Data Template** | ✅ | Full `Job` interface with field explanations |
 | **4-File Pipeline** | ✅ | `jobs.ts`, `formOptions.ts`, `validationSchemas.ts`, `route.ts` |
-
----
-
-## PREVIOUS SESSION (137) - 24 Jan 2026
-
-### UI: Premium Backgrounds & Polish
-
-| Task | Status | Details |
-|------|--------|---------|
-| Fine-Grain Noise | ✅ | Glama-style SVG noise (baseFrequency 0.8) |
-| Grid Tuning | ✅ | Hardcoded 20% settings |
-| Fix FOUC | ✅ | Moved opacity to SVG attributes |
-| Map Fade | ✅ | Reverted to full-height fade |
 
 ---
 
@@ -153,13 +196,13 @@ Create location landing pages with LocalBusiness schema:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **139** | 25 Jan | **UI: Banner Restyle** | Restyled development banner to Glassdoor pattern, Storybook research |
+| **141** | 25 Jan | **Broker Narrative Audit** | Fixed 7 text instances across 6 files to ensure broker (not insurer) positioning |
+| **140** | 25 Jan | Testimonials Carousel | Infinite loop implementation, testimonials aligned to broker narrative |
+| **139** | 25 Jan | UI: Banner Restyle | Restyled development banner to Glassdoor pattern, Storybook research |
 | **138** | 25 Jan | Documentation | Job vacancy process documented in CLAUDE.md (4-file pipeline) |
 | **137** | 24 Jan | UI: Premium Backgrounds | Glama-style noise, tuned grid opacity, fixed FOUC, reverted map fade |
 | **136** | 24 Jan | UX: Skeletons & Footer | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
 | **135** | 23 Jan | SEO Phase 3 | Social URLs, Twitter handle, home metadata, breadcrumb schemas for 6 pages, FAQ schema for Contact |
-| **134** | 22 Jan | UI Refinement | Fixed background color on Careers page contact card |
-| **133** | 22 Jan | SEO Phase 2 | Image alt text fixes, meta description optimization, Help page FAQ schema |
 
 ---
 

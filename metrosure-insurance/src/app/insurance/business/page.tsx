@@ -103,7 +103,7 @@ const benefits = [
   "One relationship manager for all your business insurance needs",
   "Group employee benefits that help you attract and keep good people",
   "Competitive rates by leveraging our buying power across 30+ insurers",
-  "Fast claims handling so your business isn't disrupted",
+  "Fast claims support so you can focus on your business",
   "95% daily quality assurance average ensures every interaction meets the highest standards",
   "Flexible payment terms to match your business cash flow",
 ];

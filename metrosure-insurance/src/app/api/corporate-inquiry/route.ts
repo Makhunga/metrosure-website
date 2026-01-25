@@ -204,7 +204,7 @@ function generateConfirmationEmail(data: CorporateInquiryData): string {
       ${createBulletList([
         "<strong>Expert Guidance:</strong> Over 18 years of experience in employee benefits",
         "<strong>Comprehensive Solutions:</strong> Medical aid, retirement, funeral cover, and more",
-        "<strong>Administrative Support:</strong> We handle claims, enrollments, and queries",
+        "<strong>Administrative Support:</strong> We guide claims submissions, manage enrolments, and handle queries",
         "<strong>Compliance Assured:</strong> FSCA-registered and fully compliant",
         "<strong>Cost Optimisation:</strong> Access to competitive group rates"
       ])}

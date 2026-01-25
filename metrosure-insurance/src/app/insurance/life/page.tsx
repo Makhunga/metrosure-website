@@ -130,7 +130,7 @@ const faqs = [
   {
     question: "Do I need a medical exam?",
     answer:
-      "For most cover amounts, no medical exam is required. You'll answer some health questions, and based on your answers, we can often approve you the same day. Larger amounts may need more information, but we'll guide you through it.",
+      "For most cover amounts, no medical exam is required. You'll answer some health questions, and based on your answers, you can often be approved the same day. Larger amounts may need more information, but we'll guide you through it.",
   },
   {
     question: "How quickly does funeral cover pay out?",

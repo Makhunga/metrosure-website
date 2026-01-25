@@ -96,7 +96,7 @@ export default function ClaimsPageClient() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 We&apos;re here to help when you need us most. Each portfolio manager is backed by
-                dedicated claims staff to ensure your claim is processed quickly and fairly.
+                dedicated claims staff to guide you through the process and advocate with the insurer on your behalf.
               </motion.p>
 
               <motion.div

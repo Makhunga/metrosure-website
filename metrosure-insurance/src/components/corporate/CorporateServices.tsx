@@ -48,7 +48,7 @@ export default function CorporateServices() {
             transition={{ delay: 0.4 }}
           >
             Comprehensive packages designed to protect your employees and their families.
-            From healthcare to retirement, we handle the complexity so you can focus on your business.
+            From healthcare to retirement, we arrange comprehensive solutions from leading insurers so you can focus on your business.
           </motion.p>
         </motion.div>
 

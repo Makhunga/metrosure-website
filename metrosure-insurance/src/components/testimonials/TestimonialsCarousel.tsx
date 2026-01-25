@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // TESTIMONIALS CAROUSEL
 // Trullion-inspired horizontal carousel with premium dark styling
+// Clone-based infinite loop for seamless navigation
 // ═══════════════════════════════════════════════════════════════════════════
 
 interface Testimonial {
@@ -17,47 +18,63 @@ interface Testimonial {
 
 const testimonialsData: Testimonial[] = [
     {
-        text: "When my car was hijacked in Joburg, Metrosure handled everything before I could even stress. It wasn't just about the payout, it was knowing someone had my back.",
+        text: "When I was shopping for car insurance, I had no idea where to start. Metrosure compared quotes from multiple insurers and found me comprehensive cover at a rate I could actually afford. They explained everything clearly.",
         name: "Thabo Molefe",
-        role: "Home & Auto Policy Holder",
+        role: "Motor Insurance Client",
         company: "Personal Client",
     },
     {
-        text: "Partnering with Metrosure was the best decision for our stores. They brought trained staff, handled everything, and we've seen a 30% boost in foot traffic.",
+        text: "Partnering with Metrosure was the best decision for our stores. Their trained teams handle all the insurance sales and compliance, while we focus on our core business. We've created 15 new jobs and seen steady commission income.",
         name: "Lerato Mokoena",
         role: "Operations Director",
         company: "Retail Partner",
     },
     {
-        text: "I never understood my life insurance policy until I sat down with Metrosure. Now I feel genuinely confident about my family's future.",
+        text: "I had life cover from my employer but never knew if it was enough. Metrosure's advisors reviewed my situation, compared options from different providers, and helped me find a policy that properly protects my family.",
         name: "Sipho Mthembu",
-        role: "Family Provider",
-        company: "Life Insurance Client",
+        role: "Life Cover Client",
+        company: "Personal Client",
     },
     {
-        text: "We've created 15 jobs in our community through this partnership. Metrosure handles compliance and training - we just provide the space. Win-win.",
+        text: "We've created 15 jobs in our community through our Metrosure partnership. They handle all the regulatory compliance and staff training, we provide the retail space. It's truly a win-win for everyone.",
         name: "Ahmed Patel",
         role: "Franchise Owner",
         company: "Community Retail",
     },
     {
-        text: "The funeral cover gave us peace of mind during the hardest time of our lives. They handled everything with dignity and speed.",
+        text: "When we needed funeral cover urgently, Metrosure's advisor sat with us, explained our options from three different providers, and helped us choose a dignified plan we could afford. Their guidance made a difficult decision so much easier.",
         name: "Nomsa Dlamini",
-        role: "Beneficiary",
-        company: "Funeral Cover Client",
+        role: "Funeral Cover Client",
+        company: "Personal Client",
     },
     {
-        text: "Metrosure's quick response time and professional service made all the difference when we had a fire at our warehouse. Highly recommended.",
+        text: "Finding the right commercial insurance was overwhelming until Metrosure stepped in. They sourced quotes from multiple insurers, negotiated better terms, and we ended up with better cover at a lower premium than we expected.",
         name: "David Smith",
-        role: "Logistics Manager",
+        role: "Operations Manager",
         company: "Smith Logistics",
     },
 ];
 
 export default function TestimonialsCarousel() {
-    const [activeIndex, setActiveIndex] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
+
+    // Calculate visible cards based on screen width
+    const cardsToShow = width < 768 ? 1 : width < 1024 ? 2 : 2.5;
+
+    // Number of cards to clone at each end for seamless looping
+    const cardsNeeded = Math.ceil(cardsToShow) + 1; // 4 for 2.5 visible
+
+    // Create extended testimonials array with clones at both ends
+    const extendedTestimonials = [
+        ...testimonialsData.slice(-cardsNeeded),  // Clone end at start
+        ...testimonialsData,                       // Original cards
+        ...testimonialsData.slice(0, cardsNeeded), // Clone start at end
+    ];
+
+    // Track display index (starts at first real card, which is at position cardsNeeded)
+    const [displayIndex, setDisplayIndex] = useState(cardsNeeded);
+    const [isResetting, setIsResetting] = useState(false);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -73,30 +90,38 @@ export default function TestimonialsCarousel() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Calculate visible cards based on screen width (approximate)
-    const cardsToShow = width < 768 ? 1 : width < 1024 ? 2 : 2.5;
-    const cardGap = 32; // gap-8 is 32px
-
     // Safety check to avoid division by zero or NaN if width isn't ready
     const safeWidth = width || 1200;
 
-    // Calculation: Total width available = (CardWidth * CardsToShow) + (Gap * (CardsToShow - 1))
-    // We want to solve for CardWidth
-    // CardWidth = (TotalWidth - Gap * (CardsToShow - 1)) / CardsToShow
+    // Calculate card width including gap consideration
+    const cardWidthWithGap = safeWidth / cardsToShow;
 
-    // Simplified logic for slide offset:
-    // We want to shift by 1 Card Width + 1 Gap for each index increment
-    const cardWidthWithGap = (safeWidth / cardsToShow);
-
+    // Handle boundary reset on animation complete
+    const handleAnimationComplete = useCallback(() => {
+        // At start clones -> jump to real end
+        if (displayIndex < cardsNeeded) {
+            setIsResetting(true);
+            setDisplayIndex(displayIndex + testimonialsData.length);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => setIsResetting(false));
+            });
+        }
+        // At end clones -> jump to real start
+        if (displayIndex >= cardsNeeded + testimonialsData.length) {
+            setIsResetting(true);
+            setDisplayIndex(displayIndex - testimonialsData.length);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => setIsResetting(false));
+            });
+        }
+    }, [displayIndex, cardsNeeded]);
 
     const nextTestimonial = () => {
-        setActiveIndex((prev) => (prev + 1) % testimonialsData.length);
+        setDisplayIndex((prev) => prev + 1);
     };
 
     const prevTestimonial = () => {
-        setActiveIndex((prev) =>
-            prev === 0 ? testimonialsData.length - 1 : prev - 1
-        );
+        setDisplayIndex((prev) => prev - 1);
     };
 
     return (
@@ -141,12 +166,13 @@ export default function TestimonialsCarousel() {
                 <div ref={containerRef} className="relative overflow-hidden pl-2 pb-10 -ml-2">
                     <motion.div
                         className="flex gap-8"
-                        animate={{ x: -activeIndex * (width < 768 ? width + 32 : (width / cardsToShow)) }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        animate={{ x: -displayIndex * cardWidthWithGap }}
+                        transition={isResetting ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
+                        onAnimationComplete={handleAnimationComplete}
                     >
-                        {testimonialsData.map((testimonial, index) => (
+                        {extendedTestimonials.map((testimonial, index) => (
                             <div
-                                key={index}
+                                key={`testimonial-${index}-${testimonial.name}`}
                                 className="flex-shrink-0 w-full md:w-[45%] lg:w-[38%] bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-8 md:p-10 flex flex-col justify-between group hover:border-primary/30 transition-colors duration-300 min-h-[400px]"
                             >
                                 <div>

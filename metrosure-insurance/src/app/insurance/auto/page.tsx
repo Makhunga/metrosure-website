@@ -92,7 +92,7 @@ const planTiers = [
       "All-risk personal items",
       "Multi-policy discount",
       "Legal liability included",
-      "Priority claims handling",
+      "Priority claims support",
     ],
   },
 ];
@@ -100,7 +100,7 @@ const planTiers = [
 const benefits = [
   "Dedicated portfolio manager who knows your name and your policy inside out",
   "We compare quotes from 30+ insurers to find you the best deal",
-  "Claims handled by real people, no automated call centres",
+  "Claims support from real people - your portfolio manager guides you and follows up with the insurer",
   "Multi-policy discounts when you bundle car, home, and contents",
   "Flexible excess options to suit your budget",
   "No hidden fees or surprises, we explain everything in plain English",
