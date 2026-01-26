@@ -29,7 +29,7 @@ import Image from "next/image";
 // Stats data
 const stats = [
   { value: "5000+", label: "Jobs Created", icon: "group" },
-  { value: "9+", label: "Years Strong", icon: "calendar_month" },
+  { value: "13+", label: "Years Strong", icon: "calendar_month" },
   { value: "5+", label: "Office Locations", icon: "location_on" },
   { value: "Always", label: "Hiring", icon: "trending_up" },
 ];

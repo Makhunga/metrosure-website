@@ -84,7 +84,7 @@ export const legalInfo = {
 
   // Information Officer (POPIA)
   informationOfficer: {
-    name: "Information Officer",
+    name: "B.G Chiliza",
     email: "info@metrosuregroup.co.za",
   },
 } as const;

@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 25 January 2026 (Session 142)
+**Updated:** 26 January 2026 (Session 144)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,12 +9,57 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 54 pages + 7 API routes
-- **Last Build:** 25 January 2026
+- **Last Build:** 26 January 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (142) - 25 Jan 2026
+## CURRENT SESSION (144) - 26 Jan 2026
+
+### SEO: WordPress Migration Redirects
+
+**Goal:** Configure 301 redirects to preserve SEO link equity when migrating from existing WordPress site.
+
+### Completed Tasks
+
+| Task | Status | Details |
+|------|--------|---------|
+| **301 Redirects** | ✅ | Added 10 permanent redirects in `next.config.ts` |
+| **Build Verification** | ✅ | All redirects validated, build passes |
+| **Redirect Testing** | ✅ | All 5 URL patterns return HTTP 308 (permanent redirect) |
+| **Commit & Push** | ✅ | `6b00d04` pushed to main |
+
+### Redirect Mapping
+
+| WordPress URL | → Next.js URL | Status |
+|---------------|---------------|--------|
+| `/about-us` | `/about` | ✅ 308 |
+| `/contact-us` | `/contact` | ✅ 308 |
+| `/metrosure-insurance` | `/` | ✅ 308 |
+| `/metrosure-consult` | `/corporate` | ✅ 308 |
+| `/blog-grid-2-columns-right-sidebar` | `/` | ✅ 308 |
+
+*Note: Both with and without trailing slash variants are handled.*
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `next.config.ts` | Added WordPress migration redirects (lines 14-63) |
+| `public/sitemap.xml` | Regenerated via build |
+
+### Post-Deployment Tasks
+
+| Task | Notes |
+|------|-------|
+| **Vercel Domain Setup** | Add `metrosuregroup.co.za` in Vercel Dashboard → Settings → Domains |
+| **DNS Configuration** | A record: `76.76.21.21`, CNAME www: `cname.vercel-dns.com` |
+| **Google Search Console** | Submit sitemap at `https://www.metrosuregroup.co.za/sitemap.xml` |
+| **Monitor Crawl Errors** | Check Search Console over 2-4 weeks for redirect issues |
+
+---
+
+## PREVIOUS SESSION (142) - 25 Jan 2026
 
 ### Production Readiness - Documentation & Package Updates
 
@@ -197,7 +242,17 @@
 
 ## NEXT SESSION PRIORITIES
 
-### Priority 1: SEO Validation Testing (Requires Deployment)
+### Priority 1: Domain & Search Console Setup (Post-Deployment)
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Vercel Domain Setup | Pending | Add `metrosuregroup.co.za` in Dashboard → Settings → Domains |
+| DNS Configuration | Pending | A: `76.76.21.21`, CNAME www: `cname.vercel-dns.com` |
+| Submit Sitemap | Pending | Google Search Console → Indexing → Sitemaps → `sitemap.xml` |
+| Test Redirects | Pending | Verify all 5 WordPress URLs redirect correctly on live site |
+| Monitor Crawl Errors | Pending | Check Search Console for 2-4 weeks |
+
+### Priority 2: SEO Validation Testing (Requires Deployment)
 
 Test deployed site with external validators:
 
@@ -208,7 +263,7 @@ Test deployed site with external validators:
 | Twitter Card Validator | https://cards-dev.twitter.com/validator | `/` |
 | LinkedIn Post Inspector | https://www.linkedin.com/post-inspector/ | `/partners`, `/corporate` |
 
-### Priority 2: Production Readiness (Critical)
+### Priority 3: Production Readiness (Critical)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -217,7 +272,7 @@ Test deployed site with external validators:
 | Mobile responsiveness audit | Pending | Test on real devices |
 | Post-deploy CSP verification | Pending | https://securityheaders.com/ |
 
-### Priority 3: Location Pages
+### Priority 4: Location Pages
 
 Create location landing pages with LocalBusiness schema:
 - `/locations/durban` (Head Office)
@@ -244,13 +299,13 @@ Create location landing pages with LocalBusiness schema:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **142** | 25 Jan | **Production Readiness** | Created deployment checklist, updated 8 packages to patch versions |
+| **144** | 26 Jan | **SEO: WordPress Redirects** | Added 301 redirects for WordPress migration (5 URL patterns) |
+| **142** | 25 Jan | Production Readiness | Created deployment checklist, updated 8 packages to patch versions |
 | **141** | 25 Jan | Broker Narrative Audit | Fixed 7 text instances across 6 files to ensure broker (not insurer) positioning |
 | **140** | 25 Jan | Testimonials Carousel | Infinite loop implementation, testimonials aligned to broker narrative |
 | **139** | 25 Jan | UI: Banner Restyle | Restyled development banner to Glassdoor pattern, Storybook research |
 | **138** | 25 Jan | Documentation | Job vacancy process documented in CLAUDE.md (4-file pipeline) |
 | **137** | 24 Jan | UI: Premium Backgrounds | Glama-style noise, tuned grid opacity, fixed FOUC, reverted map fade |
-| **136** | 24 Jan | UX: Skeletons & Footer | Added skeleton loaders to 7 heavy pages, fixed footer link hover animation |
 
 ---
 
@@ -270,6 +325,18 @@ Create location landing pages with LocalBusiness schema:
 ---
 
 ## SEO IMPLEMENTATION STATUS
+
+### WordPress Migration Redirects (Session 144)
+
+| Old URL | New URL | Type |
+|---------|---------|------|
+| `/about-us` | `/about` | 301 Permanent |
+| `/contact-us` | `/contact` | 301 Permanent |
+| `/metrosure-insurance` | `/` | 301 Permanent |
+| `/metrosure-consult` | `/corporate` | 301 Permanent |
+| `/blog-grid-2-columns-right-sidebar` | `/` | 301 Permanent |
+
+*Configured in `next.config.ts`. Both with and without trailing slashes handled.*
 
 ### Structured Data Coverage
 
