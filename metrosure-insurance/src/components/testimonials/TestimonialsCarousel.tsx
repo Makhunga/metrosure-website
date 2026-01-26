@@ -39,7 +39,7 @@ const testimonialsData: Testimonial[] = [
         text: "We've created 15 jobs in our community through our Metrosure partnership. They handle all the regulatory compliance and staff training, we provide the retail space. It's truly a win-win for everyone.",
         name: "Ahmed Patel",
         role: "Franchise Owner",
-        company: "Community Retail",
+        company: "Corporate Client",
     },
     {
         text: "When we needed funeral cover urgently, Metrosure's advisor sat with us, explained our options from three different providers, and helped us choose a dignified plan we could afford. Their guidance made a difficult decision so much easier.",
@@ -51,7 +51,7 @@ const testimonialsData: Testimonial[] = [
         text: "Finding the right commercial insurance was overwhelming until Metrosure stepped in. They sourced quotes from multiple insurers, negotiated better terms, and we ended up with better cover at a lower premium than we expected.",
         name: "David Smith",
         role: "Operations Manager",
-        company: "Smith Logistics",
+        company: "Corporate Client",
     },
 ];
 
