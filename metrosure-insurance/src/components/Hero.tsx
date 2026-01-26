@@ -164,14 +164,14 @@ export default function Hero() {
                   </motion.span>
                 </Link>
               </MagneticButton>
-              <Link href="#products">
+              <Link href="/partners">
                 <motion.span
                   className="h-12 px-8 rounded-xl border-2 border-[rgb(var(--color-border-light))] bg-[rgb(var(--color-surface-card))] text-[rgb(var(--color-text-main))] text-base font-bold transition-colors flex items-center gap-2 group justify-center"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <span>Find Your Cover</span>
+                  <span>Partner with Us</span>
                   <motion.span
                     className="material-symbols-outlined text-xl"
                     initial={{ x: 0 }}
@@ -190,13 +190,13 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.9 }}
             >
               <Link
-                href="/partners"
+                href="/corporate"
                 className="inline-flex items-center gap-2 text-sm text-[rgb(var(--color-text-muted))] hover:text-primary transition-colors group"
               >
-                <span className="material-symbols-outlined text-base">storefront</span>
+                <span className="material-symbols-outlined text-base">corporate_fare</span>
                 <span>
-                  Are you a retailer?{" "}
-                  <span className="font-semibold group-hover:underline">Partner with us</span>
+                  Looking for business solutions?{" "}
+                  <span className="font-semibold group-hover:underline">Corporate Solutions</span>
                 </span>
                 <motion.span
                   className="material-symbols-outlined text-base"
