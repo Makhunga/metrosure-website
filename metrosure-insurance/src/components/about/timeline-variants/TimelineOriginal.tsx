@@ -21,7 +21,7 @@ export default function TimelineOriginal({ items }: TimelineOriginalProps) {
   return (
     <section
       ref={ref}
-      className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface))] overflow-hidden"
+      className="relative z-10 py-24 md:py-32 bg-[rgb(var(--color-surface))]"
     >
       {/* Decorative watermark */}
       <motion.div
