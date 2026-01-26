@@ -25,7 +25,7 @@ export default function TimelineOriginal({ items }: TimelineOriginalProps) {
     >
       {/* Decorative watermark */}
       <motion.div
-        className="absolute left-1/2 -translate-x-1/2 -top-[2.4rem] text-[12rem] font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
+        className="absolute left-1/2 -translate-x-1/2 -top-[2.4rem] text-9xl font-black text-slate-100 dark:text-white/5 select-none z-0 whitespace-nowrap pointer-events-none uppercase tracking-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, delay: 0.2 }}
