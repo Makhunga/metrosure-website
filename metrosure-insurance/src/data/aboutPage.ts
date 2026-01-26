@@ -162,9 +162,9 @@ export const executiveTeam: TeamMember[] = [
     role: "Chief Operations Officer",
     image: "/images/team-fp-tshabalala.jpg",
     quote:
-      "Our success is measured by the families and businesses we help protect every day.",
+      "Every day we build meaningful connections with our customers, transforming their experience through dedication and excellence.",
     icon: "trending_up",
-    badges: ["Strategic Leadership", "Insurance Industry Veteran", "Growth Driver"],
+    badges: ["Strategic Leadership", "Sales and Marketing Veteran", "Growth Driver"],
   },
   {
     name: "S Basi",

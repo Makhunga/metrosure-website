@@ -41,6 +41,8 @@ export interface Job {
   offers: string[];
   datePosted: string;
   validThrough: string;
+  /** If true, job is hidden from listings but preserved for future use */
+  hidden?: boolean;
 }
 
 export interface JobCategory {
@@ -81,6 +83,7 @@ export const jobs: Job[] = [
     ],
     datePosted: "2026-01-09",
     validThrough: "2026-07-09",
+    hidden: true,
   },
   {
     id: "call-centre-agent",
@@ -147,6 +150,7 @@ export const jobs: Job[] = [
     ],
     datePosted: "2026-01-09",
     validThrough: "2026-07-09",
+    hidden: true,
   },
   {
     id: "client-service-admin",
@@ -180,6 +184,7 @@ export const jobs: Job[] = [
     ],
     datePosted: "2026-01-09",
     validThrough: "2026-07-09",
+    hidden: true,
   },
   {
     id: "trainee-sales",
@@ -213,6 +218,7 @@ export const jobs: Job[] = [
     ],
     datePosted: "2026-01-09",
     validThrough: "2026-07-09",
+    hidden: true,
   },
   {
     id: "sales-agent",
@@ -255,13 +261,22 @@ export const categories: JobCategory[] = [
   { id: "all", label: "All Positions" },
   { id: "sales", label: "Sales" },
   { id: "call-centre", label: "Call Centre" },
-  { id: "admin", label: "Administration" },
 ];
 
+// Hidden category (preserved for future use when admin jobs are re-enabled)
+// { id: "admin", label: "Administration" }
+
 /**
- * Get all jobs
+ * Get all visible jobs (excludes hidden jobs)
  */
 export function getAllJobs(): Job[] {
+  return jobs.filter((job) => !job.hidden);
+}
+
+/**
+ * Get all jobs including hidden ones (for internal use/future re-enabling)
+ */
+export function getAllJobsIncludingHidden(): Job[] {
   return jobs;
 }
 
@@ -273,27 +288,28 @@ export function getJobBySlug(slug: string): Job | undefined {
 }
 
 /**
- * Get jobs by category
+ * Get visible jobs by category
  */
 export function getJobsByCategory(category: string): Job[] {
-  if (category === "all") return jobs;
-  return jobs.filter((job) => job.category === category);
+  const visibleJobs = jobs.filter((job) => !job.hidden);
+  if (category === "all") return visibleJobs;
+  return visibleJobs.filter((job) => job.category === category);
 }
 
 /**
- * Get related jobs (same category, excluding current job)
+ * Get related visible jobs (same category, excluding current job)
  */
 export function getRelatedJobs(job: Job, limit: number = 3): Job[] {
   return jobs
-    .filter((j) => j.category === job.category && j.id !== job.id)
+    .filter((j) => !j.hidden && j.category === job.category && j.id !== job.id)
     .slice(0, limit);
 }
 
 /**
- * Get all job slugs for static generation
+ * Get all visible job slugs for static generation
  */
 export function getAllSlugs(): string[] {
-  return jobs.map((job) => job.slug);
+  return jobs.filter((job) => !job.hidden).map((job) => job.slug);
 }
 
 /**
@@ -375,8 +391,8 @@ export async function fetchAllJobs(): Promise<Job[]> {
     }
   }
 
-  // Fallback to hardcoded data
-  return jobs;
+  // Fallback to hardcoded data (visible jobs only)
+  return jobs.filter((job) => !job.hidden);
 }
 
 /**
