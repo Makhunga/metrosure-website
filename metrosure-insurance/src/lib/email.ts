@@ -156,10 +156,11 @@ const COLOR_BORDER = "#e5e7eb";        // Subtle border (gray-200)
 const COLOR_DIVIDER = "#d1d5db";       // Divider lines (gray-300)
 
 // Alert Colours (refined palette)
+// Icons use text characters for cross-client compatibility (no emojis)
 const ALERT_COLORS = {
-  warning: { bg: '#fffbeb', border: '#f59e0b', text: '#92400e', icon: '⚠️' },
+  warning: { bg: '#fffbeb', border: '#f59e0b', text: '#92400e', icon: '!' },
   success: { bg: '#ecfdf5', border: '#10b981', text: '#065f46', icon: '✓' },
-  info: { bg: '#eff6ff', border: '#3b82f6', text: '#1e40af', icon: 'ℹ' },
+  info: { bg: '#eff6ff', border: '#3b82f6', text: '#1e40af', icon: 'i' },
 };
 
 /**
