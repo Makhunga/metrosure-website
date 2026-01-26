@@ -712,7 +712,6 @@ function createCTAButton(href: string, text: string): string {
 export function generateCalculatorResultsEmail(data: CalculatorEmailData): string {
   const isLife = data.calculatorType === "life";
   const title = isLife ? "Your Life Cover Calculation" : "Your Funeral Cover Plan";
-  const icon = isLife ? "🛡️" : "🕊️";
 
   // Build breakdown rows
   const breakdownRows = data.breakdown
@@ -752,7 +751,7 @@ export function generateCalculatorResultsEmail(data: CalculatorEmailData): strin
     : `https://www.metrosuregroup.co.za/quote?coverageType=funeral&coverageAmount=${data.totalAmount}`;
 
   const content = `
-    ${createEmailHeader(`${icon} ${title}`)}
+    ${createEmailHeader(title)}
 
     ${createSection(`
       ${createParagraph("Thank you for using the Metrosure Coverage Calculator. Here's a summary of your calculation:")}

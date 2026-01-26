@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
     const internalEmailResult = await sendEmail({
       to: emailTo.careers,
       cc: emailCc.careers,
-      subject: `[Metrosure Online] New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
+      subject: `New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
       html: emailHtml,
       replyTo: validatedData.email,
       attachments: cvAttachment ? [cvAttachment] : undefined,

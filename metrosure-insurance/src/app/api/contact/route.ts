@@ -101,11 +101,11 @@ export async function POST(request: NextRequest) {
     if (data.type === "message") {
       isB2B = b2bTopics.includes(data.subject);
       const b2bPrefix = isB2B ? "[B2B] " : "";
-      emailSubject = `[Metrosure Online] ${b2bPrefix}Contact: ${subjectLabels[data.subject] || data.subject} - ${data.name}`;
+      emailSubject = `${b2bPrefix}Contact: ${subjectLabels[data.subject] || data.subject} - ${data.name}`;
     } else {
       isB2B = b2bTopics.includes(data.reason);
       const b2bPrefix = isB2B ? "[B2B] " : "";
-      emailSubject = `[Metrosure Online] ${b2bPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
+      emailSubject = `${b2bPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
     }
 
     // Route B2B inquiries to clients email, others to info
