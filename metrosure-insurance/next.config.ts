@@ -11,6 +11,57 @@ const nextConfig: NextConfig = {
         destination: "/under-development",
         permanent: false,
       },
+      // WordPress migration redirects (SEO preservation)
+      {
+        source: "/about-us",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/about-us/",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/contact-us",
+        destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/contact-us/",
+        destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/metrosure-insurance",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/metrosure-insurance/",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/metrosure-consult",
+        destination: "/corporate",
+        permanent: true,
+      },
+      {
+        source: "/metrosure-consult/",
+        destination: "/corporate",
+        permanent: true,
+      },
+      {
+        source: "/blog-grid-2-columns-right-sidebar",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/blog-grid-2-columns-right-sidebar/",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
   images: {
