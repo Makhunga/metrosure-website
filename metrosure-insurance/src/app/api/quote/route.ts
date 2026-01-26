@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
     // Send internal notification
     const internalEmailResult = await sendEmail({
       to: emailRecipient,
-      subject: `[Metrosure Online] ${b2bPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
+      subject: `${b2bPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
       html: internalEmailHtml,
       replyTo: data.email,
     });
