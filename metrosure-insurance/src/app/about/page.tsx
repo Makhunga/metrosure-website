@@ -310,10 +310,10 @@ function AboutPageContent() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <Image
-                src="/images/mission-image.jpg"
+                src="/images/metrosure-team-pic-retina.webp"
                 alt="The Metrosure team"
                 fill
-                className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                className="object-cover object-bottom transition-transform duration-700 hover:scale-105"
                 sizes="(max-width: 1400px) 100vw, 1400px"
                 loading="lazy"
               />
