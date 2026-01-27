@@ -44,7 +44,7 @@ const features = [
     icon: "storefront",
     title: "In-Store Campaigns",
     description:
-      "Deploy trained sales teams in your retail space. We handle staff, training, and compliance. You earn commission on every policy sold while creating local employment.",
+      "Deploy trained sales teams in your retail space. We handle staff, training, and compliance. You earn commission on every product arranged through our partners while creating local employment.",
     accent: "primary",
     href: "/partners",
   },

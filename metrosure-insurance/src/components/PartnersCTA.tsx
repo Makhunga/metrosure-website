@@ -188,9 +188,10 @@ export default function PartnersCTA() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Retail partners like TFG trust us to grow their financial services
-            footprint. Our data-driven approach and proven track record deliver
-            consistent results across 7 provinces.
+            Retail partners like TFG trust us to grow their in-store financial
+            product sales. Our trained teams arrange cover and other financial
+            products from leading partners, and both you and your staff earn
+            commission on every sale.
           </motion.p>
         </div>
 

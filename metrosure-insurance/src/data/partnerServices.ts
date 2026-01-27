@@ -67,7 +67,7 @@ export const partnerServices: PartnerService[] = [
     icon: "credit_card",
     title: "In-Store Credit Facility",
     description:
-      "Enable your customers to access credit products alongside their purchases. We handle compliance, applications, and disbursements seamlessly.",
+      "Enable your customers to access credit products from our lending partners alongside their purchases. We facilitate the process and handle compliance.",
     features: [
       "Quick credit assessments",
       "Compliant lending processes",
@@ -81,7 +81,7 @@ export const partnerServices: PartnerService[] = [
     icon: "devices",
     title: "Device Leasing",
     description:
-      "Offer your customers mobile and device leasing directly at point of sale. We manage the full leasing process while you earn commission on every deal.",
+      "Offer your customers mobile and device leasing from our financing partners at point of sale. We facilitate the process while you earn commission on every deal.",
     features: [
       "Mobile & device financing",
       "Quick approval process",
@@ -173,7 +173,7 @@ export const partnerFAQs: PartnerFAQ[] = [
   {
     question: "How does the revenue-sharing model work?",
     answer:
-      'Our commission structure is transparent and competitive. Partners earn a percentage of each insurance product sold at their location. The exact percentage depends on factors like store volume, product mix, and partnership tier. We provide detailed monthly reports showing all sales and commissions. <strong class="text-[rgb(var(--color-text-main))]">Contact us for a personalised quote.</strong>',
+      'Commission structures are transparent and competitive. As a broker, we coordinate with our partners to ensure you earn a percentage of each product arranged at your location. The exact percentage depends on factors like store volume, product mix, and partnership tier. We provide detailed monthly reports showing all sales and commissions. <strong class="text-[rgb(var(--color-text-main))]">Contact us for a personalised quote.</strong>',
   },
   {
     question: "What training do the in-store sales staff receive?",

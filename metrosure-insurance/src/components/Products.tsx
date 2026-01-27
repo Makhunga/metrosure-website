@@ -10,7 +10,7 @@ const products = [
     icon: "favorite",
     title: "Life & Funeral Cover",
     description:
-      "Ensure your loved ones are looked after. From individual life policies to group funeral cover and credit life, we've got your family covered.",
+      "Ensure your loved ones are looked after. From individual life policies to group funeral cover and credit life, we connect you with trusted partners who've got your family covered.",
     features: ["Life Insurance", "Funeral Plans", "Credit Life"],
     href: "/insurance/life",
   },
@@ -18,7 +18,7 @@ const products = [
     icon: "health_and_safety",
     title: "Health & Income Protection",
     description:
-      "Safeguard your income when life happens. From hospitalisation cover to disability benefits, stay financially secure during difficult times.",
+      "Safeguard your income when life happens. We arrange cover from leading partners for hospitalisation, disability, and income protection to keep you financially secure.",
     features: ["Hospitalisation", "Disability Cover", "Income Protection"],
     href: "/insurance/life",
   },
@@ -101,7 +101,7 @@ export default function Products() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Insurance for families, partnerships for retailers. From protecting what you love to earning from what you own.
+            We connect families with the right financial products from leading partners, and help retailers earn commission through our sales partnerships.
           </motion.p>
         </motion.div>
 

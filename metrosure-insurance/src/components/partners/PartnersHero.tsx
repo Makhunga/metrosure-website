@@ -114,8 +114,8 @@ export default function PartnersHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            Partner with Metrosure to grow your financial services footprint.
-            We deploy trained sales teams to sell insurance and financial products in-store,
+            Partner with Metrosure to grow your in-store financial product sales.
+            We deploy trained sales teams to arrange financial products from our partners in-store,
             handle all compliance, and share the revenue - you focus on your business while creating local jobs.
           </motion.p>
 
