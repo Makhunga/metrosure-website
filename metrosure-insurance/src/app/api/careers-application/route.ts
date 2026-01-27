@@ -130,48 +130,59 @@ export async function POST(request: NextRequest) {
     }
 
     const validatedData = parseResult.data;
-    const cvFile = formData.get("cv") as File | null;
 
-    // Process CV file if provided
-    let cvAttachment = null;
-    let cvInfo = null;
-    if (cvFile && cvFile.size > 0) {
+    // Process attachments if provided
+    const attachmentFiles = formData.getAll("attachments") as File[];
+    const validTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+
+    const attachments: { filename: string; content: Buffer }[] = [];
+    const attachmentInfos: { name: string; type: string; size: string }[] = [];
+    let totalSize = 0;
+
+    for (const file of attachmentFiles) {
+      if (!file || file.size === 0) continue;
+
       // Validate file type
-      const validTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      ];
-      if (!validTypes.includes(cvFile.type)) {
-        const error = validationError({ cv: "Invalid file type. Please upload a PDF or Word document." });
+      if (!validTypes.includes(file.type)) {
+        const error = validationError({ attachments: `Invalid file type: ${file.name}. Please upload PDF or Word documents only.` });
         return NextResponse.json(
           { success: false, ...error },
           { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
         );
       }
 
-      // Validate file size (5MB max)
-      if (cvFile.size > 5 * 1024 * 1024) {
-        const error = validationError({ cv: "File size must be less than 5MB" });
-        return NextResponse.json(
-          { success: false, ...error },
-          { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
-        );
-      }
+      totalSize += file.size;
+    }
 
-      // Convert file to buffer for attachment
-      const cvBuffer = Buffer.from(await cvFile.arrayBuffer());
-      const sanitisedFilename = sanitiseFilename(cvFile.name);
-      cvAttachment = {
+    // Validate total file size (5MB max)
+    if (totalSize > 5 * 1024 * 1024) {
+      const error = validationError({ attachments: "Total file size must be less than 5MB" });
+      return NextResponse.json(
+        { success: false, ...error },
+        { status: errorStatusCodes[ErrorType.VALIDATION_ERROR] }
+      );
+    }
+
+    // Process each file
+    for (const file of attachmentFiles) {
+      if (!file || file.size === 0) continue;
+
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const sanitisedFilename = sanitiseFilename(file.name);
+      attachments.push({
         filename: sanitisedFilename,
-        content: cvBuffer,
-      };
+        content: buffer,
+      });
 
-      cvInfo = {
-        name: cvFile.name,
-        type: cvFile.type,
-        size: `${(cvFile.size / 1024).toFixed(1)} KB`,
-      };
+      attachmentInfos.push({
+        name: file.name,
+        type: file.type,
+        size: `${(file.size / 1024).toFixed(1)} KB`,
+      });
     }
 
     // Build application data object using validated data
@@ -183,21 +194,22 @@ export async function POST(request: NextRequest) {
       province: provinceLabels[validatedData.province] || validatedData.province,
       experience: experienceLabels[validatedData.experience] || validatedData.experience,
       willingToRelocate: relocationLabels[validatedData.willingToRelocate] || validatedData.willingToRelocate,
-      cvAttached: cvInfo ? cvInfo.name : "No CV attached",
+      attachmentsCount: attachmentInfos.length,
+      attachmentNames: attachmentInfos.map(a => a.name).join(", ") || "No attachments",
       submittedAt: new Date().toISOString(),
     };
 
     // Generate email content
-    const emailHtml = generateApplicationEmail(applicationData, cvInfo);
+    const emailHtml = generateApplicationEmail(applicationData, attachmentInfos);
 
-    // Send email with CV attachment
+    // Send email with attachments
     const internalEmailResult = await sendEmail({
       to: emailTo.careers,
       cc: emailCc.careers,
       subject: `New Job Application: ${applicationData.position} - ${applicationData.fullName}`,
       html: emailHtml,
       replyTo: validatedData.email,
-      attachments: cvAttachment ? [cvAttachment] : undefined,
+      attachments: attachments.length > 0 ? attachments : undefined,
     });
 
     // Handle email failures
@@ -219,8 +231,8 @@ export async function POST(request: NextRequest) {
     // Log the application
     console.log("=== New Career Application ===");
     console.log("Application Data:", JSON.stringify(applicationData, null, 2));
-    if (cvInfo) {
-      console.log("CV File Info:", JSON.stringify(cvInfo, null, 2));
+    if (attachmentInfos.length > 0) {
+      console.log("Attachments:", JSON.stringify(attachmentInfos, null, 2));
     }
 
     // Send confirmation email to applicant
@@ -274,17 +286,18 @@ interface ApplicationData {
   province: string;
   experience: string;
   willingToRelocate: string;
-  cvAttached: string;
+  attachmentsCount: number;
+  attachmentNames: string;
   submittedAt: string;
 }
 
-interface CVInfo {
+interface AttachmentInfo {
   name: string;
   type: string;
   size: string;
 }
 
-function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null): string {
+function generateApplicationEmail(data: ApplicationData, attachmentInfos: AttachmentInfo[]): string {
   const submittedDate = new Date(data.submittedAt).toLocaleString('en-ZA', {
     dateStyle: 'full',
     timeStyle: 'short',
@@ -293,7 +306,24 @@ function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null):
 
   // Escape user-provided content to prevent XSS
   const safeFullName = escapeHtml(data.fullName);
-  const safeCvFilename = cvInfo ? escapeHtml(cvInfo.name) : '';
+
+  // Build attachments section
+  let attachmentsSection = '';
+  if (attachmentInfos.length > 0) {
+    const filesList = attachmentInfos.map(att =>
+      `${createFieldRow(escapeHtml(att.name), att.size)}`
+    ).join('');
+    attachmentsSection = `
+      ${createSectionTitle("Attachments")}
+      ${filesList}
+      ${createParagraph(`<em style="color: #666666;">${attachmentInfos.length} file(s) attached to this email.</em>`)}
+    `;
+  } else {
+    attachmentsSection = `
+      ${createSectionTitle("Attachments")}
+      ${createParagraph("<span style=\"color: #999999;\">No files were uploaded with this application.</span>")}
+    `;
+  }
 
   const content = `
     ${createEmailHeader("New Job Application", data.position)}
@@ -313,16 +343,7 @@ function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null):
       ${createFieldRow("Willing to Relocate:", data.willingToRelocate)}
     `)}
 
-    ${createSection(`
-      ${createSectionTitle("CV / Resume")}
-      ${cvInfo ? `
-        ${createFieldRow("File Name:", safeCvFilename)}
-        ${createFieldRow("File Size:", cvInfo.size)}
-        ${createParagraph("<em style=\"color: #666666;\">CV is attached to this email.</em>")}
-      ` : `
-        ${createParagraph("<span style=\"color: #999999;\">No CV was uploaded with this application.</span>")}
-      `}
-    `)}
+    ${createSection(attachmentsSection)}
 
     ${createAlertBox(`<strong>Submitted:</strong> ${submittedDate}`, "success")}
   `;
@@ -333,7 +354,9 @@ function generateApplicationEmail(data: ApplicationData, cvInfo: CVInfo | null):
 function generateConfirmationEmail(data: ApplicationData): string {
   // Escape user-provided content to prevent XSS
   const safeFullName = escapeHtml(data.fullName);
-  const safeCvAttached = escapeHtml(data.cvAttached);
+  const attachmentsSummary = data.attachmentsCount > 0
+    ? `${data.attachmentsCount} file(s) attached`
+    : "No attachments";
 
   const content = `
     ${createEmailHeader("Thank You for Applying!", "We've received your application")}
@@ -346,7 +369,7 @@ function generateConfirmationEmail(data: ApplicationData): string {
       ${createSectionTitle("Application Summary")}
       ${createFieldRow("Position:", data.position)}
       ${createFieldRow("Preferred Location:", data.province)}
-      ${createFieldRow("CV Attached:", safeCvAttached)}
+      ${createFieldRow("Attachments:", attachmentsSummary)}
     `)}
 
     ${createParagraph("<strong style=\"color: #BF0603;\">What happens next?</strong>")}

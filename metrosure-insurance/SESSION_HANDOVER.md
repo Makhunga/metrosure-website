@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 27 January 2026 (Session 147)
+**Updated:** 27 January 2026 (Session 148)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,7 +14,47 @@
 
 ---
 
-## CURRENT SESSION (147) - 27 Jan 2026
+## CURRENT SESSION (148) - 27 Jan 2026
+
+### Self-Hosted Mail Server Research & Plan
+
+**Goal:** Research and document options for a self-hosted mail server for internal agent/mystery shopper identification and authentication.
+
+### Completed Tasks
+
+| Task | Status | Output |
+|------|--------|--------|
+| **Mail Server Options Research** | ✅ | `docs/MAIL_SERVER_PLAN.md` |
+
+### Summary
+
+Created comprehensive documentation covering:
+- 5 mail server options compared (Mailcow, Mail-in-a-Box, Stalwart, Poste.io, docker-mailserver)
+- Comparison matrix for features, ease of setup, API support
+- **Recommendation: Stalwart Mail Server** (modern Rust-based, full REST API, low resource usage)
+- VPS specification (Hetzner CX22 @ €4.35/month or Vultr Cape Town @ $14/month)
+- Implementation phases (Infrastructure → Configuration → Account Management → Integration)
+- DNS template and API examples for account management
+
+### Key Decision Points
+
+| Requirement | Selected Option |
+|-------------|-----------------|
+| Account Volume | Under 50 active accounts |
+| Account Management | Web UI + REST API |
+| Recommended Server | Stalwart Mail Server |
+| Recommended VPS | Hetzner CX22 (2 vCPU, 4GB RAM, €4.35/mo) |
+
+### Next Steps (When Proceeding)
+
+1. Provision VPS (domain confirmed: metrosure.app)
+2. Install Stalwart
+3. Configure DNS records
+4. Create initial accounts
+
+---
+
+## PREVIOUS SESSION (147) - 27 Jan 2026
 
 ### Careers Section Maintenance Mode
 
@@ -39,7 +79,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 148)
+## NEXT SESSION PRIORITIES (Session 149)
 
 ### Priority 1: OG Image
 
@@ -153,11 +193,11 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **147** | 27 Jan | **Careers Maintenance Mode** | Production-only "Coming Soon" for /careers/* |
+| **148** | 27 Jan | **Mail Server Research** | Created `docs/MAIL_SERVER_PLAN.md`; Stalwart recommended |
+| **147** | 27 Jan | Careers Maintenance Mode | Production-only "Coming Soon" for /careers/* |
 | **146** | 27 Jan | Broker Narrative: Complete Audit | Fixed 20 files; clarified commission structure |
 | **145** | 27 Jan | Broker Narrative: Home & Partners | Fixed 10 text instances; removed og-image temporarily |
 | **144** | 26 Jan | SEO: WordPress Redirects | Added 301 redirects for WordPress migration |
-| **142** | 25 Jan | Production Readiness | Created deployment checklist, updated packages |
 
 ---
 

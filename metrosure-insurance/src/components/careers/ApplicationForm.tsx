@@ -36,7 +36,7 @@ interface FormData {
   province: string;
   experience: string;
   willingToRelocate: string;
-  cv: File | null;
+  attachments: File[];
   privacyConsent: boolean;
 }
 
@@ -48,9 +48,16 @@ const initialFormData: FormData = {
   province: "",
   experience: "",
   willingToRelocate: "",
-  cv: null,
+  attachments: [],
   privacyConsent: false,
 };
+
+const MAX_TOTAL_SIZE = 5 * 1024 * 1024; // 5MB total
+const VALID_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 export default function ApplicationForm({
   id,
@@ -61,7 +68,6 @@ export default function ApplicationForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string>("");
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   // Honeypot field for spam prevention (hidden from users, filled by bots)
@@ -120,36 +126,46 @@ export default function ApplicationForm({
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validate file type
-      const validTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      ];
-      if (!validTypes.includes(file.type)) {
-        setError("Please upload a PDF or Word document");
-        return;
-      }
-      // Validate file size (5MB max)
-      if (file.size > 5 * 1024 * 1024) {
-        setError("File size must be less than 5MB");
-        return;
-      }
-      setFormData((prev) => ({ ...prev, cv: file }));
-      setFileName(file.name);
-      setError(null);
-    }
-  };
+  const getTotalFileSize = (files: File[]) => files.reduce((sum, f) => sum + f.size, 0);
 
-  const removeFile = () => {
-    setFormData((prev) => ({ ...prev, cv: null }));
-    setFileName("");
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const newFiles: File[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (!VALID_TYPES.includes(file.type)) {
+        setError("Please upload PDF or Word documents only");
+        return;
+      }
+      newFiles.push(file);
+    }
+
+    const currentSize = getTotalFileSize(formData.attachments);
+    const newSize = getTotalFileSize(newFiles);
+    if (currentSize + newSize > MAX_TOTAL_SIZE) {
+      setError("Total file size must be less than 5MB");
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      attachments: [...prev.attachments, ...newFiles]
+    }));
+    setError(null);
+
+    // Reset input to allow selecting same file again
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  };
+
+  const removeFile = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      attachments: prev.attachments.filter((_, i) => i !== index),
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -168,9 +184,9 @@ export default function ApplicationForm({
       formDataToSend.append("willingToRelocate", formData.willingToRelocate);
       formDataToSend.append("privacyConsent", String(formData.privacyConsent));
       formDataToSend.append(HONEYPOT_FIELD_NAME, honeypot);
-      if (formData.cv) {
-        formDataToSend.append("cv", formData.cv);
-      }
+      formData.attachments.forEach((file) => {
+        formDataToSend.append("attachments", file);
+      });
 
       const response = await fetch("/api/careers-application", {
         method: "POST",
@@ -200,7 +216,6 @@ export default function ApplicationForm({
 
   const resetForm = () => {
     setFormData(initialFormData);
-    setFileName("");
     setIsSubmitted(false);
     setError(null);
     setFieldStates({});
@@ -454,62 +469,73 @@ export default function ApplicationForm({
                     />
                   </div>
 
-                  {/* CV Upload */}
+                  {/* Attachments Upload */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                      Upload CV (Optional)
+                      Attachments (Optional)
                     </label>
+
+                    {/* File list */}
+                    {formData.attachments.length > 0 && (
+                      <div className="mb-3 space-y-2">
+                        {formData.attachments.map((file, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between p-3 rounded-lg bg-primary/5 border border-primary/20"
+                          >
+                            <div className="flex items-center gap-3 min-w-0">
+                              <span className="material-symbols-outlined text-primary text-xl flex-shrink-0">
+                                description
+                              </span>
+                              <span className="text-slate-900 dark:text-white font-medium truncate">
+                                {file.name}
+                              </span>
+                              <span className="text-xs text-slate-500 flex-shrink-0">
+                                ({(file.size / 1024).toFixed(0)} KB)
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeFile(index)}
+                              className="p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-colors flex-shrink-0"
+                            >
+                              <span className="material-symbols-outlined text-lg">
+                                close
+                              </span>
+                            </button>
+                          </div>
+                        ))}
+                        <p className="text-xs text-slate-500">
+                          Total: {(getTotalFileSize(formData.attachments) / 1024).toFixed(0)} KB / 5 MB
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Upload area */}
                     <div
-                      className={`relative border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all ${fileName
-                        ? "border-primary bg-primary/5"
-                        : "border-slate-200 dark:border-slate-600 hover:border-primary/50"
-                        }`}
+                      className="relative border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all border-slate-200 dark:border-slate-600 hover:border-primary/50"
                       onClick={() => fileInputRef.current?.click()}
                     >
                       <input
                         ref={fileInputRef}
                         type="file"
                         accept=".pdf,.doc,.docx"
+                        multiple
                         onChange={handleFileChange}
                         className="hidden"
                       />
-                      {fileName ? (
-                        <div className="flex items-center justify-center gap-3">
-                          <span className="material-symbols-outlined text-primary text-2xl">
-                            description
-                          </span>
-                          <span className="text-slate-900 dark:text-white font-medium">
-                            {fileName}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              removeFile();
-                            }}
-                            className="p-1 rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-colors"
-                          >
-                            <span className="material-symbols-outlined text-lg">
-                              close
-                            </span>
-                          </button>
-                        </div>
-                      ) : (
-                        <>
-                          <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-3xl mb-2">
-                            cloud_upload
-                          </span>
-                          <p className="text-slate-600 dark:text-slate-300">
-                            <span className="text-primary font-semibold">
-                              Click to upload
-                            </span>{" "}
-                            or drag and drop
-                          </p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            PDF, DOC, DOCX (Max 5MB)
-                          </p>
-                        </>
-                      )}
+                      <span className="material-symbols-outlined text-slate-500 dark:text-slate-400 text-3xl mb-2">
+                        cloud_upload
+                      </span>
+                      <p className="text-slate-600 dark:text-slate-300">
+                        <span className="text-primary font-semibold">
+                          Click to upload
+                        </span>{" "}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        CV, cover letter, certificates - PDF, DOC, DOCX (Max 5MB total)
+                      </p>
                     </div>
                   </div>
 
