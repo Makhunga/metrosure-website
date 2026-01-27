@@ -95,7 +95,7 @@ export default function RootLayout({
                 name: "South Africa",
               },
               sameAs: [
-                "https://www.facebook.com/people/Metrosure-Insurance-Brokers/100083163880679/",
+                "https://www.facebook.com/profile.php?id=100083163880679",
                 "https://za.linkedin.com/company/metrosure",
                 "https://www.instagram.com/metrosure_insurance_/",
               ],

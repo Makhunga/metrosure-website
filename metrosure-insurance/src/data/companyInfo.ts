@@ -94,7 +94,7 @@ export const legalInfo = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const socialMedia = {
-  facebook: "https://www.facebook.com/people/Metrosure-Insurance-Brokers/100083163880679/",
+  facebook: "https://www.facebook.com/profile.php?id=100083163880679",
   linkedin: "https://za.linkedin.com/company/metrosure",
   instagram: "https://www.instagram.com/metrosure_insurance_/",
 } as const;
