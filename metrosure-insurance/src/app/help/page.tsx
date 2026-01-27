@@ -14,13 +14,11 @@ export const metadata: Metadata = {
     description: "Find answers to your insurance questions. Metrosure Help Centre covers claims, policy management, payments, and product information.",
     url: "/help",
     type: "website",
-    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Help Centre | Metrosure Insurance Brokers",
     description: "Find answers to your insurance questions. Metrosure Help Centre covers claims, policy management, payments, and product information.",
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/help",

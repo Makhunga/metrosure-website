@@ -7,13 +7,11 @@ export const metadata: Metadata = {
     title: "Claims Centre | Metrosure Insurance Brokers",
     description: "Submit and track insurance claims easily. Our dedicated team is here to help you through the claims process.",
     url: "/claims",
-    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Claims Centre | Metrosure Insurance Brokers",
     description: "Submit and track insurance claims easily. Our dedicated team is here to help you through the claims process.",
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/claims",

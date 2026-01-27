@@ -21,14 +21,12 @@ export const metadata: Metadata = {
       "Free insurance calculator for South Africans. Calculate how much life cover and funeral cover you need. No obligation, instant results.",
     url: "/tools/coverage-calculator",
     type: "website",
-    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Coverage Calculator | How Much Insurance Do You Need?",
     description:
       "Free insurance calculator for South Africans. Calculate how much life cover and funeral cover you need. No obligation, instant results.",
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/tools/coverage-calculator",

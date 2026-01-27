@@ -16,13 +16,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     siteName: "Metrosure Insurance Brokers",
-    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: claimsSEO.title + " | Metrosure Insurance Brokers",
     description: claimsSEO.description,
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/claims",

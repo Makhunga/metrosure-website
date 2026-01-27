@@ -39,21 +39,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     siteName: "Metrosure Insurance Brokers",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Metrosure Insurance Brokers - Taking You to the Future",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@metrosure_insurance_",
     title: "Metrosure Insurance Brokers | Taking You to the Future",
     description: "Your trusted South African insurance broker. Personal and business insurance, financial planning, and retail insurance solutions. FSP 47089.",
-    images: ["/og-image.png"],
   },
 };
 

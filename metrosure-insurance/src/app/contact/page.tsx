@@ -105,14 +105,12 @@ export const metadata: Metadata = {
       "Contact Metrosure Insurance Brokers (FSP 47089) for sales, support, or claims.",
     url: "/contact",
     type: "website",
-    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact Us | Metrosure Insurance Brokers",
     description:
       "Contact Metrosure Insurance Brokers (FSP 47089) for sales, support, or claims.",
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "/contact",
