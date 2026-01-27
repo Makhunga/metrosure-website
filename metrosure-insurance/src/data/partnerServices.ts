@@ -53,7 +53,7 @@ export const partnerServices: PartnerService[] = [
     icon: "groups",
     title: "Outsourced Sales & Marketing",
     description:
-      "Let us handle your insurance sales division entirely. From recruitment to training to performance management, we become your in-house insurance arm.",
+      "Let us manage your insurance sales division entirely. From recruitment to training to performance management, we become your dedicated sales team, arranging products from partner insurers.",
     features: [
       "End-to-end sales management",
       "Staff recruitment & training",

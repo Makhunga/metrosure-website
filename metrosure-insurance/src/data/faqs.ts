@@ -122,7 +122,7 @@ export const allFAQs: FAQ[] = [
     id: "what-is-metrosure",
     question: "What is Metrosure and how does it work?",
     answer:
-      "Metrosure Insurance Brokers is an authorised Financial Services Provider (FSP 47089) that helps South Africans find the right insurance cover. Unlike direct insurers, we work with over 30 leading insurance companies to compare products and find you the best cover at the best price. You get a dedicated portfolio manager who handles your policies, renewals, and claims.",
+      "Metrosure Insurance Brokers is an authorised Financial Services Provider (FSP 47089) that helps South Africans find the right insurance cover. Unlike direct insurers, we work with over 30 leading insurance companies to compare products and find you the best cover at the best price. You get a dedicated portfolio manager who manages your policies and renewals, and guides you through claims with the insurer.",
     category: "getting-started",
     link: "/about",
     linkText: "Learn more about us",
@@ -446,7 +446,7 @@ export const allFAQs: FAQ[] = [
     id: "what-metrosure-provides",
     question: "What does Metrosure provide to retail partners?",
     answer:
-      "We provide everything needed: fully trained, FSP-licensed sales advisors; all compliance and regulatory management; branded point-of-sale materials and equipment; ongoing training and performance coaching; a dedicated partnership manager; daily quality assurance monitoring (95% average); and monthly performance reports. You focus on your core retail business while we handle the insurance operation.",
+      "We provide everything needed: fully trained, FSP-licensed sales advisors; all compliance and regulatory management; branded point-of-sale materials and equipment; ongoing training and performance coaching; a dedicated partnership manager; daily quality assurance monitoring (95% average); and monthly performance reports. You focus on your core retail business while we manage the insurance sales operation.",
     category: "partnerships",
   },
   {
@@ -480,7 +480,7 @@ export const allFAQs: FAQ[] = [
     id: "instore-campaigns",
     question: "What are in-store insurance campaigns?",
     answer:
-      "Our in-store campaigns deploy trained Metrosure representatives directly at your retail locations. Our teams engage customers, explain insurance products (funeral cover, life insurance, credit life), and handle the entire sales process. We provide dedicated sales teams, full product training, customer engagement strategies, and performance tracking. This is our most popular partnership model.",
+      "Our in-store campaigns deploy trained Metrosure representatives directly at your retail locations. Our teams engage customers, explain insurance products (funeral cover, life insurance, credit life), and facilitate the entire sales process. We provide dedicated sales teams, full product training, customer engagement strategies, and performance tracking. This is our most popular partnership model.",
     category: "business",
     link: "/partners",
     linkText: "Learn about in-store campaigns",
@@ -498,14 +498,14 @@ export const allFAQs: FAQ[] = [
     id: "device-leasing-programme",
     question: "How does the device leasing programme work?",
     answer:
-      "Our device leasing helps retailers offer affordable financing on electronics without credit risk. Metrosure provides the financing facility, handles credit assessments, and manages collections. Insurance is bundled to protect against defaults. Benefits include: increased sales of higher-value items, no credit risk to you, reduced default rates (we've seen 35% reductions), and revenue share on financing and insurance.",
+      "Our device leasing helps retailers offer affordable financing on electronics without credit risk. We arrange financing through partner lenders and facilitate credit assessments, while managing collections. Insurance is bundled to protect against defaults. Benefits include: increased sales of higher-value items, no credit risk to you, reduced default rates (we've seen 35% reductions), and revenue share on financing and insurance.",
     category: "business",
   },
   {
     id: "call-centre-services",
     question: "What call centre services does Metrosure offer?",
     answer:
-      "Our call centre handles outbound sales campaigns, customer service, and lead generation for partners. Services include: telesales for insurance products, appointment setting, customer retention calls, welcome calls for new policyholders, and lead qualification. All agents are FAIS-accredited with 95% quality assurance. We operate as a white-label extension of your brand or under the Metrosure name.",
+      "Our call centre manages outbound sales campaigns, customer service, and lead generation for partners. Services include: telesales for insurance products, appointment setting, customer retention calls, welcome calls for new policyholders, and lead qualification. All agents are FAIS-accredited with 95% quality assurance. We operate as a white-label extension of your brand or under the Metrosure name.",
     category: "business",
     link: "/contact",
     linkText: "Enquire about call centre services",
@@ -532,7 +532,7 @@ export const allFAQs: FAQ[] = [
     id: "outsourced-sales-teams",
     question: "Can Metrosure manage our entire insurance sales division?",
     answer:
-      "Yes, through our Outsourced Sales & Marketing service. We become your in-house insurance sales arm, handling everything from recruitment and FAIS training to performance management and compliance. We provide staff, marketing collateral, and ongoing coaching. This lets you facilitate insurance product sales without building internal capability. Many retailers have grown from 2 advisors to 18+ permanent staff through this model.",
+      "Yes, through our Outsourced Sales & Marketing service. We become your dedicated insurance sales team, arranging products from our partner insurers while handling everything from recruitment and FAIS training to performance management and compliance. We provide staff, marketing collateral, and ongoing coaching. This lets you facilitate insurance product sales without building internal capability. Many retailers have grown from 2 advisors to 18+ permanent staff through this model.",
     category: "business",
     link: "/partners",
     linkText: "Learn about outsourced sales",

@@ -24,7 +24,7 @@ const testimonialsData: Testimonial[] = [
         company: "Personal Client",
     },
     {
-        text: "Partnering with Metrosure was the best decision for our stores. Their trained teams handle all the insurance sales and compliance, while we focus on our core business. We've created 15 new jobs and seen steady commission income.",
+        text: "Partnering with Metrosure was the best decision for our stores. Their trained teams manage all the insurance sales and compliance, while we focus on our core business. We've created 15 new jobs and seen steady commission income.",
         name: "Lerato Mokoena",
         role: "Operations Director",
         company: "Retail Partner",

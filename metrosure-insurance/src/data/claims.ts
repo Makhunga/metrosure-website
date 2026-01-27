@@ -184,7 +184,7 @@ export const claimsFAQs: ClaimsFAQ[] = [
 export const claimsSEO = {
   title: "File an Insurance Claim",
   description:
-    "Need to file an insurance claim? Metrosure's dedicated claims team guides you through every step. Car, home, life, funeral, and business claims processed quickly and fairly.",
+    "Need to file an insurance claim? Metrosure's dedicated claims team guides you through every step. Car, home, life, funeral, and business claims assessed quickly and fairly by our partner insurers.",
   keywords: [
     "insurance claim South Africa",
     "file insurance claim",
