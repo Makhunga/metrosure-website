@@ -16,27 +16,28 @@
 
 ## CURRENT SESSION (148) - 27 Jan 2026
 
-### Self-Hosted Mail Server Research & Plan
+### Focus Areas
 
-**Goal:** Research and document options for a self-hosted mail server for internal agent/mystery shopper identification and authentication.
+1. **Self-Hosted Mail Server Research & Plan**
+2. **Careers Email Routing Fix**
+3. **Multiple Attachments Feature**
 
 ### Completed Tasks
 
-| Task | Status | Output |
-|------|--------|--------|
-| **Mail Server Options Research** | ✅ | `docs/MAIL_SERVER_PLAN.md` |
+| Task | Status | Commits |
+|------|--------|---------|
+| **Mail Server Options Research** | ✅ | `9089d48` |
+| **Careers Email Routing** | ✅ | `860d50c` |
+| **Multiple Attachments Support** | ✅ | `e84b7be` |
 
-### Summary
+### 1. Mail Server Research
 
-Created comprehensive documentation covering:
+Created comprehensive documentation at `docs/MAIL_SERVER_PLAN.md` covering:
 - 5 mail server options compared (Mailcow, Mail-in-a-Box, Stalwart, Poste.io, docker-mailserver)
 - Comparison matrix for features, ease of setup, API support
 - **Recommendation: Stalwart Mail Server** (modern Rust-based, full REST API, low resource usage)
 - VPS specification (Hetzner CX22 @ €4.35/month or Vultr Cape Town @ $14/month)
 - Implementation phases (Infrastructure → Configuration → Account Management → Integration)
-- DNS template and API examples for account management
-
-### Key Decision Points
 
 | Requirement | Selected Option |
 |-------------|-----------------|
@@ -44,8 +45,32 @@ Created comprehensive documentation covering:
 | Account Management | Web UI + REST API |
 | Recommended Server | Stalwart Mail Server |
 | Recommended VPS | Hetzner CX22 (2 vCPU, 4GB RAM, €4.35/mo) |
+| Domain | metrosure.app |
 
-### Next Steps (When Proceeding)
+### 2. Careers Email Routing
+
+Changed careers application delivery from `careers@metrosuregroup.co.za` to `careers@metrosureconsult.co.za` (alias for lazola@metrosureconsult.co.za).
+
+**Files modified:**
+- `src/lib/email.ts` - Updated `EMAIL_CAREERS` constant
+- `src/app/api/careers-application/route.ts` - Updated reference
+- `CLAUDE.md` - Updated documentation
+
+**Note:** Resend may suppress emails to aliases if the underlying mailbox bounces. Solution: Remove from Resend suppression list in dashboard if issues occur.
+
+### 3. Multiple Attachments Support
+
+Enhanced careers application form to accept multiple file attachments (CV, cover letter, certificates).
+
+**Changes:**
+- `ApplicationForm.tsx` & `ApplicationModal.tsx` - Changed from single `cv: File | null` to `attachments: File[]`
+- `careers-application/route.ts` - Processes `formData.getAll("attachments")`
+- Total file size limit: 5MB across all files
+- Valid types: PDF, DOC, DOCX
+- Max files: 5 attachments per application
+- UI shows list of attached files with individual remove buttons
+
+### Next Steps (When Proceeding with Mail Server)
 
 1. Provision VPS (domain confirmed: metrosure.app)
 2. Install Stalwart
@@ -193,7 +218,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **148** | 27 Jan | **Mail Server Research** | Created `docs/MAIL_SERVER_PLAN.md`; Stalwart recommended |
+| **148** | 27 Jan | **Mail Server, Email Routing, Attachments** | Mail server plan; careers email to metrosureconsult; multiple attachments |
 | **147** | 27 Jan | Careers Maintenance Mode | Production-only "Coming Soon" for /careers/* |
 | **146** | 27 Jan | Broker Narrative: Complete Audit | Fixed 20 files; clarified commission structure |
 | **145** | 27 Jan | Broker Narrative: Home & Partners | Fixed 10 text instances; removed og-image temporarily |
