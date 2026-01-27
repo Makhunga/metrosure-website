@@ -269,7 +269,7 @@ function AboutPageContent() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  We sell financial products from leading insurers through retail partners, call centres, and outsourced sales teams. For families seeking the right cover. For businesses seeking proven growth.
+                  We provide financial products from leading insurers through retail partners, call centres, and outsourced sales teams. For families seeking the right cover. For businesses seeking proven growth.
                 </motion.p>
 
                 <motion.p
