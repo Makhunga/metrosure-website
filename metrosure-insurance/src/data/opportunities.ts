@@ -49,7 +49,7 @@ export const opportunities: Opportunity[] = [
     category: opportunityCategories[1],
     title: "Become a Retail Partner",
     description:
-      "Earn commission by hosting our sales teams who arrange financial products from our partners at your location. Full training and support provided.",
+      "Earn commission by hosting our sales teams who arrange insurance products from our partner insurers at your location. Full training and support provided.",
     ctaText: "Partner With Us",
     link: "/partners",
   },

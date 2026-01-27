@@ -101,7 +101,7 @@ export default function Products() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            We connect families with the right financial products from leading partners, and help retailers earn commission through our sales partnerships.
+            We connect families with the right financial products from leading insurers, and create partnership opportunities for retailers to earn commission.
           </motion.p>
         </motion.div>
 
