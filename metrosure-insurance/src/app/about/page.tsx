@@ -142,7 +142,7 @@ function AboutPageContent() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              A proudly South African financial services company protecting families and partnering with retail businesses. Real people, real advice, real partnerships.
+              A proudly South African financial services broker connecting families with the right products and helping businesses grow. Real people, real advice, real results.
             </motion.p>
 
             <motion.div
@@ -239,11 +239,11 @@ function AboutPageContent() {
                 animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
               >
-                Building a nation
+                Connecting people
                 <br />
-                <span className="text-white/60">where everyone</span>
+                <span className="text-white/60">with the right</span>
                 <br />
-                <span className="text-white/60">is protected.</span>
+                <span className="text-white/60">financial products.</span>
               </motion.h2>
             </motion.div>
 
@@ -269,7 +269,7 @@ function AboutPageContent() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  We&apos;re a sales and marketing company that connects South Africans with the right financial products from leading insurers and retailers. For families seeking peace of mind. For retailers seeking proven growth.
+                  We&apos;re a sales and marketing company that sells financial products from leading insurers through retail partners, call centres, and outsourced sales teams. For families seeking the right cover. For businesses seeking proven growth.
                 </motion.p>
 
                 <motion.p
