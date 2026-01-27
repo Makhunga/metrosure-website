@@ -188,10 +188,10 @@ export default function PartnersCTA() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Retail partners like TFG trust us to grow their in-store financial
-            product sales. Our trained teams arrange cover and other financial
-            products from leading partners, and both you and your staff earn
-            commission on every sale.
+            Partners like TFG trust us to grow their financial product sales.
+            Our trained agents sell products from leading insurers and you
+            earn commission on every sale. In-store, via call centre, or
+            as your outsourced sales and marketing team.
           </motion.p>
         </div>
 

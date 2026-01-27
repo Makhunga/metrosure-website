@@ -34,7 +34,7 @@ const products = [
     icon: "storefront",
     title: "Retail Partnerships",
     description:
-      "Turn your store into a revenue engine. We bring trained staff, handle compliance, and share profits - you focus on your business.",
+      "Turn your space into a revenue stream. We deploy trained agents who sell financial products from leading insurers. You earn commission on every sale.",
     features: ["Revenue Share", "Staff Provided", "Zero Overhead"],
     href: "/partners",
   },

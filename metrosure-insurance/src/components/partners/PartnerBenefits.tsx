@@ -21,7 +21,7 @@ const benefits = [
   {
     icon: "account_balance_wallet",
     title: "Zero Overhead Costs",
-    description: "We handle staffing, training, compliance, and marketing materials. You provide the space; we bring everything else.",
+    description: "We manage staffing, training, compliance, and marketing materials. You provide the space or customer base; we bring everything else.",
   },
   {
     icon: "volunteer_activism",

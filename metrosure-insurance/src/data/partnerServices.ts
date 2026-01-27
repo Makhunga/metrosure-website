@@ -39,7 +39,7 @@ export const partnerServices: PartnerService[] = [
     icon: "campaign",
     title: "In-Store Insurance Campaigns",
     description:
-      "We deploy trained sales representatives directly at your retail locations. Our teams engage customers, explain insurance products, and handle the entire sales process.",
+      "We deploy trained agents at your location. Our teams engage customers, explain financial products from our partner insurers, and facilitate the entire sales process. You earn commission on every sale.",
     features: [
       "Dedicated sales teams at your location",
       "Full product training provided",

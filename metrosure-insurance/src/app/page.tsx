@@ -6,14 +6,14 @@ import { Header, Hero, StatsBar, Footer } from "@/components";
 export const metadata: Metadata = {
   title: "Metrosure Insurance Brokers | Trusted SA Insurance Since 2013",
   description:
-    "South Africa's trusted insurance broker connecting families with the right cover. Car, home, life insurance & retirement planning. 5,000+ jobs created. FSP 47089.",
+    "South Africa's trusted financial services broker connecting families with the right cover. Life, funeral, car and home products from leading insurers. 5,000+ jobs created. FSP 47089.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Metrosure Insurance Brokers | Trusted SA Insurance Since 2013",
     description:
-      "South Africa's trusted insurance broker connecting families with the right cover. Car, home, life insurance & retirement planning. 5,000+ jobs created. FSP 47089.",
+      "South Africa's trusted financial services broker connecting families with the right cover. Life, funeral, car and home products from leading insurers. 5,000+ jobs created. FSP 47089.",
     url: "/",
   },
 };

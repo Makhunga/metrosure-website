@@ -19,7 +19,7 @@ import { generateBreadcrumbSchema, commonBreadcrumbs } from "@/lib/generateBread
 export const metadata: Metadata = {
   title: "Partner With Us | Metrosure Insurance Brokers",
   description:
-    "Partner with Metrosure to offer in-store insurance. Our trained sales teams handle everything, generating revenue while creating jobs. Join 100+ retail partners.",
+    "Partner with Metrosure to facilitate financial product sales. Our trained teams sell products from leading insurers, earning you commission while creating jobs. Join 100+ partners.",
   keywords: [
     "retail partnership",
     "in-store insurance",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Partner With Us | Metrosure Insurance Brokers",
     description:
-      "Partner with Metrosure to offer in-store insurance. Our trained sales teams handle everything, generating revenue while creating jobs.",
+      "Partner with Metrosure to facilitate financial product sales. Our trained teams sell products from leading insurers, earning you commission while creating jobs.",
   },
   alternates: {
     canonical: "/partners",

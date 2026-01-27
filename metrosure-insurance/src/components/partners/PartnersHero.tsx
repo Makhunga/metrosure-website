@@ -114,9 +114,9 @@ export default function PartnersHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            Partner with Metrosure to grow your in-store financial product sales.
-            We deploy trained sales teams to arrange financial products from our partners in-store,
-            handle all compliance, and share the revenue - you focus on your business while creating local jobs.
+            Partner with Metrosure to grow your financial product sales.
+            We deploy trained agents who sell products from our partner insurers - in your retail space, via our call centre, or as your outsourced sales and marketing team.
+            You earn commission on every sale while we manage all compliance.
           </motion.p>
 
           {/* Consumer Cross-link */}

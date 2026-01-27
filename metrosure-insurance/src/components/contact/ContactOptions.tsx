@@ -121,7 +121,7 @@ const contactOptions = [
     icon: "storefront",
     title: "Partner With Us",
     description:
-      "Own a retail store? Partner with us to offer insurance, earn commission, and create local jobs. We handle everything.",
+      "Own a business? Partner with us to sell financial products from leading insurers. You earn commission on every sale while we manage compliance.",
     linkText: "Explore Partnerships",
     href: "/partners",
   },

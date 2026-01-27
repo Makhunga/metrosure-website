@@ -36,7 +36,7 @@ const features = [
     icon: "handshake",
     title: "Retail Partnerships",
     description:
-      "Own a store? Partner with us to facilitate insurance sales, earn commission, and create local jobs. We manage training and compliance - you provide the space.",
+      "Own a store or business? Partner with us to sell financial products from leading insurers. You earn commission on every sale while we manage training and compliance.",
     accent: "secondary",
     href: "/partners",
   },
@@ -44,7 +44,7 @@ const features = [
     icon: "storefront",
     title: "In-Store Campaigns",
     description:
-      "Deploy trained sales teams in your retail space. We manage staffing, training, and compliance. You earn commission on every product arranged through our partner insurers while creating local employment.",
+      "Deploy our trained agents in your space, use our call centre, or outsource your sales team to us. We sell products from partner insurers and you earn commission.",
     accent: "primary",
     href: "/partners",
   },
