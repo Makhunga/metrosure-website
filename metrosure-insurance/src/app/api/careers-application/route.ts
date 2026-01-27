@@ -252,7 +252,7 @@ export async function POST(request: NextRequest) {
 
     if (!confirmationResult.success) {
       console.warn("Applicant confirmation email failed:", confirmationResult.error);
-      response.warning = "Your application was received, but we couldn't send a confirmation email. Please check your spam folder or contact hr@metrosureconsult.co.za if you don't hear back within 5-7 business days.";
+      response.warning = "Your application was received, but we couldn't send a confirmation email. Please check your spam folder or contact careers@metrosureconsult.co.za if you don't hear back within 5-7 business days.";
     }
 
     return NextResponse.json(response);
@@ -359,7 +359,7 @@ function generateConfirmationEmail(data: ApplicationData): string {
 
     ${createParagraph("In the meantime, feel free to explore our website to learn more about our company culture and the exciting opportunities we offer.")}
 
-    ${createParagraph(`If you have any questions, please don't hesitate to contact us at ${createLink("mailto:hr@metrosureconsult.co.za", "hr@metrosureconsult.co.za")} or call us at ${createLink("tel:+27313011192", "+27 31 301 1192")}.`)}
+    ${createParagraph(`If you have any questions, please don't hesitate to contact us at ${createLink("mailto:careers@metrosureconsult.co.za", "careers@metrosureconsult.co.za")} or call us at ${createLink("tel:+27313011192", "+27 31 301 1192")}.`)}
 
     ${createParagraph("Best regards,<br /><strong>The Metrosure HR Team</strong>")}
   `;

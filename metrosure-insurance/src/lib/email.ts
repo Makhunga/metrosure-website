@@ -41,11 +41,10 @@ function getResend(): Resend | null {
 
 // Email addresses
 // Updated per stakeholder meeting (S96): B2B inquiries go to metrosureconsult.co.za
-// Updated: Careers applications now route to hr@metrosureconsult.co.za
+// Updated (S148): Careers applications now route to careers@metrosureconsult.co.za only
 const EMAIL_INFO = 'info@metrosuregroup.co.za';
 const EMAIL_CLIENTS = 'clients@metrosureconsult.co.za';
-const EMAIL_CAREERS = 'hr@metrosureconsult.co.za';
-const EMAIL_CAREERS_CC = 'lazola@metrosureconsult.co.za';
+const EMAIL_CAREERS = 'careers@metrosureconsult.co.za';
 
 // Additional recipients for testing/monitoring
 // IMPORTANT: Clear this array before production deployment
@@ -118,8 +117,9 @@ export const emailTo = {
 };
 
 // CC recipients for specific email types
-export const emailCc = {
-  careers: EMAIL_CAREERS_CC,
+// Note: Careers CC removed in S148 - now single recipient only
+export const emailCc: Record<string, string | undefined> = {
+  careers: undefined,
 };
 
 // ============================================================================
