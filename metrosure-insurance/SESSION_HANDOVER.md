@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 27 January 2026 (Session 145)
+**Updated:** 27 January 2026 (Session 146)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,100 +14,78 @@
 
 ---
 
-## CURRENT SESSION (145) - 27 Jan 2026
+## CURRENT SESSION (146) - 27 Jan 2026
 
-### Broker Narrative Fix: Home & Partners Pages
+### Comprehensive Broker Narrative Audit
 
-**Goal:** Correct content that incorrectly positions Metrosure as a direct insurer/product provider. Metrosure is a broker/intermediary (FSP 47089), outsourced sales & marketing, outbound call centre services, and financial services facilitator. Both Metrosure and its agents earn commission from partner insurers.
+**Goal:** Complete broker narrative compliance across all pages. Metrosure is a broker/reseller (FSP 47089) that:
+- Sells financial products FROM partner insurers
+- Earns commission from insurers and retail partners
+- Pays its own agents from that commission
+- Operates via in-store sales, call centre, and outsourced sales/marketing teams
 
 ### Completed Tasks
 
-| Task | Status | Details |
+| Task | Status | Commits |
 |------|--------|---------|
-| **Products.tsx** | ✅ | Updated Life & Funeral, Health & Income descriptions to clarify partner relationship |
-| **Features.tsx** | ✅ | In-Store Campaigns: "policy sold" → "product arranged through our partners" |
-| **PartnersCTA.tsx** | ✅ | Emphasise trained teams arranging products from partners + commission earning |
-| **PartnersHero.tsx** | ✅ | "sell insurance" → "arrange financial products from our partners" |
-| **opportunities.ts** | ✅ | Retail Partner: "hosting our sales teams who arrange financial products from our partners" |
-| **partnerServices.ts** | ✅ | Credit Facility, Device Leasing, Commission FAQ updated with partner language |
-| **OG Image Removal** | ✅ | Temporarily removed og-image.png/html and all metadata references (13 files) |
-| **Build Verification** | ✅ | All changes compile successfully |
-| **Commit & Push** | ✅ | `4d258c0` (broker narrative), `4f09e51` (og-image removal) |
+| **FAQ & Data Files Audit** | ✅ | `6772e83` |
+| **Home Page Components** | ✅ | `d760ac0`, `7bac2ea` |
+| **Partners Page Components** | ✅ | `7bac2ea` |
+| **About Page** | ✅ | `48b066d` |
 
-### Key Language Changes Applied
-
-| Avoid | Use Instead |
-|-------|-------------|
-| "We sell insurance" | "We arrange/facilitate products from partner providers" |
-| "Our insurance products" | "Financial products from our partners" |
-| "We offer" | "We connect you with" / "We arrange" |
-| "Policy sold" | "Product arranged through our partners" |
-| Overuse of "insurance" | "Financial products" (reflects broader offering: credit, leasing, cover) |
-
-### Files Modified
+### Files Modified (20 total)
 
 | File | Changes |
 |------|---------|
-| `src/components/Products.tsx` | 3 text changes (Life & Funeral, Health & Income, section description) |
-| `src/components/Features.tsx` | 1 text change (In-Store Campaigns) |
-| `src/components/PartnersCTA.tsx` | 1 text change (subheadline) |
-| `src/components/partners/PartnersHero.tsx` | 1 text change (subheadline) |
-| `src/data/opportunities.ts` | 1 text change (Retail Partner description) |
-| `src/data/partnerServices.ts` | 3 text changes (Credit Facility, Device Leasing, Commission FAQ) |
-| `src/app/layout.tsx` | Removed og-image references |
-| `src/app/*/layout.tsx` & `page.tsx` | Removed og-image references (12 additional files) |
-| `public/og-image.png` | Deleted |
-| `public/og-image.html` | Deleted |
+| `src/app/page.tsx` | Metadata: "financial services broker" |
+| `src/app/about/page.tsx` | Hero subtext, mission heading, mission description |
+| `src/app/partners/page.tsx` | All metadata descriptions |
+| `src/components/Features.tsx` | Both B2B feature descriptions |
+| `src/components/Products.tsx` | Retail partnerships card |
+| `src/components/PartnersCTA.tsx` | Subheadline with commission + services |
+| `src/components/contact/ContactOptions.tsx` | Partner link description |
+| `src/components/partners/PartnersHero.tsx` | Hero messaging |
+| `src/components/partners/PartnerBenefits.tsx` | Zero overhead description |
+| `src/components/testimonials/TestimonialsCarousel.tsx` | Partner testimonial |
+| `src/data/faqs.ts` | 6 FAQ answers |
+| `src/data/claims.ts` | SEO description |
+| `src/data/partnerServices.ts` | In-store campaigns, outsourced sales descriptions |
+| `src/data/opportunities.ts` | Partner opportunity card |
 
-### Blockers / Issues
+### Key Narrative Changes
 
-| Issue | Status | Notes |
-|-------|--------|-------|
-| OG Image | Deferred | Temporarily removed; needs proper design before re-adding |
-| Untracked team photos | Pending | `public/images/metrosure-team-pic*.webp` not committed (separate task) |
+| Before | After |
+|--------|-------|
+| "protecting families" | "connecting families with the right products" |
+| "Building a nation where everyone is protected" | "Connecting people with the right financial products" |
+| "We handle insurance/claims" | "We manage/facilitate/guide" |
+| "offer insurance" | "sell financial products from partner insurers" |
+| "you and agents earn commission" | "you earn commission on every sale" |
+| "in-store" only | "in-store, call centre, or outsourced sales teams" |
+| "retail stores" | "stores or businesses" |
 
-### Skipped / Deferred Tasks
+### Commission Structure Clarified
 
-| Task | Reason | Notes |
-|------|--------|-------|
-| About page narrative check | Next session | Priority for Session 146 |
-| FAQ narrative audit | Next session | Check all FAQ data files for broker compliance |
-| OG Image redesign | Design needed | Awaiting proper branded image |
+```
+Partner Insurers → pay commission → Metrosure
+Retail Partners → pay/share commission → Metrosure
+Metrosure → pays → Sales Agents
+```
+
+Partners (retailers/businesses) earn commission on sales made at their location.
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 146)
+## NEXT SESSION PRIORITIES (Session 147)
 
-### Priority 1: Broker Narrative Audit - Remaining Pages (CRITICAL)
-
-Audit and fix broker narrative on remaining important pages:
-
-| Page/File | Status | Key Areas to Check |
-|-----------|--------|-------------------|
-| `src/app/about/page.tsx` | Pending | Mission, values, company description |
-| `src/components/about/*.tsx` | Pending | All About page sections |
-| `src/data/faqs.ts` | Pending | All FAQ answers for broker compliance |
-| `src/data/claims.ts` | Pending | Claims FAQs - ensure "we support/guide" not "we handle" |
-| `src/data/corporateServices.ts` | Pending | Corporate descriptions and FAQs |
-| `src/components/contact/FAQ.tsx` | Pending | Contact page FAQ content |
-| `src/app/insurance/*.tsx` | Verify | Insurance product pages (already fixed in Session 141) |
-
-**Audit Checklist:**
-- [ ] No text claims Metrosure "sells" insurance directly
-- [ ] No text claims Metrosure "handles" claims (we support/guide/advocate)
-- [ ] No text claims Metrosure "offers" products (we arrange/facilitate/connect)
-- [ ] Commission earning is explicit where relevant
-- [ ] Products come from "partners" not from Metrosure directly
-- [ ] Use "financial products" not just "insurance" to reflect broader offering
-
-### Priority 2: OG Image
+### Priority 1: OG Image
 
 | Task | Notes |
 |------|-------|
 | Design proper OG image | 1200x630px, branded, professional |
 | Re-add to metadata | Once image is ready |
 
-### Priority 3: Production Readiness
+### Priority 2: Production Readiness
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -115,7 +93,7 @@ Audit and fix broker narrative on remaining important pages:
 | Cross-browser testing | Pending | Chrome, Firefox, Edge, Safari |
 | Mobile responsiveness audit | Pending | Test on real devices |
 
-### Priority 4: Domain & Search Console (Post-Deployment)
+### Priority 3: Domain & Search Console (Post-Deployment)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -125,30 +103,42 @@ Audit and fix broker narrative on remaining important pages:
 
 ---
 
-## RECOMMENDATIONS FOR NEXT SESSION
+## BROKER NARRATIVE GUIDELINES (Final)
 
-### Immediate Actions
-1. **Run `npm run build`** - Verify build passes before any new changes
-2. **Grep for problematic terms** - Search for "we sell", "we offer insurance", "we handle claims" across all files
-3. **Check FAQ data files first** - These are high-impact, user-facing content
+### Metrosure's Role
+- **Broker/Reseller** - FSP 47089 licensed
+- **Sales & Marketing Company** - not an insurer
+- **Commission-based** - earns from insurers and partners, pays agents
 
-### Suggested Search Patterns
-```bash
-# Find potentially problematic broker language
-grep -rn "we sell" src/
-grep -rn "we offer insurance" src/
-grep -rn "we handle claims" src/
-grep -rn "our insurance" src/
-grep -rn "our products" src/  # Check context
-```
+### Language Rules
 
-### Narrative Guidelines Summary
-- Metrosure is a **broker/intermediary** (FSP 47089)
-- We **connect**, **arrange**, **facilitate** - never "sell" or "offer" directly
-- Products come from **partners** and **leading insurers**
-- For claims: we **support**, **guide**, **advocate** - never "handle" or "process"
-- Commission earning should be **explicit** - retailers and agents both earn commission
-- Use **"financial products"** over just "insurance" to reflect credit, leasing, cover
+| Avoid | Use Instead |
+|-------|-------------|
+| "We sell/offer insurance" | "We sell financial products from partner insurers" |
+| "Our insurance products" | "Products from our partner insurers" |
+| "We handle claims" | "We guide/support you through claims" |
+| "We protect" | "We connect you with the right cover" |
+| "in-house insurance arm" | "dedicated sales team" |
+| Overuse of "insurance" | "financial products" (broader: credit, leasing, cover) |
+
+### Service Channels
+Always mention all three where appropriate:
+1. **In-store** - sales agents at partner locations
+2. **Call centre** - outbound sales campaigns
+3. **Outsourced sales/marketing** - dedicated teams for partners
+
+---
+
+## PREVIOUS SESSION (145) - 27 Jan 2026
+
+### Broker Narrative Fix: Home & Partners Pages (Initial)
+
+| Task | Status | Details |
+|------|--------|---------|
+| **Products.tsx** | ✅ | Updated descriptions to clarify partner relationship |
+| **Features.tsx** | ✅ | "policy sold" → "product arranged through our partners" |
+| **OG Image Removal** | ✅ | Temporarily removed og-image.png/html and all metadata references |
+| **Commit & Push** | ✅ | `4d258c0`, `4f09e51` |
 
 ---
 
@@ -156,75 +146,10 @@ grep -rn "our products" src/  # Check context
 
 ### SEO: WordPress Migration Redirects
 
-**Goal:** Configure 301 redirects to preserve SEO link equity when migrating from existing WordPress site.
-
-### Completed Tasks
-
 | Task | Status | Details |
 |------|--------|---------|
 | **301 Redirects** | ✅ | Added 10 permanent redirects in `next.config.ts` |
-| **Build Verification** | ✅ | All redirects validated, build passes |
-| **Redirect Testing** | ✅ | All 5 URL patterns return HTTP 308 (permanent redirect) |
-| **Commit & Push** | ✅ | `6b00d04` pushed to main |
-
-### Redirect Mapping
-
-| WordPress URL | → Next.js URL | Status |
-|---------------|---------------|--------|
-| `/about-us` | `/about` | ✅ 308 |
-| `/contact-us` | `/contact` | ✅ 308 |
-| `/metrosure-insurance` | `/` | ✅ 308 |
-| `/metrosure-consult` | `/corporate` | ✅ 308 |
-| `/blog-grid-2-columns-right-sidebar` | `/` | ✅ 308 |
-
----
-
-## PREVIOUS SESSION (142) - 25 Jan 2026
-
-### Production Readiness - Documentation & Package Updates
-
-| Task | Status | Details |
-|------|--------|---------|
-| **Deployment Checklist** | ✅ | Created `docs/DEPLOYMENT.md` with full deployment procedures |
-| **Package Updates** | ✅ | Updated 8 packages to latest patch versions |
-
----
-
-## PREVIOUS SESSION (141) - 25 Jan 2026
-
-### Broker Narrative Consistency Audit & Fixes
-
-**Goal:** Audit and fix text that incorrectly positions Metrosure as an insurer rather than a broker/intermediary.
-
-### Completed Fixes
-
-| File | Line | Change |
-|------|------|--------|
-| `src/app/insurance/auto/page.tsx` | 95 | "Priority claims handling" → "Priority claims support" |
-| `src/app/insurance/auto/page.tsx` | 103 | "Claims handled by real people..." → "Claims support from real people..." |
-| `src/app/insurance/business/page.tsx` | 106 | "Fast claims handling..." → "Fast claims support..." |
-| `src/app/insurance/life/page.tsx` | 133 | "we can often approve you" → "you can often be approved" |
-| `src/app/claims/ClaimsPageClient.tsx` | 98-99 | "ensure your claim is processed..." → "guide you through the process..." |
-| `src/app/api/corporate-inquiry/route.ts` | 207 | "We handle claims..." → "We guide claims submissions..." |
-| `src/components/corporate/CorporateServices.tsx` | 51 | "we handle the complexity" → "we arrange comprehensive solutions..." |
-
----
-
-## DEFERRED TASKS
-
-### OG Image Enhancement
-
-| Task | Status | Notes |
-|------|--------|-------|
-| OG Image Redesign | Deferred | Removed temporarily; awaiting proper branded design |
-| Page-Specific OG Images | Skipped | Using no OG image until proper design available |
-
-### Location Pages (Future Session)
-
-| Task | Reason | Notes |
-|------|--------|-------|
-| Location-specific pages | Time | `/locations/durban`, etc. with LocalBusiness schema |
-| Service page geo-optimisation | Time | Add location keywords to insurance pages |
+| **Commit & Push** | ✅ | `6b00d04` |
 
 ---
 
@@ -232,12 +157,11 @@ grep -rn "our products" src/  # Check context
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **145** | 27 Jan | **Broker Narrative: Home & Partners** | Fixed 10 text instances across 6 files; removed og-image temporarily |
-| **144** | 26 Jan | SEO: WordPress Redirects | Added 301 redirects for WordPress migration (5 URL patterns) |
-| **142** | 25 Jan | Production Readiness | Created deployment checklist, updated 8 packages |
-| **141** | 25 Jan | Broker Narrative Audit | Fixed 7 text instances across 6 files (insurance pages, claims, corporate) |
-| **140** | 25 Jan | Testimonials Carousel | Infinite loop implementation, testimonials aligned to broker narrative |
-| **139** | 25 Jan | UI: Banner Restyle | Restyled development banner to Glassdoor pattern |
+| **146** | 27 Jan | **Broker Narrative: Complete Audit** | Fixed 20 files; clarified commission structure; added call centre/outsourced language |
+| **145** | 27 Jan | Broker Narrative: Home & Partners | Fixed 10 text instances; removed og-image temporarily |
+| **144** | 26 Jan | SEO: WordPress Redirects | Added 301 redirects for WordPress migration |
+| **142** | 25 Jan | Production Readiness | Created deployment checklist, updated packages |
+| **141** | 25 Jan | Broker Narrative Audit | Fixed 7 text instances (insurance pages, claims, corporate) |
 
 ---
 
@@ -249,7 +173,6 @@ grep -rn "our products" src/  # Check context
 |----------|----------------|--------|
 | OpenGraph | og:title, og:description, og:url | ✅ All pages (images removed temporarily) |
 | Twitter | summary_large_image, site handle | ✅ Root + pages (images removed temporarily) |
-| LinkedIn | Uses OpenGraph tags | ✅ Automatic |
 
 ### Structured Data Coverage
 
