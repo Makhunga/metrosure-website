@@ -142,7 +142,7 @@ function AboutPageContent() {
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              A proudly South African financial services broker connecting families with the right products and helping businesses grow. Real people, real advice, real results.
+              A proudly South African financial services company connecting families with the right products and helping businesses grow. Real people, real advice, real results.
             </motion.p>
 
             <motion.div
@@ -269,7 +269,7 @@ function AboutPageContent() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  We&apos;re a sales and marketing company that sells financial products from leading insurers through retail partners, call centres, and outsourced sales teams. For families seeking the right cover. For businesses seeking proven growth.
+                  We sell financial products from leading insurers through retail partners, call centres, and outsourced sales teams. For families seeking the right cover. For businesses seeking proven growth.
                 </motion.p>
 
                 <motion.p
