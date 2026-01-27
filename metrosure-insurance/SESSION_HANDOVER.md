@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 27 January 2026 (Session 146)
+**Updated:** 27 January 2026 (Session 147)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,69 +14,32 @@
 
 ---
 
-## CURRENT SESSION (146) - 27 Jan 2026
+## CURRENT SESSION (147) - 27 Jan 2026
 
-### Comprehensive Broker Narrative Audit
+### Careers Section Maintenance Mode
 
-**Goal:** Complete broker narrative compliance across all pages. Metrosure is a broker/reseller (FSP 47089) that:
-- Sells financial products FROM partner insurers
-- Earns commission from insurers and retail partners
-- Pays its own agents from that commission
-- Operates via in-store sales, call centre, and outsourced sales/marketing teams
+**Goal:** Put careers pages under maintenance in production while keeping them accessible locally for development.
 
 ### Completed Tasks
 
 | Task | Status | Commits |
 |------|--------|---------|
-| **FAQ & Data Files Audit** | ✅ | `6772e83` |
-| **Home Page Components** | ✅ | `d760ac0`, `7bac2ea` |
-| **Partners Page Components** | ✅ | `7bac2ea` |
-| **About Page** | ✅ | `48b066d` |
+| **Careers Maintenance Mode** | ✅ | `2d0eba0` |
 
-### Files Modified (20 total)
+### Implementation Details
 
-| File | Changes |
-|------|---------|
-| `src/app/page.tsx` | Metadata: "financial services broker" |
-| `src/app/about/page.tsx` | Hero subtext, mission heading, mission description |
-| `src/app/partners/page.tsx` | All metadata descriptions |
-| `src/components/Features.tsx` | Both B2B feature descriptions |
-| `src/components/Products.tsx` | Retail partnerships card |
-| `src/components/PartnersCTA.tsx` | Subheadline with commission + services |
-| `src/components/contact/ContactOptions.tsx` | Partner link description |
-| `src/components/partners/PartnersHero.tsx` | Hero messaging |
-| `src/components/partners/PartnerBenefits.tsx` | Zero overhead description |
-| `src/components/testimonials/TestimonialsCarousel.tsx` | Partner testimonial |
-| `src/data/faqs.ts` | 6 FAQ answers |
-| `src/data/claims.ts` | SEO description |
-| `src/data/partnerServices.ts` | In-store campaigns, outsourced sales descriptions |
-| `src/data/opportunities.ts` | Partner opportunity card |
+- Modified `src/app/careers/layout.tsx` to show "Coming Soon" page in production
+- Uses existing `UnderDevelopment` component for consistent styling
+- Feature flag `CAREERS_MAINTENANCE_MODE` controls behaviour
+- Careers pages remain fully accessible in development (`npm run dev`)
 
-### Key Narrative Changes
+### How to Re-enable Careers in Production
 
-| Before | After |
-|--------|-------|
-| "protecting families" | "connecting families with the right products" |
-| "Building a nation where everyone is protected" | "Connecting people with the right financial products" |
-| "We handle insurance/claims" | "We manage/facilitate/guide" |
-| "offer insurance" | "sell financial products from partner insurers" |
-| "you and agents earn commission" | "you earn commission on every sale" |
-| "in-store" only | "in-store, call centre, or outsourced sales teams" |
-| "retail stores" | "stores or businesses" |
-
-### Commission Structure Clarified
-
-```
-Partner Insurers → pay commission → Metrosure
-Retail Partners → pay/share commission → Metrosure
-Metrosure → pays → Sales Agents
-```
-
-Partners (retailers/businesses) earn commission on sales made at their location.
+Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 147)
+## NEXT SESSION PRIORITIES (Session 148)
 
 ### Priority 1: OG Image
 
@@ -100,6 +63,16 @@ Partners (retailers/businesses) earn commission on sales made at their location.
 | Vercel Domain Setup | Pending | Add `metrosuregroup.co.za` in Dashboard → Settings → Domains |
 | DNS Configuration | Pending | A: `76.76.21.21`, CNAME www: `cname.vercel-dns.com` |
 | Submit Sitemap | Pending | Google Search Console → Indexing → Sitemaps |
+
+---
+
+## PAGES UNDER MAINTENANCE (Production Only)
+
+These pages show "Coming Soon" in production but are accessible locally:
+
+| Section | Layout File | Flag |
+|---------|-------------|------|
+| `/careers/*` | `src/app/careers/layout.tsx` | `CAREERS_MAINTENANCE_MODE` |
 
 ---
 
@@ -129,6 +102,40 @@ Always mention all three where appropriate:
 
 ---
 
+## PREVIOUS SESSION (146) - 27 Jan 2026
+
+### Comprehensive Broker Narrative Audit
+
+**Goal:** Complete broker narrative compliance across all pages.
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **FAQ & Data Files Audit** | ✅ | `6772e83` |
+| **Home Page Components** | ✅ | `d760ac0`, `7bac2ea` |
+| **Partners Page Components** | ✅ | `7bac2ea` |
+| **About Page** | ✅ | `48b066d` |
+
+### Files Modified (20 total)
+
+| File | Changes |
+|------|---------|
+| `src/app/page.tsx` | Metadata: "financial services broker" |
+| `src/app/about/page.tsx` | Hero subtext, mission heading, mission description |
+| `src/app/partners/page.tsx` | All metadata descriptions |
+| `src/components/Features.tsx` | Both B2B feature descriptions |
+| `src/components/Products.tsx` | Retail partnerships card |
+| `src/components/PartnersCTA.tsx` | Subheadline with commission + services |
+| `src/components/contact/ContactOptions.tsx` | Partner link description |
+| `src/components/partners/PartnersHero.tsx` | Hero messaging |
+| `src/components/partners/PartnerBenefits.tsx` | Zero overhead description |
+| `src/components/testimonials/TestimonialsCarousel.tsx` | Partner testimonial |
+| `src/data/faqs.ts` | 6 FAQ answers |
+| `src/data/claims.ts` | SEO description |
+| `src/data/partnerServices.ts` | In-store campaigns, outsourced sales descriptions |
+| `src/data/opportunities.ts` | Partner opportunity card |
+
+---
+
 ## PREVIOUS SESSION (145) - 27 Jan 2026
 
 ### Broker Narrative Fix: Home & Partners Pages (Initial)
@@ -142,26 +149,15 @@ Always mention all three where appropriate:
 
 ---
 
-## PREVIOUS SESSION (144) - 26 Jan 2026
-
-### SEO: WordPress Migration Redirects
-
-| Task | Status | Details |
-|------|--------|---------|
-| **301 Redirects** | ✅ | Added 10 permanent redirects in `next.config.ts` |
-| **Commit & Push** | ✅ | `6b00d04` |
-
----
-
 ## RECENT SESSION HISTORY
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **146** | 27 Jan | **Broker Narrative: Complete Audit** | Fixed 20 files; clarified commission structure; added call centre/outsourced language |
+| **147** | 27 Jan | **Careers Maintenance Mode** | Production-only "Coming Soon" for /careers/* |
+| **146** | 27 Jan | Broker Narrative: Complete Audit | Fixed 20 files; clarified commission structure |
 | **145** | 27 Jan | Broker Narrative: Home & Partners | Fixed 10 text instances; removed og-image temporarily |
 | **144** | 26 Jan | SEO: WordPress Redirects | Added 301 redirects for WordPress migration |
 | **142** | 25 Jan | Production Readiness | Created deployment checklist, updated packages |
-| **141** | 25 Jan | Broker Narrative Audit | Fixed 7 text instances (insurance pages, claims, corporate) |
 
 ---
 
