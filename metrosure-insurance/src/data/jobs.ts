@@ -81,8 +81,8 @@ export const jobs: Job[] = [
       "Career growth opportunities",
       "Supportive team environment",
     ],
-    datePosted: "2026-01-09",
-    validThrough: "2026-07-09",
+    datePosted: "2026-01-29",
+    validThrough: "2026-07-29",
     hidden: true,
   },
   {
@@ -116,8 +116,8 @@ export const jobs: Job[] = [
       "Comprehensive training programme",
       "Opportunities for advancement",
     ],
-    datePosted: "2026-01-09",
-    validThrough: "2026-07-09",
+    datePosted: "2026-01-29",
+    validThrough: "2026-07-29",
   },
   {
     id: "telesales-rep",
@@ -149,8 +149,8 @@ export const jobs: Job[] = [
       "Training and coaching support",
       "Clear career progression path",
     ],
-    datePosted: "2026-01-09",
-    validThrough: "2026-07-09",
+    datePosted: "2026-01-29",
+    validThrough: "2026-07-29",
     hidden: true,
   },
   {
@@ -183,8 +183,8 @@ export const jobs: Job[] = [
       "Professional development opportunities",
       "Team-oriented culture",
     ],
-    datePosted: "2026-01-09",
-    validThrough: "2026-07-09",
+    datePosted: "2026-01-29",
+    validThrough: "2026-07-29",
     hidden: true,
   },
   {
@@ -217,8 +217,8 @@ export const jobs: Job[] = [
       "Fast-track to full sales consultant role",
       "No experience necessary",
     ],
-    datePosted: "2026-01-09",
-    validThrough: "2026-07-09",
+    datePosted: "2026-01-29",
+    validThrough: "2026-07-29",
     hidden: true,
   },
   {
@@ -253,8 +253,8 @@ export const jobs: Job[] = [
       "Flexible working hours",
       "Supportive team environment",
     ],
-    datePosted: "2026-01-24",
-    validThrough: "2026-07-24",
+    datePosted: "2026-01-29",
+    validThrough: "2026-07-29",
   },
 ];
 

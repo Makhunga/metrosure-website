@@ -255,10 +255,10 @@ export default function ApplicationForm({
                 </div>
                 <div>
                   <div className="font-semibold text-slate-900 dark:text-white">
-                    No Experience? No Problem
+                    Full Training Provided
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-300">
-                    We provide full training to get you started
+                    Comprehensive onboarding for all new team members
                   </p>
                 </div>
               </div>
