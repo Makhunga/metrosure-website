@@ -8,7 +8,7 @@ import { ScrollProgressLine } from "./animations";
 import PageTransition from "./PageTransition";
 import CookieConsent from "./CookieConsent";
 import DevelopmentBanner from "./DevelopmentBanner";
-import WhatsAppButton from "./WhatsAppButton";
+// import WhatsAppButton from "./WhatsAppButton"; // DISABLED: will reactivate later
 import { Toaster } from "@/components/ui/sonner";
 
 interface ClientLayoutProps {
@@ -87,8 +87,8 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
         )}
       </AnimatePresence>
 
-      {/* WhatsApp Click-to-Chat Button (hidden on portal) */}
-      {!isPortalPage && <WhatsAppButton />}
+      {/* WhatsApp Click-to-Chat Button (hidden on portal) - DISABLED: will reactivate later */}
+      {/* {!isPortalPage && <WhatsAppButton />} */}
 
       {/* POPIA Cookie Consent Banner */}
       <CookieConsent />

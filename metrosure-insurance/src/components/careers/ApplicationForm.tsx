@@ -241,8 +241,8 @@ export default function ApplicationForm({
               We&apos;re Always <span className="text-primary">Hiring</span>
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
-              Join our sales and customer service teams. Apply now and hear
-              back within <strong className="text-slate-900 dark:text-white">48 hours</strong>.
+              Join our sales and customer service teams. Apply now and we&apos;ll
+              be in touch <strong className="text-slate-900 dark:text-white">soon</strong>.
             </p>
 
             {/* Key Points */}
@@ -330,7 +330,7 @@ export default function ApplicationForm({
               {isSubmitted ? (
                 <FormSuccess
                   title="Application Received!"
-                  description="Thank you for applying to join Metrosure. We'll review your application and get back to you within 48 hours."
+                  description="Thank you for applying to join Metrosure. We'll review your application and be in touch soon."
                   buttonText="Apply for Another Position"
                   onReset={resetForm}
                   accentColor="green"

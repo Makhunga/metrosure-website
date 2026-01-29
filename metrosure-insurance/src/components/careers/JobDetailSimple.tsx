@@ -408,7 +408,7 @@ function SimpleApplicationForm({
           {isSubmitted ? (
             <FormSuccess
               title="Application Received!"
-              description="Thank you for applying to join Metrosure. We'll review your application and get back to you within 48 hours."
+              description="Thank you for applying to join Metrosure. We'll review your application and be in touch soon."
               buttonText="Apply for Another Position"
               onReset={resetForm}
               accentColor="green"
