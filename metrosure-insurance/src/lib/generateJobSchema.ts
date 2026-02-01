@@ -6,10 +6,10 @@ import { Job } from "@/data/jobs";
  * Note: Actual compensation may vary based on experience and performance
  */
 const salaryEstimates: Record<string, { min: number; max: number }> = {
-  sales: { min: 8000, max: 25000 }, // Base + commission structure
-  "call-centre": { min: 7500, max: 15000 },
-  admin: { min: 10000, max: 18000 },
-  trainee: { min: 6000, max: 10000 },
+  sales: { min: 5000, max: 22000 }, // Base + commission structure
+  "call-centre": { min: 4500, max: 12000 },
+  admin: { min: 7000, max: 15000 },
+  trainee: { min: 3000, max: 7000 },
 };
 
 /**

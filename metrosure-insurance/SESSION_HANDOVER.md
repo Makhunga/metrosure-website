@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 27 January 2026 (Session 148)
+**Updated:** 29 January 2026 (Session 149)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,12 +9,68 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 54 pages + 7 API routes
-- **Last Build:** 27 January 2026
+- **Last Build:** 29 January 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (148) - 27 Jan 2026
+## CURRENT SESSION (149) - 29 Jan 2026
+
+### Focus Areas
+
+1. **Careers Page Updates**
+2. **WhatsApp Button Disabled**
+3. **Salary Schema Updates**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Disable WhatsApp Button** | ✅ | `224901e` |
+| **Remove 48-hour Response Promise** | ✅ | `224901e` |
+| **Update Careers Messaging** | ✅ | `36e4ef2` |
+| **Update Job Posting Dates** | ✅ | `36e4ef2` |
+| **Decrease Salary Estimates** | ✅ | *(this commit)* |
+
+### 1. WhatsApp Button Disabled
+
+Temporarily disabled WhatsApp click-to-chat button for later reactivation.
+
+**To re-enable:** Uncomment in `src/components/ClientLayout.tsx`:
+- Line 11: `import WhatsAppButton from "./WhatsAppButton";`
+- Lines 90-91: `{!isPortalPage && <WhatsAppButton />}`
+
+### 2. Careers Page Messaging Updates
+
+| Change | Old Text | New Text |
+|--------|----------|----------|
+| Response time | "within 48 hours" | "be in touch soon" |
+| Experience messaging | "No Experience? No Problem" | "Full Training Provided" |
+| Sub-description | "We provide full training to get you started" | "Comprehensive onboarding for all new team members" |
+
+**Files modified:**
+- `src/components/careers/ApplicationForm.tsx`
+- `src/components/careers/ApplicationModal.tsx`
+- `src/components/careers/JobDetailSimple.tsx`
+
+### 3. Job Posting Dates
+
+All job postings updated to 29 January 2026 (validThrough: 29 July 2026).
+
+### 4. Salary Estimates Decreased
+
+Updated salary ranges in `src/lib/generateJobSchema.ts` (decreased by R3,000):
+
+| Category | Old Range | New Range |
+|----------|-----------|-----------|
+| sales | R8,000 - R25,000 | R5,000 - R22,000 |
+| call-centre | R7,500 - R15,000 | R4,500 - R12,000 |
+| admin | R10,000 - R18,000 | R7,000 - R15,000 |
+| trainee | R6,000 - R10,000 | R3,000 - R7,000 |
+
+---
+
+## PREVIOUS SESSION (148) - 27 Jan 2026
 
 ### Focus Areas
 
@@ -30,45 +86,12 @@
 | **Careers Email Routing** | ✅ | `860d50c` |
 | **Multiple Attachments Support** | ✅ | `e84b7be` |
 
-### 1. Mail Server Research
+### Mail Server Research
 
 Created comprehensive documentation at `docs/MAIL_SERVER_PLAN.md` covering:
 - 5 mail server options compared (Mailcow, Mail-in-a-Box, Stalwart, Poste.io, docker-mailserver)
-- Comparison matrix for features, ease of setup, API support
 - **Recommendation: Stalwart Mail Server** (modern Rust-based, full REST API, low resource usage)
 - VPS specification (Hetzner CX22 @ €4.35/month or Vultr Cape Town @ $14/month)
-- Implementation phases (Infrastructure → Configuration → Account Management → Integration)
-
-| Requirement | Selected Option |
-|-------------|-----------------|
-| Account Volume | Under 50 active accounts |
-| Account Management | Web UI + REST API |
-| Recommended Server | Stalwart Mail Server |
-| Recommended VPS | Hetzner CX22 (2 vCPU, 4GB RAM, €4.35/mo) |
-| Domain | metrosure.app |
-
-### 2. Careers Email Routing
-
-Changed careers application delivery from `careers@metrosuregroup.co.za` to `careers@metrosureconsult.co.za` (alias for lazola@metrosureconsult.co.za).
-
-**Files modified:**
-- `src/lib/email.ts` - Updated `EMAIL_CAREERS` constant
-- `src/app/api/careers-application/route.ts` - Updated reference
-- `CLAUDE.md` - Updated documentation
-
-**Note:** Resend may suppress emails to aliases if the underlying mailbox bounces. Solution: Remove from Resend suppression list in dashboard if issues occur.
-
-### 3. Multiple Attachments Support
-
-Enhanced careers application form to accept multiple file attachments (CV, cover letter, certificates).
-
-**Changes:**
-- `ApplicationForm.tsx` & `ApplicationModal.tsx` - Changed from single `cv: File | null` to `attachments: File[]`
-- `careers-application/route.ts` - Processes `formData.getAll("attachments")`
-- Total file size limit: 5MB across all files
-- Valid types: PDF, DOC, DOCX
-- Max files: 5 attachments per application
-- UI shows list of attached files with individual remove buttons
 
 ### Next Steps (When Proceeding with Mail Server)
 
@@ -104,7 +127,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 149)
+## NEXT SESSION PRIORITIES (Session 150)
 
 ### Priority 1: OG Image
 
@@ -218,11 +241,11 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **148** | 27 Jan | **Mail Server, Email Routing, Attachments** | Mail server plan; careers email to metrosureconsult; multiple attachments |
+| **149** | 29 Jan | **Careers Updates, WhatsApp Disabled** | Disabled WhatsApp; removed 48hr promise; updated salaries |
+| **148** | 27 Jan | Mail Server, Email Routing, Attachments | Mail server plan; careers email to metrosureconsult; multiple attachments |
 | **147** | 27 Jan | Careers Maintenance Mode | Production-only "Coming Soon" for /careers/* |
 | **146** | 27 Jan | Broker Narrative: Complete Audit | Fixed 20 files; clarified commission structure |
 | **145** | 27 Jan | Broker Narrative: Home & Partners | Fixed 10 text instances; removed og-image temporarily |
-| **144** | 26 Jan | SEO: WordPress Redirects | Added 301 redirects for WordPress migration |
 
 ---
 
