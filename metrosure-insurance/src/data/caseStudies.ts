@@ -151,7 +151,7 @@ export const caseStudyHeroStats: CaseStudyStats[] = [
   {
     label: "Jobs Created",
     value: "5,000+",
-    description: "Since 2013 across South Africa",
+    description: "Since 2016 across South Africa",
   },
   {
     label: "Provincial Coverage",
@@ -290,7 +290,7 @@ export const partnershipImpact = {
   averageSalesIncrease: "75%",
   qaStandard: "95%",
   provincialCoverage: 7,
-  yearsOperating: 12, // Since 2013
+  yearsOperating: 10, // Since 2016
   activePartnerships: "100+",
   retailLocations: "200+",
 };

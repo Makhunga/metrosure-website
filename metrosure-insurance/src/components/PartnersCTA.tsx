@@ -298,7 +298,7 @@ export default function PartnersCTA() {
               <span className="material-symbols-outlined text-lg">
                 schedule
               </span>
-              Since 2013
+              Since 2016
             </span>
           </motion.div>
         </motion.div>

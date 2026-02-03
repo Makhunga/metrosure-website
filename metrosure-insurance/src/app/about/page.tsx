@@ -287,7 +287,7 @@ function AboutPageContent() {
                   animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                  We recruit and develop young individuals, they are the future. Since 2013, this model has created over 5,000 jobs across 7 provinces. Every partnership we form moves us closer to consistent, reliable growth for all.
+                  We recruit and develop young individuals, they are the future. Since 2016, this model has created over 5,000 jobs across 7 provinces. Every partnership we form moves us closer to consistent, reliable growth for all.
                 </motion.p>
               </div>
             </motion.div>

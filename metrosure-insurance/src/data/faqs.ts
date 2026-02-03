@@ -158,7 +158,7 @@ export const allFAQs: FAQ[] = [
     id: "is-metrosure-legit",
     question: "Is Metrosure a legitimate company?",
     answer:
-      "Yes, absolutely. Metrosure Insurance Brokers (Pty) Ltd is an authorised Financial Services Provider regulated by the Financial Sector Conduct Authority (FSCA) under FSP licence number 47089. We've been operating since 2013 with offices in Durban, Pietermaritzburg, Pretoria, and Boksburg. You can verify our FSP status on the FSCA website.",
+      "Yes, absolutely. Metrosure Insurance Brokers (Pty) Ltd is an authorised Financial Services Provider regulated by the Financial Sector Conduct Authority (FSCA) under FSP licence number 47089. We've been operating since 2016 with offices in Durban, Pietermaritzburg, Pretoria, and Boksburg. You can verify our FSP status on the FSCA website.",
     category: "getting-started",
     link: "/legal",
     linkText: "View our credentials",

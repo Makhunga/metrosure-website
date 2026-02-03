@@ -37,7 +37,7 @@ export const showcasePartners: ShowcasePartner[] = [
     darkModeInvert: false, // Green background works on both light and dark
     image: "/images/partners/Avbob-slide.jpg",
     imageAlt: "Family protection with AVBOB funeral cover - multi-generational support",
-    title: "Trusted funeral cover provider since 2013",
+    title: "Trusted funeral cover provider since 2016",
     stat: {
       value: "10K+",
       description: "Policies facilitated",

@@ -75,7 +75,8 @@ export const contactDetails = {
 export const legalInfo = {
   companyName: "Metrosure Insurance Brokers (Pty) Ltd",
   tradingAs: "Metrosure",
-  registrationNumber: "2013/118960/07",
+  registrationNumber: "2016/113504/07",
+  foundingDate: "2016-03-18",
   fspNumber: "47089",
   vatNumber: "", // Add when available
 

@@ -281,7 +281,7 @@ export const corporateStats: CorporateStat[] = [
   {
     value: '13+',
     label: 'Years Experience',
-    description: 'Since Metrosure Group founding in 2013',
+    description: 'Since Metrosure Insurance Brokers founding in 2016',
   },
 ];
 
@@ -309,7 +309,7 @@ export const serviceInterestOptions = corporateServices.map((service) => ({
 export const corporateSEO = {
   title: 'Corporate Solutions | Group Benefits & Employee Insurance',
   description:
-    'Comprehensive corporate employee benefits including group medical aid, retirement funds, funeral cover, and risk insurance. FSP 47089. Serving South African businesses since 2013.',
+    'Comprehensive corporate employee benefits including group medical aid, retirement funds, funeral cover, and risk insurance. FSP 47089. Serving South African businesses since 2016.',
   keywords: [
     'corporate employee benefits',
     'group medical aid South Africa',

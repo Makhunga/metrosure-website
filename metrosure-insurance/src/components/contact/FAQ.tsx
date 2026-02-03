@@ -64,7 +64,7 @@ const faqData = [
   {
     question: "How can my business partner with Metrosure?",
     answer:
-      'We partner with retail stores across South Africa to facilitate in-store insurance sales. We deploy trained staff, handle all compliance and regulatory requirements, and share revenue with our partners. Since 2013, we\'ve created over <strong class="text-slate-900 dark:text-white">5,000 jobs</strong> through these partnerships. Visit our <a href="/partners" class="text-primary font-semibold hover:underline">Partners page</a> or contact us to learn more.',
+      'We partner with retail stores across South Africa to facilitate in-store insurance sales. We deploy trained staff, handle all compliance and regulatory requirements, and share revenue with our partners. Since 2016, we\'ve created over <strong class="text-slate-900 dark:text-white">5,000 jobs</strong> through these partnerships. Visit our <a href="/partners" class="text-primary font-semibold hover:underline">Partners page</a> or contact us to learn more.',
   },
   {
     question: "Do you offer corporate or group insurance?",
