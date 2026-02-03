@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 29 January 2026 (Session 149)
+**Updated:** 3 February 2026 (Session 150)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,12 +9,48 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 54 pages + 7 API routes
-- **Last Build:** 29 January 2026
+- **Last Build:** 3 February 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (149) - 29 Jan 2026
+## CURRENT SESSION (150) - 3 Feb 2026
+
+### Focus Areas
+
+1. **Founding Date Correction (2013 → 2016)**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Founding Date Correction** | ✅ | `ec35242` |
+
+### Founding Date Correction
+
+Metrosure Insurance Brokers was launched on **18 March 2016**, not 2013. All references corrected across 16 files.
+
+**Key Changes:**
+- Registration number: `2013/118960/07` → `2016/113504/07`
+- JSON-LD foundingDate: `"2013"` → `"2016-03-18"`
+- All "since 2013" text → "since 2016"
+- All "In 2013" text → "In 2016"
+- yearsOperating: 12 → 10 (in caseStudies.ts)
+
+**Files Modified (16):**
+
+| Category | Files |
+|----------|-------|
+| **Data Files** | `companyInfo.ts`, `faqs.ts`, `corporateServices.ts`, `caseStudies.ts`, `partnerShowcase.ts` |
+| **Metadata/SEO** | `src/app/layout.tsx`, `src/app/page.tsx`, `src/app/about/layout.tsx` |
+| **Components** | `StatsBar.tsx`, `WhyChooseUs.tsx`, `PartnersCTA.tsx`, `CareersHero.tsx`, `CareersHeroFloating.tsx`, `contact/FAQ.tsx` |
+| **Pages** | `src/app/about/page.tsx`, `src/app/contact/page.tsx` |
+
+**Note:** `src/data/aboutPage.ts` and `CONTENT_GUIDE.md` correctly show BOTH dates (2013 for Metrosure Group, 2016 for Insurance Brokers) and were left unchanged.
+
+---
+
+## PREVIOUS SESSION (149) - 29 Jan 2026
 
 ### Focus Areas
 
@@ -30,7 +66,7 @@
 | **Remove 48-hour Response Promise** | ✅ | `224901e` |
 | **Update Careers Messaging** | ✅ | `36e4ef2` |
 | **Update Job Posting Dates** | ✅ | `36e4ef2` |
-| **Decrease Salary Estimates** | ✅ | *(this commit)* |
+| **Decrease Salary Estimates** | ✅ | `1b5ae9a` |
 
 ### 1. WhatsApp Button Disabled
 
@@ -48,16 +84,7 @@ Temporarily disabled WhatsApp click-to-chat button for later reactivation.
 | Experience messaging | "No Experience? No Problem" | "Full Training Provided" |
 | Sub-description | "We provide full training to get you started" | "Comprehensive onboarding for all new team members" |
 
-**Files modified:**
-- `src/components/careers/ApplicationForm.tsx`
-- `src/components/careers/ApplicationModal.tsx`
-- `src/components/careers/JobDetailSimple.tsx`
-
-### 3. Job Posting Dates
-
-All job postings updated to 29 January 2026 (validThrough: 29 July 2026).
-
-### 4. Salary Estimates Decreased
+### 3. Salary Estimates Decreased
 
 Updated salary ranges in `src/lib/generateJobSchema.ts` (decreased by R3,000):
 
@@ -127,7 +154,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 150)
+## NEXT SESSION PRIORITIES (Session 151)
 
 ### Priority 1: OG Image
 
@@ -241,11 +268,11 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **149** | 29 Jan | **Careers Updates, WhatsApp Disabled** | Disabled WhatsApp; removed 48hr promise; updated salaries |
+| **150** | 3 Feb | **Founding Date Correction** | Updated 2013 → 2016 across 16 files; registration number corrected |
+| **149** | 29 Jan | Careers Updates, WhatsApp Disabled | Disabled WhatsApp; removed 48hr promise; updated salaries |
 | **148** | 27 Jan | Mail Server, Email Routing, Attachments | Mail server plan; careers email to metrosureconsult; multiple attachments |
 | **147** | 27 Jan | Careers Maintenance Mode | Production-only "Coming Soon" for /careers/* |
 | **146** | 27 Jan | Broker Narrative: Complete Audit | Fixed 20 files; clarified commission structure |
-| **145** | 27 Jan | Broker Narrative: Home & Partners | Fixed 10 text instances; removed og-image temporarily |
 
 ---
 
