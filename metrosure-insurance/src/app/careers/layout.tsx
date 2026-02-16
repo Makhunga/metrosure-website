@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import UnderDevelopment from "@/components/UnderDevelopment";
 
 // Feature flag: Set to true to enable maintenance mode in production
-const CAREERS_MAINTENANCE_MODE = true;
+const CAREERS_MAINTENANCE_MODE = false;
 
 export const metadata: Metadata = {
   title: "Careers | Metrosure Insurance Brokers",
