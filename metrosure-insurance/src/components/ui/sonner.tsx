@@ -12,6 +12,7 @@ import { Toaster as Sonner, type ToasterProps } from "sonner"
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme()
+  const isDark = theme === "dark"
 
   return (
     <Sonner
@@ -27,9 +28,15 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
+          "--normal-bg": "rgb(var(--popover))",
+          "--normal-text": "rgb(var(--popover-foreground))",
+          "--normal-border": "rgb(var(--border))",
+          "--success-bg": isDark ? "#052e16" : "#f0fdf4",
+          "--success-text": isDark ? "#86efac" : "#166534",
+          "--success-border": isDark ? "#14532d" : "#bbf7d0",
+          "--error-bg": isDark ? "#450a0a" : "#fef2f2",
+          "--error-text": isDark ? "#fca5a5" : "#991b1b",
+          "--error-border": isDark ? "#7f1d1d" : "#fecaca",
           "--border-radius": "var(--radius)",
         } as React.CSSProperties
       }
