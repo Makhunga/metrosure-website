@@ -20,13 +20,15 @@
 
 1. **Executive Name Updates**
 2. **OG Image Implementation**
+3. **Re-enable Careers Pages**
 
 ### Completed Tasks
 
 | Task | Status | Commits |
 |------|--------|---------|
 | **Executive Name Updates** | ✅ | `316433d` |
-| **OG Image Implementation** | ✅ | *(this commit)* |
+| **OG Image Implementation** | ✅ | `89db17d` |
+| **Re-enable Careers Pages** | ✅ | `a743f78` |
 
 ### 1. Executive Name Updates
 
@@ -56,6 +58,10 @@ Created dynamic OG image using Next.js file-based metadata convention (`opengrap
 - `og-4-logo-tagline-cream.png`, `og-5-logo-tagline-red.png`, `og-6-logo-tagline-maroon.png`
 
 **To switch variant:** Edit `src/app/opengraph-image.tsx` or replace with a static image from `public/images/og/`.
+
+### 3. Re-enable Careers Pages
+
+Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx`. The `/careers/*` routes now show full content in production instead of the "Coming Soon" page.
 
 ---
 
@@ -210,11 +216,9 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ## PAGES UNDER MAINTENANCE (Production Only)
 
-These pages show "Coming Soon" in production but are accessible locally:
+No pages are currently under maintenance. All routes are live.
 
-| Section | Layout File | Flag |
-|---------|-------------|------|
-| `/careers/*` | `src/app/careers/layout.tsx` | `CAREERS_MAINTENANCE_MODE` |
+**To re-enable maintenance for careers:** Set `CAREERS_MAINTENANCE_MODE = true` in `src/app/careers/layout.tsx`.
 
 ---
 
@@ -295,7 +299,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
-| **151** | 16 Feb | **Executive Names, OG Image** | Full names for executives; removed S Basi; OG image with 6 variants |
+| **151** | 16 Feb | **Executive Names, OG Image, Careers Live** | Full names for executives; removed S Basi; OG image; careers pages re-enabled |
 | **150** | 3 Feb | **Founding Date Correction** | Updated 2013 → 2016 across 16 files; registration number corrected |
 | **149** | 29 Jan | Careers Updates, WhatsApp Disabled | Disabled WhatsApp; removed 48hr promise; updated salaries |
 | **148** | 27 Jan | Mail Server, Email Routing, Attachments | Mail server plan; careers email to metrosureconsult; multiple attachments |
