@@ -21,6 +21,7 @@
 1. **Executive Name Updates**
 2. **OG Image Implementation**
 3. **Re-enable Careers Pages**
+4. **Disable Applicant Confirmation Email**
 
 ### Completed Tasks
 
@@ -29,6 +30,7 @@
 | **Executive Name Updates** | ✅ | `316433d` |
 | **OG Image Implementation** | ✅ | `89db17d` |
 | **Re-enable Careers Pages** | ✅ | `a743f78` |
+| **Disable Confirmation Email** | ✅ | `262aad7` |
 
 ### 1. Executive Name Updates
 
@@ -62,6 +64,12 @@ Created dynamic OG image using Next.js file-based metadata convention (`opengrap
 ### 3. Re-enable Careers Pages
 
 Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx`. The `/careers/*` routes now show full content in production instead of the "Coming Soon" page.
+
+### 4. Disable Applicant Confirmation Email
+
+Temporarily disabled the confirmation email sent to applicants on job application submission to avoid Resend API rate limits during high traffic. Internal notification to `careers@metrosureconsult.co.za` still works.
+
+**To re-enable:** Uncomment the block at lines 238-243 in `src/app/api/careers-application/route.ts`.
 
 ---
 
