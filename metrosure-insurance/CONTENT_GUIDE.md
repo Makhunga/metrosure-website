@@ -185,9 +185,8 @@ Dedicated, professionally trained QA team that safeguards client interests. Agen
 
 | Position | Name | Contact |
 |----------|------|---------|
-| CEO & Managing Director | BG Chiliza (Bheka Chiliza) | - |
-| COO & Director | FP Tshabalala | fezile@metrosureconsult.co.za, 072 153 5174 |
-| CFO | S Basi | - |
+| CEO & Managing Director | Bheka Chiliza | - |
+| COO & Director | Fezile Tshabalala | fezile@metrosureconsult.co.za, 072 153 5174 |
 
 ---
 

@@ -184,7 +184,7 @@ You can control cookies through your browser settings. However, disabling cookie
     title: "11. Contact Us",
     content: `If you have any questions about this Privacy Policy or wish to exercise your rights, please contact:
 
-**B.G Chiliza (Information Officer)**
+**Bheka Chiliza (Information Officer)**
 Metrosure Insurance Brokers (Pty) Ltd
 32 Stephen Dlamini Road
 Musgrave, Durban, 4001

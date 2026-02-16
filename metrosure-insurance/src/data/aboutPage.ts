@@ -106,7 +106,7 @@ export const companyTimeline: TimelineItem[] = [
     number: "16",
     title: "Insurance Brokers Launch",
     description:
-      "Metrosure Insurance Brokers was founded in Durban by BG Chiliza with a vision to take the company to a formidable position in the South African market.",
+      "Metrosure Insurance Brokers was founded in Durban by Bheka Chiliza with a vision to take the company to a formidable position in the South African market.",
   },
   {
     icon: "verified",
@@ -149,7 +149,7 @@ export const companyTimeline: TimelineItem[] = [
 
 export const executiveTeam: TeamMember[] = [
   {
-    name: "BG Chiliza",
+    name: "Bheka Chiliza",
     role: "Chief Executive Officer",
     image: "/images/team-bg-chiliza.jpg",
     quote:
@@ -158,23 +158,13 @@ export const executiveTeam: TeamMember[] = [
     badges: ["Founder & Visionary", "Financial Services Expert", "Community Builder"],
   },
   {
-    name: "FP Tshabalala",
+    name: "Fezile Tshabalala",
     role: "Chief Operations Officer",
     image: "/images/team-fp-tshabalala.jpg",
     quote:
       "Every day we build meaningful connections with our customers, transforming their experience through dedication and excellence.",
     icon: "trending_up",
     badges: ["Strategic Leadership", "Sales and Marketing Veteran", "Growth Driver"],
-  },
-  {
-    name: "S Basi",
-    role: "Chief Financial Officer",
-    image: "",
-    initials: "SB",
-    quote:
-      "Sound financial management is the foundation that lets us serve our clients with confidence.",
-    icon: "account_balance",
-    badges: ["Financial Governance", "Risk Management", "Corporate Finance"],
   },
 ];
 

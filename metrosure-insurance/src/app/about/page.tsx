@@ -427,7 +427,7 @@ function AboutPageContent() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start relative z-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-start relative z-10"
           variants={containerVariants}
           initial="hidden"
           animate={teamInView ? "visible" : "hidden"}
