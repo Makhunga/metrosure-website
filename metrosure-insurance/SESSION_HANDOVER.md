@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 16 February 2026 (Session 152)
+**Updated:** 16 February 2026 (Session 153)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,7 +14,45 @@
 
 ---
 
-## CURRENT SESSION (152) - 16 Feb 2026
+## CURRENT SESSION (153) - 16 Feb 2026
+
+### Focus Areas
+
+1. **Toast Notification Bug Fixes**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Fix Invisible Toast (CSS Variables)** | ✅ | `26ea305` |
+| **Fix Toaster Not Rendering (Theme Provider)** | ✅ | `f39e9e4` |
+
+### 1. Toast Notification Bug Fixes
+
+Fixed two issues preventing Sonner toast notifications from working after Session 152's implementation.
+
+**Bug 1: Invisible/transparent toast** (`26ea305`)
+- CSS variables like `var(--popover)` resolve to raw RGB triplets (`255 255 255`), not valid CSS colours
+- Fixed by wrapping in `rgb()`: `"rgb(var(--popover))"`
+- Added explicit success/error colour variables for both light and dark mode
+
+**Bug 2: Toaster not rendering at all** (`f39e9e4`)
+- `sonner.tsx` imported `useTheme` from `next-themes`, but the project uses a custom `ThemeProvider` at `@/components/theme-provider`
+- This caused the Sonner `<Toaster>` to silently fail — no DOM output, no errors
+- Fixed by importing `useTheme` from `@/components/theme-provider` and using `resolvedTheme`
+- Added `duration={5000}` for 5-second toast visibility
+
+**Key debugging insight:** Sonner v2.0.7 lazily renders the `<ol data-sonner-toaster>` element — it only appears when a toast is active. The outer `<section aria-live="polite">` is always present.
+
+**File Modified:**
+
+| File | Change |
+|------|--------|
+| `src/components/ui/sonner.tsx` | Fixed theme provider import, CSS variables, added duration |
+
+---
+
+## PREVIOUS SESSION (152) - 16 Feb 2026
 
 ### Focus Areas
 
@@ -216,7 +254,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 153)
+## NEXT SESSION PRIORITIES (Session 154)
 
 ### Priority 1: Production Readiness
 
@@ -321,6 +359,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
+| **153** | 16 Feb | **Toast Bug Fixes** | Fixed invisible toast (CSS vars) and Toaster not rendering (wrong theme provider import) |
 | **152** | 16 Feb | **Form Submission Feedback** | Toast notifications + smooth scroll on career application forms |
 | **151** | 16 Feb | **Executive Names, OG Image, Careers Live** | Full names for executives; removed S Basi; OG image; careers pages re-enabled |
 | **150** | 3 Feb | **Founding Date Correction** | Updated 2013 → 2016 across 16 files; registration number corrected |
