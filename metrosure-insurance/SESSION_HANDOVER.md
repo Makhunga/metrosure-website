@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 3 February 2026 (Session 150)
+**Updated:** 16 February 2026 (Session 151)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -8,13 +8,58 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 54 pages + 7 API routes
-- **Last Build:** 3 February 2026
+- **Routes:** 56 pages + 8 API routes
+- **Last Build:** 16 February 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (150) - 3 Feb 2026
+## CURRENT SESSION (151) - 16 Feb 2026
+
+### Focus Areas
+
+1. **Executive Name Updates**
+2. **OG Image Implementation**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Executive Name Updates** | ✅ | `316433d` |
+| **OG Image Implementation** | ✅ | *(this commit)* |
+
+### 1. Executive Name Updates
+
+Updated executive names to full names and removed S Basi across 7 files.
+
+| Change | Files Affected |
+|--------|---------------|
+| BG Chiliza → Bheka Chiliza | `aboutPage.ts`, `companyInfo.ts`, `legal/page.tsx`, `privacy/page.tsx`, `CONTENT_GUIDE.md` |
+| FP Tshabalala → Fezile Tshabalala | `aboutPage.ts`, `legal/page.tsx`, `CONTENT_GUIDE.md` |
+| S Basi removed (CFO) | `aboutPage.ts`, `legal/page.tsx`, `CONTENT_GUIDE.md` |
+| About page grid: 3-col → 2-col centred | `about/page.tsx` |
+
+### 2. OG Image Implementation
+
+Created dynamic OG image using Next.js file-based metadata convention (`opengraph-image.tsx`).
+
+**Chosen variant:** #4 — Logo + tagline on cream (#FFFDF7) background.
+
+**Files Created:**
+- `src/app/opengraph-image.tsx` — Dynamic OG image (1200×630), auto-injected into all pages
+- `src/app/twitter-image.tsx` — Re-exports OG image for Twitter cards
+- `src/app/api/og/route.tsx` — Generator API with `?variant=1-6` for future use
+- `src/app/og-preview/page.tsx` — Preview page at `/og-preview` to compare all variants
+
+**Static PNGs saved** in `public/images/og/` (all 6 variants for future reference):
+- `og-1-logo-cream.png`, `og-2-logo-red.png`, `og-3-logo-maroon.png`
+- `og-4-logo-tagline-cream.png`, `og-5-logo-tagline-red.png`, `og-6-logo-tagline-maroon.png`
+
+**To switch variant:** Edit `src/app/opengraph-image.tsx` or replace with a static image from `public/images/og/`.
+
+---
+
+## PREVIOUS SESSION (150) - 3 Feb 2026
 
 ### Focus Areas
 
@@ -36,17 +81,6 @@ Metrosure Insurance Brokers was launched on **18 March 2016**, not 2013. All ref
 - All "since 2013" text → "since 2016"
 - All "In 2013" text → "In 2016"
 - yearsOperating: 12 → 10 (in caseStudies.ts)
-
-**Files Modified (16):**
-
-| Category | Files |
-|----------|-------|
-| **Data Files** | `companyInfo.ts`, `faqs.ts`, `corporateServices.ts`, `caseStudies.ts`, `partnerShowcase.ts` |
-| **Metadata/SEO** | `src/app/layout.tsx`, `src/app/page.tsx`, `src/app/about/layout.tsx` |
-| **Components** | `StatsBar.tsx`, `WhyChooseUs.tsx`, `PartnersCTA.tsx`, `CareersHero.tsx`, `CareersHeroFloating.tsx`, `contact/FAQ.tsx` |
-| **Pages** | `src/app/about/page.tsx`, `src/app/contact/page.tsx` |
-
-**Note:** `src/data/aboutPage.ts` and `CONTENT_GUIDE.md` correctly show BOTH dates (2013 for Metrosure Group, 2016 for Insurance Brokers) and were left unchanged.
 
 ---
 
@@ -154,16 +188,9 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 151)
+## NEXT SESSION PRIORITIES (Session 152)
 
-### Priority 1: OG Image
-
-| Task | Notes |
-|------|-------|
-| Design proper OG image | 1200x630px, branded, professional |
-| Re-add to metadata | Once image is ready |
-
-### Priority 2: Production Readiness
+### Priority 1: Production Readiness
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -171,7 +198,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 | Cross-browser testing | Pending | Chrome, Firefox, Edge, Safari |
 | Mobile responsiveness audit | Pending | Test on real devices |
 
-### Priority 3: Domain & Search Console (Post-Deployment)
+### Priority 2: Domain & Search Console (Post-Deployment)
 
 | Task | Status | Notes |
 |------|--------|-------|
@@ -268,6 +295,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
+| **151** | 16 Feb | **Executive Names, OG Image** | Full names for executives; removed S Basi; OG image with 6 variants |
 | **150** | 3 Feb | **Founding Date Correction** | Updated 2013 → 2016 across 16 files; registration number corrected |
 | **149** | 29 Jan | Careers Updates, WhatsApp Disabled | Disabled WhatsApp; removed 48hr promise; updated salaries |
 | **148** | 27 Jan | Mail Server, Email Routing, Attachments | Mail server plan; careers email to metrosureconsult; multiple attachments |
@@ -282,8 +310,8 @@ Always mention all three where appropriate:
 
 | Platform | Implementation | Status |
 |----------|----------------|--------|
-| OpenGraph | og:title, og:description, og:url | ✅ All pages (images removed temporarily) |
-| Twitter | summary_large_image, site handle | ✅ Root + pages (images removed temporarily) |
+| OpenGraph | og:title, og:description, og:url, og:image | ✅ All pages (dynamic via opengraph-image.tsx) |
+| Twitter | summary_large_image, site handle, image | ✅ All pages (dynamic via twitter-image.tsx) |
 
 ### Structured Data Coverage
 

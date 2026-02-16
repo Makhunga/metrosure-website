@@ -11,6 +11,7 @@ module.exports = {
     '/under-development',
     '/home-alt',
     '/login',
+    '/og-preview',
   ],
   robotsTxtOptions: {
     policies: [
@@ -24,6 +25,7 @@ module.exports = {
           '/under-development',
           '/home-alt',
           '/login',
+          '/og-preview',
         ],
       },
     ],
