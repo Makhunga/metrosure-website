@@ -235,24 +235,15 @@ export async function POST(request: NextRequest) {
       console.log("Attachments:", JSON.stringify(attachmentInfos, null, 2));
     }
 
-    // Send confirmation email to applicant
-    const confirmationResult = await sendEmail({
-      to: validatedData.email,
-      subject: `Application Received - ${applicationData.position} at Metrosure`,
-      html: generateConfirmationEmail(applicationData),
-    });
+    // DISABLED: Confirmation email to applicant (to avoid Resend rate limits during high traffic)
+    // To re-enable, uncomment the block below and restore the warning logic
+    // const confirmationResult = await sendEmail({
+    //   to: validatedData.email,
+    //   subject: `Application Received - ${applicationData.position} at Metrosure`,
+    //   html: generateConfirmationEmail(applicationData),
+    // });
 
-    // Build response with optional warning about confirmation email
-    const response: {
-      success: boolean;
-      message: string;
-      data: {
-        applicantName: string;
-        position: string;
-        referenceId: string;
-      };
-      warning?: string;
-    } = {
+    const response = {
       success: true,
       message: "Application submitted successfully",
       data: {
@@ -261,11 +252,6 @@ export async function POST(request: NextRequest) {
         referenceId: `APP-${Date.now()}`,
       },
     };
-
-    if (!confirmationResult.success) {
-      console.warn("Applicant confirmation email failed:", confirmationResult.error);
-      response.warning = "Your application was received, but we couldn't send a confirmation email. Please check your spam folder or contact careers@metrosureconsult.co.za if you don't hear back within 5-7 business days.";
-    }
 
     return NextResponse.json(response);
   } catch (error) {
