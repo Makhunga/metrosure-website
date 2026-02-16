@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 16 February 2026 (Session 153)
+**Updated:** 17 February 2026 (Session 153)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,7 +9,7 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 56 pages + 8 API routes
-- **Last Build:** 16 February 2026
+- **Last Build:** 17 February 2026
 - **Branch:** `main`
 
 ---
@@ -26,29 +26,42 @@
 |------|--------|---------|
 | **Fix Invisible Toast (CSS Variables)** | ✅ | `26ea305` |
 | **Fix Toaster Not Rendering (Theme Provider)** | ✅ | `f39e9e4` |
+| **High-Contrast Toast Styling** | ✅ | `52dca08` |
 
-### 1. Toast Notification Bug Fixes
+### 1. Toast Notification Bug Fixes & Styling
 
-Fixed two issues preventing Sonner toast notifications from working after Session 152's implementation.
+Fixed three issues with Sonner toast notifications after Session 152's implementation.
 
 **Bug 1: Invisible/transparent toast** (`26ea305`)
 - CSS variables like `var(--popover)` resolve to raw RGB triplets (`255 255 255`), not valid CSS colours
 - Fixed by wrapping in `rgb()`: `"rgb(var(--popover))"`
-- Added explicit success/error colour variables for both light and dark mode
 
 **Bug 2: Toaster not rendering at all** (`f39e9e4`)
 - `sonner.tsx` imported `useTheme` from `next-themes`, but the project uses a custom `ThemeProvider` at `@/components/theme-provider`
 - This caused the Sonner `<Toaster>` to silently fail — no DOM output, no errors
 - Fixed by importing `useTheme` from `@/components/theme-provider` and using `resolvedTheme`
-- Added `duration={5000}` for 5-second toast visibility
 
-**Key debugging insight:** Sonner v2.0.7 lazily renders the `<ol data-sonner-toaster>` element — it only appears when a toast is active. The outer `<section aria-live="polite">` is always present.
+**Bug 3: No colour contrast on success/error toasts** (`52dca08`)
+- Sonner only applies `--error-bg`/`--success-bg` CSS variables when `richColors` prop is enabled
+- CSS selector `[data-rich-colors=true][data-sonner-toast][data-type=error]` was not matching
+- Added `richColors` prop to Toaster component
+- Set bold colours: success green `#16a34a`, error red `#dc2626`, both with white text
+- Increased toast size: icons `size-5`, padding `!py-4 !px-5`, width `400px`, `text-sm md:text-base`
+- Re-exported `toast` from `sonner.tsx`; updated all career forms to import from `@/components/ui/sonner`
+- Duration set to 7 seconds
 
-**File Modified:**
+**Key debugging insights:**
+- Sonner v2.0.7 lazily renders `<ol data-sonner-toaster>` — only appears when a toast is active
+- The `richColors` prop is **required** for themed success/error/warning/info toast colours
+
+**Files Modified:**
 
 | File | Change |
 |------|--------|
-| `src/components/ui/sonner.tsx` | Fixed theme provider import, CSS variables, added duration |
+| `src/components/ui/sonner.tsx` | Theme provider import, richColors, bold colours, re-export toast, 7s duration |
+| `src/components/careers/ApplicationForm.tsx` | Import toast from `@/components/ui/sonner` |
+| `src/components/careers/ApplicationModal.tsx` | Import toast from `@/components/ui/sonner` |
+| `src/components/careers/JobDetailSimple.tsx` | Import toast from `@/components/ui/sonner` |
 
 ---
 
