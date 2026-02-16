@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import {
   Modal,
   FormSuccess,
@@ -211,10 +212,16 @@ export default function ApplicationModal({
       }
 
       setIsSubmitted(true);
+
+      toast.success("Application Received!", {
+        description: "We'll review your application and be in touch soon.",
+      });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An error occurred. Please try again."
-      );
+      const errorMessage = err instanceof Error ? err.message : "An error occurred. Please try again.";
+      setError(errorMessage);
+      toast.error("Submission Failed", {
+        description: errorMessage,
+      });
     } finally {
       setIsSubmitting(false);
     }

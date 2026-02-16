@@ -7,6 +7,7 @@ Disallow: /careers/test/
 Disallow: /under-development
 Disallow: /home-alt
 Disallow: /login
+Disallow: /og-preview
 
 # Host
 Host: https://www.metrosuregroup.co.za

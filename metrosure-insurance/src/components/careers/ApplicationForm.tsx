@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 import { track } from "@vercel/analytics";
 import {
   FormSuccess,
@@ -70,6 +71,7 @@ export default function ApplicationForm({
   const [error, setError] = useState<string | null>(null);
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formCardRef = useRef<HTMLDivElement>(null);
   // Honeypot field for spam prevention (hidden from users, filled by bots)
   const [honeypot, setHoneypot] = useState("");
 
@@ -109,6 +111,13 @@ export default function ApplicationForm({
       }
     }
   }, [selectedPosition]);
+
+  // Scroll to success message after submission
+  useEffect(() => {
+    if (isSubmitted) {
+      formCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isSubmitted]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -200,15 +209,21 @@ export default function ApplicationForm({
 
       setIsSubmitted(true);
 
+      toast.success("Application Received!", {
+        description: "We'll review your application and be in touch soon.",
+      });
+
       // Track successful submission
       track("career_application_submitted", {
         position: formData.position,
         experience: formData.experience,
       });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An error occurred. Please try again."
-      );
+      const errorMessage = err instanceof Error ? err.message : "An error occurred. Please try again.";
+      setError(errorMessage);
+      toast.error("Submission Failed", {
+        description: errorMessage,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -326,7 +341,7 @@ export default function ApplicationForm({
 
           {/* Right Column - Form */}
           <div>
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700">
+            <div ref={formCardRef} className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700">
               {isSubmitted ? (
                 <FormSuccess
                   title="Application Received!"

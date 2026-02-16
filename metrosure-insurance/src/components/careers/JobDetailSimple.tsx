@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { toast } from "sonner";
 import { Job } from "@/data/jobs";
 import { track } from "@vercel/analytics";
 import { fadeInUp, staggerContainer } from "@/components/animations";
@@ -247,6 +248,7 @@ function SimpleApplicationForm({
   const [fileName, setFileName] = useState<string>("");
   const [fieldStates, setFieldStates] = useState<FieldStates>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formCardRef = useRef<HTMLDivElement>(null);
   const [honeypot, setHoneypot] = useState("");
 
   const ref = useRef<HTMLElement>(null);
@@ -265,6 +267,13 @@ function SimpleApplicationForm({
       }
     }
   });
+
+  // Scroll to success message after submission
+  useEffect(() => {
+    if (isSubmitted) {
+      formCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isSubmitted]);
 
   const validateField = useCallback(
     (fieldName: string, value: string, validator: (val: string) => string | null) => {
@@ -359,14 +368,21 @@ function SimpleApplicationForm({
       }
 
       setIsSubmitted(true);
+
+      toast.success("Application Received!", {
+        description: "We'll review your application and be in touch soon.",
+      });
+
       track("career_application_submitted", {
         position: formData.position,
         experience: formData.experience,
       });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An error occurred. Please try again."
-      );
+      const errorMessage = err instanceof Error ? err.message : "An error occurred. Please try again.";
+      setError(errorMessage);
+      toast.error("Submission Failed", {
+        description: errorMessage,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -404,7 +420,7 @@ function SimpleApplicationForm({
         </div>
 
         {/* Form Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700">
+        <div ref={formCardRef} className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-lg dark:shadow-slate-900/30 border border-slate-200 dark:border-slate-700">
           {isSubmitted ? (
             <FormSuccess
               title="Application Received!"
