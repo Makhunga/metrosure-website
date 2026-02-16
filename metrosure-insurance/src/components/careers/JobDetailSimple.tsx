@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { Job } from "@/data/jobs";
 import { track } from "@vercel/analytics";
 import { fadeInUp, staggerContainer } from "@/components/animations";

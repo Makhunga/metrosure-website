@@ -8,7 +8,7 @@ import {
   TriangleAlertIcon,
 } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
-import { Toaster as Sonner, type ToasterProps } from "sonner"
+import { Toaster as Sonner, toast, type ToasterProps } from "sonner"
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { resolvedTheme } = useTheme()
@@ -19,25 +19,30 @@ const Toaster = ({ ...props }: ToasterProps) => {
       position="top-center"
       theme={isDark ? "dark" : "light"}
       className="toaster group"
-      duration={5000}
+      richColors
+      duration={7000}
       icons={{
-        success: <CircleCheckIcon className="size-4" />,
-        info: <InfoIcon className="size-4" />,
-        warning: <TriangleAlertIcon className="size-4" />,
-        error: <OctagonXIcon className="size-4" />,
-        loading: <Loader2Icon className="size-4 animate-spin" />,
+        success: <CircleCheckIcon className="size-5" />,
+        info: <InfoIcon className="size-5" />,
+        warning: <TriangleAlertIcon className="size-5" />,
+        error: <OctagonXIcon className="size-5" />,
+        loading: <Loader2Icon className="size-5 animate-spin" />,
+      }}
+      toastOptions={{
+        className: "text-sm md:text-base !py-4 !px-5",
       }}
       style={
         {
           "--normal-bg": "rgb(var(--popover))",
           "--normal-text": "rgb(var(--popover-foreground))",
           "--normal-border": "rgb(var(--border))",
-          "--success-bg": isDark ? "#052e16" : "#f0fdf4",
-          "--success-text": isDark ? "#86efac" : "#166534",
-          "--success-border": isDark ? "#14532d" : "#bbf7d0",
-          "--error-bg": isDark ? "#450a0a" : "#fef2f2",
-          "--error-text": isDark ? "#fca5a5" : "#991b1b",
-          "--error-border": isDark ? "#7f1d1d" : "#fecaca",
+          "--success-bg": "#16a34a",
+          "--success-text": "#ffffff",
+          "--success-border": "#15803d",
+          "--error-bg": "#dc2626",
+          "--error-text": "#ffffff",
+          "--error-border": "#b91c1c",
+          "--width": "400px",
           "--border-radius": "var(--radius)",
         } as React.CSSProperties
       }
@@ -46,4 +51,4 @@ const Toaster = ({ ...props }: ToasterProps) => {
   )
 }
 
-export { Toaster }
+export { Toaster, toast }
