@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 16 February 2026 (Session 151)
+**Updated:** 16 February 2026 (Session 152)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -14,7 +14,44 @@
 
 ---
 
-## CURRENT SESSION (151) - 16 Feb 2026
+## CURRENT SESSION (152) - 16 Feb 2026
+
+### Focus Areas
+
+1. **Form Submission Feedback Improvement**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Toast Notifications + Scroll for Career Forms** | ✅ | `ddcebd1` |
+
+### 1. Form Submission Feedback Improvement
+
+Added Sonner toast notifications (top-centre) and smooth scroll to all 3 career application forms so users always see submission feedback regardless of scroll position.
+
+**Problem:** FormSuccess component replaced the form in-place. On mobile or when scrolled away, users missed the confirmation entirely.
+
+**Solution:**
+- Toast notification (success/error) appears at top of viewport on all form submissions
+- Page smoothly scrolls to the FormSuccess component after successful submission
+- Uses `useEffect` for scroll timing (not `setTimeout`) to avoid race conditions
+- ApplicationModal gets toast only (no scroll — already an overlay)
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `src/components/ui/sonner.tsx` | Added `position="top-center"` to Toaster |
+| `src/components/careers/ApplicationForm.tsx` | Toast + scroll on success/error |
+| `src/components/careers/ApplicationModal.tsx` | Toast on success/error (no scroll) |
+| `src/components/careers/JobDetailSimple.tsx` | Toast + scroll on success/error |
+
+**Design doc:** `docs/plans/2026-02-16-form-submission-feedback-design.md`
+
+---
+
+## PREVIOUS SESSION (151) - 16 Feb 2026
 
 ### Focus Areas
 
@@ -36,40 +73,17 @@
 
 Updated executive names to full names and removed S Basi across 7 files.
 
-| Change | Files Affected |
-|--------|---------------|
-| BG Chiliza → Bheka Chiliza | `aboutPage.ts`, `companyInfo.ts`, `legal/page.tsx`, `privacy/page.tsx`, `CONTENT_GUIDE.md` |
-| FP Tshabalala → Fezile Tshabalala | `aboutPage.ts`, `legal/page.tsx`, `CONTENT_GUIDE.md` |
-| S Basi removed (CFO) | `aboutPage.ts`, `legal/page.tsx`, `CONTENT_GUIDE.md` |
-| About page grid: 3-col → 2-col centred | `about/page.tsx` |
-
 ### 2. OG Image Implementation
 
-Created dynamic OG image using Next.js file-based metadata convention (`opengraph-image.tsx`).
-
-**Chosen variant:** #4 — Logo + tagline on cream (#FFFDF7) background.
-
-**Files Created:**
-- `src/app/opengraph-image.tsx` — Dynamic OG image (1200×630), auto-injected into all pages
-- `src/app/twitter-image.tsx` — Re-exports OG image for Twitter cards
-- `src/app/api/og/route.tsx` — Generator API with `?variant=1-6` for future use
-- `src/app/og-preview/page.tsx` — Preview page at `/og-preview` to compare all variants
-
-**Static PNGs saved** in `public/images/og/` (all 6 variants for future reference):
-- `og-1-logo-cream.png`, `og-2-logo-red.png`, `og-3-logo-maroon.png`
-- `og-4-logo-tagline-cream.png`, `og-5-logo-tagline-red.png`, `og-6-logo-tagline-maroon.png`
-
-**To switch variant:** Edit `src/app/opengraph-image.tsx` or replace with a static image from `public/images/og/`.
+Created dynamic OG image using Next.js file-based metadata convention (`opengraph-image.tsx`). Chosen variant: #4 — Logo + tagline on cream (#FFFDF7) background.
 
 ### 3. Re-enable Careers Pages
 
-Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx`. The `/careers/*` routes now show full content in production instead of the "Coming Soon" page.
+Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx`.
 
 ### 4. Disable Applicant Confirmation Email
 
-Temporarily disabled the confirmation email sent to applicants on job application submission to avoid Resend API rate limits during high traffic. Internal notification to `careers@metrosureconsult.co.za` still works.
-
-**To re-enable:** Uncomment the block at lines 238-243 in `src/app/api/careers-application/route.ts`.
+Temporarily disabled the confirmation email sent to applicants. **To re-enable:** Uncomment the block at lines 238-243 in `src/app/api/careers-application/route.ts`.
 
 ---
 
@@ -202,7 +216,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 152)
+## NEXT SESSION PRIORITIES (Session 153)
 
 ### Priority 1: Production Readiness
 
@@ -307,6 +321,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
+| **152** | 16 Feb | **Form Submission Feedback** | Toast notifications + smooth scroll on career application forms |
 | **151** | 16 Feb | **Executive Names, OG Image, Careers Live** | Full names for executives; removed S Basi; OG image; careers pages re-enabled |
 | **150** | 3 Feb | **Founding Date Correction** | Updated 2013 → 2016 across 16 files; registration number corrected |
 | **149** | 29 Jan | Careers Updates, WhatsApp Disabled | Disabled WhatsApp; removed 48hr promise; updated salaries |
