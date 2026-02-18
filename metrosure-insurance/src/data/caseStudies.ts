@@ -1,8 +1,8 @@
 /**
- * B2B Case Studies Data
+ * Partner Case Studies Data
  *
  * Centralised data for partnership success stories.
- * Used on the Partners page to demonstrate B2B value.
+ * Used on the Partners page to demonstrate Partner value.
  *
  * Created: Session 70 (January 2026)
  * Updated: Session 83 - Added template and documentation

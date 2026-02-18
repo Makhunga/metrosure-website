@@ -78,7 +78,7 @@ export default function Header() {
         { href: "/insurance/business", label: "Business" },
       ],
     },
-    { href: "/partners", label: "Partners", badge: "B2B" },
+    { href: "/partners", label: "Partners" },
     {
       label: "Tools",
       dropdown: [

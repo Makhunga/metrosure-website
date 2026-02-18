@@ -191,7 +191,7 @@ export default function HeroCentered() {
             </Link>
           </motion.div>
 
-          {/* Partner Link - Secondary B2B CTA */}
+          {/* Partner Link - Secondary Partner CTA */}
           <motion.div
             className="mt-4 flex items-center justify-center gap-2 text-sm text-[rgb(var(--color-text-muted))]"
             initial={{ opacity: 0 }}

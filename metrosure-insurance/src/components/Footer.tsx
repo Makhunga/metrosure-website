@@ -10,8 +10,8 @@ import { SmoothParallax } from "./animations";
 const footerLinks = {
   company: [
     { label: "About Us", href: "/about", badge: null },
-    { label: "Partner With Us", href: "/partners", badge: "B2B" },
-    { label: "Corporate Solutions", href: "/corporate", badge: "B2B" },
+    { label: "Partner With Us", href: "/partners", badge: null },
+    { label: "Corporate Solutions", href: "/corporate", badge: null },
     { label: "Careers", href: "/careers", badge: "Hiring" },
     { label: "Contact", href: "/contact", badge: null },
   ],
@@ -21,7 +21,7 @@ const footerLinks = {
     { label: "Life & Funeral", href: "/insurance/life" },
     { label: "Business", href: "/insurance/business" },
   ],
-  b2bServices: [
+  partnerServices: [
     { label: "In-Store Campaigns", href: "/partners" },
     { label: "Sales & Marketing", href: "/partners" },
     { label: "Device Leasing", href: "/partners" },
@@ -293,20 +293,20 @@ export default function Footer() {
             </ParallaxWrapper>
           </motion.div>
 
-          {/* B2B Services Links */}
+          {/* Partner Services Links */}
           <motion.div variants={itemVariants}>
             <ParallaxWrapper speed={0.25} prefersReducedMotion={prefersReducedMotion}>
               <div>
                 <h4 className="font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
-                  B2B Services
+                  Partner Services
                   <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider">
                     Partners
                   </span>
                 </h4>
                 <ul className="space-y-3 text-sm text-slate-600 dark:text-gray-400">
-                  {footerLinks.b2bServices.map((link, index) => (
+                  {footerLinks.partnerServices.map((link, index) => (
                     <motion.li
-                      key={`b2b-${index}`}
+                      key={`partner-${index}`}
                       initial={{ opacity: 0, x: -10 }}
                       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
                       transition={{ delay: 0.65 + index * 0.05 }}

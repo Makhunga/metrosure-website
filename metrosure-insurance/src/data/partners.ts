@@ -231,7 +231,7 @@ export const insurancePartners: InsurancePartner[] = [
     priority: 26,
   },
 
-  // Retail B2B Partners
+  // Retail Partners
   {
     id: "tfg",
     name: "TFG",

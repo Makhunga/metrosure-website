@@ -29,8 +29,8 @@ import {
   ErrorType
 } from "@/lib/errors";
 
-// B2B topics that should be flagged in email subject
-const b2bTopics = ["retail-partnership", "business-insurance", "employee-benefits"];
+// Partner topics that should be flagged in email subject
+const partnerTopics = ["retail-partnership", "business-insurance", "employee-benefits"];
 
 const subjectLabels: Record<string, string> = {
   "general": "General Inquiry",
@@ -93,23 +93,23 @@ export async function POST(request: NextRequest) {
       ? generateMessageEmail(data)
       : generateCallbackEmail(data);
 
-    // Determine if this is a B2B inquiry and build email subject
+    // Determine if this is a partner inquiry and build email subject
     // [Metrosure Online] prefix makes it immediately clear this is from the website
-    let isB2B: boolean;
+    let isPartner: boolean;
     let emailSubject: string;
 
     if (data.type === "message") {
-      isB2B = b2bTopics.includes(data.subject);
-      const b2bPrefix = isB2B ? "[B2B] " : "";
-      emailSubject = `${b2bPrefix}Contact: ${subjectLabels[data.subject] || data.subject} - ${data.name}`;
+      isPartner = partnerTopics.includes(data.subject);
+      const partnerPrefix = isPartner ? "[Partner] " : "";
+      emailSubject = `${partnerPrefix}Contact: ${subjectLabels[data.subject] || data.subject} - ${data.name}`;
     } else {
-      isB2B = b2bTopics.includes(data.reason);
-      const b2bPrefix = isB2B ? "[B2B] " : "";
-      emailSubject = `${b2bPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
+      isPartner = partnerTopics.includes(data.reason);
+      const partnerPrefix = isPartner ? "[Partner] " : "";
+      emailSubject = `${partnerPrefix}Callback Request: ${reasonLabels[data.reason] || data.reason} - ${data.name}`;
     }
 
-    // Route B2B inquiries to clients email, others to info
-    const emailRecipient = isB2B ? emailTo.clients : emailTo.info;
+    // Route partner inquiries to clients email, others to info
+    const emailRecipient = isPartner ? emailTo.clients : emailTo.info;
 
     const emailResult = await sendEmail({
       to: emailRecipient,
@@ -158,14 +158,14 @@ export async function POST(request: NextRequest) {
 }
 
 function generateMessageEmail(data: ContactMessageData): string {
-  const isB2B = b2bTopics.includes(data.subject);
+  const isPartner = partnerTopics.includes(data.subject);
   // Escape user-provided content to prevent XSS
   const safeName = escapeHtml(data.name);
   const safeMessage = escapeHtml(data.message);
   const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
 
   const content = `
-    ${createEmailHeader(isB2B ? "New B2B Inquiry" : "New Contact Message", `From ${safeName}`)}
+    ${createEmailHeader(isPartner ? "New Partner Inquiry" : "New Contact Message", `From ${safeName}`)}
 
     ${createSection(`
       ${createSectionTitle("Contact Details")}
@@ -194,10 +194,10 @@ function generateCallbackEmail(data: ContactCallbackData): string {
     ? `Other: ${safeOtherReason}`
     : reasonLabels[data.reason] || data.reason;
 
-  const isB2B = b2bTopics.includes(data.reason);
+  const isPartner = partnerTopics.includes(data.reason);
 
   const content = `
-    ${createEmailHeader(isB2B ? "B2B Callback Request" : "Callback Request", `From ${safeName}`)}
+    ${createEmailHeader(isPartner ? "Partner Callback Request" : "Callback Request", `From ${safeName}`)}
 
     ${createSection(`
       ${createSectionTitle("Contact Details")}

@@ -174,7 +174,7 @@ function AboutPageContent() {
               </MagneticButton>
             </motion.div>
 
-            {/* B2B Cross-link */}
+            {/* Partner Cross-link */}
             <motion.div
               className="mt-6"
               initial={{ opacity: 0 }}

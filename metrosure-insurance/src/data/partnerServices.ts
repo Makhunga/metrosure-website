@@ -1,7 +1,7 @@
 /**
  * Partner Services Data
  *
- * Centralised data for the Partners (B2B Retail) page.
+ * Centralised data for the Partners (Retail) page.
  * Defines the six partnership models offered to retailers.
  */
 

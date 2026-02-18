@@ -11,9 +11,9 @@ export interface RateLimitConfig {
 export const rateLimits = {
   // Career applications: 3 per hour (expensive - file upload + 2 emails)
   careersApplication: { maxRequests: 3, windowMs: 60 * 60 * 1000 },
-  // Partner inquiries: 5 per hour (B2B - less frequent)
+  // Partner inquiries: 5 per hour (less frequent)
   partnerInquiry: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
-  // Corporate inquiries: 5 per hour (B2B - less frequent)
+  // Corporate inquiries: 5 per hour (less frequent)
   corporateInquiry: { maxRequests: 5, windowMs: 60 * 60 * 1000 },
   // Quote requests: 10 per hour (2 emails per request)
   quote: { maxRequests: 10, windowMs: 60 * 60 * 1000 },

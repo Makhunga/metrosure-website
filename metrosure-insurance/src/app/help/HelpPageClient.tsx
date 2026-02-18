@@ -83,7 +83,7 @@ const categories: {
             id: "partnerships",
             icon: "handshake",
             title: "Retail Partnerships",
-            description: "Become a B2B partner with Metrosure.",
+            description: "Become a retail partner with Metrosure.",
             articles: [
                 { title: "How to become a retail partner", href: "/partners" },
                 { title: "Partnership requirements", href: "/partners#how-it-works" },
@@ -92,10 +92,10 @@ const categories: {
             ],
         },
         {
-            id: "b2b-services",
+            id: "partner-services",
             icon: "business_center",
-            title: "B2B Services",
-            description: "Explore our business-to-business solutions.",
+            title: "Partner Services",
+            description: "Explore our partnership solutions.",
             articles: [
                 { title: "In-Store Campaign partnerships", href: "/partners" },
                 { title: "Sales & Marketing support", href: "/partners" },

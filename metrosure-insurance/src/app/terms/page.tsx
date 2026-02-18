@@ -40,7 +40,7 @@ These Terms constitute a legally binding agreement between you and Metrosure Ins
   {
     id: "services",
     title: "2. Description of Services",
-    content: `Metrosure Insurance Brokers provides insurance brokerage, financial advisory, and business-to-business sales and marketing services, including but not limited to:
+    content: `Metrosure Insurance Brokers provides insurance brokerage, financial advisory, and commercial sales and marketing services, including but not limited to:
 
 **Consumer Insurance Services:**
 • Short-term insurance (car, home, commercial)
@@ -50,13 +50,13 @@ These Terms constitute a legally binding agreement between you and Metrosure Ins
 • Investment advice
 • Risk advisory services
 
-**B2B Partnership Services:**
+**Commercial Partnership Services:**
 • In-Store Insurance Campaigns – Trained sales teams deployed at retail partner locations
 • Device Leasing Programme – Cell phone and device financing at point of sale
 • Call Centre Services – Lead generation, customer acquisition, and telemarketing
 • Sales & Marketing Outsourcing – End-to-end sales division management for retail partners
 
-Our insurance brokerage services are provided in accordance with our FSP licence (FSP 47089) and the Financial Advisory and Intermediary Services Act (FAIS). B2B partnership services are governed by separate commercial agreements with our retail partners.`,
+Our insurance brokerage services are provided in accordance with our FSP licence (FSP 47089) and the Financial Advisory and Intermediary Services Act (FAIS). Commercial partnership services are governed by separate commercial agreements with our retail partners.`,
   },
   {
     id: "not-advice",
@@ -80,29 +80,29 @@ Any quotes, illustrations, or estimates provided through this Website are indica
 If you are using our services on behalf of a business, you represent that you have the authority to bind that business to these Terms.`,
   },
   {
-    id: "b2b-terms",
-    title: "5. B2B Partnership Terms",
-    content: `If you engage with Metrosure as a business partner for our B2B services (In-Store Campaigns, Device Leasing, Call Centre Services, or Sales & Marketing Outsourcing), the following additional terms apply:
+    id: "partner-terms",
+    title: "5. Partnership Terms",
+    content: `If you engage with Metrosure as a business partner for our commercial partnership services (In-Store Campaigns, Device Leasing, Call Centre Services, or Sales & Marketing Outsourcing), the following additional terms apply:
 
 **Service Agreements:**
-B2B services are governed by separate commercial agreements that specify scope, pricing, performance metrics, and service level agreements. These commercial agreements supplement these general Terms of Service.
+Commercial partnership services are governed by separate commercial agreements that specify scope, pricing, performance metrics, and service level agreements. These commercial agreements supplement these general Terms of Service.
 
 **Quality Assurance:**
-We maintain a 95% quality assurance average across all sales operations. Our B2B services include dedicated quality assurance processes with regular monitoring and performance reporting.
+We maintain a 95% quality assurance average across all sales operations. Our partnership services include dedicated quality assurance processes with regular monitoring and performance reporting.
 
 **Data Processing:**
-When providing B2B services, we act as a data processor on behalf of our retail partners. Data handling is governed by formal data processing agreements in compliance with POPIA. Partners warrant they have lawful grounds to share customer data and have obtained necessary consents.
+When providing commercial partnership services, we act as a data processor on behalf of our retail partners. Data handling is governed by formal data processing agreements in compliance with POPIA. Partners warrant they have lawful grounds to share customer data and have obtained necessary consents.
 
 **Performance Reporting:**
-We provide regular performance reports and data-driven insights to our B2B partners as specified in the relevant service agreement.
+We provide regular performance reports and data-driven insights to our commercial partners as specified in the relevant service agreement.
 
 **Intellectual Property:**
 Sales methodologies, training materials, QA frameworks, and proprietary processes shared by Metrosure remain our intellectual property. Partners may not reproduce or distribute these materials without prior written consent.
 
 **Limitation of Liability:**
-Our aggregate liability under B2B agreements shall not exceed the fees paid by the partner in the twelve (12) months preceding any claim, unless otherwise specified in the commercial agreement.
+Our aggregate liability under partnership agreements shall not exceed the fees paid by the partner in the twelve (12) months preceding any claim, unless otherwise specified in the commercial agreement.
 
-For B2B partnership enquiries: **clients@metrosureconsult.co.za**`,
+For partnership enquiries: **clients@metrosureconsult.co.za**`,
   },
   {
     id: "user-obligations",

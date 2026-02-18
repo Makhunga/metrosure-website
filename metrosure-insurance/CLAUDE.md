@@ -348,9 +348,9 @@ Configuration: `src/lib/email.ts` (lines 28-34, 100-109)
 | Form | Recipient | CC |
 |------|-----------|-----|
 | Contact (B2C) | `info@metrosuregroup.co.za` | — |
-| Contact (B2B) | `clients@metrosureconsult.co.za` | — |
+| Contact (Partner) | `clients@metrosureconsult.co.za` | — |
 | Quote (B2C) | `info@metrosuregroup.co.za` | — |
-| Quote (B2B) | `clients@metrosureconsult.co.za` | — |
+| Quote (Partner) | `clients@metrosureconsult.co.za` | — |
 | Partner Inquiry | `clients@metrosureconsult.co.za` | — |
 | Corporate Inquiry | `clients@metrosureconsult.co.za` | — |
 | Careers Application | `careers@metrosureconsult.co.za` | — |

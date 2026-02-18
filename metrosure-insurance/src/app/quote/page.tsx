@@ -500,7 +500,7 @@ export default function QuotePage() {
             Our licensed advisors will review your needs and get back to you within 24 hours.
           </motion.p>
 
-          {/* B2B Cross-link */}
+          {/* Partner Cross-link */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
@@ -732,7 +732,7 @@ export default function QuotePage() {
                     ))}
                   </div>
 
-                  {/* B2B cross-link for individual users */}
+                  {/* Partner cross-link for individual users */}
                   {formData.customerType === "individual" && (
                     <motion.p
                       initial={{ opacity: 0, y: 10 }}
@@ -809,7 +809,7 @@ export default function QuotePage() {
                     </div>
                   </div>
 
-                  {/* B2B benefits callout */}
+                  {/* Business benefits callout */}
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -821,7 +821,7 @@ export default function QuotePage() {
                       <div>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white">Business Quote Benefits</p>
                         <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
-                          Get dedicated account management, group rates, and our B2B team will contact you within 24 hours.
+                          Get dedicated account management, group rates, and our partnerships team will contact you within 24 hours.
                         </p>
                       </div>
                     </div>

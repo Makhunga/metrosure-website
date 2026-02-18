@@ -141,7 +141,7 @@ export default function CorporateServices() {
             href="/partners"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
           >
-            Explore B2B retail partnerships
+            Explore retail partnerships
             <span className="material-symbols-outlined text-lg">arrow_forward</span>
           </a>
         </motion.div>

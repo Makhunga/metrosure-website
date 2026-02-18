@@ -77,14 +77,14 @@ Our Financial Services Provider licence was issued by the Financial Services Con
 
 **Scope of Services and Regulatory Status:**
 
-In addition to our regulated financial services, Metrosure provides business-to-business (B2B) services that operate outside the FAIS regulatory framework. These commercial services include:
+In addition to our regulated financial services, Metrosure provides commercial partnership services that operate outside the FAIS regulatory framework. These commercial services include:
 
 • **In-Store Campaign Services** – Deployment of trained sales teams at retail partner locations
 • **Device Leasing Programme** – Cell phone and device financing facilitation at point of sale
 • **Call Centre Services** – Lead generation, customer acquisition, and telemarketing
 • **Sales & Marketing Outsourcing** – End-to-end sales division management
 
-**Important:** These B2B services are commercial arrangements governed by separate contractual agreements with our retail partners. They do not constitute financial advice or intermediary services and are not subject to FAIS regulatory oversight. Only advice and intermediary services related to insurance products are provided under our FSP authorisation.`,
+**Important:** These commercial services are commercial arrangements governed by separate contractual agreements with our retail partners. They do not constitute financial advice or intermediary services and are not subject to FAIS regulatory oversight. Only advice and intermediary services related to insurance products are provided under our FSP authorisation.`,
   },
   {
     id: "regulatory-info",

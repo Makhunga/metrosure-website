@@ -46,18 +46,18 @@ const callbackReasons = [
 const MAX_OTHER_CHARS = 150;
 const MAX_MESSAGE_CHARS = 2000;
 
-// Message form topic options (including B2B)
+// Message form topic options (including partner topics)
 const messageTopics = [
   { value: "general", label: "General Enquiry" },
   { value: "claim-status", label: "Claim Status" },
-  { value: "retail-partnership", label: "Retail Partnership (B2B)" },
-  { value: "business-insurance", label: "Business Insurance (B2B)" },
-  { value: "employee-benefits", label: "Employee Benefits (B2B)" },
+  { value: "retail-partnership", label: "Retail Partnership" },
+  { value: "business-insurance", label: "Business Insurance" },
+  { value: "employee-benefits", label: "Employee Benefits" },
   { value: "feedback", label: "Feedback" },
 ];
 
-// B2B topic values for easy checking
-const b2bTopicValues = ["retail-partnership", "business-insurance", "employee-benefits"];
+// Partner topic values for easy checking
+const partnerTopicValues = ["retail-partnership", "business-insurance", "employee-benefits"];
 
 export default function ContactForm() {
   const [activeTab, setActiveTab] = useState<ContactTab>("message");
@@ -88,8 +88,8 @@ export default function ContactForm() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  // Check if current topic is B2B
-  const isB2BTopic = b2bTopicValues.includes(selectedTopic);
+  // Check if current topic is a partner topic
+  const isPartnerTopic = partnerTopicValues.includes(selectedTopic);
 
   // Update field validation state
   const validateField = useCallback((fieldName: string, value: string, validator: (val: string) => string | null) => {
@@ -139,7 +139,7 @@ export default function ContactForm() {
 
     if (!validateField("name", messageName, (v) => validateRequired(v, "Name"))) isValid = false;
     if (!validateField("email", messageEmail, validateEmail)) isValid = false;
-    if (isB2BTopic && !validateField("companyName", companyName, (v) => validateRequired(v, "Company name"))) isValid = false;
+    if (isPartnerTopic && !validateField("companyName", companyName, (v) => validateRequired(v, "Company name"))) isValid = false;
     if (!validateField("message", messageContent, (v) => validateRequired(v, "Message"))) isValid = false;
 
     return isValid;
@@ -436,7 +436,7 @@ export default function ContactForm() {
                       </motion.div>
 
                       <AnimatePresence>
-                        {isB2BTopic && (
+                        {isPartnerTopic && (
                           <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}

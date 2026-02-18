@@ -55,9 +55,9 @@ As an Authorised Financial Service Provider (FSP No: 47089, Registration No: 201
 **Insurance-Related Information:** Claims history, risk assessments, beneficiary details, and policy preferences.`,
   },
   {
-    id: "b2b-services",
-    title: "3. B2B Services Data Handling",
-    content: `In addition to our insurance brokerage services, Metrosure provides business-to-business (B2B) services to retail partners. These services involve the collection and processing of specific categories of personal and business information.
+    id: "partner-services",
+    title: "3. Partner Services Data Handling",
+    content: `In addition to our insurance brokerage services, Metrosure provides commercial partnership services to retail partners. These services involve the collection and processing of specific categories of personal and business information.
 
 **Device Leasing Programme:**
 • Identification documents for verification
@@ -79,13 +79,13 @@ We maintain a 95% quality assurance average across all call centre operations. A
 • Transaction records and quotations provided
 • Campaign performance metrics
 
-**Data Sharing with B2B Partners:**
+**Data Sharing with Commercial Partners:**
 We share relevant transactional and performance data with our retail partners as required to fulfil our contractual obligations. This data sharing is governed by formal data processing agreements that ensure POPIA compliance. We do not sell personal information to third parties.
 
-**B2B Data Retention:**
-B2B service records are retained for a minimum of 5 years in accordance with the Financial Intelligence Centre Act and our contractual obligations with retail partners.
+**Partner Services Data Retention:**
+Partner service records are retained for a minimum of 5 years in accordance with the Financial Intelligence Centre Act and our contractual obligations with retail partners.
 
-For B2B data enquiries, contact: clients@metrosureconsult.co.za`,
+For partner services data enquiries, contact: clients@metrosureconsult.co.za`,
   },
   {
     id: "how-we-use",

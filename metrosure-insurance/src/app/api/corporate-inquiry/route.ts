@@ -37,7 +37,7 @@ const serviceLabels: Record<string, string> = {
 };
 
 export async function POST(request: NextRequest) {
-  // Rate limiting: 5 requests per hour per IP (B2B inquiries)
+  // Rate limiting: 5 requests per hour per IP (partner inquiries)
   const rateLimitResponse = checkRateLimit(request, rateLimits.corporateInquiry, 'corporate-inquiry');
   if (rateLimitResponse) {
     return rateLimitResponse;

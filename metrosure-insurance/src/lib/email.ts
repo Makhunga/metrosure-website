@@ -40,7 +40,7 @@ function getResend(): Resend | null {
 }
 
 // Email addresses
-// Updated per stakeholder meeting (S96): B2B inquiries go to metrosureconsult.co.za
+// Updated per stakeholder meeting (S96): partner inquiries go to metrosureconsult.co.za
 // Updated (S148): Careers applications now route to careers@metrosureconsult.co.za only
 const EMAIL_INFO = 'info@metrosuregroup.co.za';
 const EMAIL_CLIENTS = 'clients@metrosureconsult.co.za';

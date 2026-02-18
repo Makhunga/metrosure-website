@@ -58,7 +58,7 @@ export const contactDetails = {
   },
   email: {
     general: "info@metrosuregroup.co.za",
-    b2b: "clients@metrosureconsult.co.za",
+    partners: "clients@metrosureconsult.co.za",
     hr: "hr@metrosureconsult.co.za",
     hrCC: "lazola@metrosureconsult.co.za",
   },

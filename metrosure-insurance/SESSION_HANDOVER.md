@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 17 February 2026 (Session 153)
+**Updated:** 18 February 2026 (Session 154)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,12 +9,47 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 56 pages + 8 API routes
-- **Last Build:** 17 February 2026
+- **Last Build:** 18 February 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (153) - 16 Feb 2026
+## CURRENT SESSION (154) - 18 Feb 2026
+
+### Focus Areas
+
+1. **Remove All "B2B" Terminology from Public Website**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Remove B2B Terminology** | ✅ | (this session) |
+
+### 1. Remove All "B2B" Terminology
+
+CEO directive to remove all "B2B" references from the website. Underlying services (partnerships, commercial arrangements) remain unchanged — only the terminology was updated.
+
+**Replacement strategy:**
+- "B2B" badges → removed entirely (Header, Footer)
+- "B2B Services" → "Partner Services" (Footer, Help page)
+- "B2B Partnership Programme" → "Retail Partnership Programme" (Partners hero)
+- "business-to-business (B2B)" → "commercial partnership" (legal pages)
+- "B2B team" → "partnerships team" (Quote page, FAQs)
+- Code variables: `b2b` → `partner` naming convention (ContactForm, API routes)
+- Email subject prefix: `[B2B]` → `[Partner]` (contact, quote API routes)
+- Property key: `email.b2b` → `email.partners` (companyInfo.ts)
+
+**Scope:** 31 files modified across navigation, pages, components, data files, API routes, and documentation.
+
+**Verification:**
+- `grep -ri "b2b" src/` — zero results
+- `grep -ri "business-to-business" src/` — zero results
+- `npm run build` — passes with zero errors
+
+---
+
+## PREVIOUS SESSION (153) - 16 Feb 2026
 
 ### Focus Areas
 
@@ -31,37 +66,6 @@
 ### 1. Toast Notification Bug Fixes & Styling
 
 Fixed three issues with Sonner toast notifications after Session 152's implementation.
-
-**Bug 1: Invisible/transparent toast** (`26ea305`)
-- CSS variables like `var(--popover)` resolve to raw RGB triplets (`255 255 255`), not valid CSS colours
-- Fixed by wrapping in `rgb()`: `"rgb(var(--popover))"`
-
-**Bug 2: Toaster not rendering at all** (`f39e9e4`)
-- `sonner.tsx` imported `useTheme` from `next-themes`, but the project uses a custom `ThemeProvider` at `@/components/theme-provider`
-- This caused the Sonner `<Toaster>` to silently fail — no DOM output, no errors
-- Fixed by importing `useTheme` from `@/components/theme-provider` and using `resolvedTheme`
-
-**Bug 3: No colour contrast on success/error toasts** (`52dca08`)
-- Sonner only applies `--error-bg`/`--success-bg` CSS variables when `richColors` prop is enabled
-- CSS selector `[data-rich-colors=true][data-sonner-toast][data-type=error]` was not matching
-- Added `richColors` prop to Toaster component
-- Set bold colours: success green `#16a34a`, error red `#dc2626`, both with white text
-- Increased toast size: icons `size-5`, padding `!py-4 !px-5`, width `400px`, `text-sm md:text-base`
-- Re-exported `toast` from `sonner.tsx`; updated all career forms to import from `@/components/ui/sonner`
-- Duration set to 7 seconds
-
-**Key debugging insights:**
-- Sonner v2.0.7 lazily renders `<ol data-sonner-toaster>` — only appears when a toast is active
-- The `richColors` prop is **required** for themed success/error/warning/info toast colours
-
-**Files Modified:**
-
-| File | Change |
-|------|--------|
-| `src/components/ui/sonner.tsx` | Theme provider import, richColors, bold colours, re-export toast, 7s duration |
-| `src/components/careers/ApplicationForm.tsx` | Import toast from `@/components/ui/sonner` |
-| `src/components/careers/ApplicationModal.tsx` | Import toast from `@/components/ui/sonner` |
-| `src/components/careers/JobDetailSimple.tsx` | Import toast from `@/components/ui/sonner` |
 
 ---
 
@@ -267,7 +271,7 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 154)
+## NEXT SESSION PRIORITIES (Session 155)
 
 ### Priority 1: Production Readiness
 
@@ -341,7 +345,7 @@ Always mention all three where appropriate:
 | `src/app/page.tsx` | Metadata: "financial services broker" |
 | `src/app/about/page.tsx` | Hero subtext, mission heading, mission description |
 | `src/app/partners/page.tsx` | All metadata descriptions |
-| `src/components/Features.tsx` | Both B2B feature descriptions |
+| `src/components/Features.tsx` | Both partner feature descriptions |
 | `src/components/Products.tsx` | Retail partnerships card |
 | `src/components/PartnersCTA.tsx` | Subheadline with commission + services |
 | `src/components/contact/ContactOptions.tsx` | Partner link description |
@@ -372,6 +376,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
+| **154** | 18 Feb | **Remove B2B Terminology** | Replaced all "B2B" with "Partner"/"Commercial" across 31 files; zero B2B references remain |
 | **153** | 16 Feb | **Toast Bug Fixes** | Fixed invisible toast (CSS vars) and Toaster not rendering (wrong theme provider import) |
 | **152** | 16 Feb | **Form Submission Feedback** | Toast notifications + smooth scroll on career application forms |
 | **151** | 16 Feb | **Executive Names, OG Image, Careers Live** | Full names for executives; removed S Basi; OG image; careers pages re-enabled |
@@ -420,7 +425,7 @@ npm run build    # Production build (must pass before commit)
 | **Phone** | +27 31 301 1192 |
 | **WhatsApp** | +27 67 120 9527 |
 | **Email (B2C)** | info@metrosuregroup.co.za |
-| **Email (B2B)** | clients@metrosureconsult.co.za |
+| **Email (Partner)** | clients@metrosureconsult.co.za |
 | **FSP Number** | 47089 |
 
 ### Social Media

@@ -31,7 +31,7 @@ const features = [
     accent: "primary",
     href: "/insurance/auto",
   },
-  // B2B Services
+  // Partner Services
   {
     icon: "handshake",
     title: "Retail Partnerships",

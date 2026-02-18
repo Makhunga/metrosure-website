@@ -183,7 +183,7 @@ export default function Hero() {
               </Link>
             </motion.div>
 
-            {/* Partner Link - Secondary B2B CTA */}
+            {/* Partner Link - Secondary Partner CTA */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

@@ -112,22 +112,22 @@ export async function POST(request: NextRequest) {
 
     const data = parseResult.data;
 
-    // Determine if this is a B2B quote
-    const isB2B = data.customerType === "business";
+    // Determine if this is a partner quote
+    const isPartner = data.customerType === "business";
 
     // Generate and send email to Metrosure team
     const internalEmailHtml = generateInternalEmail(data);
     const confirmationEmailHtml = generateConfirmationEmail(data);
 
-    // Route B2B quotes to clients email, individual quotes to info
-    const emailRecipient = isB2B ? emailTo.clients : emailTo.info;
-    const b2bPrefix = isB2B ? "[B2B] " : "";
-    const companyNote = isB2B && data.companyName ? ` (${data.companyName})` : "";
+    // Route partner quotes to clients email, individual quotes to info
+    const emailRecipient = isPartner ? emailTo.clients : emailTo.info;
+    const partnerPrefix = isPartner ? "[Partner] " : "";
+    const companyNote = isPartner && data.companyName ? ` (${data.companyName})` : "";
 
     // Send internal notification
     const internalEmailResult = await sendEmail({
       to: emailRecipient,
-      subject: `${b2bPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
+      subject: `${partnerPrefix}Quote Request: ${coverageTypeLabels[data.coverageType]} - ${data.firstName} ${data.lastName}${companyNote}`,
       html: internalEmailHtml,
       replyTo: data.email,
     });
@@ -195,15 +195,15 @@ function generateInternalEmail(data: LegacyQuoteFormData): string {
   const safeLastName = escapeHtml(data.lastName);
   const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
 
-  const isB2B = data.customerType === "business";
-  const headerSubtitle = isB2B
-    ? `B2B ${coverageTypeLabels[data.coverageType]} Insurance - ${safeCompanyName}`
+  const isPartner = data.customerType === "business";
+  const headerSubtitle = isPartner
+    ? `Partner ${coverageTypeLabels[data.coverageType]} Insurance - ${safeCompanyName}`
     : `${coverageTypeLabels[data.coverageType]} Insurance`;
 
   const content = `
-    ${createEmailHeader(isB2B ? "New B2B Quote Request" : "New Quote Request", headerSubtitle)}
+    ${createEmailHeader(isPartner ? "New Partner Quote Request" : "New Quote Request", headerSubtitle)}
 
-    ${isB2B && safeCompanyName ? createSection(`
+    ${isPartner && safeCompanyName ? createSection(`
       ${createSectionTitle("Business Details")}
       ${createFieldRow("Company:", safeCompanyName)}
       ${data.businessType ? createFieldRow("Business Type:", businessTypeLabels[data.businessType] || data.businessType) : ""}
@@ -212,7 +212,7 @@ function generateInternalEmail(data: LegacyQuoteFormData): string {
     `) : ""}
 
     ${createSection(`
-      ${createSectionTitle(isB2B ? "Contact Person" : "Customer Details")}
+      ${createSectionTitle(isPartner ? "Contact Person" : "Customer Details")}
       ${createFieldRow("Name:", `${safeFirstName} ${safeLastName}`)}
       ${createFieldRow("Email:", createLink(`mailto:${data.email}`, data.email))}
       ${createFieldRow("Phone:", createLink(`tel:${data.phone}`, data.phone))}
@@ -233,14 +233,14 @@ function generateInternalEmail(data: LegacyQuoteFormData): string {
     `) : ""}
 
     ${createAlertBox(
-      isB2B
-        ? "<strong>B2B Quote:</strong> This is a business inquiry. Please assign to the B2B team and respond within 24 hours."
+      isPartner
+        ? "<strong>Partner Quote:</strong> This is a business inquiry. Please assign to the partnerships team and respond within 24 hours."
         : "<strong>Action Required:</strong> Please prepare a quote and contact this customer within 24 hours.",
-      isB2B ? "info" : "warning"
+      isPartner ? "info" : "warning"
     )}
   `;
 
-  return wrapEmailTemplate(content, isB2B ? "New B2B Quote Request" : "New Quote Request");
+  return wrapEmailTemplate(content, isPartner ? "New Partner Quote Request" : "New Quote Request");
 }
 
 function generateConfirmationEmail(data: LegacyQuoteFormData): string {
@@ -252,7 +252,7 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
   const safeFirstName = escapeHtml(data.firstName);
   const safeCompanyName = data.companyName ? escapeHtml(data.companyName) : '';
 
-  const isB2B = data.customerType === "business";
+  const isPartner = data.customerType === "business";
 
   const content = `
     ${createEmailHeader("Quote Request Received", "Thank you for your interest in Metrosure")}
@@ -262,8 +262,8 @@ function generateConfirmationEmail(data: LegacyQuoteFormData): string {
         Dear ${safeFirstName},
       </p>
       <p style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #333333; line-height: 1.6; margin: 0 0 15px 0;">
-        ${isB2B
-          ? `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance for ${safeCompanyName || "your business"} with Metrosure Insurance Brokers. We've received your quote request and a dedicated B2B account manager will be in touch within 24 hours.`
+        ${isPartner
+          ? `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance for ${safeCompanyName || "your business"} with Metrosure Insurance Brokers. We've received your quote request and a dedicated account manager will be in touch within 24 hours.`
           : `Thank you for your interest in ${coverageTypeLabels[data.coverageType]} insurance with Metrosure Insurance Brokers. We've received your quote request and a licensed insurance advisor will be in touch within 24 hours.`}
       </p>
     `)}

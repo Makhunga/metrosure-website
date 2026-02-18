@@ -46,7 +46,7 @@ export default function PartnersHero() {
       {/* Gradient Mesh Overlay */}
       <div className="absolute inset-0 bg-gradient-mesh pointer-events-none opacity-50" />
 
-      {/* Connection Network Lines - B2B Visual */}
+      {/* Connection Network Lines - Partnership Visual */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="connection-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -70,7 +70,7 @@ export default function PartnersHero() {
             className="inline-flex items-center gap-3 py-2 px-5 rounded-full bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border-light))] w-fit shadow-sm"
           >
             <span className="text-sm font-bold tracking-wider uppercase text-[rgb(var(--color-text-body))]">
-              B2B Partnership Programme
+              Retail Partnership Programme
             </span>
           </motion.div>
 

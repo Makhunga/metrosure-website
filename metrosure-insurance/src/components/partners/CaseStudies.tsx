@@ -261,7 +261,7 @@ function CaseStudyCard({
 }
 
 /**
- * CaseStudies - Main component for B2B partnership success stories
+ * CaseStudies - Main component for partnership success stories
  */
 export default function CaseStudies() {
   return (

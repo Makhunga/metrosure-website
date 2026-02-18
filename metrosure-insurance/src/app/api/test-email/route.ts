@@ -99,7 +99,7 @@ function generateTestEmail(template: TemplateType): { subject: string; html: str
 
     case "partner-inquiry": {
       const content = `
-        ${createEmailHeader("New B2B Partner Inquiry", "Retail Partnership")}
+        ${createEmailHeader("New Partner Inquiry", "Retail Partnership")}
 
         ${createSection(`
           ${createSectionTitle("Business Details")}
@@ -125,11 +125,11 @@ function generateTestEmail(template: TemplateType): { subject: string; html: str
           ${createMessageBox("We are looking to expand our insurance offerings and would like to explore partnership opportunities with Metrosure.")}
         `)}
 
-        ${createAlertBox("<strong>B2B Inquiry:</strong> This is a business partnership request. Please assign to the B2B team for follow-up.", "info")}
+        ${createAlertBox("<strong>Partner Inquiry:</strong> This is a business partnership request. Please assign to the partnerships team for follow-up.", "info")}
       `;
       return {
-        subject: "[TEST] B2B Partner Inquiry: Test Retail Store",
-        html: wrapEmailTemplate(content, "New B2B Partner Inquiry"),
+        subject: "[TEST] Partner Inquiry: Test Retail Store",
+        html: wrapEmailTemplate(content, "New Partner Inquiry"),
       };
     }
 
@@ -348,7 +348,7 @@ export async function GET() {
     templates: [
       { name: "contact", description: "Contact form message" },
       { name: "quote", description: "Quote request confirmation" },
-      { name: "partner-inquiry", description: "B2B partner inquiry" },
+      { name: "partner-inquiry", description: "Partner inquiry" },
       { name: "corporate-inquiry", description: "Corporate benefits inquiry" },
       { name: "calculator-life", description: "Life cover calculator results" },
       { name: "calculator-funeral", description: "Funeral cover calculator results" },

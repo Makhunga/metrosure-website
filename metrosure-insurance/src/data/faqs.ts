@@ -100,13 +100,13 @@ export const faqCategories: FAQCategoryInfo[] = [
     id: "partnerships",
     label: "Retail Partnerships",
     icon: "handshake",
-    description: "Become a B2B partner with Metrosure",
+    description: "Become a retail partner with Metrosure",
   },
   {
     id: "business",
     label: "Business Services",
     icon: "business_center",
-    description: "B2B and corporate insurance solutions",
+    description: "Partnership and corporate insurance solutions",
   },
 ];
 
@@ -406,13 +406,13 @@ export const allFAQs: FAQ[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // Retail Partnerships (B2B)
+  // Retail Partnerships
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: "become-retail-partner",
     question: "How do I become a retail partner with Metrosure?",
     answer:
-      "To become a partner: 1) Complete our partnership enquiry form or call our B2B team on +27 31 301 1192. 2) We schedule a discovery meeting to understand your business and customer base. 3) Our team conducts a site assessment. 4) We present a tailored partnership proposal with revenue projections. 5) Once agreed, we handle recruitment, training, and compliance - you provide the floor space. Most partnerships launch within 6-8 weeks.",
+      "To become a partner: 1) Complete our partnership enquiry form or call our partnerships team on +27 31 301 1192. 2) We schedule a discovery meeting to understand your business and customer base. 3) Our team conducts a site assessment. 4) We present a tailored partnership proposal with revenue projections. 5) Once agreed, we handle recruitment, training, and compliance - you provide the floor space. Most partnerships launch within 6-8 weeks.",
     category: "partnerships",
     link: "/partners",
     linkText: "Start a partnership enquiry",
@@ -474,7 +474,7 @@ export const allFAQs: FAQ[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // Business Services (B2B)
+  // Business Services
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: "instore-campaigns",

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   keywords: [
     "retail partnership",
     "in-store insurance",
-    "B2B insurance",
+    "retail insurance partnership",
     "retail insurance campaigns",
     "job creation",
     "South Africa retail",
