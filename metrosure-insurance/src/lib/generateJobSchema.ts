@@ -26,22 +26,22 @@ export function generateJobPostingSchema(job: Job, baseUrl: string = "https://ww
     "Internship": "INTERN",
   };
 
-  // Map location to region code
-  const locationToRegion = (location: string): string => {
-    const regionMap: Record<string, string> = {
-      "Gauteng": "GP",
-      "KwaZulu-Natal": "KZN",
-      "Western Cape": "WC",
-      "Eastern Cape": "EC",
-      "Free State": "FS",
-      "Limpopo": "LP",
-      "Mpumalanga": "MP",
-      "North West": "NW",
-      "Northern Cape": "NC",
-      "All Provinces": "ZA",
-    };
-    return regionMap[location] || "ZA";
+  // Map location to region code and postal details
+  const locationDetails: Record<string, { region: string; city: string; postalCode: string }> = {
+    "Gauteng": { region: "GP", city: "Johannesburg", postalCode: "2000" },
+    "KwaZulu-Natal": { region: "KZN", city: "Durban", postalCode: "4000" },
+    "Western Cape": { region: "WC", city: "Cape Town", postalCode: "8000" },
+    "Eastern Cape": { region: "EC", city: "Port Elizabeth", postalCode: "6000" },
+    "Free State": { region: "FS", city: "Bloemfontein", postalCode: "9300" },
+    "Limpopo": { region: "LP", city: "Polokwane", postalCode: "0700" },
+    "Mpumalanga": { region: "MP", city: "Mbombela", postalCode: "1200" },
+    "North West": { region: "NW", city: "Mahikeng", postalCode: "2745" },
+    "Northern Cape": { region: "NC", city: "Kimberley", postalCode: "8300" },
+    "All Provinces": { region: "ZA", city: "Johannesburg", postalCode: "2000" },
   };
+
+  const getLocationDetails = (location: string) =>
+    locationDetails[location] || locationDetails["All Provinces"];
 
   // Get salary estimate based on job category or title
   const getSalaryEstimate = (job: Job) => {
@@ -69,21 +69,17 @@ export function generateJobPostingSchema(job: Job, baseUrl: string = "https://ww
       logo: `${baseUrl}/images/logo.png`,
       description: "FSP-licensed insurance brokerage providing comprehensive insurance solutions across South Africa.",
     },
-    jobLocation: job.location === "All Provinces"
-      ? {
-          "@type": "Country",
-          name: "South Africa",
-          identifier: "ZA",
-        }
-      : {
-          "@type": "Place",
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "ZA",
-            addressRegion: locationToRegion(job.location),
-            addressLocality: job.location,
-          },
-        },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: getLocationDetails(job.location).city,
+        addressLocality: getLocationDetails(job.location).city,
+        addressRegion: getLocationDetails(job.location).region,
+        postalCode: getLocationDetails(job.location).postalCode,
+        addressCountry: "ZA",
+      },
+    },
     applicantLocationRequirements: {
       "@type": "Country",
       name: "South Africa",
