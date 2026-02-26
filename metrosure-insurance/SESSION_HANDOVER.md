@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 18 February 2026 (Session 154)
+**Updated:** 26 February 2026 (Session 155)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -9,12 +9,101 @@
 ## BUILD STATUS: ✅ Passing
 
 - **Routes:** 56 pages + 8 API routes
-- **Last Build:** 18 February 2026
+- **Last Build:** 26 February 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (154) - 18 Feb 2026
+## CURRENT SESSION (155) - 26 Feb 2026
+
+### Focus Areas
+
+1. **Fix Google Search Console "Discovered - Currently Not Indexed" (19 URLs)**
+2. **Fix JobPosting JSON-LD Schema Validation Errors**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Sitemap Cleanup (25 → 13 URLs)** | ✅ | `4425bb2` |
+| **robots.txt Disallow Entries** | ✅ | `4425bb2` |
+| **noindex on /under-development** | ✅ | `4425bb2` |
+| **JobPosting JSON-LD Schema Fix** | ✅ | `462d626` |
+
+### 1. Google Search Console — Sitemap & Indexing Fix
+
+Google Search Console showed 19 URLs as "Discovered - currently not indexed" (all with "Last crawled: N/A"). Three root causes addressed:
+
+**Cause 1: Middleware-redirected routes in sitemap (Critical)**
+8 routes redirect to `/under-development` in production but were listed in the sitemap. Excluded from sitemap and added to robots.txt Disallow:
+- `/insurance/auto`, `/insurance/home`, `/insurance/life`, `/insurance/business`
+- `/claims`, `/legal`, `/policies`, `/tools/coverage-calculator`
+
+**Cause 2: Non-page assets in sitemap (High)**
+3 image generation routes listed as pages. Excluded from sitemap but NOT disallowed in robots.txt (social platforms need to fetch these for preview cards):
+- `/apple-icon.png`, `/opengraph-image`, `/twitter-image`
+
+**Cause 3: New domain, low crawl priority (Low)**
+9 legitimate live pages just haven't been crawled yet — time will fix this. No action needed.
+
+**Priority map updates:**
+- Removed dead routes: `/insurance/auto`, `/insurance/home`, `/insurance/life`, `/insurance/business`, `/claims`
+- Added: `/insurance/compare` at 0.8
+
+**Defence-in-depth:** Added `robots: { index: false, follow: false }` to `/under-development` page metadata.
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `next-sitemap.config.js` | 11 new excludes, 8 new disallows, priority map update |
+| `src/app/under-development/page.tsx` | Added `robots: { index: false, follow: false }` |
+| `public/sitemap.xml` | Auto-regenerated (25 → 13 URLs) |
+| `public/robots.txt` | Auto-regenerated (8 new Disallow entries) |
+
+**Final Sitemap (13 URLs):**
+
+| URL | Priority |
+|-----|----------|
+| `/` | 1.0 |
+| `/about` | 0.9 |
+| `/contact` | 0.9 |
+| `/quote` | 0.9 |
+| `/careers` | 0.85 |
+| `/careers/call-centre-agent` | 0.8 |
+| `/careers/sales-agent` | 0.8 |
+| `/insurance/compare` | 0.8 |
+| `/partners` | 0.8 |
+| `/corporate` | 0.7 |
+| `/help` | 0.7 |
+| `/privacy` | 0.7 |
+| `/terms` | 0.7 |
+
+### 2. JobPosting JSON-LD Schema Fix
+
+Google Rich Results Test flagged two issues on job detail pages:
+
+| Issue | Page | Fix |
+|-------|------|-----|
+| Invalid object type for `jobLocation` | Sales Agent ("All Provinces") | Changed `@type: "Country"` → `@type: "Place"` with full `PostalAddress` |
+| Missing `postalCode` and `streetAddress` | Call Centre Agent (KwaZulu-Natal) | Added province-to-city lookup with postal codes |
+
+**Refactored** `src/lib/generateJobSchema.ts`:
+- Replaced separate `locationToRegion` function with unified `locationDetails` map
+- Each province maps to: `{ region, city, postalCode }` (e.g., KwaZulu-Natal → Durban, 4000)
+- `jobLocation` now always uses `@type: "Place"` with complete `PostalAddress`
+
+### Deferred / Manual Tasks
+
+| Task | Status | Notes |
+|------|--------|-------|
+| **Resubmit Sitemap in GSC** | ⏳ Pending | Chrome extension not connected; do manually post-deploy |
+| **Request Indexing on Key Pages** | ⏳ Pending | URL Inspection → Request Indexing for `/`, `/careers`, `/partners`, `/quote`, `/insurance/compare` |
+| **Monitor GSC over 1-2 weeks** | ⏳ Pending | Check "Discovered - currently not indexed" count drops |
+
+---
+
+## PREVIOUS SESSION (154) - 18 Feb 2026
 
 ### Focus Areas
 
@@ -24,7 +113,7 @@
 
 | Task | Status | Commits |
 |------|--------|---------|
-| **Remove B2B Terminology** | ✅ | (this session) |
+| **Remove B2B Terminology** | ✅ | `b40878f` |
 
 ### 1. Remove All "B2B" Terminology
 
@@ -41,11 +130,6 @@ CEO directive to remove all "B2B" references from the website. Underlying servic
 - Property key: `email.b2b` → `email.partners` (companyInfo.ts)
 
 **Scope:** 31 files modified across navigation, pages, components, data files, API routes, and documentation.
-
-**Verification:**
-- `grep -ri "b2b" src/` — zero results
-- `grep -ri "business-to-business" src/` — zero results
-- `npm run build` — passes with zero errors
 
 ---
 
@@ -271,23 +355,40 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 155)
+## NEXT SESSION PRIORITIES (Session 156)
 
-### Priority 1: Production Readiness
+### Priority 1: Google Search Console Follow-up (Manual)
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Remove Development Banner | Pending | `src/components/DevelopmentBanner.tsx` |
+| Resubmit sitemap in GSC | ⏳ Pending | Sitemaps → Add `sitemap.xml` → Submit |
+| Request indexing on key pages | ⏳ Pending | URL Inspection → `/`, `/careers`, `/partners`, `/quote`, `/insurance/compare` |
+| Validate JobPosting schema | ⏳ Pending | Test `/careers/sales-agent` and `/careers/call-centre-agent` in Rich Results Test |
+
+### Priority 2: Production Readiness
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Remove Development Banner | Pending | `src/components/DevelopmentBanner.tsx` — remove component and import from `ClientLayout.tsx` |
 | Cross-browser testing | Pending | Chrome, Firefox, Edge, Safari |
-| Mobile responsiveness audit | Pending | Test on real devices |
+| Mobile responsiveness audit | Pending | Test on real devices (375px, 768px, 1024px) |
 
-### Priority 2: Domain & Search Console (Post-Deployment)
+### Priority 3: SEO & Performance
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Vercel Domain Setup | Pending | Add `metrosuregroup.co.za` in Dashboard → Settings → Domains |
-| DNS Configuration | Pending | A: `76.76.21.21`, CNAME www: `cname.vercel-dns.com` |
-| Submit Sitemap | Pending | Google Search Console → Indexing → Sitemaps |
+| Monitor GSC indexing | Pending | Check "Discovered - currently not indexed" count over 1-2 weeks |
+| Add canonical URLs | Recommended | Prevent duplicate content if www/non-www both resolve |
+| Review Core Web Vitals | Recommended | Check LCP, CLS, INP in GSC after pages are indexed |
+
+### Priority 4: Deferred Features
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Re-enable WhatsApp button | Deferred | Uncomment in `src/components/ClientLayout.tsx` (lines 11, 90-91) |
+| Re-enable applicant confirmation email | Deferred | Uncomment in `src/app/api/careers-application/route.ts` (lines 238-243) |
+| Cookie consent banner | Deferred | Re-enable in `src/components/ClientLayout.tsx` |
+| Self-hosted mail server | Deferred | Plan at `docs/MAIL_SERVER_PLAN.md` — Stalwart recommended |
 
 ---
 
@@ -376,6 +477,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
+| **155** | 26 Feb | **GSC Indexing Fix + JSON-LD Schema** | Sitemap 25→13 URLs; excluded redirected routes + image assets; fixed JobPosting jobLocation type; added province postal codes |
 | **154** | 18 Feb | **Remove B2B Terminology** | Replaced all "B2B" with "Partner"/"Commercial" across 31 files; zero B2B references remain |
 | **153** | 16 Feb | **Toast Bug Fixes** | Fixed invisible toast (CSS vars) and Toaster not rendering (wrong theme provider import) |
 | **152** | 16 Feb | **Form Submission Feedback** | Toast notifications + smooth scroll on career application forms |
@@ -404,7 +506,17 @@ Always mention all three where appropriate:
 | InsuranceAgency | Root layout | ✅ Complete |
 | BreadcrumbList | Contact, About, Help, Partners, Corporate, Calculator, Careers | ✅ Complete |
 | FAQPage | Contact, Help, Partners | ✅ Complete |
-| JobPosting | /careers/[slug] | ✅ Complete |
+| JobPosting | /careers/[slug] | ✅ Complete (S155: fixed jobLocation type + added postal codes) |
+
+### Sitemap & Indexing
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Sitemap generation | ✅ | 13 URLs, auto-generated via `next-sitemap` postbuild |
+| robots.txt | ✅ | 16 Disallow entries (8 redirected routes + 8 internal) |
+| Non-page assets excluded | ✅ | apple-icon, opengraph-image, twitter-image |
+| /under-development noindex | ✅ | `robots: { index: false, follow: false }` |
+| GSC sitemap resubmission | ⏳ | Manual step — do after deploy |
 
 ---
 
