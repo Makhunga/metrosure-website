@@ -6,6 +6,7 @@ import UnderDevelopment from "@/components/UnderDevelopment";
 export const metadata: Metadata = {
   title: "Under Development | Metrosure Insurance Brokers",
   description: "This page is currently under development. Check back soon for updates.",
+  robots: { index: false, follow: false },
 };
 
 // Map routes to friendly page names

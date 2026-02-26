@@ -8,6 +8,14 @@ Disallow: /under-development
 Disallow: /home-alt
 Disallow: /login
 Disallow: /og-preview
+Disallow: /insurance/auto
+Disallow: /insurance/home
+Disallow: /insurance/life
+Disallow: /insurance/business
+Disallow: /legal
+Disallow: /claims
+Disallow: /policies
+Disallow: /tools/coverage-calculator
 
 # Host
 Host: https://www.metrosuregroup.co.za

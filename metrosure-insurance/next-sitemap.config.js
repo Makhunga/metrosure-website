@@ -12,6 +12,19 @@ module.exports = {
     '/home-alt',
     '/login',
     '/og-preview',
+    // Non-page assets (image generation routes)
+    '/apple-icon.png',
+    '/opengraph-image',
+    '/twitter-image',
+    // Middleware-redirected routes (not yet live)
+    '/insurance/auto',
+    '/insurance/home',
+    '/insurance/life',
+    '/insurance/business',
+    '/legal',
+    '/claims',
+    '/policies',
+    '/tools/coverage-calculator',
   ],
   robotsTxtOptions: {
     policies: [
@@ -26,6 +39,15 @@ module.exports = {
           '/home-alt',
           '/login',
           '/og-preview',
+          // Middleware-redirected routes (not yet live)
+          '/insurance/auto',
+          '/insurance/home',
+          '/insurance/life',
+          '/insurance/business',
+          '/legal',
+          '/claims',
+          '/policies',
+          '/tools/coverage-calculator',
         ],
       },
     ],
@@ -41,12 +63,8 @@ module.exports = {
       '/contact': 0.9,
       '/quote': 0.9,
       '/careers': 0.85,
-      '/insurance/auto': 0.8,
-      '/insurance/home': 0.8,
-      '/insurance/life': 0.8,
-      '/insurance/business': 0.8,
+      '/insurance/compare': 0.8,
       '/partners': 0.8,
-      '/claims': 0.8,
     };
 
     // Job detail pages get high priority for SEO
