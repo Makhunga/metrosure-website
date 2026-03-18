@@ -1,6 +1,6 @@
 # Metrosure Insurance Brokers - Session Handover
 
-**Updated:** 26 February 2026 (Session 155)
+**Updated:** 18 March 2026 (Session 156)
 **Stack:** Next.js 16.1.4 | React 19 | TypeScript 5 | Tailwind CSS 4 | Framer Motion 12 | shadcn/ui
 **Repo:** `git@github.com:Makhunga/metrosure-website.git`
 
@@ -8,13 +8,97 @@
 
 ## BUILD STATUS: ✅ Passing
 
-- **Routes:** 56 pages + 8 API routes
-- **Last Build:** 26 February 2026
+- **Routes:** 48 pages + 8 API routes
+- **Last Build:** 18 March 2026
 - **Branch:** `main`
 
 ---
 
-## CURRENT SESSION (155) - 26 Feb 2026
+## CURRENT SESSION (156) - 18 Mar 2026
+
+### Focus Areas
+
+1. **Add New Job Vacancy: Sales Representative**
+2. **Hide Existing Vacancies: Sales Agent, Call Centre Agent**
+
+### Completed Tasks
+
+| Task | Status | Commits |
+|------|--------|---------|
+| **Add Sales Representative Vacancy** | ✅ | Pending |
+| **Hide Sales Agent & Call Centre Agent** | ✅ | Pending |
+| **Update Form Options** | ✅ | Pending |
+| **Update Validation Schema** | ✅ | Pending |
+| **Update API Position Labels** | ✅ | Pending |
+
+### 1. New Job Vacancy: Sales Representative
+
+Added new field-based Sales Representative role (All Provinces, Full-time).
+
+**Job Details:**
+- **ID:** `sales-representative`
+- **Slug:** `/careers/sales-representative`
+- **Category:** sales
+- **Location:** All Provinces
+- **Posted:** 18 March 2026
+- **Valid Through:** 18 September 2026
+
+**Responsibilities:**
+- Close new deals and achieve sales targets
+- Build relationships with existing customers
+- Travel through territory and visit customers on recurring basis
+- Represent the brand during all customer and prospect interactions
+- Educate customers on product benefits
+- Monitor industry competitors and market conditions
+
+**Requirements:**
+- Matric certificate (Grade 12)
+- Experience in sales
+- South African ID
+- Valid driver's licence
+- Strong communication and interpersonal skills
+
+### 2. Hidden Vacancies
+
+Set `hidden: true` on existing vacancies to preserve them for future use:
+- **Sales Agent** (in-store retail)
+- **Call Centre Agent** (KwaZulu-Natal)
+
+**Result:** Only Sales Representative is now visible on `/careers`
+
+### Files Modified (4 files per AGENTS.md)
+
+| File | Change |
+|------|--------|
+| `src/data/jobs.ts` | Added Sales Representative; set `hidden: true` on Sales Agent & Call Centre Agent |
+| `src/data/formOptions.ts` | Updated `jobPositions` array |
+| `src/lib/validationSchemas.ts` | Added `sales-representative` to `validPositions` |
+| `src/app/api/careers-application/route.ts` | Added `sales-representative` to `positionLabels` |
+
+### Updated Sitemap (12 URLs)
+
+| URL | Priority |
+|-----|----------|
+| `/` | 1.0 |
+| `/about` | 0.9 |
+| `/contact` | 0.9 |
+| `/quote` | 0.9 |
+| `/careers` | 0.85 |
+| `/careers/sales-representative` | 0.8 |
+| `/insurance/compare` | 0.8 |
+| `/partners` | 0.8 |
+| `/corporate` | 0.7 |
+| `/help` | 0.7 |
+| `/privacy` | 0.7 |
+| `/terms` | 0.7 |
+
+### Notable Date
+
+**18 March 2026** marks **10 years since Metrosure's founding** (18 March 2016).
+
+---
+
+## PREVIOUS SESSION (155) - 26 Feb 2026
 
 ### Focus Areas
 
@@ -46,39 +130,6 @@ Google Search Console showed 19 URLs as "Discovered - currently not indexed" (al
 **Cause 3: New domain, low crawl priority (Low)**
 9 legitimate live pages just haven't been crawled yet — time will fix this. No action needed.
 
-**Priority map updates:**
-- Removed dead routes: `/insurance/auto`, `/insurance/home`, `/insurance/life`, `/insurance/business`, `/claims`
-- Added: `/insurance/compare` at 0.8
-
-**Defence-in-depth:** Added `robots: { index: false, follow: false }` to `/under-development` page metadata.
-
-**Files Modified:**
-
-| File | Change |
-|------|--------|
-| `next-sitemap.config.js` | 11 new excludes, 8 new disallows, priority map update |
-| `src/app/under-development/page.tsx` | Added `robots: { index: false, follow: false }` |
-| `public/sitemap.xml` | Auto-regenerated (25 → 13 URLs) |
-| `public/robots.txt` | Auto-regenerated (8 new Disallow entries) |
-
-**Final Sitemap (13 URLs):**
-
-| URL | Priority |
-|-----|----------|
-| `/` | 1.0 |
-| `/about` | 0.9 |
-| `/contact` | 0.9 |
-| `/quote` | 0.9 |
-| `/careers` | 0.85 |
-| `/careers/call-centre-agent` | 0.8 |
-| `/careers/sales-agent` | 0.8 |
-| `/insurance/compare` | 0.8 |
-| `/partners` | 0.8 |
-| `/corporate` | 0.7 |
-| `/help` | 0.7 |
-| `/privacy` | 0.7 |
-| `/terms` | 0.7 |
-
 ### 2. JobPosting JSON-LD Schema Fix
 
 Google Rich Results Test flagged two issues on job detail pages:
@@ -87,19 +138,6 @@ Google Rich Results Test flagged two issues on job detail pages:
 |-------|------|-----|
 | Invalid object type for `jobLocation` | Sales Agent ("All Provinces") | Changed `@type: "Country"` → `@type: "Place"` with full `PostalAddress` |
 | Missing `postalCode` and `streetAddress` | Call Centre Agent (KwaZulu-Natal) | Added province-to-city lookup with postal codes |
-
-**Refactored** `src/lib/generateJobSchema.ts`:
-- Replaced separate `locationToRegion` function with unified `locationDetails` map
-- Each province maps to: `{ region, city, postalCode }` (e.g., KwaZulu-Natal → Durban, 4000)
-- `jobLocation` now always uses `@type: "Place"` with complete `PostalAddress`
-
-### Deferred / Manual Tasks
-
-| Task | Status | Notes |
-|------|--------|-------|
-| **Resubmit Sitemap in GSC** | ⏳ Pending | Chrome extension not connected; do manually post-deploy |
-| **Request Indexing on Key Pages** | ⏳ Pending | URL Inspection → Request Indexing for `/`, `/careers`, `/partners`, `/quote`, `/insurance/compare` |
-| **Monitor GSC over 1-2 weeks** | ⏳ Pending | Check "Discovered - currently not indexed" count drops |
 
 ---
 
@@ -355,15 +393,15 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 
 ---
 
-## NEXT SESSION PRIORITIES (Session 156)
+## NEXT SESSION PRIORITIES (Session 157)
 
 ### Priority 1: Google Search Console Follow-up (Manual)
 
 | Task | Status | Notes |
 |------|--------|-------|
 | Resubmit sitemap in GSC | ⏳ Pending | Sitemaps → Add `sitemap.xml` → Submit |
-| Request indexing on key pages | ⏳ Pending | URL Inspection → `/`, `/careers`, `/partners`, `/quote`, `/insurance/compare` |
-| Validate JobPosting schema | ⏳ Pending | Test `/careers/sales-agent` and `/careers/call-centre-agent` in Rich Results Test |
+| Request indexing on key pages | ⏳ Pending | URL Inspection → `/`, `/careers`, `/careers/sales-representative`, `/partners`, `/quote` |
+| Validate JobPosting schema | ⏳ Pending | Test `/careers/sales-representative` in Rich Results Test |
 
 ### Priority 2: Production Readiness
 
@@ -389,6 +427,8 @@ Set `CAREERS_MAINTENANCE_MODE = false` in `src/app/careers/layout.tsx` (line 7).
 | Re-enable applicant confirmation email | Deferred | Uncomment in `src/app/api/careers-application/route.ts` (lines 238-243) |
 | Cookie consent banner | Deferred | Re-enable in `src/components/ClientLayout.tsx` |
 | Self-hosted mail server | Deferred | Plan at `docs/MAIL_SERVER_PLAN.md` — Stalwart recommended |
+| Re-enable Sales Agent vacancy | Deferred | Set `hidden: false` in `src/data/jobs.ts` |
+| Re-enable Call Centre Agent vacancy | Deferred | Set `hidden: false` in `src/data/jobs.ts` |
 
 ---
 
@@ -477,6 +517,7 @@ Always mention all three where appropriate:
 
 | Session | Date | Focus | Key Outcomes |
 |---------|------|-------|--------------|
+| **156** | 18 Mar | **New Job Vacancy + Hide Existing** | Added Sales Representative (field-based); hidden Sales Agent & Call Centre Agent; 10-year anniversary |
 | **155** | 26 Feb | **GSC Indexing Fix + JSON-LD Schema** | Sitemap 25→13 URLs; excluded redirected routes + image assets; fixed JobPosting jobLocation type; added province postal codes |
 | **154** | 18 Feb | **Remove B2B Terminology** | Replaced all "B2B" with "Partner"/"Commercial" across 31 files; zero B2B references remain |
 | **153** | 16 Feb | **Toast Bug Fixes** | Fixed invisible toast (CSS vars) and Toaster not rendering (wrong theme provider import) |
@@ -486,7 +527,6 @@ Always mention all three where appropriate:
 | **149** | 29 Jan | Careers Updates, WhatsApp Disabled | Disabled WhatsApp; removed 48hr promise; updated salaries |
 | **148** | 27 Jan | Mail Server, Email Routing, Attachments | Mail server plan; careers email to metrosureconsult; multiple attachments |
 | **147** | 27 Jan | Careers Maintenance Mode | Production-only "Coming Soon" for /careers/* |
-| **146** | 27 Jan | Broker Narrative: Complete Audit | Fixed 20 files; clarified commission structure |
 
 ---
 

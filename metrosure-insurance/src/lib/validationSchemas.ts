@@ -236,6 +236,7 @@ const validPositions = [
   "telesales-rep",
   "client-service-admin",
   "trainee-sales",
+  "sales-representative",
   "other",
 ] as const;
 

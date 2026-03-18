@@ -34,6 +34,7 @@ const positionLabels: Record<string, string> = {
   "telesales-rep": "Telesales Representative",
   "client-service-admin": "Client Service Administrator",
   "trainee-sales": "Trainee Sales Agent",
+  "sales-representative": "Sales Representative",
   "other": "Other",
 };
 

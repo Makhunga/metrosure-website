@@ -118,6 +118,7 @@ export const jobs: Job[] = [
     ],
     datePosted: "2026-01-29",
     validThrough: "2026-07-29",
+    hidden: true,
   },
   {
     id: "telesales-rep",
@@ -255,6 +256,43 @@ export const jobs: Job[] = [
     ],
     datePosted: "2026-01-29",
     validThrough: "2026-07-29",
+    hidden: true,
+  },
+  {
+    id: "sales-representative",
+    slug: "sales-representative",
+    title: "Sales Representative",
+    department: "Sales",
+    category: "sales",
+    location: "All Provinces",
+    type: "Full-time",
+    description:
+      "We are seeking experienced field-based sales representatives to attract new clients and maximise profitability within their territory. Candidates will work prospects through the entire sales cycle including developing new leads and educating prospects.",
+    metaDescription:
+      "Sales Representative position at Metrosure - field-based role across South Africa. Competitive salary + commission, full training provided. Apply now.",
+    responsibilities: [
+      "Close new deals and achieve sales targets",
+      "Build relationships with existing customers",
+      "Travel through the territory and visit customers on a recurring basis",
+      "Represent the brand during all customer and prospect interactions",
+      "Educate customers on how products or services can benefit them financially and professionally",
+      "Monitor the company's industry competitors and market conditions",
+    ],
+    requirements: [
+      "Matric certificate (Grade 12)",
+      "Experience in sales",
+      "South African ID",
+      "Valid driver's licence",
+      "Strong communication and interpersonal skills",
+    ],
+    offers: [
+      "Competitive base salary + uncapped commission",
+      "Full product training provided",
+      "Career growth opportunities",
+      "Supportive team environment",
+    ],
+    datePosted: "2026-03-18",
+    validThrough: "2026-09-18",
   },
 ];
 
